@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad10_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato_bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+        <array key="lato_medium.ttf">
+            <string>Lato-Medium</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="nWX-Uy-aVt">
@@ -65,6 +73,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dt6-5f-eKk">
                                                 <rect key="frame" x="5" y="5" width="100" height="50"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <connections>
+                                                    <action selector="btn_Profile:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="ILN-4a-GQJ"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" name="lightGrayBg"/>
@@ -178,17 +189,17 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5oL-aX-cmt">
-                                <rect key="frame" x="0.0" y="114" width="1180" height="686"/>
+                                <rect key="frame" x="0.0" y="114" width="1180" height="656"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" estimatedSectionHeaderHeight="1" sectionFooterHeight="1" estimatedSectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="PKB-bf-G98">
-                                        <rect key="frame" x="0.0" y="0.0" width="136" height="686"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="136" height="656"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="136" id="tUj-CT-uh0"/>
                                         </constraints>
                                     </tableView>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t5w-wI-f15">
-                                        <rect key="frame" x="144" y="0.0" width="1036" height="686"/>
+                                        <rect key="frame" x="144" y="0.0" width="1036" height="656"/>
                                     </containerView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -234,7 +245,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TIw-4d-4z5">
-                                <rect key="frame" x="0.0" y="24" width="1175" height="776"/>
+                                <rect key="frame" x="0.0" y="24" width="1175" height="746"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -302,7 +313,7 @@
                                 <attributedString key="attributedText">
                                     <fragment content="Team">
                                         <attributes>
-                                            <font key="NSFont" size="25" name="Lato-Bold"/>
+                                            <font key="NSFont" metaFont="system" size="25"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -370,7 +381,7 @@
                                         <fragment content="Add New">
                                             <attributes>
                                                 <color key="NSColor" name="AppWhite"/>
-                                                <font key="NSFont" size="20" name="Lato-Bold"/>
+                                                <font key="NSFont" metaFont="system" size="20"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                             </attributes>
                                         </fragment>
@@ -401,7 +412,7 @@
                                         <fragment content="Team Roster">
                                             <attributes>
                                                 <color key="NSColor" name="AppWhite"/>
-                                                <font key="NSFont" size="20" name="Lato-Bold"/>
+                                                <font key="NSFont" metaFont="system" size="20"/>
                                             </attributes>
                                         </fragment>
                                     </attributedString>
@@ -419,13 +430,13 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLk-c3-meA">
-                                <rect key="frame" x="0.0" y="105" width="1180" height="695"/>
+                                <rect key="frame" x="0.0" y="105" width="1180" height="665"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBX-rZ-3km">
-                                        <rect key="frame" x="0.0" y="0.0" width="1180" height="695"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1180" height="665"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="k4E-Kw-oXM">
-                                                <rect key="frame" x="0.0" y="0.0" width="1180" height="695"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1180" height="665"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </tableView>
                                         </subviews>
@@ -486,10 +497,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y4k-VV-7pn">
-                                <rect key="frame" x="0.0" y="0.0" width="725.5" height="980"/>
+                                <rect key="frame" x="0.0" y="0.0" width="725.5" height="950"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rbd-am-8if">
-                                        <rect key="frame" x="0.0" y="0.0" width="725.5" height="980"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="725.5" height="950"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kKX-9r-G50">
                                                 <rect key="frame" x="0.0" y="0.0" width="725.5" height="980"/>
@@ -499,7 +510,7 @@
                                                         <attributedString key="attributedText">
                                                             <fragment content="Select Category">
                                                                 <attributes>
-                                                                    <font key="NSFont" size="30" name="Lato-Bold"/>
+                                                                    <font key="NSFont" metaFont="system" size="30"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                 </attributes>
                                                             </fragment>
@@ -541,14 +552,14 @@
                                                         <attributedString key="attributedText">
                                                             <fragment content="Select ">
                                                                 <attributes>
-                                                                    <font key="NSFont" size="30" name="Lato-Bold"/>
+                                                                    <font key="NSFont" metaFont="system" size="30"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                 </attributes>
                                                             </fragment>
                                                             <fragment content="Service">
                                                                 <attributes>
                                                                     <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <font key="NSFont" size="30" name="Lato-Bold"/>
+                                                                    <font key="NSFont" metaFont="system" size="30"/>
                                                                     <real key="NSKern" value="0.0"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -593,14 +604,14 @@
                                                         <attributedString key="attributedText">
                                                             <fragment content="Gift ">
                                                                 <attributes>
-                                                                    <font key="NSFont" size="30" name="Lato-Bold"/>
+                                                                    <font key="NSFont" metaFont="system" size="30"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                 </attributes>
                                                             </fragment>
                                                             <fragment content="Card">
                                                                 <attributes>
                                                                     <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <font key="NSFont" size="30" name="Lato-Bold"/>
+                                                                    <font key="NSFont" metaFont="system" size="30"/>
                                                                     <real key="NSKern" value="0.0"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -841,14 +852,14 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nAx-fj-UEX">
-                                <rect key="frame" x="726.5" y="0.0" width="453.5" height="980"/>
+                                <rect key="frame" x="726.5" y="0.0" width="453.5" height="950"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MCL-2x-CTi">
                                         <rect key="frame" x="20" y="25" width="413.5" height="36"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Cart">
                                                 <attributes>
-                                                    <font key="NSFont" size="30" name="Lato-Bold"/>
+                                                    <font key="NSFont" metaFont="system" size="30"/>
                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                 </attributes>
                                             </fragment>
@@ -856,11 +867,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="OJz-ap-77w">
-                                        <rect key="frame" x="8" y="69" width="437.5" height="674"/>
+                                        <rect key="frame" x="8" y="69" width="437.5" height="644"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t3i-RY-hma">
-                                        <rect key="frame" x="0.0" y="751" width="453.5" height="50"/>
+                                        <rect key="frame" x="0.0" y="721" width="453.5" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJm-xW-hwB">
                                                 <rect key="frame" x="20" y="0.0" width="413.5" height="1"/>
@@ -873,11 +884,11 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lY1-1C-DFm">
-                                                <rect key="frame" x="25" y="13" width="62" height="25"/>
+                                                <rect key="frame" x="25" y="13" width="63" height="25"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="Service">
                                                         <attributes>
-                                                            <font key="NSFont" size="19" name="Lato-Bold"/>
+                                                            <font key="NSFont" metaFont="system" size="19"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
@@ -906,7 +917,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4LB-mF-MHP">
-                                        <rect key="frame" x="0.0" y="801" width="453.5" height="50"/>
+                                        <rect key="frame" x="0.0" y="771" width="453.5" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jA6-cl-517">
                                                 <rect key="frame" x="20" y="0.0" width="413.5" height="1"/>
@@ -919,11 +930,11 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddx-HA-YF5">
-                                                <rect key="frame" x="25" y="13" width="77" height="25"/>
+                                                <rect key="frame" x="25" y="13" width="76" height="25"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="Gift Card">
                                                         <attributes>
-                                                            <font key="NSFont" size="19" name="Lato-Bold"/>
+                                                            <font key="NSFont" metaFont="system" size="19"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
@@ -952,7 +963,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w1g-Wj-wcy">
-                                        <rect key="frame" x="0.0" y="851" width="453.5" height="50"/>
+                                        <rect key="frame" x="0.0" y="821" width="453.5" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gma-hR-1yg">
                                                 <rect key="frame" x="20" y="0.0" width="413.5" height="1"/>
@@ -965,11 +976,11 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnl-d8-Erk">
-                                                <rect key="frame" x="25" y="8" width="41.5" height="34"/>
+                                                <rect key="frame" x="25" y="8" width="41" height="34"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="Total">
                                                         <attributes>
-                                                            <font key="NSFont" size="19" name="Lato-Bold"/>
+                                                            <font key="NSFont" metaFont="system" size="19"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
@@ -998,7 +1009,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QJY-d7-GNk" customClass="GradientButton" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                        <rect key="frame" x="237" y="921" width="194.5" height="44"/>
+                                        <rect key="frame" x="237" y="891" width="194.5" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="FVp-KR-bW3"/>
                                         </constraints>
@@ -1008,7 +1019,7 @@
                                                 <fragment content="Pay Now">
                                                     <attributes>
                                                         <color key="NSColor" name="AppWhite"/>
-                                                        <font key="NSFont" size="18" name="Lato-Bold"/>
+                                                        <font key="NSFont" metaFont="system" size="18"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -1027,7 +1038,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E1M-7s-Tei">
-                                        <rect key="frame" x="22" y="921" width="195" height="44"/>
+                                        <rect key="frame" x="22" y="891" width="195" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="aEF-hp-Zry"/>
                                         </constraints>
@@ -1037,7 +1048,7 @@
                                                 <fragment content="Clear">
                                                     <attributes>
                                                         <color key="NSColor" name="AppBlack"/>
-                                                        <font key="NSFont" size="18" name="Lato-Bold"/>
+                                                        <font key="NSFont" metaFont="system" size="18"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>

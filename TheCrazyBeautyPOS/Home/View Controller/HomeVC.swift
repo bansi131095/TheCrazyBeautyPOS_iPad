@@ -87,7 +87,12 @@ class HomeVC: UIViewController {
         }
     }
     
-
+    @IBAction func btn_Profile(_ sender: Any) {
+        let sb = UIStoryboard(name: "Profile", bundle:nil)
+        let vc = sb.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     /*
     // MARK: - Navigation
 
