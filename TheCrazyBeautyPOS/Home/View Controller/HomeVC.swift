@@ -13,6 +13,11 @@ class HomeVC: UIViewController {
     @IBOutlet weak var tbl_vw: UITableView!
     @IBOutlet weak var containerView: UIView!
     
+//    MARK: - Popup
+    @IBOutlet weak var vwPopup: UIView!
+    @IBOutlet weak var lbl_UserName: UILabel!
+    @IBOutlet weak var lbl_Version: UILabel!
+    
     let imageArray: [UIImage] = [
         #imageLiteral(resourceName: "Dashboard.png"),
         #imageLiteral(resourceName: "Booking"),
@@ -88,9 +93,17 @@ class HomeVC: UIViewController {
     }
     
     @IBAction func btn_Profile(_ sender: Any) {
+        vwPopup.isHidden = false
+    }
+    
+    @IBAction func btn_MyProfile(_ sender: Any) {
         let sb = UIStoryboard(name: "Profile", bundle:nil)
         let vc = sb.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
+    @IBAction func btn_Logout(_ sender: Any) {
     }
     
     /*

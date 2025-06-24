@@ -23,14 +23,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="567" height="60"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nails" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LFi-wN-TaV">
-                        <rect key="frame" x="5" y="5" width="557" height="44.5"/>
-                        <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nails" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LFi-wN-TaV">
+                        <rect key="frame" x="5" y="10" width="557" height="24"/>
+                        <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                         <color key="textColor" name="AppBlack"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rY2-G4-htv">
-                        <rect key="frame" x="0.0" y="54.5" width="567" height="0.5"/>
+                        <rect key="frame" x="0.0" y="44" width="567" height="0.5"/>
                         <color key="backgroundColor" name="txtGray"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="gPG-zX-amQ"/>
@@ -42,12 +42,12 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="rY2-G4-htv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="0W6-rS-oUw"/>
-                    <constraint firstItem="LFi-wN-TaV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="24u-Vg-aNd"/>
-                    <constraint firstAttribute="bottom" secondItem="rY2-G4-htv" secondAttribute="bottom" constant="5" id="2vU-Dw-Zxk"/>
+                    <constraint firstItem="LFi-wN-TaV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="24u-Vg-aNd"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rY2-G4-htv" secondAttribute="bottom" constant="10" id="2vU-Dw-Zxk"/>
                     <constraint firstItem="LFi-wN-TaV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="7yi-J1-1vU"/>
                     <constraint firstAttribute="trailing" secondItem="rY2-G4-htv" secondAttribute="trailing" id="dyL-AQ-51a"/>
                     <constraint firstAttribute="trailing" secondItem="LFi-wN-TaV" secondAttribute="trailing" constant="5" id="ume-UO-QW5"/>
-                    <constraint firstItem="rY2-G4-htv" firstAttribute="top" secondItem="LFi-wN-TaV" secondAttribute="bottom" constant="5" id="vrd-2J-PEe"/>
+                    <constraint firstItem="rY2-G4-htv" firstAttribute="top" secondItem="LFi-wN-TaV" secondAttribute="bottom" constant="10" id="vrd-2J-PEe"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

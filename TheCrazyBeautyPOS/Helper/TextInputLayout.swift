@@ -204,3 +204,142 @@ class TextInputLayout: UITextField {
     }
     
 }
+
+class TextInputTextView: UITextView, UITextViewDelegate {
+    
+    var lblPlaceHolder = UILabel()
+    var directionMaterial = PlaceHolderDirection.placeholderUp
+    var defaultFont: UIFont = UIFont.systemFont(ofSize: 14)
+    
+    @IBInspectable var difference: CGFloat = 20.0
+    
+    let underLine: UIImageView = UIImageView()
+    
+    @IBInspectable var isUnderLineAvailabe : Bool = false {
+        didSet {
+            if isUnderLineAvailabe {
+                self.addSubview(underLine)
+            } else {
+                underLine.removeFromSuperview()
+            }
+        }
+    }
+    
+    @IBInspectable var underLineColor: UIColor? = .white {
+        didSet {
+            underLine.backgroundColor = underLineColor?.withAlphaComponent(0.6)
+        }
+    }
+    
+    var errorLabel: UILabel?
+    var errorIcon: UIImageView?
+    
+    @IBInspectable var placeholder: String? {
+        didSet {
+            lblPlaceHolder.text = placeholder
+            lblPlaceHolder.font = defaultFont
+            lblPlaceHolder.textColor = UIColor.lightGray
+        }
+    }
+    
+    override var text: String! {
+        didSet {
+            textDidChange()
+        }
+    }
+    
+    // MARK: - Init
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initialize()
+    }
+    
+    override init(frame: CGRect, textContainer: NSTextContainer?) {
+        super.init(frame: frame, textContainer: textContainer)
+        initialize()
+    }
+    
+    private func initialize() {
+        self.delegate = self
+        self.clipsToBounds = false
+        self.defaultFont = self.font ?? UIFont.systemFont(ofSize: 14)
+        
+        lblPlaceHolder.font = defaultFont
+        lblPlaceHolder.textColor = UIColor.lightGray
+        lblPlaceHolder.alpha = 1.0
+        lblPlaceHolder.numberOfLines = 1
+        lblPlaceHolder.frame = CGRect(x: 5, y: 5, width: self.frame.size.width - 10, height: 20)
+        self.addSubview(lblPlaceHolder)
+        
+        underLine.backgroundColor = underLineColor?.withAlphaComponent(0.6)
+        underLine.frame = CGRect(x: 0, y: self.frame.height - 1, width: self.frame.width, height: 1)
+        underLine.clipsToBounds = true
+        
+        if isUnderLineAvailabe {
+            self.addSubview(underLine)
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: UITextView.textDidChangeNotification, object: self)
+    }
+    
+    @objc private func textDidChange() {
+        showLabel()
+        removeErrorMessage()
+    }
+    
+    private func showLabel() {
+        let hasText = !(self.text?.isEmpty ?? true)
+        UIView.animate(withDuration: 0.3) {
+            if hasText {
+                self.lblPlaceHolder.alpha = 1
+                self.lblPlaceHolder.font = self.defaultFont
+                self.lblPlaceHolder.textColor = UIColor.gray
+                if self.directionMaterial == .placeholderUp {
+                    self.lblPlaceHolder.frame.origin.y = -self.difference
+                } else {
+                    self.lblPlaceHolder.frame.origin.y = self.difference
+                }
+            } else {
+                self.lblPlaceHolder.frame.origin.y = 5
+                self.lblPlaceHolder.font = self.defaultFont
+            }
+        }
+    }
+    
+    func showErrorMessage(message: String) {
+        removeErrorMessage()
+        
+        errorIcon = UIImageView(image: UIImage(named: "error_icon")?.withRenderingMode(.alwaysTemplate))
+        errorIcon?.tintColor = .red
+        errorIcon?.frame = CGRect(x: self.frame.width - 20, y: self.frame.height - 18, width: 16, height: 16)
+        
+        errorLabel = UILabel()
+        errorLabel?.font = UIFont.systemFont(ofSize: 12.0)
+        errorLabel?.textColor = .red
+        errorLabel?.text = message
+        errorLabel?.sizeToFit()
+        errorLabel?.frame.origin = CGPoint(x: self.frame.width - (errorLabel?.frame.width ?? 0) - 30, y: self.frame.height - 20)
+        
+        if let icon = errorIcon, let label = errorLabel {
+            self.addSubview(icon)
+            self.addSubview(label)
+        }
+    }
+    
+    func removeErrorMessage() {
+        errorLabel?.removeFromSuperview()
+        errorLabel = nil
+        errorIcon?.removeFromSuperview()
+        errorIcon = nil
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        lblPlaceHolder.frame.size.width = self.frame.width - 10
+        underLine.frame = CGRect(x: 0, y: self.frame.height - 1, width: self.frame.width, height: 1)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+}

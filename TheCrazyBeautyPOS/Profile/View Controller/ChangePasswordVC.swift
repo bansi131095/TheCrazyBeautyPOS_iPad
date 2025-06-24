@@ -32,9 +32,9 @@ class ChangePasswordVC: UIViewController {
     //MARK: -  Button Action
     @IBAction func btn_Save(_ sender: Any) {
         if (self.txt_OldPassword.text == "") {
-            self.txt_OldPassword.showErrorMessage(message: "Old Password is required")
+            alertWithImage(title: "Change Password", Msg: "Old Password is required.")
         }else if self.txt_NewPassword.text == "" {
-            self.txt_NewPassword.showErrorMessage(message: "New Password is required")
+            alertWithImage(title: "Change Password", Msg: "New Password is required.")
         }else {
             
         }

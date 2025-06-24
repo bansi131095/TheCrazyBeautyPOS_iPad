@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol SettingCellDelegate: AnyObject {
+    func didSelectInnerItem(sectionIndex: Int, rowIndex: Int, title: String)
+}
+
 class SettingCell: UITableViewCell {
 
     @IBOutlet weak var img_List: UIImageView!
@@ -16,6 +20,9 @@ class SettingCell: UITableViewCell {
     @IBOutlet weak var tbl_Categories_Height: NSLayoutConstraint!
     
     
+    var sectionIndex: Int = 0
+    weak var delegate: SettingCellDelegate?
+    var selectedInnerIndex: Int? = nil
     
     var data: [String] = [] {
         didSet {
@@ -56,10 +63,22 @@ extension SettingCell: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tbl_Categories.dequeueReusableCell(withIdentifier: "CategoriesCell") as! CategoriesCell
         cell.lbl_CategoriesName.text = data[indexPath.row]
+        if selectedInnerIndex == indexPath.row {
+            cell.lbl_CategoriesName.textColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
+        } else {
+            cell.lbl_CategoriesName.textColor = UIColor.black
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedInnerIndex = indexPath.row
+       delegate?.didSelectInnerItem(sectionIndex: sectionIndex, rowIndex: indexPath.row, title: data[indexPath.row])
+        tbl_Categories.reloadData()
+    }
+    
 }
