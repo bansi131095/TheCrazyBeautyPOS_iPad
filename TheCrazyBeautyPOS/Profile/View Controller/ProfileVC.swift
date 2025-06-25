@@ -136,16 +136,16 @@ class ProfileVC: UIViewController,SettingCellDelegate {
             // Notifications
             switch rowIndex {
             case 0:
-                vc = storyboard.instantiateViewController(withIdentifier: "NotificationVC")
+                vc = storyboard.instantiateViewController(withIdentifier: "Notifications_SettingsVC")
             case 1:
-                vc = storyboard.instantiateViewController(withIdentifier: "BookingReminderVC")
+                vc = storyboard.instantiateViewController(withIdentifier: "Booking_ReminderVC")
             default: break
             }
         } else if sectionIndex == 2 {
             // Booking
             switch rowIndex {
             case 0:
-                vc = storyboard.instantiateViewController(withIdentifier: "SlotDurationVC")
+                vc = storyboard.instantiateViewController(withIdentifier: "Slot_DurationVC")
             case 1:
                 vc = storyboard.instantiateViewController(withIdentifier: "Booking_PreferenceVC")
             case 2:

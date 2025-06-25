@@ -12,6 +12,7 @@ class Booking_PolicyVC: UIViewController {
     //MARK: - Outlet
     @IBOutlet weak var txtvw_Note: UITextView!
     //MARK: - Global Variable
+    
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()

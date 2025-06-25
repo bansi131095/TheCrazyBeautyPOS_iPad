@@ -17,7 +17,7 @@ class CountryTableViewCell: UITableViewCell {
         super.awakeFromNib()
 
     }
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         let line = UIView()
@@ -44,7 +44,7 @@ class CountryTableViewCell: UITableViewCell {
         phoneCodeLabel.textColor = .gray
         self.contentView.addSubview(phoneCodeLabel)
         phoneCodeLabel.translatesAutoresizingMaskIntoConstraints = false
-        phoneCodeLabel.addConstraint(NSLayoutConstraint(item: phoneCodeLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute:NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: 30))
+        phoneCodeLabel.addConstraint(NSLayoutConstraint(item: phoneCodeLabel!, attribute: .height, relatedBy: .equal, toItem: nil, attribute:NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1.0, constant: 30))
         phoneCodeLabel.addConstraint(NSLayoutConstraint(item: phoneCodeLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute:.notAnAttribute, multiplier: 1.0, constant: 50))
         self.contentView.addConstraint(NSLayoutConstraint(item: phoneCodeLabel, attribute: .centerY, relatedBy:.equal, toItem:self.contentView, attribute:.centerY, multiplier:1.0, constant: 0))
         self.contentView.addConstraint(NSLayoutConstraint(item:phoneCodeLabel,attribute:.right, relatedBy:.equal, toItem:self.contentView, attribute:.right, multiplier:1.0, constant: -10))

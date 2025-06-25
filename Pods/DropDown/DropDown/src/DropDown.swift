@@ -536,7 +536,8 @@ private extension DropDown {
 		tableViewContainer.layer.shadowOpacity = shadowOpacity
 		tableViewContainer.layer.shadowRadius = shadowRadius
 
-		tableView.backgroundColor = tableViewBackgroundColor
+//        tableView.backgroundColor = tableViewBackgroundColor
+        tableView.backgroundColor = .white
 		tableView.separatorColor = separatorColor
 		tableView.layer.cornerRadius = cornerRadius
 		tableView.layer.masksToBounds = true

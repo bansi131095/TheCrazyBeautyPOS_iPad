@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6038A8412E0C237500C3B1FF /* Notifications_SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6038A8402E0C237500C3B1FF /* Notifications_SettingsVC.swift */; };
 		60AAE9082E0BAEEC00DE3C07 /* Business_CategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AAE9072E0BAEEC00DE3C07 /* Business_CategoriesVC.swift */; };
 		60AAE90A2E0BB29400DE3C07 /* Booking_PolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AAE9092E0BB29400DE3C07 /* Booking_PolicyVC.swift */; };
 		60AAE90C2E0BB7BF00DE3C07 /* Slot_DurationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AAE90B2E0BB7BF00DE3C07 /* Slot_DurationVC.swift */; };
+		60AAE90E2E0BF4E900DE3C07 /* Booking_ReminderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AAE90D2E0BF4E900DE3C07 /* Booking_ReminderVC.swift */; };
 		60B9CA742E0A888E00CC1409 /* ACFloatingTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B9CA1A2E0A888E00CC1409 /* ACFloatingTextfield.swift */; };
 		60B9CA752E0A888E00CC1409 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B9CA1B2E0A888E00CC1409 /* Animations.swift */; };
 		60B9CA762E0A888E00CC1409 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B9CA1C2E0A888E00CC1409 /* Animator.swift */; };
@@ -96,9 +98,11 @@
 		04C47802CBC1E6D1C967396F /* Pods-TheCrazyBeautyPOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheCrazyBeautyPOS.debug.xcconfig"; path = "Target Support Files/Pods-TheCrazyBeautyPOS/Pods-TheCrazyBeautyPOS.debug.xcconfig"; sourceTree = "<group>"; };
 		058364852DEF23DA00C0B42E /* TheCrazyBeautyPOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheCrazyBeautyPOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F4631FD6F97BA318BC3C1B5 /* Pods-TheCrazyBeautyPOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheCrazyBeautyPOS.release.xcconfig"; path = "Target Support Files/Pods-TheCrazyBeautyPOS/Pods-TheCrazyBeautyPOS.release.xcconfig"; sourceTree = "<group>"; };
+		6038A8402E0C237500C3B1FF /* Notifications_SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications_SettingsVC.swift; sourceTree = "<group>"; };
 		60AAE9072E0BAEEC00DE3C07 /* Business_CategoriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Business_CategoriesVC.swift; sourceTree = "<group>"; };
 		60AAE9092E0BB29400DE3C07 /* Booking_PolicyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booking_PolicyVC.swift; sourceTree = "<group>"; };
 		60AAE90B2E0BB7BF00DE3C07 /* Slot_DurationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slot_DurationVC.swift; sourceTree = "<group>"; };
+		60AAE90D2E0BF4E900DE3C07 /* Booking_ReminderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booking_ReminderVC.swift; sourceTree = "<group>"; };
 		60B9CA112E0A888E00CC1409 /* lato_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lato_bold.ttf; sourceTree = "<group>"; };
 		60B9CA122E0A888E00CC1409 /* lato_medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lato_medium.ttf; sourceTree = "<group>"; };
 		60B9CA132E0A888E00CC1409 /* lato_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lato_regular.ttf; sourceTree = "<group>"; };
@@ -413,6 +417,8 @@
 				60AAE9072E0BAEEC00DE3C07 /* Business_CategoriesVC.swift */,
 				60AAE9092E0BB29400DE3C07 /* Booking_PolicyVC.swift */,
 				60AAE90B2E0BB7BF00DE3C07 /* Slot_DurationVC.swift */,
+				60AAE90D2E0BF4E900DE3C07 /* Booking_ReminderVC.swift */,
+				6038A8402E0C237500C3B1FF /* Notifications_SettingsVC.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -561,9 +567,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TheCrazyBeautyPOS/Pods-TheCrazyBeautyPOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TheCrazyBeautyPOS/Pods-TheCrazyBeautyPOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -643,6 +653,7 @@
 				60C15A912E0ACC4A0030A6F7 /* Payment&CancellationVC.swift in Sources */,
 				60B9CA982E0A888E00CC1409 /* ReportVC.swift in Sources */,
 				60B9CA992E0A888E00CC1409 /* ServicesVC.swift in Sources */,
+				6038A8412E0C237500C3B1FF /* Notifications_SettingsVC.swift in Sources */,
 				60B9CA9A2E0A888E00CC1409 /* TeamVC.swift in Sources */,
 				60B9CA9B2E0A888E00CC1409 /* UpcomingAppointmentsVC.swift in Sources */,
 				60B9CA9C2E0A888E00CC1409 /* WalkingVC.swift in Sources */,
@@ -655,6 +666,7 @@
 				60B9CAA22E0A888E00CC1409 /* ChangePasswordVC.swift in Sources */,
 				60B9CAA32E0A888E00CC1409 /* KioskUsersVC.swift in Sources */,
 				60B9CAA42E0A888E00CC1409 /* ProfileVC.swift in Sources */,
+				60AAE90E2E0BF4E900DE3C07 /* Booking_ReminderVC.swift in Sources */,
 				60B9CAA52E0A888E00CC1409 /* AppDelegate.swift in Sources */,
 				60B9CAA62E0A888E00CC1409 /* SceneDelegate.swift in Sources */,
 			);
