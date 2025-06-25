@@ -24,6 +24,23 @@ class Booking_PreferenceVC: UIViewController {
     //MARK: -  Button Action
     @IBAction func btn_Save(_ sender: Any) {
     }
+    
+    
+    @IBAction func btn_Staff(_ sender: Any) {
+        vw_Staff.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
+        vw_Guest.backgroundColor = .white
+        img_Staff.image = UIImage(named: "ic_Check")
+        img_Guest.image = UIImage(named: "ic_Uncheck")
+    }
+    
+    
+    @IBAction func btn_Guest(_ sender: Any) {
+        vw_Staff.backgroundColor = .white
+        vw_Guest.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
+        img_Staff.image = UIImage(named: "ic_Uncheck")
+        img_Guest.image = UIImage(named: "ic_Check")
+    }
+    
     //MARK: - Function
     //MARK: - Web Api Calling
 } 

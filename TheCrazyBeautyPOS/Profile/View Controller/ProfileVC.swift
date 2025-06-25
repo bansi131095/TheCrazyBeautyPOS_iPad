@@ -127,7 +127,7 @@ class ProfileVC: UIViewController,SettingCellDelegate {
             case 1:
                 vc = storyboard.instantiateViewController(withIdentifier: "SalonImagesVC")
             case 2:
-                vc = storyboard.instantiateViewController(withIdentifier: "CategoriesVC")
+                vc = storyboard.instantiateViewController(withIdentifier: "Business_CategoriesVC")
             case 3:
                 vc = storyboard.instantiateViewController(withIdentifier: "CategoriesDescVC")
             default: break
@@ -147,9 +147,9 @@ class ProfileVC: UIViewController,SettingCellDelegate {
             case 0:
                 vc = storyboard.instantiateViewController(withIdentifier: "SlotDurationVC")
             case 1:
-                vc = storyboard.instantiateViewController(withIdentifier: "BookingPreferenceVC")
+                vc = storyboard.instantiateViewController(withIdentifier: "Booking_PreferenceVC")
             case 2:
-                vc = storyboard.instantiateViewController(withIdentifier: "BookingPolicyVC")
+                vc = storyboard.instantiateViewController(withIdentifier: "Booking_PolicyVC")
             default: break
             }
         } else if sectionIndex == 3 {
