@@ -17,6 +17,10 @@ target 'TheCrazyBeautyPOS' do
     pod 'SDWebImage'
     pod 'SDWebImageSVGCoder'
     pod 'IQKeyboardManagerSwift'
+<<<<<<< Updated upstream
+=======
+    pod 'DropDown'
+>>>>>>> Stashed changes
     pod 'CountryPickerViewSwift'
     
 end
