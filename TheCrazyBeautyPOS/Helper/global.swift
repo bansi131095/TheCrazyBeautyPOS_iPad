@@ -57,6 +57,17 @@ class global: NSObject
     
     var URL_TEAM_DETAILS = global.server_url + "team_details"
     
+    var URL_CLIENT_DETAILS = global.server_url + "client_details"
+    
+    var URL_INVENTORY_DETAILS = global.server_url + "inventory_details"
+    
+    var URL_GIFTCARD_DETAILS = global.server_url + "giftcard_details"
+    
+    var URL_COUPON_DETAILS = global.server_url + "coupon_details"
+    
+    var URL_GIFT_CARDS = global.server_url + "gift_cards"
+    
+    
     //MARK:-
     override init()
     {

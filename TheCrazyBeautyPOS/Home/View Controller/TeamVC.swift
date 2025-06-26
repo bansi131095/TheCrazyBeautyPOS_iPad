@@ -13,15 +13,22 @@ class TeamVC: UIViewController {
     @IBOutlet weak var scroll_vw: UIScrollView!
     @IBOutlet weak var contentViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var tbl_vw: UITableView!
+    @IBOutlet weak var txt_search: UITextField!
+    @IBOutlet weak var lbl_totalStaff: UILabel!
     
     var staffList: [StaffData] = []
-    
+    var searchWorkItem: DispatchWorkItem?
+    var currentPage = 1
+    var totalCount = 0
+    var isLoadingMore = false
+    var hasMoreData = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         contentViewWidthConstraint.constant = 100 // or any dynamic value
         self.setTableView()
-        self.loadData()
+        self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        self.loadData(Search: "")
         // Do any additional setup after loading the view.
     }
     
@@ -35,18 +42,62 @@ class TeamVC: UIViewController {
         tbl_vw.estimatedRowHeight = 60
     }
     
+
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        searchWorkItem?.cancel()
+
+        let newWorkItem = DispatchWorkItem { [weak self] in
+            self?.loadData(Search: textField.text ?? "")
+        }
+
+        searchWorkItem = newWorkItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newWorkItem)
+    }
     
-    func loadData() {
-        APIService.shared.getteamDetails(page: "1", limit: "10", vendorId: LocalData.userId, search: "", isTeamDetails: 1, completion: { staffResult in
+
+    
+    func loadData(Search: String, isPagination: Bool = false) {
+        if isPagination {
+            self.isLoadingMore = true
+        } else {
+            self.currentPage = 1
+            self.staffList.removeAll()
+            self.hasMoreData = true
+        }
+
+        APIService.shared.getteamDetails(page: "\(currentPage)", limit: "10", vendorId: LocalData.userId, search: Search, isTeamDetails: 1) { staffResult in
             guard let model = staffResult else {
+                self.isLoadingMore = false
                 return
             }
-            
-            self.staffList = model.data ?? []
-            self.tbl_vw.reloadData()
-        })
 
+            let newItems = model.data ?? []
+            self.totalCount = model.total ?? 0 // Make sure this field exists in your response model
+            self.lbl_totalStaff.text = "\(self.totalCount) Team Members"
+            if newItems.isEmpty || self.staffList.count + newItems.count >= self.totalCount {
+                self.hasMoreData = false
+            }
+
+            self.staffList += newItems
+            self.currentPage += 1
+            self.isLoadingMore = false
+            self.tbl_vw.reloadData()
+        }
     }
+
+    
+    // Button Action
+    @IBAction func act_addNew(_ sender: UIButton) {
+        let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddTeamVC") as! AddTeamVC
+        addNew.isEdit = false
+        self.navigationController?.pushViewController(addNew, animated: true)
+    }
+    
+    @IBAction func Act_addTeamRoster(_ sender: GradientButton) {
+        let teamRoster = self.storyboard?.instantiateViewController(withIdentifier: "TeamRosterVC") as! TeamRosterVC
+        self.navigationController?.pushViewController(teamRoster, animated: true)
+    }
+    
 
     /*
     // MARK: - Navigation
@@ -60,7 +111,7 @@ class TeamVC: UIViewController {
 
 }
 
-extension TeamVC: UITableViewDelegate, UITableViewDataSource{
+extension TeamVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -90,7 +141,51 @@ extension TeamVC: UITableViewDelegate, UITableViewDataSource{
         cell.lbl_phone.text = staff.phone
         cell.lbl_jobTitle.text = staff.jobTitle
         cell.lbl_review.text = ""
+        cell.Act_Edit = {
+            let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddTeamVC") as! AddTeamVC
+            addNew.isEdit = true
+            addNew.dictStaff = staff
+            self.navigationController?.pushViewController(addNew, animated: true)
+        }
+        cell.Act_Delete = {
+            
+        }
         return cell
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let frameHeight = scrollView.frame.size.height
+
+        if offsetY > contentHeight - frameHeight - 100 {
+            if !isLoadingMore && hasMoreData {
+                self.loadData(Search: txt_search.text ?? "", isPagination: true)
+            }
+        }
+    }
+
+    
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if isLoadingMore {
+            let spinner = UIActivityIndicatorView(style: .medium)
+            spinner.startAnimating()
+            return spinner
+        }
+        return nil
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return isLoadingMore ? 50 : 0
+    }
+
+    
+    
+}
+
+extension TeamVC: UITextFieldDelegate {
+    
+    
     
 }

@@ -16,7 +16,6 @@ class TeamCell: UITableViewCell {
     @IBOutlet weak var lbl_phone: UILabel!
     @IBOutlet weak var lbl_jobTitle: UILabel!
     @IBOutlet weak var lbl_review: UILabel!
-    @IBOutlet weak var lbl_Action: UILabel!
     
     
     override func awakeFromNib() {
@@ -28,6 +27,16 @@ class TeamCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    var Act_Edit:(()->Void)?
+    @IBAction func act_edit(_ sender: UIButton) {
+        self.Act_Edit?()
+    }
+    
+    var Act_Delete:(()->Void)?
+    @IBAction func act_delete(_ sender: UIButton) {
+        self.Act_Delete?()
     }
     
 }
