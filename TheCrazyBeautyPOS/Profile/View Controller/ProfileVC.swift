@@ -125,11 +125,11 @@ class ProfileVC: UIViewController,SettingCellDelegate {
             case 0:
                 vc = storyboard.instantiateViewController(withIdentifier: "GeneralInfoVC")
             case 1:
-                vc = storyboard.instantiateViewController(withIdentifier: "SalonImagesVC")
+                vc = storyboard.instantiateViewController(withIdentifier: "Salon_ImagesVC")
             case 2:
                 vc = storyboard.instantiateViewController(withIdentifier: "Business_CategoriesVC")
             case 3:
-                vc = storyboard.instantiateViewController(withIdentifier: "CategoriesDescVC")
+                vc = storyboard.instantiateViewController(withIdentifier: "Category_DescriptionVC")
             default: break
             }
         } else if sectionIndex == 1 {
@@ -158,7 +158,7 @@ class ProfileVC: UIViewController,SettingCellDelegate {
             case 0:
                 vc = storyboard.instantiateViewController(withIdentifier: "Team_LoginVC")
             case 1:
-                vc = storyboard.instantiateViewController(withIdentifier: "TeamSequenceVC")
+                vc = storyboard.instantiateViewController(withIdentifier: "Team_SequenceVC")
             default: break
             }
         } else if sectionIndex == 4 {
@@ -191,7 +191,7 @@ class ProfileVC: UIViewController,SettingCellDelegate {
             case 0:
                 vc = storyboard.instantiateViewController(withIdentifier: "KioskUsersVC")
             case 1:
-                vc = storyboard.instantiateViewController(withIdentifier: "BlockCustomersVC")
+                vc = storyboard.instantiateViewController(withIdentifier: "Block_CustomerVC")
             default: break
             }
         } else if sectionIndex == 7 {

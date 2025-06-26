@@ -140,7 +140,7 @@ open class CountrySelectView: UIView {
     }
     public func show() {
         
-        if let window = UIApplication.shared.delegate!.window! {
+        if let window = UIApplication.shared.delegate?.window! {
             window.addSubview(self)
         }
         searchBarView.text = ""
