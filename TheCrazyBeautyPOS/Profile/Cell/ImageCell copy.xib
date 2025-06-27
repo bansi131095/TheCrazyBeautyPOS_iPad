@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad10_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="ImageCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="ImageCell" rowHeight="329" id="KGk-i7-Jjw" customClass="ImageCell" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="335" height="382"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="335" height="382"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nw1-Mj-ocQ">
+                        <rect key="frame" x="10" y="10" width="315" height="362"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="b5t-pG-Ade">
+                                <rect key="frame" x="0.0" y="0.0" width="315" height="362"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rng-0I-aLa">
+                                <rect key="frame" x="260" y="15" width="40" height="40"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_Delete" translatesAutoresizingMaskIntoConstraints="NO" id="Tez-gG-cHP">
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tuB-go-Xbc">
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="3SS-Jb-fcf"/>
+                                    <constraint firstItem="tuB-go-Xbc" firstAttribute="top" secondItem="Rng-0I-aLa" secondAttribute="top" id="L13-fN-CdQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="tuB-go-Xbc" secondAttribute="bottom" id="atl-Ks-Ii4"/>
+                                    <constraint firstItem="tuB-go-Xbc" firstAttribute="leading" secondItem="Rng-0I-aLa" secondAttribute="leading" id="bIb-3M-4cf"/>
+                                    <constraint firstItem="Tez-gG-cHP" firstAttribute="leading" secondItem="Rng-0I-aLa" secondAttribute="leading" id="fEK-Xc-wZY"/>
+                                    <constraint firstAttribute="trailing" secondItem="Tez-gG-cHP" secondAttribute="trailing" id="gok-q3-ANI"/>
+                                    <constraint firstAttribute="height" constant="40" id="m6a-pw-lwB"/>
+                                    <constraint firstAttribute="bottom" secondItem="Tez-gG-cHP" secondAttribute="bottom" id="oIv-2j-EWc"/>
+                                    <constraint firstItem="Tez-gG-cHP" firstAttribute="top" secondItem="Rng-0I-aLa" secondAttribute="top" id="vJZ-ST-ajn"/>
+                                    <constraint firstAttribute="trailing" secondItem="tuB-go-Xbc" secondAttribute="trailing" id="vlr-cn-93l"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="e3c-bL-Fae"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="b5t-pG-Ade" firstAttribute="top" secondItem="Nw1-Mj-ocQ" secondAttribute="top" id="7N0-Ia-uBa"/>
+                            <constraint firstItem="b5t-pG-Ade" firstAttribute="leading" secondItem="Nw1-Mj-ocQ" secondAttribute="leading" id="Izs-6H-dq9"/>
+                            <constraint firstAttribute="bottom" secondItem="b5t-pG-Ade" secondAttribute="bottom" id="aIE-q1-EUg"/>
+                            <constraint firstItem="Rng-0I-aLa" firstAttribute="top" secondItem="Nw1-Mj-ocQ" secondAttribute="top" constant="15" id="bfp-Bi-nRS"/>
+                            <constraint firstAttribute="trailing" secondItem="Rng-0I-aLa" secondAttribute="trailing" constant="15" id="dHw-k3-S2y"/>
+                            <constraint firstAttribute="trailing" secondItem="b5t-pG-Ade" secondAttribute="trailing" id="xZh-eB-seB"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="Nw1-Mj-ocQ" secondAttribute="bottom" constant="10" id="8HF-EW-lN5"/>
+                    <constraint firstItem="Nw1-Mj-ocQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="N24-e7-zqp"/>
+                    <constraint firstAttribute="trailing" secondItem="Nw1-Mj-ocQ" secondAttribute="trailing" constant="10" id="lUe-KC-CDc"/>
+                    <constraint firstItem="Nw1-Mj-ocQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="miR-pt-eva"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btn_Delete" destination="tuB-go-Xbc" id="v2w-Bz-SC6"/>
+                <outlet property="img_Upload" destination="b5t-pG-Ade" id="www-fI-Wyf"/>
+            </connections>
+            <point key="canvasLocation" x="21.585365853658537" y="39.152542372881356"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_Delete" width="30" height="29"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

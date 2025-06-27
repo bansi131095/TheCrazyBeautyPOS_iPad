@@ -167,9 +167,9 @@ class ProfileVC: UIViewController,SettingCellDelegate {
             case 0:
                 vc = storyboard.instantiateViewController(withIdentifier: "OpeningDateVC")
             case 1:
-                vc = storyboard.instantiateViewController(withIdentifier: "BusinessHoursVC")
+                vc = storyboard.instantiateViewController(withIdentifier: "Business_HoursVC")
             case 2:
-                vc = storyboard.instantiateViewController(withIdentifier: "SalonOffDaysVC")
+                vc = storyboard.instantiateViewController(withIdentifier: "SalonOff_DaysVC")
             case 3:
                 vc = storyboard.instantiateViewController(withIdentifier: "SalonHolidayVC")
             default: break

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad10_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ImageCell" reuseIdentifier="ImageCell" id="gTV-IL-0wX" customClass="ImageCell" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="410" height="458"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="410" height="458"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UUa-qs-bL5">
+                        <rect key="frame" x="10" y="10" width="390" height="438"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4IA-nc-qBz">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="438"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="B9K-F5-8gM">
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="438"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="438" id="FG2-0S-c2Q"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_Delete" translatesAutoresizingMaskIntoConstraints="NO" id="wJN-DE-AyG">
+                                        <rect key="frame" x="335" y="15" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="ZmH-9b-yfA"/>
+                                            <constraint firstAttribute="width" constant="40" id="n0w-xw-1FN"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dqf-cs-lzT">
+                                        <rect key="frame" x="335" y="15" width="40" height="40"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="dqf-cs-lzT" firstAttribute="top" secondItem="wJN-DE-AyG" secondAttribute="top" id="8ym-cc-7HR"/>
+                                    <constraint firstItem="dqf-cs-lzT" firstAttribute="leading" secondItem="wJN-DE-AyG" secondAttribute="leading" id="AmF-gO-jnl"/>
+                                    <constraint firstItem="wJN-DE-AyG" firstAttribute="top" secondItem="4IA-nc-qBz" secondAttribute="top" constant="15" id="CHA-Y8-6i2"/>
+                                    <constraint firstItem="B9K-F5-8gM" firstAttribute="leading" secondItem="4IA-nc-qBz" secondAttribute="leading" id="MRj-vX-KOs"/>
+                                    <constraint firstItem="dqf-cs-lzT" firstAttribute="trailing" secondItem="wJN-DE-AyG" secondAttribute="trailing" id="O16-e3-hIi"/>
+                                    <constraint firstAttribute="trailing" secondItem="wJN-DE-AyG" secondAttribute="trailing" constant="15" id="lhn-Oe-LgL"/>
+                                    <constraint firstItem="dqf-cs-lzT" firstAttribute="bottom" secondItem="wJN-DE-AyG" secondAttribute="bottom" id="qJT-KI-bKQ"/>
+                                    <constraint firstItem="B9K-F5-8gM" firstAttribute="top" secondItem="4IA-nc-qBz" secondAttribute="top" id="tzn-NF-HhA"/>
+                                    <constraint firstAttribute="trailing" secondItem="B9K-F5-8gM" secondAttribute="trailing" id="vB5-VM-Cw6"/>
+                                    <constraint firstAttribute="bottom" secondItem="B9K-F5-8gM" secondAttribute="bottom" id="zaZ-0v-7iz"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="4IA-nc-qBz" firstAttribute="top" secondItem="UUa-qs-bL5" secondAttribute="top" id="2s2-Xm-KJc"/>
+                            <constraint firstItem="4IA-nc-qBz" firstAttribute="leading" secondItem="UUa-qs-bL5" secondAttribute="leading" id="PeN-n1-74m"/>
+                            <constraint firstAttribute="bottom" secondItem="4IA-nc-qBz" secondAttribute="bottom" id="lK0-SH-ISH"/>
+                            <constraint firstAttribute="trailing" secondItem="4IA-nc-qBz" secondAttribute="trailing" id="tDF-Sj-7rm"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="UUa-qs-bL5" secondAttribute="bottom" constant="10" id="5RP-bB-XPJ"/>
+                <constraint firstItem="UUa-qs-bL5" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="KgQ-Gw-rd3"/>
+                <constraint firstItem="UUa-qs-bL5" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="T93-v3-yIs"/>
+                <constraint firstAttribute="trailing" secondItem="UUa-qs-bL5" secondAttribute="trailing" constant="10" id="rN8-gO-UiX"/>
+            </constraints>
+            <size key="customSize" width="410" height="458"/>
+            <connections>
+                <outlet property="btn_Delete" destination="dqf-cs-lzT" id="smZ-gB-JVD"/>
+                <outlet property="img_Upload" destination="B9K-F5-8gM" id="UdL-Ph-uK4"/>
+            </connections>
+            <point key="canvasLocation" x="188.04878048780486" y="70.677966101694921"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_Delete" width="30" height="29"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
