@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,7 +18,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		058364972DEF23DC00C0B42E /* Exceptions for "TheCrazyBeautyPOS" folder in "TheCrazyBeautyPOS" target */ = {
+		058364972DEF23DC00C0B42E /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -28,14 +28,7 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		058364872DEF23DA00C0B42E /* TheCrazyBeautyPOS */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				058364972DEF23DC00C0B42E /* Exceptions for "TheCrazyBeautyPOS" folder in "TheCrazyBeautyPOS" target */,
-			);
-			path = TheCrazyBeautyPOS;
-			sourceTree = "<group>";
-		};
+		058364872DEF23DA00C0B42E /* TheCrazyBeautyPOS */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (058364972DEF23DC00C0B42E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = TheCrazyBeautyPOS; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +120,7 @@
 				};
 			};
 			buildConfigurationList = 058364802DEF23DA00C0B42E /* Build configuration list for PBXProject "TheCrazyBeautyPOS" */;
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -135,7 +129,6 @@
 			);
 			mainGroup = 0583647C2DEF23DA00C0B42E;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
 			productRefGroup = 058364862DEF23DA00C0B42E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -164,9 +157,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TheCrazyBeautyPOS/Pods-TheCrazyBeautyPOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TheCrazyBeautyPOS/Pods-TheCrazyBeautyPOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

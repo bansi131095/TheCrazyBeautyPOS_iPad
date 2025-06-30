@@ -36,7 +36,7 @@ class PromotionVC: UIViewController {
             .font: UIFont.systemFont(ofSize: 14, weight: .medium)
         ], for: .normal)
 
-        segmentCard.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
+        segmentCard.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
         segmentCard.layer.cornerRadius = 8
         segmentCard.clipsToBounds = true
         

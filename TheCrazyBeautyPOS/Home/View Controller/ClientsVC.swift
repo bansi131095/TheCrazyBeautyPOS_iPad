@@ -23,6 +23,7 @@ class ClientsVC: UIViewController {
     var hasMoreData = true
     
     
+    //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         contentViewWidthConstraint.constant = 100 // or any dynamic value
@@ -33,6 +34,7 @@ class ClientsVC: UIViewController {
     }
     
     
+    //MARK: Table view
     func setTableView(){
         tbl_vw.register(UINib(nibName: "ClientCell", bundle: nil), forCellReuseIdentifier: "ClientCell")
         tbl_vw.register(UINib(nibName: "ClientHeaderCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "ClientHeaderCell")
@@ -54,6 +56,7 @@ class ClientsVC: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newWorkItem)
     }
     
+    //MARK: Load Api
     func loadData(Search: String, isPagination: Bool = false) {
         if isPagination {
             self.isLoadingMore = true
@@ -84,7 +87,7 @@ class ClientsVC: UIViewController {
     }
 
     
-    // Button Action
+    //MARK: Button Action
     @IBAction func act_addNew(_ sender: UIButton) {
         let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddTeamVC") as! AddTeamVC
         addNew.isEdit = false
@@ -155,7 +158,6 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
     }
 
     
-    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if isLoadingMore {
             let spinner = UIActivityIndicatorView(style: .medium)
@@ -168,8 +170,6 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return isLoadingMore ? 50 : 0
     }
-
-    
     
 }
 

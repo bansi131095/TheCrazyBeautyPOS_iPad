@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad10_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato_bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -32,25 +37,22 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gov-BT-5t5">
-                                <rect key="frame" x="144" y="13" width="220" height="24"/>
+                                <rect key="frame" x="94" y="13" width="180" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="220" id="eqR-Gk-0hE"/>
+                                    <constraint firstAttribute="width" constant="180" id="eqR-Gk-0hE"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="txtGray"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fab-rQ-PBC">
-                                <rect key="frame" x="414" y="13" width="500" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="450" id="Y1t-Bv-EI4"/>
-                                </constraints>
+                                <rect key="frame" x="324" y="13" width="650" height="24"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="txtGray"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fc9-0O-5j5">
-                                <rect key="frame" x="944" y="13" width="180" height="24"/>
+                                <rect key="frame" x="994" y="13" width="180" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="CEz-Zj-baf"/>
                                 </constraints>
@@ -59,7 +61,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqS-cQ-ecG">
-                                <rect key="frame" x="1174" y="13" width="150" height="24"/>
+                                <rect key="frame" x="1224" y="13" width="150" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="km7-0g-AcD"/>
                                 </constraints>
@@ -68,10 +70,10 @@
                                 <color key="textColor" name="txtGray"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaD-1S-jXi">
-                                <rect key="frame" x="1384" y="13" width="450" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaD-1S-jXi">
+                                <rect key="frame" x="1434" y="13" width="400" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="450" id="UNO-zR-cOR"/>
+                                    <constraint firstAttribute="width" constant="400" id="UNO-zR-cOR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="txtGray"/>
@@ -94,10 +96,10 @@
                             <constraint firstItem="eaD-1S-jXi" firstAttribute="top" secondItem="05a-uw-jWA" secondAttribute="top" id="Hs6-kh-vei"/>
                             <constraint firstAttribute="trailing" secondItem="LhO-wt-Dgs" secondAttribute="trailing" constant="30" id="OPn-mU-WAm"/>
                             <constraint firstItem="05a-uw-jWA" firstAttribute="leading" secondItem="Uk1-op-0W9" secondAttribute="leading" constant="24" id="OW8-d5-v8I"/>
-                            <constraint firstItem="fc9-0O-5j5" firstAttribute="leading" secondItem="fab-rQ-PBC" secondAttribute="trailing" constant="30" id="Qej-4S-u8J"/>
+                            <constraint firstItem="fc9-0O-5j5" firstAttribute="leading" secondItem="fab-rQ-PBC" secondAttribute="trailing" constant="20" id="Qej-4S-u8J"/>
                             <constraint firstItem="fab-rQ-PBC" firstAttribute="leading" secondItem="Gov-BT-5t5" secondAttribute="trailing" constant="50" id="U0x-ch-QDv"/>
                             <constraint firstItem="fab-rQ-PBC" firstAttribute="top" secondItem="05a-uw-jWA" secondAttribute="top" id="csb-DH-1qZ"/>
-                            <constraint firstItem="Gov-BT-5t5" firstAttribute="leading" secondItem="05a-uw-jWA" secondAttribute="trailing" constant="90" id="dEh-Iw-EvH"/>
+                            <constraint firstItem="Gov-BT-5t5" firstAttribute="leading" secondItem="05a-uw-jWA" secondAttribute="trailing" constant="40" id="dEh-Iw-EvH"/>
                             <constraint firstItem="LhO-wt-Dgs" firstAttribute="top" secondItem="05a-uw-jWA" secondAttribute="top" id="dFA-am-TTZ"/>
                             <constraint firstItem="eaD-1S-jXi" firstAttribute="leading" secondItem="dqS-cQ-ecG" secondAttribute="trailing" constant="60" id="iHD-Ov-XsR"/>
                             <constraint firstItem="fc9-0O-5j5" firstAttribute="top" secondItem="05a-uw-jWA" secondAttribute="top" id="iTA-88-g6b"/>

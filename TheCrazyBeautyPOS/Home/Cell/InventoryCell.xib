@@ -1,21 +1,137 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad10_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato_bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="InventoryCell" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="KGk-i7-Jjw" customClass="InventoryCell" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="1150" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="1150" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2p0-Xe-9Tj">
+                        <rect key="frame" x="0.0" y="0.0" width="1150" height="50"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t6k-X1-U3e">
+                                <rect key="frame" x="24" y="13" width="30" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="0JW-j0-v3l"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="txtGray"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hF-1o-Iar">
+                                <rect key="frame" x="144" y="13" width="380" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="350" id="tDq-XB-d3w"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="txtGray"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AQj-Lx-SSC">
+                                <rect key="frame" x="574" y="13" width="250" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="tdG-XO-5KB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="txtGray"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Qty" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5i-6R-70R">
+                                <rect key="frame" x="874" y="13" width="130" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="130" id="OQF-LX-OWM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="txtGray"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6d-7n-PgK">
+                                <rect key="frame" x="1082" y="11" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="AIa-J6-n5a"/>
+                                    <constraint firstAttribute="width" constant="28" id="dpQ-6d-zJg"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="delete"/>
+                                <connections>
+                                    <action selector="act_delete:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="LgO-Tb-Ia4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HD1-eF-sV8">
+                                <rect key="frame" x="1044" y="11" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="28" id="MDD-7k-jV1"/>
+                                    <constraint firstAttribute="height" constant="28" id="tAl-Ci-fGS"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="Edit"/>
+                                <connections>
+                                    <action selector="act_edit:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="D1b-ad-zGa"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="AQj-Lx-SSC" firstAttribute="leading" secondItem="0hF-1o-Iar" secondAttribute="trailing" constant="50" id="BD5-0m-1H5"/>
+                            <constraint firstItem="z6d-7n-PgK" firstAttribute="leading" secondItem="HD1-eF-sV8" secondAttribute="trailing" constant="10" id="FA7-G1-9xS"/>
+                            <constraint firstItem="HD1-eF-sV8" firstAttribute="leading" secondItem="o5i-6R-70R" secondAttribute="trailing" constant="40" id="IrJ-EF-qK4"/>
+                            <constraint firstItem="z6d-7n-PgK" firstAttribute="centerY" secondItem="2p0-Xe-9Tj" secondAttribute="centerY" id="JCj-bQ-7cs"/>
+                            <constraint firstItem="0hF-1o-Iar" firstAttribute="leading" secondItem="t6k-X1-U3e" secondAttribute="trailing" constant="90" id="Mo2-hd-SrV"/>
+                            <constraint firstItem="t6k-X1-U3e" firstAttribute="leading" secondItem="2p0-Xe-9Tj" secondAttribute="leading" constant="24" id="Zgw-nZ-Wwd"/>
+                            <constraint firstAttribute="trailing" secondItem="z6d-7n-PgK" secondAttribute="trailing" constant="40" id="b0j-Gn-0Ae"/>
+                            <constraint firstAttribute="height" constant="50" id="fjP-n2-AlO"/>
+                            <constraint firstItem="o5i-6R-70R" firstAttribute="top" secondItem="t6k-X1-U3e" secondAttribute="top" id="g4K-PC-4Pl"/>
+                            <constraint firstItem="HD1-eF-sV8" firstAttribute="centerY" secondItem="2p0-Xe-9Tj" secondAttribute="centerY" id="mW5-bT-ngH"/>
+                            <constraint firstItem="0hF-1o-Iar" firstAttribute="top" secondItem="t6k-X1-U3e" secondAttribute="top" id="orb-o3-dFv"/>
+                            <constraint firstItem="AQj-Lx-SSC" firstAttribute="top" secondItem="t6k-X1-U3e" secondAttribute="top" id="ucD-6x-JEZ"/>
+                            <constraint firstItem="o5i-6R-70R" firstAttribute="leading" secondItem="AQj-Lx-SSC" secondAttribute="trailing" constant="50" id="whV-vn-rmC"/>
+                            <constraint firstItem="t6k-X1-U3e" firstAttribute="centerY" secondItem="2p0-Xe-9Tj" secondAttribute="centerY" id="zSi-Nz-C2W"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="2p0-Xe-9Tj" secondAttribute="trailing" id="Qay-wc-Lcn"/>
+                    <constraint firstItem="2p0-Xe-9Tj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Yfs-lJ-RrH"/>
+                    <constraint firstAttribute="bottom" secondItem="2p0-Xe-9Tj" secondAttribute="bottom" id="a4Z-nz-ERb"/>
+                    <constraint firstItem="2p0-Xe-9Tj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="g2O-Kg-MVe"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lbl_no" destination="t6k-X1-U3e" id="8kP-Qu-Ukp"/>
+                <outlet property="lbl_price" destination="AQj-Lx-SSC" id="S0G-2c-Tbs"/>
+                <outlet property="lbl_productName" destination="0hF-1o-Iar" id="azH-Yf-B8t"/>
+                <outlet property="lbl_qty" destination="o5i-6R-70R" id="y5J-hl-JoH"/>
+            </connections>
+            <point key="canvasLocation" x="369.51219512195121" y="22.372881355932204"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="Edit" width="60" height="60"/>
+        <image name="delete" width="60" height="60"/>
+        <namedColor name="txtGray">
+            <color red="0.63137254901960782" green="0.63137254901960782" blue="0.63137254901960782" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

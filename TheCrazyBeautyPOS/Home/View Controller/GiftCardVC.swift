@@ -8,6 +8,19 @@
 import UIKit
 
 class GiftCardVC: UIViewController {
+    
+    @IBOutlet weak var scroll_vw: UIScrollView!
+    @IBOutlet weak var contentViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tbl_vw: UITableView!
+    @IBOutlet weak var txt_search: UITextField!
+    @IBOutlet weak var lbl_totalClient: UILabel!
+    
+    var inventoryList: [InventoryData] = []
+    var searchWorkItem: DispatchWorkItem?
+    var currentPage = 1
+    var totalCount = 0
+    var isLoadingMore = false
+    var hasMoreData = true
 
     override func viewDidLoad() {
         super.viewDidLoad()

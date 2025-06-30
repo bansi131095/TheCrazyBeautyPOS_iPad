@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad10_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato_bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -32,16 +37,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SOC-Jf-jnH">
-                                <rect key="frame" x="360" y="13" width="486" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="3KY-Zd-TQU"/>
-                                </constraints>
+                                <rect key="frame" x="360" y="13" width="540" height="24"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="txtGray"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Client Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lav-qP-ebt">
-                                <rect key="frame" x="866" y="13" width="170" height="24"/>
+                                <rect key="frame" x="920" y="13" width="170" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="170" id="VeX-oY-UTn"/>
                                 </constraints>
@@ -50,7 +52,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gender" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y8Y-AY-YYf">
-                                <rect key="frame" x="1106" y="13" width="200" height="24"/>
+                                <rect key="frame" x="1160" y="13" width="200" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="Vg3-9y-W8k"/>
                                 </constraints>
@@ -59,7 +61,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Action" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WdY-Z8-z54">
-                                <rect key="frame" x="1376" y="13" width="150" height="24"/>
+                                <rect key="frame" x="1400" y="13" width="150" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="glh-hk-brv"/>
                                 </constraints>
@@ -77,11 +79,11 @@
                             <constraint firstItem="rH6-1X-5r6" firstAttribute="leading" secondItem="H64-GV-Sp9" secondAttribute="leading" constant="40" id="UYv-Gx-NkF"/>
                             <constraint firstItem="lav-qP-ebt" firstAttribute="leading" secondItem="SOC-Jf-jnH" secondAttribute="trailing" constant="20" id="UqC-N5-eUb"/>
                             <constraint firstItem="Y8Y-AY-YYf" firstAttribute="leading" secondItem="lav-qP-ebt" secondAttribute="trailing" constant="70" id="Vgn-Oz-wTL"/>
-                            <constraint firstAttribute="trailing" secondItem="WdY-Z8-z54" secondAttribute="trailing" constant="24" id="bif-f8-V2a"/>
+                            <constraint firstAttribute="trailing" secondItem="WdY-Z8-z54" secondAttribute="trailing" id="bif-f8-V2a"/>
                             <constraint firstItem="rH6-1X-5r6" firstAttribute="centerY" secondItem="H64-GV-Sp9" secondAttribute="centerY" id="n4U-Zi-hqW"/>
                             <constraint firstItem="Y8Y-AY-YYf" firstAttribute="top" secondItem="rH6-1X-5r6" secondAttribute="top" id="qwK-3w-X1d"/>
                             <constraint firstAttribute="height" constant="50" id="rVG-8s-3ek"/>
-                            <constraint firstItem="WdY-Z8-z54" firstAttribute="leading" secondItem="Y8Y-AY-YYf" secondAttribute="trailing" constant="70" id="vua-nG-ap1"/>
+                            <constraint firstItem="WdY-Z8-z54" firstAttribute="leading" secondItem="Y8Y-AY-YYf" secondAttribute="trailing" constant="40" id="vua-nG-ap1"/>
                         </constraints>
                     </view>
                 </subviews>
