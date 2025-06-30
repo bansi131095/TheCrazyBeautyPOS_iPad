@@ -1136,6 +1136,19 @@ extension UIViewController
         }
     }
     
+    
+    func alertWithMessageOnly(_ message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        self.present(alert, animated: true)
+
+        // Auto-dismiss after 2 seconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            alert.dismiss(animated: true, completion: nil)
+        }
+    }
+
+    
+    
     func showAlertToast(message: String, sourceView: UIView? = nil) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .actionSheet)
 

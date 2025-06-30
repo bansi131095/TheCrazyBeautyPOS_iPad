@@ -57,6 +57,19 @@ class global: NSObject
     
     var URL_TEAM_DETAILS = global.server_url + "team_details"
     
+    var URL_CURRENCY_DETAILS = global.server_url + "currency_details"
+    var URL_UPDATE_CURRENCY = global.server_url + "update_currency"
+    
+    
+    var URL_UPDATE_BOOKINGFLOW = global.server_url + "update_bookingflow"
+    var URL_GET_BOOKINGFLOW = global.server_url + "get_bookingflow"
+    
+    
+    var URL_UPDATE_BANKDETAILS = global.server_url + "bank_details"
+    var URL_GET_BANKDETAILS = global.server_url + "get_bankdetails"
+    
+    
+    
     //MARK:-
     override init()
     {

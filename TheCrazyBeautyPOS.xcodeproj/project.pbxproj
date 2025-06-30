@@ -101,6 +101,11 @@
 		60BC2B5D2E0E5CCA0074822E /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60BC2B5B2E0E5CC90074822E /* ImageCell.xib */; };
 		60C15A8F2E0AB9740030A6F7 /* AddBankVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C15A8E2E0AB9740030A6F7 /* AddBankVC.swift */; };
 		60C15A912E0ACC4A0030A6F7 /* Payment&CancellationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C15A902E0ACC4A0030A6F7 /* Payment&CancellationVC.swift */; };
+		60D28A5D2E124A1200231F6B /* Salon_HolidayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D28A5C2E124A1200231F6B /* Salon_HolidayVC.swift */; };
+		60D28A602E124B8100231F6B /* HolidayDatesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D28A5E2E124B8100231F6B /* HolidayDatesCell.swift */; };
+		60D28A612E124B8100231F6B /* HolidayDatesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60D28A5F2E124B8100231F6B /* HolidayDatesCell.xib */; };
+		60D28A632E12557000231F6B /* CurrencyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D28A622E12557000231F6B /* CurrencyVC.swift */; };
+		60D28A652E125C6400231F6B /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D28A642E125C6300231F6B /* CurrencyModel.swift */; };
 		60E9F0452E0AD13F008E662E /* Team&LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E9F0442E0AD13F008E662E /* Team&LoginVC.swift */; };
 		60E9F0472E0AD626008E662E /* Booking_PreferenceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E9F0462E0AD626008E662E /* Booking_PreferenceVC.swift */; };
 		E486155DD4BD42A476F16BB4 /* Pods_TheCrazyBeautyPOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE4923AF5D4BD4857E6A3AD /* Pods_TheCrazyBeautyPOS.framework */; };
@@ -208,6 +213,11 @@
 		60BC2B5B2E0E5CC90074822E /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
 		60C15A8E2E0AB9740030A6F7 /* AddBankVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBankVC.swift; sourceTree = "<group>"; };
 		60C15A902E0ACC4A0030A6F7 /* Payment&CancellationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Payment&CancellationVC.swift"; sourceTree = "<group>"; };
+		60D28A5C2E124A1200231F6B /* Salon_HolidayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Salon_HolidayVC.swift; sourceTree = "<group>"; };
+		60D28A5E2E124B8100231F6B /* HolidayDatesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolidayDatesCell.swift; sourceTree = "<group>"; };
+		60D28A5F2E124B8100231F6B /* HolidayDatesCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HolidayDatesCell.xib; sourceTree = "<group>"; };
+		60D28A622E12557000231F6B /* CurrencyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyVC.swift; sourceTree = "<group>"; };
+		60D28A642E125C6300231F6B /* CurrencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
 		60E9F0442E0AD13F008E662E /* Team&LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Team&LoginVC.swift"; sourceTree = "<group>"; };
 		60E9F0462E0AD626008E662E /* Booking_PreferenceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booking_PreferenceVC.swift; sourceTree = "<group>"; };
 		6CE4923AF5D4BD4857E6A3AD /* Pods_TheCrazyBeautyPOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheCrazyBeautyPOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -325,6 +335,7 @@
 				60B9CA452E0A888E00CC1409 /* ServiceDetailsModel.swift */,
 				60B9CA462E0A888E00CC1409 /* ServicesModel.swift */,
 				60B9CA472E0A888E00CC1409 /* StaffResponse.swift */,
+				60D28A642E125C6300231F6B /* CurrencyModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -422,6 +433,8 @@
 				605E49D22E0D4B0F006858EF /* CategoryDescriptionCell.xib */,
 				60BC2B5A2E0E5CC90074822E /* ImageCell.swift */,
 				60BC2B5B2E0E5CC90074822E /* ImageCell.xib */,
+				60D28A5E2E124B8100231F6B /* HolidayDatesCell.swift */,
+				60D28A5F2E124B8100231F6B /* HolidayDatesCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -455,6 +468,8 @@
 				605E49D72E0D6B7D006858EF /* Salon_ImagesVC.swift */,
 				605F9F372E0EA8B100CDC73B /* Business_HoursVC.swift */,
 				605F9F392E0EC87B00CDC73B /* SalonOff_DaysVC.swift */,
+				60D28A5C2E124A1200231F6B /* Salon_HolidayVC.swift */,
+				60D28A622E12557000231F6B /* CurrencyVC.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -581,6 +596,7 @@
 				60B9CAB32E0A888E00CC1409 /* HomeMenuCell.xib in Resources */,
 				60B9CAB42E0A888E00CC1409 /* ServiceCell.xib in Resources */,
 				60B9CAB52E0A888E00CC1409 /* TeamCell.xib in Resources */,
+				60D28A612E124B8100231F6B /* HolidayDatesCell.xib in Resources */,
 				60B9CAB62E0A888E00CC1409 /* TeamHeaderCell.xib in Resources */,
 				60B9CAB72E0A888E00CC1409 /* TeamHeaderCell copy.xib in Resources */,
 				60B9CAB82E0A888E00CC1409 /* Home.storyboard in Resources */,
@@ -687,6 +703,7 @@
 				60B9CA902E0A888E00CC1409 /* ServiceDetailsModel.swift in Sources */,
 				60B9CA912E0A888E00CC1409 /* ServicesModel.swift in Sources */,
 				60E9F0452E0AD13F008E662E /* Team&LoginVC.swift in Sources */,
+				60D28A602E124B8100231F6B /* HolidayDatesCell.swift in Sources */,
 				60B9CA922E0A888E00CC1409 /* StaffResponse.swift in Sources */,
 				60B9CA932E0A888E00CC1409 /* BookingVC.swift in Sources */,
 				60B9CA942E0A888E00CC1409 /* ClientsVC.swift in Sources */,
@@ -707,9 +724,12 @@
 				60C15A8F2E0AB9740030A6F7 /* AddBankVC.swift in Sources */,
 				60B9CAA02E0A888E00CC1409 /* CategoriesCell.swift in Sources */,
 				60B9CAA12E0A888E00CC1409 /* SettingCell.swift in Sources */,
+				60D28A5D2E124A1200231F6B /* Salon_HolidayVC.swift in Sources */,
 				605F9F382E0EA8B100CDC73B /* Business_HoursVC.swift in Sources */,
 				60B9CAA22E0A888E00CC1409 /* ChangePasswordVC.swift in Sources */,
+				60D28A632E12557000231F6B /* CurrencyVC.swift in Sources */,
 				60B9CAA32E0A888E00CC1409 /* KioskUsersVC.swift in Sources */,
+				60D28A652E125C6400231F6B /* CurrencyModel.swift in Sources */,
 				605E49D32E0D4B0F006858EF /* CategoryDescriptionCell.swift in Sources */,
 				60B9CAA42E0A888E00CC1409 /* ProfileVC.swift in Sources */,
 				605E49CC2E0D346C006858EF /* Team_SequenceVC.swift in Sources */,
