@@ -17,12 +17,21 @@ class Slot_DurationVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.txt_SlotDuration.text = arr_SlotDuration[0]
-        select_Slot = "5 Minutes"
+        if let savedSlot = LocalData.setSlotDuration, arr_SlotDuration.contains(savedSlot) {
+            select_Slot = savedSlot
+        } else {
+            select_Slot = arr_SlotDuration[0]
+        }
+        txt_SlotDuration.text = select_Slot
     }
     
     @IBAction func btn_SlotDuration(_ sender: Any) {
         openSlotDuration()
+    }
+    
+    
+    @IBAction func btn_Save(_ sender: UIButton) {
+        update_TimeGap()
     }
     
     func openSlotDuration() {
@@ -37,20 +46,40 @@ class Slot_DurationVC: UIViewController {
         slotDuration.selectionAction = {  [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
             self.txt_SlotDuration.text = item
-            if index == 0{
-                select_Slot = "5 Minutes"
-            }else if index == 1{
-                select_Slot = "10 Minutes"
-            }else if index == 2{
-                select_Slot = "15 Minutes"
-            }else if index == 3{
-                select_Slot = "20 Minutes"
-            }else if index == 4{
-                select_Slot = "25 Minutes"
-            }else if index == 5{
-                select_Slot = "30 Minutes"
+            select_Slot = item
+            LocalData.setSlotDuration = item
+        }
+    }
+    
+    func getPenaltyDurationValue() -> String {
+        switch select_Slot {
+        case "5 Minutes":
+            return "5"
+        case "10 Minutes":
+            return "10"
+        case "15 Minutes":
+            return "15"
+        case "20 Minutes":
+            return "20"
+        case "25 Minutes":
+            return "25"
+        case "30 Minutes":
+            return "30"
+        default:
+            return "0"
+        }
+    }
+    
+    
+    func update_TimeGap(){
+        let selectedTimeGap = getPenaltyDurationValue() // e.g. "6", "10", etc.
+        
+        APIService.shared.updateTimeGap(vendorId: LocalData.userId, time_gap: selectedTimeGap) { result in
+            if result?.data != nil {
+                self.alertWithMessageOnly(result?.data ?? "")
+            } else {
+                self.alertWithMessageOnly(result?.error ?? "")
             }
-            print(select_Slot)
         }
     }
 }

@@ -100,6 +100,7 @@ class HomeVC: UIViewController {
         let sb = UIStoryboard(name: "Profile", bundle:nil)
         let vc = sb.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
         self.navigationController?.pushViewController(vc, animated: true)
+        vwPopup.isHidden = true
     }
     
     

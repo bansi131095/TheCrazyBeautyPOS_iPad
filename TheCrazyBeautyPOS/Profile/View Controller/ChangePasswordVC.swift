@@ -11,7 +11,6 @@ class ChangePasswordVC: UIViewController {
 
     //MARK: - Outlet
     @IBOutlet weak var txt_OldPassword: TextInputLayout!
-    
     @IBOutlet weak var txt_NewPassword: TextInputLayout!
     
     @IBOutlet weak var btn_Oeye: UIButton!
@@ -36,7 +35,7 @@ class ChangePasswordVC: UIViewController {
         }else if self.txt_NewPassword.text == "" {
             alertWithImage(title: "Change Password", Msg: "New Password is required.")
         }else {
-            
+            changePassword()
         }
     }
     
@@ -61,7 +60,17 @@ class ChangePasswordVC: UIViewController {
     }
     
     //MARK: - Function
-    //MARK: - Web Api Calling
-
     
+    //MARK: - Web Api Calling
+    func changePassword(){
+        APIService.shared.ChangePassword(vendorId: LocalData.userId, new_pass: self.txt_NewPassword.text ?? "", old_pass: self.txt_OldPassword.text ?? "") { result in
+            if let message = result?.data{
+                self.alertWithMessageOnly(message)
+                self.txt_NewPassword.text = ""
+                self.txt_OldPassword.text = ""
+            }else{
+                self.alertWithMessageOnly("Something went wrong.")
+            }
+        }
+    }
 }

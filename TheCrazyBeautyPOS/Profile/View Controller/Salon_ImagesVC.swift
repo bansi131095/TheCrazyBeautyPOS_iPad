@@ -20,6 +20,9 @@ class Salon_ImagesVC: UIViewController {
     
     //MARK: - Global Variable
     var arr_photo: [UIImage] = []
+    var profileModel: [profileDetailsModel] = []
+    var galleryImageArray: [String] = []
+
     
     //MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -27,6 +30,7 @@ class Salon_ImagesVC: UIViewController {
         self.cv_HeightConst.constant = 0
         self.cv_Imgs.isHidden = true
         setCollectCategory()
+        get_Image()
     }
     
     override func viewDidLayoutSubviews() {
@@ -61,9 +65,9 @@ class Salon_ImagesVC: UIViewController {
     
     func updateCollectionViewHeight() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    self.cv_Imgs.layoutIfNeeded()
-                    self.cv_HeightConst.constant = self.cv_Imgs.collectionViewLayout.collectionViewContentSize.height
-                }
+            self.cv_Imgs.layoutIfNeeded()
+            self.cv_HeightConst.constant = self.cv_Imgs.collectionViewLayout.collectionViewContentSize.height
+        }
     }
     
     //MARK: - OPEN ACTIONSHEET FOR SELECT PHOTOS
@@ -154,17 +158,62 @@ class Salon_ImagesVC: UIViewController {
         return image
     }
     //MARK: - Web Api Calling
+    func get_Image() {
+        APIService.shared.fetchProfileImage { result in
+            guard let model = result?.data.first else {
+                print("⚠️ No profile data found")
+                return
+            }
 
+            let imgUrl = global.imageUrl_Profile + (model.profile_photo ?? "")
+            print("🌐 Loading image from: \(imgUrl)")
+            
+            if let galleryString = model.gallery_images, !galleryString.isEmpty {
+                self.galleryImageArray = galleryString
+                    .components(separatedBy: ", ")
+                    /*.map { $0.trimmingCharacters(in: .whitespacesAndNewlines)
+                    }*/
+                DispatchQueue.main.async {
+                    self.cv_Imgs.isHidden = false
+                    self.cv_Imgs.reloadData()
+                    self.cv_HeightConst.constant = 600
+                }
+            }
+            
+            if let url = URL(string: imgUrl) {
+                self.img_Profile.sd_setImage(with: url, placeholderImage: UIImage(named: "ProductDemo")) { image, error, _, _ in
+                    if let error = error {
+                        print("❌ Failed to load image: \(error.localizedDescription)")
+                        self.img_Profile.image = UIImage(named: "ProductDemo")
+                    } else {
+                        print("✅ Image loaded successfully")
+                        self.img_Profile.image = image
+                    }
+                }
+            } else {
+                print("❌ Invalid URL: \(imgUrl)")
+                self.img_Profile.image = UIImage(named: "ProductDemo")
+            }
+        }
+    }
 }
+
 extension Salon_ImagesVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.arr_photo.count
+        return self.galleryImageArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = self.cv_Imgs.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
-        cell.img_Upload.image = self.arr_photo[indexPath.row]
+        let imageName = galleryImageArray[indexPath.item]
+        let imgUrl = global.imageUrl_Profile + imageName
+        
+        if let url = URL(string: imgUrl) {
+            cell.img_Upload.sd_setImage(with: url, placeholderImage: UIImage(named: "ProductDemo"))
+        }else{
+            cell.img_Upload.image = UIImage(named: "ProductDemo")
+        }
         cell.btn_Delete.tag = indexPath.row
         return cell
     }

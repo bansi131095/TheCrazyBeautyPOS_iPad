@@ -51,7 +51,11 @@ class Booking_PreferenceVC: UIViewController {
     //MARK: - Web Api Calling
     func call_BookingFlow(){
         APIService.shared.UpdateBookingFlow(booking_flow: booking_Flow, vendorId: LocalData.userId, completion: { result in
-            self.alertWithMessageOnly(result?.data ?? "")
+            if let message = result?.data{
+                self.alertWithMessageOnly(message)
+            }else{
+                self.alertWithMessageOnly("Something went wrong.")
+            }
         })
     }
     

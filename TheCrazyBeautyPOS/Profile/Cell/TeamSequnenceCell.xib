@@ -40,6 +40,11 @@
                             <constraint firstAttribute="width" constant="50" id="Zyt-3e-ODF"/>
                             <constraint firstAttribute="height" constant="50" id="pu2-st-SYX"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="25"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team Sequence" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6R-5u-nsG">
                         <rect key="frame" x="70" y="10" width="559" height="50"/>
@@ -51,7 +56,7 @@
                         <rect key="frame" x="710" y="10" width="400" height="50"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="160-JD-6aF">
-                                <rect key="frame" x="5" y="0.0" width="390" height="50"/>
+                                <rect key="frame" x="12" y="0.0" width="376" height="50"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
@@ -59,10 +64,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="160-JD-6aF" firstAttribute="top" secondItem="Xp2-lw-eRR" secondAttribute="top" id="1KE-wQ-HGi"/>
-                            <constraint firstItem="160-JD-6aF" firstAttribute="leading" secondItem="Xp2-lw-eRR" secondAttribute="leading" constant="5" id="VDm-Xz-Ifg"/>
+                            <constraint firstItem="160-JD-6aF" firstAttribute="leading" secondItem="Xp2-lw-eRR" secondAttribute="leading" constant="12" id="VDm-Xz-Ifg"/>
                             <constraint firstAttribute="bottom" secondItem="160-JD-6aF" secondAttribute="bottom" id="VKL-Px-deM"/>
                             <constraint firstAttribute="height" constant="50" id="dKs-MF-wTu"/>
-                            <constraint firstAttribute="trailing" secondItem="160-JD-6aF" secondAttribute="trailing" constant="5" id="k0U-Qi-7TJ"/>
+                            <constraint firstAttribute="trailing" secondItem="160-JD-6aF" secondAttribute="trailing" constant="12" id="k0U-Qi-7TJ"/>
                             <constraint firstAttribute="width" constant="400" id="zGA-E1-Mwa"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>

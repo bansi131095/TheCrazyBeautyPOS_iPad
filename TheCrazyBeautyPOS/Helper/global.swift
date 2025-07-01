@@ -20,6 +20,7 @@ class global: NSObject
 //    GOOGLE_MAP_KEY_RUSH_MALL=AIzaSyDNE-nH7aaKw21nG3yVaDtPZQm-6yaqHh8
     
     static let base_url = "https://staging.thecrazybeauty.com/"
+    
 //    static let base_url = "https://api.thecrazybeauty.com/" // LIVE
     static let server_url = global.base_url + "api/"
     
@@ -43,6 +44,8 @@ class global: NSObject
 
     let PROFILE_IMG_PATH = global.base_url + "images/Profiles/"
     static let imageUrl = global.base_url + "uploads/";
+    
+    static let imageUrl_Profile = global.base_url + "upload/"
     static let reportUrl = global.base_url + "uploads/reports/";
     
     //Common Parameter
@@ -67,6 +70,22 @@ class global: NSObject
     
     var URL_UPDATE_BANKDETAILS = global.server_url + "bank_details"
     var URL_GET_BANKDETAILS = global.server_url + "get_bankdetails"
+    
+    var URL_GET_NOTES = global.server_url + "get_notes"
+    var URL_UPDATE_NOTES = global.server_url + "update_notes"
+    
+    
+    var URL_GET_Amount = global.server_url + "get_amount"
+    var URL_UPDATE_Amount = global.server_url + "update_amount"
+    
+    var URL_Team_Details = global.server_url + "team_details"
+    var URL_GET_STAFFSEQUENCE = global.server_url + "get_staffsequence"
+    var URL_UPDATE_STAFFSEQUENCE = global.server_url + "update_staffsequence"
+    
+    var URL_UPDATE_TIMEGAP = global.server_url + "update_timegap"
+    var URL_CHANGE_PASSWORD = global.server_url + "change_password"
+    
+    var URL_GET_IMAGE = global.server_url + "get_images"
     
     
     

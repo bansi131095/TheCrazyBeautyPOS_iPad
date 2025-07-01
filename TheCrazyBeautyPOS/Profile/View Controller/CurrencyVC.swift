@@ -17,6 +17,7 @@ class CurrencyVC: UIViewController {
     var CurrencyList: [CurrencyData] = []
     var symbol = String()
     var selectedCurrencyCode: String?
+    var is_selectedCurrencyCode: String?
 
     
     override func viewDidLoad() {
@@ -31,85 +32,60 @@ class CurrencyVC: UIViewController {
     @IBAction func btn_Save(_ sender: Any) {
         call_UpdateCurrencyAPI()
     }
-
-    func openCurrency() {
-        let itemArray = self.CurrencyList.map { $0.currency_code }
-
-        let dropDown = DropDown()
-        dropDown.anchorView = txt_Currency
-        dropDown.bottomOffset = CGPoint(x: 0, y: txt_Currency.bounds.height)
-        dropDown.direction = .bottom
-        dropDown.dataSource = itemArray
-        dropDown.cellHeight = 35
-
-        // ✅ Safely select previously selected item
-        if let current = selectedCurrencyCode,
-           let index = itemArray.firstIndex(of: current) {
-            dropDown.selectRow(index)
-        }
-
-        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            self.txt_Currency.text = item
-            self.selectedCurrencyCode = item
-            
-            if let selected = self.CurrencyList.first(where: { $0.currency_code == item }) {
-                self.symbol = selected.symbol
-            }
-        }
-
-        dropDown.show()
-    }
-        
     
-    /*func openCurrency() {
-        var itemArray: [String] = []
+    func openCurrency() {
+       var itemArray: [String] = []
 
-        for i in self.CurrencyList {
-            itemArray.append(i.currency_code)
-        }
-        
-        
-        let slotDuration = DropDown()
-        slotDuration.anchorView = txt_Currency
-        slotDuration.bottomOffset = CGPoint(x: 0, y: (slotDuration.anchorView?.plainView.bounds.height) ?? 0)
-        slotDuration.direction = .bottom
-        slotDuration.dataSource = itemArray
-        slotDuration.cellHeight = 35
-        slotDuration.show()
+       for i in self.CurrencyList {
+           itemArray.append(i.currency_code)
+       }
 
-        slotDuration.selectionAction = { [unowned self] (index: Int, item: String) in
-            print("Selected item: \(item) at index: \(index)")
-            txt_Currency.text = item
-            for i in self.CurrencyList{
-                let topic : String = i.currency_code
-                if topic == item{
-                    txt_Currency.text = i.currency_code
-                    symbol = i.symbol
-                    break
-                }
-            }
-        }
-    }*/
+       let slotDuration = DropDown()
+       slotDuration.anchorView = txt_Currency
+       slotDuration.bottomOffset = CGPoint(x: 0, y: (slotDuration.anchorView?.plainView.bounds.height) ?? 0)
+       slotDuration.direction = .bottom
+       slotDuration.dataSource = itemArray
+       slotDuration.cellHeight = 35
+       slotDuration.show()
+
+       slotDuration.selectionAction = { [unowned self] (index: Int, item: String) in
+           txt_Currency.text = item
+           for i in self.CurrencyList {
+               if i.currency_code == item {
+                   txt_Currency.text = i.currency_code
+                   selectedCurrencyCode = i.currency_code
+                   symbol = i.symbol
+
+                   LocalData.selectedCurrencyCode = selectedCurrencyCode
+                   LocalData.selectedSymbol = symbol
+                   break
+               }
+           }
+       }
+    }
     
     func call_CurrencyAPI() {
         APIService.shared.fetchSalonCurrency { CurrencyResult in
             guard let data = CurrencyResult?.data else { return }
             self.CurrencyList = data
             
-            if let selected = self.CurrencyList.first(where: { $0.is_selected }) {
-                self.txt_Currency.text = selected.currency_code
-                self.symbol = selected.symbol
-                self.selectedCurrencyCode = selected.currency_code
-            }else if let first = self.CurrencyList.first {
-                self.txt_Currency.text = first.currency_code
-                self.symbol = first.symbol
-                self.selectedCurrencyCode = first.currency_code
+            if let savedCode = LocalData.selectedCurrencyCode {
+                if let selected = self.CurrencyList.first(where: { $0.currency_code == savedCode }) {
+                    self.txt_Currency.text = selected.currency_code
+                    self.selectedCurrencyCode = selected.currency_code
+                    self.symbol = selected.symbol
+                }
+            }else{
+                self.txt_Currency.text = self.CurrencyList[0].currency_code
+                self.selectedCurrencyCode = self.CurrencyList[0].currency_code
+                self.symbol = self.CurrencyList[0].symbol
             }
         }
     }
     
     func call_UpdateCurrencyAPI() {
         APIService.shared.UpdateCurrency(currency: self.txt_Currency.text ?? "", symbol: symbol, vendorId: LocalData.userId, completion: { result in
+            self.alertWithMessageOnly(result?.data ?? "")
         })
     }
 }

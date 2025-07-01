@@ -27,7 +27,7 @@ class CurrencyData : Mappable{
     
     var symbol: String = ""
     var currency_code: String = ""
-    let is_selected = Bool()
+    var is_selected = Bool()
     
     init() {}
 
@@ -55,7 +55,7 @@ class CurrencyResponse: Mappable {
 }
 
 
-
+//Booking FLOW
 class BookingFlow : Mappable {
     
     var data: BookingFlowData?
@@ -80,7 +80,7 @@ class BookingFlowData : Mappable{
     }
 }
 
-
+//BANK DETAILS
 class BankDetailsResponse: Mappable {
     var data: [BankDetailData]?
     var error: String?
@@ -126,5 +126,215 @@ class BankDetailsOne: Mappable {
         accountHolderName <- map["account holder name"]
         accountNumber     <- map["account number"]
     }
+}
+
+
+//NOTES
+class NotesModel: Mappable {
+    var data: [GetNotesModel] = []
+    var error: String = ""
+
+    init() {}
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data  <- map["data"]
+        error <- map["error"]
+    }
+}
+
+class GetNotesModel: Mappable {
+    var notes: String = ""
+    
+    init() {}
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        notes <- map["notes"]
+    }
+}
+
+
+//AMOUNT
+class AmountModel: Mappable {
+//    var data: [GetAmountModel] = []
+    var data: [GetAmountModel]?
+    var error: String = ""
+
+    init() {}
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data  <- map["data"]
+        error <- map["error"]
+    }
+}
+
+class GetAmountModel: Mappable {
+    var advance_pay: Int = 0
+    var penalty_fees: Int = 0
+    var penalty_duration: Int = 0
+    var cancellation_policy: String?
+    
+    init() {}
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        advance_pay <- map["advance_pay"]
+        penalty_fees <- map["penalty_fees"]
+        penalty_duration <- map["penalty_duration"]
+        cancellation_policy <- map["cancellation_policy"]
+    }
+}
+
+
+// Team_Details
+class TeamModel: Mappable {
+    
+    var total: Int = 0
+    var totalpages: Int = 0
+    var data: [TeamDetailsModel] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        total        <- map["total"]
+        totalpages   <- map["totalpages"]
+        data         <- map["data"]
+        error        <- map["error"]
+    }
+}
+
+class TeamDetailsModel: Mappable {
+    
+    var id: Int = 0
+    var vendor_id: Int = 0
+    var service_ids: String = ""
+    var first_name: String = ""
+    var last_name: String = ""
+    var email: String = ""
+    var phone: String = ""
+    var dob: String = ""
+    var photo: String = ""
+    var gender: String = ""
+    var job_title: String = ""
+    var job_bio: String?
+    var working_hours: String = ""
+    var shift_timings: String = ""
+    var block_timings: String = ""
+    var holiday_dates: String?
+    var show_customer: Int = 0
+    var show_in_calandar: Int = 0
+    var average_rating: String?
+    var is_deleted: Int = 0
+    var created_at: String = ""
+    var updated_at: String?
+    var status: String?
+    var total_hours: String = ""
+    var sequence: String = ""
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id                <- map["id"]
+        vendor_id         <- map["vendor_id"]
+        service_ids       <- map["service_ids"]
+        first_name        <- map["first_name"]
+        last_name         <- map["last_name"]
+        email             <- map["email"]
+        phone             <- map["phone"]
+        dob               <- map["dob"]
+        photo             <- map["photo"]
+        gender            <- map["gender"]
+        job_title         <- map["job_title"]
+        job_bio           <- map["job_bio"]
+        working_hours     <- map["working_hours"]
+        shift_timings     <- map["shift_timings"]
+        block_timings     <- map["block_timings"]
+        holiday_dates     <- map["holiday_dates"]
+        show_customer     <- map["show_customer"]
+        show_in_calandar  <- map["show_in_calandar"]
+        average_rating    <- map["average_rating"]
+        is_deleted        <- map["is_deleted"]
+        created_at        <- map["created_at"]
+        updated_at        <- map["updated_at"]
+        status            <- map["status"]
+        total_hours       <- map["total_hours"]
+    }
+}
+
+
+//StaffSequenceModel
+
+class GetStaffSequenceModel: Mappable {
+    var data: [StaffSequenceWrapper] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data   <- map["data"]
+        error  <- map["error"]
+    }
+}
+
+
+class StaffSequenceWrapper: Mappable {
+    var staff_sequence: String = ""
+    var staffSequenceArray: [StaffSequenceItem] = []
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        staff_sequence <- map["staff_sequence"]
+
+        // Decode JSON string to array
+        if let data = staff_sequence.data(using: .utf8) {
+            if let decoded = try? JSONDecoder().decode([StaffSequenceItem].self, from: data) {
+                self.staffSequenceArray = decoded
+            }
+        }
+    }
+}
+
+struct StaffSequenceItem: Codable {
+    let staff_id: String
+    let sequence: String
+}
+
+//Profile
+class ProfileModel: Mappable {
+    
+    var data: [profileDetailsModel] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data         <- map["data"]
+        error        <- map["error"]
+    }
+}
+
+class profileDetailsModel: Mappable {
+    
+    
+    var id: Int?
+    var profile_photo: String?
+    var gallery_images: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id                   <- map["id"]
+        profile_photo        <- map["profile_photo"]
+        gallery_images        <- map["gallery_images"]
+    }
+    
 }
 

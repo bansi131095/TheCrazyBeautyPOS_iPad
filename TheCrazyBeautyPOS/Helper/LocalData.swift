@@ -34,6 +34,11 @@ class LocalData {
     static var isStaffLogin: Bool = false
 
     static var allStaffIds: String = ""
+    
+    static var selectedCurrencyCode: String?
+    static var selectedSymbol: String?
+    static var setSlotDuration: String?
+    
     // Assuming SearchBookedData is a custom struct/class in your app,
     // declare it accordingly. Here, just an example empty array placeholder.
 //    static var searchSelectServiceBooking: [SearchBookedData] = []
