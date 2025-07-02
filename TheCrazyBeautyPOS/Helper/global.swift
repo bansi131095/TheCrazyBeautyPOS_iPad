@@ -86,6 +86,14 @@ class global: NSObject
     var URL_CHANGE_PASSWORD = global.server_url + "change_password"
     
     var URL_GET_IMAGE = global.server_url + "get_images"
+    var URL_ADD_IMAGE = global.server_url + "add_images"
+    
+    var URL_UPDATE_REMINDERMAIL = global.server_url + "update_remindermail"
+    var URL_SELECT_SERVICES = global.server_url + "select_services"
+    var URL_SELECT_MAINCATEGORY = global.server_url + "select_maincategory"
+    var URL_CATEGORY_DESCRIPTION = global.server_url + "category_description"
+    var URL_UPDATE_CATEGORY_DESCRIPTION = global.server_url + "update_category_description"
+    
     
     
     

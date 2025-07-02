@@ -11,6 +11,12 @@ import Photos
 import SDWebImage
 
 
+struct DisplayImage {
+    var imageUrl: String?
+    var image: UIImage?
+}
+
+
 class Salon_ImagesVC: UIViewController {
 
     //MARK: - Outlet
@@ -19,10 +25,10 @@ class Salon_ImagesVC: UIViewController {
     @IBOutlet weak var cv_HeightConst: NSLayoutConstraint!
     
     //MARK: - Global Variable
-    var arr_photo: [UIImage] = []
+//    var arr_photo: [UIImage] = []
     var profileModel: [profileDetailsModel] = []
-    var galleryImageArray: [String] = []
-
+//    var galleryImageArray: [String] = []
+    var allImages: [DisplayImage] = []
     
     //MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -45,15 +51,22 @@ class Salon_ImagesVC: UIViewController {
     }
     
     @IBAction func btn_UploadImage(_ sender: Any) {
-        if arr_photo.count >= 5{
+        if allImages.count >= 5{
             print("Photo photo")
         }else{
             self.showActionSheet()
         }
+        /*if arr_photo.count >= 5{
+            print("Photo photo")
+        }else{
+            self.showActionSheet()
+        }*/
         
     }
     
     @IBAction func btn_Save(_ sender: Any) {
+        print("🟢 Save button tapped")
+        upload_Image()
     }
     
     //MARK: - Function
@@ -128,21 +141,20 @@ class Salon_ImagesVC: UIViewController {
             for imageData in assets  {
                 if imageData.mediaType == .image {
                     let imageData1 = self.convertImageFromAsset(asset: imageData)
-                    self.arr_photo.append(imageData1)
+//                    self.arr_photo.append(imageData1)
+                    self.allImages.append(DisplayImage(imageUrl: nil, image: imageData1))
                     self.cv_Imgs.isHidden = false
                     self.cv_Imgs.reloadData()
                     self.cv_HeightConst.constant = 600
-//                    self.updateCollectionViewHeight()
                 }
             }
-            DispatchQueue.main.async(){
+            /*DispatchQueue.main.async(){
                 if self.arr_photo.count != 0 {
                     self.cv_Imgs.isHidden = false
                     self.cv_Imgs.reloadData()
                     self.cv_HeightConst.constant = 600
-//                    self.updateCollectionViewHeight()
                 }
-            }
+            }*/
         }, completion: nil)
     }
 
@@ -159,48 +171,167 @@ class Salon_ImagesVC: UIViewController {
     }
     //MARK: - Web Api Calling
     func get_Image() {
-        APIService.shared.fetchProfileImage { result in
-            guard let model = result?.data.first else {
-                print("⚠️ No profile data found")
-                return
-            }
-
-            let imgUrl = global.imageUrl_Profile + (model.profile_photo ?? "")
-            print("🌐 Loading image from: \(imgUrl)")
-            
-            if let galleryString = model.gallery_images, !galleryString.isEmpty {
-                self.galleryImageArray = galleryString
-                    .components(separatedBy: ", ")
-                    /*.map { $0.trimmingCharacters(in: .whitespacesAndNewlines)
-                    }*/
-                DispatchQueue.main.async {
-                    self.cv_Imgs.isHidden = false
-                    self.cv_Imgs.reloadData()
-                    self.cv_HeightConst.constant = 600
+            APIService.shared.fetchProfileImage { result in
+                guard let model = result?.data.first else {
+                    print("⚠️ No profile data found")
+                    return
                 }
-            }
-            
-            if let url = URL(string: imgUrl) {
-                self.img_Profile.sd_setImage(with: url, placeholderImage: UIImage(named: "ProductDemo")) { image, error, _, _ in
-                    if let error = error {
-                        print("❌ Failed to load image: \(error.localizedDescription)")
-                        self.img_Profile.image = UIImage(named: "ProductDemo")
-                    } else {
-                        print("✅ Image loaded successfully")
-                        self.img_Profile.image = image
+
+                // Load profile image
+                let imgUrl = global.imageUrl_Profile + (model.profile_photo ?? "")
+                if let url = URL(string: imgUrl) {
+                    self.img_Profile.sd_setImage(with: url, placeholderImage: UIImage(named: "ProductDemo"))
+                }
+
+                // Load gallery images
+                if let galleryString = model.gallery_images, !galleryString.isEmpty {
+                    let galleryImages = galleryString
+                        .components(separatedBy: ", ")
+
+                    self.allImages = galleryImages.map {
+                        DisplayImage(imageUrl: global.imageUrl_Profile + $0, image: nil)
+                    }
+
+                    DispatchQueue.main.async {
+                        self.cv_Imgs.isHidden = false
+                        self.cv_Imgs.reloadData()
+                        self.cv_HeightConst.constant = 600
                     }
                 }
+            }
+        }
+    
+    /*func upload_Image() {
+        // 1. Separate new and existing images
+        let newImages = allImages.filter { $0.image != nil }.compactMap { $0.image }
+
+        let oldImageNames = allImages.compactMap { display -> String? in
+            guard let fullUrl = display.imageUrl else { return nil }
+            return fullUrl.replacingOccurrences(of: global.imageUrl_Profile, with: "")
+        }
+
+        // 2. Prepare profile image from img_Profile (loaded from URL)
+        guard let profileImage = img_Profile.image else {
+            self.showAlertToast(message: "Profile photo not available")
+            return
+        }
+
+        print("🟢 Starting upload...")
+            print("➡️ New Images Count: \(newImages.count)")
+            print("➡️ Existing Images: \(oldImageNames)")
+        
+        // 3. Upload the data
+        APIService.shared.uploadSalonImages(
+            vendorId: LocalData.userId,
+            photo: profileImage, // ✅ use the image loaded in img_Profile
+            photos: newImages,
+            otherPhotos: oldImageNames
+        ) { response in
+            if let res = response {
+                print("✅ Upload Success: \(res)")
+                self.alertWithMessageOnly("Images uploaded successfully!")
             } else {
-                print("❌ Invalid URL: \(imgUrl)")
-                self.img_Profile.image = UIImage(named: "ProductDemo")
+                print("❌ Upload failed")
+                self.alertWithMessageOnly("Upload failed, please try again.")
+            }
+        }
+    }*/
+    
+    func upload_Image() {
+        // 1. Separate profile image (from imageView)
+        guard let profileImage = img_Profile.image else {
+            self.alertWithMessageOnly("Profile image not set.")
+            return
+        }
+
+        // 2. Get all new (local) images picked from gallery/camera
+        let galleryImages = allImages.filter { $0.image != nil }.compactMap { $0.image }
+
+        // 3. Get all old image filenames (not URLs, just names like photo-xxx.png)
+        let oldImageNames: [String] = allImages.compactMap { display -> String? in
+            guard let fullUrl = display.imageUrl else { return nil }
+            return fullUrl.replacingOccurrences(of: global.imageUrl_Profile, with: "")
+        }
+
+        // 4. Call the API
+        APIService.shared.uploadSalonImages(
+            vendorId: LocalData.userId,
+            photo: profileImage,
+            photos: galleryImages,
+            otherPhotos: oldImageNames
+        ) { response in
+            if let result = response {
+                print("✅ Upload complete: \(result)")
+                self.alertWithMessageOnly("Images uploaded successfully.")
+            } else {
+                print("❌ Upload failed or response error")
+                self.alertWithMessageOnly("Upload failed. Try again.")
             }
         }
     }
+
+
+    
 }
 
 extension Salon_ImagesVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return allImages.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
+
+        let item = allImages[indexPath.item]
+        if let urlStr = item.imageUrl, let url = URL(string: urlStr) {
+            print("🌐 Loading gallery image from URL: \(urlStr)")
+            cell.img_Upload.sd_setImage(with: url, placeholderImage: UIImage(named: "ProductDemo"))
+        } else if let localImage = item.image {
+            print("📸 Displaying picked image")
+            cell.img_Upload.image = localImage
+        }
+
+        cell.btn_Delete.tag = indexPath.item
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: cv_Imgs.frame.width / 3 - 10, height: cv_Imgs.frame.width / 3 - 10)
+    }
+}
+
+extension Salon_ImagesVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+
+        if let pickedImage = info[.originalImage] as? UIImage {
+            // Append the image to your data source
+            self.allImages.append(DisplayImage(imageUrl: nil, image: pickedImage))
+
+            // Reload collection view
+            DispatchQueue.main.async {
+                self.cv_Imgs.isHidden = false
+                self.cv_Imgs.reloadData()
+                self.cv_HeightConst.constant = 600
+            }
+        }
+
+        picker.dismiss(animated: true, completion: nil)
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+
+
+/*extension Salon_ImagesVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("COUNT:-\(self.galleryImageArray.count)")
         return self.galleryImageArray.count
     }
     
@@ -208,12 +339,8 @@ extension Salon_ImagesVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         let cell = self.cv_Imgs.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
         let imageName = galleryImageArray[indexPath.item]
         let imgUrl = global.imageUrl_Profile + imageName
-        
-        if let url = URL(string: imgUrl) {
-            cell.img_Upload.sd_setImage(with: url, placeholderImage: UIImage(named: "ProductDemo"))
-        }else{
-            cell.img_Upload.image = UIImage(named: "ProductDemo")
-        }
+        print("📷 Loading gallery image at: \(imgUrl)")
+        cell.img_Upload.sd_setImage(with: URL(string: imgUrl), placeholderImage: UIImage(named: "ProductDemo"))
         cell.btn_Delete.tag = indexPath.row
         return cell
     }
@@ -227,9 +354,9 @@ extension Salon_ImagesVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         self.cv_Imgs.reloadData()
     }
     
-}
+}*/
 
-extension Salon_ImagesVC :UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+/*extension Salon_ImagesVC :UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
@@ -242,4 +369,6 @@ extension Salon_ImagesVC :UIImagePickerControllerDelegate, UINavigationControlle
         }
         self.dismiss(animated: true, completion: nil)
     }
-}
+}*/
+
+

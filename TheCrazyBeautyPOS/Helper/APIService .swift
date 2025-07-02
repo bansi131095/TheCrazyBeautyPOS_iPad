@@ -725,5 +725,301 @@ class APIService {
             }
         }
     }
+    
+    /*func uploadSalonImages(vendorId: String,
+                           photo: UIImage?,
+                           photos: [UIImage],
+                           otherPhotos: [String],
+                           completion: @escaping (CurrencyResponse?) -> Void) {
+        
+        let url = global.shared.URL_ADD_IMAGE + "/\(LocalData.userId)"
+        
+        
+        AF.upload(multipartFormData: { multipartFormData in
+            
+            // Add vendor_id
+            multipartFormData.append(Data(vendorId.utf8), withName: "vendor_id")
+            
+            // Add main photo (optional)
+            if let mainPhoto = photo {
+                if let pngData = mainPhoto.pngData() {
+                    multipartFormData.append(pngData, withName: "photo", fileName: "photo.png", mimeType: "image/png")
+                } else if let jpegData = mainPhoto.jpegData(compressionQuality: 0.8) {
+                    multipartFormData.append(jpegData, withName: "photo", fileName: "photo.jpg", mimeType: "image/jpeg")
+                }
+            }
+            
+            // Add multiple new photos
+            for (index, image) in photos.enumerated() {
+                if let pngData = image.pngData() {
+                    multipartFormData.append(pngData, withName: "photos[]", fileName: "photo_\(index).png", mimeType: "image/png")
+                } else if let jpegData = image.jpegData(compressionQuality: 0.8) {
+                    multipartFormData.append(jpegData, withName: "photos[]", fileName: "photo_\(index).jpg", mimeType: "image/jpeg")
+                }
+            }
+            
+            // Add already uploaded image names
+            if let jsonData = try? JSONSerialization.data(withJSONObject: otherPhotos, options: []),
+               let jsonString = String(data: jsonData, encoding: .utf8) {
+                multipartFormData.append(Data(jsonString.utf8), withName: "other_photos")
+            }
+            
+        }, to: url, method: .post, headers: HTTPHeaders(headers))
+        .responseObject { (response: DataResponse<CurrencyResponse, AFError>) in
+            
+            print("🌐 URL: \(url)")
+            
+            
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let raw = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(raw)")
+                }
+                print("✅ Parsed Response: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Upload Failed: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }*/
+    func uploadSalonImages(
+            vendorId: String,
+            photo: UIImage?,
+            photos: [UIImage],
+            otherPhotos: [String],
+            completion: @escaping (CurrencyResponse?) -> Void
+        ) {
+            let url = global.shared.URL_ADD_IMAGE + "/\(LocalData.userId)"
+
+            AF.upload(multipartFormData: { multipartFormData in
+                // vendor_id
+                multipartFormData.append(Data(vendorId.utf8), withName: "vendor_id")
+
+                // profile photo
+                if let profileImage = photo,
+                   let jpegData = profileImage.jpegData(compressionQuality: 0.7) {
+                    multipartFormData.append(jpegData, withName: "photo", fileName: "profile.jpg", mimeType: "image/jpeg")
+                    print("📸 Appended profile photo")
+                }
+
+                // new photos
+                for (index, image) in photos.enumerated() {
+                    if let imageData = image.jpegData(compressionQuality: 0.7) {
+                        multipartFormData.append(imageData, withName: "photos", fileName: "photo_\(index).png", mimeType: "image/png")
+                        print("📸 Appended gallery image \(index)")
+                    }
+                }
+
+                // existing photo names (comma-separated string)
+                let joinedPhotos = otherPhotos.joined(separator: ",")
+                multipartFormData.append(Data(joinedPhotos.utf8), withName: "other_photos")
+                print("📎 Appended old image names: \(joinedPhotos)")
+
+            }, to: url, method: .post, headers: HTTPHeaders(headers))
+            .responseJSON { response in
+                print("🌐 Request to: \(url)")
+                
+                if let status = response.response?.statusCode {
+                    print("✅ Status Code: \(status)")
+                }
+
+                switch response.result {
+                case .success(let json):
+                    print("📦 Raw JSON: \(json)")
+
+                    if let mapped = Mapper<CurrencyResponse>().map(JSONObject: json) {
+                        print("✅ Mapped Response: \(mapped)")
+                        completion(mapped)
+                    } else {
+                        print("❌ Mapping failed")
+                        completion(nil)
+                    }
+
+                case .failure(let error):
+                    print("❌ Upload failed: \(error.localizedDescription)")
+                    completion(nil)
+                }
+            }
+        }
+    
+    func UpdateReminderMail(reminder_mail: String,vendorId: String, completion: @escaping (CurrencyResponse?) -> Void) {
+        let url = global.shared.URL_UPDATE_REMINDERMAIL
+        
+        let params: [String: Any] = [
+                "reminder_mail": reminder_mail,
+                "vendor_id": vendorId
+            ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<CurrencyResponse, AFError>) in
+
+            // 📦 Print request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headere: \(self.headers)")
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    func UpdateSelectServices(service_id: String,vendorId: String, completion: @escaping (SelectedService?) -> Void) {
+        let url = global.shared.URL_SELECT_SERVICES
+        
+        let params: [String: Any] = [
+                "service_id": service_id,
+                "vendor_id": vendorId
+            ]
+
+        AF.request(url, method: .put, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<SelectedService, AFError>) in
+
+            // 📦 Print request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headere: \(self.headers)")
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    func fetchCategory(completion: @escaping (CategoryModel?) -> Void) {
+        let url = global.shared.URL_SELECT_MAINCATEGORY + "/\(LocalData.userId)"
+
+        AF.request(url, method: .get, headers: HTTPHeaders(headers))
+            .validate()
+            .responseObject { (response: DataResponse<CategoryModel, AFError>) in
+            switch response.result {
+            case .success(let model):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Received \(model.data.count) business services")
+                completion(model)
+            case .failure(let error):
+                print("❌ API Call Failed: \(error)")
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                completion(nil)
+            }
+        }
+    }
+    
+    func fetchcategory_description(completion: @escaping (CategoryStaffSequenceModel?) -> Void) {
+        let url = global.shared.URL_CATEGORY_DESCRIPTION + "/\(LocalData.userId)"
+
+        let params: [String: Any] = [:]
+        
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<CategoryStaffSequenceModel, AFError>) in
+
+            // 🌐 Log request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headers: \(self.headers)")
+
+            // 📩 Log response
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    func updateCategoryDescription(category_description: [[String: String]], vendorid:String, completion: @escaping (CurrencyResponse?) -> Void) {
+        
+        let url = global.shared.URL_UPDATE_CATEGORY_DESCRIPTION
+        
+        // Convert to JSON string
+        var staffSequenceJSONString = ""
+        if let data = try? JSONSerialization.data(withJSONObject: category_description, options: []),
+           let jsonString = String(data: data, encoding: .utf8) {
+            staffSequenceJSONString = jsonString
+            print("✅ staff_sequence JSON: \(jsonString)")
+        } else {
+            print("❌ Failed to convert staff sequence to JSON string")
+        }
+        
+        // Parameters
+        let params: [String: Any] = [
+            "category_description": staffSequenceJSONString,
+            "vendor_id" : vendorid
+        ]
+        
+        
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<CurrencyResponse, AFError>) in
+            
+            // 📦 Print request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headers: \(self.headers)")
+            
+            // 📩 HTTP status
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
 }
 

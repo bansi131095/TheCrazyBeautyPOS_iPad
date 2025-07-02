@@ -25,7 +25,6 @@ class ProfileVC: UIViewController,SettingCellDelegate {
     let arr_ImageList = ["ic_Store","ic_Notification","ic_Booking","ic_Team","ic_Schedule","ic_Payment","ic_Team","ic_Privacy"]
     let arr_ListName = ["Salon Details","Notifications","Booking","Team","Schedule","Payment","Kiosk & Customers","Privacy & Security"]
     
-    var arrSelectIndex: [Int] = []
     var selectedIndex: Int? = nil
     var sections: [SectionModel] = []
     

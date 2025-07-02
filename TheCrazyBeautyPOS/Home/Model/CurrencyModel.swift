@@ -338,3 +338,102 @@ class profileDetailsModel: Mappable {
     
 }
 
+
+
+class SelectedService: Mappable {
+    var data: SelectedServiceModel?
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data    <- map["data"]
+        error   <- map["error"]
+    }
+}
+
+
+
+class SelectedServiceModel: Mappable {
+    var message: String?
+    var bussiness_verified: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        message <- map["message"]
+        bussiness_verified     <- map["bussiness_verified"]
+    }
+}
+
+
+class CategoryModel: Mappable {
+    
+    var data: [CategoryDetailsModel] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data         <- map["data"]
+        error        <- map["error"]
+    }
+}
+
+class CategoryDetailsModel: Mappable {
+    
+    
+    var id: Int = 0
+    var service_name: String = ""
+    var sequence: String = ""
+    var descriptionText: String = ""
+    var icon: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id                  <- map["id"]
+        service_name        <- map["service_name"]
+        icon                <- map["icon"]
+    }
+    
+}
+
+class CategoryStaffSequenceModel: Mappable {
+    var data: [categorydescriptionModel] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data   <- map["data"]
+        error  <- map["error"]
+    }
+}
+
+
+class categorydescriptionModel: Mappable {
+    var category_description: String = ""
+    var staffSequenceArray: [categoryData] = []
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        category_description <- map["category_description"]
+
+        if let data = category_description.data(using: .utf8) {
+            if let decoded = try? JSONDecoder().decode([categoryData].self, from: data) {
+                self.staffSequenceArray = decoded
+            } else {
+                print("❌ Failed to decode category_description")
+            }
+        }
+    }
+}
+
+struct categoryData: Codable {
+    let category_id: Int
+    let description: String
+    let sequence: String
+}
+

@@ -14,13 +14,18 @@ class Booking_ReminderVC: UIViewController {
     
     
     var select_Hours: String = ""
-    
     let hoursArray = (1...24).map { "\($0) Hours" }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.txt_Reminder.text = hoursArray[0]
-        select_Hours = "1 Hours"
+        if let savedSlot = LocalData.setHours, hoursArray.contains(savedSlot) {
+            select_Hours = savedSlot
+        } else {
+            select_Hours = hoursArray[0]
+        }
+        txt_Reminder.text = select_Hours
+        
         // Do any additional setup after loading the view.
     }
     
@@ -31,23 +36,37 @@ class Booking_ReminderVC: UIViewController {
     
     
     @IBAction func btn_Save(_ sender: Any) {
+        let numericHour = select_Hours.replacingOccurrences(of: " Hours", with: "")
+        update_BookingReminder(reminder_mail: numericHour)
+        
     }
     
     func openHours() {
-        let slotDuration = DropDown()
-        slotDuration.anchorView = txt_Reminder
-        slotDuration.bottomOffset = CGPoint(x: 0, y: (slotDuration.anchorView?.plainView.bounds.height) ?? 0)
-        slotDuration.direction = .bottom
-        slotDuration.dataSource = hoursArray
-        slotDuration.cellHeight = 35
-        slotDuration.show()
+        let slotHours = DropDown()
+        slotHours.anchorView = txt_Reminder
+        slotHours.bottomOffset = CGPoint(x: 0, y: (slotHours.anchorView?.plainView.bounds.height) ?? 0)
+        slotHours.direction = .bottom
+        slotHours.dataSource = hoursArray
+        slotHours.cellHeight = 35
+        slotHours.show()
 
-        slotDuration.selectionAction = { [unowned self] (index: Int, item: String) in
+        slotHours.selectionAction = { [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
             self.txt_Reminder.text = item
-            self.select_Hours = item // Example: "5 Hours"
-            print("Selected Slot: \(self.select_Hours)")
+            self.select_Hours = item
+            LocalData.setHours = item
+            
         }
     }
-
+    
+    func update_BookingReminder(reminder_mail:String) {
+        APIService.shared.UpdateReminderMail(reminder_mail: reminder_mail, vendorId: LocalData.userId) { result in
+            if result?.data != nil {
+                self.alertWithMessageOnly(result?.data ?? "")
+            } else {
+                self.alertWithMessageOnly(result?.error ?? "")
+            }
+            
+        }
+    }
 }

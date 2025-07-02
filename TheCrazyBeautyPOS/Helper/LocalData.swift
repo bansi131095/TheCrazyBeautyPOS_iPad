@@ -38,6 +38,7 @@ class LocalData {
     static var selectedCurrencyCode: String?
     static var selectedSymbol: String?
     static var setSlotDuration: String?
+    static var setHours: String?
     
     // Assuming SearchBookedData is a custom struct/class in your app,
     // declare it accordingly. Here, just an example empty array placeholder.
