@@ -377,6 +377,296 @@ class APIService {
         }
     }
     
+    
+    func getbookingHistory(page: String, limit: String, vendorId: String, search: String, days: String, completion: @escaping (BookingResponse?) -> Void) {
+        let url = global.shared.URL_BOOKINGS_HISTORY
+        
+        let params: [String: Any] = [
+                "page": page,
+                "limit": limit,
+                "id": vendorId,
+                "search": search,
+                "days": days
+            ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<BookingResponse, AFError>) in
+
+            // 📦 Print request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headere: \(self.headers)")
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    func getCurrency(completion: @escaping (CurrencyResponse?) -> Void) {
+        let id = LocalData.userId
+        let url = "\(global.shared.URL_GET_CURRENCY)\(id)"
+        
+        AF.request(url, method: .get, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<CurrencyResponse, AFError>) in
+                
+            // 🌐 Log Request Info
+            print("🌐 URL: \(url)")
+            print("📤 Headers: \(self.headers)")
+
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let raw = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(raw)")
+                }
+                print("✅ Parsed Response: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ API Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    
+    func addClientData(firstName: String, lastName: String, vendorId: String, email: String, clientType: String, gender: String, dob: String, phone: String, completion: @escaping (AddClientModel?) -> Void) {
+        let url = global.shared.URL_ADD_CLIENT
+        
+        let params: [String: Any] = [
+                "first_name": firstName,
+                "last_name": lastName,
+                "vendor_id": vendorId,
+                "email": email,
+                "client_type": clientType,
+                "gender": gender,
+                "dob": dob,
+                "phone": phone,
+            ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<AddClientModel, AFError>) in
+
+            // 📦 Print request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headere: \(self.headers)")
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    func updateClientData(firstName: String, lastName: String, vendorId: String, email: String, clientType: String, gender: String, dob: String, phone: String, clientId: Int, completion: @escaping (CommonResponse?) -> Void) {
+        let urlString = "\(global.shared.URL_UPDATE_CLIENT)\(clientId)"
+        guard let url = URL(string: urlString) else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT" // ✅ OR "PUT" if your backend expects it
+        request.headers = HTTPHeaders(headers)
+       
+        // ✅ JSON Body
+        let params: [String: Any] = [
+            "first_name": firstName,
+            "last_name": lastName,
+            "vendor_id": vendorId,
+            "email": email,
+            "client_type": clientType,
+            "gender": gender,
+            "dob": dob,
+            "phone": phone,
+        ]
+        
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: params, options: [])
+            request.httpBody = jsonData
+        } catch {
+            print("❌ Failed to encode JSON: \(error)")
+            completion(nil)
+            return
+        }
+        
+        // ✅ Execute Request
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("❌ Request error: \(error)")
+                completion(nil)
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("❌ Invalid response")
+                completion(nil)
+                return
+            }
+            
+            print("📬 Status Code: \(httpResponse.statusCode)")
+            
+            guard let data = data else {
+                print("❌ No data returned")
+                completion(nil)
+                return
+            }
+            
+            do {
+                let decoded = try JSONDecoder().decode(CommonResponse.self, from: data)
+                print("✅ Decoded Response: \(decoded)")
+                completion(decoded)
+            } catch {
+                print("❌ JSON Decoding failed: \(error)")
+                if let rawString = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(rawString)")
+                }
+                completion(nil)
+            }
+        }.resume()
+    }
+
+    
+    func deleteClientData(clientId: Int, completion: @escaping (CommonResponse?) -> Void) {
+        let urlString = "\(global.shared.URL_DELETE_CLIENT)\(clientId)"
+        guard let url = URL(string: urlString) else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE" // ✅ OR "PUT" if your backend expects it
+        request.headers = HTTPHeaders(headers)
+       
+        // ✅ JSON Body
+        let params: [String: Any] = [:]
+        
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: params, options: [])
+            request.httpBody = jsonData
+        } catch {
+            print("❌ Failed to encode JSON: \(error)")
+            completion(nil)
+            return
+        }
+        
+        // ✅ Execute Request
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("❌ Request error: \(error)")
+                completion(nil)
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("❌ Invalid response")
+                completion(nil)
+                return
+            }
+            
+            print("📬 Status Code: \(httpResponse.statusCode)")
+            
+            guard let data = data else {
+                print("❌ No data returned")
+                completion(nil)
+                return
+            }
+            
+            do {
+                let decoded = try JSONDecoder().decode(CommonResponse.self, from: data)
+                print("✅ Decoded Response: \(decoded)")
+                completion(decoded)
+            } catch {
+                print("❌ JSON Decoding failed: \(error)")
+                if let rawString = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(rawString)")
+                }
+                completion(nil)
+            }
+        }.resume()
+    }
+    
+    
+    func getDurationDetails(completion: @escaping (DurationResponse?) -> Void) {
+        let url = "\(global.shared.URL_DURATION_DETAILS)"
+        
+        AF.request(url, method: .get, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<DurationResponse, AFError>) in
+                
+            // 🌐 Log Request Info
+            print("🌐 URL: \(url)")
+            print("📤 Headers: \(self.headers)")
+
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let raw = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(raw)")
+                }
+                print("✅ Parsed Response: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ API Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    func getselectMainCategory(completion: @escaping (ServicesModel?) -> Void) {
+        let id = LocalData.userId
+        let url = "\(global.shared.URL_SELECT_MAINCATEGORY)\(id)"
+        
+        AF.request(url, method: .get, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<ServicesModel, AFError>) in
+                
+            // 🌐 Log Request Info
+            print("🌐 URL: \(url)")
+            print("📤 Headers: \(self.headers)")
+
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let raw = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(raw)")
+                }
+                print("✅ Parsed Response: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ API Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+
 
 }
 

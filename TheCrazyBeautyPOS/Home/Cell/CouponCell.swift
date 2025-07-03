@@ -1,19 +1,21 @@
 //
-//  ClientCell.swift
+//  CouponCell.swift
 //  TheCrazyBeautyPOS
 //
-//  Created by Xceptive iOS on 25/06/25.
+//  Created by Xceptive iOS on 01/07/25.
 //
 
 import UIKit
 
-class ClientCell: UITableViewCell {
+class CouponCell: UITableViewCell {
 
-    @IBOutlet weak var lbl_name: UILabel!
-    @IBOutlet weak var lbl_email: UILabel!
-    @IBOutlet weak var lbl_phone: UILabel!
-    @IBOutlet weak var lbl_clientType: UILabel!
-    @IBOutlet weak var lbl_gender: UILabel!
+    @IBOutlet weak var lbl_couponName: UILabel!
+    @IBOutlet weak var lbl_amount: UILabel!
+    @IBOutlet weak var lbl_upto: UILabel!
+    @IBOutlet weak var lbl_code: UILabel!
+    @IBOutlet weak var lbl_startDate: UILabel!
+    @IBOutlet weak var lbl_endDate: UILabel!
+    @IBOutlet weak var lbl_status: UILabel!
     
     
     override func awakeFromNib() {
@@ -35,11 +37,6 @@ class ClientCell: UITableViewCell {
     var Act_Delete:(()->Void)?
     @IBAction func act_delete(_ sender: UIButton) {
         self.Act_Delete?()
-    }
-    
-    var Act_info:(()->Void)?
-    @IBAction func act_info(_ sender: UIButton) {
-        self.Act_info?()
     }
     
 }

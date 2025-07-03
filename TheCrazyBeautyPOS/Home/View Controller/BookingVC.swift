@@ -15,8 +15,11 @@ class BookingVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         let token = SharedPrefs.getLoginToken()
         let userId = SharedPrefs.getUserId()
+        LocalData.userId = userId
+        self.loadData()
         let loginTimeString = SharedPrefs.getLoginTime()
         let loginTime = loginTimeString.isEmpty ? Int(Date().timeIntervalSince1970 * 1000) : Int(loginTimeString) ?? 0
         self.showProgressBar()
@@ -47,6 +50,29 @@ class BookingVC: UIViewController {
         // unlike Android WebView which needs `settings`
     }
 
+    
+    //MARK: Load Api
+    func loadData() {
+    
+        APIService.shared.getCurrency() { staffResult in
+            guard let model = staffResult else {
+                return
+            }
+
+            let newItems = model.data ?? []
+            if !newItems.isEmpty {
+                let data = newItems[0]
+                if let currency = data.currency, currency != "" {
+                    SharedPrefs.setCurrency(currency)
+                }
+                if let symbol = data.symbol, symbol != "" {
+                    SharedPrefs.setSymbol(symbol)
+                }
+                LocalData.getUserData()
+                LocalData.symbol = SharedPrefs.getSymbol()
+            }
+        }
+    }
         
 
     /*

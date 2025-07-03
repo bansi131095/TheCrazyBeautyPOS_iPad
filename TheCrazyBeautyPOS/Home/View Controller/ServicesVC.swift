@@ -90,7 +90,9 @@ class ServicesVC: UIViewController {
     
     //MARK: Button Action
     @IBAction func act_addNew(_ sender: UIButton) {
-        
+        let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddServiceVC") as! AddServiceVC
+        addNew.isEdit = false
+        self.navigationController?.pushViewController(addNew, animated: true)
     }
     
     @IBAction func act_serviceSequence(_ sender: UIButton) {
@@ -139,7 +141,7 @@ extension ServicesVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
         cell.lbl_service.text = service.service
         cell.lbl_time.text = "\(service.duration) Min"
         cell.lbl_serviceFor.text = service.service_for
-        cell.lbl_price.text = service.price
+        cell.lbl_price.text = "\(LocalData.symbol)\(service.price)"
 //        cell.Act_Edit = {
 //            
 //        }

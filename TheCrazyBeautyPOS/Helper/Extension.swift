@@ -1112,54 +1112,50 @@ extension UIViewController
     }
      */
     
-    func show_alert(msg:String)
-    {
-        let alertController = UIAlertController(title: "Alert", message: msg, preferredStyle: .alert)
+    func show_alert(msg: String, title: String, sourceView: UIView? = nil) {
+        let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
         let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(OKAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    //Alert method
-    
-    func showAlertToast(message:String)
-    {
-        // the alert view
-        let alert = UIAlertController(title: "", message: message, preferredStyle: .actionSheet)
-        self.present(alert, animated: true)
-        
-        // change to desired number of seconds (in this case 5 seconds)
-        let when = DispatchTime.now() + 2
-        DispatchQueue.main.asyncAfter(deadline: when){
-            // your code with delay
-            alert.dismiss(animated: true, completion: nil)
-        }
-    }
-    
-    func showAlertToast(message: String, sourceView: UIView? = nil) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: .actionSheet)
 
-        if let popover = alert.popoverPresentationController {
-            let view = sourceView ?? self.view!
-
+        // ✅ Present from top view controller (safely)
+        if let popover = alertController.popoverPresentationController, let view = sourceView {
             popover.sourceView = view
-            // Position near bottom center
-            let sourceRect = CGRect(
-                x: view.bounds.midX,
-                y: view.bounds.maxY - 40,
-                width: 1,
-                height: 1
-            )
-            popover.sourceRect = sourceRect
+            popover.sourceRect = view.bounds
             popover.permittedArrowDirections = []
         }
 
-        self.present(alert, animated: true)
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            alert.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async {
+            if let topVC = UIApplication.shared.keyWindow?.rootViewController {
+                topVC.present(alertController, animated: true, completion: nil)
+            }
         }
     }
+
+    
+    //Alert method
+    func showToast(message: String, duration: Double = 2.0) {
+        let toastLabel = UILabel(frame: CGRect(x: (self.view.frame.size.width/2)-200, y: self.view.frame.size.height - 100, width: 400, height: 60))
+        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        toastLabel.textColor = .white
+        toastLabel.textAlignment = .center
+        toastLabel.text = message
+        toastLabel.alpha = 0.0
+        toastLabel.layer.cornerRadius = 30
+        toastLabel.clipsToBounds = true
+
+        self.view.addSubview(toastLabel)
+
+        UIView.animate(withDuration: 0.5, animations: {
+            toastLabel.alpha = 1.0
+        }) { _ in
+            UIView.animate(withDuration: 0.5, delay: duration, options: .curveEaseOut, animations: {
+                toastLabel.alpha = 0.0
+            }) { _ in
+                toastLabel.removeFromSuperview()
+            }
+        }
+    }
+
     
     func alertWithImage(title: String, Msg: String)
     {
@@ -2784,3 +2780,89 @@ class GradientButton: UIButton {
         self.gradientLayer = gradient
     }
 }
+
+
+@IBDesignable
+class FloatingTextView: UIView, UITextViewDelegate {
+
+    private let placeholderLabel = UILabel()
+    private let textView = UITextView()
+
+    // MARK: - Inspectable Placeholder
+    @IBInspectable var placeholder: String = "Description" {
+        didSet {
+            placeholderLabel.text = placeholder
+        }
+    }
+
+    // MARK: - Initialization
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupView()
+    }
+
+    private func setupView() {
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.lightGray.cgColor
+        self.layer.cornerRadius = 60
+        // Half of height for pill shape
+        self.clipsToBounds = true
+
+        // Configure UITextView
+        textView.delegate = self
+        textView.backgroundColor = .clear
+        textView.textContainerInset = UIEdgeInsets(top: 35, left: 24, bottom: 10, right: 24)
+        textView.font = UIFont.systemFont(ofSize: 16)
+        addSubview(textView)
+
+        // Configure Placeholder Label
+        placeholderLabel.text = placeholder
+        placeholderLabel.font = UIFont.systemFont(ofSize: 20)
+        placeholderLabel.textColor = .gray
+        placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(placeholderLabel)
+
+        // Constraints
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            textView.topAnchor.constraint(equalTo: self.topAnchor),
+            textView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            textView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            textView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+
+            placeholderLabel.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: 12),
+            placeholderLabel.topAnchor.constraint(equalTo: textView.topAnchor, constant: 18)
+        ])
+    }
+
+    // MARK: - Floating Animation
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        animatePlaceholder(up: true)
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            animatePlaceholder(up: false)
+        }
+    }
+
+    private func animatePlaceholder(up: Bool) {
+        UIView.animate(withDuration: 0.2) {
+            self.placeholderLabel.transform = up || !self.textView.text.isEmpty
+                ? CGAffineTransform(translationX: 0, y: -10).scaledBy(x: 0.85, y: 0.85)
+                : .identity
+            self.placeholderLabel.textColor = .gray
+        }
+    }
+
+    // MARK: - Expose Text
+    var text: String {
+        return textView.text
+    }
+}
+

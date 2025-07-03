@@ -29,8 +29,12 @@ class ClientsVC: UIViewController {
         contentViewWidthConstraint.constant = 100 // or any dynamic value
         self.setTableView()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        self.loadData(Search: "")
+        
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.loadData(Search: "")
     }
     
     
@@ -89,9 +93,28 @@ class ClientsVC: UIViewController {
     
     //MARK: Button Action
     @IBAction func act_addNew(_ sender: UIButton) {
-        let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddTeamVC") as! AddTeamVC
+        let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddClientVC") as! AddClientVC
         addNew.isEdit = false
         self.navigationController?.pushViewController(addNew, animated: true)
+    }
+    
+    
+    func deleteClientData(clientId: Int) {
+        APIService.shared.deleteClientData(clientId: clientId) { staffResult in
+            guard let model = staffResult else {
+                return
+            }
+
+            if model.error == "" || model.error == nil {
+                DispatchQueue.main.async {
+                    // safe UI code here
+                    self.showToast(message: model.data)
+                }
+                self.loadData(Search: "")
+            } else {
+                self.show_alert(msg: model.error ?? "", title: "Delete Client")
+            }
+        }
     }
 
     /*
@@ -137,10 +160,22 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
         cell.lbl_gender.text = client.gender
         cell.lbl_clientType.text = client.client_type
         cell.Act_Edit = {
-            
+            let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddClientVC") as! AddClientVC
+            addNew.isEdit = true
+            addNew.dictClient = client
+            self.navigationController?.pushViewController(addNew, animated: true)
         }
         cell.Act_Delete = {
-            
+            let popup = ConfirmDeletePopupVC()
+            popup.modalPresentationStyle = .overFullScreen
+            popup.modalTransitionStyle = .crossDissolve
+            popup.titleText = "Are you sure you want to delete this client?"
+            popup.onConfirm = {
+                print("User confirmed delete")
+                // Call your delete logic here
+                self.deleteClientData(clientId: client.id)
+            }
+            self.present(popup, animated: true, completion: nil)
         }
         return cell
     }

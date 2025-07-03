@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad10_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato_regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="KGk-i7-Jjw" customClass="CouponCell" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="2000" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="2000" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Le-QO-fyw">
+                        <rect key="frame" x="0.0" y="0.0" width="2000" height="50"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Kv-gN-9vY">
+                                <rect key="frame" x="40" y="13" width="230" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="230" id="xT9-HI-Dtl"/>
+                                </constraints>
+                                <string key="text">Coupon Name	</string>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="TextBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BLl-hv-WWI">
+                                <rect key="frame" x="310" y="13" width="170" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="170" id="WeD-eq-eF5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="TextBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upto" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nPX-GN-uUC">
+                                <rect key="frame" x="530" y="13" width="150" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="kSv-22-Hyr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="TextBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Code" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="la4-CX-3f1">
+                                <rect key="frame" x="740" y="13" width="220" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="sH9-AU-9sf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="TextBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YMw-dX-iHS">
+                                <rect key="frame" x="990" y="13" width="220" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="v9P-yw-eim"/>
+                                </constraints>
+                                <string key="text">Start Date	</string>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="TextBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8tt-0t-PkX">
+                                <rect key="frame" x="1240" y="13" width="220" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="WXv-Lx-bvk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="TextBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aOX-e6-WPP">
+                                <rect key="frame" x="1490" y="13" width="200" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="UCk-Xh-MMI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="TextBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPX-3W-1Qf">
+                                <rect key="frame" x="1740" y="11" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="8PY-8U-dMS"/>
+                                    <constraint firstAttribute="width" constant="28" id="NGg-DI-Hiq"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="Edit"/>
+                                <connections>
+                                    <action selector="act_edit:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="j23-hM-fxR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sai-Z7-Z3w">
+                                <rect key="frame" x="1775" y="11" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="28" id="UmF-Yw-b38"/>
+                                    <constraint firstAttribute="height" constant="28" id="eH2-hy-haL"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="delete"/>
+                                <connections>
+                                    <action selector="act_delete:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="VDE-kG-z2t"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="la4-CX-3f1" firstAttribute="top" secondItem="8Kv-gN-9vY" secondAttribute="top" id="2gh-1H-QK0"/>
+                            <constraint firstItem="8Kv-gN-9vY" firstAttribute="leading" secondItem="7Le-QO-fyw" secondAttribute="leading" constant="40" id="2qe-BW-gyw"/>
+                            <constraint firstItem="sai-Z7-Z3w" firstAttribute="centerY" secondItem="7Le-QO-fyw" secondAttribute="centerY" id="6kb-JB-6nT"/>
+                            <constraint firstAttribute="height" constant="50" id="6oS-Yr-t4D"/>
+                            <constraint firstItem="8Kv-gN-9vY" firstAttribute="centerY" secondItem="7Le-QO-fyw" secondAttribute="centerY" id="BxM-fW-E3z"/>
+                            <constraint firstItem="YMw-dX-iHS" firstAttribute="leading" secondItem="la4-CX-3f1" secondAttribute="trailing" constant="30" id="DP3-0d-K3l"/>
+                            <constraint firstItem="nPX-GN-uUC" firstAttribute="top" secondItem="8Kv-gN-9vY" secondAttribute="top" id="FO8-OC-i7Q"/>
+                            <constraint firstItem="nPX-GN-uUC" firstAttribute="leading" secondItem="BLl-hv-WWI" secondAttribute="trailing" constant="50" id="MjU-H9-AdX"/>
+                            <constraint firstItem="aOX-e6-WPP" firstAttribute="leading" secondItem="8tt-0t-PkX" secondAttribute="trailing" constant="30" id="ORj-wm-JJ0"/>
+                            <constraint firstItem="la4-CX-3f1" firstAttribute="leading" secondItem="nPX-GN-uUC" secondAttribute="trailing" constant="60" id="QXN-11-oDj"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="sai-Z7-Z3w" secondAttribute="trailing" constant="50" id="Rgs-di-VHn"/>
+                            <constraint firstItem="XPX-3W-1Qf" firstAttribute="leading" secondItem="aOX-e6-WPP" secondAttribute="trailing" constant="50" id="Yw8-Zb-pxt"/>
+                            <constraint firstItem="sai-Z7-Z3w" firstAttribute="leading" secondItem="XPX-3W-1Qf" secondAttribute="trailing" constant="7" id="eIY-Tj-9HG"/>
+                            <constraint firstItem="aOX-e6-WPP" firstAttribute="top" secondItem="8Kv-gN-9vY" secondAttribute="top" id="fuL-x2-azN"/>
+                            <constraint firstItem="8tt-0t-PkX" firstAttribute="leading" secondItem="YMw-dX-iHS" secondAttribute="trailing" constant="30" id="hf0-jr-d7v"/>
+                            <constraint firstItem="8tt-0t-PkX" firstAttribute="top" secondItem="8Kv-gN-9vY" secondAttribute="top" id="mlX-2T-aH3"/>
+                            <constraint firstItem="BLl-hv-WWI" firstAttribute="top" secondItem="8Kv-gN-9vY" secondAttribute="top" id="muR-j3-T03"/>
+                            <constraint firstItem="BLl-hv-WWI" firstAttribute="leading" secondItem="8Kv-gN-9vY" secondAttribute="trailing" constant="40" id="q1O-t6-yNq"/>
+                            <constraint firstItem="YMw-dX-iHS" firstAttribute="top" secondItem="8Kv-gN-9vY" secondAttribute="top" id="qfh-6M-zoA"/>
+                            <constraint firstItem="XPX-3W-1Qf" firstAttribute="centerY" secondItem="7Le-QO-fyw" secondAttribute="centerY" id="xaR-Sm-jk4"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="7Le-QO-fyw" secondAttribute="bottom" id="VWO-Dp-KIn"/>
+                    <constraint firstItem="7Le-QO-fyw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="YEm-aM-Yex"/>
+                    <constraint firstAttribute="trailing" secondItem="7Le-QO-fyw" secondAttribute="trailing" id="ZuC-52-lkJ"/>
+                    <constraint firstItem="7Le-QO-fyw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="qQS-Vm-93e"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lbl_amount" destination="BLl-hv-WWI" id="bbi-PK-Spr"/>
+                <outlet property="lbl_code" destination="la4-CX-3f1" id="CnC-dt-jxp"/>
+                <outlet property="lbl_couponName" destination="8Kv-gN-9vY" id="HoS-GM-fmv"/>
+                <outlet property="lbl_endDate" destination="8tt-0t-PkX" id="zkX-AE-AoN"/>
+                <outlet property="lbl_startDate" destination="YMw-dX-iHS" id="R1n-bX-d6u"/>
+                <outlet property="lbl_status" destination="aOX-e6-WPP" id="Adf-DV-mEf"/>
+                <outlet property="lbl_upto" destination="nPX-GN-uUC" id="55S-Yd-LbM"/>
+            </connections>
+            <point key="canvasLocation" x="658.53658536585363" y="21.35593220338983"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Edit" width="60" height="60"/>
+        <image name="delete" width="60" height="60"/>
+        <namedColor name="TextBlack">
+            <color red="0.043137254901960784" green="0.043137254901960784" blue="0.043137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

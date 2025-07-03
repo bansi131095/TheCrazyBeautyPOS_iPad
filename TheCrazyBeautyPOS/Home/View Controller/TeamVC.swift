@@ -141,6 +141,19 @@ extension TeamVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelega
         cell.lbl_phone.text = staff.phone
         cell.lbl_jobTitle.text = staff.jobTitle
         cell.lbl_review.text = ""
+        if staff.photo != "" {
+            let imgUrl = global.imageUrl + (staff.photo ?? "")
+            if let url = URL(string: imgUrl) {
+                cell.img_vw.sd_setImage(with: url, completed: { (image, error, _, _) in
+                    if let error = error {
+                        print("❌ Failed to load image: \(error.localizedDescription)")
+                        cell.img_vw.image = UIImage(named: "ProductDemo")
+                    } else {
+                        cell.img_vw.image = image
+                    }
+                })
+            }
+        }
         cell.Act_Edit = {
             let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddTeamVC") as! AddTeamVC
             addNew.isEdit = true

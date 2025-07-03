@@ -58,7 +58,6 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     
     
     func setupGenderTextField() {
-    
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleDropdown))
         genderTextField.addGestureRecognizer(tapGesture)
         genderTextField.isUserInteractionEnabled = true

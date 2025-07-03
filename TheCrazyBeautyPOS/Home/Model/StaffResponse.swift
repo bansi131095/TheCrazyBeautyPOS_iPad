@@ -50,6 +50,7 @@ class StaffData: Mappable {
     var updatedAt: String?
     var status: String?
     var totalHours: String?
+    var isSelected: Bool = false
 
     required init?(map: Map) {}
 

@@ -67,6 +67,22 @@ class global: NSObject
     
     var URL_GIFT_CARDS = global.server_url + "gift_cards"
     
+    var URL_BOOKINGS_HISTORY = global.server_url + "bookings_history"
+    
+    var URL_GET_CURRENCY = global.server_url + "get_currency/"
+    
+    var URL_ADD_CLIENT = global.server_url + "add_client"
+    
+    var URL_UPDATE_CLIENT = global.server_url + "update_client/"
+    
+    var URL_DELETE_CLIENT = global.server_url + "delete_client/"
+    
+    var URL_DURATION_DETAILS = global.server_url + "duration_details"
+    
+    var URL_SELECT_MAINCATEGORY = global.server_url + "select_maincategory/"
+    
+    
+    
     
     //MARK:-
     override init()
