@@ -62,6 +62,7 @@ class global: NSObject
     
     var URL_CURRENCY_DETAILS = global.server_url + "currency_details"
     var URL_UPDATE_CURRENCY = global.server_url + "update_currency"
+    var URL_GET_CURRENCY = global.server_url + "get_currency"
     
     
     var URL_UPDATE_BOOKINGFLOW = global.server_url + "update_bookingflow"
@@ -90,11 +91,20 @@ class global: NSObject
     
     var URL_UPDATE_REMINDERMAIL = global.server_url + "update_remindermail"
     var URL_SELECT_SERVICES = global.server_url + "select_services"
+    
     var URL_SELECT_MAINCATEGORY = global.server_url + "select_maincategory"
     var URL_CATEGORY_DESCRIPTION = global.server_url + "category_description"
     var URL_UPDATE_CATEGORY_DESCRIPTION = global.server_url + "update_category_description"
     
+    var URL_GET_KIOSK = global.server_url + "get_kiosk"
+    var URL_UPDATE_ADD_KIOSK = global.server_url + "add_kiosk"
     
+    var URL_GET_SUBVENDOR = global.server_url + "get_subvendor"
+    var URL_UPDATE_SUBVENDOR = global.server_url + "create_subvendor"
+    
+    var URL_GET_TIMING = global.server_url + "get_timing"
+    var URL_UPDATE_BUSINESS_TIMING = global.server_url + "business_timing"
+    var URL_GET_BREAK_TIME = global.server_url + "get_breaktime"
     
     
     //MARK:-

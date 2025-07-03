@@ -27,6 +27,7 @@ class CurrencyData : Mappable{
     
     var symbol: String = ""
     var currency_code: String = ""
+    var currency: String = ""
     var is_selected = Bool()
     
     init() {}
@@ -36,6 +37,7 @@ class CurrencyData : Mappable{
     func mapping(map: Map) {
         symbol  <- map["symbol"]
         currency_code <- map["currency_code"]
+        currency <- map["currency"]
     }
 }
 
@@ -437,3 +439,141 @@ struct categoryData: Codable {
     let sequence: String
 }
 
+
+
+class GetKioskModel: Mappable {
+    
+    var data: [KioskDetailsModel] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data         <- map["data"]
+        error        <- map["error"]
+    }
+}
+
+class KioskData: Mappable {
+    var id: Int?
+    var updated_at: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id            <- map["id"]
+        updated_at    <- map["updated_at"]
+    }
+}
+
+
+class KioskDetailsModel: Mappable {
+    
+    
+    var id: Int = 0
+    var vendor_id: Int = 0
+    var email: String = ""
+    var password: String = ""
+    var created_at: String?
+    var name: String?
+    var updated: String?
+    
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id                  <- map["id"]
+        vendor_id           <- map["vendor_id"]
+        email               <- map["email"]
+        password            <- map["password"]
+        created_at          <- map["created_at"]
+        name          <- map["name"]
+        updated             <- map["updated"]
+    }
+    
+}
+
+
+
+
+
+class GetKioskModel1: Mappable {
+    var data: [KioskData1] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data  <- map["data"]
+        error <- map["error"]
+    }
+}
+
+
+class KioskData1: Mappable {
+    var id: Int?
+    var working_hours: String?
+    var updated_at: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id            <- map["id"]
+        working_hours <- map["working_hours"]
+        updated_at    <- map["updated_at"]
+    }
+}
+
+
+class WorkingHour1: Mappable {
+    var day: String?
+    var from: String?
+    var to: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        day  <- map["day"]
+        from <- map["from"]
+        to   <- map["to"]
+    }
+}
+
+
+class BreakTime1: Mappable {
+    var day: String = ""
+    var startTime: String = ""
+    var endTime: String = ""
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        day         <- map["day"]
+        startTime   <- map["startTime"]
+        endTime     <- map["endTime"]
+    }
+}
+
+class BreakTimeDataModel: Mappable {
+    var id: Int = 0
+    var break_time: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id          <- map["id"]
+        break_time  <- map["break_time"]
+    }
+}
+
+class GetBreakTimeModel: Mappable {
+    var data: [BreakTimeDataModel] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data    <- map["data"]
+        error   <- map["error"]
+    }
+}

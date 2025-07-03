@@ -18,11 +18,14 @@ class Team_LoginVC: UIViewController {
     
     
     //MARK: - Global Variable
+    var TeamLogin: [KioskDetailsModel] = []
+    
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.btn_eye.setImage(#imageLiteral(resourceName: "view"), for: .normal)
         self.txt_Password.isSecureTextEntry = true
+        get_TeamLogin()
     }
     
     //MARK: -  Button Action
@@ -47,6 +50,10 @@ class Team_LoginVC: UIViewController {
             alertWithImage(title: "Team Login", Msg: "Please enter valid email id.")
         } else if (self.txt_Password.text == "") {
             alertWithImage(title: "Team Login", Msg: "Please enter password.")
+        }else if !self.txt_Password.text!.isValidPassword(){
+            alertWithImage(title: "Team Login", Msg: "Invalid Password.")
+        }else{
+            update_Subvendor()
         }
     }
     
@@ -56,4 +63,26 @@ class Team_LoginVC: UIViewController {
     
     //MARK: - Function
     //MARK: - Web Api Calling
+    func get_TeamLogin(){
+        APIService.shared.fetchSubvendor { result in
+            self.TeamLogin = result!.data
+            if result?.data != nil {
+                self.txt_Name.text = self.TeamLogin.first?.name
+                self.txt_Email.text = self.TeamLogin.first?.email
+            }else{
+                self.alertWithMessageOnly(result?.error ?? "")
+            }
+        }
+    }
+    
+    func update_Subvendor(){
+        APIService.shared.UpdateCreateSubvendor(email: self.txt_Email.text!, name: self.txt_Name.text!, password: self.txt_Password.text!, vendorId: LocalData.userId) { result in
+            if result?.data != nil {
+                self.txt_Password.text = ""
+                self.alertWithMessageOnly(result?.data ?? "")
+            }else{
+                self.alertWithMessageOnly(result?.error ?? "")
+            }
+        }
+    }
 }

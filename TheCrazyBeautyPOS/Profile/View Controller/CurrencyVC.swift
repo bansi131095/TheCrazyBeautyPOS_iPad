@@ -15,9 +15,10 @@ class CurrencyVC: UIViewController {
     
     
     var CurrencyList: [CurrencyData] = []
+    var CurrencyGet: CurrencyData = CurrencyData()
     var symbol = String()
     var selectedCurrencyCode: String?
-    var is_selectedCurrencyCode: String?
+    
 
     
     override func viewDidLoad() {
@@ -55,9 +56,6 @@ class CurrencyVC: UIViewController {
                    txt_Currency.text = i.currency_code
                    selectedCurrencyCode = i.currency_code
                    symbol = i.symbol
-
-                   LocalData.selectedCurrencyCode = selectedCurrencyCode
-                   LocalData.selectedSymbol = symbol
                    break
                }
            }
@@ -65,27 +63,41 @@ class CurrencyVC: UIViewController {
     }
     
     func call_CurrencyAPI() {
-        APIService.shared.fetchSalonCurrency { CurrencyResult in
-            guard let data = CurrencyResult?.data else { return }
-            self.CurrencyList = data
-            
-            if let savedCode = LocalData.selectedCurrencyCode {
-                if let selected = self.CurrencyList.first(where: { $0.currency_code == savedCode }) {
-                    self.txt_Currency.text = selected.currency_code
-                    self.selectedCurrencyCode = selected.currency_code
-                    self.symbol = selected.symbol
-                }
+        APIService.shared.fetchSalonCurrency { result in
+            if result?.data != nil {
+                self.CurrencyList = result!.data
+                self.call_GetCurrencyAPI()
             }else{
-                self.txt_Currency.text = self.CurrencyList[0].currency_code
-                self.selectedCurrencyCode = self.CurrencyList[0].currency_code
-                self.symbol = self.CurrencyList[0].symbol
+                self.alertWithMessageOnly(result?.error ?? "")
             }
         }
     }
     
+    func call_GetCurrencyAPI() {
+        APIService.shared.getCurrency(completion: { result in
+            guard let data = result?.data else { return }
+            if (data.count > 0) {
+                self.CurrencyGet = data[0]
+            }
+        
+            for i in self.CurrencyList {
+                if self.CurrencyGet.currency == i.currency_code{
+                    self.txt_Currency.text = i.currency_code
+                    self.selectedCurrencyCode = i.currency_code
+                    self.symbol = i.symbol
+                    break
+                }
+            }
+        })
+    }
+    
     func call_UpdateCurrencyAPI() {
         APIService.shared.UpdateCurrency(currency: self.txt_Currency.text ?? "", symbol: symbol, vendorId: LocalData.userId, completion: { result in
-            self.alertWithMessageOnly(result?.data ?? "")
+            if result?.data != nil {
+                self.alertWithMessageOnly(result?.data ?? "")
+            } else {
+                self.alertWithMessageOnly(result?.error ?? "")
+            }
         })
     }
 }

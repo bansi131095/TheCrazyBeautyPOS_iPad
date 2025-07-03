@@ -1173,7 +1173,7 @@
                                             <constraint firstAttribute="height" constant="64" id="VEI-yg-Mnl"/>
                                         </constraints>
                                         <attributedString key="attributedText"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isUnderLineAvailabe" value="NO"/>
                                             <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
@@ -5494,6 +5494,9 @@ Bookings)</string>
                                                         <color key="value" name="MainSen"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="btn_Save:" destination="aYt-G6-mt6" eventType="touchUpInside" id="PWt-IB-47E"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -5584,19 +5587,19 @@ Bookings)</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Salon Off Days/Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="stW-24-hbu">
-                                <rect key="frame" x="30" y="54" width="1120" height="34"/>
+                                <rect key="frame" x="30" y="54" width="1120" height="33"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="28"/>
                                 <color key="textColor" name="AppBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Add Salon Unavailable Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qM6-tH-WfR">
-                                <rect key="frame" x="30" y="108" width="1120" height="24"/>
+                                <rect key="frame" x="30" y="107" width="1120" height="23.5"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="AppBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bFf-Kf-RfH">
-                                <rect key="frame" x="0.0" y="163" width="1180" height="657"/>
+                                <rect key="frame" x="0.0" y="140.5" width="1180" height="679.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T8I-Aj-0MF">
                                         <rect key="frame" x="0.0" y="0.0" width="1180" height="884"/>
@@ -5623,7 +5626,7 @@ Bookings)</string>
                                                                 </constraints>
                                                                 <color key="onTintColor" name="MainPrim"/>
                                                                 <connections>
-                                                                    <action selector="switch_Mon:" destination="aYt-G6-mt6" eventType="valueChanged" id="l7c-YR-Tee"/>
+                                                                    <action selector="switch_Mon:" destination="fes-9d-2r5" eventType="valueChanged" id="Dp9-ht-y8h"/>
                                                                 </connections>
                                                             </switch>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="gnQ-iC-FNi">
@@ -5633,13 +5636,13 @@ Bookings)</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="100"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kuq-NQ-6n7">
-                                                                                <rect key="frame" x="0.0" y="33" width="63.5" height="34"/>
+                                                                                <rect key="frame" x="0.0" y="33.5" width="65" height="33"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="28"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TS3-R8-plQ" userLabel="From">
-                                                                                <rect key="frame" x="83.5" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="85" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qzi-eq-8an">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -5658,7 +5661,7 @@ Bookings)</string>
                                                                                         <rect key="frame" x="0.0" y="0.0" width="210" height="60"/>
                                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                         <connections>
-                                                                                            <action selector="btn_MonFromTime:" destination="aYt-G6-mt6" eventType="touchUpInside" id="GQV-1i-U3k"/>
+                                                                                            <action selector="btn_MonFromTime:" destination="fes-9d-2r5" eventType="touchUpInside" id="HKi-T4-m7r"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                 </subviews>
@@ -5690,13 +5693,13 @@ Bookings)</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </view>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wph-rl-FSW">
-                                                                                <rect key="frame" x="333.5" y="31.5" width="32.5" height="37.5"/>
+                                                                                <rect key="frame" x="335" y="32" width="32.5" height="36.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="31"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vTg-5W-HPv" userLabel="From">
-                                                                                <rect key="frame" x="381" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="382.5" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jat-4W-k9W">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -5715,7 +5718,7 @@ Bookings)</string>
                                                                                         <rect key="frame" x="0.0" y="0.0" width="210" height="60"/>
                                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                         <connections>
-                                                                                            <action selector="btn_MonToTime:" destination="aYt-G6-mt6" eventType="touchUpInside" id="afC-uo-WcR"/>
+                                                                                            <action selector="btn_MonToTime:" destination="fes-9d-2r5" eventType="touchUpInside" id="NsC-JR-1uu"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                 </subviews>
@@ -5762,7 +5765,7 @@ Bookings)</string>
                                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ggo-fB-1MF">
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="0.0"/>
                                                                         <subviews>
-                                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Closed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X4a-YI-oeV">
+                                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Usual Schedule" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X4a-YI-oeV">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="771" height="0.0"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="34"/>
                                                                                 <color key="textColor" name="txtGray"/>
@@ -5822,7 +5825,7 @@ Bookings)</string>
                                                                 </constraints>
                                                                 <color key="onTintColor" name="MainPrim"/>
                                                                 <connections>
-                                                                    <action selector="switch_Tues:" destination="aYt-G6-mt6" eventType="valueChanged" id="Lur-nR-ugo"/>
+                                                                    <action selector="switch_Tues:" destination="fes-9d-2r5" eventType="valueChanged" id="jOG-Gm-AQk"/>
                                                                 </connections>
                                                             </switch>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="FZB-yC-ZEt">
@@ -5832,13 +5835,13 @@ Bookings)</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="100"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q9E-K5-qkK">
-                                                                                <rect key="frame" x="0.0" y="33" width="63.5" height="34"/>
+                                                                                <rect key="frame" x="0.0" y="33.5" width="65" height="33"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="28"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aEn-gd-mv1" userLabel="From">
-                                                                                <rect key="frame" x="83.5" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="85" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nSS-JH-kAz">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -5857,7 +5860,7 @@ Bookings)</string>
                                                                                         <rect key="frame" x="0.0" y="0.0" width="210" height="60"/>
                                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                         <connections>
-                                                                                            <action selector="btn_TuesFromTime:" destination="aYt-G6-mt6" eventType="touchUpInside" id="HNU-Jk-wWF"/>
+                                                                                            <action selector="btn_TuesFromTime:" destination="fes-9d-2r5" eventType="touchUpInside" id="bpD-gY-IFR"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                 </subviews>
@@ -5889,13 +5892,13 @@ Bookings)</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </view>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CH8-Mk-4N6">
-                                                                                <rect key="frame" x="333.5" y="31.5" width="32.5" height="37.5"/>
+                                                                                <rect key="frame" x="335" y="32" width="32.5" height="36.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="31"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lN9-Th-boO" userLabel="From">
-                                                                                <rect key="frame" x="381" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="382.5" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RN7-Q2-YHY">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -5914,7 +5917,7 @@ Bookings)</string>
                                                                                         <rect key="frame" x="0.0" y="0.0" width="210" height="60"/>
                                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                         <connections>
-                                                                                            <action selector="btn_TuesToTime:" destination="aYt-G6-mt6" eventType="touchUpInside" id="H6q-gz-MBa"/>
+                                                                                            <action selector="btn_TuesToTime:" destination="fes-9d-2r5" eventType="touchUpInside" id="eZ0-L6-bgb"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                 </subviews>
@@ -5961,7 +5964,7 @@ Bookings)</string>
                                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iZc-lS-l9E">
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="0.0"/>
                                                                         <subviews>
-                                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Closed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EZO-an-Ahh">
+                                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Usual Schedule" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EZO-an-Ahh">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="771" height="0.0"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="34"/>
                                                                                 <color key="textColor" name="txtGray"/>
@@ -6021,7 +6024,7 @@ Bookings)</string>
                                                                 </constraints>
                                                                 <color key="onTintColor" name="MainPrim"/>
                                                                 <connections>
-                                                                    <action selector="switch_Wednes:" destination="aYt-G6-mt6" eventType="valueChanged" id="jhZ-Oh-2Wk"/>
+                                                                    <action selector="switch_Wednes:" destination="fes-9d-2r5" eventType="valueChanged" id="d4y-ch-i0L"/>
                                                                 </connections>
                                                             </switch>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="jSS-wP-ieN">
@@ -6031,13 +6034,13 @@ Bookings)</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="100"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ZD-Ag-QdT">
-                                                                                <rect key="frame" x="0.0" y="33" width="63.5" height="34"/>
+                                                                                <rect key="frame" x="0.0" y="33.5" width="65" height="33"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="28"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O6b-3o-FA4" userLabel="From">
-                                                                                <rect key="frame" x="83.5" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="85" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mee-tg-Yvw">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6056,7 +6059,7 @@ Bookings)</string>
                                                                                         <rect key="frame" x="0.0" y="0.0" width="210" height="60"/>
                                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                         <connections>
-                                                                                            <action selector="btn_WednesFromTime:" destination="aYt-G6-mt6" eventType="touchUpInside" id="lB0-DW-s5E"/>
+                                                                                            <action selector="btn_WednesFromTime:" destination="fes-9d-2r5" eventType="touchUpInside" id="30T-tv-z0C"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                 </subviews>
@@ -6088,13 +6091,13 @@ Bookings)</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </view>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6SV-g3-lPW">
-                                                                                <rect key="frame" x="333.5" y="31.5" width="32.5" height="37.5"/>
+                                                                                <rect key="frame" x="335" y="32" width="32.5" height="36.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="31"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QYd-yH-yGb" userLabel="From">
-                                                                                <rect key="frame" x="381" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="382.5" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ozZ-rJ-A1K">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6113,7 +6116,7 @@ Bookings)</string>
                                                                                         <rect key="frame" x="0.0" y="0.0" width="210" height="60"/>
                                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                         <connections>
-                                                                                            <action selector="btn_WednesToTime:" destination="aYt-G6-mt6" eventType="touchUpInside" id="gfc-Qc-F9f"/>
+                                                                                            <action selector="btn_WednesToTime:" destination="fes-9d-2r5" eventType="touchUpInside" id="cGI-w7-hx5"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                 </subviews>
@@ -6160,7 +6163,7 @@ Bookings)</string>
                                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o2h-Wa-GuK">
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="0.0"/>
                                                                         <subviews>
-                                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Closed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xEk-cC-YCh">
+                                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Usual Schedule" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xEk-cC-YCh">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="771" height="0.0"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="34"/>
                                                                                 <color key="textColor" name="txtGray"/>
@@ -6220,7 +6223,7 @@ Bookings)</string>
                                                                 </constraints>
                                                                 <color key="onTintColor" name="MainPrim"/>
                                                                 <connections>
-                                                                    <action selector="switch_Thurs:" destination="aYt-G6-mt6" eventType="valueChanged" id="zx1-a1-OZQ"/>
+                                                                    <action selector="switch_Thurs:" destination="fes-9d-2r5" eventType="valueChanged" id="oIG-dB-LSj"/>
                                                                 </connections>
                                                             </switch>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Cvm-jG-o0v">
@@ -6230,13 +6233,13 @@ Bookings)</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="100"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8a7-5E-mZR">
-                                                                                <rect key="frame" x="0.0" y="33" width="63.5" height="34"/>
+                                                                                <rect key="frame" x="0.0" y="33.5" width="65" height="33"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="28"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B22-vK-VAc" userLabel="From">
-                                                                                <rect key="frame" x="83.5" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="85" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pRL-85-1sN">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6255,7 +6258,7 @@ Bookings)</string>
                                                                                         <rect key="frame" x="0.0" y="0.0" width="210" height="60"/>
                                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                         <connections>
-                                                                                            <action selector="btn_ThursFromTime:" destination="aYt-G6-mt6" eventType="touchUpInside" id="sWp-HH-Fmd"/>
+                                                                                            <action selector="btn_ThursFromTime:" destination="fes-9d-2r5" eventType="touchUpInside" id="McU-LO-efv"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                 </subviews>
@@ -6287,13 +6290,13 @@ Bookings)</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </view>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kD4-eZ-aPb">
-                                                                                <rect key="frame" x="333.5" y="31.5" width="32.5" height="37.5"/>
+                                                                                <rect key="frame" x="335" y="32" width="32.5" height="36.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="31"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fbm-YC-Kn0" userLabel="From">
-                                                                                <rect key="frame" x="381" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="382.5" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Frt-w1-eAR">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6312,7 +6315,7 @@ Bookings)</string>
                                                                                         <rect key="frame" x="0.0" y="0.0" width="210" height="60"/>
                                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                         <connections>
-                                                                                            <action selector="btn_ThursToTime:" destination="aYt-G6-mt6" eventType="touchUpInside" id="tiG-k7-fAz"/>
+                                                                                            <action selector="btn_ThursToTime:" destination="fes-9d-2r5" eventType="touchUpInside" id="t1G-4D-bak"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                 </subviews>
@@ -6359,7 +6362,7 @@ Bookings)</string>
                                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lir-ec-fjv">
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="0.0"/>
                                                                         <subviews>
-                                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Closed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CYr-Ut-QCi">
+                                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Usual Schedule" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CYr-Ut-QCi">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="771" height="0.0"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="34"/>
                                                                                 <color key="textColor" name="txtGray"/>
@@ -6419,7 +6422,7 @@ Bookings)</string>
                                                                 </constraints>
                                                                 <color key="onTintColor" name="MainPrim"/>
                                                                 <connections>
-                                                                    <action selector="switch_Fri:" destination="aYt-G6-mt6" eventType="valueChanged" id="bjf-eo-T8c"/>
+                                                                    <action selector="switch_Fri:" destination="fes-9d-2r5" eventType="valueChanged" id="t4a-E3-ZpJ"/>
                                                                 </connections>
                                                             </switch>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Pf4-KL-XwZ">
@@ -6429,13 +6432,13 @@ Bookings)</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="100"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRJ-7p-BRt">
-                                                                                <rect key="frame" x="0.0" y="33" width="63.5" height="34"/>
+                                                                                <rect key="frame" x="0.0" y="33.5" width="65" height="33"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="28"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ya0-fE-eLN" userLabel="From">
-                                                                                <rect key="frame" x="83.5" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="85" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYa-fq-0u6">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6454,7 +6457,7 @@ Bookings)</string>
                                                                                         <rect key="frame" x="0.0" y="0.0" width="210" height="60"/>
                                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                         <connections>
-                                                                                            <action selector="btn_FriFromTime:" destination="aYt-G6-mt6" eventType="touchUpInside" id="P7x-uJ-n3h"/>
+                                                                                            <action selector="btn_FriFromTime:" destination="fes-9d-2r5" eventType="touchUpInside" id="vFm-fW-dhb"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                 </subviews>
@@ -6486,13 +6489,13 @@ Bookings)</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </view>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1iz-mw-Xf3">
-                                                                                <rect key="frame" x="333.5" y="31.5" width="32.5" height="37.5"/>
+                                                                                <rect key="frame" x="335" y="32" width="32.5" height="36.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="31"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5J5-aW-7L6" userLabel="From">
-                                                                                <rect key="frame" x="381" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="382.5" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gqw-cm-VU4">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6511,7 +6514,7 @@ Bookings)</string>
                                                                                         <rect key="frame" x="0.0" y="0.0" width="210" height="60"/>
                                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                         <connections>
-                                                                                            <action selector="btn_FriToTime:" destination="aYt-G6-mt6" eventType="touchUpInside" id="umf-yD-wcg"/>
+                                                                                            <action selector="btn_FriToTime:" destination="fes-9d-2r5" eventType="touchUpInside" id="1ZM-bw-ISe"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                 </subviews>
@@ -6558,7 +6561,7 @@ Bookings)</string>
                                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tTt-nA-STB">
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="0.0"/>
                                                                         <subviews>
-                                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Closed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QGX-TQ-RdY">
+                                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Usual Schedule" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QGX-TQ-RdY">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="771" height="0.0"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="34"/>
                                                                                 <color key="textColor" name="txtGray"/>
@@ -6618,7 +6621,7 @@ Bookings)</string>
                                                                 </constraints>
                                                                 <color key="onTintColor" name="MainPrim"/>
                                                                 <connections>
-                                                                    <action selector="switch_Satur:" destination="aYt-G6-mt6" eventType="valueChanged" id="xu0-1b-jxS"/>
+                                                                    <action selector="switch_Satur:" destination="fes-9d-2r5" eventType="valueChanged" id="087-0N-1fW"/>
                                                                 </connections>
                                                             </switch>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="rKz-pA-lIM">
@@ -6628,13 +6631,13 @@ Bookings)</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="100"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjO-Bv-J2l">
-                                                                                <rect key="frame" x="0.0" y="33" width="63.5" height="34"/>
+                                                                                <rect key="frame" x="0.0" y="33.5" width="65" height="33"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="28"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H8C-0g-Ua8" userLabel="From">
-                                                                                <rect key="frame" x="83.5" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="85" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aha-LN-Iou">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6653,7 +6656,7 @@ Bookings)</string>
                                                                                         <rect key="frame" x="0.0" y="0.0" width="210" height="60"/>
                                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                         <connections>
-                                                                                            <action selector="btn_SaturFromTime:" destination="aYt-G6-mt6" eventType="touchUpInside" id="CR3-R0-dYe"/>
+                                                                                            <action selector="btn_SaturFromTime:" destination="fes-9d-2r5" eventType="touchUpInside" id="X1T-3Q-5AA"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                 </subviews>
@@ -6685,13 +6688,13 @@ Bookings)</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </view>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ldi-SB-Qdb">
-                                                                                <rect key="frame" x="333.5" y="31.5" width="32.5" height="37.5"/>
+                                                                                <rect key="frame" x="335" y="32" width="32.5" height="36.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="31"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1yv-ef-UZ3" userLabel="From">
-                                                                                <rect key="frame" x="381" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="382.5" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="whI-i2-VtM">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6710,7 +6713,7 @@ Bookings)</string>
                                                                                         <rect key="frame" x="0.0" y="0.0" width="210" height="60"/>
                                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                         <connections>
-                                                                                            <action selector="btn_SaturToTime:" destination="aYt-G6-mt6" eventType="touchUpInside" id="phw-Fd-rmR"/>
+                                                                                            <action selector="btn_SaturToTime:" destination="fes-9d-2r5" eventType="touchUpInside" id="kLh-Lk-Y5l"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                 </subviews>
@@ -6757,7 +6760,7 @@ Bookings)</string>
                                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A5A-Y7-8Hl">
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="0.0"/>
                                                                         <subviews>
-                                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Closed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZp-9h-xaF">
+                                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Usual Schedule" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZp-9h-xaF">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="771" height="0.0"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="34"/>
                                                                                 <color key="textColor" name="txtGray"/>
@@ -6817,7 +6820,7 @@ Bookings)</string>
                                                                 </constraints>
                                                                 <color key="onTintColor" name="MainPrim"/>
                                                                 <connections>
-                                                                    <action selector="switch_Sun:" destination="aYt-G6-mt6" eventType="valueChanged" id="exV-oi-c3v"/>
+                                                                    <action selector="switch_Sun:" destination="fes-9d-2r5" eventType="valueChanged" id="jpd-tM-pyY"/>
                                                                 </connections>
                                                             </switch>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="uZm-SD-LvD">
@@ -6827,13 +6830,13 @@ Bookings)</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="100"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="To2-uV-6Nb">
-                                                                                <rect key="frame" x="0.0" y="33" width="63.5" height="34"/>
+                                                                                <rect key="frame" x="0.0" y="33.5" width="65" height="33"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="28"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ywe-K9-Vly" userLabel="From">
-                                                                                <rect key="frame" x="83.5" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="85" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4PI-sc-rhY">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6852,7 +6855,7 @@ Bookings)</string>
                                                                                         <rect key="frame" x="0.0" y="0.0" width="210" height="60"/>
                                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                         <connections>
-                                                                                            <action selector="btn_SunFromTime:" destination="aYt-G6-mt6" eventType="touchUpInside" id="Yz7-0q-8G4"/>
+                                                                                            <action selector="btn_SunFromTime:" destination="fes-9d-2r5" eventType="touchUpInside" id="IJp-Hd-OPs"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                 </subviews>
@@ -6884,13 +6887,13 @@ Bookings)</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </view>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhB-kX-aL5">
-                                                                                <rect key="frame" x="333.5" y="31.5" width="32.5" height="37.5"/>
+                                                                                <rect key="frame" x="335" y="32" width="32.5" height="36.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="31"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="77N-Qp-h9X" userLabel="From">
-                                                                                <rect key="frame" x="381" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="382.5" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WI4-DK-pss">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6909,7 +6912,7 @@ Bookings)</string>
                                                                                         <rect key="frame" x="0.0" y="0.0" width="210" height="60"/>
                                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                         <connections>
-                                                                                            <action selector="btn_SunToTime:" destination="aYt-G6-mt6" eventType="touchUpInside" id="2cl-kS-7rf"/>
+                                                                                            <action selector="btn_SunToTime:" destination="fes-9d-2r5" eventType="touchUpInside" id="cqh-zF-SUR"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                 </subviews>
@@ -6956,7 +6959,7 @@ Bookings)</string>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hhJ-1r-bT7">
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="100"/>
                                                                         <subviews>
-                                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Closed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q4n-qa-RVI">
+                                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Usual Schedule" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q4n-qa-RVI">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="771" height="100"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="34"/>
                                                                                 <color key="textColor" name="txtGray"/>
@@ -7028,6 +7031,9 @@ Bookings)</string>
                                                         <color key="value" name="MainSen"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="btn_Save:" destination="fes-9d-2r5" eventType="touchUpInside" id="6I2-eh-YZX"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -7060,13 +7066,57 @@ Bookings)</string>
                             <constraint firstItem="qM6-tH-WfR" firstAttribute="leading" secondItem="mqg-mJ-0qf" secondAttribute="leading" constant="30" id="FeM-KU-08V"/>
                             <constraint firstItem="stW-24-hbu" firstAttribute="top" secondItem="mqg-mJ-0qf" secondAttribute="top" constant="30" id="Idd-a9-a2g"/>
                             <constraint firstItem="bFf-Kf-RfH" firstAttribute="trailing" secondItem="mqg-mJ-0qf" secondAttribute="trailing" id="KHg-KE-ihQ"/>
-                            <constraint firstItem="bFf-Kf-RfH" firstAttribute="top" secondItem="qM6-tH-WfR" secondAttribute="bottom" constant="31" id="PAs-Jn-0GO"/>
+                            <constraint firstItem="bFf-Kf-RfH" firstAttribute="top" secondItem="qM6-tH-WfR" secondAttribute="bottom" constant="10" id="PAs-Jn-0GO"/>
                             <constraint firstAttribute="bottom" secondItem="bFf-Kf-RfH" secondAttribute="bottom" id="PoL-lQ-tyk"/>
                             <constraint firstItem="qM6-tH-WfR" firstAttribute="top" secondItem="stW-24-hbu" secondAttribute="bottom" constant="20" id="X7P-ka-WBs"/>
                             <constraint firstItem="stW-24-hbu" firstAttribute="leading" secondItem="tg1-k6-Up3" secondAttribute="leading" constant="30" id="YLb-Cq-RKK"/>
                             <constraint firstItem="mqg-mJ-0qf" firstAttribute="trailing" secondItem="stW-24-hbu" secondAttribute="trailing" constant="30" id="hBR-go-jjx"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="Switch_Fri" destination="XxE-Qi-T0B" id="Z1T-fE-LtC"/>
+                        <outlet property="Switch_Mon" destination="qGf-Jl-Geb" id="Y8A-Z8-EnN"/>
+                        <outlet property="Switch_Satur" destination="4Sb-CS-up4" id="8GW-BV-2KD"/>
+                        <outlet property="Switch_Sun" destination="jqL-bZ-Eng" id="c90-ND-1dB"/>
+                        <outlet property="Switch_Thurs" destination="R2i-8Y-hd7" id="LOL-HP-48b"/>
+                        <outlet property="Switch_Tues" destination="bZk-97-fm8" id="Cxj-gd-aYU"/>
+                        <outlet property="Switch_Wednes" destination="nkC-AE-GUB" id="FOC-DK-lzy"/>
+                        <outlet property="lbl_FriClose" destination="QGX-TQ-RdY" id="206-7m-RCq"/>
+                        <outlet property="lbl_FriFromTime" destination="jYa-fq-0u6" id="MUk-WG-NJE"/>
+                        <outlet property="lbl_FriToTime" destination="gqw-cm-VU4" id="dmv-Sg-y4U"/>
+                        <outlet property="lbl_MonClose" destination="X4a-YI-oeV" id="hZu-MC-ZwD"/>
+                        <outlet property="lbl_MonFromTime" destination="Qzi-eq-8an" id="kGm-K4-xEw"/>
+                        <outlet property="lbl_MonToTime" destination="jat-4W-k9W" id="PTj-7L-gkm"/>
+                        <outlet property="lbl_SaturClose" destination="fZp-9h-xaF" id="Yr0-zW-VXr"/>
+                        <outlet property="lbl_SaturFromTime" destination="aha-LN-Iou" id="w7X-Ol-6kR"/>
+                        <outlet property="lbl_SaturToTime" destination="whI-i2-VtM" id="JC4-5r-SgM"/>
+                        <outlet property="lbl_SunClose" destination="Q4n-qa-RVI" id="HL3-PV-H9N"/>
+                        <outlet property="lbl_SunFromTime" destination="4PI-sc-rhY" id="cjN-y0-4tc"/>
+                        <outlet property="lbl_SunToTime" destination="WI4-DK-pss" id="fTR-W4-ZNH"/>
+                        <outlet property="lbl_ThursClose" destination="CYr-Ut-QCi" id="CWM-sE-dkw"/>
+                        <outlet property="lbl_ThursFromTime" destination="pRL-85-1sN" id="Uxf-Sf-Aoo"/>
+                        <outlet property="lbl_ThursToTime" destination="Frt-w1-eAR" id="tB5-Xa-B6N"/>
+                        <outlet property="lbl_TuesClose" destination="EZO-an-Ahh" id="KmF-8f-BJm"/>
+                        <outlet property="lbl_TuesFromTime" destination="nSS-JH-kAz" id="5RI-fC-24K"/>
+                        <outlet property="lbl_TuesToTime" destination="RN7-Q2-YHY" id="Q9y-fi-0ih"/>
+                        <outlet property="lbl_WednesClose" destination="xEk-cC-YCh" id="9ff-Vj-EnP"/>
+                        <outlet property="lbl_WednesFromTime" destination="mee-tg-Yvw" id="Hof-u7-usN"/>
+                        <outlet property="lbl_WednesToTime" destination="ozZ-rJ-A1K" id="PLz-7N-aPL"/>
+                        <outlet property="vw_FriClose" destination="tTt-nA-STB" id="2zx-cK-HQ4"/>
+                        <outlet property="vw_FriTime" destination="x3V-uI-CYh" id="BQn-C5-RSs"/>
+                        <outlet property="vw_MonClose" destination="Ggo-fB-1MF" id="K1b-Vs-h0b"/>
+                        <outlet property="vw_MonTime" destination="vdk-FK-zb3" id="zNT-dw-sGP"/>
+                        <outlet property="vw_SaturClose" destination="A5A-Y7-8Hl" id="7cy-5K-v3x"/>
+                        <outlet property="vw_SaturTime" destination="dow-5E-Ilz" id="upZ-Dl-p97"/>
+                        <outlet property="vw_SunClose" destination="hhJ-1r-bT7" id="Z3h-Bl-lFb"/>
+                        <outlet property="vw_SunTime" destination="Ilu-6l-x2z" id="gHa-Q4-RG2"/>
+                        <outlet property="vw_ThursClose" destination="lir-ec-fjv" id="Wt1-2e-1nX"/>
+                        <outlet property="vw_ThursTime" destination="Pgn-Su-aN8" id="745-tN-Rto"/>
+                        <outlet property="vw_TuesClose" destination="iZc-lS-l9E" id="1eQ-e4-U9N"/>
+                        <outlet property="vw_TuesTime" destination="pHF-HC-tgr" id="V3f-0z-sqi"/>
+                        <outlet property="vw_WednesClose" destination="o2h-Wa-GuK" id="hEJ-Q6-XUc"/>
+                        <outlet property="vw_WednesTime" destination="uzg-K1-A9w" id="E7Z-3v-S8w"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="soA-oo-N37" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

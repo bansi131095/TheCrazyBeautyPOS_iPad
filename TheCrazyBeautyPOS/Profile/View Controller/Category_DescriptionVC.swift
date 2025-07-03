@@ -79,7 +79,7 @@ class Category_DescriptionVC: UIViewController {
         }
     }
     
-    func get_CategoryDescriptionNew() {
+    /*func get_CategoryDescriptionNew() {
         APIService.shared.fetchcategory_description { result in
             guard let result = result else { return }
 
@@ -104,14 +104,63 @@ class Category_DescriptionVC: UIViewController {
                 self.tbl_Height.constant = self.tbl_CategoriesDescription.contentSize.height
             }
         }
+    }*/
+    
+    func get_CategoryDescriptionNew() {
+        APIService.shared.fetchcategory_description { result in
+            guard let result = result else {
+                print("❌ Failed to fetch category description")
+                return
+            }
+
+            self.CategoryDetailsModel = result.data
+
+            if let first = self.CategoryDetailsModel.first {
+                let staffArray = first.staffSequenceArray
+                print("📦 Staff Array Count: \(staffArray.count)")
+
+                for i in 0..<self.CategoryDetails.count {
+                    let category = self.CategoryDetails[i]
+                    let catIdStr = "\(category.id)".trimmingCharacters(in: .whitespacesAndNewlines)
+
+                    var matchedFound = false
+
+                    for staff in staffArray {
+                        let staffIdStr = (staff.category_id)
+
+                        if catIdStr == "\(staffIdStr)" {
+                            print("✅ Match: \(catIdStr) == \(staffIdStr)")
+                            category.sequence = staff.sequence
+                            category.descriptionText = staff.description
+                            matchedFound = true
+                            break
+                        } else {
+                            print("❌ Mismatch: \(catIdStr) != \(staffIdStr)")
+                        }
+                    }
+
+                    if !matchedFound {
+                        print("❌ No match found for category_id: \(catIdStr)")
+                        category.sequence = ""
+                        category.descriptionText = ""
+                    }
+                }
+            }
+
+            DispatchQueue.main.async {
+                self.tbl_CategoriesDescription.reloadData()
+                self.tbl_Height.constant = self.tbl_CategoriesDescription.contentSize.height
+            }
+        }
     }
+
     
     
     func update_CategoryDescription(category: [[String: String]]) {
         APIService.shared.updateCategoryDescription(category_description: category,vendorid: LocalData.userId
         ) { response in
-            if let response = response {
-                self.alertWithMessageOnly("Category sequences updated successfully!")
+            if let message = response?.data {
+                self.alertWithMessageOnly(message)
             } else {
                 self.alertWithMessageOnly("Something went wrong, please try again.")
             }
@@ -131,6 +180,7 @@ extension Category_DescriptionVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tbl_CategoriesDescription.dequeueReusableCell(withIdentifier: "CategoryDescriptionCell") as! CategoryDescriptionCell
         let data = CategoryDetails[indexPath.row]
+        
         cell.lbl_CategoryName.text = data.service_name
         if data.icon != "" {
             let imgUrl = global.imageUrl + (data.icon ?? "")
@@ -145,10 +195,18 @@ extension Category_DescriptionVC: UITableViewDelegate,UITableViewDataSource{
                 })
             }
         }
+        if data.descriptionText != ""{
+            cell.txt_Description.text = data.descriptionText
+        }else{
+            cell.txt_Description.text = ""
+        }
         
+        if data.sequence != ""{
+            cell.txt_Sequence.text = data.sequence
+        }else{
+            cell.txt_Sequence.text = ""
+        }
         
-        cell.txt_Description.text = data.descriptionText
-        cell.txt_Sequence.text = data.sequence
         return cell
     }
 }

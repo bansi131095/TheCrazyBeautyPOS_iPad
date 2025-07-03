@@ -38,7 +38,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HairHairHairHair" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="30m-Nu-K1c">
-                                <rect key="frame" x="86" y="0.0" width="181" height="90"/>
+                                <rect key="frame" x="96" y="0.0" width="181" height="90"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="181" id="ZIR-qL-GC8"/>
                                 </constraints>
@@ -47,10 +47,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KUI-9D-o5i" userLabel="AccountNumber">
-                                <rect key="frame" x="552" y="10" width="598" height="70"/>
+                                <rect key="frame" x="562" y="10" width="588" height="70"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="il7-Ul-Xaj">
-                                        <rect key="frame" x="10" y="10" width="578" height="50"/>
+                                        <rect key="frame" x="10" y="10" width="568" height="50"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="26"/>
@@ -89,7 +89,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mcO-zr-ibk" userLabel="AccountNumber">
-                                <rect key="frame" x="277" y="10" width="250" height="70"/>
+                                <rect key="frame" x="287" y="10" width="250" height="70"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Sequence*" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lbq-kD-SNJ" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
                                         <rect key="frame" x="15" y="0.0" width="235" height="70"/>
@@ -134,13 +134,11 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="30m-Nu-K1c" firstAttribute="leading" secondItem="EeN-vz-XPK" secondAttribute="trailing" constant="8" id="0zC-sW-QvS"/>
                             <constraint firstAttribute="bottom" secondItem="EeN-vz-XPK" secondAttribute="bottom" constant="10" id="5yQ-qy-GNC"/>
                             <constraint firstAttribute="bottom" secondItem="30m-Nu-K1c" secondAttribute="bottom" id="7ID-PH-SYs"/>
                             <constraint firstItem="Izu-lM-5b7" firstAttribute="leading" secondItem="2hv-ae-eoT" secondAttribute="leading" id="8QV-bj-Hmv"/>
                             <constraint firstItem="KUI-9D-o5i" firstAttribute="leading" secondItem="mcO-zr-ibk" secondAttribute="trailing" constant="25" id="AjR-iL-lgP"/>
                             <constraint firstItem="Izu-lM-5b7" firstAttribute="top" secondItem="2hv-ae-eoT" secondAttribute="top" id="FKK-x3-5sJ"/>
-                            <constraint firstItem="30m-Nu-K1c" firstAttribute="leading" secondItem="Izu-lM-5b7" secondAttribute="trailing" id="KmB-Tb-zRm"/>
                             <constraint firstItem="KUI-9D-o5i" firstAttribute="centerY" secondItem="30m-Nu-K1c" secondAttribute="centerY" id="KtD-OU-q6f"/>
                             <constraint firstItem="EeN-vz-XPK" firstAttribute="centerX" secondItem="Izu-lM-5b7" secondAttribute="centerX" id="Qdo-GL-HkF"/>
                             <constraint firstItem="mcO-zr-ibk" firstAttribute="leading" secondItem="30m-Nu-K1c" secondAttribute="trailing" constant="10" id="QmQ-qQ-UmN"/>
@@ -149,6 +147,7 @@
                             <constraint firstItem="30m-Nu-K1c" firstAttribute="centerY" secondItem="EeN-vz-XPK" secondAttribute="centerY" id="ZCh-jV-eGt"/>
                             <constraint firstItem="EeN-vz-XPK" firstAttribute="top" secondItem="2hv-ae-eoT" secondAttribute="top" constant="10" id="c2V-C3-0Me"/>
                             <constraint firstAttribute="bottom" secondItem="Izu-lM-5b7" secondAttribute="bottom" id="diK-lc-T3u"/>
+                            <constraint firstItem="30m-Nu-K1c" firstAttribute="leading" secondItem="Izu-lM-5b7" secondAttribute="trailing" constant="10" id="g0P-OV-UWG"/>
                             <constraint firstItem="30m-Nu-K1c" firstAttribute="top" secondItem="2hv-ae-eoT" secondAttribute="top" id="hIx-4M-2xY"/>
                             <constraint firstAttribute="trailing" secondItem="KUI-9D-o5i" secondAttribute="trailing" constant="10" id="mod-Uu-dOk"/>
                             <constraint firstItem="EeN-vz-XPK" firstAttribute="leading" secondItem="2hv-ae-eoT" secondAttribute="leading" constant="8" id="pb4-7G-f75"/>

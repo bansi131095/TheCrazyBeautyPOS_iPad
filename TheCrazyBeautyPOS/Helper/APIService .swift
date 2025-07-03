@@ -212,6 +212,29 @@ class APIService {
         }
     }
     
+    func getCurrency(completion: @escaping (CurrencyModel?) -> Void) {
+        let url = global.shared.URL_GET_CURRENCY + "/\(LocalData.userId)"
+
+        AF.request(url, method: .get, headers: HTTPHeaders(headers))
+            .validate()
+            .responseObject { (response: DataResponse<CurrencyModel, AFError>) in
+            switch response.result {
+            case .success(let model):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Received \(model.data.count) business services")
+                completion(model)
+            case .failure(let error):
+                print("❌ API Call Failed: \(error)")
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                completion(nil)
+            }
+        }
+    }
+    
     func UpdateCurrency(currency: String,symbol: String,vendorId: String, completion: @escaping (CurrencyResponse?) -> Void) {
         let url = global.shared.URL_UPDATE_CURRENCY
         
@@ -1020,6 +1043,281 @@ class APIService {
             }
         }
     }
+    
+    func fetchKioskUser(completion: @escaping (GetKioskModel?) -> Void) {
+        let url = global.shared.URL_GET_KIOSK + "/\(LocalData.userId)"
+
+        AF.request(url, method: .get, headers: HTTPHeaders(headers))
+            .validate()
+            .responseObject { (response: DataResponse<GetKioskModel, AFError>) in
+            switch response.result {
+            case .success(let model):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Received \(model.data.count) business services")
+                completion(model)
+            case .failure(let error):
+                print("❌ API Call Failed: \(error)")
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                completion(nil)
+            }
+        }
+    }
+    
+    func fetchSubvendor(completion: @escaping (GetKioskModel?) -> Void) {
+        let url = global.shared.URL_GET_SUBVENDOR + "/\(LocalData.userId)"
+
+        AF.request(url, method: .get, headers: HTTPHeaders(headers))
+            .validate()
+            .responseObject { (response: DataResponse<GetKioskModel, AFError>) in
+            switch response.result {
+            case .success(let model):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Received \(model.data.count) business services")
+                completion(model)
+            case .failure(let error):
+                print("❌ API Call Failed: \(error)")
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                completion(nil)
+            }
+        }
+    }
+    
+    func UpdateCreateSubvendor(email: String,name: String,password: String,vendorId: String, completion: @escaping (CurrencyResponse?) -> Void) {
+        let url = global.shared.URL_UPDATE_SUBVENDOR
+        
+        let params: [String: Any] = [
+                "email": email,
+                "name": name,
+                "password": password,
+                "vendor_id": vendorId
+            ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<CurrencyResponse, AFError>) in
+
+            // 📦 Print request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headere: \(self.headers)")
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    
+    func UpdateAddKiosk(email: String,password: String,vendorId: String, completion: @escaping (CurrencyResponse?) -> Void) {
+        let url = global.shared.URL_UPDATE_ADD_KIOSK
+        
+        let params: [String: Any] = [
+                "email": email,
+                "password": password,
+                "vendor_id": vendorId
+            ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<CurrencyResponse, AFError>) in
+
+            // 📦 Print request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headere: \(self.headers)")
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    func fetchTiming(completion: @escaping ([WorkingHour1]) -> Void) {
+    let url = global.shared.URL_GET_TIMING + "/\(LocalData.userId)"
+
+    AF.request(url, method: .get, headers: HTTPHeaders(headers))
+        .validate()
+        .responseObject { (response: DataResponse<GetKioskModel1, AFError>) in
+            switch response.result {
+            case .success(let model):
+                if let rawData = response.data,
+                   let rawJSON = String(data: rawData, encoding: .utf8) {
+                    print("📦 Raw Response:\n\(rawJSON)")
+                }
+
+                // Make sure we have at least one vendor
+                guard let firstVendor = model.data.first,
+                      let jsonString = firstVendor.working_hours else {
+                    completion([])
+                    return
+                }
+
+                // Parse working_hours string
+                let workingHours = self.parseWorkingHours(jsonString)
+                completion(workingHours)
+
+            case .failure(let error):
+                print("❌ API Call Failed: \(error)")
+                if let data = response.data,
+                   let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                completion([])
+            }
+        }
+    }
+    
+    func parseWorkingHours(_ jsonString: String) -> [WorkingHour1] {
+        guard let data = jsonString.data(using: .utf8),
+              let array = try? JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]] else {
+            return []
+        }
+        return Mapper<WorkingHour1>().mapArray(JSONArray: array)
+    }
+
+
+    func convertWorkingHoursToJSONString(_ workingHours: [WorkingHour1]) -> String? {
+        let array = workingHours.compactMap { wh -> [String: String]? in
+            guard let day = wh.day, let from = wh.from, let to = wh.to else { return nil }
+            return ["day": day, "from": from, "to": to]
+        }
+        
+        if let data = try? JSONSerialization.data(withJSONObject: array, options: []),
+           let jsonString = String(data: data, encoding: .utf8) {
+            return jsonString
+        }
+        
+        return nil
+    }
+    
+    func UpdateBusinessHours(workingHours: [WorkingHour1], completion: @escaping (Bool) -> Void) {
+        let url = global.shared.URL_UPDATE_BUSINESS_TIMING + "/\(LocalData.userId)"
+
+        // 1. Build JSON manually to ensure correct formatting
+        var workingHoursArray: [[String: String]] = []
+
+        for wh in workingHours {
+            if let day = wh.day, let from = wh.from, let to = wh.to {
+                workingHoursArray.append([
+                    "day": day,
+                    "from": from,
+                    "to": to
+                ])
+            }
+        }
+
+        // 2. Convert to JSON data
+        guard let data = try? JSONSerialization.data(withJSONObject: workingHoursArray, options: []),
+              let jsonArrayString = String(data: data, encoding: .utf8) else {
+            print("❌ Failed to encode working_hours array")
+            completion(false)
+            return
+        }
+
+        // 3. Build final parameters
+        let params: [String: Any] = [
+            "working_hours": jsonArrayString
+        ]
+
+        // Debug print
+        print("📤 Payload to Send: \(params)")
+
+        // 5. API Call
+        AF.request(url,
+                   method: .post,
+                   parameters: params,
+                   encoding: JSONEncoding.default, // Use JSONEncoding for JSON payload
+                   headers: HTTPHeaders(headers))
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    print("✅ API Success: \(value)")
+                    completion(true)
+                case .failure(let error):
+                    print("❌ API Error: \(error)")
+                    if let data = response.data {
+                        print("📦 Error Body:\n\(String(data: data, encoding: .utf8) ?? "")")
+                    }
+                    completion(false)
+                }
+            }
+    }
+
+
+
+    func fetchBreakTime(completion: @escaping ([BreakTime1]) -> Void) {
+        let url = global.shared.URL_GET_BREAK_TIME + "/\(LocalData.userId)"
+
+        AF.request(url, method: .get, headers: HTTPHeaders(headers))
+            .validate()
+            .responseObject { (response: DataResponse<GetBreakTimeModel, AFError>) in
+                switch response.result {
+                case .success(let model):
+                    if let first = model.data.first, let breakString = first.break_time {
+                        let parsedBreakTimes = self.parseBreakTime(from: breakString)
+                        completion(parsedBreakTimes)
+                    } else {
+                        completion([])
+                    }
+
+                case .failure(let error):
+                    print("❌ API Call Failed: \(error)")
+                    completion([])
+                }
+            }
+    }
+
+    func parseBreakTime(from jsonString: String) -> [BreakTime1] {
+        if let data = jsonString.data(using: .utf8) {
+            do {
+                if let jsonArray = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]] {
+                    return Mapper<BreakTime1>().mapArray(JSONArray: jsonArray)
+                }
+            } catch {
+                print("❌ BreakTime parsing failed: \(error.localizedDescription)")
+            }
+        }
+        return []
+    }
+
+
+
+    
+
+    
     
 }
 

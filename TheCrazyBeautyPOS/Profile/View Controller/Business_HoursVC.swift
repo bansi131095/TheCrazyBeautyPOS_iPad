@@ -7,6 +7,7 @@
 
 import UIKit
 import DropDown
+import ObjectMapper
 
 
 
@@ -82,6 +83,7 @@ class Business_HoursVC: UIViewController {
         vw_SunClose.isHidden = false
         vw_SunTime.isHidden = true
         TimeSlots()
+        api_getBusinessHours()
     }
     
     
@@ -228,6 +230,10 @@ class Business_HoursVC: UIViewController {
     
     
     
+    @IBAction func btn_Save(_ sender: Any) {
+        update_business_hours()
+    }
+    
     
     //MARK: - Function
     func TimeSlots(){
@@ -264,6 +270,89 @@ class Business_HoursVC: UIViewController {
     }
     
     //MARK: - Web Api Calling
-   
+    func api_getBusinessHours() {
+        APIService.shared.fetchTiming { workingHours in
+            self.updateBusinessHoursUI(from: workingHours)
+        }
+    }
+
+    func updateBusinessHoursUI(from workingHours: [WorkingHour1]) {
+        /*let dict = Dictionary(uniqueKeysWithValues: workingHours.compactMap {
+            guard let day = $0.day?.lowercased(), let from = $0.from, let to = $0.to else { return nil }
+            return (day, (from, to))
+        })*/
+        
+        // Create dictionary for fast lookup
+        let dict: [String: (String, String)] = Dictionary(uniqueKeysWithValues: workingHours.compactMap {
+            guard let day = $0.day?.lowercased(), let from = $0.from, let to = $0.to else { return nil }
+            return (day, (from, to))
+        })
+
+        let allDays = [
+            ("monday", lbl_MonFromTime, lbl_MonToTime, vw_MonTime, vw_MonClose, Switch_Mon),
+            ("tuesday", lbl_TuesFromTime, lbl_TuesToTime, vw_TuesTime, vw_TuesClose, Switch_Tues),
+            ("wednesday", lbl_WednesFromTime, lbl_WednesToTime, vw_WednesTime, vw_WednesClose, Switch_Wednes),
+            ("thursday", lbl_ThursFromTime, lbl_ThursToTime, vw_ThursTime, vw_ThursClose, Switch_Thurs),
+            ("friday", lbl_FriFromTime, lbl_FriToTime, vw_FriTime, vw_FriClose, Switch_Fri),
+            ("saturday", lbl_SaturFromTime, lbl_SaturToTime, vw_SaturTime, vw_SaturClose, Switch_Satur),
+            ("sunday", lbl_SunFromTime, lbl_SunToTime, vw_SunTime, vw_SunClose, Switch_Sun)
+        ]
+
+        for (day, fromLbl, toLbl, timeView, closeView, toggleSwitch) in allDays {
+            if let (from, to) = dict[day] {
+                fromLbl?.text = from
+                toLbl?.text = to
+                timeView?.isHidden = false
+                closeView?.isHidden = true
+                toggleSwitch?.isOn = true
+            } else {
+                timeView?.isHidden = true
+                closeView?.isHidden = false
+                toggleSwitch?.isOn = false
+            }
+        }
+    }
+    
+    func createWorkingHoursFromUI() -> [WorkingHour1] {
+        var result: [WorkingHour1] = []
+
+        let allDays: [(day: String, isOn: Bool, from: UILabel, to: UILabel)] = [
+            ("Monday", Switch_Mon.isOn, lbl_MonFromTime, lbl_MonToTime),
+            ("Tuesday", Switch_Tues.isOn, lbl_TuesFromTime, lbl_TuesToTime),
+            ("Wednesday", Switch_Wednes.isOn, lbl_WednesFromTime, lbl_WednesToTime),
+            ("Thursday", Switch_Thurs.isOn, lbl_ThursFromTime, lbl_ThursToTime),
+            ("Friday", Switch_Fri.isOn, lbl_FriFromTime, lbl_FriToTime),
+            ("Saturday", Switch_Satur.isOn, lbl_SaturFromTime, lbl_SaturToTime),
+            ("Sunday", Switch_Sun.isOn, lbl_SunFromTime, lbl_SunToTime)
+        ]
+
+        for entry in allDays {
+            if entry.isOn {
+                let model = WorkingHour1(JSON: [
+                    "day": entry.day,
+                    "from": entry.from.text ?? "",
+                    "to": entry.to.text ?? ""
+                ])
+                if let model = model {
+                    result.append(model)
+                }
+            }
+        }
+
+        return result
+    }
+
+    
+    func update_business_hours() {
+        let workingHoursToSend: [WorkingHour1] = createWorkingHoursFromUI()
+
+        APIService.shared.UpdateBusinessHours(workingHours: workingHoursToSend) { result  in
+        if result {
+            self.alertWithMessageOnly("Business timing updated successfully")
+        } else {
+            self.alertWithMessageOnly("Something went wrong.")
+        }
+    }
+}
 
 }
