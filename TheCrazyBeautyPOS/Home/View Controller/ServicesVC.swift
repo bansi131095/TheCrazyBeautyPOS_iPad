@@ -29,8 +29,12 @@ class ServicesVC: UIViewController {
         contentViewWidthConstraint.constant = 700 // or any dynamic value
         self.setTableView()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        self.loadData(Search: "")
+        
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.loadData(Search: "")
     }
     
     
@@ -100,6 +104,25 @@ class ServicesVC: UIViewController {
     }
     
     
+    //MARK: Delete API
+    func deleteServiceData(serviceId: Int) {
+        APIService.shared.deleteServiceData(serviceId: serviceId) { staffResult in
+            guard let model = staffResult else {
+                return
+            }
+
+            if model.error == "" || model.error == nil {
+                DispatchQueue.main.async {
+                    // safe UI code here
+                    self.showToast(message: model.data)
+                }
+                self.loadData(Search: "")
+            } else {
+                self.show_alert(msg: model.error ?? "", title: "Delete Service")
+            }
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -142,12 +165,24 @@ extension ServicesVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
         cell.lbl_time.text = "\(service.duration) Min"
         cell.lbl_serviceFor.text = service.service_for
         cell.lbl_price.text = "\(LocalData.symbol)\(service.price)"
-//        cell.Act_Edit = {
-//            
-//        }
-//        cell.Act_Delete = {
-//            
-//        }
+        cell.Act_Edit = {
+            let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddServiceVC") as! AddServiceVC
+            addNew.isEdit = true
+            addNew.dictService = service
+            self.navigationController?.pushViewController(addNew, animated: true)
+        }
+        cell.Act_Delete = {
+            let popup = ConfirmDeletePopupVC()
+            popup.modalPresentationStyle = .overFullScreen
+            popup.modalTransitionStyle = .crossDissolve
+            popup.titleText = "Are you sure you want to delete this service?"
+            popup.onConfirm = {
+                print("User confirmed delete")
+                // Call your delete logic here
+                self.deleteServiceData(serviceId: service.id)
+            }
+            self.present(popup, animated: true, completion: nil)
+        }
         return cell
     }
     

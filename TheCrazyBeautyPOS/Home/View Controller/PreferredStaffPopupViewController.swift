@@ -12,8 +12,8 @@ import UIKit
 class PreferredStaffPopupViewController: UIViewController {
 
     var staffList: [StaffData] = []
-    var selectedStaff: [Int] = []
-    var onComplete: (([Int]) -> Void)?
+    var selectedStaff: [String] = []
+    var onComplete: (([String]) -> Void)?
 
     private let containerView = UIView()
     private let titleLabel = UILabel()
@@ -155,18 +155,18 @@ extension PreferredStaffPopupViewController: UICollectionViewDelegate, UICollect
             return UICollectionViewCell()
         }
         let name = (staffList[indexPath.item].firstName ?? "") + " " + (staffList[indexPath.item].lastName ?? "")
-        cell.configure(with: name, selected: selectedStaff.contains(staffList[indexPath.item].id ?? 0))
+        cell.configure(with: name, selected: selectedStaff.contains("\(staffList[indexPath.item].id ?? 0)"))
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let staff = staffList[indexPath.item].id ?? 0
-        if selectedStaff.contains(staff) {
-            if let index = selectedStaff.firstIndex(of: staff) {
+        if selectedStaff.contains("\(staff)") {
+            if let index = selectedStaff.firstIndex(of: "\(staff)") {
                 selectedStaff.remove(at: index)
             }
         } else {
-            selectedStaff.append(staff)
+            selectedStaff.append("\(staff)")
         }
         collectionView.reloadItems(at: [indexPath])
     }

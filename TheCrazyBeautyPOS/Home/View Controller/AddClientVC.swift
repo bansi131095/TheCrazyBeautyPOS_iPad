@@ -193,9 +193,9 @@ class AddClientVC: UIViewController {
     }
     
     func setEditData() {
-        self.firstNameTextField.text = self.dictClient?.first_name
-        self.lastNameTextField.text = self.dictClient?.last_name
-        self.emailTextField.text = self.dictClient?.email
+        self.firstNameTextField.setText(self.dictClient?.first_name ?? "")
+        self.lastNameTextField.setText(self.dictClient?.last_name ?? "")
+        self.emailTextField.setText(self.dictClient?.email ?? "")
         if var phoneno = self.dictClient?.phone {
             if !phoneno.isEmpty && phoneno.count >= 3 {
                 if phoneno.contains("--") {
@@ -214,7 +214,7 @@ class AddClientVC: UIViewController {
                     let countryCode = split[0]
                     let mobileNo = split[1]
                     self.selectedCountrycode = countryCode
-                    self.mobileTextField.text = mobileNo // Assuming this is your UITextField
+                    self.mobileTextField.setText(mobileNo) // Assuming this is your UITextField
                     if let iso = CountryUtils.getISOCode(from: countryCode){
                         if let flagImage = CountryUtils.imageFromEmoji(flag: flag(from: iso)) {
                             flag_imgVw.image = flagImage
@@ -235,7 +235,7 @@ class AddClientVC: UIViewController {
                         selectedDate = date
                         let formatter = DateFormatter()
                         formatter.dateFormat = "dd-MM-yyyy"
-                        self.dobTextField.text = formatter.string(from: selectedDate)
+                        self.dobTextField.setText(formatter.string(from: selectedDate))
                     }
                 } else {
                     selectedDate = Date.now
@@ -247,10 +247,10 @@ class AddClientVC: UIViewController {
             selectedDate = Date.now
         }
         if let clientType = self.dictClient?.client_type, !clientType.isEmpty && clientType != "null" {
-            self.clientTypeTextField.text = ClientTypeOptions[ClientTypeOptions.firstIndex(of: clientType)!]
+            self.clientTypeTextField.setText(ClientTypeOptions[ClientTypeOptions.firstIndex(of: clientType)!])
         }
         if let gender = self.dictClient?.gender, !gender.isEmpty && gender != "null" {
-            self.genderTextField.text = genderOptions[genderOptions.firstIndex(of: gender)!]
+            self.genderTextField.setText(genderOptions[genderOptions.firstIndex(of: gender)!])
         }
     }
     

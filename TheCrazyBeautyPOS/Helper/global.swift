@@ -77,11 +77,25 @@ class global: NSObject
     
     var URL_DELETE_CLIENT = global.server_url + "delete_client/"
     
+    var URL_ADD_SERVICE = global.server_url + "add_service"
+    
+    var URL_UPDATE_SERVICE = global.server_url + "edit_service/"
+    
+    var URL_DELETE_SERVICE = global.server_url + "delete_service/"
+    
+    var URL_ADD_TEAM = global.server_url + "add_member"
+    
+    var URL_UPDATE_TEAM = global.server_url + "update_member/"
+    
+    var URL_DELETE_TEAM = global.server_url + "delete_member/"
+    
     var URL_DURATION_DETAILS = global.server_url + "duration_details"
     
     var URL_SELECT_MAINCATEGORY = global.server_url + "select_maincategory/"
     
+    var URL_SERVICE_DETAILS_V1 = global.server_url + "service_details_v1"
     
+    var URL_GET_TIMING = global.server_url + "get_timing"
     
     
     //MARK:-

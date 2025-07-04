@@ -36,6 +36,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     var selectedCountrycode = "+353"
     var calendarVC: UIViewController?
     var isEdit = false
+    var workingHours: [WorkingHour] = []
     
     
     //MARK: View Life Cycle
@@ -131,20 +132,52 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     }
     
     @IBAction func act_editSchedule(_ sender: UIButton) {
+        let editSchedule = self.storyboard?.instantiateViewController(withIdentifier: "EditScheduleVC") as! EditScheduleVC
+        editSchedule.modalPresentationStyle = .overFullScreen
+        editSchedule.modalTransitionStyle = .crossDissolve
+        self.present(editSchedule, animated: true)
     }
     
     @IBAction func act_editService(_ sender: UIButton) {
+        let editService = self.storyboard?.instantiateViewController(withIdentifier: "AssignServiceVC") as! AssignServiceVC
+        editService.isEdit = isEdit
+        if isEdit {
+            editService.teamName = self.dictStaff!.firstName!.capitalized + " " + self.dictStaff!.lastName!.capitalized
+        }
+        editService.modalPresentationStyle = .overFullScreen
+        self.present(editService, animated: true)
     }
     
     @IBAction func act_addTimeOff(_ sender: UIButton) {
     }
     
     @IBAction func act_cancel(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func act_addEditTeam(_ sender: GradientButton) {
+        let mobileNo = "+\(selectedCountrycode)-\(self.mobileTextField.text ?? "")"
+
+        /* if let image = self.img_teamMember.image {
+           APIService.shared.addTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: <#T##String#>, showInCalendar: <#T##String#>, serviceIds: <#T##String#>, workingHours: "", shiftTimings: "", image: image, imageKey: "file") { response in
+                if let member = response {
+                    print("🎉 Member Added: \(member.data?.id ?? 0)")
+                } else {
+                    print("🚫 Upload failed.")
+                }
+            }
+        }*/
     }
     
+    //MARK: Load Api
+    func api_getBusinessHours() {
+        APIService.shared.fetchTiming { workingHours in
+            self.workingHours = workingHours
+        }
+    }
+    
+    
+    //MARK: Function
     func showImagePickerActionSheet(sourceView: UIView) {
         let actionSheet = UIAlertController(title: "Select Image", message: nil, preferredStyle: .actionSheet)
 
@@ -199,6 +232,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
 
         self.present(calendarVC!, animated: true, completion: nil)
     }
+    
     
     /*
     // MARK: - Navigation

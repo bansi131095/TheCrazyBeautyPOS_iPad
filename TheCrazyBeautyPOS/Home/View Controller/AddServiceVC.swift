@@ -9,11 +9,13 @@ import UIKit
 
 class AddServiceVC: UIViewController {
     
+    @IBOutlet weak var lbl_title: UILabel!
     @IBOutlet weak var txt_serviceName: TextInputLayout!
     @IBOutlet weak var txt_mainCategory: TextInputLayout!
     @IBOutlet weak var txt_serviceFor: TextInputLayout!
     @IBOutlet weak var txt_description: FloatingTextView!
     @IBOutlet weak var txt_serviceDuration: TextInputLayout!
+    @IBOutlet weak var txt_priceType: TextInputLayout!
     @IBOutlet weak var txt_regulatPrice: TextInputLayout!
     @IBOutlet weak var txt_salesPrice: TextInputLayout!
     @IBOutlet weak var btn_vendorOnly: UIButton!
@@ -21,7 +23,9 @@ class AddServiceVC: UIViewController {
     @IBOutlet weak var btn_patchTest: UIButton!
     @IBOutlet weak var staffTextField: TextInputLayout!
     @IBOutlet weak var tagHolderView: UIView!
+    @IBOutlet weak var btn_service: GradientButton!
     
+    var dictService: ServiceData?
     var isEdit = false
     var durationList:[DurationItem] = []
     var categoryList: [ServiceDatas] = []
@@ -33,7 +37,9 @@ class AddServiceVC: UIViewController {
     var isCategoryVisible = false
     let serviceForTableView = UITableView()
     var isServiceForVisible = false
-    
+    var selected:[String] = []
+    var selectedDuration = 0
+    var parentId = 0
     
     //MARK: View life cycle
     override func viewDidLoad() {
@@ -43,9 +49,22 @@ class AddServiceVC: UIViewController {
         self.loadData()
         let options: [String] = ["Male", "Female", "Unisex"]
         DropdownManager.shared.setupDropdown(for: self.txt_serviceFor, in: self.view, with: options)
+        let options1: [String] = ["Starts From", "Fixed"]
+        DropdownManager.shared.setupDropdown(for: self.txt_priceType, in: self.view, with: options1)
         staffTextField.delegate = self
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openStaffPopup))
         staffTextField.addGestureRecognizer(tapGesture)
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            if self.isEdit {
+                self.lbl_title.text = "Edit Service"
+                self.btn_service.setTitle("Edit Service", for: .normal)
+                self.setData()
+            } else {
+                self.lbl_title.text = "Add Service"
+                self.btn_service.setTitle("Add Service", for: .normal)
+            }
+        }
+        
         // Do any additional setup after loading the view.
     }
     
@@ -60,7 +79,25 @@ class AddServiceVC: UIViewController {
     }
     
     @IBAction func act_addEditService(_ sender: GradientButton) {
-        
+        if self.txt_serviceName.text!.isEmpty {
+            self.showToast(message: "Please enter service name")
+        } else if self.txt_mainCategory.text!.isEmpty {
+            self.showToast(message: "Please select category")
+        } else if self.txt_serviceFor.text!.isEmpty {
+            self.showToast(message: "Please select service for")
+        } else if self.txt_serviceDuration.text!.isEmpty {
+            self.showToast(message: "Please select service time")
+        } else if self.txt_priceType.text!.isEmpty {
+            self.showToast(message: "Please select price type")
+        } else if self.txt_regulatPrice.text!.isEmpty {
+            self.showToast(message: "Please enter price")
+        } else {
+            if isEdit {
+                self.updateServiceData(serviceId: "\(self.dictService?.id ?? 0)")
+            } else {
+                self.addServiceData()
+            }
+        }
     }
     
     @IBAction func act_vendorOnly(_ sender: UIButton) {
@@ -86,13 +123,43 @@ class AddServiceVC: UIViewController {
             sender.setImage(UIImage(named: "rdCheck"), for: .normal)
         }
     }
+    
+    //MARK: Set Data
+    func setData() {
+//        self.txt_serviceName.showLabel()
+        self.txt_serviceName.setText(self.dictService?.service ?? "")
+        self.txt_mainCategory.setText(self.dictService?.category ?? "")
+        self.parentId = self.dictService?.category_id ?? 0
+        self.txt_serviceFor.setText(self.dictService?.service_for ?? "")
+        self.txt_description.text = self.dictService?.description ?? ""
+        self.selectedDuration = self.dictService?.duration ?? 0
+        self.txt_priceType.setText(self.dictService?.price_type ?? "")
+        self.txt_regulatPrice.setText(self.dictService?.price ?? "")
+        self.txt_salesPrice.setText(self.dictService?.sale_price ?? "")
+        if let venderOnly = self.dictService?.isVendorOnly, venderOnly == 1 {
+            self.btn_vendorOnly.setImage(UIImage(named: "rdCheck"), for: .normal)
+        } else {
+            self.btn_vendorOnly.setImage(UIImage(named: "rdUncheck"), for: .normal)
+        }
+        if let contactSalon = self.dictService?.conatctSalon, contactSalon == 1 {
+            self.btn_needToContact.setImage(UIImage(named: "rdCheck"), for: .normal)
+        } else {
+            self.btn_needToContact.setImage(UIImage(named: "rdUncheck"), for: .normal)
+        }
+        if let patchTest = self.dictService?.patchTest, patchTest == 1 {
+            self.btn_patchTest.setImage(UIImage(named: "rdCheck"), for: .normal)
+        } else {
+            self.btn_patchTest.setImage(UIImage(named: "rdUncheck"), for: .normal)
+        }
+        
+        
+    }
 
 
     @objc func openStaffPopup() {
-        var selected:[Int] = []
         if !self.selectedStaffList.isEmpty {
             for staff in self.selectedStaffList {
-                selected.append(staff.id ?? 0)
+                selected.append("\(staff.id ?? 0)")
             }
         }
         let popup = PreferredStaffPopupViewController()
@@ -101,8 +168,9 @@ class AddServiceVC: UIViewController {
         popup.onComplete = { selected in
             print("Selected staff: \(selected)")
             self.selectedStaffList = []
+            self.selected = selected
             for staff in self.staffList {
-                if selected.contains(staff.id ?? 0) {
+                if selected.contains("\(staff.id ?? 0)") {
                     self.selectedStaffList.append(staff)
                 }
             }
@@ -159,6 +227,13 @@ class AddServiceVC: UIViewController {
                     options.append(dur.label)
                 }
                 DropdownManager.shared.setupDropdown(for: self.txt_serviceDuration, in: self.view, with: options)
+                if self.isEdit {
+                    for data in self.durationList {
+                        if data.duration == "\(self.selectedDuration)" {
+                            self.txt_serviceDuration.setText(data.label)
+                        }
+                    }
+                }
             }
             
         }
@@ -178,6 +253,13 @@ class AddServiceVC: UIViewController {
                     options.append(cate.service_name)
                 }
                 DropdownManager.shared.setupDropdown(for: self.txt_mainCategory, in: self.view, with: options)
+                if self.isEdit {
+                    for data in self.categoryList {
+                        if data.id == self.parentId {
+                            self.txt_mainCategory.setText(data.service_name)
+                        }
+                    }
+                }
             }
             
         }
@@ -192,6 +274,85 @@ class AddServiceVC: UIViewController {
 
             let newItems = model.data ?? []
             self.staffList += newItems
+            if self.isEdit {
+                if let staffIds = self.dictService?.staff_id, !staffIds.isEmpty {
+                    let list = staffIds.components(separatedBy: ",")
+                    self.selected = list
+                    if !self.selected.isEmpty {
+                        for staff in self.staffList {
+                            if self.selected.contains("\(staff.id ?? 0)") {
+                                self.selectedStaffList.append(staff)
+                            }
+                        }
+                        self.refreshTags()
+                    }
+                }
+            }
+        }
+    }
+    
+    func addServiceData() {
+        for data in durationList {
+            if data.label == self.txt_serviceDuration.text {
+                selectedDuration = Int(data.duration) ?? 0
+            }
+        }
+        for data in categoryList {
+            if data.service_name == self.txt_mainCategory.text ?? "" {
+                parentId = data.id
+            }
+        }
+        
+        let staffIds = !self.selected.isEmpty ? self.selected.joined(separator: ",") : ""
+        APIService.shared.addServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: self.txt_serviceFor.text ?? "", duration: selectedDuration, priceType: self.txt_priceType.text ?? "", price: Int(self.txt_regulatPrice.text ?? "") ?? 0, salePrice: Int(self.txt_salesPrice.text ?? "") ?? 0, vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds) { staffResult in
+            guard let model = staffResult else {
+                return
+            }
+
+            if model.error == "" || model.error == nil {
+                DispatchQueue.main.async {
+                    // safe UI code here
+                    self.showToast(message: "Service added successfully")
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            } else {
+                self.show_alert(msg: model.error!, title: "Add Service")
+            }
+        }
+    }
+    
+    
+    func updateServiceData(serviceId: String) {
+        for data in durationList {
+            if data.label == self.txt_serviceDuration.text {
+                selectedDuration = Int(data.duration) ?? 0
+            }
+        }
+        for data in categoryList {
+            if data.id == Int(self.txt_mainCategory.text ?? "") ?? 0 {
+                parentId = data.id
+            }
+        }
+        
+        let staffIds = !self.selected.isEmpty ? self.selected.joined(separator: ",") : ""
+        APIService.shared.updateServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: self.txt_serviceFor.text ?? "", duration: selectedDuration, priceType: self.txt_priceType.text ?? "", price: Int(self.txt_regulatPrice.text ?? "") ?? 0, salePrice: Int(self.txt_salesPrice.text ?? "") ?? 0, vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds, serviceId: serviceId) { staffResult in
+            guard let model = staffResult else {
+                return
+            }
+
+            if model.error == "" || model.error == nil {
+                DispatchQueue.main.async {
+                    // safe UI code here
+                    self.showToast(message: model.data)
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            } else {
+                self.show_alert(msg: model.error!, title: "Update Service")
+            }
         }
     }
 

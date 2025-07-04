@@ -2862,7 +2862,14 @@ class FloatingTextView: UIView, UITextViewDelegate {
 
     // MARK: - Expose Text
     var text: String {
-        return textView.text
+        get {
+            return textView.text
+        }
+        set {
+            textView.text = newValue
+            animatePlaceholder(up: !newValue.isEmpty)
+        }
     }
+
 }
 

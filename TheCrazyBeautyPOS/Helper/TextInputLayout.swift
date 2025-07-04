@@ -203,4 +203,9 @@ class TextInputLayout: UITextField {
         return bounds.inset(by: UIEdgeInsets(top: self.difference, left: 0, bottom: 8, right: 12))
     }
     
+    func setText(_ value: String) {
+        self.text = value
+        showLabel() // <-- This ensures placeholder animates up
+    }
+
 }

@@ -99,6 +99,7 @@ class ClientsVC: UIViewController {
     }
     
     
+    //MARK: Delete API
     func deleteClientData(clientId: Int) {
         APIService.shared.deleteClientData(clientId: clientId) { staffResult in
             guard let model = staffResult else {
