@@ -122,7 +122,7 @@ class ProfileVC: UIViewController,SettingCellDelegate {
             // Salon Details
             switch rowIndex {
             case 0:
-                vc = storyboard.instantiateViewController(withIdentifier: "GeneralInfoVC")
+                vc = storyboard.instantiateViewController(withIdentifier: "General_InfoVC")
             case 1:
                 vc = storyboard.instantiateViewController(withIdentifier: "Salon_ImagesVC")
             case 2:

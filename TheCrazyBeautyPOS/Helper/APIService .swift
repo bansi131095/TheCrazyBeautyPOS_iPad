@@ -810,66 +810,222 @@ class APIService {
             }
         }
     }*/
-    func uploadSalonImages(
-            vendorId: String,
-            photo: UIImage?,
-            photos: [UIImage],
-            otherPhotos: [String],
-            completion: @escaping (CurrencyResponse?) -> Void
-        ) {
-            let url = global.shared.URL_ADD_IMAGE + "/\(LocalData.userId)"
 
-            AF.upload(multipartFormData: { multipartFormData in
-                // vendor_id
-                multipartFormData.append(Data(vendorId.utf8), withName: "vendor_id")
+    /*func uploadSalonImages(
+        photo: UIImage?,
+        otherPhotos: [String],   // filenames to retain
+        photos: [UIImage],       // new gallery images
+        completion: @escaping (CurrencyResponse?) -> Void
+    ) {
+        let url = global.shared.URL_ADD_IMAGE + "/\(LocalData.userId)"
+        print("📤 Uploading to: \(url)")
 
-                // profile photo
-                if let profileImage = photo,
-                   let jpegData = profileImage.jpegData(compressionQuality: 0.7) {
-                    multipartFormData.append(jpegData, withName: "photo", fileName: "profile.jpg", mimeType: "image/jpeg")
-                    print("📸 Appended profile photo")
-                }
+        AF.upload(multipartFormData: { multipartFormData in
 
-                // new photos
-                for (index, image) in photos.enumerated() {
-                    if let imageData = image.jpegData(compressionQuality: 0.7) {
-                        multipartFormData.append(imageData, withName: "photos", fileName: "photo_\(index).png", mimeType: "image/png")
-                        print("📸 Appended gallery image \(index)")
-                    }
-                }
+            // ✅ 1. Main profile image
+            if let profileImage = photo,
+               let imageData = profileImage.jpegData(compressionQuality: 0.7) {
+                multipartFormData.append(imageData, withName: "photo", fileName: "main_photo.jpg", mimeType: "image/jpeg")
+                print("✅ photo: main_photo.jpg")
+            }
 
-                // existing photo names (comma-separated string)
-                let joinedPhotos = otherPhotos.joined(separator: ",")
-                multipartFormData.append(Data(joinedPhotos.utf8), withName: "other_photos")
-                print("📎 Appended old image names: \(joinedPhotos)")
+            // ✅ 2. other_photos as JSON string (text field)
+            let jsonString = try? JSONSerialization.data(withJSONObject: otherPhotos)
+            if let jsonData = jsonString,
+               let stringValue = String(data: jsonData, encoding: .utf8) {
+                multipartFormData.append(Data(stringValue.utf8), withName: "other_photos")
+                print("✅ other_photos: \(stringValue)")
+            }
 
-            }, to: url, method: .post, headers: HTTPHeaders(headers))
-            .responseJSON { response in
-                print("🌐 Request to: \(url)")
-                
-                if let status = response.response?.statusCode {
-                    print("✅ Status Code: \(status)")
-                }
-
-                switch response.result {
-                case .success(let json):
-                    print("📦 Raw JSON: \(json)")
-
-                    if let mapped = Mapper<CurrencyResponse>().map(JSONObject: json) {
-                        print("✅ Mapped Response: \(mapped)")
-                        completion(mapped)
-                    } else {
-                        print("❌ Mapping failed")
-                        completion(nil)
-                    }
-
-                case .failure(let error):
-                    print("❌ Upload failed: \(error.localizedDescription)")
-                    completion(nil)
+            // ✅ 3. photos (multiple binary files)
+            for (index, image) in photos.enumerated() {
+                if let imageData = image.jpegData(compressionQuality: 0.7) {
+                    let fileName = "gallery_\(index).jpg"
+                    multipartFormData.append(imageData, withName: "\(photos)[]", fileName: fileName, mimeType: "image/jpeg")
+                    print("✅ photos: \(fileName)")
                 }
             }
+
+        }, to: url, method: .post, headers: HTTPHeaders(headers))
+        .responseJSON { response in
+            switch response.result {
+            case .success(let json):
+                print("🎉 Upload success: \(json)")
+                let mapped = Mapper<CurrencyResponse>().map(JSONObject: json)
+                completion(mapped)
+
+            case .failure(let error):
+                print("❌ Upload failed: \(error.localizedDescription)")
+                if let data = response.data, let text = String(data: data, encoding: .utf8) {
+                    print("📦 Server response: \(text)")
+                }
+                completion(nil)
+            }
         }
+    }*/
+
+    /*func uploadSalonImages(
+        photo: UIImage?,              // main profile image
+        otherPhotos: [String],        // filenames of images to retain
+        photos: [UIImage],            // actual image files to upload
+        completion: @escaping (CurrencyResponse?) -> Void
+    ) {
+        let url = global.shared.URL_ADD_IMAGE + "/\(LocalData.userId)"
+        print("📤 Uploading to: \(url)")
+
+        AF.upload(multipartFormData: { multipartFormData in
+
+            // ✅ 1. Add 'photo' (main image)
+            if let profileImage = photo,
+               let imageData = profileImage.jpegData(compressionQuality: 0.7) {
+                multipartFormData.append(imageData, withName: "photo", fileName: "photo.jpg", mimeType: "image/jpeg")
+                print("✅ Sent: photo.jpg")
+            }
+
+            // ✅ 2. Add 'photos' (multiple gallery images)
+            for (index, image) in photos.enumerated() {
+                if let imgData = image.jpegData(compressionQuality: 0.7) {
+                    let fileName = "gallery_\(index)_\(Int(Date().timeIntervalSince1970)).jpg"
+                    multipartFormData.append(imgData, withName: "photos", fileName: fileName, mimeType: "image/jpeg")
+                    print("✅ Sent: photos = \(fileName)")
+                }
+            }
+
+            // ✅ 3. Add 'other_photos' (JSON string of filenames)
+            if let jsonData = try? JSONSerialization.data(withJSONObject: otherPhotos, options: []),
+               let jsonString = String(data: jsonData, encoding: .utf8) {
+                multipartFormData.append(Data(jsonString.utf8), withName: "other_photos")
+                print("✅ Sent: other_photos = \(jsonString)")
+            }
+
+        }, to: url, method: .post, headers: HTTPHeaders(headers))
+        .responseJSON { response in
+            if let status = response.response?.statusCode {
+                print("📶 Status Code: \(status)")
+            }
+
+            switch response.result {
+            case .success(let json):
+                print("🎉 Upload Success: \(json)")
+                let mapped = Mapper<CurrencyResponse>().map(JSONObject: json)
+                completion(mapped)
+
+            case .failure(let error):
+                print("❌ Upload Error: \(error.localizedDescription)")
+                if let data = response.data, let string = String(data: data, encoding: .utf8) {
+                    print("📦 Server says: \(string)")
+                }
+                completion(nil)
+            }
+        }
+    }*/
+
+    func uploadSalonImages(
+        photo: UIImage?,              // main profile photo
+        otherPhotos: [String],        // filenames of old gallery images to retain
+        photos: [UIImage],            // one OR more new gallery images
+        completion: @escaping (CurrencyResponse?) -> Void
+    ) {
+        let url = global.shared.URL_ADD_IMAGE + "/\(LocalData.userId)"
+        print("📤 Uploading to: \(url)")
+
+        AF.upload(multipartFormData: { multipartFormData in
+
+            // ✅ 1. Main profile photo
+            if let profileImage = photo,
+               let imageData = profileImage.jpegData(compressionQuality: 0.7) {
+                multipartFormData.append(imageData, withName: "photo", fileName: "main_photo.jpg", mimeType: "image/jpeg")
+                print("✅ photo: main_photo.jpg")
+            }
+
+            // ✅ 2. One or more photos under same field name "photos"
+            if photos.isEmpty {
+                print("⚠️ No gallery photos to upload.")
+            } else {
+                for (index, image) in photos.enumerated() {
+                    if let imageData = image.jpegData(compressionQuality: 0.7) {
+                        let timestamp = Int(Date().timeIntervalSince1970)
+                        let fileName = "gallery_\(index)_\(timestamp).jpg"
+                        multipartFormData.append(imageData, withName: "photos", fileName: fileName, mimeType: "image/jpeg")
+                        print("✅ photos: \(fileName)")
+                    }
+                }
+            }
+
+            // ✅ 3. other_photos as JSON string (filenames to retain)
+            if !otherPhotos.isEmpty,
+               let jsonData = try? JSONSerialization.data(withJSONObject: otherPhotos, options: []),
+               let jsonString = String(data: jsonData, encoding: .utf8) {
+                multipartFormData.append(Data(jsonString.utf8), withName: "other_photos")
+                print("✅ other_photos: \(jsonString)")
+            }
+
+        }, to: url, method: .post, headers: HTTPHeaders(headers))
+        .responseJSON { response in
+            if let status = response.response?.statusCode {
+                print("📶 Status Code: \(status)")
+            }
+
+            switch response.result {
+            case .success(let json):
+                print("🎉 Upload Success: \(json)")
+                let mapped = Mapper<CurrencyResponse>().map(JSONObject: json)
+                completion(mapped)
+            case .failure(let error):
+                print("❌ Upload Failed: \(error.localizedDescription)")
+                if let data = response.data, let errorMsg = String(data: data, encoding: .utf8) {
+                    print("📦 Server says: \(errorMsg)")
+                }
+                completion(nil)
+            }
+        }
+    }
+
+
+
     
+    
+    func OrdersPhotos(apiurl: String, param: inout Parameters, file: [UIImage], method: HTTPMethod, completionHandler : @escaping(Bool,NSDictionary?) -> ()) {
+        
+        
+        
+        let parameter = param
+        print(param)
+        
+        if NetworkReachabilityManager()!.isReachable == false{
+            completionHandler(false,nil)
+        }
+        
+        AF.upload(multipartFormData: { multipartFormData in
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy-HH:MM:ss"
+            let convertedDate: String = dateFormatter.string(from: Date())
+            for imageData in file {
+                let convert = imageData.jpegData(compressionQuality: 1.0)
+                multipartFormData.append(convert!, withName: "\("photos")[]", fileName: "\(convertedDate).png", mimeType: "image/jpeg")
+            }
+            
+            for (key, value) in parameter {
+                    multipartFormData.append((value as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)
+            }
+        }, to: apiurl).responseData { res in
+            switch res.result {
+            case .success(let data) :
+                if let jsonObj = try? JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]{
+                    print(jsonObj)
+                    completionHandler(true, jsonObj as NSDictionary)
+                }else{
+                    completionHandler(false, nil)
+                    print("Not UpdateProfile")
+                }
+            default:
+                print("error")
+                break
+            }
+        }
+    }
+    
+
     func UpdateReminderMail(reminder_mail: String,vendorId: String, completion: @escaping (CurrencyResponse?) -> Void) {
         let url = global.shared.URL_UPDATE_REMINDERMAIL
         
@@ -1316,8 +1472,117 @@ class APIService {
 
 
     
+    func UpdateBreakTime(breakTimes: [[String: String]], vendorID: String, completion: @escaping (Bool) -> Void) {
+        let url = global.shared.URL_UPDATE_BREAK_TIME
+
+        // 1. Convert array to JSON string
+        guard let data = try? JSONSerialization.data(withJSONObject: breakTimes, options: []),
+              let jsonString = String(data: data, encoding: .utf8) else {
+            print("❌ Failed to encode breakTimes array")
+            completion(false)
+            return
+        }
+
+        // 2. Final parameters
+        let params: [String: Any] = [
+            "vendor_id": vendorID,
+            "break_time": jsonString
+        ]
+
+        print("📤 Payload to Send: \(params)")
+
+        // 3. Alamofire request
+        AF.request(url,
+                   method: .post,
+                   parameters: params,
+                   encoding: JSONEncoding.default,
+                   headers: HTTPHeaders(headers)) // <-- Add your headers dictionary here
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    print("✅ BreakTime Update Success: \(value)")
+                    completion(true)
+                case .failure(let error):
+                    print("❌ API Error: \(error)")
+                    if let data = response.data {
+                        print("📦 Error Body:\n\(String(data: data, encoding: .utf8) ?? "")")
+                    }
+                    completion(false)
+                }
+            }
+    }
+
+    func fetchSMSDetails(completion: @escaping (SMSDetailsData?) -> Void) {
+    let url = global.shared.URL_GET_SMS_DETAILS + "/\(LocalData.userId)"
+
+    AF.request(url, method: .get, headers: HTTPHeaders(headers))
+        .validate()
+        .responseObject { (response: DataResponse<SMSDetailsModel, AFError>) in
+            switch response.result {
+            case .success(let model):
+                if let first = model.data.first {
+                    completion(first)
+                } else {
+                    completion(nil)
+                }
+            case .failure(let error):
+                print("❌ Failed to fetch SMS Details: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+
+    func updateNotificationSettings(vendorId: String,reminderTime: String,smsSettings: [[String: Int]],emailSettings: [[String: Int]],emailNotifications: String,completion: @escaping (Bool) -> Void
+    ) {
+        let url = global.shared.URL_UPDATE_SMS_DETAILS
+
+        // Convert complex arrays to JSON strings
+        guard let smsData = try? JSONSerialization.data(withJSONObject: smsSettings, options: []),
+              let smsJSONString = String(data: smsData, encoding: .utf8),
+              let emailData = try? JSONSerialization.data(withJSONObject: emailSettings, options: []),
+              let emailJSONString = String(data: emailData, encoding: .utf8) else {
+            print("❌ Failed to encode JSON")
+            completion(false)
+            return
+        }
+
+        // Actual JSON object (not URL-encoded!)
+        let parameters: [String: Any] = [
+            "vendor_id": vendorId,
+            "reminder_time": reminderTime,
+            "sms_settings": smsJSONString,
+            "email_settings": emailJSONString,
+            "email_notifications": emailNotifications
+        ]
+
+        // Must send as JSON
+       
+        print("📤 Final JSON Parameters:\n\(parameters)")
+
+    AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+        .validate()
+        .responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                print("✅ Success: \(value)")
+                completion(true)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                if let data = response.data,
+                   let errorMsg = String(data: data, encoding: .utf8) {
+                    print("❌ Server Message: \(errorMsg)")
+                }
+                completion(false)
+            }
+        }
+    }
+
+
 
     
+
+
     
 }
 

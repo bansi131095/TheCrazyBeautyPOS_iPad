@@ -45,6 +45,25 @@ class Notifications_SettingsVC: UIViewController {
     @IBOutlet weak var vw_NotShown: UIView!
     
     
+    
+    @IBOutlet weak var Switch_SmsF_NewBooking: UISwitch!
+    @IBOutlet weak var Switch_SmsF_BookingCompleted: UISwitch!
+    @IBOutlet weak var Switch_SmsF_BookingCancel: UISwitch!
+    
+    @IBOutlet weak var Switch_Cust_NewBooking: UISwitch!
+    @IBOutlet weak var Switch_Cust_BookingCompleted: UISwitch!
+    @IBOutlet weak var Switch_Cust_BookingCancel: UISwitch!
+    @IBOutlet weak var Switch_Cust_Reminder: UISwitch!
+    
+    @IBOutlet weak var Switch_EmailS_Notification: UISwitch!
+    
+    @IBOutlet weak var Switch_BookingN_NewBooking: UISwitch!
+    @IBOutlet weak var Switch_BookingN_BookingCompleted: UISwitch!
+    @IBOutlet weak var Switch_BookingN_BookingCancel: UISwitch!
+    @IBOutlet weak var Switch_BookingN_EditBooking: UISwitch!
+    @IBOutlet weak var Switch_BookingN_NotShown: UISwitch!
+    
+    
     //MARK: - Global Variable
     var isSMSExpanded = false
     var isEmailExpanded = false
@@ -58,7 +77,7 @@ class Notifications_SettingsVC: UIViewController {
         setInitialVisibility()
         self.lbl_Time.text = arr_TimeSlot[0]
         select_Hours = "1 Hours"
-        // Do any additional setup after loading the view.
+        get_NotificationSettings()
     }
     
     //MARK: -  Button Action
@@ -75,6 +94,37 @@ class Notifications_SettingsVC: UIViewController {
     @IBAction func btn_EmailSettings(_ sender: Any) {
         isEmailExpanded.toggle()
         setEmailSettingsHideShow()
+    }
+    
+    @IBAction func btn_Save(_ sender: Any) {
+        let emailNotifications = Switch_EmailS_Notification.isOn ? "1" : "0"
+        let smsSettings: [[String: Int]] = [
+            ["c_booked": Switch_Cust_NewBooking.isOn ? 1 : 0],
+            ["c_completed": Switch_Cust_BookingCompleted.isOn ? 1 : 0],
+            ["c_cancelled": Switch_Cust_BookingCancel.isOn ? 1 : 0],
+            ["v_booked": Switch_SmsF_NewBooking.isOn ? 1 : 0],
+            ["v_completed": Switch_SmsF_BookingCompleted.isOn ? 1 : 0],
+            ["v_cancelled": Switch_SmsF_BookingCancel.isOn ? 1 : 0],
+            ["c_reminder": Switch_Cust_Reminder.isOn ? 1 : 0]
+        ]
+        
+        let emailSettings: [[String: Int]] = [
+            ["add_booking": Switch_BookingN_NewBooking.isOn ? 1 : 0],
+            ["edit_booking": Switch_BookingN_EditBooking.isOn ? 1 : 0],
+            ["complete_booking": Switch_BookingN_BookingCompleted.isOn ? 1 : 0],
+            ["cancel_booking": Switch_BookingN_BookingCancel.isOn ? 1 : 0],
+            ["noshow_booking": Switch_BookingN_NotShown.isOn ? 1 : 0]
+        ]
+
+        APIService.shared.updateNotificationSettings(vendorId: LocalData.userId,reminderTime: getReminderTimeMinutes(),smsSettings: smsSettings,emailSettings: emailSettings, emailNotifications: emailNotifications) { success in
+            DispatchQueue.main.async {
+                if success {
+                    self.alertWithMessageOnly("SMS/Emails settings saved successfully")
+                } else {
+                    self.alertWithMessageOnly("Something went wrong.")
+                }
+            }
+        }
     }
     
     //MARK: - Function
@@ -166,6 +216,92 @@ class Notifications_SettingsVC: UIViewController {
         }
     }
     
+    func getReminderTimeMinutes() -> String {
+        // Extract the number part only, e.g., "30 Minutes" => "30"
+        let full = lbl_Time.text ?? ""
+        let components = full.components(separatedBy: CharacterSet.decimalDigits.inverted)
+        let minutes = components.compactMap { Int($0) }.first ?? 30
+        return "\(minutes)"
+    }
+    
+    
     //MARK: - Web Api Calling
+    func get_NotificationSettings() {
+        APIService.shared.fetchSMSDetails { details in
+            if let details = details {
+                self.lbl_Time.text = "\(details.reminder_time ?? 0) Minutes"
+
+                // Parse and update SMS settings
+                if let smsSettingsJSON = details.sms_settings,
+                   let smsData = smsSettingsJSON.data(using: .utf8),
+                   let smsArray = try? JSONSerialization.jsonObject(with: smsData, options: []) as? [[String: Int]] {
+                    self.updateSMSUI(using: smsArray)
+                }
+
+                // Parse and update Email settings
+                if let emailSettingsJSON = details.email_settings,
+                   let emailData = emailSettingsJSON.data(using: .utf8),
+                   let emailArray = try? JSONSerialization.jsonObject(with: emailData, options: []) as? [[String: Int]] {
+                    self.updateEmailUI(using: emailArray)
+                }
+
+            } else {
+                print("⚠️ No SMS details found.")
+            }
+        }
+    }
+
+
+}
+
+extension Notifications_SettingsVC {
+    
+    func updateSMSUI(using settings: [[String: Int]]) {
+        for item in settings {
+            if let key = item.keys.first, let value = item.values.first {
+                let isOn = value == 1
+                switch key {
+                    case "c_booked":
+                        Switch_Cust_NewBooking.isOn = isOn
+                    case "c_completed":
+                        Switch_Cust_BookingCompleted.isOn = isOn
+                    case "c_cancelled":
+                        Switch_Cust_BookingCancel.isOn = isOn
+                    case "v_booked":
+                        Switch_SmsF_NewBooking.isOn = isOn
+                    case "v_completed":
+                        Switch_SmsF_BookingCompleted.isOn = isOn
+                    case "v_cancelled":
+                        Switch_SmsF_BookingCancel.isOn = isOn
+                    case "c_reminder":
+                        Switch_Cust_Reminder.isOn = isOn
+                    default:
+                        break
+                }
+            }
+        }
+    }
+    
+    func updateEmailUI(using settings: [[String: Int]]) {
+        for item in settings {
+            if let key = item.keys.first, let value = item.values.first {
+                let isOn = value == 1
+                switch key {
+                    case "add_booking":
+                        Switch_BookingN_NewBooking.isOn = isOn
+                    case "edit_booking":
+                        Switch_BookingN_EditBooking.isOn = isOn
+                    case "complete_booking":
+                        Switch_BookingN_BookingCompleted.isOn = isOn
+                    case "cancel_booking":
+                        Switch_BookingN_BookingCancel.isOn = isOn
+                    case "noshow_booking":
+                        Switch_BookingN_NotShown.isOn = isOn
+                    default:
+                        break
+                }
+            }
+        }
+    }
 
 }

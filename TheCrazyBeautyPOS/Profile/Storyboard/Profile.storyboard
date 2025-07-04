@@ -3245,6 +3245,9 @@ Bookings)</string>
                                                         <color key="value" name="MainSen"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="btn_Save:" destination="a5Q-Uh-2XI" eventType="touchUpInside" id="f0N-33-sxM"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -3289,6 +3292,19 @@ Bookings)</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="Switch_BookingN_BookingCancel" destination="cXl-Dd-kLH" id="qF6-Qs-Jkm"/>
+                        <outlet property="Switch_BookingN_BookingCompleted" destination="yXn-qD-Ity" id="vkx-zN-7OM"/>
+                        <outlet property="Switch_BookingN_EditBooking" destination="ZRr-Zr-o56" id="8NX-6b-PeW"/>
+                        <outlet property="Switch_BookingN_NewBooking" destination="xjd-8e-WqF" id="ugH-Xi-72k"/>
+                        <outlet property="Switch_BookingN_NotShown" destination="tUW-nQ-Gif" id="6Lu-fW-EXH"/>
+                        <outlet property="Switch_Cust_BookingCancel" destination="e72-Lc-7wy" id="nAw-U6-gOj"/>
+                        <outlet property="Switch_Cust_BookingCompleted" destination="Qk3-JO-clF" id="WVZ-sb-u3a"/>
+                        <outlet property="Switch_Cust_NewBooking" destination="din-IZ-T52" id="OU3-h1-fKV"/>
+                        <outlet property="Switch_Cust_Reminder" destination="0cI-bS-Km0" id="iqo-5p-Xil"/>
+                        <outlet property="Switch_EmailS_Notification" destination="vNU-Sv-0Z0" id="6pY-Xa-tJa"/>
+                        <outlet property="Switch_SmsF_BookingCancel" destination="vlW-ZY-fUu" id="5yI-5l-scV"/>
+                        <outlet property="Switch_SmsF_BookingCompleted" destination="FEK-yx-cig" id="gGS-Bu-kfV"/>
+                        <outlet property="Switch_SmsF_NewBooking" destination="BTL-H0-luv" id="hiu-mJ-b4V"/>
                         <outlet property="img_Down" destination="pt3-uL-6iM" id="tR4-jS-5ag"/>
                         <outlet property="img_EmailDown" destination="jMc-US-JfM" id="tHe-aO-w9C"/>
                         <outlet property="lbl_Amount" destination="j3N-Qd-3Bi" id="hMp-4f-6eD"/>
@@ -3855,6 +3871,12 @@ Bookings)</string>
                                                 <color key="textColor" name="txtGray"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Atleast 1 Image is required" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NfW-4g-Hpk">
+                                                <rect key="frame" x="397" y="329" width="244.5" height="25.5"/>
+                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="21"/>
+                                                <color key="textColor" name="Red"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YOB-7j-J1r">
                                                 <rect key="frame" x="30" y="389.5" width="1120" height="70"/>
                                                 <subviews>
@@ -3989,6 +4011,7 @@ Bookings)</string>
                                             <constraint firstItem="vQs-87-tQh" firstAttribute="trailing" secondItem="aZD-Lq-G59" secondAttribute="trailing" id="F28-aJ-B3m"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="qBC-Ck-7Kv" secondAttribute="bottom" constant="20" id="JFc-kY-e8q"/>
                                             <constraint firstAttribute="trailing" secondItem="YOB-7j-J1r" secondAttribute="trailing" constant="30" id="JkH-se-LnY"/>
+                                            <constraint firstItem="NfW-4g-Hpk" firstAttribute="centerY" secondItem="9HI-rY-6i8" secondAttribute="centerY" id="KtA-qZ-rtv"/>
                                             <constraint firstItem="9HI-rY-6i8" firstAttribute="leading" secondItem="zS6-aA-VeT" secondAttribute="leading" id="O3e-55-ixk"/>
                                             <constraint firstItem="zS6-aA-VeT" firstAttribute="leading" secondItem="fD3-DM-ylf" secondAttribute="leading" id="OaK-r1-dXd"/>
                                             <constraint firstItem="fD3-DM-ylf" firstAttribute="top" secondItem="HDp-yI-lTE" secondAttribute="top" constant="15" id="UaV-jG-eKD"/>
@@ -3997,6 +4020,7 @@ Bookings)</string>
                                             <constraint firstItem="vQs-87-tQh" firstAttribute="bottom" secondItem="aZD-Lq-G59" secondAttribute="bottom" id="bT2-Z5-34Q"/>
                                             <constraint firstAttribute="trailing" secondItem="qBC-Ck-7Kv" secondAttribute="trailing" constant="30" id="dh2-Kw-vPQ"/>
                                             <constraint firstItem="qBC-Ck-7Kv" firstAttribute="top" secondItem="5gG-Wn-QUI" secondAttribute="bottom" constant="20" id="gsZ-gl-pV9"/>
+                                            <constraint firstItem="NfW-4g-Hpk" firstAttribute="leading" secondItem="9HI-rY-6i8" secondAttribute="trailing" constant="10" id="iW6-7S-2sL"/>
                                             <constraint firstItem="YOB-7j-J1r" firstAttribute="top" secondItem="9HI-rY-6i8" secondAttribute="bottom" constant="35" id="liM-MT-PKn"/>
                                             <constraint firstItem="YOB-7j-J1r" firstAttribute="leading" secondItem="HDp-yI-lTE" secondAttribute="leading" constant="30" id="nIA-Nk-PJz"/>
                                             <constraint firstItem="qBC-Ck-7Kv" firstAttribute="leading" secondItem="HDp-yI-lTE" secondAttribute="leading" constant="30" id="of3-K2-slk"/>
@@ -4035,6 +4059,7 @@ Bookings)</string>
                         <outlet property="cv_HeightConst" destination="oUQ-Fr-zcb" id="ui6-wP-PLc"/>
                         <outlet property="cv_Imgs" destination="5gG-Wn-QUI" id="P0J-KI-FPE"/>
                         <outlet property="img_Profile" destination="kiD-3V-Isw" id="2pS-0H-0Na"/>
+                        <outlet property="lbl_Atleast1" destination="NfW-4g-Hpk" id="sGF-uT-1wA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8TS-vp-jiO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -5587,19 +5612,19 @@ Bookings)</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Salon Off Days/Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="stW-24-hbu">
-                                <rect key="frame" x="30" y="54" width="1120" height="33"/>
+                                <rect key="frame" x="30" y="54" width="1120" height="34"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="28"/>
                                 <color key="textColor" name="AppBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Add Salon Unavailable Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qM6-tH-WfR">
-                                <rect key="frame" x="30" y="107" width="1120" height="23.5"/>
+                                <rect key="frame" x="30" y="108" width="1120" height="24"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="AppBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bFf-Kf-RfH">
-                                <rect key="frame" x="0.0" y="140.5" width="1180" height="679.5"/>
+                                <rect key="frame" x="0.0" y="142" width="1180" height="678"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T8I-Aj-0MF">
                                         <rect key="frame" x="0.0" y="0.0" width="1180" height="884"/>
@@ -5636,13 +5661,13 @@ Bookings)</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="100"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kuq-NQ-6n7">
-                                                                                <rect key="frame" x="0.0" y="33.5" width="65" height="33"/>
+                                                                                <rect key="frame" x="0.0" y="33" width="63.5" height="34"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="28"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TS3-R8-plQ" userLabel="From">
-                                                                                <rect key="frame" x="85" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="83.5" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qzi-eq-8an">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -5693,13 +5718,13 @@ Bookings)</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </view>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wph-rl-FSW">
-                                                                                <rect key="frame" x="335" y="32" width="32.5" height="36.5"/>
+                                                                                <rect key="frame" x="333.5" y="31.5" width="32.5" height="37.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="31"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vTg-5W-HPv" userLabel="From">
-                                                                                <rect key="frame" x="382.5" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="381" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jat-4W-k9W">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -5835,13 +5860,13 @@ Bookings)</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="100"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q9E-K5-qkK">
-                                                                                <rect key="frame" x="0.0" y="33.5" width="65" height="33"/>
+                                                                                <rect key="frame" x="0.0" y="33" width="63.5" height="34"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="28"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aEn-gd-mv1" userLabel="From">
-                                                                                <rect key="frame" x="85" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="83.5" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nSS-JH-kAz">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -5892,13 +5917,13 @@ Bookings)</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </view>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CH8-Mk-4N6">
-                                                                                <rect key="frame" x="335" y="32" width="32.5" height="36.5"/>
+                                                                                <rect key="frame" x="333.5" y="31.5" width="32.5" height="37.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="31"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lN9-Th-boO" userLabel="From">
-                                                                                <rect key="frame" x="382.5" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="381" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RN7-Q2-YHY">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6034,13 +6059,13 @@ Bookings)</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="100"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ZD-Ag-QdT">
-                                                                                <rect key="frame" x="0.0" y="33.5" width="65" height="33"/>
+                                                                                <rect key="frame" x="0.0" y="33" width="63.5" height="34"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="28"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O6b-3o-FA4" userLabel="From">
-                                                                                <rect key="frame" x="85" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="83.5" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mee-tg-Yvw">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6091,13 +6116,13 @@ Bookings)</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </view>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6SV-g3-lPW">
-                                                                                <rect key="frame" x="335" y="32" width="32.5" height="36.5"/>
+                                                                                <rect key="frame" x="333.5" y="31.5" width="32.5" height="37.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="31"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QYd-yH-yGb" userLabel="From">
-                                                                                <rect key="frame" x="382.5" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="381" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ozZ-rJ-A1K">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6233,13 +6258,13 @@ Bookings)</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="100"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8a7-5E-mZR">
-                                                                                <rect key="frame" x="0.0" y="33.5" width="65" height="33"/>
+                                                                                <rect key="frame" x="0.0" y="33" width="63.5" height="34"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="28"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B22-vK-VAc" userLabel="From">
-                                                                                <rect key="frame" x="85" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="83.5" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pRL-85-1sN">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6290,13 +6315,13 @@ Bookings)</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </view>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kD4-eZ-aPb">
-                                                                                <rect key="frame" x="335" y="32" width="32.5" height="36.5"/>
+                                                                                <rect key="frame" x="333.5" y="31.5" width="32.5" height="37.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="31"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fbm-YC-Kn0" userLabel="From">
-                                                                                <rect key="frame" x="382.5" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="381" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Frt-w1-eAR">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6432,13 +6457,13 @@ Bookings)</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="100"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRJ-7p-BRt">
-                                                                                <rect key="frame" x="0.0" y="33.5" width="65" height="33"/>
+                                                                                <rect key="frame" x="0.0" y="33" width="63.5" height="34"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="28"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ya0-fE-eLN" userLabel="From">
-                                                                                <rect key="frame" x="85" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="83.5" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYa-fq-0u6">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6489,13 +6514,13 @@ Bookings)</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </view>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1iz-mw-Xf3">
-                                                                                <rect key="frame" x="335" y="32" width="32.5" height="36.5"/>
+                                                                                <rect key="frame" x="333.5" y="31.5" width="32.5" height="37.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="31"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5J5-aW-7L6" userLabel="From">
-                                                                                <rect key="frame" x="382.5" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="381" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gqw-cm-VU4">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6631,13 +6656,13 @@ Bookings)</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="100"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjO-Bv-J2l">
-                                                                                <rect key="frame" x="0.0" y="33.5" width="65" height="33"/>
+                                                                                <rect key="frame" x="0.0" y="33" width="63.5" height="34"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="28"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H8C-0g-Ua8" userLabel="From">
-                                                                                <rect key="frame" x="85" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="83.5" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aha-LN-Iou">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6688,13 +6713,13 @@ Bookings)</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </view>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ldi-SB-Qdb">
-                                                                                <rect key="frame" x="335" y="32" width="32.5" height="36.5"/>
+                                                                                <rect key="frame" x="333.5" y="31.5" width="32.5" height="37.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="31"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1yv-ef-UZ3" userLabel="From">
-                                                                                <rect key="frame" x="382.5" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="381" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="whI-i2-VtM">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6830,13 +6855,13 @@ Bookings)</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="771" height="100"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="To2-uV-6Nb">
-                                                                                <rect key="frame" x="0.0" y="33.5" width="65" height="33"/>
+                                                                                <rect key="frame" x="0.0" y="33" width="63.5" height="34"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="28"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ywe-K9-Vly" userLabel="From">
-                                                                                <rect key="frame" x="85" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="83.5" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4PI-sc-rhY">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -6887,13 +6912,13 @@ Bookings)</string>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </view>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhB-kX-aL5">
-                                                                                <rect key="frame" x="335" y="32" width="32.5" height="36.5"/>
+                                                                                <rect key="frame" x="333.5" y="31.5" width="32.5" height="37.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="31"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="77N-Qp-h9X" userLabel="From">
-                                                                                <rect key="frame" x="382.5" y="20" width="210" height="60"/>
+                                                                                <rect key="frame" x="381" y="20" width="210" height="60"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WI4-DK-pss">
                                                                                         <rect key="frame" x="15" y="0.0" width="145" height="60"/>
@@ -7344,6 +7369,389 @@ Bookings)</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p0H-yw-QtM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="12113.898305084746" y="-10.24390243902439"/>
+        </scene>
+        <!--General_InfoVC-->
+        <scene sceneID="iBU-IC-EVx">
+            <objects>
+                <viewController storyboardIdentifier="General_InfoVC" title="General_InfoVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ePO-p8-VAc" customClass="General_InfoVC" customModule="TheCrazyBeautyPOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Iib-gd-qiT">
+                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="General Information" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8UU-vb-qTb">
+                                <rect key="frame" x="30" y="54" width="1120" height="34"/>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="28"/>
+                                <color key="textColor" name="AppBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All fields marked with an asterisk (*) are required." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQG-cx-xYW">
+                                <rect key="frame" x="30" y="98" width="1120" height="24"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="Red"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s2e-Jc-qNG">
+                                <rect key="frame" x="0.0" y="142" width="1180" height="628"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Sh-Lj-7ND">
+                                        <rect key="frame" x="0.0" y="0.0" width="1180" height="1098"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wd9-El-NPI">
+                                                <rect key="frame" x="15" y="10" width="1150" height="65"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="97V-Ml-rAe" userLabel="Name">
+                                                        <rect key="frame" x="0.0" y="0.0" width="570" height="65"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Business Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nhw-Ri-Zt6" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+                                                                <rect key="frame" x="15" y="0.5" width="555" height="64"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="64" id="Ob2-WK-dy9"/>
+                                                                </constraints>
+                                                                <attributedString key="attributedText"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isUnderLineAvailabe" value="NO"/>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                                        <color key="value" name="txtGray"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="padding_left">
+                                                                        <real key="value" value="24"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="paddingRightCustom">
+                                                                        <real key="value" value="24"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                        <real key="value" value="1"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                        <color key="value" name="txtGray"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <real key="value" value="32"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="difference">
+                                                                        <real key="value" value="18"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <outlet property="delegate" destination="ePO-p8-VAc" id="q75-A9-70e"/>
+                                                                </connections>
+                                                            </textField>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="Nhw-Ri-Zt6" firstAttribute="centerY" secondItem="97V-Ml-rAe" secondAttribute="centerY" id="33J-aP-BAU"/>
+                                                            <constraint firstAttribute="height" constant="65" id="75a-1w-DSt"/>
+                                                            <constraint firstItem="Nhw-Ri-Zt6" firstAttribute="leading" secondItem="97V-Ml-rAe" secondAttribute="leading" constant="15" id="feR-TD-Qal"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Nhw-Ri-Zt6" secondAttribute="trailing" id="wgx-ae-Wxd"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rte-pw-kzo" userLabel="Reminder">
+                                                        <rect key="frame" x="580" y="0.0" width="570" height="65"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Salon Type" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A6n-ZG-xtF" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.5" width="570" height="64"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="64" id="8SU-nR-Qv9"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isUnderLineAvailabe" value="NO"/>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                                        <color key="value" name="txtGray"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="padding_left">
+                                                                        <real key="value" value="24"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="paddingRightCustom">
+                                                                        <real key="value" value="24"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                        <real key="value" value="1"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                        <color key="value" name="txtGray"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <real key="value" value="32"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="difference">
+                                                                        <real key="value" value="18"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <outlet property="delegate" destination="ePO-p8-VAc" id="5za-XV-oFm"/>
+                                                                </connections>
+                                                            </textField>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_Down" translatesAutoresizingMaskIntoConstraints="NO" id="aKd-PD-ePQ">
+                                                                <rect key="frame" x="520" y="17.5" width="30" height="30"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="30" id="B4H-qd-GuK"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="sYM-ML-q14"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4b0-et-QVV">
+                                                                <rect key="frame" x="0.0" y="0.0" width="570" height="65"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="4b0-et-QVV" secondAttribute="trailing" id="AN0-zI-0TN"/>
+                                                            <constraint firstItem="A6n-ZG-xtF" firstAttribute="centerY" secondItem="rte-pw-kzo" secondAttribute="centerY" id="AyS-la-66j"/>
+                                                            <constraint firstAttribute="bottom" secondItem="4b0-et-QVV" secondAttribute="bottom" id="Y7l-tD-2wp"/>
+                                                            <constraint firstAttribute="trailing" secondItem="A6n-ZG-xtF" secondAttribute="trailing" id="Z6F-H3-Yjl"/>
+                                                            <constraint firstItem="4b0-et-QVV" firstAttribute="leading" secondItem="rte-pw-kzo" secondAttribute="leading" id="cDu-qt-MFg"/>
+                                                            <constraint firstItem="4b0-et-QVV" firstAttribute="top" secondItem="rte-pw-kzo" secondAttribute="top" id="cmC-bg-39X"/>
+                                                            <constraint firstAttribute="height" constant="65" id="cmp-UW-v0D"/>
+                                                            <constraint firstAttribute="trailing" secondItem="aKd-PD-ePQ" secondAttribute="trailing" constant="20" id="kXc-rb-ndg"/>
+                                                            <constraint firstItem="A6n-ZG-xtF" firstAttribute="leading" secondItem="rte-pw-kzo" secondAttribute="leading" id="sKU-59-hKU"/>
+                                                            <constraint firstItem="aKd-PD-ePQ" firstAttribute="centerY" secondItem="rte-pw-kzo" secondAttribute="centerY" id="vha-5o-MdQ"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2B8-XF-n44">
+                                                <rect key="frame" x="15" y="90" width="1150" height="65"/>
+                                                <subviews>
+                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iNy-Gc-eOx">
+                                                        <rect key="frame" x="0.0" y="0.0" width="110" height="65"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5RV-zK-b8B">
+                                                                <rect key="frame" x="0.0" y="0.0" width="110" height="65"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            </button>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowtriangle.down.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="geh-5u-ued">
+                                                                <rect key="frame" x="80" y="27" width="20" height="11"/>
+                                                                <color key="tintColor" systemColor="labelColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="15" id="cmo-gm-mgd"/>
+                                                                    <constraint firstAttribute="width" constant="20" id="nMD-b7-NN0"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OEI-fS-mpE">
+                                                                <rect key="frame" x="15" y="7.5" width="55" height="50"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="55" id="4x9-SF-f6H"/>
+                                                                    <constraint firstAttribute="height" constant="50" id="fcj-lF-BFp"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" name="lightGrayBg"/>
+                                                        <constraints>
+                                                            <constraint firstItem="geh-5u-ued" firstAttribute="centerY" secondItem="iNy-Gc-eOx" secondAttribute="centerY" id="8aI-zR-wlR"/>
+                                                            <constraint firstItem="geh-5u-ued" firstAttribute="leading" secondItem="OEI-fS-mpE" secondAttribute="trailing" constant="10" id="F7g-xt-y1x"/>
+                                                            <constraint firstItem="5RV-zK-b8B" firstAttribute="top" secondItem="iNy-Gc-eOx" secondAttribute="top" id="GLE-y1-UkI"/>
+                                                            <constraint firstAttribute="trailing" secondItem="geh-5u-ued" secondAttribute="trailing" constant="10" id="MNp-3Y-9M6"/>
+                                                            <constraint firstItem="5RV-zK-b8B" firstAttribute="leading" secondItem="iNy-Gc-eOx" secondAttribute="leading" id="oZI-lq-Dw5"/>
+                                                            <constraint firstAttribute="bottom" secondItem="5RV-zK-b8B" secondAttribute="bottom" id="qE2-K0-6Fx"/>
+                                                            <constraint firstItem="OEI-fS-mpE" firstAttribute="leading" secondItem="iNy-Gc-eOx" secondAttribute="leading" constant="15" id="shR-VN-ug1"/>
+                                                            <constraint firstItem="OEI-fS-mpE" firstAttribute="centerY" secondItem="iNy-Gc-eOx" secondAttribute="centerY" id="wNH-4v-Gzx"/>
+                                                            <constraint firstAttribute="trailing" secondItem="5RV-zK-b8B" secondAttribute="trailing" id="wjC-jP-LjC"/>
+                                                            <constraint firstAttribute="width" constant="110" id="yS8-Sg-rNZ"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DHf-my-qMq">
+                                                        <rect key="frame" x="110" y="0.0" width="1.5" height="65"/>
+                                                        <color key="backgroundColor" name="txtGray"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="1.5" id="zo8-I1-BPA"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="m0j-7Z-Y85" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+                                                        <rect key="frame" x="130" y="0.0" width="1020" height="65"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isUnderLineAvailabe" value="NO"/>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                                <color key="value" name="txtGray"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="padding_left">
+                                                                <real key="value" value="24"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingRightCustom">
+                                                                <real key="value" value="24"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="difference">
+                                                                <real key="value" value="18"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="ePO-p8-VAc" id="G3E-lY-G1D"/>
+                                                        </connections>
+                                                    </textField>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="iNy-Gc-eOx" firstAttribute="top" secondItem="2B8-XF-n44" secondAttribute="top" id="HgB-ke-Zge"/>
+                                                    <constraint firstAttribute="bottom" secondItem="DHf-my-qMq" secondAttribute="bottom" id="Pdp-Pj-1MN"/>
+                                                    <constraint firstItem="m0j-7Z-Y85" firstAttribute="leading" secondItem="iNy-Gc-eOx" secondAttribute="trailing" constant="20" id="Qn5-6l-7ff"/>
+                                                    <constraint firstItem="DHf-my-qMq" firstAttribute="leading" secondItem="iNy-Gc-eOx" secondAttribute="trailing" id="SPv-uY-iG7"/>
+                                                    <constraint firstAttribute="bottom" secondItem="m0j-7Z-Y85" secondAttribute="bottom" id="UZ9-nS-e1j"/>
+                                                    <constraint firstAttribute="bottom" secondItem="iNy-Gc-eOx" secondAttribute="bottom" id="bTC-ZR-d4R"/>
+                                                    <constraint firstItem="DHf-my-qMq" firstAttribute="top" secondItem="2B8-XF-n44" secondAttribute="top" id="gNQ-6v-nvj"/>
+                                                    <constraint firstAttribute="trailing" secondItem="m0j-7Z-Y85" secondAttribute="trailing" id="jGX-Vp-KZl"/>
+                                                    <constraint firstItem="iNy-Gc-eOx" firstAttribute="leading" secondItem="2B8-XF-n44" secondAttribute="leading" id="wsX-Rv-uq3"/>
+                                                    <constraint firstAttribute="height" constant="65" id="xEo-wQ-WHk"/>
+                                                    <constraint firstItem="m0j-7Z-Y85" firstAttribute="top" secondItem="2B8-XF-n44" secondAttribute="top" id="xyz-Z5-70B"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="32.5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" name="txtGray"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tw4-Zq-GjV" userLabel="Name">
+                                                <rect key="frame" x="15" y="170" width="1150" height="65"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Business Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eWZ-Nk-tI0" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+                                                        <rect key="frame" x="15" y="0.5" width="1135" height="64"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="64" id="TMJ-kZ-uyM"/>
+                                                        </constraints>
+                                                        <attributedString key="attributedText"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isUnderLineAvailabe" value="NO"/>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                                <color key="value" name="txtGray"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="padding_left">
+                                                                <real key="value" value="24"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingRightCustom">
+                                                                <real key="value" value="24"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" name="txtGray"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="32"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="difference">
+                                                                <real key="value" value="18"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="ePO-p8-VAc" id="ZvK-kv-QzC"/>
+                                                        </connections>
+                                                    </textField>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="eWZ-Nk-tI0" secondAttribute="trailing" id="0Ue-oC-Wzm"/>
+                                                    <constraint firstItem="eWZ-Nk-tI0" firstAttribute="leading" secondItem="Tw4-Zq-GjV" secondAttribute="leading" constant="15" id="GtG-zQ-lfK"/>
+                                                    <constraint firstAttribute="height" constant="65" id="UiK-OQ-Wcq"/>
+                                                    <constraint firstItem="eWZ-Nk-tI0" firstAttribute="centerY" secondItem="Tw4-Zq-GjV" secondAttribute="centerY" id="bYn-Jz-nkp"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gWC-ZK-r1T">
+                                                <rect key="frame" x="15" y="245" width="1150" height="350"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="350" id="UMC-IV-Th8"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" name="txtGray"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRb-vJ-KXu">
+                                                <rect key="frame" x="15" y="603" width="1150" height="1"/>
+                                                <color key="backgroundColor" name="AppBlack"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1.2" id="gkl-vG-gdh"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Us" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5rS-bb-Hv5">
+                                                <rect key="frame" x="15" y="619" width="1150" height="29"/>
+                                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="24"/>
+                                                <color key="textColor" name="AppBlack"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="5rS-bb-Hv5" firstAttribute="leading" secondItem="1Sh-Lj-7ND" secondAttribute="leading" constant="15" id="1W5-J0-6WQ"/>
+                                            <constraint firstItem="5rS-bb-Hv5" firstAttribute="top" secondItem="dRb-vJ-KXu" secondAttribute="bottom" constant="15" id="1fE-Jb-TD2"/>
+                                            <constraint firstItem="dRb-vJ-KXu" firstAttribute="leading" secondItem="1Sh-Lj-7ND" secondAttribute="leading" constant="15" id="7a9-zF-kPt"/>
+                                            <constraint firstItem="wd9-El-NPI" firstAttribute="top" secondItem="1Sh-Lj-7ND" secondAttribute="top" constant="10" id="AJ5-Xm-KYz"/>
+                                            <constraint firstItem="dRb-vJ-KXu" firstAttribute="top" secondItem="gWC-ZK-r1T" secondAttribute="bottom" constant="8" symbolic="YES" id="ASC-ca-zAh"/>
+                                            <constraint firstItem="Tw4-Zq-GjV" firstAttribute="leading" secondItem="1Sh-Lj-7ND" secondAttribute="leading" constant="15" id="Beu-ko-r0d"/>
+                                            <constraint firstAttribute="trailing" secondItem="gWC-ZK-r1T" secondAttribute="trailing" constant="15" id="BkK-Wn-6T1"/>
+                                            <constraint firstAttribute="trailing" secondItem="2B8-XF-n44" secondAttribute="trailing" constant="15" id="DgB-g1-yGp"/>
+                                            <constraint firstAttribute="trailing" secondItem="5rS-bb-Hv5" secondAttribute="trailing" constant="15" id="KH3-5m-2S1"/>
+                                            <constraint firstItem="gWC-ZK-r1T" firstAttribute="leading" secondItem="1Sh-Lj-7ND" secondAttribute="leading" constant="15" id="Lhy-Vh-lzc"/>
+                                            <constraint firstAttribute="trailing" secondItem="wd9-El-NPI" secondAttribute="trailing" constant="15" id="QxA-7d-8Oh"/>
+                                            <constraint firstItem="gWC-ZK-r1T" firstAttribute="top" secondItem="Tw4-Zq-GjV" secondAttribute="bottom" constant="10" id="TXA-CR-Cn7"/>
+                                            <constraint firstAttribute="trailing" secondItem="Tw4-Zq-GjV" secondAttribute="trailing" constant="15" id="WKV-Hq-QjG"/>
+                                            <constraint firstAttribute="bottom" secondItem="5rS-bb-Hv5" secondAttribute="bottom" constant="450" id="WTs-iB-r2G"/>
+                                            <constraint firstAttribute="trailing" secondItem="dRb-vJ-KXu" secondAttribute="trailing" constant="15" id="cY1-IT-GwU"/>
+                                            <constraint firstItem="Tw4-Zq-GjV" firstAttribute="top" secondItem="2B8-XF-n44" secondAttribute="bottom" constant="15" id="cYN-XF-yca"/>
+                                            <constraint firstItem="2B8-XF-n44" firstAttribute="leading" secondItem="1Sh-Lj-7ND" secondAttribute="leading" constant="15" id="o8a-on-49H"/>
+                                            <constraint firstItem="wd9-El-NPI" firstAttribute="leading" secondItem="1Sh-Lj-7ND" secondAttribute="leading" constant="15" id="tq8-1J-s7v"/>
+                                            <constraint firstItem="2B8-XF-n44" firstAttribute="top" secondItem="wd9-El-NPI" secondAttribute="bottom" constant="15" id="twc-8e-Cmo"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="1Sh-Lj-7ND" secondAttribute="trailing" id="3u7-VD-oFw"/>
+                                    <constraint firstAttribute="bottom" secondItem="1Sh-Lj-7ND" secondAttribute="bottom" id="91g-sN-nkE"/>
+                                    <constraint firstItem="1Sh-Lj-7ND" firstAttribute="width" secondItem="s2e-Jc-qNG" secondAttribute="width" id="FJa-wN-pRE"/>
+                                    <constraint firstItem="1Sh-Lj-7ND" firstAttribute="height" secondItem="s2e-Jc-qNG" secondAttribute="height" priority="251" id="mAj-Hg-Mvy"/>
+                                    <constraint firstItem="1Sh-Lj-7ND" firstAttribute="leading" secondItem="s2e-Jc-qNG" secondAttribute="leading" id="p4Z-Vo-buK"/>
+                                    <constraint firstItem="1Sh-Lj-7ND" firstAttribute="top" secondItem="s2e-Jc-qNG" secondAttribute="top" id="zar-AY-BEK"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="4mq-ga-YOE"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="8UU-vb-qTb" firstAttribute="leading" secondItem="4mq-ga-YOE" secondAttribute="leading" constant="30" id="0ET-eW-YeD"/>
+                            <constraint firstItem="s2e-Jc-qNG" firstAttribute="top" secondItem="VQG-cx-xYW" secondAttribute="bottom" constant="20" id="3Ft-IB-Sez"/>
+                            <constraint firstItem="8UU-vb-qTb" firstAttribute="top" secondItem="4mq-ga-YOE" secondAttribute="top" constant="30" id="Cuj-xE-alB"/>
+                            <constraint firstItem="4mq-ga-YOE" firstAttribute="trailing" secondItem="s2e-Jc-qNG" secondAttribute="trailing" id="G9F-HW-AtT"/>
+                            <constraint firstItem="VQG-cx-xYW" firstAttribute="trailing" secondItem="8UU-vb-qTb" secondAttribute="trailing" id="GgY-DR-cZp"/>
+                            <constraint firstItem="VQG-cx-xYW" firstAttribute="leading" secondItem="8UU-vb-qTb" secondAttribute="leading" id="VRC-Hq-e4j"/>
+                            <constraint firstAttribute="trailing" secondItem="8UU-vb-qTb" secondAttribute="trailing" constant="30" id="ZgG-dO-XKb"/>
+                            <constraint firstItem="s2e-Jc-qNG" firstAttribute="leading" secondItem="4mq-ga-YOE" secondAttribute="leading" id="upf-n3-f1V"/>
+                            <constraint firstItem="4mq-ga-YOE" firstAttribute="bottom" secondItem="s2e-Jc-qNG" secondAttribute="bottom" id="vcc-Wh-kDA"/>
+                            <constraint firstItem="VQG-cx-xYW" firstAttribute="top" secondItem="8UU-vb-qTb" secondAttribute="bottom" constant="10" id="xOn-b0-Kbb"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="chF-K7-mgA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="12836.949152542373" y="-10.24390243902439"/>
         </scene>
         <!--CurrencyVC-->
         <scene sceneID="9wP-xy-qi6">

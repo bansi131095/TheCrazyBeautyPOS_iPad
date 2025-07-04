@@ -577,3 +577,37 @@ class GetBreakTimeModel: Mappable {
         error   <- map["error"]
     }
 }
+
+
+
+class SMSDetailsModel: Mappable {
+    var data: [SMSDetailsData] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data    <- map["data"]
+        error   <- map["error"]
+    }
+}
+
+class SMSDetailsData: Mappable {
+    
+    var sms_credit: Int?
+    var sms_settings: String?
+    var reminder_time: Int?
+    var email_notifications: Int?
+    var email_settings: String?
+
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        sms_credit          <- map["sms_credit"]
+        sms_settings        <- map["sms_settings"]
+        reminder_time       <- map["reminder_time"]
+        email_notifications <- map["email_notifications"]
+        email_settings      <- map["email_settings"]
+    }
+}

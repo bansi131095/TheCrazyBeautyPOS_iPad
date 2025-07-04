@@ -106,6 +106,10 @@ class global: NSObject
     var URL_UPDATE_BUSINESS_TIMING = global.server_url + "business_timing"
     var URL_GET_BREAK_TIME = global.server_url + "get_breaktime"
     
+    var URL_UPDATE_BREAK_TIME = global.server_url + "update_breaktime"
+    var URL_GET_SMS_DETAILS = global.server_url + "get_smsDetails"
+    var URL_UPDATE_SMS_DETAILS = global.server_url + "add_smsdetails"
+    
     
     //MARK:-
     override init()

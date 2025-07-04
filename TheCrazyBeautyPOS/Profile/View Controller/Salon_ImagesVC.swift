@@ -24,6 +24,7 @@ class Salon_ImagesVC: UIViewController {
     @IBOutlet weak var cv_Imgs: UICollectionView!
     @IBOutlet weak var cv_HeightConst: NSLayoutConstraint!
     
+    @IBOutlet weak var lbl_Atleast1: UILabel!
     //MARK: - Global Variable
 //    var arr_photo: [UIImage] = []
     var profileModel: [profileDetailsModel] = []
@@ -33,6 +34,7 @@ class Salon_ImagesVC: UIViewController {
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.lbl_Atleast1.isHidden = true
         self.cv_HeightConst.constant = 0
         self.cv_Imgs.isHidden = true
         setCollectCategory()
@@ -65,7 +67,11 @@ class Salon_ImagesVC: UIViewController {
     }
     
     @IBAction func btn_Save(_ sender: Any) {
-        print("🟢 Save button tapped")
+        if allImages.isEmpty{
+            self.lbl_Atleast1.isHidden = false
+        }else{
+            self.lbl_Atleast1.isHidden = true
+        }
         upload_Image()
     }
     
@@ -254,11 +260,7 @@ class Salon_ImagesVC: UIViewController {
         }
 
         // 4. Call the API
-        APIService.shared.uploadSalonImages(
-            vendorId: LocalData.userId,
-            photo: profileImage,
-            photos: galleryImages,
-            otherPhotos: oldImageNames
+        APIService.shared.uploadSalonImages(photo: profileImage, otherPhotos: oldImageNames, photos: galleryImages
         ) { response in
             if let result = response {
                 print("✅ Upload complete: \(result)")
@@ -269,9 +271,6 @@ class Salon_ImagesVC: UIViewController {
             }
         }
     }
-
-
-    
 }
 
 extension Salon_ImagesVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

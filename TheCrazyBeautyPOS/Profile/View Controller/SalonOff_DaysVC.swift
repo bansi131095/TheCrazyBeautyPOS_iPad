@@ -82,6 +82,9 @@ class SalonOff_DaysVC: UIViewController {
     //MARK: - Global Variable
     var timeSlots: [String] = []
     
+    var businessHoursMap: [String: (start: String, end: String)] = [:]
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         Switch_Sun.isOn = false
@@ -89,65 +92,79 @@ class SalonOff_DaysVC: UIViewController {
         vw_SunTime.isHidden = true
         TimeSlots()
         api_getBusinessHours()
-//        api_getBreakTime()
+        api_getBreakTime()
     }
     
 
     //MARK: -  Button Action
     @IBAction func btn_MonFromTime(_ sender: Any) {
-        openTimeDropdown(for: lbl_MonFromTime)
+//        openTimeDropdown(for: lbl_MonFromTime)
+        openTimeDropdown(for: lbl_MonFromTime, isFromTime: true, dayKey: "monday")
+        
     }
     
     @IBAction func btn_MonToTime(_ sender: Any) {
-        openTimeDropdown(for: lbl_MonToTime)
+//        openTimeDropdown(for: lbl_MonToTime)
+        openTimeDropdown(for: lbl_MonToTime, isFromTime: false, fromLabel: lbl_MonFromTime, dayKey: "monday")
     }
     
     @IBAction func btn_TuesFromTime(_ sender: Any) {
-        openTimeDropdown(for: lbl_TuesFromTime)
+//        openTimeDropdown(for: lbl_TuesFromTime)
+        openTimeDropdown(for: lbl_TuesFromTime, isFromTime: true, dayKey: "tuesday")
     }
     
     @IBAction func btn_TuesToTime(_ sender: Any) {
-        openTimeDropdown(for: lbl_TuesToTime)
+//        openTimeDropdown(for: lbl_TuesToTime)
+        openTimeDropdown(for: lbl_TuesToTime, isFromTime: false, fromLabel: lbl_TuesFromTime, dayKey: "tuesday")
     }
     
     @IBAction func btn_WednesFromTime(_ sender: Any) {
-        openTimeDropdown(for: lbl_WednesFromTime)
+//        openTimeDropdown(for: lbl_WednesFromTime)
+        openTimeDropdown(for: lbl_WednesFromTime, isFromTime: true, dayKey: "wednesday")
     }
     
     @IBAction func btn_WednesToTime(_ sender: Any) {
-        openTimeDropdown(for: lbl_WednesToTime)
+//        openTimeDropdown(for: lbl_WednesToTime)
+        openTimeDropdown(for: lbl_WednesToTime, isFromTime: false, fromLabel: lbl_WednesFromTime, dayKey: "wednesday")
     }
     
     @IBAction func btn_ThursFromTime(_ sender: Any) {
-        openTimeDropdown(for: lbl_ThursFromTime)
+//        openTimeDropdown(for: lbl_ThursFromTime)
+        openTimeDropdown(for: lbl_ThursFromTime, isFromTime: true, dayKey: "thursday")
     }
     
     @IBAction func btn_ThursToTime(_ sender: Any) {
-        openTimeDropdown(for: lbl_ThursToTime)
+//        openTimeDropdown(for: lbl_ThursToTime)
+        openTimeDropdown(for: lbl_ThursToTime, isFromTime: false, fromLabel: lbl_ThursFromTime, dayKey: "thursday")
     }
     
     @IBAction func btn_FriFromTime(_ sender: Any) {
-        openTimeDropdown(for: lbl_FriFromTime)
+        openTimeDropdown(for: lbl_FriFromTime, isFromTime: true, dayKey: "friday")
     }
     
     @IBAction func btn_FriToTime(_ sender: Any) {
-        openTimeDropdown(for: lbl_FriToTime)
+//        openTimeDropdown(for: lbl_FriToTime)
+        openTimeDropdown(for: lbl_FriToTime, isFromTime: false, fromLabel: lbl_FriFromTime, dayKey: "friday")
     }
     
     @IBAction func btn_SaturFromTime(_ sender: Any) {
-        openTimeDropdown(for: lbl_SaturFromTime)
+//        openTimeDropdown(for: lbl_SaturFromTime)
+        openTimeDropdown(for: lbl_SaturFromTime, isFromTime: true, dayKey: "saturday")
     }
     
     @IBAction func btn_SaturToTime(_ sender: Any) {
-        openTimeDropdown(for: lbl_SaturToTime)
+//        openTimeDropdown(for: lbl_SaturToTime)
+        openTimeDropdown(for: lbl_SaturToTime, isFromTime: false, fromLabel: lbl_SaturFromTime, dayKey: "saturday")
     }
     
     @IBAction func btn_SunFromTime(_ sender: Any) {
-        openTimeDropdown(for: lbl_SunFromTime)
+//        openTimeDropdown(for: lbl_SunFromTime)
+        openTimeDropdown(for: lbl_SunFromTime, isFromTime: true, dayKey: "sunday")
     }
     
     @IBAction func btn_SunToTime(_ sender: Any) {
-        openTimeDropdown(for: lbl_SunToTime)
+//        openTimeDropdown(for: lbl_SunToTime)
+        openTimeDropdown(for: lbl_SunToTime, isFromTime: false, fromLabel: lbl_SunFromTime, dayKey: "sunday")
     }
     
     @IBAction func switch_Mon(_ sender: UISwitch) {
@@ -237,12 +254,45 @@ class SalonOff_DaysVC: UIViewController {
     
     
     @IBAction func btn_Save(_ sender: Any) {
-        //update_business_hours()
+        let allDays: [(day: String, from: UILabel?, to: UILabel?, toggle: UISwitch)] = [
+                ("Monday", lbl_MonFromTime, lbl_MonToTime, Switch_Mon),
+                ("Tuesday", lbl_TuesFromTime, lbl_TuesToTime, Switch_Tues),
+                ("Wednesday", lbl_WednesFromTime, lbl_WednesToTime, Switch_Wednes),
+                ("Thursday", lbl_ThursFromTime, lbl_ThursToTime, Switch_Thurs),
+                ("Friday", lbl_FriFromTime, lbl_FriToTime, Switch_Fri),
+                ("Saturday", lbl_SaturFromTime, lbl_SaturToTime, Switch_Satur),
+                ("Sunday", lbl_SunFromTime, lbl_SunToTime, Switch_Sun)
+            ]
+
+            var breakTimeArray: [[String: String]] = []
+
+            for (day, fromLabel, toLabel, toggleSwitch) in allDays {
+                if toggleSwitch.isOn,
+                   let fromTime = fromLabel?.text, !fromTime.isEmpty,
+                   let toTime = toLabel?.text, !toTime.isEmpty {
+                    breakTimeArray.append([
+                        "day": day,
+                        "startTime": fromTime,
+                        "endTime": toTime
+                    ])
+                }
+            }
+
+        APIService.shared.UpdateBreakTime(breakTimes: breakTimeArray,vendorID: LocalData.userId) { success in
+                DispatchQueue.main.async {
+                    if success {
+                        self.alertWithMessageOnly("Break time updated successfully")
+                        // Optionally show success toast or pop VC
+                    } else {
+                        self.alertWithMessageOnly("Something went wrong.")
+                    }
+                }
+            }
     }
     
     
     //MARK: - Function
-    func TimeSlots(){
+    /*func TimeSlots(){
         for hour in 0..<24 {
             for minute in [0, 30] {
                 // Stop at 23:00, exclude 23:30
@@ -253,10 +303,23 @@ class SalonOff_DaysVC: UIViewController {
                 timeSlots.append(time)
             }
         }
+    }*/
+    
+    func TimeSlots() {
+        timeSlots.removeAll()
+        for hour in 0..<24 {
+            for minute in [0, 30] {
+                if hour == 23 && minute == 30 { break } // skip 23:30
+                let time = String(format: "%02d:%02d", hour, minute)
+                timeSlots.append(time)
+            }
+        }
     }
+
+
+
     
-    
-    func openTimeDropdown(for label: UILabel) {
+    /*func openTimeDropdown(for label: UILabel) {
         let slotDuration = DropDown()
         slotDuration.anchorView = label
         slotDuration.bottomOffset = CGPoint(x: 0, y: label.bounds.height)
@@ -273,6 +336,39 @@ class SalonOff_DaysVC: UIViewController {
         }
 
         slotDuration.show()
+    }*/
+    
+    func openTimeDropdown(for label: UILabel, isFromTime: Bool, fromLabel: UILabel? = nil, dayKey: String) {
+        guard let (minTime, maxTime) = businessHoursMap[dayKey.lowercased()] else {
+            self.alertWithMessageOnly("Business hours not available.")
+            return
+        }
+
+        let dropDown = DropDown()
+        dropDown.anchorView = label
+        dropDown.bottomOffset = CGPoint(x: 0, y: label.bounds.height)
+        dropDown.direction = .bottom
+
+        var filteredSlots = timeSlots.filter { $0 >= minTime && $0 <= maxTime }
+
+        // Further filter for ToTime after FromTime
+        if !isFromTime, let fromLabel = fromLabel, let fromText = fromLabel.text, !fromText.isEmpty {
+            filteredSlots = filteredSlots.filter { $0 >= fromText }
+        }
+
+        dropDown.dataSource = filteredSlots
+        dropDown.width = label.frame.width
+        dropDown.cellHeight = 35
+
+        dropDown.selectionAction = { (_, item: String) in
+            label.text = item
+        }
+
+        dropDown.show()
+    }
+
+    func filteredTimeSlots(after time: String) -> [String] {
+        return timeSlots.filter { $0 >= time }  // or use > to exclude
     }
     
     func api_getBusinessHours() {
@@ -307,69 +403,21 @@ class SalonOff_DaysVC: UIViewController {
             if let (from, to) = dict[day] {
                 fromLbl?.text = from
                 toLbl?.text = to
-                timeView?.isHidden = false
-                closeView?.isHidden = true
-                toggleSwitch?.isOn = true
-                closeLabel?.text = "Usual Schedule 2"
+                timeView?.isHidden = true
+                closeView?.isHidden = false
+                toggleSwitch?.isOn = false
+                closeLabel?.text = "Usual Schedule"
                 toggleSwitch?.isEnabled = true
+                businessHoursMap[day] = (start: from, end: to)
             } else {
                 timeView?.isHidden = true
                 closeView?.isHidden = false
                 toggleSwitch?.isOn = false
-                closeLabel?.text = "Closed_1"
+                closeLabel?.text = "Closed"
                 toggleSwitch?.isEnabled = false
             }
         }
     }
-    
-    /*func api_getBreakTime() {
-        APIService.shared.fetchBreakTime { [weak self] breakTimes in
-            guard let self = self else { return }
-
-            let allDays: [(String, UILabel?, UILabel?, UIView?, UIView?, UISwitch?, UILabel?)] = [
-                ("monday", self.lbl_MonFromTime, self.lbl_MonToTime, self.vw_MonTime, self.vw_MonClose, self.Switch_Mon, self.lbl_MonClose),
-                ("tuesday", self.lbl_TuesFromTime, self.lbl_TuesToTime, self.vw_TuesTime, self.vw_TuesClose, self.Switch_Tues, self.lbl_TuesClose),
-                ("wednesday", self.lbl_WednesFromTime, self.lbl_WednesToTime, self.vw_WednesTime, self.vw_WednesClose, self.Switch_Wednes, self.lbl_WednesClose),
-                ("thursday", self.lbl_ThursFromTime, self.lbl_ThursToTime, self.vw_ThursTime, self.vw_ThursClose, self.Switch_Thurs, self.lbl_ThursClose),
-                ("friday", self.lbl_FriFromTime, self.lbl_FriToTime, self.vw_FriTime, self.vw_FriClose, self.Switch_Fri, self.lbl_FriClose),
-                ("saturday", self.lbl_SaturFromTime, self.lbl_SaturToTime, self.vw_SaturTime, self.vw_SaturClose, self.Switch_Satur, self.lbl_SaturClose),
-                ("sunday", self.lbl_SunFromTime, self.lbl_SunToTime, self.vw_SunTime, self.vw_SunClose, self.Switch_Sun, self.lbl_SunClose)
-            ]
-
-            for (day, fromLbl, toLbl, timeView, closeView, daySwitch, closeLabel) in allDays {
-                if let breakTime = breakTimes.first(where: { $0.day.lowercased() == day }) {
-                    let start = breakTime.startTime.trimmingCharacters(in: .whitespaces)
-                    let end = breakTime.endTime.trimmingCharacters(in: .whitespaces)
-                    
-                    if start.isEmpty || end.isEmpty {
-                        fromLbl?.text = "--:--"
-                        toLbl?.text = "--:--"
-                        timeView?.isHidden = true
-                        closeView?.isHidden = false
-                        daySwitch?.isOn = false
-                        daySwitch?.isEnabled = false
-                        closeLabel?.text = "Usual Schedule3"
-                    } else {
-                        fromLbl?.text = start
-                        toLbl?.text = end
-                        timeView?.isHidden = false
-                        closeView?.isHidden = true
-                        daySwitch?.isOn = true
-                        daySwitch?.isEnabled = true
-                        closeLabel?.text = "Closed"
-                    }
-                } else {
-                    fromLbl?.text = "--:--"
-                    toLbl?.text = "--:--"
-                    timeView?.isHidden = true
-                    closeView?.isHidden = false
-                    daySwitch?.isOn = false
-                    daySwitch?.isEnabled = false
-                    closeLabel?.text = "Usual Schedule 1"
-                }
-            }
-        }
-    }*/
     
     func api_getBreakTime() {
         APIService.shared.fetchBreakTime { [weak self] breakTimes in
@@ -398,22 +446,18 @@ class SalonOff_DaysVC: UIViewController {
                 if let (from, to) = dict[day] {
                     fromLbl?.text = from
                     toLbl?.text = to
+                    
                     timeView?.isHidden = false
                     closeView?.isHidden = true
                     toggleSwitch?.isOn = true
-                    toggleSwitch?.isEnabled = true
-                    closeLabel?.text = "Close"
                 } else {
                     timeView?.isHidden = true
                     closeView?.isHidden = false
                     toggleSwitch?.isOn = false
-                    toggleSwitch?.isEnabled = false
-                    closeLabel?.text = "Usual Schedule_1"
                 }
             }
         }
     }
     
-
     
 }
