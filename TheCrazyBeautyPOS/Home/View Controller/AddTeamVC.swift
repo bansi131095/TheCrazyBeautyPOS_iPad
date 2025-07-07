@@ -37,6 +37,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     var calendarVC: UIViewController?
     var isEdit = false
     var workingHours: [WorkingHour] = []
+    var serviceIds = String()
     
     
     //MARK: View Life Cycle
@@ -145,6 +146,11 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
             editService.teamName = self.dictStaff!.firstName!.capitalized + " " + self.dictStaff!.lastName!.capitalized
         }
         editService.modalPresentationStyle = .overFullScreen
+        editService.onDataReturn = { [weak self] returnedData in
+            print("Received data: \(returnedData)")
+            self?.serviceIds = returnedData
+            // self?.yourLabel.text = returnedData
+        }
         self.present(editService, animated: true)
     }
     
@@ -159,7 +165,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         let mobileNo = "+\(selectedCountrycode)-\(self.mobileTextField.text ?? "")"
 
         /* if let image = self.img_teamMember.image {
-           APIService.shared.addTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: <#T##String#>, showInCalendar: <#T##String#>, serviceIds: <#T##String#>, workingHours: "", shiftTimings: "", image: image, imageKey: "file") { response in
+           APIService.shared.addTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: <#T##String#>, showInCalendar: <#T##String#>, serviceIds: self.serviceIds, workingHours: "", shiftTimings: "", image: image, imageKey: "file") { response in
                 if let member = response {
                     print("🎉 Member Added: \(member.data?.id ?? 0)")
                 } else {

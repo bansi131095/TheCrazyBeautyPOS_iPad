@@ -21,6 +21,8 @@ class AssignServiceVC: UIViewController {
     var isEdit = false
     var teamName = ""
     
+    var onDataReturn: ((String) -> Void)?
+    
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +56,13 @@ class AssignServiceVC: UIViewController {
         self.dismiss(animated: true)
     }
     
-   
+    
+    @IBAction func act_continue(_ sender: GradientButton) {
+        onDataReturn?(serviceIds) // Pass the data back
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
     //MARK: Load Api
     func loadData() {
         

@@ -103,6 +103,7 @@ class ShiftTiming: Mappable {
     var day: String?
     var from: String?
     var to: String?
+    var regular: Int = 0;
 
     required init?(map: Map) {}
 
@@ -110,6 +111,7 @@ class ShiftTiming: Mappable {
         day  <- map["day"]
         from <- map["from"]
         to   <- map["to"]
+        regular <- map["regular"]
     }
 }
 
@@ -138,3 +140,47 @@ class HolidayDate: Mappable {
         to   <- map["to"]
     }
 }
+
+
+
+class Schedule: Mappable {
+    var startTime: String = ""
+    var endTime: String = ""
+    var isSwitched: Bool = false
+    var day: String = ""
+    var date: String = ""
+    var shiftId: String = ""
+    var workingHours: WorkingHour = WorkingHour(map: Map(mappingType: .fromJSON, JSON: [:]))!
+    var shifts: [ShiftTiming] = []
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        startTime    <- map["StartTime"]
+        endTime      <- map["EndTime"]
+        isSwitched   <- map["isSwitched"]
+        day          <- map["day"]
+        date         <- map["date"]
+        shiftId      <- map["shiftId"]
+        workingHours <- map["workingHours"]
+        shifts       <- map["shifts"]
+    }
+}
+
+
+
+class ScheduleModel {
+    var day: String
+    var from: String
+    var to: String
+    var isSwitched: Bool
+
+    init(day: String, from: String, to: String, isSwitched: Bool = false) {
+        self.day = day
+        self.from = from
+        self.to = to
+        self.isSwitched = isSwitched
+    }
+}
+
+

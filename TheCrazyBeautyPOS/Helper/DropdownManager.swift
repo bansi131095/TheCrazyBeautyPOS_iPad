@@ -97,4 +97,5 @@ class DropdownManager: NSObject, UITableViewDelegate, UITableViewDataSource {
         }
         tableView.isHidden = true
     }
+    
 }
