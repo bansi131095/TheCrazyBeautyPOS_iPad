@@ -2033,6 +2033,17 @@ extension UIViewController {
         }
     }
     
+    func updateAttribute(textView: UITextView, attribute: NSAttributedString.Key, value: Any) {
+        let selectedRange = textView.selectedRange
+        if selectedRange.length == 0 { return }
+
+        let mutableText = NSMutableAttributedString(attributedString: textView.attributedText)
+        mutableText.addAttribute(attribute, value: value, range: selectedRange)
+
+        textView.attributedText = mutableText
+        textView.selectedRange = selectedRange
+    }
+    
 }
 
 extension UIColor {

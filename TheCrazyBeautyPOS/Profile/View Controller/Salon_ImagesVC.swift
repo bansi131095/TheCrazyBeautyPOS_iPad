@@ -30,6 +30,8 @@ class Salon_ImagesVC: UIViewController {
     var profileModel: [profileDetailsModel] = []
 //    var galleryImageArray: [String] = []
     var allImages: [DisplayImage] = []
+    var isProfileImageSelection = false
+    var isProfileImageRemoved = false
     
     //MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -50,9 +52,12 @@ class Salon_ImagesVC: UIViewController {
     
     //MARK: -  Button Action
     @IBAction func btn_DeleteProfile(_ sender: Any) {
+        img_Profile.image = UIImage(named: "img_Upload") // Placeholder
+        isProfileImageRemoved = true
     }
     
     @IBAction func btn_UploadImage(_ sender: Any) {
+        isProfileImageSelection = false
         if allImages.count >= 5{
             print("Photo photo")
         }else{
@@ -74,6 +79,12 @@ class Salon_ImagesVC: UIViewController {
         }
         upload_Image()
     }
+    
+    @IBAction func btn_Profile(_ sender: Any) {
+        isProfileImageSelection = true
+        self.showActionSheet()
+    }
+    
     
     //MARK: - Function
     func setCollectCategory() {
@@ -139,12 +150,23 @@ class Salon_ImagesVC: UIViewController {
         }, cancel: { (assets: [PHAsset]) -> Void in
             //print("Cancel: \(assets)")
         }, finish: { (assets: [PHAsset]) -> Void in
-            //print("Finish: \(assets)")
-            //self.array = assets
-            print("Array:\(assets)")
-            
-                
-            for imageData in assets  {
+            guard let asset = assets.first else { return }
+            let image = self.convertImageFromAsset(asset: asset)
+            if self.isProfileImageSelection {
+                    // ✅ Set profile image
+                    self.img_Profile.image = image
+                self.isProfileImageRemoved = false
+                    print("✅ Profile image selected")
+                } else {
+                    // ✅ Add to gallery images
+                    self.allImages.append(DisplayImage(imageUrl: nil, image: image))
+                    self.cv_Imgs.isHidden = false
+                    self.cv_Imgs.reloadData()
+                    self.cv_HeightConst.constant = 600
+                    print("✅ Gallery image added")
+                }
+            self.isProfileImageSelection = false
+            /*for imageData in assets  {
                 if imageData.mediaType == .image {
                     let imageData1 = self.convertImageFromAsset(asset: imageData)
 //                    self.arr_photo.append(imageData1)
@@ -153,7 +175,7 @@ class Salon_ImagesVC: UIViewController {
                     self.cv_Imgs.reloadData()
                     self.cv_HeightConst.constant = 600
                 }
-            }
+            }*/
             /*DispatchQueue.main.async(){
                 if self.arr_photo.count != 0 {
                     self.cv_Imgs.isHidden = false
@@ -245,7 +267,7 @@ class Salon_ImagesVC: UIViewController {
     
     func upload_Image() {
         // 1. Separate profile image (from imageView)
-        guard let profileImage = img_Profile.image else {
+        guard let profileImage = img_Profile.image, !isProfileImageRemoved else {
             self.alertWithMessageOnly("Profile image not set.")
             return
         }
@@ -271,6 +293,25 @@ class Salon_ImagesVC: UIViewController {
             }
         }
     }
+    
+    @objc func deleteGalleryImage(_ sender: UIButton) {
+        let index = sender.tag
+        guard index < allImages.count else { return }
+
+        // Remove image from array
+        allImages.remove(at: index)
+
+        // Reload collectionView
+        cv_Imgs.reloadData()
+
+        // Update height if needed
+        if allImages.isEmpty {
+            cv_Imgs.isHidden = true
+            cv_HeightConst.constant = 0
+        } else {
+            updateCollectionViewHeight()
+        }
+    }
 }
 
 extension Salon_ImagesVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -290,7 +331,7 @@ extension Salon_ImagesVC: UICollectionViewDelegate, UICollectionViewDataSource, 
             print("📸 Displaying picked image")
             cell.img_Upload.image = localImage
         }
-
+        cell.btn_Delete.addTarget(self, action: #selector(deleteGalleryImage(_:)), for: .touchUpInside)
         cell.btn_Delete.tag = indexPath.item
         return cell
     }
@@ -306,26 +347,27 @@ extension Salon_ImagesVC: UIImagePickerControllerDelegate, UINavigationControlle
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
 
         if let pickedImage = info[.originalImage] as? UIImage {
-            // Append the image to your data source
-            self.allImages.append(DisplayImage(imageUrl: nil, image: pickedImage))
-
-            // Reload collection view
-            DispatchQueue.main.async {
-                self.cv_Imgs.isHidden = false
-                self.cv_Imgs.reloadData()
-                self.cv_HeightConst.constant = 600
+            if isProfileImageSelection {
+                img_Profile.image = pickedImage
+                isProfileImageRemoved = false
+            }else{
+                self.allImages.append(DisplayImage(imageUrl: nil, image: pickedImage))
+                DispatchQueue.main.async {
+                    self.cv_Imgs.isHidden = false
+                    self.cv_Imgs.reloadData()
+                    self.cv_HeightConst.constant = 600
+                }
             }
         }
-
+        isProfileImageSelection = false
         picker.dismiss(animated: true, completion: nil)
     }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        isProfileImageSelection = false
         picker.dismiss(animated: true, completion: nil)
     }
 }
-
-
 
 /*extension Salon_ImagesVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
