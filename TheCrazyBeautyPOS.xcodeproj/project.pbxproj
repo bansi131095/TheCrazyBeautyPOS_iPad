@@ -542,6 +542,7 @@
 				058364822DEF23DA00C0B42E /* Frameworks */,
 				058364832DEF23DA00C0B42E /* Resources */,
 				1DAB88048E4F05FA3E8A3696 /* [CP] Embed Pods Frameworks */,
+				3DC0E06B21009C287629A60E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -636,17 +637,30 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TheCrazyBeautyPOS/Pods-TheCrazyBeautyPOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TheCrazyBeautyPOS/Pods-TheCrazyBeautyPOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
-			outputPaths = (
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TheCrazyBeautyPOS/Pods-TheCrazyBeautyPOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3DC0E06B21009C287629A60E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TheCrazyBeautyPOS/Pods-TheCrazyBeautyPOS-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TheCrazyBeautyPOS/Pods-TheCrazyBeautyPOS-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TheCrazyBeautyPOS/Pods-TheCrazyBeautyPOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AF9A38DF5CB605ECB72C3A1B /* [CP] Check Pods Manifest.lock */ = {
