@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let SVGCoder = SDImageSVGCoder.shared
         SDImageCodersManager.shared.addCoder(SVGCoder)
+//        GMSServices.provideAPIKey("AIzaSyBkJMsPty_y88X9z0Zy36Rmia1-ZR868c0")
+//        GMSPlacesClient.provideAPIKey("AIzaSyBkJMsPty_y88X9z0Zy36Rmia1-ZR868c0")
         return true
     }
 

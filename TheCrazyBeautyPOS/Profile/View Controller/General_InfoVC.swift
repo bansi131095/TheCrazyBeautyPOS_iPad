@@ -17,12 +17,16 @@ enum TextAlignmentType {
 }
 
 import UIKit
+import DropDown
 
 class General_InfoVC: UIViewController {
 
     var colorApplyMode: ColorApplyMode = .text
+    var arr_SalonType = ["Male","Female","Unisex"]
     
     @IBOutlet weak var txt_Aboutus: UITextView!
+    @IBOutlet weak var txt_SalonType: TextInputLayout!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,24 +119,23 @@ class General_InfoVC: UIViewController {
     }
     
     
-    @IBAction func btn_99(_ sender: Any) {
+    @IBAction func btn_SalonType(_ sender: Any) {
+        openSalonType()
     }
     
-    
-    @IBAction func btn_Image(_ sender: Any) {
-    }
-    
-    
-    @IBAction func btn_link(_ sender: Any) {
-    }
-    
-    @IBAction func btn_Check(_ sender: Any) {
-    }
-    
-    @IBAction func btn_Undo(_ sender: Any) {
-    }
-    
-    @IBAction func btn_Redo(_ sender: Any) {
+    func openSalonType() {
+        let slotDuration = DropDown()
+        slotDuration.anchorView = txt_SalonType
+        slotDuration.bottomOffset = CGPoint(x: 0, y:(slotDuration.anchorView?.plainView.bounds.height)!)
+        slotDuration.direction = .bottom
+        slotDuration.dataSource = arr_SalonType
+        slotDuration.cellHeight = 35
+        slotDuration.show()
+        
+        slotDuration.selectionAction = {  [unowned self] (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+            self.txt_SalonType.text = item
+        }
     }
     
     //MARK: - Bold

@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '16.6'
+ platform :ios, '16.6'
 
 target 'TheCrazyBeautyPOS' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -7,7 +7,7 @@ target 'TheCrazyBeautyPOS' do
 
   # Pods for TheCrazyBeautyPOS
   
-    pod 'Alamofire'
+    pod 'Alamofire','5.0.0-rc.2'
     pod 'AlamofireObjectMapper'
     pod 'DeviceGuru'
     pod 'SFHFKeychainUtils'
@@ -17,10 +17,13 @@ target 'TheCrazyBeautyPOS' do
     pod 'SDWebImage'
     pod 'SDWebImageSVGCoder'
     pod 'IQKeyboardManagerSwift'
-<<<<<<< Updated upstream
-=======
+#<<<<<<< Updated upstream
+#=======
     pod 'DropDown'
->>>>>>> Stashed changes
+#>>>>>>> Stashed changes
     pod 'CountryPickerViewSwift'
+    pod 'GoogleMaps'
+    pod 'GooglePlaces'
+    pod 'FSCalendar'
     
 end
