@@ -611,3 +611,32 @@ class SMSDetailsData: Mappable {
         email_settings      <- map["email_settings"]
     }
 }
+
+struct Addresses : Mappable {
+    var address_Id : String?
+    var city : String?
+    var postal_Code : String?
+    var landmark : String?
+    var address : String?
+    var address_Latitude : String?
+    var address_Longitude : String?
+    var is_Selected : Bool?
+
+    init?(map: Map) {
+
+    }
+
+    mutating func mapping(map: Map) {
+
+        address_Id <- map["Address_Id"]
+        city <- map["City"]
+        postal_Code <- map["Postal_Code"]
+        landmark <- map["Landmark"]
+        address <- map["Address"]
+        address_Latitude <- map["Address_Latitude"]
+        address_Longitude <- map["Address_Longitude"]
+        is_Selected <- map["Is_Selected"]
+    }
+
+}
+
