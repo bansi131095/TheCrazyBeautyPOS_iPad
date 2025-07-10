@@ -98,7 +98,26 @@ class TeamVC: UIViewController {
         self.navigationController?.pushViewController(teamRoster, animated: true)
     }
     
-
+    //MARK: Delete API
+    func deleteTeamData(teamId: Int) {
+        self.showLoader()
+        APIService.shared.deleteTeamData(teamId: teamId) { staffResult in
+            guard let model = staffResult else {
+                return
+            }
+            self.hideLoader()
+            if model.error == "" || model.error == nil {
+                DispatchQueue.main.async {
+                    // safe UI code here
+                    self.showToast(message: model.data)
+                }
+                self.loadData(Search: "")
+            } else {
+                self.show_alert(msg: model.error ?? "", title: "Delete Team")
+            }
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -161,7 +180,16 @@ extension TeamVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelega
             self.navigationController?.pushViewController(addNew, animated: true)
         }
         cell.Act_Delete = {
-            
+            let popup = ConfirmDeletePopupVC()
+            popup.modalPresentationStyle = .overFullScreen
+            popup.modalTransitionStyle = .crossDissolve
+            popup.titleText = "Are you sure you want to delete this team member?"
+            popup.onConfirm = {
+                print("Team confirmed delete")
+                // Call your delete logic here
+                self.deleteTeamData(teamId: staff.id ?? 0)
+            }
+            self.present(popup, animated: true, completion: nil)
         }
         return cell
     }

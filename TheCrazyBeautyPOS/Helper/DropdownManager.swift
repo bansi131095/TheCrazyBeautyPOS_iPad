@@ -17,12 +17,12 @@ class DropdownManager: NSObject, UITableViewDelegate, UITableViewDataSource {
     private var selectedTextField: UITextField?
     var dropdownData: [UITextField: [String]] = [:]
     private weak var parentView: UIView?
-    
+    private var selectionActionMap: [UITextField: (String) -> Void] = [:]
+
     private override init() {}
     
-    func setupDropdown(for textField: UITextField, in view: UIView, with data: [String]) {
+    func setupDropdown(for textField: UITextField, in view: UIView, with data: [String], width: CGFloat = 0, selectionAction: @escaping (String) -> Void) {
         parentView = view
-//        dropdownData = data
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         textField.addGestureRecognizer(tapGesture)
@@ -39,16 +39,20 @@ class DropdownManager: NSObject, UITableViewDelegate, UITableViewDataSource {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         view.addSubview(tableView)
+        
+        // Store data and selection handler
         dropdowns[textField] = tableView
         dropdownData[textField] = data
+        selectionActionMap[textField] = selectionAction
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: -30),
             tableView.centerXAnchor.constraint(equalTo: textField.centerXAnchor),
-            tableView.widthAnchor.constraint(equalTo: textField.widthAnchor),
-            tableView.heightAnchor.constraint(equalToConstant: data.count < 10 ? CGFloat(data.count * 45) : 350)
+            width == 0 ? tableView.widthAnchor.constraint(equalTo: textField.widthAnchor) : tableView.widthAnchor.constraint(equalToConstant: width),
+            tableView.heightAnchor.constraint(equalToConstant: data.count < 10 ? CGFloat(data.count * 45) : 450)
         ])
     }
+
     
     @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
         guard let textField = gesture.view as? UITextField,
@@ -89,13 +93,22 @@ class DropdownManager: NSObject, UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.text = items[indexPath.row]
         return cell
     }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let textField = selectedTextField,
-                  let items = dropdownData[textField] {
-            selectedTextField?.text = items[indexPath.row]
-        }
-        tableView.isHidden = true
-    }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let textField = selectedTextField,
+              let items = dropdownData[textField],
+              indexPath.row >= 0, indexPath.row < items.count else {
+            return
+        }
+        selectedTextField?.text = items[indexPath.row]
+        let selectedItem = items[indexPath.row]
+        textField.text = selectedItem
+        tableView.isHidden = true
+
+        if let handler = selectionActionMap[textField] {
+            handler(selectedItem)
+        }
+    }
+
+
 }

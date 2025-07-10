@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad10_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato_medium.ttf">
+            <string>Lato-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="55" id="KGk-i7-Jjw" customClass="TimeOffCell" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="804" height="55"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="804" height="55"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ahV-9D-j9f">
+                        <rect key="frame" x="30" y="13" width="42.5" height="29.5"/>
+                        <fontDescription key="fontDescription" name="Lato-Medium" family="Lato" pointSize="18"/>
+                        <color key="textColor" name="txtGray"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bdF-MF-AlZ">
+                        <rect key="frame" x="749" y="15" width="20" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="CuD-Ep-3No"/>
+                            <constraint firstAttribute="width" constant="20" id="IMz-HU-DCt"/>
+                        </constraints>
+                        <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" image="Delete1"/>
+                        <connections>
+                            <action selector="act_delete:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="cal-KG-TXT"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ahV-9D-j9f" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="FTU-O1-N2g"/>
+                    <constraint firstAttribute="trailing" secondItem="bdF-MF-AlZ" secondAttribute="trailing" constant="35" id="JLc-Ng-tLT"/>
+                    <constraint firstItem="bdF-MF-AlZ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="K3i-OO-abq"/>
+                    <constraint firstItem="ahV-9D-j9f" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="Urb-bp-5W7"/>
+                    <constraint firstAttribute="bottom" secondItem="ahV-9D-j9f" secondAttribute="bottom" constant="12.5" id="v5G-pa-WI4"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lbl_fromTo" destination="ahV-9D-j9f" id="HWi-Hz-CG1"/>
+            </connections>
+            <point key="canvasLocation" x="58.536585365853661" y="22.627118644067799"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Delete1" width="97" height="111"/>
+        <namedColor name="txtGray">
+            <color red="0.63137254901960782" green="0.63137254901960782" blue="0.63137254901960782" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

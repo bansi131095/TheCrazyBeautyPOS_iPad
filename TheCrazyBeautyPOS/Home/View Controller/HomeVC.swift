@@ -12,6 +12,12 @@ class HomeVC: UIViewController {
     
     @IBOutlet weak var tbl_vw: UITableView!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var txt_salon: UITextField!
+    @IBOutlet weak var vw_pending: UIView!
+    
+    var salonList: [String] = []
+    var selectedSalon: String = ""
+    
     
     let imageArray: [UIImage] = [
         #imageLiteral(resourceName: "Dashboard.png"),
@@ -31,6 +37,10 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         self.setUpTableView()
         loadEmbeddedViewController(for: 1)
+        self.getAllSalonData()
+        let salonName = SharedPrefs.getSalonName()
+        self.txt_salon.text = salonName
+    
         // Do any additional setup after loading the view.
     }
     
@@ -87,6 +97,79 @@ class HomeVC: UIViewController {
         }
     }
     
+    //MARK: Button Action
+    @IBAction func act_notification(_ sender: UIButton) {
+        
+    }
+    
+    //MARK: Api Data
+    func getAllSalonData() {
+    
+        self.showLoader()
+        APIService.shared.getAllSalonData() { staffResult in
+            guard let model = staffResult else {
+                return
+            }
+            self.hideLoader()
+            let newItems = model.data
+            if !newItems.isEmpty {
+                let CategoryList = newItems
+                for cate in CategoryList {
+                    self.salonList.append(cate.salonName)
+                }
+                DropdownManager.shared.setupDropdown(
+                    for: self.txt_salon,
+                    in: self.view,
+                    with: self.salonList,
+                    width: 200.0,
+                ) { [weak self] selected in
+                    guard let self = self else { return }
+                    for cate in CategoryList {
+                        if cate.salonName == selected {
+                            self.selectedSalon = "\(cate.id)"
+                        }
+                    }
+                    self.txt_salon.text = selected
+                    self.updateSalonData()
+                }
+            }
+        }
+    }
+    
+    
+    func updateSalonData() {
+        self.showLoader()
+        APIService.shared.updateSalonData(salonId: self.selectedSalon) { result in
+            guard let model = result else {
+                return
+            }
+            self.hideLoader()
+            if let salonData = model.data {
+                if salonData.businessVerified == 1 {
+                    SharedPrefs.setEmail(salonData.email)
+                    SharedPrefs.setUserId(String(salonData.id))
+                    SharedPrefs.setUserName((salonData.firstName) + " " + (salonData.lastName))
+                    if salonData.salonId == 0 {
+                        SharedPrefs.setSalonId(String(salonData.id))
+                    } else {
+                        SharedPrefs.setSalonId(String(salonData.salonId))
+                    }
+                    SharedPrefs.setSalonName(salonData.salonName)
+                    SharedPrefs.setLoginToken(salonData.token)
+                    SharedPrefs.setStaffLogin(false)
+                    SharedPrefs.setVerified(true)
+                    let currentTimeMillis = Int(Date().timeIntervalSince1970 * 1000)
+                    let timeString = String(currentTimeMillis)
+                    SharedPrefs.setLoginTime(timeString)
+                    LocalData.getUserData()
+                    let sb = UIStoryboard(name: "Home", bundle:nil)
+                    let navDashboard = sb.instantiateViewController(withIdentifier: "NavigateHome") as! UINavigationController
+                     navDashboard.modalPresentationStyle = .fullScreen
+                    self.present(navDashboard, animated: true, completion: nil)
+                }
+            }
+        }
+    }
 
     /*
     // MARK: - Navigation

@@ -38,10 +38,10 @@ class StaffData: Mappable {
     var gender: String?
     var jobTitle: String?
     var jobBio: String?
-    var workingHours: [WorkingHour]?
-    var shiftTimings: [ShiftTiming]?
-    var blockTimings: [BlockTiming]?
-    var holidayDates: [HolidayDate]?
+    var workingHours: String?
+    var shiftTimings: String?
+    var blockTimings: String?
+    var holidayDates: String?
     var showCustomer: Int?
     var showInCalendar: Int?
     var averageRating: String?
@@ -184,3 +184,38 @@ class ScheduleModel {
 }
 
 
+class StaffScheduleResponse: Mappable {
+    var data: [StaffSchedule]?
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data    <- map["data"]
+        error   <- map["error"]
+    }
+}
+
+// MARK: - StaffSchedule Model
+class StaffSchedule: Mappable {
+    var id: Int?
+    var staffId: Int?
+    var date: String?
+    var day: String?
+
+    var workingHours: String = ""
+    var shiftTimings: String = ""
+    var blockTimings: String = ""
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id                 <- map["id"]
+        staffId            <- map["staff_id"]
+        date               <- map["date"]
+        day                <- map["day"]
+        workingHours   <- map["working_hours"]
+        shiftTimings   <- map["shift_timings"]
+        blockTimings   <- map["block_timings"]
+    }
+}

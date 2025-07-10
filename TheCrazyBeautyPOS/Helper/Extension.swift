@@ -17,6 +17,7 @@ var sub_category:String = String()
 
 var bundleKey: UInt8 = 0
 
+
 class AnyLanguageBundle: Bundle {
     
     override func localizedString(forKey key: String,
@@ -1886,15 +1887,15 @@ extension UIButton {
 
 extension UIViewController {
 
-    func flag(country:String) -> String {
-        let base = 127397
-        var usv = String.UnicodeScalarView()
-        for i in country.utf16 {
-            usv.append(UnicodeScalar(base + Int(i))!)
-        }
-        return String(usv)
-    }
-    
+//    func flag(country:String) -> String {
+//        let base = 127397
+//        var usv = String.UnicodeScalarView()
+//        for i in country.utf16 {
+//            usv.append(UnicodeScalar(base + Int(i))!)
+//        }
+//        return String(usv)
+//    }
+//    
     
     func statusBarColorChange() {
         if #available(iOS 13.0, *) {
@@ -1999,6 +2000,44 @@ extension UIViewController {
             case "White" : return "#FFFFFF"
             
         default: return ""
+        }
+    }
+    
+    // MARK: - Loader Handling using Associated Object
+    private struct AssociatedKeys {
+        static var activityIndicatorKey = "activityIndicatorKey"
+    }
+
+    private var activityIndicator: UIActivityIndicatorView? {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.activityIndicatorKey) as? UIActivityIndicatorView
+        }
+        set {
+            objc_setAssociatedObject(self, &AssociatedKeys.activityIndicatorKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    func showLoader() {
+        DispatchQueue.main.async {
+            if self.activityIndicator == nil {
+                let indicator = UIActivityIndicatorView(style: .large)
+                indicator.center = self.view.center
+                indicator.color = .gray
+                indicator.hidesWhenStopped = true
+                self.view.addSubview(indicator)
+                self.activityIndicator = indicator
+            }
+            self.activityIndicator?.startAnimating()
+            self.view.isUserInteractionEnabled = false
+        }
+    }
+
+    func hideLoader() {
+        DispatchQueue.main.async {
+            self.activityIndicator?.stopAnimating()
+            self.activityIndicator?.removeFromSuperview()
+            self.activityIndicator = nil
+            self.view.isUserInteractionEnabled = true
         }
     }
     

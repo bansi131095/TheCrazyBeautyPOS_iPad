@@ -9,7 +9,7 @@ import Foundation
 import ObjectMapper
 
 
-/*class CommonResponse: Mappable {
+class CommonResponses: Mappable {
     var data: String = ""
     var error: String?
 
@@ -19,7 +19,7 @@ import ObjectMapper
         data  <- map["data"]
         error <- map["error"]
     }
-} */
+}
 
 
 struct CommonResponse: Codable {

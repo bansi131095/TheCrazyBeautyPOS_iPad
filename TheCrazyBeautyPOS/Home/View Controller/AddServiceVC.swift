@@ -48,9 +48,23 @@ class AddServiceVC: UIViewController {
         self.loadCategoryData()
         self.loadData()
         let options: [String] = ["Male", "Female", "Unisex"]
-        DropdownManager.shared.setupDropdown(for: self.txt_serviceFor, in: self.view, with: options)
+        DropdownManager.shared.setupDropdown(
+            for: self.txt_serviceFor,
+            in: self.view,
+            with: options
+        ) { [weak self] selected in
+            guard let self = self else { return }
+            self.txt_serviceFor.setText(selected)
+        }
         let options1: [String] = ["Starts From", "Fixed"]
-        DropdownManager.shared.setupDropdown(for: self.txt_priceType, in: self.view, with: options1)
+        DropdownManager.shared.setupDropdown(
+            for: self.txt_priceType,
+            in: self.view,
+            with: options1
+        ) { [weak self] selected in
+            guard let self = self else { return }
+            self.txt_priceType.setText(selected)
+        }
         staffTextField.delegate = self
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openStaffPopup))
         staffTextField.addGestureRecognizer(tapGesture)
@@ -226,7 +240,14 @@ class AddServiceVC: UIViewController {
                 for dur in self.durationList {
                     options.append(dur.label)
                 }
-                DropdownManager.shared.setupDropdown(for: self.txt_serviceDuration, in: self.view, with: options)
+                DropdownManager.shared.setupDropdown(
+                    for: self.txt_serviceDuration,
+                    in: self.view,
+                    with: options
+                ) { [weak self] selected in
+                    guard let self = self else { return }
+                    self.txt_serviceDuration.setText(selected)
+                }
                 if self.isEdit {
                     for data in self.durationList {
                         if data.duration == "\(self.selectedDuration)" {
@@ -252,7 +273,14 @@ class AddServiceVC: UIViewController {
                 for cate in self.categoryList {
                     options.append(cate.service_name)
                 }
-                DropdownManager.shared.setupDropdown(for: self.txt_mainCategory, in: self.view, with: options)
+                DropdownManager.shared.setupDropdown(
+                    for: self.txt_mainCategory,
+                    in: self.view,
+                    with: options
+                ) { [weak self] selected in
+                    guard let self = self else { return }
+                    self.txt_mainCategory.setText(selected)
+                }
                 if self.isEdit {
                     for data in self.categoryList {
                         if data.id == self.parentId {

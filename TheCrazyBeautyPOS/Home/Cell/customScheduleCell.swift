@@ -1,17 +1,16 @@
 //
-//  teamScheduleCell.swift
+//  customScheduleCell.swift
 //  TheCrazyBeautyPOS
 //
-//  Created by Xceptive iOS on 07/07/25.
+//  Created by Xceptive iOS on 08/07/25.
 //
 
 import UIKit
 
-class teamScheduleCell: UITableViewCell {
+class customScheduleCell: UITableViewCell {
 
-    
     @IBOutlet weak var lbl_day: UILabel!
-    @IBOutlet weak var btn_switch: UIButton!
+    @IBOutlet weak var lbl_date: UILabel!
     @IBOutlet weak var vw_1: UIView!
     @IBOutlet weak var vw1_height_const: NSLayoutConstraint!
     @IBOutlet weak var vw_2: UIView!
@@ -20,12 +19,10 @@ class teamScheduleCell: UITableViewCell {
     @IBOutlet weak var txt_to: TextInputLayout!
     @IBOutlet weak var txt_from1: TextInputLayout!
     @IBOutlet weak var txt_to1: TextInputLayout!
-    @IBOutlet weak var lbl_salonOff: UILabel!
     @IBOutlet weak var img_remove: UIImageView!
     @IBOutlet weak var img_add: UIImageView!
     
     var onTextFieldTap: ((UITextField) -> Void)?
-
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -42,9 +39,9 @@ class teamScheduleCell: UITableViewCell {
     }
     
     //MARK: Button Action
-    var Act_Switch: (() -> Void)?
-    @IBAction func act_switch(_ sender: Any) {
-        self.Act_Switch?()
+    var Act_Cancel: (() -> Void)?
+    @IBAction func act_cancel(_ sender: Any) {
+        self.Act_Cancel?()
     }
 
     @objc private func textFieldTapped(_ textField: UITextField) {

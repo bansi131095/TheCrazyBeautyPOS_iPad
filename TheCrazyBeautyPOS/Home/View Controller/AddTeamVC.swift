@@ -11,7 +11,7 @@ import FSCalendar
 
 class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     
-    
+    @IBOutlet weak var lbl_title: UILabel!
     @IBOutlet weak var img_teamMember: UIImageView!
     @IBOutlet weak var firstNameTextField: TextInputLayout!
     @IBOutlet weak var lastNameTextField: TextInputLayout!
@@ -35,14 +35,20 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     var isDropdownVisible = false
     var selectedCountrycode = "+353"
     var calendarVC: UIViewController?
+    var selectedDate: Date = Date.now
     var isEdit = false
-    var workingHours: [WorkingHour] = []
     var serviceIds = String()
+    var workingHoursJson: String = ""
+    var shiftTimingJson: String = ""
+    
+    var salonItems: [ScheduleModel] = []
+    
     
     
     //MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.api_getBusinessHours()
         self.dobTextField.delegate = self
         setupGenderTextField()
         setupDropdownTable()
@@ -50,10 +56,13 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
             self.btn_addEditTeam.setTitle("Update Team Member", for: .normal)
             self.btn_editService.setTitle("Edit Services", for: .normal)
             self.btn_addTimeOff.isHidden = false
+            self.lbl_title.text = "Edit Team Member"
+            self.setEditData()
         } else {
             self.btn_addEditTeam.setTitle("Add Team Member", for: .normal)
             self.btn_editService.setTitle("Assign Services", for: .normal)
             self.btn_addTimeOff.isHidden = true
+            self.lbl_title.text = "Add Team Member"
         }
         // Do any additional setup after loading the view.
     }
@@ -89,6 +98,77 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         
         isDropdownVisible.toggle()
         dropdownView.isHidden = !isDropdownVisible
+    }
+    
+    func setEditData() {
+        if let dict = self.dictStaff {
+            self.firstNameTextField.text = dict.firstName
+            self.lastNameTextField.text = dict.lastName
+            self.jobTitleTextField.text = dict.jobTitle
+            self.emailTextField.text = dict.email
+            if var phoneno = dict.phone {
+                if !phoneno.isEmpty && phoneno.count >= 3 {
+                    if phoneno.contains("--") {
+                        phoneno = phoneno.replacingOccurrences(of: "--", with: "-")
+                    }
+                    print("Mobile No: \(phoneno)")
+                    let split = phoneno.components(separatedBy: "-")
+                    if split.count >= 2 {
+                        let countryCode = split[0]
+                        let mobileNo = split[1]
+                        self.selectedCountrycode = countryCode
+                        self.mobileTextField.setText(mobileNo) // Assuming this is your UITextField
+                        if let iso = CountryUtils.getISOCode(from: countryCode) {
+                            if let flagImage = CountryUtils.imageFromEmoji(flag: CountryUtils.flag(from: iso)) {
+                                flag_imgVw.image = flagImage
+                            }
+                        }
+                    }
+                }
+            }
+            if let dob = dict.dob {
+                if !dob.isEmpty {
+                    let dateParts = dob.split(separator: "-")
+                    if dateParts.count == 3, let day = Int(dateParts[0]), let month = Int(dateParts[1]), let year = Int(dateParts[2]) {
+                        var dateComponents = DateComponents()
+                        dateComponents.day = day
+                        dateComponents.month = month
+                        dateComponents.year = year
+                        if let date = Calendar.current.date(from: dateComponents) {
+                            selectedDate = date
+                            let formatter = DateFormatter()
+                            formatter.dateFormat = "dd-MM-yyyy"
+                            self.dobTextField.setText(formatter.string(from: selectedDate))
+                        }
+                    } else {
+                        selectedDate = Date.now
+                    }
+                } else {
+                    selectedDate = Date.now
+                }
+            } else {
+                selectedDate = Date.now
+            }
+            if let gender = dict.gender, !gender.isEmpty && gender != "null" {
+                self.genderTextField.setText(genderOptions[genderOptions.firstIndex(of: gender)!])
+            }
+            self.workingHoursJson = dict.workingHours ?? ""
+            self.shiftTimingJson = dict.shiftTimings ?? ""
+            self.serviceIds = dict.serviceIds ?? ""
+            if let photo = dict.photo, photo != "" {
+                let imgUrl = global.imageUrl + photo
+                if let url = URL(string: imgUrl) {
+                    self.img_teamMember.sd_setImage(with: url, completed: { (image, error, _, _) in
+                        if let error = error {
+                            print("❌ Failed to load image: \(error.localizedDescription)")
+                            self.img_teamMember.image = UIImage(named: "user")
+                        } else {
+                            self.img_teamMember.image = image
+                        }
+                    })
+                }
+            }
+        }
     }
     
     // MARK: Button Action
@@ -128,14 +208,29 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         }
     }
     
+    
     @IBAction func act_uploadImage(_ sender: UIButton) {
         showImagePickerActionSheet(sourceView: sender)
     }
     
     @IBAction func act_editSchedule(_ sender: UIButton) {
         let editSchedule = self.storyboard?.instantiateViewController(withIdentifier: "EditScheduleVC") as! EditScheduleVC
-        editSchedule.modalPresentationStyle = .overFullScreen
+        editSchedule.modalPresentationStyle = .overCurrentContext
         editSchedule.modalTransitionStyle = .crossDissolve
+        editSchedule.salonItems = self.salonItems
+        editSchedule.isEdit = isEdit
+        if isEdit {
+            editSchedule.TeamName = self.dictStaff!.firstName!.capitalized + " " + self.dictStaff!.lastName!.capitalized
+            editSchedule.TeamId = "\(self.dictStaff!.id ?? 0)"
+            editSchedule.WorkingHours = self.dictStaff!.workingHours ?? ""
+            editSchedule.shiftTiming = self.dictStaff!.shiftTimings ?? ""
+        }
+        editSchedule.onDataReturn = { value1, value2 in
+            print("Received values: \(value1), \(value2)")
+            self.workingHoursJson = value1
+            self.shiftTimingJson = value2
+            // Do something with the two strings
+        }
         self.present(editSchedule, animated: true)
     }
     
@@ -145,7 +240,8 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         if isEdit {
             editService.teamName = self.dictStaff!.firstName!.capitalized + " " + self.dictStaff!.lastName!.capitalized
         }
-        editService.modalPresentationStyle = .overFullScreen
+        editService.modalPresentationStyle = .overCurrentContext
+        editService.modalTransitionStyle = .crossDissolve
         editService.onDataReturn = { [weak self] returnedData in
             print("Received data: \(returnedData)")
             self?.serviceIds = returnedData
@@ -155,6 +251,14 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     }
     
     @IBAction func act_addTimeOff(_ sender: UIButton) {
+        let addTimeOff = self.storyboard?.instantiateViewController(withIdentifier: "AddTimeDiffVC") as! AddTimeDiffVC
+        if isEdit {
+            addTimeOff.TeamName = self.dictStaff!.firstName!.capitalized + " " + self.dictStaff!.lastName!.capitalized
+            addTimeOff.TeamId = "\(self.dictStaff!.id ?? 0)"
+        }
+        addTimeOff.modalPresentationStyle = .overCurrentContext
+        addTimeOff.modalTransitionStyle = .crossDissolve
+        self.present(addTimeOff, animated: true)
     }
     
     @IBAction func act_cancel(_ sender: UIButton) {
@@ -162,26 +266,125 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     }
     
     @IBAction func act_addEditTeam(_ sender: GradientButton) {
-        let mobileNo = "+\(selectedCountrycode)-\(self.mobileTextField.text ?? "")"
-
-        /* if let image = self.img_teamMember.image {
-           APIService.shared.addTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: <#T##String#>, showInCalendar: <#T##String#>, serviceIds: self.serviceIds, workingHours: "", shiftTimings: "", image: image, imageKey: "file") { response in
-                if let member = response {
-                    print("🎉 Member Added: \(member.data?.id ?? 0)")
-                } else {
-                    print("🚫 Upload failed.")
-                }
+        if self.firstNameTextField.text!.isEmpty {
+            self.showToast(message: "Please enter first name")
+        } else if self.jobTitleTextField.text!.isEmpty {
+            self.showToast(message: "Please enter job title")
+        } else if self.genderTextField.text!.isEmpty {
+            self.showToast(message: "Please select gender")
+        } else {
+            if isEdit {
+                self.updateTeamApi()
+            } else {
+                self.addTeamApi()
             }
-        }*/
-    }
-    
-    //MARK: Load Api
-    func api_getBusinessHours() {
-        APIService.shared.fetchTiming { workingHours in
-            self.workingHours = workingHours
         }
     }
     
+    //MARK: API Call
+    func api_getBusinessHours() {
+        APIService.shared.fetchTiming { workingHours in
+            let salonHours = workingHours
+            self.workingHoursJson = workingHours
+            self.shiftTimingJson = workingHours
+            let workinghours = APIService.shared.parseWorkingHours(salonHours)
+            self.salonItems = self.convertWorkingHoursToSchedule(workinghours)
+        }
+    }
+    
+    func addTeamApi() {
+        let mobileNo = "\(selectedCountrycode)-\(self.mobileTextField.text ?? "")"
+        self.showLoader()
+         if let image = self.img_teamMember.image {
+             APIService.shared.addTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: self.btn_visibility.currentImage == UIImage(named: "rdCheck") ? "1" : "0", showInCalendar: "1", serviceIds: self.serviceIds, workingHours: self.workingHoursJson, shiftTimings: self.shiftTimingJson, image: image, imageKey: "file") { response in
+                 self.hideLoader()
+                 if response != nil {
+                    DispatchQueue.main.async {
+                        // safe UI code here
+                        self.showToast(message: "Team member added successfully")
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                } else {
+                    let errorMessage = response?.error ?? "Something went wrong"
+                    self.show_alert(msg: errorMessage, title: "Add Team")
+                }
+            }
+         } else {
+             APIService.shared.addTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: self.btn_visibility.currentImage == UIImage(named: "rdCheck") ? "1" : "0", showInCalendar: "1", serviceIds: self.serviceIds, workingHours: self.workingHoursJson, shiftTimings: self.shiftTimingJson, image: nil, imageKey: "file") { response in
+                 self.hideLoader()
+                 if response != nil {
+                    DispatchQueue.main.async {
+                        // safe UI code here
+                        self.showToast(message: "Team member added successfully")
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                } else {
+                    let errorMessage = response?.error ?? "Something went wrong"
+                    self.show_alert(msg: errorMessage, title: "Add Team")
+                }
+            }
+         }
+    }
+    
+    func updateTeamApi() {
+        let mobileNo = "\(selectedCountrycode)-\(self.mobileTextField.text ?? "")"
+        self.showLoader()
+         if let image = self.img_teamMember.image {
+             APIService.shared.updateTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: self.btn_visibility.currentImage == UIImage(named: "rdCheck") ? "1" : "0", showInCalendar: "1", serviceIds: self.serviceIds, workingHours: self.workingHoursJson, shiftTimings: self.shiftTimingJson, image: image, imageKey: "file", teamId: "\(self.dictStaff!.id ?? 0)") { response in
+                 self.hideLoader()
+                 if response != nil {
+                    DispatchQueue.main.async {
+                        // safe UI code here
+                        self.showToast(message: response?.data ?? "")
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                } else {
+                    let errorMessage = response?.error ?? "Something went wrong"
+                    self.show_alert(msg: errorMessage, title: "Update Team")
+                }
+            }
+         } else {
+             APIService.shared.updateTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: self.btn_visibility.currentImage == UIImage(named: "rdCheck") ? "1" : "0", showInCalendar: "1", serviceIds: self.serviceIds, workingHours: self.workingHoursJson, shiftTimings: self.shiftTimingJson, image: nil, imageKey: "file", teamId: "\(self.dictStaff!.id ?? 0)") { response in
+                 self.hideLoader()
+                 if response != nil {
+                    DispatchQueue.main.async {
+                        // safe UI code here
+                        self.showToast(message: response?.data ?? "")
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                } else {
+                    let errorMessage = response?.error ?? "Something went wrong"
+                    self.show_alert(msg: errorMessage, title: "Update Team")
+                }
+            }
+         }
+    }
+    
+    
+    func convertWorkingHoursToSchedule(_ workingHours: [WorkingHour]) -> [ScheduleModel] {
+        let allDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        var result: [ScheduleModel] = []
+
+        for day in allDays {
+            if let match = workingHours.first(where: { $0.day == day }) {
+                let fromTime = match.from ?? "00:00"
+                let toTime = match.to ?? "23:00"
+                result.append(ScheduleModel(day: day, from: fromTime, to: toTime, isSwitched: true))
+            } else {
+                result.append(ScheduleModel(day: day, from: "00:00", to: "23:00", isSwitched: false))
+            }
+        }
+
+        return result
+    }
     
     //MARK: Function
     func showImagePickerActionSheet(sourceView: UIView) {
@@ -295,9 +498,10 @@ extension AddTeamVC: UITextFieldDelegate {
 
 extension AddTeamVC: FSCalendarDelegate, FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        selectedDate = date
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
-        self.dobTextField.text = formatter.string(from: date)
+        self.dobTextField.text = formatter.string(from: selectedDate)
         self.dobTextField.showLabel()
         calendarVC?.dismiss(animated: true)
     }

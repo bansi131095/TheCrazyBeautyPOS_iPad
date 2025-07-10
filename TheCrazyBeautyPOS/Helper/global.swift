@@ -97,6 +97,27 @@ class global: NSObject
     
     var URL_GET_TIMING = global.server_url + "get_timing"
     
+    var URL_STAFF_SHIFTS = global.server_url + "staff_shifts"
+    
+    var URL_GET_HOLIDAYS = global.server_url + "get_holidays"
+    
+    var URL_STAFF_HOLIDAYS = global.server_url + "staff_holidays"
+    
+    var URL_UPDATE_SHIFTS = global.server_url + "update_shifts"
+    
+    var URL_UPDATE_STAFFHOLIDAYS = global.server_url + "update_staffholidays"
+    
+    var URL_UPDATE_SERVICE_SEQUENCE = global.server_url + "update_service_sequence"
+    
+    var URL_GET_ALL_SALONS = global.server_url + "get_all_salons"
+    
+    var URL_GET_ACTIVITIES = global.server_url + "get_activities"
+    
+    var URL_UPDATE_ACTIVITIES = global.server_url + "update_activities"
+    
+    var URL_SALON_DATA = global.server_url + "salon_data/"
+    
+    
     
     //MARK:-
     override init()

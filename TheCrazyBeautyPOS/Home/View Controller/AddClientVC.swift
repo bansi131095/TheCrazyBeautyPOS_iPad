@@ -317,13 +317,13 @@ class AddClientVC: UIViewController {
     
     func updateClientData(clientId: Int) {
         let mobileNo = "\(selectedCountrycode)-\(self.mobileTextField.text ?? "")"
-
+        self.showLoader()
         
         APIService.shared.updateClientData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: LocalData.userId, email: self.emailTextField.text ?? "", clientType: self.clientTypeTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, clientId: clientId) { staffResult in
             guard let model = staffResult else {
                 return
             }
-
+            self.hideLoader()
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
                     // safe UI code here

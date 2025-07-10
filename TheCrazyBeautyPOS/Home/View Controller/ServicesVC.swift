@@ -100,6 +100,10 @@ class ServicesVC: UIViewController {
     }
     
     @IBAction func act_serviceSequence(_ sender: UIButton) {
+        let serviceSeq = self.storyboard?.instantiateViewController(withIdentifier: "ServiceSequenceVC") as! ServiceSequenceVC
+        serviceSeq.modalPresentationStyle = .overCurrentContext
+        serviceSeq.modalTransitionStyle = .crossDissolve
+        self.present(serviceSeq, animated: true)
         
     }
     
