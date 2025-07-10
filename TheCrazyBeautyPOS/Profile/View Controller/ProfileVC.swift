@@ -76,7 +76,7 @@ class ProfileVC: UIViewController,SettingCellDelegate {
 
         switch index {
         case 0:
-            selectedVC = storyboard.instantiateViewController(withIdentifier: "ChangePasswordVC") as? ChangePasswordVC
+            selectedVC = storyboard.instantiateViewController(withIdentifier: "General_InfoVC") as? General_InfoVC
         case 1:
             selectedVC = storyboard.instantiateViewController(withIdentifier: "KioskUsersVC") as? KioskUsersVC
         case 2:
@@ -164,13 +164,13 @@ class ProfileVC: UIViewController,SettingCellDelegate {
             // Schedule
             switch rowIndex {
             case 0:
-                vc = storyboard.instantiateViewController(withIdentifier: "OpeningDateVC")
+                vc = storyboard.instantiateViewController(withIdentifier: "Salon_OpeningDateVC")
             case 1:
                 vc = storyboard.instantiateViewController(withIdentifier: "Business_HoursVC")
             case 2:
                 vc = storyboard.instantiateViewController(withIdentifier: "SalonOff_DaysVC")
             case 3:
-                vc = storyboard.instantiateViewController(withIdentifier: "SalonHolidayVC")
+                vc = storyboard.instantiateViewController(withIdentifier: "Salon_HolidayVC")
             default: break
             }
         } else if sectionIndex == 5 {

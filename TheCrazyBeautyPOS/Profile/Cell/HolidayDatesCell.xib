@@ -32,17 +32,45 @@
                         <color key="textColor" name="AppBlack"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_Delete_1" translatesAutoresizingMaskIntoConstraints="NO" id="yBl-Ey-Lsl">
+                        <rect key="frame" x="1050" y="10" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="Jul-o6-76L"/>
+                            <constraint firstAttribute="height" constant="30" id="rKb-ro-C9H"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x5P-KW-I1P">
+                        <rect key="frame" x="1050" y="10" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="6cd-k9-W5M"/>
+                        </constraints>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <connections>
+                            <action selector="act_Delete:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="d1j-fb-100"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="x5P-KW-I1P" firstAttribute="trailing" secondItem="yBl-Ey-Lsl" secondAttribute="trailing" id="0ds-bg-htk"/>
+                    <constraint firstItem="x5P-KW-I1P" firstAttribute="top" secondItem="yBl-Ey-Lsl" secondAttribute="top" id="8RK-Pc-dqh"/>
+                    <constraint firstItem="x5P-KW-I1P" firstAttribute="bottom" secondItem="yBl-Ey-Lsl" secondAttribute="bottom" id="GZB-lJ-HdW"/>
+                    <constraint firstItem="yBl-Ey-Lsl" firstAttribute="centerY" secondItem="f6u-eM-3UG" secondAttribute="centerY" id="Wec-M2-4QO"/>
                     <constraint firstItem="f6u-eM-3UG" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="XlP-Z4-FYa"/>
+                    <constraint firstAttribute="trailing" secondItem="yBl-Ey-Lsl" secondAttribute="trailing" constant="20" id="k0T-N2-DMs"/>
+                    <constraint firstItem="x5P-KW-I1P" firstAttribute="leading" secondItem="yBl-Ey-Lsl" secondAttribute="leading" id="vHc-vr-ifc"/>
                     <constraint firstItem="f6u-eM-3UG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="w5X-hy-Qpx"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <point key="canvasLocation" x="157.6829268292683" y="-35.084745762711869"/>
+            <connections>
+                <outlet property="btnDelete" destination="x5P-KW-I1P" id="b3w-gQ-mZv"/>
+                <outlet property="lbl_fromTo" destination="f6u-eM-3UG" id="jfB-VF-1nu"/>
+            </connections>
+            <point key="canvasLocation" x="157.3170731707317" y="-35.084745762711869"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="ic_Delete_1" width="30" height="30"/>
         <namedColor name="AppBlack">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

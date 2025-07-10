@@ -22,30 +22,7 @@ import GoogleMaps
 import CoreLocation
 import GooglePlaces
 
-class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate {
-    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        print("Place name: \(place.name ?? "")")
-        print("Place ID: \(place.placeID ?? "")")
-        print("Place attributions: \(String(describing: place.attributions))")
-        self.dismiss(animated: true, completion: nil)
-        self.userLatitude = place.coordinate.latitude
-        self.userLongitude = place.coordinate.longitude
-        marker.position = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
-        marker.icon = #imageLiteral(resourceName: "location1")
-        marker.isFlat = true
-        marker.map = self.MapView
-        self.SetUpMap()
-        //            Pickmarker.isDraggable = true
-        self.reverseGeocode(coordinate: place.coordinate)
-    }
-    
-    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: any Error) {
-        print("Error: ", error.localizedDescription)
-    }
-    
-    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
-        self.dismiss(animated: true, completion: nil)
-    }
+class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     
     func SetUpMap() {
         let camera = GMSCameraPosition.camera(withLatitude:self.userLatitude, longitude: self.userLongitude, zoom: 16)
@@ -64,11 +41,18 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSAutocomple
     var colorApplyMode: ColorApplyMode = .text
     var arr_SalonType = ["Male","Female","Unisex"]
     
+    @IBOutlet weak var txt_BusinessName: TextInputLayout!
+    
+    @IBOutlet weak var txt_MobileNumber: TextInputLayout!
     @IBOutlet weak var txt_Aboutus: UITextView!
     @IBOutlet weak var txt_SalonType: TextInputLayout!
+    
+    @IBOutlet weak var txt_Address: TextInputLayout!
     @IBOutlet weak var map_vw: UIView!
     @IBOutlet weak var map_height_const: NSLayoutConstraint!
     
+    @IBOutlet weak var switch_visible: UISwitch!
+    @IBOutlet weak var switch_Salon: UISwitch!
     
     
     var locationManager = CLLocationManager()
@@ -82,13 +66,44 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSAutocomple
     var MapView:GMSMapView = GMSMapView()
     var str_edit = false
     var dictAddresss: Addresses?
+    var allow_search : Int?
+    var web_status : Int?
+    var phone = String()
+    var postcode = String()
+    var city = String()
+    var country = String()
+    var time_gap = Int()
+    var reminder_mail = Int()
+    
+    var SalonDetails: [SalonDetailsModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        determineMyCurrentLocation()
+        get_fetchSalon()
     }
     
-
+    @IBAction func switch_Visible(_ sender: UISwitch) {
+        if sender.isOn{
+            switch_visible.isOn = true
+            web_status = 1
+        }else{
+            switch_visible.isOn = false
+            web_status = 0
+        }
+    }
+    
+    
+    @IBAction func switch_Salon(_ sender: UISwitch) {
+        if sender.isOn{
+            switch_Salon.isOn = true
+            allow_search = 1
+        }else{
+            switch_Salon.isOn = false
+            allow_search = 0
+        }
+    }
+    
+    
     @IBAction func btn_Bold(_ sender: Any) {
         toggleBold(textView: txt_Aboutus)
     }
@@ -174,133 +189,62 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSAutocomple
         toggleNumberedList(textView: txt_Aboutus)
     }
     
-    
     @IBAction func btn_SalonType(_ sender: Any) {
         openSalonType()
     }
     
-    //MARK: - Map function
-    func determineMyCurrentLocation()    {
-        self.location()
+    @IBAction func btn_AddressChange(_ sender: Any) {
+        openAutocomplete()
     }
     
+    @IBAction func btn_Save(_ sender: Any) {
+        update_Salon()
+    }
     
-    //MARK:- display Map on view
-    func location()
-    {
-        locationManager.startUpdatingLocation()
-        self.locationManager.requestAlwaysAuthorization()
-        self.locationManager.requestWhenInUseAuthorization()
-//        DispatchQueue.main.async {
-        let authorizationStatus: CLAuthorizationStatus
-        if #available(iOS 14, *) {
-            authorizationStatus = self.locationManager.authorizationStatus
-        } else {
-            authorizationStatus = CLLocationManager.authorizationStatus()
-        }
-        
-            if authorizationStatus == CLAuthorizationStatus.authorizedWhenInUse ||
-            authorizationStatus == CLAuthorizationStatus.authorizedAlways {
-            self.locationManager.delegate = self
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            self.locationManager.startMonitoringSignificantLocationChanges()
-            self.locationManager.startUpdatingLocation()
-            self.MapView.setMinZoom(0, maxZoom: 20)
-            if self.str_edit {
-                if let dict = self.dictAddresss {
-                    if let lat = CLLocationDegrees(dict.address_Latitude ?? ""), let long = CLLocationDegrees(dict.address_Longitude ?? "") {
-                        self.userLatitude = lat
-                        self.userLongitude = long
-                        
-                        let camera = GMSCameraPosition.camera(withLatitude: self.userLatitude, longitude: self.userLongitude, zoom: 15)
-                        let options = GMSMapViewOptions()
-                        options.camera = camera
-                        options.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 340)
-                        self.MapView = GMSMapView(options: options)
-                        //                self.vw_map = MapView
-                        self.map_vw.addSubview(self.MapView)
-                        self.MapView.delegate = self
-                        self.MapView.delegate = self
-                        let center = CLLocationCoordinate2D(latitude: self.userLatitude, longitude: self.userLongitude)
-                        self.marker.position = center
-                        self.marker.isFlat = true
-                        self.marker.icon = #imageLiteral(resourceName: "location1")
-                        self.marker.map = self.MapView
-                    }
-                }
-            } else {
-                if (self.locationManager.location != nil) {
-                    // do your things
-                    self.userLatitude = self.locationManager.location?.coordinate.latitude
-                    self.userLongitude = self.locationManager.location?.coordinate.longitude
-                    let camera = GMSCameraPosition.camera(withLatitude: self.userLatitude, longitude: self.userLongitude, zoom: 15)
-                    let options = GMSMapViewOptions()
-                    options.camera = camera
-                    options.frame = self.map_vw.bounds
-                    self.MapView = GMSMapView(options: options)
-                    //                self.vw_map = MapView
-                    self.map_vw.addSubview(self.MapView)
-                    self.MapView.delegate = self
-                    self.MapView.delegate = self
-                    let center = CLLocationCoordinate2D(latitude: self.userLatitude, longitude: self.userLongitude)
-                    self.marker.position = center
-                    self.marker.isFlat = true
-                    self.marker.icon = #imageLiteral(resourceName: "location1")
-                    self.marker.map = self.MapView
-                } else { }
-            }
+    //MARK: - Api Call
+    func get_fetchSalon(){
+        APIService.shared.fetchSalonDetails  { result in
+            self.SalonDetails = result!.data
+            self.phone = self.SalonDetails.first?.phone ?? ""
+            self.postcode = self.SalonDetails.first?.postcode ?? ""
+            self.city = self.SalonDetails.first?.city ?? ""
+            self.country = self.SalonDetails.first?.country ?? ""
+            self.reminder_mail = self.SalonDetails.first?.reminder_mail ?? 0
+            self.time_gap = self.SalonDetails.first?.time_gap ?? 0
             
-        } else {
-            if self.str_edit {
-                if let dict = self.dictAddresss {
-                    if let lat = CLLocationDegrees(dict.address_Latitude ?? ""), let long = CLLocationDegrees(dict.address_Longitude ?? "") {
-                        self.userLatitude = lat
-                        self.userLongitude = long
-                        
-                        let camera = GMSCameraPosition.camera(withLatitude: self.userLatitude, longitude: self.userLongitude, zoom: 15)
-                        let options = GMSMapViewOptions()
-                        options.camera = camera
-                        options.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 340)
-                        self.MapView = GMSMapView(options: options)
-                        //                self.vw_map = MapView
-                        self.map_vw.addSubview(self.MapView)
-                        self.MapView.delegate = self
-                        self.MapView.delegate = self
-                        let center = CLLocationCoordinate2D(latitude: self.userLatitude, longitude: self.userLongitude)
-                        self.marker.position = center
-                        self.marker.isFlat = true
-                        self.marker.icon = #imageLiteral(resourceName: "location1")
-                        self.marker.map = self.MapView
-                    }
-//                    self.txt_Address.text = dict.address
-//                    self.adjustTextViewHeight()
-//                    self.txt_city.text = dict.city
-//                    self.txt_Pincode.text = dict.postal_Code
-                }
+            self.txt_Address.text = self.SalonDetails.first?.address
+            self.txt_SalonType.text = self.SalonDetails.first?.salon_type
+            self.txt_BusinessName.text = self.SalonDetails.first?.salon_name
+            self.txt_MobileNumber.text = self.SalonDetails.first?.salon_phone
+            self.userLatitude = self.SalonDetails.first?.latitude
+            self.userLongitude = self.SalonDetails.first?.longitude
+            self.txt_Aboutus.attributedText = self.SalonDetails.first?.about_us?.htmlToAttributedString
+            if self.SalonDetails.first?.allow_search == 0{
+                self.switch_Salon.isOn = false
             }else{
-                self.userLatitude = 52.1259096161503
-                self.userLongitude = -106.67167916893959
-                let camera = GMSCameraPosition.camera(withLatitude: self.userLatitude, longitude: self.userLongitude, zoom: 15)
-                let options = GMSMapViewOptions()
-                options.camera = camera
-                options.frame = self.map_vw.bounds
-                self.MapView = GMSMapView(options: options)
-                //                self.vw_map = MapView
-                self.map_vw.addSubview(self.MapView)
-                self.MapView.delegate = self
-                self.MapView.delegate = self
-                let center = CLLocationCoordinate2D(latitude: self.userLatitude, longitude: self.userLongitude)
-                self.marker.position = center
-                self.marker.isFlat = true
-                self.marker.icon = #imageLiteral(resourceName: "location1")
-                self.marker.map = self.MapView
+                self.switch_Salon.isOn = true
             }
-//            self.showLocationPermissionAlert()
-            
-//        }
+            if self.SalonDetails.first?.web_status == 0{
+                self.switch_visible.isOn = false
+            }else{
+                self.switch_visible.isOn = true
+            }
+            self.determineMyCurrentLocation()
         }
     }
     
+    func update_Salon(){
+        APIService.shared.UpdateBusinessInformation(id: LocalData.userId, salon_name: txt_BusinessName.text ?? "", salon_type: txt_SalonType.text ?? "", phone: phone, salon_phone: self.txt_MobileNumber.text ?? "", postcode: postcode, address: self.txt_Address.text ?? "", city: city, country: country, latitude: "\(String(describing: userLatitude))", longitude: "\(userLongitude ?? 0.0)", web_status: "\(web_status ?? 0)", allow_search: "\(allow_search ?? 0)", time_gap: "\(time_gap)", reminder_mail: "\(reminder_mail)", about_us: self.txt_Aboutus.text ?? "") { result in
+            if let message = result?.data{
+                self.alertWithMessageOnly(message)
+            }else{
+                self.alertWithMessageOnly("Something went wrong.")
+            }
+            
+        }
+    }
+    
+    //MARK: - Map function
     func showLocationPermissionAlert() {
         let alert = UIAlertController(title: "Location Permission Required",
                                       message: "Please enable location access in Settings to use this feature.",
@@ -323,60 +267,99 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSAutocomple
         }
     }
     
-    //MARK:- Map Function
-    func reverseGeocode(coordinate: CLLocationCoordinate2D) {
-        // 1
-        let geocoder = GMSGeocoder()
+    
+    // MARK: - Map function
+    func determineMyCurrentLocation() {
+        locationManager.startUpdatingLocation()
+        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
         
-        // 2
-        /*geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
-            guard
-                let address = response?.firstResult(),
-                let lines = address.lines
-            else {
-                
-                return
-            }
-            // 3
-            self.txt_Address.text = lines.joined(separator: "\n")
-            self.adjustTextViewHeight()
-            self.txt_city.text = response?.firstResult()?.locality
-            self.txt_Pincode.text = response?.firstResult()?.postalCode
-            // 4
-            UIView.animate(withDuration: 0.25) {
-                self.view.layoutIfNeeded()
-            }
-        }*/
-        geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
-            guard
-                let address = response?.firstResult(),
-                let lines = address.lines,
-                !lines.isEmpty
-            else {
-                return
-            }
+        // Get authorization status
+        let authorizationStatus: CLAuthorizationStatus
+        if #available(iOS 14, *) {
+            authorizationStatus = locationManager.authorizationStatus
+        } else {
+            authorizationStatus = CLLocationManager.authorizationStatus()
+        }
+        
+        // Check if we have salon coordinates
+        if let salon = SalonDetails.first,
+           let lat = salon.latitude,
+           let lon = salon.longitude {
+            userLatitude = lat
+            userLongitude = lon
+            setupMapWithCoordinates()
+        }
+        // Check location authorization
+        else if authorizationStatus == .authorizedWhenInUse || authorizationStatus == .authorizedAlways,
+                let location = locationManager.location {
+            userLatitude = location.coordinate.latitude
+            userLongitude = location.coordinate.longitude
+            setupMapWithCoordinates()
+        }
+        // Fallback to default location
+        else {
+            userLatitude = 53.3498
+            userLongitude = 6.2603
+            setupMapWithCoordinates()
+        }
+    }
 
-            // Example: lines[0] = "137 20th Street West, Saskatoon, Sk S7M 0W7, Canada"
-            // Split by comma and take the first part
+    // MARK: - Setup map with coordinates
+    private func setupMapWithCoordinates() {
+        let camera = GMSCameraPosition.camera(
+            withLatitude: userLatitude,
+            longitude: userLongitude,
+            zoom: 15
+        )
+        
+        MapView = GMSMapView(frame: map_vw.bounds)
+        MapView.camera = camera
+        MapView.delegate = self
+        map_vw.addSubview(MapView)
+        
+        marker.position = CLLocationCoordinate2D(
+            latitude: userLatitude,
+            longitude: userLongitude
+        )
+        marker.isFlat = true
+        marker.icon = UIImage(named: "ic_location")
+        marker.map = MapView
+        
+        // Only reverse geocode if we don't have address from salon
+        if SalonDetails.first?.address == nil || SalonDetails.first?.address?.isEmpty == true {
+            reverseGeocode(coordinate: marker.position)
+        }
+    }
+
+    // MARK: - Reverse Geocoding
+    func reverseGeocode(coordinate: CLLocationCoordinate2D) {
+        let geocoder = GMSGeocoder()
+        geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
+            guard error == nil,
+                  let address = response?.firstResult(),
+                  let lines = address.lines,
+                  !lines.isEmpty else {
+                return
+            }
+            
+            // Extract street address only
             let fullLine = lines[0]
             let components = fullLine.components(separatedBy: ",")
-            let streetOnly = components.first?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-
-            /*DispatchQueue.main.async {
+            let streetOnly = components.first?.trimmingCharacters(in: .whitespaces) ?? ""
+            
+            DispatchQueue.main.async {
                 self.txt_Address.text = streetOnly
-                self.txt_city.text = address.locality
-                self.txt_Pincode.text = address.postalCode
-                self.adjustTextViewHeight()
-
-                UIView.animate(withDuration: 0.25) {
-                    self.view.layoutIfNeeded()
-                }
-            }*/
+            }
         }
     }
     
+    func openAutocomplete() {
+        let autocompleteController = GMSAutocompleteViewController()
+        autocompleteController.delegate = self
+        present(autocompleteController, animated: true, completion: nil)
+    }
     
-    // Present the Autocomplete view controller when the button is pressed.
     func autocompleteClicked() {
         let autocompleteController = GMSAutocompleteViewController()
         autocompleteController.delegate = self
@@ -388,73 +371,11 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSAutocomple
         // Specify a filter.
         let filter = GMSAutocompleteFilter()
         filter.type = .address
-//        filter.country = "IN"
         autocompleteController.autocompleteFilter = filter
         
         // Display the autocomplete view controller.
         present(autocompleteController, animated: true, completion: nil)
     }
-    
-    func wrapperFunctionToShowPosition(mapView:GMSMapView) {
-        let geocoder = GMSGeocoder()
-        let latitute = mapView.camera.target.latitude
-        let longitude = mapView.camera.target.longitude
-        let position = CLLocationCoordinate2DMake(latitute, longitude)
-        /*geocoder.reverseGeocodeCoordinate(position) { response , error in
-            if error != nil {
-                print("GMSReverseGeocode Error: \(String(describing: error?.localizedDescription))")
-            } else {
-                let result = response?.results()?.first
-                let address = result?.lines?.reduce("") { $0 == "" ? $1 : $0 + ", " + $1 }
-                                print("Address : \(address!)")
-                if self.check_current {
-                    self.txt_Address.text = address
-                    self.adjustTextViewHeight()
-                    self.txt_city.text = result?.locality
-                    self.txt_Pincode.text = result?.postalCode
-                } else {
-                    print(address ?? "")
-                }
-            }
-        }*/
-        geocoder.reverseGeocodeCoordinate(position) { response, error in
-            if let error = error {
-                print("GMSReverseGeocode Error: \(error.localizedDescription)")
-                return
-            }
-
-            guard let result = response?.results()?.first else {
-                print("No address found")
-                return
-            }
-
-            // Option 1: Get street using subThoroughfare + thoroughfare
-            let streetNumber = result.subLocality ?? ""
-            let streetName = result.thoroughfare ?? ""
-            let streetAddress = "\(streetNumber) \(streetName)".trimmingCharacters(in: .whitespaces)
-
-            // Option 2: fallback if thoroughfare data is missing, use first part of lines
-            var fallbackAddress: String = ""
-            if let lines = result.lines, let firstLine = lines.first {
-                let components = firstLine.components(separatedBy: ",")
-                fallbackAddress = components.first?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            }
-
-            let finalAddress = streetAddress.isEmpty ? fallbackAddress : streetAddress
-
-            print("Street Address: \(finalAddress)")
-
-            /*if self.check_current {
-                self.txt_Address.text = finalAddress
-                self.adjustTextViewHeight()
-                self.txt_city.text = result.locality
-                self.txt_Pincode.text = result.postalCode
-            } else {
-                print(finalAddress)
-            }*/
-        }
-    }
-
     
     
     func openSalonType() {
@@ -893,11 +814,45 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSAutocomple
         textView.attributedText = mutableAttrText
         textView.selectedRange = NSRange(location: paragraphRange.location, length: 0)
     }
-
+    
+    func updateLocation(latitude: Double, longitude: Double, name: String) {
+        // Example: set marker on Google Map
+        let position = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let marker = GMSMarker(position: position)
+        marker.title = name
+        marker.map = MapView
+        MapView.animate(toLocation: position)
+    }
 
     
 }
 
+extension General_InfoVC: GMSAutocompleteViewControllerDelegate{
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        
+        txt_Address.text = place.name ?? ""
+        
+        print("Place ID: \(place.placeID ?? "")")
+        print("Place attributions: \(String(describing: place.attributions))")
+        self.dismiss(animated: true, completion: nil)
+        self.userLatitude = place.coordinate.latitude
+        self.userLongitude = place.coordinate.longitude
+        marker.position = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+        marker.icon = UIImage(named: "ic_location")
+        marker.isFlat = true
+        marker.title = place.name
+        marker.map = self.MapView
+        updateLocation(latitude: userLatitude, longitude: userLongitude, name: place.name ?? "")
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: any Error) {
+        print("Error: ", error.localizedDescription)
+    }
+    
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+}
 
 extension General_InfoVC: UIColorPickerViewControllerDelegate {
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {

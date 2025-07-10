@@ -107,8 +107,18 @@ class global: NSObject
     var URL_GET_BREAK_TIME = global.server_url + "get_breaktime"
     
     var URL_UPDATE_BREAK_TIME = global.server_url + "update_breaktime"
+    
     var URL_GET_SMS_DETAILS = global.server_url + "get_smsDetails"
     var URL_UPDATE_SMS_DETAILS = global.server_url + "add_smsdetails"
+    
+    var URL_GET_SALON_INFORMATION = global.server_url + "salon_information"
+    
+    var URL_GET_HOLIDAYS = global.server_url + "get_holidays"
+    var URL_UPDATE_HOLIDAYS = global.server_url + "update_holidays"
+    
+    var URL_GET_OPENDATE = global.server_url + "get_opendate"
+    var URL_UPDATE_OPENDATE = global.server_url + "update_opendate"
+    var URL_UPDATE_BUSINESS_INFORMATION = global.server_url + "business_information"
     
     
     //MARK:-

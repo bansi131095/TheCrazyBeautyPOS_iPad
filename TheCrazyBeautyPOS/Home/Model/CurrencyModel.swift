@@ -640,3 +640,141 @@ struct Addresses : Mappable {
 
 }
 
+
+
+class SalonModel: Mappable {
+    var data: [SalonDetailsModel] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data    <- map["data"]
+        error   <- map["error"]
+    }
+}
+
+class SalonDetailsModel: Mappable {
+    
+    var id: Int?
+    var salon_name: String?
+    var salon_type: String?
+    var phone: String?
+    var salon_phone: String?
+    var postcode: String?
+    var address: String?
+    var city: String?
+    var country: String?
+    var latitude: Double?
+    var longitude: Double?
+    var web_status: Int?
+    var allow_search: Int?
+    var time_gap: Int?
+    var reminder_mail: Int?
+    var about_us: String?
+
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id          <- map["id"]
+        salon_name        <- map["salon_name"]
+        salon_type       <- map["salon_type"]
+        phone <- map["phone"]
+        salon_phone      <- map["salon_phone"]
+        postcode      <- map["postcode"]
+        address      <- map["address"]
+        city      <- map["city"]
+        country      <- map["country"]
+        latitude      <- map["latitude"]
+        longitude      <- map["longitude"]
+        web_status      <- map["web_status"]
+        allow_search      <- map["allow_search"]
+        time_gap      <- map["time_gap"]
+        reminder_mail      <- map["reminder_mail"]
+        about_us      <- map["about_us"]
+    }
+}
+
+
+class HolidayModel: Mappable {
+    var data: [HolidayWrapper] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data  <- map["data"]
+        error <- map["error"]
+    }
+}
+
+class HolidayWrapper: Mappable {
+    var holiday_dates: [HolidayDateModel] = []
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        var jsonString: String?
+        jsonString <- map["holiday_dates"]
+
+        if let str = jsonString,
+           let jsonData = str.data(using: .utf8),
+           let decoded = try? JSONDecoder().decode([HolidayDateModelCodable].self, from: jsonData) {
+            self.holiday_dates = decoded.map { HolidayDateModel(from: $0.from, to: $0.to) }
+        }
+    }
+}
+
+
+class HolidayDateModel: Mappable {
+    var from: String?
+    var to: String?
+
+    init(from: String, to: String) {
+        self.from = from
+        self.to = to
+    }
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        from <- map["from"]
+        to   <- map["to"]
+    }
+}
+
+
+
+struct HolidayDateModelCodable: Codable {
+    let from: String
+    let to: String
+}
+
+struct HolidayDate1: Codable {
+    let from: String
+    let to: String
+}
+
+
+class OpeningDateResponse: Mappable {
+    var data: [OpeningDateModel] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data    <- map["data"]
+        error   <- map["error"]
+    }
+}
+
+class OpeningDateModel: Mappable {
+    var opening_date: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        opening_date <- map["opening_date"]
+    }
+}

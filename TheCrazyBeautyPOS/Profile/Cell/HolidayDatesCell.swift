@@ -9,6 +9,9 @@ import UIKit
 
 class HolidayDatesCell: UITableViewCell {
 
+    @IBOutlet weak var lbl_fromTo: UILabel!
+    @IBOutlet weak var btnDelete: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -18,6 +21,11 @@ class HolidayDatesCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    var Act_Delete:(()->Void)?
+    @IBAction func act_Delete(_ sender: UIButton) {
+        self.Act_Delete?()
     }
     
 }

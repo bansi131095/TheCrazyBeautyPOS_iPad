@@ -838,7 +838,7 @@ extension String
         return !isEmpty && range(of: "[^0-9]", options: .regularExpression) == nil
     }
     
-    var htmlToAttributedString: NSAttributedString?
+    /*var htmlToAttributedString: NSAttributedString?
     {
         guard let data = data(using: .utf8) else { return NSAttributedString() }
         do {
@@ -846,7 +846,36 @@ extension String
         } catch {
             return NSAttributedString()
         }
+    }*/
+    
+    var htmlToAttributedString: NSAttributedString? {
+        guard let data = data(using: .utf8) else { return NSAttributedString() }
+        do {
+            let attr = try NSMutableAttributedString(
+                data: data,
+                options: [
+                    .documentType: NSAttributedString.DocumentType.html,
+                    .characterEncoding: String.Encoding.utf8.rawValue
+                ],
+                documentAttributes: nil
+            )
+
+            // Enumerate and override all fonts
+            attr.enumerateAttribute(.font, in: NSRange(location: 0, length: attr.length)) { value, range, _ in
+                if let oldFont = value as? UIFont {
+                    let newFont = UIFont(descriptor: oldFont.fontDescriptor, size: 24) // 👈 your desired size
+                    attr.addAttribute(.font, value: newFont, range: range)
+                }
+            }
+
+            return attr
+        } catch {
+            return NSAttributedString()
+        }
     }
+
+
+    
     var htmlToString: String
     {
         return htmlToAttributedString?.string ?? ""
