@@ -12,6 +12,7 @@ class TeamSequnenceCell: UITableViewCell {
     @IBOutlet weak var img_User: UIImageView!
     @IBOutlet weak var lbl_UserName: UILabel!
     @IBOutlet weak var txt_Sequence: UITextField!
+    @IBOutlet weak var txt_Calender: UITextField!
     
     override func awakeFromNib() {
         super.awakeFromNib()

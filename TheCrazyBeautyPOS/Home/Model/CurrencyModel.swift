@@ -238,6 +238,7 @@ class TeamDetailsModel: Mappable {
     var updated_at: String?
     var status: String?
     var total_hours: String = ""
+    var sequence_Tems: String = ""
     var sequence: String = ""
 
     required init?(map: Map) {}
@@ -267,6 +268,7 @@ class TeamDetailsModel: Mappable {
         updated_at        <- map["updated_at"]
         status            <- map["status"]
         total_hours       <- map["total_hours"]
+        sequence       <- map["sequence"]
     }
 }
 

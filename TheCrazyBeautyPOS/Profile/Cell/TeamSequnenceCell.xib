@@ -47,16 +47,16 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team Sequence" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6R-5u-nsG">
-                        <rect key="frame" x="70" y="10" width="559" height="50"/>
+                        <rect key="frame" x="70" y="10" width="410" height="50"/>
                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="22"/>
                         <color key="textColor" name="AppBlack"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xp2-lw-eRR">
-                        <rect key="frame" x="710" y="10" width="400" height="50"/>
+                        <rect key="frame" x="490" y="10" width="300" height="50"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="160-JD-6aF">
-                                <rect key="frame" x="12" y="0.0" width="376" height="50"/>
+                                <rect key="frame" x="12" y="0.0" width="276" height="50"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
@@ -68,7 +68,37 @@
                             <constraint firstAttribute="bottom" secondItem="160-JD-6aF" secondAttribute="bottom" id="VKL-Px-deM"/>
                             <constraint firstAttribute="height" constant="50" id="dKs-MF-wTu"/>
                             <constraint firstAttribute="trailing" secondItem="160-JD-6aF" secondAttribute="trailing" constant="12" id="k0U-Qi-7TJ"/>
-                            <constraint firstAttribute="width" constant="400" id="zGA-E1-Mwa"/>
+                            <constraint firstAttribute="width" constant="300" id="zGA-E1-Mwa"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="12"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" name="txtGray"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iRg-Jh-6kr">
+                        <rect key="frame" x="810" y="10" width="300" height="50"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="For Calender" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8L9-KP-fXv">
+                                <rect key="frame" x="12" y="0.0" width="276" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="8L9-KP-fXv" secondAttribute="trailing" constant="12" id="4ml-UH-feI"/>
+                            <constraint firstItem="8L9-KP-fXv" firstAttribute="top" secondItem="iRg-Jh-6kr" secondAttribute="top" id="AX3-Vk-tZc"/>
+                            <constraint firstItem="8L9-KP-fXv" firstAttribute="leading" secondItem="iRg-Jh-6kr" secondAttribute="leading" constant="12" id="SGc-a1-f2w"/>
+                            <constraint firstAttribute="width" constant="300" id="V2E-0W-a3Y"/>
+                            <constraint firstAttribute="height" constant="50" id="Y4C-bc-Yc1"/>
+                            <constraint firstAttribute="bottom" secondItem="8L9-KP-fXv" secondAttribute="bottom" id="bDs-jX-MNs"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -86,12 +116,14 @@
                 <constraints>
                     <constraint firstItem="C6R-5u-nsG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="1hh-zj-T6r"/>
                     <constraint firstAttribute="bottom" secondItem="C6R-5u-nsG" secondAttribute="bottom" constant="10" id="61W-EW-fDf"/>
-                    <constraint firstItem="Xp2-lw-eRR" firstAttribute="leading" secondItem="C6R-5u-nsG" secondAttribute="trailing" constant="81" id="CMy-TO-RAT"/>
-                    <constraint firstAttribute="trailing" secondItem="Xp2-lw-eRR" secondAttribute="trailing" constant="10" id="MaK-d4-8Qc"/>
+                    <constraint firstItem="Xp2-lw-eRR" firstAttribute="leading" secondItem="C6R-5u-nsG" secondAttribute="trailing" constant="10" id="CMy-TO-RAT"/>
+                    <constraint firstAttribute="trailing" secondItem="iRg-Jh-6kr" secondAttribute="trailing" constant="10" id="Jd2-Bg-2rm"/>
                     <constraint firstItem="Xp2-lw-eRR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Opp-Pf-BTe"/>
+                    <constraint firstItem="iRg-Jh-6kr" firstAttribute="centerY" secondItem="Xp2-lw-eRR" secondAttribute="centerY" id="R8R-xb-epM"/>
                     <constraint firstItem="C6R-5u-nsG" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="SU4-kg-Nr3"/>
                     <constraint firstItem="1fK-vR-Kfj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="WVs-t0-0Lo"/>
                     <constraint firstAttribute="bottom" secondItem="1fK-vR-Kfj" secondAttribute="bottom" constant="10" id="bUn-xB-7W9"/>
+                    <constraint firstItem="iRg-Jh-6kr" firstAttribute="leading" secondItem="Xp2-lw-eRR" secondAttribute="trailing" constant="20" id="c6C-kg-yMC"/>
                     <constraint firstItem="C6R-5u-nsG" firstAttribute="leading" secondItem="1fK-vR-Kfj" secondAttribute="trailing" constant="10" id="dSq-sf-sIT"/>
                     <constraint firstAttribute="bottom" secondItem="Xp2-lw-eRR" secondAttribute="bottom" constant="10" id="gHC-GG-KRN"/>
                     <constraint firstItem="1fK-vR-Kfj" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="gTY-VB-9DG"/>
@@ -103,6 +135,7 @@
             <connections>
                 <outlet property="img_User" destination="9lr-Yf-fAS" id="xNu-cl-xAk"/>
                 <outlet property="lbl_UserName" destination="C6R-5u-nsG" id="h0c-iv-yE6"/>
+                <outlet property="txt_Calender" destination="8L9-KP-fXv" id="1oR-oC-dNU"/>
                 <outlet property="txt_Sequence" destination="160-JD-6aF" id="Jmh-qJ-vvA"/>
             </connections>
             <point key="canvasLocation" x="118.53658536585365" y="-33.050847457627121"/>

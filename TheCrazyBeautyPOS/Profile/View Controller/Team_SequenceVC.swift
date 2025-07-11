@@ -43,7 +43,7 @@ class Team_SequenceVC: UIViewController {
                     return
                 }
 
-                TeamDetails[i].sequence = sequenceText
+                TeamDetails[i].sequence_Tems = sequenceText
 
                 let dict: [String: String] = [
                     "staff_id": "\(TeamDetails[i].id)",
@@ -75,7 +75,7 @@ class Team_SequenceVC: UIViewController {
             for i in 0..<self.TeamDetails.count {
                 let staff = self.TeamDetails[i]
                 if let matched = sequenceArray.first(where: { $0.staff_id == "\(staff.id)" }) {
-                    self.TeamDetails[i].sequence = matched.sequence
+                    self.TeamDetails[i].sequence_Tems = matched.sequence
                 }
             }
             self.tbl_TeamSequnence.reloadData()
@@ -98,7 +98,8 @@ extension Team_SequenceVC: UITableViewDelegate,UITableViewDataSource{
         let cell = tbl_TeamSequnence.dequeueReusableCell(withIdentifier: "TeamSequnenceCell") as! TeamSequnenceCell
         let data = TeamDetails[indexPath.row]
         cell.lbl_UserName.text = "\(data.first_name)" + "\(data.last_name)"
-        cell.txt_Sequence.text = data.sequence
+        cell.txt_Sequence.text = data.sequence_Tems
+        cell.txt_Calender.text = data.sequence
         if data.photo != "" {
             let imgUrl = global.imageUrl + data.photo
             if let url = URL(string: imgUrl) {

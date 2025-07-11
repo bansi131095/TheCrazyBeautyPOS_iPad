@@ -540,6 +540,7 @@ class APIService {
         let params: [String: Any] = [
             "vendor_id": vendorId,
             "search": "",
+            "limit" : "10000"
         ]
 
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
