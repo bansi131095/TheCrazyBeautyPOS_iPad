@@ -21,6 +21,7 @@ import DropDown
 import GoogleMaps
 import CoreLocation
 import GooglePlaces
+import CountryPickerViewSwift
 
 class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     
@@ -54,6 +55,7 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     @IBOutlet weak var switch_visible: UISwitch!
     @IBOutlet weak var switch_Salon: UISwitch!
     
+    @IBOutlet weak var countryImage: UIImageView!
     
     var locationManager = CLLocationManager()
     var userLatitude:CLLocationDegrees! = 0
@@ -103,6 +105,9 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         }
     }
     
+    @IBAction func btn_CountryPicker(_ sender: Any) {
+        
+    }
     
     @IBAction func btn_Bold(_ sender: Any) {
         toggleBold(textView: txt_Aboutus)
@@ -204,7 +209,7 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     //MARK: - Api Call
     func get_fetchSalon(){
         APIService.shared.fetchSalonDetails  { result in
-            self.SalonDetails = result!.data
+            self.SalonDetails = result?.data ?? []
             self.phone = self.SalonDetails.first?.phone ?? ""
             self.postcode = self.SalonDetails.first?.postcode ?? ""
             self.city = self.SalonDetails.first?.city ?? ""

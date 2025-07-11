@@ -126,8 +126,8 @@ open class CountrySelectView: UIView {
         
         self.translatesAutoresizingMaskIntoConstraints = false
         countryTableView.translatesAutoresizingMaskIntoConstraints = false
-        self.superview!.addConstraint(NSLayoutConstraint(item: self, attribute: .width, relatedBy:.equal, toItem:self.superview!, attribute: .width, multiplier:1.0, constant:0.0))
-        self.superview!.addConstraint(NSLayoutConstraint(item: self, attribute: .height, relatedBy:.equal, toItem:self.superview!, attribute: .height, multiplier:1.0, constant:0.0))
+        self.superview?.addConstraint(NSLayoutConstraint(item: self, attribute: .width, relatedBy:.equal, toItem:self.superview, attribute: .width, multiplier:1.0, constant:0.0))
+        self.superview?.addConstraint(NSLayoutConstraint(item: self, attribute: .height, relatedBy:.equal, toItem:self.superview, attribute: .height, multiplier:1.0, constant:0.0))
         self.superview!.addConstraint(NSLayoutConstraint(item: self, attribute: .centerX, relatedBy:.equal, toItem:self.superview!, attribute: .centerX, multiplier:1.0, constant:0))
         self.superview!.addConstraint(NSLayoutConstraint(item: self, attribute: .centerY, relatedBy:.equal, toItem:self.superview!, attribute: .centerY, multiplier:1.0, constant:0))
         
@@ -140,8 +140,8 @@ open class CountrySelectView: UIView {
     }
     public func show() {
         
-        if let window = UIApplication.shared.delegate?.window! {
-            window.addSubview(self)
+        if let window = UIApplication.shared.delegate?.window {
+            window?.addSubview(self)
         }
         searchBarView.text = ""
         searchCountrys = CountryCodeJson
