@@ -482,6 +482,14 @@ extension String
         return valid
     }
 
+    func isValidPassword() -> Bool {
+        let password = self.trimmingCharacters(in: CharacterSet.whitespaces)
+        let passwordRegx = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&<>*~:`-]).{8,}$"
+        let passwordCheck = NSPredicate(format: "SELF MATCHES %@",passwordRegx)
+        return passwordCheck.evaluate(with: password)
+    }
+
+    
     // vrify Valid PhoneNumber or Not
     func isValidPhone() -> Bool {
 
@@ -825,7 +833,7 @@ extension String
         return !isEmpty && range(of: "[^0-9]", options: .regularExpression) == nil
     }
     
-    var htmlToAttributedString: NSAttributedString?
+    /*var htmlToAttributedString: NSAttributedString?
     {
         guard let data = data(using: .utf8) else { return NSAttributedString() }
         do {
@@ -833,7 +841,36 @@ extension String
         } catch {
             return NSAttributedString()
         }
+    }*/
+    
+    var htmlToAttributedString: NSAttributedString? {
+        guard let data = data(using: .utf8) else { return NSAttributedString() }
+        do {
+            let attr = try NSMutableAttributedString(
+                data: data,
+                options: [
+                    .documentType: NSAttributedString.DocumentType.html,
+                    .characterEncoding: String.Encoding.utf8.rawValue
+                ],
+                documentAttributes: nil
+            )
+
+            // Enumerate and override all fonts
+            attr.enumerateAttribute(.font, in: NSRange(location: 0, length: attr.length)) { value, range, _ in
+                if let oldFont = value as? UIFont {
+                    let newFont = UIFont(descriptor: oldFont.fontDescriptor, size: 24) // 👈 your desired size
+                    attr.addAttribute(.font, value: newFont, range: range)
+                }
+            }
+
+            return attr
+        } catch {
+            return NSAttributedString()
+        }
     }
+
+
+    
     var htmlToString: String
     {
         return htmlToAttributedString?.string ?? ""
@@ -1117,21 +1154,57 @@ extension UIViewController
         let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
         let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(OKAction)
-
-        // ✅ Present from top view controller (safely)
-        if let popover = alertController.popoverPresentationController, let view = sourceView {
-            popover.sourceView = view
-            popover.sourceRect = view.bounds
-            popover.permittedArrowDirections = []
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    
+    func showAlertToast(message:String){
+        // the alert view
+        let alert = UIAlertController(title: "", message: message, preferredStyle: .actionSheet)
+        self.present(alert, animated: true)
+        
+        // change to desired number of seconds (in this case 5 seconds)
+        let when = DispatchTime.now() + 2
+        DispatchQueue.main.asyncAfter(deadline: when){
+            // your code with delay
+            alert.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    
+    func alertWithMessageOnly(_ message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        self.present(alert, animated: true)
 
-        DispatchQueue.main.async {
-            if let topVC = UIApplication.shared.keyWindow?.rootViewController {
-                topVC.present(alertController, animated: true, completion: nil)
-            }
+        // Auto-dismiss after 2 seconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            alert.dismiss(animated: true, completion: nil)
         }
     }
 
+    
+    
+    func showAlertToast(message: String, sourceView: UIView? = nil) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .actionSheet)
+        
+        if let popover = alert.popoverPresentationController {
+            let view = sourceView ?? self.view!
+            //>>>>>>> ajay_work
+            
+            // ✅ Present from top view controller (safely)
+            if let popover = alert.popoverPresentationController, let view = sourceView {
+                popover.sourceView = view
+                popover.sourceRect = view.bounds
+                popover.permittedArrowDirections = []
+            }
+            
+            DispatchQueue.main.async {
+                if let topVC = UIApplication.shared.keyWindow?.rootViewController {
+                    topVC.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+    }
     
     //Alert method
     func showToast(message: String, duration: Double = 2.0) {
@@ -1926,88 +1999,89 @@ extension UIViewController {
     func getColorForRoundProduct(clr: String) -> String {
         
         switch clr {
-            case "Black" : return "#000000"
-            case "Dark Green" : return "#013220"
-            case "Khaki" : return "#c3b091"
-            case "Ivory" : return "#FFFFF0"
-            case "Orange" : return "#FFA500"
-            case "Purple" : return "#800080"
-            case "Sky Blue" : return "#87ceeb"
-            case "Beige" : return "#F5F5DC"
-            case "Army Green" : return "#4b5320"
-            case "Green" : return "#008000"
-            case "Dark Grey" : return "#A9A9A9"
-            case "Blue" : return "#0000FF"
-            case "Brown" : return "#a52a2a"
-            case "Gray" : return "#808080"
-            case "Gold" : return "#FFD700"
-            case "YELLOW" : return "#FFFF00"
-            case "Lavender" : return "#E6E6FA"
-            case "Pink" : return "#FFC0CB"
-            case "Coral Red" : return "#ff4040"
-            case "Camel" : return "#c19a6b"
-            case "MULTI" : return "#ff00e1"
-            case "royal blue" : return "#002366"
-            case "Mint" : return "#3EB489"
-            case "Clear" : return "#ffffff00"
-            case "Fuchsia" : return "#FF00FF"
-            case "Turquoise" : return "#40E0D0"
-            case "Red" : return "#FF0000"
-            case "Champagne" : return "#F7E7CE"
-            case "Silver" : return "#c0c0c0"
-            case "Navy Blue" : return "#000080"
-            case "Burgundy" : return "#800020"
-            case "Light Green" : return "#90EE90"
-            case "Light Yellow" : return "#FFFF99"
-            case "RHODO" : return "#b05a64"
-            case "Deep Purple" : return "#3a243b"
-            case "Light Grey" : return "#D3D3D3"
-            case "Milky White" : return "#b7bdac"
-            case "Fluorescent Green" : return "#39FF14"
-            case "Fluorescent Yellow" : return "#ccff00"
-            case "GINGER" : return "#b06500"
-            case "Emerald Green" : return "#50C878"
-            case "PEACOCK BLUE" : return "#005f69"
-            case "Bright Yellow" : return "#FFFF00"
-            case "Desert Camouflage" : return "#C19A6B"
-            case "Lake Blue" : return "#5d89ba"
-            case "Light Blue" : return "#00FFFF"
-            case "Light Gray" : return "#D3D3D3"
-            case "Lemon Yellow" : return "#fff44f"
-            case "Dark Purple" : return "#301934"
-            case "Light Purple" : return "#b19cd9"
-            case "cyan" : return "#00FFFF"
-            case "Coffee" : return "#6f4e37"
-            case "Transparent" : return "#ffffff00"
-            case "Maroon" : return "#800000"
-            case "Watermelon red" : return "#fc6c85"
-            case "Wine red" : return "#722f37"
-            case "Dark Gray" : return "#A9A9A9"
-            case "Dark Brown" : return "#654321"
-            case "Light Brown" : return "#b5651d"
-            case "Tangerine" : return "#F28500"
-            case "Rose Red" : return "#FF033E"
-            case "Plum" : return "#DDA0DD"
-            case "Dark Khaki" : return "#bdb76b"
-            case "Black Green" : return "#013220"
-            case "Deep Blue" : return "#0000FF"
-            case "Apricot" : return "#fbceb1"
-            case "only-buckle" : return "#8B2332"
-            case "Pale Pinkish Grey" : return "#968388"
-            case "Chocolate" : return "#7b3f00"
-            case "Camouflage" : return "#78866b"
-            case "BlackGold" : return "#aa6c39"
-            case "White" : return "#FFFFFF"
+        case "Black" : return "#000000"
+        case "Dark Green" : return "#013220"
+        case "Khaki" : return "#c3b091"
+        case "Ivory" : return "#FFFFF0"
+        case "Orange" : return "#FFA500"
+        case "Purple" : return "#800080"
+        case "Sky Blue" : return "#87ceeb"
+        case "Beige" : return "#F5F5DC"
+        case "Army Green" : return "#4b5320"
+        case "Green" : return "#008000"
+        case "Dark Grey" : return "#A9A9A9"
+        case "Blue" : return "#0000FF"
+        case "Brown" : return "#a52a2a"
+        case "Gray" : return "#808080"
+        case "Gold" : return "#FFD700"
+        case "YELLOW" : return "#FFFF00"
+        case "Lavender" : return "#E6E6FA"
+        case "Pink" : return "#FFC0CB"
+        case "Coral Red" : return "#ff4040"
+        case "Camel" : return "#c19a6b"
+        case "MULTI" : return "#ff00e1"
+        case "royal blue" : return "#002366"
+        case "Mint" : return "#3EB489"
+        case "Clear" : return "#ffffff00"
+        case "Fuchsia" : return "#FF00FF"
+        case "Turquoise" : return "#40E0D0"
+        case "Red" : return "#FF0000"
+        case "Champagne" : return "#F7E7CE"
+        case "Silver" : return "#c0c0c0"
+        case "Navy Blue" : return "#000080"
+        case "Burgundy" : return "#800020"
+        case "Light Green" : return "#90EE90"
+        case "Light Yellow" : return "#FFFF99"
+        case "RHODO" : return "#b05a64"
+        case "Deep Purple" : return "#3a243b"
+        case "Light Grey" : return "#D3D3D3"
+        case "Milky White" : return "#b7bdac"
+        case "Fluorescent Green" : return "#39FF14"
+        case "Fluorescent Yellow" : return "#ccff00"
+        case "GINGER" : return "#b06500"
+        case "Emerald Green" : return "#50C878"
+        case "PEACOCK BLUE" : return "#005f69"
+        case "Bright Yellow" : return "#FFFF00"
+        case "Desert Camouflage" : return "#C19A6B"
+        case "Lake Blue" : return "#5d89ba"
+        case "Light Blue" : return "#00FFFF"
+        case "Light Gray" : return "#D3D3D3"
+        case "Lemon Yellow" : return "#fff44f"
+        case "Dark Purple" : return "#301934"
+        case "Light Purple" : return "#b19cd9"
+        case "cyan" : return "#00FFFF"
+        case "Coffee" : return "#6f4e37"
+        case "Transparent" : return "#ffffff00"
+        case "Maroon" : return "#800000"
+        case "Watermelon red" : return "#fc6c85"
+        case "Wine red" : return "#722f37"
+        case "Dark Gray" : return "#A9A9A9"
+        case "Dark Brown" : return "#654321"
+        case "Light Brown" : return "#b5651d"
+        case "Tangerine" : return "#F28500"
+        case "Rose Red" : return "#FF033E"
+        case "Plum" : return "#DDA0DD"
+        case "Dark Khaki" : return "#bdb76b"
+        case "Black Green" : return "#013220"
+        case "Deep Blue" : return "#0000FF"
+        case "Apricot" : return "#fbceb1"
+        case "only-buckle" : return "#8B2332"
+        case "Pale Pinkish Grey" : return "#968388"
+        case "Chocolate" : return "#7b3f00"
+        case "Camouflage" : return "#78866b"
+        case "BlackGold" : return "#aa6c39"
+        case "White" : return "#FFFFFF"
             
         default: return ""
         }
     }
     
+    //<<<<<<< HEAD
     // MARK: - Loader Handling using Associated Object
     private struct AssociatedKeys {
         static var activityIndicatorKey = "activityIndicatorKey"
     }
-
+    
     private var activityIndicator: UIActivityIndicatorView? {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.activityIndicatorKey) as? UIActivityIndicatorView
@@ -2016,7 +2090,7 @@ extension UIViewController {
             objc_setAssociatedObject(self, &AssociatedKeys.activityIndicatorKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-
+    
     func showLoader() {
         DispatchQueue.main.async {
             if self.activityIndicator == nil {
@@ -2031,7 +2105,7 @@ extension UIViewController {
             self.view.isUserInteractionEnabled = false
         }
     }
-
+    
     func hideLoader() {
         DispatchQueue.main.async {
             self.activityIndicator?.stopAnimating()
@@ -2039,6 +2113,567 @@ extension UIViewController {
             self.activityIndicator = nil
             self.view.isUserInteractionEnabled = true
         }
+        //=======
+        func updateAttribute(textView: UITextView, attribute: NSAttributedString.Key, value: Any) {
+            let selectedRange = textView.selectedRange
+            if selectedRange.length == 0 { return }
+            
+            let mutableText = NSMutableAttributedString(attributedString: textView.attributedText)
+            mutableText.addAttribute(attribute, value: value, range: selectedRange)
+            
+            textView.attributedText = mutableText
+            textView.selectedRange = selectedRange
+            //>>>>>>> ajay_work
+        }
+        
+    }
+    
+    @IBDesignable
+    class AppTabBar: UITabBar {
+        
+        private var shapeLayer: CALayer?
+        
+        override func draw(_ rect: CGRect) {
+            self.addShape()
+        }
+        
+        private func addShape() {
+            let shapeLayer = CAShapeLayer()
+            shapeLayer.path = createPath()
+            shapeLayer.strokeColor = UIColor.lightGray.cgColor
+            shapeLayer.fillColor = #colorLiteral(red: 0.9782002568, green: 0.9782230258, blue: 0.9782107472, alpha: 1)
+            shapeLayer.lineWidth = 0.5
+            shapeLayer.shadowOffset = CGSize(width:0, height:0)
+            shapeLayer.shadowRadius = 10
+            shapeLayer.shadowColor = UIColor.gray.cgColor
+            shapeLayer.shadowOpacity = 0.3
+            
+            if let oldShapeLayer = self.shapeLayer {
+                self.layer.replaceSublayer(oldShapeLayer, with: shapeLayer)
+            } else {
+                self.layer.insertSublayer(shapeLayer, at: 0)
+            }
+            self.shapeLayer = shapeLayer
+        }
+        
+        func createPath() -> CGPath {
+            let height: CGFloat = 86.0
+            let path = UIBezierPath()
+            let centerWidth = self.frame.width / 2
+            path.move(to: CGPoint(x: 0, y: 0))
+            path.addLine(to: CGPoint(x: (centerWidth - height ), y: 0))
+            path.addCurve(to: CGPoint(x: centerWidth, y: height - 40),
+                          controlPoint1: CGPoint(x: (centerWidth - 30), y: 0), controlPoint2: CGPoint(x: centerWidth - 35, y: height - 40))
+            path.addCurve(to: CGPoint(x: (centerWidth + height ), y: 0),
+                          controlPoint1: CGPoint(x: centerWidth + 35, y: height - 40), controlPoint2: CGPoint(x: (centerWidth + 30), y: 0))
+            path.addLine(to: CGPoint(x: self.frame.width, y: 0))
+            path.addLine(to: CGPoint(x: self.frame.width, y: self.frame.height))
+            path.addLine(to: CGPoint(x: 0, y: self.frame.height))
+            path.close()
+            return path.cgPath
+        }
+        
+        override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+            guard !clipsToBounds && !isHidden && alpha > 0 else { return nil }
+            for member in subviews.reversed() {
+                let subPoint = member.convert(point, from: self)
+                guard let result = member.hitTest(subPoint, with: event) else { continue }
+                return result
+            }
+            return nil
+        }
+    }
+    
+    
+    /*class CustomTextField: UITextField {
+     private let underlineLayer = CALayer()
+     
+     override init(frame: CGRect) {
+     super.init(frame: frame)
+     commonInit()
+     }
+     
+     required init?(coder: NSCoder) {
+     super.init(coder: coder)
+     commonInit()
+     }
+     
+     private func commonInit() {
+     // Add the underline layer
+     underlineLayer.backgroundColor = UIColor.lightGray.cgColor
+     layer.addSublayer(underlineLayer)
+     
+     // Customize other appearance properties as needed
+     borderStyle = .none
+     // Other customization...
+     }
+     
+     override func layoutSubviews() {
+     super.layoutSubviews()
+     // Position the underline layer at the bottom of the text field
+     let lineHeight: CGFloat = 1.0 // Adjust as needed
+     underlineLayer.frame = CGRect(x: 0, y: frame.height + 5 - lineHeight, width: frame.width, height: lineHeight)
+     }
+     
+     // Call this method to change the underline color
+     func setUnderlineColor(_ color: UIColor) {
+     underlineLayer.backgroundColor = color.cgColor
+     }
+     } */
+    
+    
+    @IBDesignable
+    class RoundedTopCornersView: UIView {
+        
+        @IBInspectable var topLeftCornerRadius: CGFloat = 0.0 {
+            didSet {
+                updateCorners()
+            }
+        }
+        
+        @IBInspectable var topRightCornerRadius: CGFloat = 0.0 {
+            didSet {
+                updateCorners()
+            }
+        }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            updateCorners()
+        }
+        
+        private func updateCorners() {
+            let maskPath = UIBezierPath(
+                roundedRect: bounds,
+                byRoundingCorners: [.topLeft, .topRight],
+                cornerRadii: CGSize(
+                    width: min(topLeftCornerRadius, bounds.width),
+                    height: min(topRightCornerRadius, bounds.width)
+                )
+            )
+            let maskLayer = CAShapeLayer()
+            maskLayer.path = maskPath.cgPath
+            layer.mask = maskLayer
+        }
+    }
+    
+    /*
+     @IBDesignable
+     class CustomTextField: UITextField {
+     
+     private let padding = UIEdgeInsets(top: 20, left: 20, bottom: 12, right: 20)
+     
+     private let floatingLabel = UILabel()
+     private var isLabelFloating = false
+     
+     @IBInspectable var floatingPlaceholder: String? {
+     didSet {
+     floatingLabel.text = floatingPlaceholder
+     placeholder = "" // hide native placeholder
+     }
+     }
+     
+     @IBInspectable var isPasswordField: Bool = false {
+     didSet {
+     setupPasswordToggle()
+     }
+     }
+     
+     var errorText: String? {
+     didSet {
+     updateErrorState()
+     }
+     }
+     
+     override init(frame: CGRect) {
+     super.init(frame: frame)
+     sharedInit()
+     }
+     
+     required init?(coder: NSCoder) {
+     super.init(coder: coder)
+     sharedInit()
+     }
+     
+     private func sharedInit() {
+     setupStyle()
+     setupFloatingLabel()
+     addTarget(self, action: #selector(textChanged), for: .editingChanged)
+     }
+     
+     private func setupStyle() {
+     layer.cornerRadius = 25
+     layer.borderWidth = 1
+     layer.borderColor = UIColor.lightGray.cgColor
+     backgroundColor = .white
+     font = UIFont.systemFont(ofSize: 16)
+     clipsToBounds = false
+     }
+     
+     private func setupFloatingLabel() {
+     floatingLabel.font = UIFont.systemFont(ofSize: 14)
+     floatingLabel.textColor = .gray
+     floatingLabel.alpha = 0.0
+     addSubview(floatingLabel)
+     
+     floatingLabel.translatesAutoresizingMaskIntoConstraints = false
+     NSLayoutConstraint.activate([
+     floatingLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+     floatingLabel.bottomAnchor.constraint(equalTo: topAnchor, constant: -2)
+     ])
+     }
+     
+     private func updateErrorState() {
+     if let error = errorText {
+     floatingLabel.textColor = .systemRed
+     layer.borderColor = UIColor.systemRed.cgColor
+     floatingLabel.text = "\(floatingPlaceholder ?? "") * (\(error))"
+     } else {
+     floatingLabel.textColor = .gray
+     layer.borderColor = UIColor.lightGray.cgColor
+     floatingLabel.text = floatingPlaceholder
+     }
+     }
+     
+     override func textRect(forBounds bounds: CGRect) -> CGRect {
+     return bounds.inset(by: padding)
+     }
+     
+     override func editingRect(forBounds bounds: CGRect) -> CGRect {
+     return bounds.inset(by: padding)
+     }
+     
+     override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+     return bounds.inset(by: padding)
+     }
+     
+     private func setupPasswordToggle() {
+     let button = UIButton(type: .custom)
+     button.setImage(UIImage(systemName: "eye"), for: .normal)
+     button.tintColor = .darkGray
+     button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+     button.addTarget(self, action: #selector(togglePassword), for: .touchUpInside)
+     rightView = button
+     rightViewMode = .always
+     isSecureTextEntry = true
+     }
+     
+     @objc private func togglePassword(sender: UIButton) {
+     isSecureTextEntry.toggle()
+     let image = isSecureTextEntry ? "eye" : "eye.slash"
+     (rightView as? UIButton)?.setImage(UIImage(systemName: image), for: .normal)
+     }
+     
+     @objc private func textChanged() {
+     updateFloatingLabelVisibility(animated: true)
+     }
+     
+     override func becomeFirstResponder() -> Bool {
+     let result = super.becomeFirstResponder()
+     updateFloatingLabelVisibility(animated: true)
+     return result
+     }
+     
+     override func resignFirstResponder() -> Bool {
+     let result = super.resignFirstResponder()
+     updateFloatingLabelVisibility(animated: true)
+     return result
+     }
+     
+     private func updateFloatingLabelVisibility(animated: Bool) {
+     let shouldFloat = !(text?.isEmpty ?? true) || isFirstResponder
+     if shouldFloat == isLabelFloating { return }
+     
+     isLabelFloating = shouldFloat
+     let alpha: CGFloat = shouldFloat ? 1.0 : 0.0
+     let transform = shouldFloat ? CGAffineTransform(translationX: 0, y: -24).scaledBy(x: 0.95, y: 0.95) : .identity
+     
+     if animated {
+     UIView.animate(withDuration: 0.25) {
+     self.floatingLabel.alpha = alpha
+     self.floatingLabel.transform = transform
+     }
+     } else {
+     floatingLabel.alpha = alpha
+     floatingLabel.transform = transform
+     }
+     }
+     }
+     */
+    
+    @IBDesignable
+    class FloatingTextField: UIView {
+        
+        // MARK: - Subviews
+        private let textField = UITextField()
+        private let floatingLabel = UILabel()
+        private let borderView = UIView()
+        
+        // MARK: - Inspectable Properties
+        
+        @IBInspectable var placeholder: String = "Placeholder" {
+            didSet {
+                updateLabel()
+            }
+        }
+        
+        @IBInspectable var errorText: String? {
+            didSet {
+                updateErrorState()
+            }
+        }
+        
+        @IBInspectable var isSecureText: Bool = false {
+            didSet {
+                textField.isSecureTextEntry = isSecureText
+            }
+        }
+        
+        /* @IBInspectable var borderColor: UIColor = UIColor.systemBlue.withAlphaComponent(0.3) {
+         didSet {
+         borderView.layer.borderColor = borderColor.cgColor
+         }
+         } */
+        
+        @IBInspectable var errorColor: UIColor = UIColor.systemRed
+        
+        // MARK: - Init
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setupViews()
+        }
+        
+        required init?(coder: NSCoder) {
+            super.init(coder: coder)
+            setupViews()
+        }
+        
+        override func prepareForInterfaceBuilder() {
+            super.prepareForInterfaceBuilder()
+            setupViews()
+            layoutSubviews()
+        }
+        
+        // MARK: - Setup
+        
+        private func setupViews() {
+            // Avoid multiple setups
+            if subviews.contains(textField) { return }
+            
+            // Border
+            borderView.layer.cornerRadius = 28
+            borderView.layer.borderWidth = 2
+            borderView.layer.borderColor = borderColor?.cgColor
+            borderView.backgroundColor = .white
+            addSubview(borderView)
+            
+            // Label
+            floatingLabel.font = UIFont.systemFont(ofSize: 14)
+            floatingLabel.textColor = .gray
+            floatingLabel.text = placeholder
+            addSubview(floatingLabel)
+            
+            // TextField
+            textField.font = UIFont.systemFont(ofSize: 17)
+            textField.textColor = .black
+            textField.borderStyle = .none
+            textField.isSecureTextEntry = isSecureText
+            textField.addTarget(self, action: #selector(textChanged), for: .editingChanged)
+            addSubview(textField)
+        }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            
+            borderView.frame = bounds
+            
+            floatingLabel.frame = CGRect(x: 16, y: 6, width: bounds.width - 32, height: 20)
+            textField.frame = CGRect(x: 16, y: 28, width: bounds.width - 32, height: bounds.height - 32)
+        }
+        
+        // MARK: - Logic
+        
+        private func updateLabel() {
+            if let error = errorText, !error.isEmpty {
+                let attr = NSMutableAttributedString(string: "\(placeholder) * ", attributes: [.foregroundColor: UIColor.gray])
+                let errorPart = NSAttributedString(string: "(\(error))", attributes: [.foregroundColor: errorColor])
+                attr.append(errorPart)
+                floatingLabel.attributedText = attr
+            } else {
+                floatingLabel.text = placeholder
+                floatingLabel.textColor = .gray
+            }
+        }
+        
+        private func updateErrorState() {
+            updateLabel()
+            borderView.layer.borderColor = (errorText != nil && !errorText!.isEmpty) ? errorColor.cgColor : borderColor?.cgColor
+        }
+        
+        @objc private func textChanged() {
+            updateErrorState()
+        }
+        
+        // MARK: - Public API
+        
+        func getText() -> String {
+            return textField.text ?? ""
+        }
+        
+        func setText(_ text: String) {
+            textField.text = text
+            updateErrorState()
+        }
+        
+        func becomeFirstResponderTextField() {
+            textField.becomeFirstResponder()
+        }
+    }
+    
+    
+    @IBDesignable
+    class GradientButton: UIButton {
+        
+        @IBInspectable var startColor: UIColor = UIColor.systemBlue {
+            didSet { setNeedsLayout() }
+        }
+        
+        @IBInspectable var endColor: UIColor = UIColor.systemTeal {
+            didSet { setNeedsLayout() }
+        }
+        
+        private var gradientLayer: CAGradientLayer?
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            
+            gradientLayer?.removeFromSuperlayer()
+            
+            let gradient = CAGradientLayer()
+            gradient.colors = [startColor.cgColor, endColor.cgColor]
+            gradient.startPoint = CGPoint(x: 0.5, y: 0.0)
+            gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
+            gradient.frame = bounds
+            gradient.cornerRadius = layer.cornerRadius
+            
+            layer.insertSublayer(gradient, at: 0)
+            self.gradientLayer = gradient
+        }
+    }
+    
+    
+    @IBDesignable
+    class FloatingTextView: UIView, UITextViewDelegate {
+        
+        private let placeholderLabel = UILabel()
+        private let textView = UITextView()
+        
+        // MARK: - Inspectable Placeholder
+        @IBInspectable var placeholder: String = "Description" {
+            didSet {
+                placeholderLabel.text = placeholder
+            }
+        }
+        
+        // MARK: - Initialization
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setupView()
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            super.init(coder: aDecoder)
+            setupView()
+        }
+        
+        private func setupView() {
+            self.layer.borderWidth = 1
+            self.layer.borderColor = UIColor.lightGray.cgColor
+            self.layer.cornerRadius = 60
+            // Half of height for pill shape
+            self.clipsToBounds = true
+            
+            // Configure UITextView
+            textView.delegate = self
+            textView.backgroundColor = .clear
+            textView.textContainerInset = UIEdgeInsets(top: 35, left: 24, bottom: 10, right: 24)
+            textView.font = UIFont.systemFont(ofSize: 16)
+            addSubview(textView)
+            
+            // Configure Placeholder Label
+            placeholderLabel.text = placeholder
+            placeholderLabel.font = UIFont.systemFont(ofSize: 20)
+            placeholderLabel.textColor = .gray
+            placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(placeholderLabel)
+            
+            // Constraints
+            textView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                textView.topAnchor.constraint(equalTo: self.topAnchor),
+                textView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+                textView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+                textView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+                
+                placeholderLabel.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: 12),
+                placeholderLabel.topAnchor.constraint(equalTo: textView.topAnchor, constant: 18)
+            ])
+        }
+        
+        // MARK: - Floating Animation
+        func textViewDidBeginEditing(_ textView: UITextView) {
+            animatePlaceholder(up: true)
+        }
+        
+        func textViewDidEndEditing(_ textView: UITextView) {
+            if textView.text.isEmpty {
+                animatePlaceholder(up: false)
+            }
+        }
+        
+        private func animatePlaceholder(up: Bool) {
+            UIView.animate(withDuration: 0.2) {
+                self.placeholderLabel.transform = up || !self.textView.text.isEmpty
+                ? CGAffineTransform(translationX: 0, y: -10).scaledBy(x: 0.85, y: 0.85)
+                : .identity
+                self.placeholderLabel.textColor = .gray
+            }
+        }
+        
+        // MARK: - Expose Text
+        var text: String {
+            get {
+                return textView.text
+            }
+            set {
+                textView.text = newValue
+                animatePlaceholder(up: !newValue.isEmpty)
+            }
+        }
+        
+    }
+    
+}
+
+extension String {
+    func textHeight(withWidth width: CGFloat) -> CGFloat {
+        
+        return self.height(withConstrainedWidth: UIScreen.main.bounds.width, font: UIFont.systemFont(ofSize: 17))
+    }
+    
+    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+        
+        return ceil(boundingBox.height)
+    }
+    
+    func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+        
+        return ceil(boundingBox.width)
     }
     
 }
@@ -2071,116 +2706,6 @@ extension UIColor {
         return String(format:"#%06x", rgb)
     }
 }
-
-
-extension String {
-    func textHeight(withWidth width: CGFloat) -> CGFloat {
-    
-        return self.height(withConstrainedWidth: UIScreen.main.bounds.width, font: UIFont.systemFont(ofSize: 17))
-    }
-    
-    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
-        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
-        
-        return ceil(boundingBox.height)
-    }
-    
-    func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
-        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
-        
-        return ceil(boundingBox.width)
-    }
-    
-}
-
-
-public class DashedView: UIView {
-
-    public struct Configuration {
-        public var color: UIColor
-        public var dashLength: CGFloat
-        public var dashGap: CGFloat
-
-        public init(
-            color: UIColor,
-            dashLength: CGFloat,
-            dashGap: CGFloat) {
-            self.color = color
-            self.dashLength = dashLength
-            self.dashGap = dashGap
-        }
-
-        static let `default`: Self = .init(
-            color: .lightGray,
-            dashLength: 7,
-            dashGap: 3)
-    }
-
-    // MARK: - Properties
-
-    /// Override to customize height
-    public class var lineHeight: CGFloat { 1.0 }
-
-    override public var intrinsicContentSize: CGSize {
-        CGSize(width: UIView.noIntrinsicMetric, height: Self.lineHeight)
-    }
-
-    public final var config: Configuration = .default {
-        didSet {
-            drawDottedLine()
-        }
-    }
-
-    private var dashedLayer: CAShapeLayer?
-
-    // MARK: - Life Cycle
-
-    override public func layoutSubviews() {
-        super.layoutSubviews()
-
-        // We only redraw the dashes if the width has changed.
-        guard bounds.width != dashedLayer?.frame.width else { return }
-
-        drawDottedLine()
-    }
-
-    // MARK: - Drawing
-
-    private func drawDottedLine() {
-        if dashedLayer != nil {
-            dashedLayer?.removeFromSuperlayer()
-        }
-
-        dashedLayer = drawDottedLine(
-            start: bounds.origin,
-            end: CGPoint(x: bounds.width, y: bounds.origin.y),
-            config: config)
-    }
-
-}
-
-// Thanks to: https://stackoverflow.com/a/49305154/4802021
-private extension DashedView {
-    func drawDottedLine(
-        start: CGPoint,
-        end: CGPoint,
-        config: Configuration) -> CAShapeLayer {
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.strokeColor = config.color.cgColor
-        shapeLayer.lineWidth = Self.lineHeight
-        shapeLayer.lineDashPattern = [config.dashLength as NSNumber, config.dashGap as NSNumber]
-
-        let path = CGMutablePath()
-        path.addLines(between: [start, end])
-        shapeLayer.path = path
-        layer.addSublayer(shapeLayer)
-
-        return shapeLayer
-    }
-}
-
 
 extension UIView {
     func setshadow(offset:CGSize) {
@@ -2218,11 +2743,11 @@ extension UIView {
     }
     
     func roundCornersWithBezier(corners: UIRectCorner, radius: CGFloat) {
-            let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-            let mask = CAShapeLayer()
-            mask.path = path.cgPath
-            layer.mask = mask
-        }
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
+    }
     
     func ConvertDateFormat(date : String ,inputdate : String , outputdateformat : String) -> String {
         if date.isEmpty  || date.contains("0000"){
@@ -2244,9 +2769,8 @@ extension UIView {
     
 }
 
-
 extension UITableView {
-
+    
     func reloadWithAnimation() {
         self.reloadData()
         let tableViewHeight = self.bounds.size.height
@@ -2264,9 +2788,105 @@ extension UITableView {
     }
 }
 
+// Thanks to: https://stackoverflow.com/a/49305154/4802021
+private extension DashedView {
+    func drawDottedLine(
+        start: CGPoint,
+        end: CGPoint,
+        config: Configuration) -> CAShapeLayer {
+            let shapeLayer = CAShapeLayer()
+            shapeLayer.strokeColor = config.color.cgColor
+            shapeLayer.lineWidth = Self.lineHeight
+            shapeLayer.lineDashPattern = [config.dashLength as NSNumber, config.dashGap as NSNumber]
+            
+            let path = CGMutablePath()
+            path.addLines(between: [start, end])
+            shapeLayer.path = path
+            layer.addSublayer(shapeLayer)
+            
+            return shapeLayer
+        }
+}
+
+public class DashedView: UIView {
+    
+    public struct Configuration {
+        public var color: UIColor
+        public var dashLength: CGFloat
+        public var dashGap: CGFloat
+        
+        public init(
+            color: UIColor,
+            dashLength: CGFloat,
+            dashGap: CGFloat) {
+                self.color = color
+                self.dashLength = dashLength
+                self.dashGap = dashGap
+            }
+        
+        static let `default`: Self = .init(
+            color: .lightGray,
+            dashLength: 7,
+            dashGap: 3)
+    }
+    
+    // MARK: - Properties
+    
+    /// Override to customize height
+    public class var lineHeight: CGFloat { 1.0 }
+    
+    override public var intrinsicContentSize: CGSize {
+        CGSize(width: UIView.noIntrinsicMetric, height: Self.lineHeight)
+    }
+    
+    public final var config: Configuration = .default {
+        didSet {
+            redrawDottedLine()
+        }
+    }
+    
+    private var dashedLayer: CAShapeLayer?
+    
+    // MARK: - Life Cycle
+    
+    override public func layoutSubviews() {
+        super.layoutSubviews()
+        
+        // We only redraw the dashes if the width has changed.
+        guard bounds.width != dashedLayer?.frame.width else { return }
+        
+        redrawDottedLine()
+    }
+    
+    // MARK: - Drawing
+    
+    private func redrawDottedLine() {
+        dashedLayer?.removeFromSuperlayer()
+        
+        let start = CGPoint(x: 0, y: bounds.midY)
+        let end = CGPoint(x: bounds.width, y: bounds.midY)
+        dashedLayer = createDashedLine(start: start, end: end, config: config)
+        layer.addSublayer(dashedLayer!)
+    }
+    
+    private func createDashedLine(
+        start: CGPoint,
+        end: CGPoint,
+        config: Configuration) -> CAShapeLayer {
+            let shapeLayer = CAShapeLayer()
+            shapeLayer.strokeColor = config.color.cgColor
+            shapeLayer.lineWidth = Self.lineHeight
+            shapeLayer.lineDashPattern = [config.dashLength as NSNumber, config.dashGap as NSNumber]
+            
+            let path = CGMutablePath()
+            path.addLines(between: [start, end])
+            shapeLayer.path = path
+            return shapeLayer
+        }
+}
 
 extension UIImage {
-
+    
     /// Get image from given view
     ///
     /// - Parameter view: the view
@@ -2274,99 +2894,42 @@ extension UIImage {
     public class func image(fromView view: UIView) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(view.frame.size, false, 0)
         view.drawHierarchy(in: view.bounds, afterScreenUpdates: false)
-
+        
         let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return image
     }
 }
 
-
 extension UIButton {
-  func alignVertical(spacing: CGFloat = 6.0) {
-    guard let imageSize = imageView?.image?.size,
-      let text = titleLabel?.text,
-      let font = titleLabel?.font
-    else { return }
-
-    titleEdgeInsets = UIEdgeInsets(
-      top: 0.0,
-      left: -imageSize.width,
-      bottom: -(imageSize.height + spacing),
-      right: 0.0
-    )
-
-    let titleSize = text.size(withAttributes: [.font: font])
-    imageEdgeInsets = UIEdgeInsets(
-      top: -(titleSize.height + spacing),
-      left: 0.0,
-      bottom: 0.0,
-      right: -titleSize.width
-    )
-
-    let edgeOffset = abs(titleSize.height - imageSize.height) / 2.0
-    contentEdgeInsets = UIEdgeInsets(
-      top: edgeOffset,
-      left: 0.0,
-      bottom: edgeOffset,
-      right: 0.0
-    )
-  }
-}
-
-@IBDesignable
-class AppTabBar: UITabBar {
-
-    private var shapeLayer: CALayer?
-
-    override func draw(_ rect: CGRect) {
-        self.addShape()
-    }
-
-    private func addShape() {
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.path = createPath()
-        shapeLayer.strokeColor = UIColor.lightGray.cgColor
-        shapeLayer.fillColor = #colorLiteral(red: 0.9782002568, green: 0.9782230258, blue: 0.9782107472, alpha: 1)
-        shapeLayer.lineWidth = 0.5
-        shapeLayer.shadowOffset = CGSize(width:0, height:0)
-        shapeLayer.shadowRadius = 10
-        shapeLayer.shadowColor = UIColor.gray.cgColor
-        shapeLayer.shadowOpacity = 0.3
-
-        if let oldShapeLayer = self.shapeLayer {
-            self.layer.replaceSublayer(oldShapeLayer, with: shapeLayer)
-        } else {
-            self.layer.insertSublayer(shapeLayer, at: 0)
-        }
-        self.shapeLayer = shapeLayer
-    }
-
-    func createPath() -> CGPath {
-        let height: CGFloat = 86.0
-        let path = UIBezierPath()
-        let centerWidth = self.frame.width / 2
-        path.move(to: CGPoint(x: 0, y: 0))
-        path.addLine(to: CGPoint(x: (centerWidth - height ), y: 0))
-        path.addCurve(to: CGPoint(x: centerWidth, y: height - 40),
-                      controlPoint1: CGPoint(x: (centerWidth - 30), y: 0), controlPoint2: CGPoint(x: centerWidth - 35, y: height - 40))
-        path.addCurve(to: CGPoint(x: (centerWidth + height ), y: 0),
-                      controlPoint1: CGPoint(x: centerWidth + 35, y: height - 40), controlPoint2: CGPoint(x: (centerWidth + 30), y: 0))
-        path.addLine(to: CGPoint(x: self.frame.width, y: 0))
-        path.addLine(to: CGPoint(x: self.frame.width, y: self.frame.height))
-        path.addLine(to: CGPoint(x: 0, y: self.frame.height))
-        path.close()
-        return path.cgPath
-    }
-
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        guard !clipsToBounds && !isHidden && alpha > 0 else { return nil }
-        for member in subviews.reversed() {
-            let subPoint = member.convert(point, from: self)
-            guard let result = member.hitTest(subPoint, with: event) else { continue }
-            return result
-        }
-        return nil
+    func alignVertical(spacing: CGFloat = 6.0) {
+        guard let imageSize = imageView?.image?.size,
+              let text = titleLabel?.text,
+              let font = titleLabel?.font
+        else { return }
+        
+        titleEdgeInsets = UIEdgeInsets(
+            top: 0.0,
+            left: -imageSize.width,
+            bottom: -(imageSize.height + spacing),
+            right: 0.0
+        )
+        
+        let titleSize = text.size(withAttributes: [.font: font])
+        imageEdgeInsets = UIEdgeInsets(
+            top: -(titleSize.height + spacing),
+            left: 0.0,
+            bottom: 0.0,
+            right: -titleSize.width
+        )
+        
+        let edgeOffset = abs(titleSize.height - imageSize.height) / 2.0
+        contentEdgeInsets = UIEdgeInsets(
+            top: edgeOffset,
+            left: 0.0,
+            bottom: edgeOffset,
+            right: 0.0
+        )
     }
 }
 
@@ -2375,353 +2938,6 @@ extension UITabBar {
         var sizeThatFits = super.sizeThatFits(size)
         sizeThatFits.height = 74
         return sizeThatFits
-    }
-}
-
-
-/*class CustomTextField: UITextField {
-    private let underlineLayer = CALayer()
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        commonInit()
-    }
-
-    private func commonInit() {
-        // Add the underline layer
-        underlineLayer.backgroundColor = UIColor.lightGray.cgColor
-        layer.addSublayer(underlineLayer)
-
-        // Customize other appearance properties as needed
-        borderStyle = .none
-        // Other customization...
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        // Position the underline layer at the bottom of the text field
-        let lineHeight: CGFloat = 1.0 // Adjust as needed
-        underlineLayer.frame = CGRect(x: 0, y: frame.height + 5 - lineHeight, width: frame.width, height: lineHeight)
-    }
-
-    // Call this method to change the underline color
-    func setUnderlineColor(_ color: UIColor) {
-        underlineLayer.backgroundColor = color.cgColor
-    }
-} */
- 
-
-@IBDesignable
-class RoundedTopCornersView: UIView {
-    
-    @IBInspectable var topLeftCornerRadius: CGFloat = 0.0 {
-        didSet {
-            updateCorners()
-        }
-    }
-    
-    @IBInspectable var topRightCornerRadius: CGFloat = 0.0 {
-        didSet {
-            updateCorners()
-        }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        updateCorners()
-    }
-    
-    private func updateCorners() {
-        let maskPath = UIBezierPath(
-            roundedRect: bounds,
-            byRoundingCorners: [.topLeft, .topRight],
-            cornerRadii: CGSize(
-                width: min(topLeftCornerRadius, bounds.width),
-                height: min(topRightCornerRadius, bounds.width)
-            )
-        )
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = maskPath.cgPath
-        layer.mask = maskLayer
-    }
-}
-
-/*
-@IBDesignable
-class CustomTextField: UITextField {
-
-    private let padding = UIEdgeInsets(top: 20, left: 20, bottom: 12, right: 20)
-
-    private let floatingLabel = UILabel()
-    private var isLabelFloating = false
-
-    @IBInspectable var floatingPlaceholder: String? {
-        didSet {
-            floatingLabel.text = floatingPlaceholder
-            placeholder = "" // hide native placeholder
-        }
-    }
-
-    @IBInspectable var isPasswordField: Bool = false {
-        didSet {
-            setupPasswordToggle()
-        }
-    }
-
-    var errorText: String? {
-        didSet {
-            updateErrorState()
-        }
-    }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        sharedInit()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        sharedInit()
-    }
-
-    private func sharedInit() {
-        setupStyle()
-        setupFloatingLabel()
-        addTarget(self, action: #selector(textChanged), for: .editingChanged)
-    }
-
-    private func setupStyle() {
-        layer.cornerRadius = 25
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.lightGray.cgColor
-        backgroundColor = .white
-        font = UIFont.systemFont(ofSize: 16)
-        clipsToBounds = false
-    }
-
-    private func setupFloatingLabel() {
-        floatingLabel.font = UIFont.systemFont(ofSize: 14)
-        floatingLabel.textColor = .gray
-        floatingLabel.alpha = 0.0
-        addSubview(floatingLabel)
-
-        floatingLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            floatingLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            floatingLabel.bottomAnchor.constraint(equalTo: topAnchor, constant: -2)
-        ])
-    }
-
-    private func updateErrorState() {
-        if let error = errorText {
-            floatingLabel.textColor = .systemRed
-            layer.borderColor = UIColor.systemRed.cgColor
-            floatingLabel.text = "\(floatingPlaceholder ?? "") * (\(error))"
-        } else {
-            floatingLabel.textColor = .gray
-            layer.borderColor = UIColor.lightGray.cgColor
-            floatingLabel.text = floatingPlaceholder
-        }
-    }
-
-    override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
-    }
-
-    override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
-    }
-
-    override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
-    }
-
-    private func setupPasswordToggle() {
-        let button = UIButton(type: .custom)
-        button.setImage(UIImage(systemName: "eye"), for: .normal)
-        button.tintColor = .darkGray
-        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        button.addTarget(self, action: #selector(togglePassword), for: .touchUpInside)
-        rightView = button
-        rightViewMode = .always
-        isSecureTextEntry = true
-    }
-
-    @objc private func togglePassword(sender: UIButton) {
-        isSecureTextEntry.toggle()
-        let image = isSecureTextEntry ? "eye" : "eye.slash"
-        (rightView as? UIButton)?.setImage(UIImage(systemName: image), for: .normal)
-    }
-
-    @objc private func textChanged() {
-        updateFloatingLabelVisibility(animated: true)
-    }
-
-    override func becomeFirstResponder() -> Bool {
-        let result = super.becomeFirstResponder()
-        updateFloatingLabelVisibility(animated: true)
-        return result
-    }
-
-    override func resignFirstResponder() -> Bool {
-        let result = super.resignFirstResponder()
-        updateFloatingLabelVisibility(animated: true)
-        return result
-    }
-
-    private func updateFloatingLabelVisibility(animated: Bool) {
-        let shouldFloat = !(text?.isEmpty ?? true) || isFirstResponder
-        if shouldFloat == isLabelFloating { return }
-
-        isLabelFloating = shouldFloat
-        let alpha: CGFloat = shouldFloat ? 1.0 : 0.0
-        let transform = shouldFloat ? CGAffineTransform(translationX: 0, y: -24).scaledBy(x: 0.95, y: 0.95) : .identity
-
-        if animated {
-            UIView.animate(withDuration: 0.25) {
-                self.floatingLabel.alpha = alpha
-                self.floatingLabel.transform = transform
-            }
-        } else {
-            floatingLabel.alpha = alpha
-            floatingLabel.transform = transform
-        }
-    }
-}
- */
-
-@IBDesignable
-class FloatingTextField: UIView {
-
-    // MARK: - Subviews
-    private let textField = UITextField()
-    private let floatingLabel = UILabel()
-    private let borderView = UIView()
-
-    // MARK: - Inspectable Properties
-
-    @IBInspectable var placeholder: String = "Placeholder" {
-        didSet {
-            updateLabel()
-        }
-    }
-
-    @IBInspectable var errorText: String? {
-        didSet {
-            updateErrorState()
-        }
-    }
-
-    @IBInspectable var isSecureText: Bool = false {
-        didSet {
-            textField.isSecureTextEntry = isSecureText
-        }
-    }
-
-   /* @IBInspectable var borderColor: UIColor = UIColor.systemBlue.withAlphaComponent(0.3) {
-        didSet {
-            borderView.layer.borderColor = borderColor.cgColor
-        }
-    } */
-
-    @IBInspectable var errorColor: UIColor = UIColor.systemRed
-
-    // MARK: - Init
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupViews()
-    }
-
-    override func prepareForInterfaceBuilder() {
-        super.prepareForInterfaceBuilder()
-        setupViews()
-        layoutSubviews()
-    }
-
-    // MARK: - Setup
-
-    private func setupViews() {
-        // Avoid multiple setups
-        if subviews.contains(textField) { return }
-
-        // Border
-        borderView.layer.cornerRadius = 28
-        borderView.layer.borderWidth = 2
-        borderView.layer.borderColor = borderColor?.cgColor
-        borderView.backgroundColor = .white
-        addSubview(borderView)
-
-        // Label
-        floatingLabel.font = UIFont.systemFont(ofSize: 14)
-        floatingLabel.textColor = .gray
-        floatingLabel.text = placeholder
-        addSubview(floatingLabel)
-
-        // TextField
-        textField.font = UIFont.systemFont(ofSize: 17)
-        textField.textColor = .black
-        textField.borderStyle = .none
-        textField.isSecureTextEntry = isSecureText
-        textField.addTarget(self, action: #selector(textChanged), for: .editingChanged)
-        addSubview(textField)
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        borderView.frame = bounds
-
-        floatingLabel.frame = CGRect(x: 16, y: 6, width: bounds.width - 32, height: 20)
-        textField.frame = CGRect(x: 16, y: 28, width: bounds.width - 32, height: bounds.height - 32)
-    }
-
-    // MARK: - Logic
-
-    private func updateLabel() {
-        if let error = errorText, !error.isEmpty {
-            let attr = NSMutableAttributedString(string: "\(placeholder) * ", attributes: [.foregroundColor: UIColor.gray])
-            let errorPart = NSAttributedString(string: "(\(error))", attributes: [.foregroundColor: errorColor])
-            attr.append(errorPart)
-            floatingLabel.attributedText = attr
-        } else {
-            floatingLabel.text = placeholder
-            floatingLabel.textColor = .gray
-        }
-    }
-
-    private func updateErrorState() {
-        updateLabel()
-        borderView.layer.borderColor = (errorText != nil && !errorText!.isEmpty) ? errorColor.cgColor : borderColor?.cgColor
-    }
-
-    @objc private func textChanged() {
-        updateErrorState()
-    }
-
-    // MARK: - Public API
-
-    func getText() -> String {
-        return textField.text ?? ""
-    }
-
-    func setText(_ text: String) {
-        textField.text = text
-        updateErrorState()
-    }
-
-    func becomeFirstResponderTextField() {
-        textField.becomeFirstResponder()
     }
 }
 
@@ -2740,12 +2956,12 @@ class StringUtils {
     }
     
     
-//    static func convertStringToSwiftyJSON(json: String) -> JSON {
-//        if let data = json.data(using: String.Encoding.utf8) {
-//            return try! JSON(data: data)
-//        }
-//        return JSON.null
-//    }
+    //    static func convertStringToSwiftyJSON(json: String) -> JSON {
+    //        if let data = json.data(using: String.Encoding.utf8) {
+    //            return try! JSON(data: data)
+    //        }
+    //        return JSON.null
+    //    }
     
     static func getSizeForText(text: String, font: UIFont, maxSize: CGSize) -> CGSize {
         let attrString = NSAttributedString.init(string: text, attributes: [NSAttributedString.Key.font:font])
@@ -2759,156 +2975,32 @@ class StringUtils {
         return CGSize(width: rect.size.width, height: rect.size.height)
     }
     
-//    static func indexOf(source: String, substring: String) -> Int? {
-//        let maxIndex = source.count - substring.count
-//        for index in 0...maxIndex {
-//            let rangeSubstring = source.startIndex.advancedBy(index)..<source.startIndex.advancedBy(index + substring.count)
-//            if source.substringWithRange(rangeSubstring) == substring {
-//                return index
-//            }
-//        }
-//        return nil
-//    }
+    //    static func indexOf(source: String, substring: String) -> Int? {
+    //        let maxIndex = source.count - substring.count
+    //        for index in 0...maxIndex {
+    //            let rangeSubstring = source.startIndex.advancedBy(index)..<source.startIndex.advancedBy(index + substring.count)
+    //            if source.substringWithRange(rangeSubstring) == substring {
+    //                return index
+    //            }
+    //        }
+    //        return nil
+    //    }
     
     static func getHighlightText(text: String, key: String, highlightColor: UIColor) -> NSAttributedString {
         let string: NSMutableAttributedString = NSMutableAttributedString(string: text)
         if(text.lowercased().range(of: key.lowercased())?.lowerBound != nil && text.lowercased().range(of: key.lowercased())?.upperBound != nil){
             let startPos = text.distance(from: text.startIndex, to: (text.lowercased().range(of: key.lowercased())?.lowerBound)!)
-//            let endPos = text.characters.distance(from: text.characters.startIndex, to: (text.lowercased().range(of: key.lowercased())?.upperBound)!)
+            //            let endPos = text.characters.distance(from: text.characters.startIndex, to: (text.lowercased().range(of: key.lowercased())?.upperBound)!)
             string.addAttribute(NSAttributedString.Key.backgroundColor, value: highlightColor, range: NSRange(location: startPos, length: key.count))
         }
         return string
     }
     
-        static func getBoldText(text: String, font: UIFont) -> NSAttributedString {
-            let string: NSMutableAttributedString = NSMutableAttributedString(string: text)
-            string.addAttribute(NSAttributedString.Key.font, value: font, range: NSRange(location: 0, length: text.count))
-            return string
-        }
+    static func getBoldText(text: String, font: UIFont) -> NSAttributedString {
+        let string: NSMutableAttributedString = NSMutableAttributedString(string: text)
+        string.addAttribute(NSAttributedString.Key.font, value: font, range: NSRange(location: 0, length: text.count))
+        return string
+    }
     
     
 }
-
-
-@IBDesignable
-class GradientButton: UIButton {
-
-    @IBInspectable var startColor: UIColor = UIColor.systemBlue {
-        didSet { setNeedsLayout() }
-    }
-
-    @IBInspectable var endColor: UIColor = UIColor.systemTeal {
-        didSet { setNeedsLayout() }
-    }
-
-    private var gradientLayer: CAGradientLayer?
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        gradientLayer?.removeFromSuperlayer()
-
-        let gradient = CAGradientLayer()
-        gradient.colors = [startColor.cgColor, endColor.cgColor]
-        gradient.startPoint = CGPoint(x: 0.5, y: 0.0)
-        gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
-        gradient.frame = bounds
-        gradient.cornerRadius = layer.cornerRadius
-
-        layer.insertSublayer(gradient, at: 0)
-        self.gradientLayer = gradient
-    }
-}
-
-
-@IBDesignable
-class FloatingTextView: UIView, UITextViewDelegate {
-
-    private let placeholderLabel = UILabel()
-    private let textView = UITextView()
-
-    // MARK: - Inspectable Placeholder
-    @IBInspectable var placeholder: String = "Description" {
-        didSet {
-            placeholderLabel.text = placeholder
-        }
-    }
-
-    // MARK: - Initialization
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setupView()
-    }
-
-    private func setupView() {
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.lightGray.cgColor
-        self.layer.cornerRadius = 60
-        // Half of height for pill shape
-        self.clipsToBounds = true
-
-        // Configure UITextView
-        textView.delegate = self
-        textView.backgroundColor = .clear
-        textView.textContainerInset = UIEdgeInsets(top: 35, left: 24, bottom: 10, right: 24)
-        textView.font = UIFont.systemFont(ofSize: 16)
-        addSubview(textView)
-
-        // Configure Placeholder Label
-        placeholderLabel.text = placeholder
-        placeholderLabel.font = UIFont.systemFont(ofSize: 20)
-        placeholderLabel.textColor = .gray
-        placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(placeholderLabel)
-
-        // Constraints
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: self.topAnchor),
-            textView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            textView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            textView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-
-            placeholderLabel.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: 12),
-            placeholderLabel.topAnchor.constraint(equalTo: textView.topAnchor, constant: 18)
-        ])
-    }
-
-    // MARK: - Floating Animation
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        animatePlaceholder(up: true)
-    }
-
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            animatePlaceholder(up: false)
-        }
-    }
-
-    private func animatePlaceholder(up: Bool) {
-        UIView.animate(withDuration: 0.2) {
-            self.placeholderLabel.transform = up || !self.textView.text.isEmpty
-                ? CGAffineTransform(translationX: 0, y: -10).scaledBy(x: 0.85, y: 0.85)
-                : .identity
-            self.placeholderLabel.textColor = .gray
-        }
-    }
-
-    // MARK: - Expose Text
-    var text: String {
-        get {
-            return textView.text
-        }
-        set {
-            textView.text = newValue
-            animatePlaceholder(up: !newValue.isEmpty)
-        }
-    }
-
-}
-

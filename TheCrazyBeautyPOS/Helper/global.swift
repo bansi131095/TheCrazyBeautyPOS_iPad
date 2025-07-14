@@ -20,6 +20,7 @@ class global: NSObject
 //    GOOGLE_MAP_KEY_RUSH_MALL=AIzaSyDNE-nH7aaKw21nG3yVaDtPZQm-6yaqHh8
     
     static let base_url = "https://staging.thecrazybeauty.com/"
+    
 //    static let base_url = "https://api.thecrazybeauty.com/" // LIVE
     static let server_url = global.base_url + "api/"
     
@@ -43,6 +44,8 @@ class global: NSObject
 
     let PROFILE_IMG_PATH = global.base_url + "images/Profiles/"
     static let imageUrl = global.base_url + "uploads/";
+    
+    static let imageUrl_Profile = global.base_url + "upload/"
     static let reportUrl = global.base_url + "uploads/reports/";
     
     //Common Parameter
@@ -57,6 +60,7 @@ class global: NSObject
     
     var URL_TEAM_DETAILS = global.server_url + "team_details"
     
+//<<<<<<< HEAD
     var URL_CLIENT_DETAILS = global.server_url + "client_details"
     
     var URL_INVENTORY_DETAILS = global.server_url + "inventory_details"
@@ -117,6 +121,67 @@ class global: NSObject
     
     var URL_SALON_DATA = global.server_url + "salon_data/"
     
+//=======
+    var URL_CURRENCY_DETAILS = global.server_url + "currency_details"
+    var URL_UPDATE_CURRENCY = global.server_url + "update_currency"
+    var URL_GET_CURRENCY1 = global.server_url + "get_currency"
+    
+    
+    var URL_UPDATE_BOOKINGFLOW = global.server_url + "update_bookingflow"
+    var URL_GET_BOOKINGFLOW = global.server_url + "get_bookingflow"
+    
+    
+    var URL_UPDATE_BANKDETAILS = global.server_url + "bank_details"
+    var URL_GET_BANKDETAILS = global.server_url + "get_bankdetails"
+    
+    var URL_GET_NOTES = global.server_url + "get_notes"
+    var URL_UPDATE_NOTES = global.server_url + "update_notes"
+    
+    
+    var URL_GET_Amount = global.server_url + "get_amount"
+    var URL_UPDATE_Amount = global.server_url + "update_amount"
+    
+    var URL_Team_Details = global.server_url + "team_details"
+    var URL_GET_STAFFSEQUENCE = global.server_url + "get_staffsequence"
+    var URL_UPDATE_STAFFSEQUENCE = global.server_url + "update_staffsequence"
+    
+    var URL_UPDATE_TIMEGAP = global.server_url + "update_timegap"
+    var URL_CHANGE_PASSWORD = global.server_url + "change_password"
+    
+    var URL_GET_IMAGE = global.server_url + "get_images"
+    var URL_ADD_IMAGE = global.server_url + "add_images"
+    
+    var URL_UPDATE_REMINDERMAIL = global.server_url + "update_remindermail"
+    var URL_SELECT_SERVICES = global.server_url + "select_services"
+    
+    var URL_SELECT_MAINCATEGORY1 = global.server_url + "select_maincategory"
+    var URL_CATEGORY_DESCRIPTION = global.server_url + "category_description"
+    var URL_UPDATE_CATEGORY_DESCRIPTION = global.server_url + "update_category_description"
+    
+    var URL_GET_KIOSK = global.server_url + "get_kiosk"
+    var URL_UPDATE_ADD_KIOSK = global.server_url + "add_kiosk"
+    
+    var URL_GET_SUBVENDOR = global.server_url + "get_subvendor"
+    var URL_UPDATE_SUBVENDOR = global.server_url + "create_subvendor"
+    
+//    var URL_GET_TIMING = global.server_url + "get_timing"
+    var URL_UPDATE_BUSINESS_TIMING = global.server_url + "business_timing"
+    var URL_GET_BREAK_TIME = global.server_url + "get_breaktime"
+    
+    var URL_UPDATE_BREAK_TIME = global.server_url + "update_breaktime"
+    
+    var URL_GET_SMS_DETAILS = global.server_url + "get_smsDetails"
+    var URL_UPDATE_SMS_DETAILS = global.server_url + "add_smsdetails"
+    
+    var URL_GET_SALON_INFORMATION = global.server_url + "salon_information"
+    
+//    var URL_GET_HOLIDAYS = global.server_url + "get_holidays"
+    var URL_UPDATE_HOLIDAYS = global.server_url + "update_holidays"
+    
+    var URL_GET_OPENDATE = global.server_url + "get_opendate"
+    var URL_UPDATE_OPENDATE = global.server_url + "update_opendate"
+    var URL_UPDATE_BUSINESS_INFORMATION = global.server_url + "business_information"
+//>>>>>>> ajay_work
     
     
     //MARK:-

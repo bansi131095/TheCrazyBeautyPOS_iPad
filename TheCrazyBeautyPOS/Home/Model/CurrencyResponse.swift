@@ -25,8 +25,11 @@ class CurrencyResponse: Mappable {
 
 // MARK: - CurrencyData
 class CurrencyData: Mappable {
+    
     var currency: String?
     var symbol: String?
+    var currency_code: String = ""
+    var is_selected = Bool()
 
     required init?(map: Map) {}
 
@@ -35,3 +38,5 @@ class CurrencyData: Mappable {
         symbol   <- map["symbol"]
     }
 }
+
+

@@ -7,7 +7,14 @@
 
 import UIKit
 import SDWebImageSVGCoder
+//<<<<<<< HEAD
 import IQKeyboardManagerSwift
+//=======
+import GoogleMaps
+import GooglePlaces
+import FSCalendar
+
+//>>>>>>> ajay_work
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,8 +25,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let SVGCoder = SDImageSVGCoder.shared
         SDImageCodersManager.shared.addCoder(SVGCoder)
+//<<<<<<< HEAD
         IQKeyboardManager.shared.enableAutoToolbar = true
         IQKeyboardManager.shared.isEnabled = true
+//=======
+        GMSServices.provideAPIKey("AIzaSyBkJMsPty_y88X9z0Zy36Rmia1-ZR868c0")
+        GMSPlacesClient.provideAPIKey("AIzaSyBkJMsPty_y88X9z0Zy36Rmia1-ZR868c0")
+//>>>>>>> ajay_work
         return true
     }
 

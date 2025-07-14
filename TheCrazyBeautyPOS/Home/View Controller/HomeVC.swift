@@ -19,6 +19,11 @@ class HomeVC: UIViewController {
     var selectedSalon: String = ""
     
     
+//    MARK: - Popup
+    @IBOutlet weak var vwPopup: UIView!
+    @IBOutlet weak var lbl_UserName: UILabel!
+    @IBOutlet weak var lbl_Version: UILabel!
+    
     let imageArray: [UIImage] = [
         #imageLiteral(resourceName: "Dashboard.png"),
         #imageLiteral(resourceName: "Booking"),
@@ -97,6 +102,7 @@ class HomeVC: UIViewController {
         }
     }
     
+//<<<<<<< HEAD
     //MARK: Button Action
     @IBAction func act_notification(_ sender: UIButton) {
         
@@ -105,12 +111,12 @@ class HomeVC: UIViewController {
     //MARK: Api Data
     func getAllSalonData() {
     
-        self.showLoader()
+//        self.showLoader()
         APIService.shared.getAllSalonData() { staffResult in
             guard let model = staffResult else {
                 return
             }
-            self.hideLoader()
+//            self.hideLoader()
             let newItems = model.data
             if !newItems.isEmpty {
                 let CategoryList = newItems
@@ -171,6 +177,23 @@ class HomeVC: UIViewController {
         }
     }
 
+//=======
+    @IBAction func btn_Profile(_ sender: Any) {
+        vwPopup.isHidden = false
+    }
+    
+    @IBAction func btn_MyProfile(_ sender: Any) {
+        let sb = UIStoryboard(name: "Profile", bundle:nil)
+        let vc = sb.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
+        self.navigationController?.pushViewController(vc, animated: true)
+        vwPopup.isHidden = true
+    }
+    
+    
+    @IBAction func btn_Logout(_ sender: Any) {
+    }
+    
+//>>>>>>> ajay_work
     /*
     // MARK: - Navigation
 
