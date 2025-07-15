@@ -122,7 +122,10 @@ class global: NSObject
 
     var URL_UPDATE_BLOCK_CUSTOMERS = global.server_url + "update_block_customers"
     var URL_BLOCK_CUSTOMERS = global.server_url + "block_customers"
-
+    
+    var URL_ADD_VENDOR_DATA = global.server_url + "add_vendor_data"
+    var URL_MAIN_CATAGORIES = global.server_url + "maincategories"
+    
     
     //MARK:-
     override init()

@@ -817,4 +817,52 @@ class BlockCustomerModel: Mappable {
     }
 }
 
-//>>>>>>> Stashed changes
+class VendorData: Mappable {
+    var data: VendorDataModel?
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data    <- map["data"]
+        error   <- map["error"]
+    }
+}
+
+class VendorDataModel: Mappable {
+    var message: String?
+    var result: [VendorResultDataModel] = []
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        message <- map["message"]
+        result     <- map["result"]
+    }
+}
+
+class VendorResultDataModel: Mappable {
+    
+    var id: Int?
+    var salon_id: Int?
+    var first_name: String?
+    var last_name: String?
+    var email: String?
+    var is_verified: Int?
+    var phone: String?
+    var business_verified: String?
+    
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id          <- map["id"]
+        salon_id        <- map["salon_id"]
+        first_name       <- map["first_name"]
+        last_name <- map["last_name"]
+        email      <- map["email"]
+        is_verified      <- map["is_verified"]
+        phone      <- map["phone"]
+        business_verified      <- map["business_verified"]
+    }
+}
+

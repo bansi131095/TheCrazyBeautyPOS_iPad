@@ -1840,6 +1840,150 @@ class APIService {
                 }
             }
     }
-//>>>>>>> Stashed changes:TheCrazyBeautyPOS/Home/API/APIService .swift
+    
+    
+    func AddVendorData(salon_id: String, completion: @escaping (VendorData?) -> Void) {
+        let url = global.shared.URL_ADD_VENDOR_DATA
+
+        let params: [String: Any] = [
+            "salon_id": salon_id
+        ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<VendorData, AFError>) in
+
+            // 📦 Debug Logs
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            
+
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    func BusinessInformation(url:String,address:String,latitude:String,longitude:String,postcode:String,salon_name: String,salon_type:String,web_status:String, completion: @escaping (CurrencyResponse?) -> Void) {
+        let url = url
+        
+        let params: [String: Any] = [
+                "address": address,
+                "latitude": latitude,
+                "longitude": longitude,
+                "postcode": postcode,
+                "salon_name": salon_name,
+                "salon_type": salon_type,
+                "web_status": web_status
+            ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<CurrencyResponse, AFError>) in
+
+            // 📦 Print request info
+            
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    func Add_BusinessHours(url: String, workingHours: [WorkingHour1], completion: @escaping (Bool) -> Void) {
+        let url = url
+
+        // 1. Build JSON manually to ensure correct formatting
+        var workingHoursArray: [[String: String]] = []
+
+        for wh in workingHours {
+            if let day = wh.day, let from = wh.from, let to = wh.to {
+                workingHoursArray.append([
+                    "day": day,
+                    "from": from,
+                    "to": to
+                ])
+            }
+        }
+
+        // 2. Convert to JSON data
+        guard let data = try? JSONSerialization.data(withJSONObject: workingHoursArray, options: []),
+              let jsonArrayString = String(data: data, encoding: .utf8) else {
+            print("❌ Failed to encode working_hours array")
+            completion(false)
+            return
+        }
+
+        // 3. Build final parameters
+        let params: [String: Any] = [
+            "working_hours": jsonArrayString
+        ]
+
+        // Debug print
+        print("📤 Payload to Send: \(params)")
+
+        // 5. API Call
+        AF.request(url,method: .post,parameters: params,encoding: JSONEncoding.default,headers: HTTPHeaders(headers))
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    print("✅ API Success: \(value)")
+                    completion(true)
+                case .failure(let error):
+                    print("❌ API Error: \(error)")
+                    if let data = response.data {
+                        print("📦 Error Body:\n\(String(data: data, encoding: .utf8) ?? "")")
+                    }
+                    completion(false)
+                }
+            }
+    }
+    
+    func fetch_MainCategory(completion: @escaping (CategoryModel?) -> Void) {
+        let url = global.shared.URL_MAIN_CATAGORIES + "/\(LocalData.userId)"
+
+        AF.request(url, method: .get, headers: HTTPHeaders(headers))
+            .validate()
+            .responseObject { (response: DataResponse<CategoryModel, AFError>) in
+            switch response.result {
+            case .success(let model):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Received \(model.data.count) business services")
+                completion(model)
+            case .failure(let error):
+                print("❌ API Call Failed: \(error)")
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                completion(nil)
+            }
+        }
+    }
 }
 
