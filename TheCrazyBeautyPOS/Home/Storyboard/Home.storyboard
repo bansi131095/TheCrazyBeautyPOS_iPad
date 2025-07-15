@@ -34,6 +34,117 @@
             </objects>
             <point key="canvasLocation" x="-205" y="38"/>
         </scene>
+        <!--Booking HistoryVC-->
+        <scene sceneID="Hyq-HN-h6D">
+            <objects>
+                <viewController storyboardIdentifier="BookingHistoryVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dvA-hX-NCJ" customClass="BookingHistoryVC" customModule="TheCrazyBeautyPOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UYJ-ND-0qn">
+                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="NF5-ka-4tD"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9qb-Qq-w20" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="796" y="-1371"/>
+        </scene>
+        <!--NotificationVC-->
+        <scene sceneID="40E-gt-DnI">
+            <objects>
+                <viewController storyboardIdentifier="NotificationVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="urR-Sr-LP4" customClass="NotificationVC" customModule="TheCrazyBeautyPOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UsS-A0-rNl">
+                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T3Q-sn-A31">
+                                <rect key="frame" x="0.0" y="24" width="1180" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWV-4Q-QgS">
+                                        <rect key="frame" x="35" y="13" width="34" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="34" id="91a-ek-MCL"/>
+                                            <constraint firstAttribute="height" constant="34" id="Cf8-I6-ni0"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="back"/>
+                                        <connections>
+                                            <action selector="act_back:" destination="urR-Sr-LP4" eventType="touchUpInside" id="ZVL-0E-6JS"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notification" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Cl-sk-P4Q">
+                                        <rect key="frame" x="89" y="13" width="1071" height="34"/>
+                                        <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="28"/>
+                                        <color key="textColor" name="TextBlack"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="9Cl-sk-P4Q" firstAttribute="leading" secondItem="fWV-4Q-QgS" secondAttribute="trailing" constant="20" id="86K-VJ-Pd0"/>
+                                    <constraint firstAttribute="trailing" secondItem="9Cl-sk-P4Q" secondAttribute="trailing" constant="20" id="A8b-Ev-nEn"/>
+                                    <constraint firstItem="fWV-4Q-QgS" firstAttribute="leading" secondItem="T3Q-sn-A31" secondAttribute="leading" constant="35" id="XHq-lz-bb4"/>
+                                    <constraint firstItem="9Cl-sk-P4Q" firstAttribute="centerY" secondItem="T3Q-sn-A31" secondAttribute="centerY" id="eMp-bm-B6V"/>
+                                    <constraint firstItem="fWV-4Q-QgS" firstAttribute="centerY" secondItem="T3Q-sn-A31" secondAttribute="centerY" id="gsD-if-ygc"/>
+                                    <constraint firstAttribute="height" constant="60" id="wd1-75-hCx"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dgm-av-KTC">
+                                <rect key="frame" x="35" y="99" width="500" height="46"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="wdH-8h-OKS">
+                                        <rect key="frame" x="10" y="3" width="480" height="41"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="6L6-jt-cnY"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="Account Activity"/>
+                                            <segment title="Booking History"/>
+                                        </segments>
+                                        <color key="selectedSegmentTintColor" name="AppWhite"/>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" name="AccentLight"/>
+                                <constraints>
+                                    <constraint firstItem="wdH-8h-OKS" firstAttribute="top" secondItem="dgm-av-KTC" secondAttribute="top" constant="3" id="Crd-6g-CBt"/>
+                                    <constraint firstAttribute="trailing" secondItem="wdH-8h-OKS" secondAttribute="trailing" constant="10" id="K6z-F5-Lpa"/>
+                                    <constraint firstAttribute="bottom" secondItem="wdH-8h-OKS" secondAttribute="bottom" constant="3" id="NvT-Bc-fKD"/>
+                                    <constraint firstAttribute="width" constant="500" id="qkB-Js-bAW"/>
+                                    <constraint firstItem="wdH-8h-OKS" firstAttribute="leading" secondItem="dgm-av-KTC" secondAttribute="leading" constant="10" id="yW5-3F-x59"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KE9-Ti-s3b">
+                                <rect key="frame" x="20" y="160" width="1140" height="610"/>
+                            </containerView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="cNu-X6-4IM"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="T3Q-sn-A31" firstAttribute="leading" secondItem="cNu-X6-4IM" secondAttribute="leading" id="FGf-hU-dsr"/>
+                            <constraint firstItem="cNu-X6-4IM" firstAttribute="trailing" secondItem="T3Q-sn-A31" secondAttribute="trailing" id="JNv-Pd-2u0"/>
+                            <constraint firstItem="KE9-Ti-s3b" firstAttribute="top" secondItem="dgm-av-KTC" secondAttribute="bottom" constant="15" id="T2N-cE-vAp"/>
+                            <constraint firstItem="T3Q-sn-A31" firstAttribute="top" secondItem="cNu-X6-4IM" secondAttribute="top" id="U1X-dw-LZJ"/>
+                            <constraint firstItem="cNu-X6-4IM" firstAttribute="trailing" secondItem="KE9-Ti-s3b" secondAttribute="trailing" constant="20" id="hl9-zU-lLw"/>
+                            <constraint firstItem="dgm-av-KTC" firstAttribute="top" secondItem="T3Q-sn-A31" secondAttribute="bottom" constant="15" id="lwZ-XK-yg9"/>
+                            <constraint firstItem="KE9-Ti-s3b" firstAttribute="bottom" secondItem="cNu-X6-4IM" secondAttribute="bottom" id="mwG-Jq-4tn"/>
+                            <constraint firstItem="KE9-Ti-s3b" firstAttribute="leading" secondItem="cNu-X6-4IM" secondAttribute="leading" constant="20" id="x50-65-WVc"/>
+                            <constraint firstItem="dgm-av-KTC" firstAttribute="leading" secondItem="cNu-X6-4IM" secondAttribute="leading" constant="35" id="xXt-Tl-pWL"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="contentView" destination="KE9-Ti-s3b" id="Ls6-EP-u4g"/>
+                        <outlet property="segmentCard" destination="wdH-8h-OKS" id="hhB-5W-eK8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pDk-s2-iiY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="538.98305084745766" y="-691.46341463414637"/>
+        </scene>
         <!--HomeVC-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
@@ -5570,6 +5681,36 @@
             </objects>
             <point key="canvasLocation" x="4561.5254237288136" y="-2498.0487804878048"/>
         </scene>
+        <!--Account ActivityVC-->
+        <scene sceneID="vSK-NP-O1W">
+            <objects>
+                <viewController storyboardIdentifier="AccountActivityVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tGb-ue-bq2" customClass="AccountActivityVC" customModule="TheCrazyBeautyPOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eJ2-jN-ehC">
+                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="FB8-RQ-Iod">
+                                <rect key="frame" x="0.0" y="24" width="1180" height="746"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="a7j-m5-kRY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="FB8-RQ-Iod" firstAttribute="leading" secondItem="a7j-m5-kRY" secondAttribute="leading" id="BcG-gX-PyV"/>
+                            <constraint firstItem="FB8-RQ-Iod" firstAttribute="bottom" secondItem="a7j-m5-kRY" secondAttribute="bottom" id="MMT-ZZ-Ufj"/>
+                            <constraint firstItem="FB8-RQ-Iod" firstAttribute="trailing" secondItem="a7j-m5-kRY" secondAttribute="trailing" id="Pji-KO-Wfp"/>
+                            <constraint firstItem="FB8-RQ-Iod" firstAttribute="top" secondItem="a7j-m5-kRY" secondAttribute="top" id="xo9-3a-8Oe"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tbl_vw" destination="FB8-RQ-Iod" id="vOP-Nk-m5K"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lhQ-Gd-Jja" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="41.694915254237287" y="-1371.219512195122"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Add" width="30" height="30"/>
@@ -5634,13 +5775,13 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGrayColor">
-            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

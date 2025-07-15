@@ -105,7 +105,8 @@ class HomeVC: UIViewController {
 //<<<<<<< HEAD
     //MARK: Button Action
     @IBAction func act_notification(_ sender: UIButton) {
-        
+        let notification = self.storyboard?.instantiateViewController(withIdentifier: "NotificationVC") as! NotificationVC
+        self.navigationController?.pushViewController(notification, animated: true)
     }
     
     //MARK: Api Data

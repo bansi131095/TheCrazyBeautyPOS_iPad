@@ -121,6 +121,7 @@ open class CountrySelectView: UIView {
         countryTableView.layer.cornerRadius = 5.0
         
     }
+    
     func setLayout() {
         
         
@@ -138,15 +139,31 @@ open class CountrySelectView: UIView {
         
         
     }
+    
     public func show() {
         
-        if let window = UIApplication.shared.delegate!.window! {
+     /*   if let window = UIApplication.shared.delegate!.window! {
             window.addSubview(self)
         }
         searchBarView.text = ""
         searchCountrys = CountryCodeJson
         self.countryTableView.reloadData()
-        self.setLayout()
+        self.setLayout() */
+        
+        if let windowScene = UIApplication.shared.connectedScenes
+                .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene,
+               let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
+
+                window.addSubview(self)
+            } else {
+                print("⚠️ Unable to find key window")
+                return
+            }
+
+            searchBarView.text = ""
+            searchCountrys = CountryCodeJson
+            self.countryTableView.reloadData()
+            self.setLayout()
     }
     @objc public func dismiss() {
         self.removeFromSuperview()

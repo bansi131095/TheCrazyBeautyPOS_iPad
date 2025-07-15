@@ -2532,128 +2532,166 @@ extension UIViewController {
     }
     
     
-    @IBDesignable
-    class GradientButton: UIButton {
-        
-        @IBInspectable var startColor: UIColor = UIColor.systemBlue {
-            didSet { setNeedsLayout() }
+    func formatISODateToReadable(_ isoDateString: String) -> String? {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+//        inputFormatter.locale = Locale(identifier: "en_US_POSIX")
+//        inputFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+
+        guard let date = inputFormatter.date(from: isoDateString) else {
+            return nil
         }
-        
-        @IBInspectable var endColor: UIColor = UIColor.systemTeal {
-            didSet { setNeedsLayout() }
-        }
-        
-        private var gradientLayer: CAGradientLayer?
-        
-        override func layoutSubviews() {
-            super.layoutSubviews()
-            
-            gradientLayer?.removeFromSuperlayer()
-            
-            let gradient = CAGradientLayer()
-            gradient.colors = [startColor.cgColor, endColor.cgColor]
-            gradient.startPoint = CGPoint(x: 0.5, y: 0.0)
-            gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
-            gradient.frame = bounds
-            gradient.cornerRadius = layer.cornerRadius
-            
-            layer.insertSublayer(gradient, at: 0)
-            self.gradientLayer = gradient
-        }
+
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "EEEE, MMM dd, yyyy 'at' hh:mm a"
+        outputFormatter.locale = Locale(identifier: "en_US")
+        outputFormatter.timeZone = TimeZone.current
+
+        return outputFormatter.string(from: date)
     }
     
-    
-    @IBDesignable
-    class FloatingTextView: UIView, UITextViewDelegate {
-        
-        private let placeholderLabel = UILabel()
-        private let textView = UITextView()
-        
-        // MARK: - Inspectable Placeholder
-        @IBInspectable var placeholder: String = "Description" {
-            didSet {
-                placeholderLabel.text = placeholder
-            }
+    func formatUpdatedAt(_ inputDate: String) -> String? {
+        // Step 1: Parse the input string assuming it's in ISO 8601 format (e.g., "2025-07-14T13:19:26.000Z")
+        let inputFormatter = ISO8601DateFormatter()
+        inputFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        inputFormatter.timeZone = TimeZone(secondsFromGMT: 0) // Because "Z" means UTC
+
+        guard let date = inputFormatter.date(from: inputDate) else {
+            return nil
         }
-        
-        // MARK: - Initialization
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            setupView()
-        }
-        
-        required init?(coder aDecoder: NSCoder) {
-            super.init(coder: aDecoder)
-            setupView()
-        }
-        
-        private func setupView() {
-            self.layer.borderWidth = 1
-            self.layer.borderColor = UIColor.lightGray.cgColor
-            self.layer.cornerRadius = 60
-            // Half of height for pill shape
-            self.clipsToBounds = true
-            
-            // Configure UITextView
-            textView.delegate = self
-            textView.backgroundColor = .clear
-            textView.textContainerInset = UIEdgeInsets(top: 35, left: 24, bottom: 10, right: 24)
-            textView.font = UIFont.systemFont(ofSize: 16)
-            addSubview(textView)
-            
-            // Configure Placeholder Label
+
+        // Step 2: Format to "Mon,Jul 14,2025 at 01:19 PM" in local time
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "EEE,MMM d,yyyy 'at' hh:mm a"
+        outputFormatter.locale = Locale(identifier: "en_US")
+        outputFormatter.timeZone = TimeZone.current // Local time zone
+
+        return outputFormatter.string(from: date)
+    }
+
+
+}
+
+@IBDesignable
+class GradientButton: UIButton {
+
+    @IBInspectable var startColor: UIColor = UIColor.systemBlue {
+        didSet { setNeedsLayout() }
+    }
+
+    @IBInspectable var endColor: UIColor = UIColor.systemTeal {
+        didSet { setNeedsLayout() }
+    }
+
+    private var gradientLayer: CAGradientLayer?
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        gradientLayer?.removeFromSuperlayer()
+
+        let gradient = CAGradientLayer()
+        gradient.colors = [startColor.cgColor, endColor.cgColor]
+        gradient.startPoint = CGPoint(x: 0.5, y: 0.0)
+        gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
+        gradient.frame = bounds
+        gradient.cornerRadius = layer.cornerRadius
+
+        layer.insertSublayer(gradient, at: 0)
+        self.gradientLayer = gradient
+    }
+}
+
+
+@IBDesignable
+class FloatingTextView: UIView, UITextViewDelegate {
+
+    private let placeholderLabel = UILabel()
+    private let textView = UITextView()
+
+    // MARK: - Inspectable Placeholder
+    @IBInspectable var placeholder: String = "Description" {
+        didSet {
             placeholderLabel.text = placeholder
-            placeholderLabel.font = UIFont.systemFont(ofSize: 20)
-            placeholderLabel.textColor = .gray
-            placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(placeholderLabel)
-            
-            // Constraints
-            textView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                textView.topAnchor.constraint(equalTo: self.topAnchor),
-                textView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-                textView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-                textView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-                
-                placeholderLabel.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: 12),
-                placeholderLabel.topAnchor.constraint(equalTo: textView.topAnchor, constant: 18)
-            ])
         }
-        
-        // MARK: - Floating Animation
-        func textViewDidBeginEditing(_ textView: UITextView) {
-            animatePlaceholder(up: true)
+    }
+
+    // MARK: - Initialization
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupView()
+    }
+
+    private func setupView() {
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.lightGray.cgColor
+        self.layer.cornerRadius = 60
+        // Half of height for pill shape
+        self.clipsToBounds = true
+
+        // Configure UITextView
+        textView.delegate = self
+        textView.backgroundColor = .clear
+        textView.textContainerInset = UIEdgeInsets(top: 35, left: 24, bottom: 10, right: 24)
+        textView.font = UIFont.systemFont(ofSize: 16)
+        addSubview(textView)
+
+        // Configure Placeholder Label
+        placeholderLabel.text = placeholder
+        placeholderLabel.font = UIFont.systemFont(ofSize: 20)
+        placeholderLabel.textColor = .gray
+        placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(placeholderLabel)
+
+        // Constraints
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            textView.topAnchor.constraint(equalTo: self.topAnchor),
+            textView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            textView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            textView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+
+            placeholderLabel.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: 12),
+            placeholderLabel.topAnchor.constraint(equalTo: textView.topAnchor, constant: 18)
+        ])
+    }
+
+    // MARK: - Floating Animation
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        animatePlaceholder(up: true)
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            animatePlaceholder(up: false)
         }
-        
-        func textViewDidEndEditing(_ textView: UITextView) {
-            if textView.text.isEmpty {
-                animatePlaceholder(up: false)
-            }
-        }
-        
-        private func animatePlaceholder(up: Bool) {
-            UIView.animate(withDuration: 0.2) {
-                self.placeholderLabel.transform = up || !self.textView.text.isEmpty
+    }
+
+    private func animatePlaceholder(up: Bool) {
+        UIView.animate(withDuration: 0.2) {
+            self.placeholderLabel.transform = up || !self.textView.text.isEmpty
                 ? CGAffineTransform(translationX: 0, y: -10).scaledBy(x: 0.85, y: 0.85)
                 : .identity
-                self.placeholderLabel.textColor = .gray
-            }
+            self.placeholderLabel.textColor = .gray
         }
-        
-        // MARK: - Expose Text
-        var text: String {
-            get {
-                return textView.text
-            }
-            set {
-                textView.text = newValue
-                animatePlaceholder(up: !newValue.isEmpty)
-            }
-        }
-        
     }
-    
+
+    // MARK: - Expose Text
+    var text: String {
+        get {
+            return textView.text
+        }
+        set {
+            textView.text = newValue
+            animatePlaceholder(up: !newValue.isEmpty)
+        }
+    }
+
 }
 
 extension String {

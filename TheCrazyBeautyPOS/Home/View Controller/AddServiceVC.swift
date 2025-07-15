@@ -166,7 +166,6 @@ class AddServiceVC: UIViewController {
             self.btn_patchTest.setImage(UIImage(named: "rdUncheck"), for: .normal)
         }
         
-        
     }
 
 

@@ -18,7 +18,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		802232E02E222D4F00371E92 /* Exceptions for "TheCrazyBeautyPOS" folder in "TheCrazyBeautyPOS" target */ = {
+		058364972DEF23DC00C0B42E /* Exceptions for "TheCrazyBeautyPOS" folder in "TheCrazyBeautyPOS" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -31,7 +31,7 @@
 		058364872DEF23DA00C0B42E /* TheCrazyBeautyPOS */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				802232E02E222D4F00371E92 /* Exceptions for "TheCrazyBeautyPOS" folder in "TheCrazyBeautyPOS" target */,
+				058364972DEF23DC00C0B42E /* Exceptions for "TheCrazyBeautyPOS" folder in "TheCrazyBeautyPOS" target */,
 			);
 			path = TheCrazyBeautyPOS;
 			sourceTree = "<group>";
@@ -97,7 +97,7 @@
 				058364822DEF23DA00C0B42E /* Frameworks */,
 				058364832DEF23DA00C0B42E /* Resources */,
 				1DAB88048E4F05FA3E8A3696 /* [CP] Embed Pods Frameworks */,
-				BF348468735E260C79AD6074 /* [CP] Copy Pods Resources */,
+				38E37744CB31EAAD6AC903FB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -178,6 +178,27 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TheCrazyBeautyPOS/Pods-TheCrazyBeautyPOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		38E37744CB31EAAD6AC903FB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TheCrazyBeautyPOS/Pods-TheCrazyBeautyPOS-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TheCrazyBeautyPOS/Pods-TheCrazyBeautyPOS-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TheCrazyBeautyPOS/Pods-TheCrazyBeautyPOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		AF9A38DF5CB605ECB72C3A1B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -198,27 +219,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BF348468735E260C79AD6074 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TheCrazyBeautyPOS/Pods-TheCrazyBeautyPOS-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TheCrazyBeautyPOS/Pods-TheCrazyBeautyPOS-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TheCrazyBeautyPOS/Pods-TheCrazyBeautyPOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -242,9 +242,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.0.0;
+				DEVELOPMENT_TEAM = RQZ55MYXW3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheCrazyBeautyPOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "The Crazy Beauty POS";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -278,9 +281,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.0.0;
+				DEVELOPMENT_TEAM = RQZ55MYXW3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheCrazyBeautyPOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "The Crazy Beauty POS";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
