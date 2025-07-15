@@ -101,7 +101,7 @@ class AccountActivityVC: UIViewController {
 }
 
 
-extension AccountActivityVC: UITableViewDelegate, UITableViewDataSource{
+extension AccountActivityVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -117,10 +117,20 @@ extension AccountActivityVC: UITableViewDelegate, UITableViewDataSource{
         }
         let activity = self.notificationList[indexPath.row]
         cell.lbl_activity.text = activity.message
-        if let formattedDate = formatISODateToReadable(activity.updatedAt) {
-            print(formattedDate)
-            cell.lbl_time.text = formattedDate
-        }        
+//        let formattedDate = convertUTCToLocalFormatted(dateString: activity.updatedAt)
+//        print("CURRENT TIME : \(activity.updatedAt) :: \(formattedDate)")
+//        cell.lbl_time.text = formattedDate
+        let updatedAt = activity.updatedAt  // Assuming updatedAt is a String like "2025-07-14T13:19:26.000Z"
+
+      /*  let converted = convertDate(
+            oriFormat: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+            newFormat: "EEEE, MMM dd, yyyy 'at' hh:mm a",
+            date: updatedAt
+        ) */
+        
+        let converted = ConvertDateFormat(date: updatedAt, inputdate: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", outputdateformat: "EEEE, MMM dd, yyyy 'at' hh:mm a")
+
+        cell.lbl_time.text = converted
         return cell
     }
     

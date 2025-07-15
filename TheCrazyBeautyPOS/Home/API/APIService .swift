@@ -928,13 +928,21 @@ class APIService {
     func getbookingHistory(page: String, limit: String, vendorId: String, search: String, days: String, completion: @escaping (BookingResponse?) -> Void) {
         let url = global.shared.URL_BOOKINGS_HISTORY
         
-        let params: [String: Any] = [
+        var params: [String: Any] = [:]
+        if days == "300" {
+            params = [
                 "page": page,
                 "limit": limit,
                 "id": vendorId,
                 "search": search,
                 "days": days
             ]
+        } else {
+            params = [
+                "id": vendorId,
+                "days": days
+            ]
+        }
 
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
             .responseObject { (response: DataResponse<BookingResponse, AFError>) in

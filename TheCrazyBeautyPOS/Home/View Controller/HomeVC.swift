@@ -109,6 +109,7 @@ class HomeVC: UIViewController {
         self.navigationController?.pushViewController(notification, animated: true)
     }
     
+    
     //MARK: Api Data
     func getAllSalonData() {
     
@@ -192,6 +193,7 @@ class HomeVC: UIViewController {
     
     
     @IBAction func btn_Logout(_ sender: Any) {
+        
     }
     
 //>>>>>>> ajay_work

@@ -2531,46 +2531,70 @@ extension UIViewController {
         }
     }
     
-    
-    func formatISODateToReadable(_ isoDateString: String) -> String? {
+    func convertUTCToLocalFormatted(dateString: String) -> String {
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-//        inputFormatter.locale = Locale(identifier: "en_US_POSIX")
-//        inputFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        inputFormatter.timeZone = TimeZone(secondsFromGMT: 0) // UTC
 
-        guard let date = inputFormatter.date(from: isoDateString) else {
-            return nil
+        guard let date = inputFormatter.date(from: dateString) else {
+            return "Invalid Date"
         }
 
         let outputFormatter = DateFormatter()
         outputFormatter.dateFormat = "EEEE, MMM dd, yyyy 'at' hh:mm a"
-        outputFormatter.locale = Locale(identifier: "en_US")
-        outputFormatter.timeZone = TimeZone.current
+        outputFormatter.timeZone = TimeZone.current // IST
 
         return outputFormatter.string(from: date)
     }
-    
-    func formatUpdatedAt(_ inputDate: String) -> String? {
-        // Step 1: Parse the input string assuming it's in ISO 8601 format (e.g., "2025-07-14T13:19:26.000Z")
-        let inputFormatter = ISO8601DateFormatter()
-        inputFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        inputFormatter.timeZone = TimeZone(secondsFromGMT: 0) // Because "Z" means UTC
 
-        guard let date = inputFormatter.date(from: inputDate) else {
-            return nil
+    func convertDate(oriFormat: String, newFormat: String, date: String) -> String {
+        let originalFormatter = DateFormatter()
+        originalFormatter.dateFormat = oriFormat
+        originalFormatter.locale = Locale(identifier: "en_US_POSIX")
+        originalFormatter.timeZone = TimeZone(secondsFromGMT: 0) // Adjust if needed
+
+        let newFormatter = DateFormatter()
+        newFormatter.dateFormat = newFormat
+        newFormatter.locale = Locale(identifier: "en_US_POSIX")
+        newFormatter.timeZone = TimeZone.current // Convert to local time
+
+        if let parsedDate = originalFormatter.date(from: date) {
+            return newFormatter.string(from: parsedDate)
         }
 
-        // Step 2: Format to "Mon,Jul 14,2025 at 01:19 PM" in local time
-        let outputFormatter = DateFormatter()
-        outputFormatter.dateFormat = "EEE,MMM d,yyyy 'at' hh:mm a"
-        outputFormatter.locale = Locale(identifier: "en_US")
-        outputFormatter.timeZone = TimeZone.current // Local time zone
-
-        return outputFormatter.string(from: date)
+        return ""
+    }
+    
+    func ConvertDateFormat(date : String ,inputdate : String , outputdateformat : String) -> String {
+        if date.isEmpty || date == "0000-00-00" || date == "0000-00-00 00:00:00" {
+            return ""
+        }
+        print("DATE \(date)")
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = inputdate
+        let showDate = inputFormatter.date(from: date)
+        inputFormatter.dateFormat = outputdateformat
+        let resultString = inputFormatter.string(from: showDate!)
+        print(resultString)
+        return resultString;
     }
 
+    func getStatusColor(status: String) -> UIColor {
+        switch status.lowercased() {
+        case "notshown", "cancelled":
+            return #colorLiteral(red: 1, green: 0.2941176471, blue: 0.3333333333, alpha: 1)// Replace with your custom `color_red` if needed
+        case "booked":
+            return #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1) // Replace with your custom `color_yellow`
+        case "completed":
+            return #colorLiteral(red: 0.1098039216, green: 0.3803921569, blue: 0.1058823529, alpha: 1) // Replace with your custom `color_green`
+        default:
+            return #colorLiteral(red: 0.631372549, green: 0.631372549, blue: 0.631372549, alpha: 1) // Default color
+        }
+    }
 
+    
 }
+
 
 @IBDesignable
 class GradientButton: UIButton {
