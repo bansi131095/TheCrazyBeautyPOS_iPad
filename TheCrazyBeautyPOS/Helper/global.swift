@@ -119,7 +119,10 @@ class global: NSObject
     var URL_GET_OPENDATE = global.server_url + "get_opendate"
     var URL_UPDATE_OPENDATE = global.server_url + "update_opendate"
     var URL_UPDATE_BUSINESS_INFORMATION = global.server_url + "business_information"
-    
+
+    var URL_UPDATE_BLOCK_CUSTOMERS = global.server_url + "update_block_customers"
+    var URL_BLOCK_CUSTOMERS = global.server_url + "block_customers"
+
     
     //MARK:-
     override init()

@@ -780,3 +780,41 @@ class OpeningDateModel: Mappable {
         opening_date <- map["opening_date"]
     }
 }
+//<<<<<<< Updated upstream
+//=======
+
+class CommonModel: Mappable {
+    var data: String?
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data    <- map["data"]
+        error   <- map["error"]
+    }
+}
+
+class BlockCustomerResponse: Mappable {
+    var data: [BlockCustomerModel] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data  <- map["data"]
+        error <- map["error"]
+    }
+}
+
+class BlockCustomerModel: Mappable {
+    var block_customers: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        block_customers <- map["block_customers"]
+    }
+}
+
+//>>>>>>> Stashed changes

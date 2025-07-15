@@ -50,7 +50,6 @@ class Booking_PolicyVC: UIViewController {
             }else{
                 self.alertWithMessageOnly("Something went wrong.")
             }
-            
         }
     }
 }

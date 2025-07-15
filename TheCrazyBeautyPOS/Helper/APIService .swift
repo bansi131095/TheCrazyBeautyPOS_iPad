@@ -1811,5 +1811,35 @@ class APIService {
         }
     }
     
+//<<<<<<< Updated upstream:TheCrazyBeautyPOS/Helper/APIService .swift
+//=======
+    func uploadBlockCustomers(vendorId: String, blockCustomers: String, completion: @escaping (Bool, String?) -> Void) {
+        let url = global.shared.URL_UPDATE_BLOCK_CUSTOMERS  // replace with your actual URL
+        
+        let params: [String: Any] = [
+            "vendor_id": vendorId,
+            "block_customers": blockCustomers
+        ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .success:
+                    print("✅ Upload successful")
+                    completion(true, nil)
+                case .failure(let error):
+                    print("❌ Upload failed: \(error)")
+                    if let data = response.data,
+                       let responseStr = String(data: data, encoding: .utf8) {
+                        print("📦 Raw response:", responseStr)
+                        completion(false, responseStr)
+                    } else {
+                        completion(false, error.localizedDescription)
+                    }
+                }
+            }
+    }
+//>>>>>>> Stashed changes:TheCrazyBeautyPOS/Home/API/APIService .swift
 }
 

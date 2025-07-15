@@ -10,8 +10,12 @@ import UIKit
 class BlockCustomerCell: UITableViewCell {
 
     @IBOutlet weak var txt_MobileNumber: TextInputLayout!
-    
+    @IBOutlet weak var img_Flag: UIImageView!
     @IBOutlet weak var btn_Delete: UIButton!
+    @IBOutlet weak var vw_Close: UIView!
+    
+    var Act_Delete: ((_ cell: BlockCustomerCell) -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,9 +27,14 @@ class BlockCustomerCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    var Act_Delete:(()->Void)?
+//    var Act_Delete:(()->Void)?
     @IBAction func act_Delete(_ sender: UIButton) {
-        self.Act_Delete?()
+//        self.Act_Delete?()
+        Act_Delete?(self)
     }
     
+    var Act_Flag:(()->Void)?
+    @IBAction func act_Flag(_ sender: UIButton) {
+        self.Act_Flag?()
+    }
 }
