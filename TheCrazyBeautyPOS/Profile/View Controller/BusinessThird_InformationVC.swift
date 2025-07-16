@@ -14,6 +14,7 @@ class BusinessThird_InformationVC: UIViewController {
     @IBOutlet weak var cv_BusinessCategories: UICollectionView!
     @IBOutlet weak var cv_BusinessCategoriesHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var btnSync: GradientButton!
     //MARK: - Global Variable
     var categoryList: [ServiceDatas] = []
     var category_Second: [ServiceDatas] = []
@@ -21,7 +22,7 @@ class BusinessThird_InformationVC: UIViewController {
     
     var excludedCategoryIDs: Set<Int> = []
     var selectedIndexes: Set<Int> = []
-    
+    var salon_Id = Int()
     
     //MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -33,6 +34,18 @@ class BusinessThird_InformationVC: UIViewController {
     //MARK: -  Button Action
     @IBAction func btn_Back(_ sender: Any) {
         self.navigationController?.popViewController(animated: false)
+    }
+    
+    @IBAction func btn_SyncTeam(_ sender: Any) {
+        SyncApiCall()
+    }
+    
+    @IBAction func btn_Done(_ sender: Any) {
+        let userSelectedIDs = selectedIndexes.subtracting(excludedCategoryIDs)
+        let finalIDs = userSelectedIDs.union(excludedCategoryIDs)
+        let serviceIDString = finalIDs.map { String($0) }.joined(separator: ",")
+        
+        update_CategoryList(service_id: serviceIDString)
     }
     
     //MARK: - Function
@@ -52,7 +65,7 @@ class BusinessThird_InformationVC: UIViewController {
     }
     
     //MARK: - Web Api Calling
-    func fetchCategoryData() {
+    /*func fetchCategoryData() {
         APIService.shared.fetchBusinessServices { businessResult in
             guard let businessModel = businessResult else { return }
 
@@ -78,8 +91,63 @@ class BusinessThird_InformationVC: UIViewController {
                 }
             }
         }
+    }*/
+    
+    func fetchCategoryData() {
+        APIService.shared.fetchBusinessServices { businessResult in
+            guard let businessModel = businessResult else { return }
+            self.categoryList = businessModel.data
+
+            APIService.shared.fetch_MainCategory { result in
+                guard let excludedList = result?.data else { return }
+
+                // Match IDs
+                let categoryIDs = self.categoryList.map { $0.id }
+                let matchedIDs = excludedList.compactMap { item -> Int? in
+                    return categoryIDs.contains(item.id) ? item.id : nil
+                }
+
+                // ✅ Print matched IDs
+                print("Matched IDs: \(matchedIDs)")
+
+                // Save to exclude and select
+                self.excludedCategoryIDs = Set(matchedIDs)
+                self.selectedIndexes.formUnion(self.excludedCategoryIDs)
+
+                DispatchQueue.main.async {
+                    self.adjustCollectionHeight()
+                    self.cv_BusinessCategories.reloadData()
+                }
+            }
+        }
     }
 
+    func SyncApiCall() {
+        APIService.shared.AddTeamData(salon_id: String(salon_Id)) { (result) in
+            if let message = result?.data {
+                self.btnSync.alpha = 0.5
+                self.btnSync.isUserInteractionEnabled = false
+                self.alertWithMessageOnly(message)
+            }else{
+                self.alertWithMessageOnly("Something went wrong.")
+            }
+        }
+    }
+    
+    func update_CategoryList(service_id: String){
+        APIService.shared.UpdateSelectServices(service_id: service_id, vendorId: String(salon_Id), completion: { result in
+            if let message = result?.data?.message {
+                let sb = UIStoryboard(name: "Home", bundle:nil)
+                let navDashboard = sb.instantiateViewController(withIdentifier: "NavigateHome") as! UINavigationController
+                 navDashboard.modalPresentationStyle = .fullScreen
+                self.present(navDashboard, animated: true, completion: nil)
+                self.alertWithMessageOnly(message)
+            }else{
+                self.alertWithMessageOnly("Something went wrong.")
+            }
+        })
+    }
+    
     func adjustCollectionHeight() {
         let collectionViewWidth = self.cv_BusinessCategories.bounds.width
         let itemsPerRow: CGFloat = collectionViewWidth > 700 ? 6 :
@@ -108,20 +176,20 @@ extension BusinessThird_InformationVC: UICollectionViewDataSource, UICollectionV
         guard let cell = cv_BusinessCategories.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as? CategoryCell else {
             fatalError("Unable to dequeue CategoryCell")
         }
-        let category = self.categoryList[indexPath.row] // Get the category data
+        let category = self.categoryList[indexPath.row]
+        let isSelected = selectedIndexes.contains(category.id)
+        let isExcluded = excludedCategoryIDs.contains(category.id)
+        
         cell.vw_count.isHidden = true
         cell.lbl_name.text = category.service_name
         
-        /*if isSelected {
-            cell.img_back.image = UIImage(named: "sel_cat")
+        /*if excludedCategoryIDs.contains(category.id) {
+            cell.contentView.alpha = 0.5
+            cell.isUserInteractionEnabled = false
         } else {
-            if category.color != "" {
-                cell.img_back.image = UIImage(named: "Tint_cat_back")
-                cell.img_back.tintColor = UIColor(hexString: category.color)
-            } else {
-                cell.img_back.image = UIImage(named: "cat_back")
-            }
-        }
+            cell.contentView.alpha = 1.0
+            cell.isUserInteractionEnabled = true
+        }*/
         
         if isExcluded {
             cell.contentView.alpha = 0.5
@@ -129,7 +197,13 @@ extension BusinessThird_InformationVC: UICollectionViewDataSource, UICollectionV
         } else {
             cell.contentView.alpha = 1.0
             cell.isUserInteractionEnabled = true
-        }*/
+        }
+        
+        if isSelected && !isExcluded {
+            cell.img_back.image = UIImage(named: "sel_cat")
+        } else {
+            cell.img_back.image = UIImage(named: "cat_back")
+        }
         
         let icon = category.icon
         let isSvg = icon.lowercased().hasSuffix(".svg")

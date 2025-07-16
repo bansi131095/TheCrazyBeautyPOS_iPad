@@ -125,6 +125,8 @@ class global: NSObject
     
     var URL_ADD_VENDOR_DATA = global.server_url + "add_vendor_data"
     var URL_MAIN_CATAGORIES = global.server_url + "maincategories"
+    var URL_ADD_TEAM_DATA = global.server_url + "add_team_data"
+    var URL_SELECT_SERIVICES = global.server_url + "select_services"
     
     
     //MARK:-

@@ -306,7 +306,7 @@ class BusinessSecond_InformationVC: UIViewController {
             if result {
                 let storyboard = UIStoryboard(name: "Profile", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "BusinessThird_InformationVC") as! BusinessThird_InformationVC
-//                vc.vendor_Id = vendor_ID
+                vc.salon_Id = self.vendor_Id
                 self.navigationController?.pushViewController(vc, animated: false)
                 self.alertWithMessageOnly("Business timing updated successfully")
             } else {
