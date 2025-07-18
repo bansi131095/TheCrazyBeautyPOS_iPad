@@ -866,3 +866,26 @@ class VendorResultDataModel: Mappable {
     }
 }
 
+
+// Service Sales Data
+
+class ServiceDataModel: Mappable {
+    
+    var id: Int?
+    var service_name: Int?
+    var service_for: String?
+    var test_required: Int?
+    var amount: Int?
+    var total_saleprice: Int?
+    
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id          <- map["id"]
+        service_name        <- map["service_name"]
+        service_for       <- map["service_for"]
+        test_required <- map["test_required"]
+        amount      <- map["amount"]
+        total_saleprice      <- map["total_saleprice"]
+    }
+}

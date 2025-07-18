@@ -12,6 +12,7 @@ class ServiceDetailsModel: Mappable {
     var total: Int = 0
     var totalpages: Int = 0
     var data: [ServiceData] = []
+    var total_sales: String = ""
     var error: String = ""
 
     required init?(map: Map) {}
@@ -20,6 +21,7 @@ class ServiceDetailsModel: Mappable {
         total       <- map["total"]
         totalpages  <- map["totalpages"]
         data        <- map["data"]
+        total_sales <- map["total_sales"]
         error       <- map["error"]
     }
 }
@@ -35,6 +37,7 @@ class ServiceData: Mappable {
     var category: String = ""
     var service: String = ""
     var service_for: String = ""
+    var service_name: String = ""
     var description: String = ""
     var price_type: String = ""
     var selectedTeamId: Int = 0
@@ -46,6 +49,8 @@ class ServiceData: Mappable {
     var conatctSalon: Int = 0
     var numberOfGuests: Int = 0
     var isFav: Int = 0
+    var amount: Int = 0
+    var total_saleprice: Int = 0
     var guests: [Guest] = []
 
     required init?(map: Map) {}
@@ -61,6 +66,7 @@ class ServiceData: Mappable {
         category           <- map["category"]
         service            <- map["service"]
         service_for        <- map["service_for"]
+        service_name       <- map["service_name"]
         description        <- map["description"]
         price_type         <- map["price_type"]
         selectedTeamId     <- map["selectedTeamId"]
@@ -72,6 +78,8 @@ class ServiceData: Mappable {
         conatctSalon       <- map["contact_salon"]
         numberOfGuests     <- map["numberOfGuests"]
         isFav              <- map["isFav"]
+        amount             <- map["amount"]
+        total_saleprice    <- map["total_saleprice"]
         guests             <- map["guests"]
     }
 }
@@ -89,6 +97,137 @@ class Guest: Mappable {
         name    <- map["name"]
         age     <- map["age"]
         gender  <- map["gender"]
+    }
+}
+
+class GiftModel: Mappable {
+    var total: Int = 0
+    var totalpages: Int = 0
+    var data: [GiftDateModel] = []
+    var total_sales: String = ""
+    var error: String = ""
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        total       <- map["total"]
+        totalpages  <- map["totalpages"]
+        data        <- map["data"]
+        total_sales <- map["total_sales"]
+        error       <- map["error"]
+    }
+}
+
+class GiftDateModel: Mappable {
+    
+    var id: Int = 0
+    var gift_id: Int = 0
+    var off_vendor_id: Int = 0
+    var customer_id: Int = 0
+    var from_mail: String = ""
+    var to_mail: String = ""
+    var gift_name: String = ""
+    var gift_code: String = ""
+    var used_date: String = ""
+    var amount: Int = 0
+    var offline_vendor: Int = 0
+    var message: String = ""
+    var expiry_date: String = ""
+    var created_at: String = ""
+    var updated_at: String = ""
+    
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id                   <- map["id"]
+        gift_id              <- map["gift_id"]
+        off_vendor_id        <- map["off_vendor_id"]
+        customer_id          <- map["customer_id"]
+        from_mail            <- map["from_mail"]
+        to_mail              <- map["to_mail"]
+        gift_name            <- map["gift_name"]
+        gift_code            <- map["gift_code"]
+        used_date            <- map["used_date"]
+        amount               <- map["amount"]
+        offline_vendor       <- map["offline_vendor"]
+        message              <- map["message"]
+        expiry_date          <- map["expiry_date"]
+        created_at           <- map["created_at"]
+        updated_at           <- map["updated_at"]
+        
+    }
+}
+
+class SalesHistoryModel: Mappable {
+    var total: Int = 0
+    var totalpages: Int = 0
+    var passcode_status: Int = 0
+    var totalAmount: Int = 0
+    var data: [SalesHistoryDateModel] = []
+    var error: String = ""
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        total       <- map["total"]
+        totalpages  <- map["totalpages"]
+        data        <- map["data"]
+        totalAmount <- map["totalAmount"]
+        error       <- map["error"]
+    }
+}
+
+class SalesHistoryDateModel: Mappable {
+    
+    var id: Int = 0
+    var booking_number: String = ""
+    var booking_date: String = ""
+    var booking_time: String = ""
+    var name: String = ""
+    var phone: String = ""
+    var customer_type: String = ""
+    var salon_name: String = ""
+    var staff_names: String = ""
+    var services: String = ""
+    var duration: String = ""
+    var payment_type: String = ""
+    var sub_total: Int = 0
+    var discount_amount: String = ""
+    var grand_total: String = ""
+    var booking_status: String = ""
+    var miscellaneous_notes: String = ""
+    var miscellaneous_price: String = ""
+    var tip: Int = 0
+    var penalty_amount: String = ""
+    var coupon_code: String = ""
+    
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id                   <- map["id"]
+        booking_number       <- map["booking_number"]
+        booking_date                 <- map["booking_date"]
+        booking_time          <- map["booking_time"]
+        name            <- map["name"]
+        phone              <- map["phone"]
+        customer_type            <- map["customer_type"]
+        salon_name            <- map["salon_name"]
+        staff_names            <- map["staff_names"]
+        services               <- map["services"]
+        duration       <- map["duration"]
+        payment_type              <- map["payment_type"]
+        sub_total          <- map["sub_total"]
+        discount_amount           <- map["discount_amount"]
+        grand_total           <- map["grand_total"]
+        booking_status           <- map["booking_status"]
+        miscellaneous_notes           <- map["miscellaneous_notes"]
+        miscellaneous_price           <- map["miscellaneous_price"]
+        tip           <- map["tip"]
+        penalty_amount           <- map["penalty_amount"]
+        coupon_code           <- map["coupon_code"]
+        
     }
 }
 
