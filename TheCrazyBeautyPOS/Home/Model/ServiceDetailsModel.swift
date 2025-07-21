@@ -231,3 +231,73 @@ class SalesHistoryDateModel: Mappable {
     }
 }
 
+
+class WalkinModel: Mappable {
+    var total: Int = 0
+    var totalpages: Int = 0
+    var total_sales: String = ""
+    var data: [WalkinHistoryDateModel] = []
+    var error: String = ""
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        total       <- map["total"]
+        totalpages  <- map["totalpages"]
+        total_sales <- map["total_sales"]
+        data        <- map["data"]
+        error       <- map["error"]
+    }
+}
+
+
+class WalkinHistoryDateModel: Mappable {
+    
+    var id: Int = 0
+    var vendor_id: Int = 0
+    var service_ids: String = ""
+    var gift_card: String = ""
+    var booking_number: String = ""
+    var coupon_code: String = ""
+    var discount_percentage: String = ""
+    var discount_type: String = ""
+    var discount_amount: Int = 0
+    var sub_total: Int = 0
+    var miscellaneous_notes: String = ""
+    var miscellaneous_price: Int = 0
+    var tip: Int = 0
+    var payment_type: String = ""
+    var total: Int = 0
+    var transaction_id: String = ""
+    var transaction_status: String = ""
+    var created_at: String = ""
+    var updated_at: String = ""
+    var service_names: String = ""
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id                      <- map["id"]
+        vendor_id               <- map["vendor_id"]
+        service_ids             <- map["service_ids"]
+        gift_card               <- map["gift_card"]
+        booking_number          <- map["booking_number"]
+        coupon_code             <- map["coupon_code"]
+        discount_percentage     <- map["discount_percentage"]
+        discount_type           <- map["discount_type"]
+        discount_amount         <- map["discount_amount"]
+        sub_total               <- map["sub_total"]
+        miscellaneous_notes     <- map["miscellaneous_notes"]
+        miscellaneous_price     <- map["miscellaneous_price"]
+        tip                     <- map["tip"]
+        payment_type            <- map["payment_type"]
+        total                   <- map["total"]
+        transaction_id          <- map["transaction_id"]
+        transaction_status      <- map["transaction_status"]
+        created_at              <- map["created_at"]
+        updated_at           	<- map["updated_at"]
+        service_names           <- map["service_names"]
+        
+    }
+}
+

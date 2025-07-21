@@ -1,44 +1,24 @@
 //
-//  SalesReportHistory_VC.swift
+//  WalkinHistory_VC.swift
 //  TheCrazyBeautyPOS
 //
-//  Created by mini new on 18/07/25.
+//  Created by mini new on 21/07/25.
 //
 
 import UIKit
 import FSCalendar
 
-class SalesReportHistory_VC: UIViewController {
 
+class WalkinHistory_VC: UIViewController {
+    
     @IBOutlet weak var txt_FromDate: UITextField!
     @IBOutlet weak var txt_ToDate: UITextField!
+    
+    @IBOutlet weak var scroll_vw: UIScrollView!
     @IBOutlet weak var contentViewWidthConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var lbl_NoDataFound: UILabel!
     @IBOutlet weak var tbl_vw: UITableView!
-    
-    
-    
-    //MARK: Popup
-    @IBOutlet weak var vw_Back: UIView!
-    @IBOutlet weak var vw_Popup: UIView!
-    
-    
-    @IBOutlet weak var lbl_Name: UILabel!
-    @IBOutlet weak var lbl_Date: UILabel!
-    @IBOutlet weak var lbl_Time: UILabel!
-    @IBOutlet weak var lbl_ServiceName: UILabel!
-    @IBOutlet weak var lbl_Type: UILabel!
-    @IBOutlet weak var lbl_Staff: UILabel!
-    @IBOutlet weak var lbl_Status: UILabel!
-    @IBOutlet weak var lbl_CouponCode: UILabel!
-    @IBOutlet weak var lbl_MiscellaneousNote: UILabel!
-    @IBOutlet weak var lbl_Payment: UILabel!
-    @IBOutlet weak var lbl_MiscellaneousPrice: UILabel!
-    @IBOutlet weak var lbl_Tip: UILabel!
-    @IBOutlet weak var lbl_OriginalAmount: UILabel!
-    @IBOutlet weak var lbl_Discount: UILabel!
-    @IBOutlet weak var lbl_Total: UILabel!
-    
     
     var calendarVC: UIViewController?
     var firstDate: Date?
@@ -47,14 +27,16 @@ class SalesReportHistory_VC: UIViewController {
     var selectingDateFor: UITextField?
     var calendar: FSCalendar!
     
-    var salesHistoryList: [SalesHistoryDateModel] = []
+    var WalkingList: [WalkinHistoryDateModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 1000
-        setTableView()
-        salesHistoryData()
-        // Do any additional setup after loading the view.
+        contentViewWidthConstraint.constant = 1500
+        self.setTableView()
+        self.WalkinHistory()
+        print(LocalData.currency)
+        print(LocalData.symbol)
+        print(LocalData.selectedSymbol as Any)
     }
     
     // MARK: - Button Action
@@ -67,14 +49,10 @@ class SalesReportHistory_VC: UIViewController {
         showCalendarPopup(sourceView: sender as! UIView)
     }
     
-    @IBAction func btn_ClosePopup(_ sender: Any) {
-        self.vw_Back.isHidden = true
-        self.vw_Popup.isHidden = true
-    }
-    
+    //MARK: -  Function
     func setTableView(){
-        tbl_vw.register(UINib(nibName: "SalesHistoryCell", bundle: nil), forCellReuseIdentifier: "SalesHistoryCell")
-        tbl_vw.register(UINib(nibName: "SalesHistoryHeaderCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "SalesHistoryHeaderCell")
+        tbl_vw.register(UINib(nibName: "WalkinHistoryCell", bundle: nil), forCellReuseIdentifier: "WalkinHistoryCell")
+        tbl_vw.register(UINib(nibName: "WalkinHistoryHeaderCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "WalkinHistoryHeaderCell")
         tbl_vw.delegate = self
         tbl_vw.dataSource = self
         tbl_vw.rowHeight = UITableView.automaticDimension
@@ -112,7 +90,7 @@ class SalesReportHistory_VC: UIViewController {
         self.present(calendarVC!, animated: true, completion: nil)
     }
     
-    func salesHistoryData() {
+    func WalkinHistory() {
         guard let fromDateString = self.txt_FromDate.text,
               let toDateString = self.txt_ToDate.text,
               let fromDate = convertStringToDate(fromDateString),
@@ -125,19 +103,19 @@ class SalesReportHistory_VC: UIViewController {
         let formattedTo = formatDateToString(toDate)
         
         
-        APIService.shared.SalesPaymentHistory(vendor_id: LocalData.userId, start_date: formattedFrom, end_date: formattedTo, limit: "10", page: "1", customer_type: "", search: "", staff_id: "") { result in
+        APIService.shared.WalkinHistoryGet(vendor_id: LocalData.userId, limt: "10", page: "1", start_date: formattedFrom, end_date: formattedTo) { result in
             guard let model = result else {
                 print("API failed or empty response")
-                self.salesHistoryList = []
+                self.WalkingList = []
                 self.tbl_vw.reloadData()
                 self.lbl_NoDataFound.isHidden = false
                 return
             }
 
-            self.salesHistoryList = model.data
+            self.WalkingList = model.data
 
             // Show/Hide No Data Label
-            if self.salesHistoryList.isEmpty {
+            if self.WalkingList.isEmpty {
                 self.lbl_NoDataFound.isHidden = false
             } else {
                 self.lbl_NoDataFound.isHidden = true
@@ -148,7 +126,7 @@ class SalesReportHistory_VC: UIViewController {
     }
 }
 
-extension SalesReportHistory_VC: FSCalendarDelegate, FSCalendarDataSource {
+extension WalkinHistory_VC: FSCalendarDelegate, FSCalendarDataSource {
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         if firstDate == nil {
@@ -174,8 +152,7 @@ extension SalesReportHistory_VC: FSCalendarDelegate, FSCalendarDataSource {
             txt_FromDate.text = formatter.string(from: firstDate!)
             txt_ToDate.text = formatter.string(from: lastDate!)
 
-//            serviceReport()
-            salesHistoryData()
+            WalkinHistory()
             calendarVC?.dismiss(animated: true, completion: nil)
             
         } else {
@@ -191,6 +168,7 @@ extension SalesReportHistory_VC: FSCalendarDelegate, FSCalendarDataSource {
         }
     }
 
+
     func getDateRange(from: Date, to: Date) -> [Date] {
         var dates: [Date] = []
         var currentDate = from
@@ -205,54 +183,54 @@ extension SalesReportHistory_VC: FSCalendarDelegate, FSCalendarDataSource {
     }
 }
 
-extension SalesReportHistory_VC: UITableViewDelegate, UITableViewDataSource{
+extension WalkinHistory_VC: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.salesHistoryList.count
+        return self.WalkingList.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SalesHistoryHeaderCell") as? SalesHistoryHeaderCell else {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "WalkinHistoryHeaderCell") as? WalkinHistoryHeaderCell else {
                 return nil
             }
             return header
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tbl_vw.dequeueReusableCell(withIdentifier: "SalesHistoryCell", for: indexPath) as? SalesHistoryCell else {
+        guard let cell = tbl_vw.dequeueReusableCell(withIdentifier: "WalkinHistoryCell", for: indexPath) as? WalkinHistoryCell else {
             return UITableViewCell()
         }
-        let data = self.salesHistoryList[indexPath.item]
+        let data = self.WalkingList[indexPath.item]
         cell.lbl_ID.text = data.booking_number
-        cell.lbl_Name.text = data.name.capitalized
-        cell.lbl_Date.text = data.booking_date
-        cell.lbl_Time.text = data.booking_time
-        cell.lbl_Type.text = data.customer_type.capitalized
-        cell.lbl_Staff.text = data.staff_names.capitalized
-        cell.lbl_Status.text = data.booking_status.capitalized
-        cell.lbl_Payment.text = data.payment_type.capitalized
-        if data.tip == 0 {
+        cell.lbl_Date.text = data.created_at
+        cell.lbl_ServiceName.text = data.service_names
+        if data.payment_type == ""{
+            cell.lbl_PaymentType.text = "N/A"
+        }else{
+            cell.lbl_PaymentType.text = data.payment_type
+        }
+        
+        if data.coupon_code == ""{
+            cell.lbl_CouponCode.text = "N/A"
+        }else{
+            cell.lbl_CouponCode.text = data.coupon_code
+        }
+        
+        if data.tip == 0{
             cell.lbl_Tip.text = "N/A"
         }else{
-            cell.lbl_Tip.text = String(data.tip)
+            cell.lbl_Tip.text = "\(data.tip)"
         }
-        cell.lbl_Total.text = String(data.sub_total)
+        cell.lbl_Discount.text = "\(data.discount_amount)"
         
-        cell.Act_Action = {
-            let storyboard = UIStoryboard(name: "Home", bundle: nil)
-            if let vc = storyboard.instantiateViewController(withIdentifier: "Appointment_DetailsVC") as? Appointment_DetailsVC {
-                vc.model = data
-                vc.modalPresentationStyle = .overCurrentContext
-                vc.modalTransitionStyle = .crossDissolve
-                self.present(vc, animated: true)
-            }
-        }
+        cell.lbl_Total.text = "\(data.sub_total)"
+        cell.lbl_GrandTotal.text = "\(data.total)"
+        cell.lbl_MisPrice.text = "\(data.miscellaneous_price)"
         return cell
     }
     
 }
-

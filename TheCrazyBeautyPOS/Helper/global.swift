@@ -130,6 +130,7 @@ class global: NSObject
     var URL_SERIVICES_SALES_DATA = global.server_url + "service_sales_data"
     var URL_GIFT_DETAILS = global.server_url + "gift_details"
     var URL_PAYMENT_HISTORY = global.server_url + "payment_history_v1"
+    var URL_WALKIN_DETAILS = global.server_url + "walkin_details"
     
     
     //MARK:-

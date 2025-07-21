@@ -33,6 +33,8 @@ class Appointment_DetailsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5) // or UIColor.clear
+        self.modalPresentationStyle = .overCurrentContext
         self.lbl_Name.text = model?.name.capitalized
         self.lbl_Date.text = model?.booking_date
         self.lbl_Time.text = model?.booking_time

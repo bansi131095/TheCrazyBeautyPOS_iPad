@@ -2134,5 +2134,43 @@ class APIService {
         }
     }
     
+    func WalkinHistoryGet(vendor_id: String,limt: String, page:String, start_date: String,end_date: String, completion: @escaping (WalkinModel?) -> Void) {
+        let url = global.shared.URL_WALKIN_DETAILS
+        
+        let params: [String: Any] = [
+            "vendor_id": vendor_id,
+            "start_date": start_date,
+            "end_date": end_date,
+            "limit": limt,
+            "page": page
+        ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<WalkinModel, AFError>) in
+
+            // 📦 Print request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headere: \(self.headers)")
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
 }
 

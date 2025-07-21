@@ -83,6 +83,7 @@ class ReportVC: UIViewController {
     }
     
     @IBAction func btn_Walkin(_ sender: Any) {
+        loadEmbeddedViewController(for: 5)
         lbl_Sales.textColor = .black
         lbl_Walkin.textColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         lbl_GiftCard.textColor = .black
@@ -122,7 +123,7 @@ class ReportVC: UIViewController {
         case 4:
             selectedVC = storyboard.instantiateViewController(withIdentifier: "Giftcard_HistoryVC") as? Giftcard_HistoryVC
         case 5:
-            selectedVC = storyboard.instantiateViewController(withIdentifier: "ClientsVC") as? ClientsVC
+            selectedVC = storyboard.instantiateViewController(withIdentifier: "WalkinHistory_VC") as? WalkinHistory_VC
         case 6:
             selectedVC = storyboard.instantiateViewController(withIdentifier: "PromotionVC") as? PromotionVC
         case 7:
