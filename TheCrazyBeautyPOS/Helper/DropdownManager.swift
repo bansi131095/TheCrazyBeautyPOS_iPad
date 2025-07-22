@@ -75,6 +75,13 @@ class DropdownManager: NSObject, UITableViewDelegate, UITableViewDataSource {
         }
         
     }
+    
+    func hideDropdown() {
+        for (_, tableView) in dropdowns {
+            tableView.isHidden = true
+        }
+    }
+
 
     // MARK: - Table View Delegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -17,6 +17,8 @@ class LoginScreen: UIViewController {
     @IBOutlet weak var btn_eye: UIButton!
     
     
+    
+    //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.btn_eye.setImage(#imageLiteral(resourceName: "view"), for: .normal)
@@ -24,6 +26,8 @@ class LoginScreen: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    
+    //MARK: Button Action
     @IBAction func act_login(_ sender: GradientButton) {
         if (self.txt_email.text == "") {
             self.txt_email.showErrorMessage(message: "Please enter email")

@@ -35,7 +35,9 @@ class WalkingVC: UIViewController {
     @IBOutlet weak var vw_total: UIView!
     @IBOutlet weak var vw_totalHeightConst: NSLayoutConstraint!
     @IBOutlet weak var lbl_Total: UILabel!
-
+    @IBOutlet weak var btn_clear: UIButton!
+    @IBOutlet weak var btn_payNow: GradientButton!
+    
     
     var serviceList: [ServiceData] = []
     var categoryList: [ServiceDatas] = []
@@ -48,6 +50,7 @@ class WalkingVC: UIViewController {
     var gift50Count = 0;
     var totalServices = 0
     var totalGiftCard = 0
+    var totalPrice = 0
 
     
     override func viewDidLoad() {
@@ -106,6 +109,99 @@ class WalkingVC: UIViewController {
         self.gift50Count += 1
         self.totalGiftCard += 1
         self.setGiftCard()
+    }
+    
+    @IBAction func act_clear(_ sender: UIButton) {
+        // 1. Clear cart data
+        self.cartDataList.removeAll()
+
+        // 2. Reset gift card counts
+        self.gift30Count = 0
+        self.gift50Count = 0
+        self.totalGiftCard = 0
+        self.totalServices = 0
+
+        // 3. Reset all counts in serviceCategoryList
+        for i in 0..<self.serviceCategoryList.count {
+            self.serviceCategoryList[i].totalCount = 0
+            for j in 0..<self.serviceCategoryList[i].services.count {
+                self.serviceCategoryList[i].services[j].count = 0
+            }
+        }
+
+        // 4. Reset displayed services as well
+        for i in 0..<self.ServiceCategoryList.count {
+            self.ServiceCategoryList[i].count = 0
+        }
+
+        // 5. Hide UI sections
+        self.vw_service.isHidden = true
+        self.vw_giftCard.isHidden = true
+        self.vw_total.isHidden = true
+
+        // 6. Reset labels
+        self.lbl_30Count.text = "0"
+        self.lbl_50Count.text = "0"
+        self.lbl_serviceTotal.text = "x0"
+        self.lbl_giftCardTotal.text = "x0"
+        self.lbl_Total.text = "₹0"
+
+        // 7. Reload views
+        self.tbl_vw.reloadData()
+        self.collect_category.reloadData()
+        self.collect_service.reloadData()
+        self.btn_clear.isHidden = true
+        self.btn_payNow.isHidden = true
+    }
+    
+    @IBAction func act_payNow(_ sender: GradientButton) {
+        var teamServicesMap: [[String: Any]] = []
+        var giftServicesMap: [[String: Any]] = []
+
+        for cart in cartDataList {
+            for selectedService in cart.services {
+                if selectedService.id != 0 {
+                    let val: [String: Any] = [
+                        "service_id": selectedService.id,
+                        "name": selectedService.name,
+                        "qty": selectedService.count
+                    ]
+                    teamServicesMap.append(val)
+                } else {
+                    let val: [String: Any] = [
+                        "price": selectedService.price,
+                        "qty": selectedService.count
+                    ]
+                    giftServicesMap.append(val)
+                }
+            }
+        }
+
+        var GiftBookingJson = ""
+        var ServiceBookingJson = ""
+        // Debug print
+        print("selected ServiceId: \(teamServicesMap)")
+        if let serviceBookingData = try? JSONSerialization.data(withJSONObject: teamServicesMap, options: []),
+           let serviceBookingJson = String(data: serviceBookingData, encoding: .utf8) {
+            print("staffBookingJson: \(serviceBookingJson)")
+            ServiceBookingJson = serviceBookingJson
+        }
+
+        print("selected GiftCardId: \(giftServicesMap)")
+        if let giftBookingData = try? JSONSerialization.data(withJSONObject: giftServicesMap, options: []),
+           let giftBookingJson = String(data: giftBookingData, encoding: .utf8) {
+            print("giftBookingJson: \(giftBookingJson)")
+            GiftBookingJson = giftBookingJson
+        }
+        
+        let checkout = self.storyboard?.instantiateViewController(withIdentifier: "WalkinCheckoutVC") as! WalkinCheckoutVC
+        checkout.giftCards = GiftBookingJson
+        checkout.serviceId = ServiceBookingJson
+        checkout.price = totalPrice
+        checkout.totalServices = totalServices
+        checkout.totalGiftCard = totalGiftCard
+        self.present(checkout, animated: true)
+
     }
     
     func setGiftCard() {
@@ -193,6 +289,24 @@ class WalkingVC: UIViewController {
         cartDataList = nonGiftCards + giftCards
         self.tbl_vw.reloadData()
     }
+
+    func updateCartTotals() {
+        self.totalServices = cartDataList
+            .filter { $0.categoryName != "Gift Card" }
+            .reduce(0) { $0 + $1.totalCount }
+
+        self.totalGiftCard = cartDataList
+            .first(where: { $0.categoryName == "Gift Card" })?.totalCount ?? 0
+
+        // Update service and gift card UI
+        self.lbl_serviceTotal.text = "x\(totalServices)"
+        self.lbl_giftCardTotal.text = "x\(totalGiftCard)"
+        self.lbl_30Count.text = "\(self.gift30Count)"
+        self.lbl_50Count.text = "\(self.gift50Count)"
+        self.vw_service.isHidden = totalServices == 0
+        self.vw_giftCard.isHidden = totalGiftCard == 0
+    }
+
     
     func loadAllData() {
         APIService.shared.getServiceDetails(page: "1", limit: "100000", vendorId: LocalData.userId, search: "", booking: "", categoryId: "", isGroup: true) { serviceResult in
@@ -452,7 +566,6 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
                 totalWidth = textWidth + horizontalPadding
             }
             return CGSize(width: totalWidth, height: 45)
-
         } else  {
             return CGSize(width: 0.0, height: 0.0)
         }
@@ -508,6 +621,7 @@ extension WalkingVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell") as? CartCell else {
             fatalError("The cell is not registered")
         }
@@ -515,6 +629,66 @@ extension WalkingVC: UITableViewDelegate, UITableViewDataSource {
         cell.setTableView()
         cell.data = self.cartDataList[indexPath.row].services
         cell.tbl_item.reloadData()
+        cell.onItemUpdate = {itemIndex, changeAmount in
+            // Update service count
+            self.cartDataList[indexPath.row].services[itemIndex].count += changeAmount
+            // Recalculate totalCount
+            if self.cartDataList[indexPath.row].services[itemIndex].count == 0 {
+                self.cartDataList[indexPath.row].services.remove(at: itemIndex)
+            }
+            if self.cartDataList[indexPath.row].services.isEmpty {
+                self.cartDataList.remove(at: indexPath.row)
+            } else {
+                let newTotal = self.cartDataList[indexPath.row].services.reduce(0) { $0 + $1.count }
+                self.cartDataList[indexPath.row].totalCount = newTotal
+                
+            }
+            // Update total labels
+            self.updateCartTotals()
+            self.tbl_vw.reloadData()
+        }
+        cell.onItemUpdate = {itemIndex, changeAmount in
+//            guard let self = self else { return }
+
+            var service = self.cartDataList[indexPath.row].services[itemIndex]
+            service.count += changeAmount
+
+            // ✅ Update cartDataList
+            self.cartDataList[indexPath.row].services[itemIndex] = service
+            // ✅ Update in ServiceCategoryList (visible services)
+            let newTotal = self.cartDataList[indexPath.row].services.reduce(0) { $0 + $1.count }
+            self.cartDataList[indexPath.row].totalCount = newTotal
+            if let serviceIndex = self.ServiceCategoryList.firstIndex(where: { $0.id == service.id }) {
+                self.ServiceCategoryList[serviceIndex].count = service.count
+            }
+
+            // ✅ Update in serviceCategoryList (entire list)
+            if let categoryIndex = self.serviceCategoryList.firstIndex(where: { $0.categoryName == self.cartDataList[indexPath.row].categoryName }) {
+                if let itemIndex = self.serviceCategoryList[categoryIndex].services.firstIndex(where: { $0.id == service.id }) {
+                    self.serviceCategoryList[categoryIndex].services[itemIndex].count = service.count
+                }
+
+                // Update totalCount of that category
+                let total = self.serviceCategoryList[categoryIndex].services.reduce(0) { $0 + $1.count }
+                self.serviceCategoryList[categoryIndex].totalCount = total
+            }
+            
+            if self.cartDataList[indexPath.row].services[itemIndex].count == 0 {
+                self.cartDataList[indexPath.row].services.remove(at: itemIndex)
+            }
+         
+            // ✅ Recalculate totalCount
+            if self.cartDataList[indexPath.row].services.isEmpty {
+                self.cartDataList.remove(at: indexPath.row)
+            }
+        
+            // ✅ Refresh views
+            self.updateCartTotals()
+            self.tbl_vw.reloadData()
+            self.collect_category.reloadData()
+            self.collect_service.reloadData()
+        }
+
         return cell
     }
     

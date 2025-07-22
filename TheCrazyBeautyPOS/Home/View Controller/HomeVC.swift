@@ -38,6 +38,8 @@ class HomeVC: UIViewController {
     
     var selectedIndex: Int = 1
     
+    
+    //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpTableView()
@@ -56,6 +58,25 @@ class HomeVC: UIViewController {
         self.tbl_vw.delegate = self
         self.tbl_vw.dataSource = self
         self.tbl_vw.rowHeight = 100
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+
+            guard let touch = touches.first else { return }
+            let location = touch.location(in: self.view)
+
+            // Hide popup if it's visible and touch is outside vwPopup
+            if !vwPopup.isHidden && !vwPopup.frame.contains(location) {
+                vwPopup.isHidden = true
+            }
+            // Dismiss dropdown if visible and tapped outside txt_salon
+            if txt_salon.isFirstResponder {
+                txt_salon.resignFirstResponder()
+            }
+
+            // Also dismiss dropdown manually if using a custom dropdown manager
+            DropdownManager.shared.hideDropdown()
     }
 
     func loadEmbeddedViewController(for index: Int) {
@@ -102,7 +123,7 @@ class HomeVC: UIViewController {
         }
     }
     
-//<<<<<<< HEAD
+    //<<<<<<< HEAD
     //MARK: Button Action
     @IBAction func act_notification(_ sender: UIButton) {
         let notification = self.storyboard?.instantiateViewController(withIdentifier: "NotificationVC") as! NotificationVC
@@ -113,12 +134,12 @@ class HomeVC: UIViewController {
     //MARK: Api Data
     func getAllSalonData() {
     
-//        self.showLoader()
+        //self.showLoader()
         APIService.shared.getAllSalonData() { staffResult in
             guard let model = staffResult else {
                 return
             }
-//            self.hideLoader()
+            //self.hideLoader()
             let newItems = model.data
             if !newItems.isEmpty {
                 let CategoryList = newItems
@@ -179,8 +200,8 @@ class HomeVC: UIViewController {
         }
     }
 
-//=======
-    @IBAction func btn_Profile(_ sender: Any) {
+    //=======
+    @IBAction func btn_Profile(_ sender: UIButton) {
         vwPopup.isHidden = false
     }
     
@@ -192,11 +213,15 @@ class HomeVC: UIViewController {
     }
     
     
-    @IBAction func btn_Logout(_ sender: Any) {
-        
+    @IBAction func btn_Logout(_ sender: UIButton) {
+        SharedPrefs.clearUserData()
+        let sb = UIStoryboard(name: "Main", bundle:nil)
+        let navigation = sb.instantiateViewController(withIdentifier: "NavigateLogin") as! UINavigationController
+        navigation.modalPresentationStyle = .fullScreen
+        self.present(navigation, animated: true)
     }
     
-//>>>>>>> ajay_work
+    //>>>>>>> ajay_work
     /*
     // MARK: - Navigation
 

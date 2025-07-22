@@ -8,6 +8,8 @@
 import UIKit
 
 class CartCell: UITableViewCell {
+    
+    var onItemUpdate: ((Int, Int) -> Void)? // (itemIndex, changeAmount)
 
     
     @IBOutlet weak var lbl_category: UILabel!
@@ -38,7 +40,7 @@ class CartCell: UITableViewCell {
         self.tbl_item.register(UINib(nibName: "CartItemCell", bundle: nil), forCellReuseIdentifier: "CartItemCell")
         self.tbl_item.delegate = self
         self.tbl_item.dataSource = self
-        self.tbl_item.estimatedRowHeight = 44  // Provide a reasonable estimate
+        self.tbl_item.estimatedRowHeight = 70  // Provide a reasonable estimate
         self.tbl_item.rowHeight = UITableView.automaticDimension
     }
     
@@ -57,10 +59,22 @@ extension CartCell: UITableViewDelegate, UITableViewDataSource {
         cell.lbl_service.text = items.name
         cell.lbl_price.text = "-\(LocalData.symbol)\(items.price)"
         cell.lbl_count.text = "\(items.count)"
+        cell.Act_Plus = {
+//            self.data[indexPath.row].count += 1
+//            self.tbl_item.reloadData()
+            self.onItemUpdate?(indexPath.row, 1)
+        }
+        cell.Act_Minus = {
+            if self.data[indexPath.row].count > 0 {
+//                self.data[indexPath.row].count -= 1
+//                self.tbl_item.reloadData()
+                self.onItemUpdate?(indexPath.row, -1)
+            }
+        }
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
 }

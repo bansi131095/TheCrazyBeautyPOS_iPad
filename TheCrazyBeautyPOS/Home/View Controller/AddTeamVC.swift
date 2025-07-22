@@ -283,7 +283,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     
     //MARK: API Call
     func api_getBusinessHours() {
-        APIService.shared.fetchTiming { workingHours in
+        APIService.shared.fetchTiming1 { workingHours in
             let salonHours = workingHours
             self.workingHoursJson = workingHours
             self.shiftTimingJson = workingHours

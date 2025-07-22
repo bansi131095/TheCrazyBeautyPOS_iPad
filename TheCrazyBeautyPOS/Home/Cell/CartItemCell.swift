@@ -24,11 +24,15 @@ class CartItemCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+   
+    var Act_Plus:(()->Void)?
     @IBAction func btn_plus(_ sender: Any) {
+        self.Act_Plus?()
     }
     
+    var Act_Minus:(()->Void)?
     @IBAction func btn_minus(_ sender: Any) {
+        self.Act_Minus?()
     }
     
 }

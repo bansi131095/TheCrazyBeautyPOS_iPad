@@ -1062,7 +1062,7 @@ class APIService {
     }
     
     //MARK: get salon time
-    func fetchTiming(completion: @escaping (String) -> Void) {
+    func fetchTiming1(completion: @escaping (String) -> Void) {
       let url = global.shared.URL_GET_TIMING + "/\(LocalData.userId)"
 
       AF.request(url, method: .get, headers: HTTPHeaders(headers))

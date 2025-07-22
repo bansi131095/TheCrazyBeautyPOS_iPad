@@ -121,6 +121,8 @@ class global: NSObject
     
     var URL_SALON_DATA = global.server_url + "salon_data/"
     
+    var URL_ADD_CART_DETAILS = global.server_url + "add_cart_details"
+    
 //=======
     var URL_CURRENCY_DETAILS = global.server_url + "currency_details"
     var URL_UPDATE_CURRENCY = global.server_url + "update_currency"

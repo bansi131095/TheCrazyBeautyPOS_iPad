@@ -25,7 +25,6 @@ class BookingHistoryVC: UIViewController {
     }
     
 
-    //
     //MARK: Setup Table View
     func setTableView(){
         tbl_vw.register(UINib(nibName: "BookingHistoryCell", bundle: nil), forCellReuseIdentifier: "BookingHistoryCell")
@@ -134,9 +133,17 @@ extension BookingHistoryVC: UITableViewDelegate, UITableViewDataSource, UIScroll
         if let price = upcoming.grandTotal, price != "" {
             cell.lbl_amount.text = "\(LocalData.symbol)\(price)"
         }
-//        if let type = upcoming.customerType, type != "" {
-//            cell.lbl_type.text = type
-//        }
+        if let type = upcoming.customerType, type != "" {
+            cell.lbl_type.setTitle(type.capitalized, for: .normal)
+        }
+        
+        cell.Act_Info = {
+            let popup = self.storyboard?.instantiateViewController(withIdentifier: "BookingDetailsPopupVC") as! BookingDetailsPopupVC
+            popup.modalPresentationStyle = .overCurrentContext
+            popup.modalTransitionStyle = .crossDissolve
+            popup.dictBookingDetails = upcoming
+            self.present(popup, animated: true , completion: nil)
+        }
         return cell
     }
     
