@@ -781,11 +781,11 @@ class OpeningDateModel: Mappable {
         opening_date <- map["opening_date"]
     }
 }
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//=======
 //<<<<<<< Updated upstream
 //=======
->>>>>>> ajay_work
+//>>>>>>> ajay_work
 
 class CommonModel: Mappable {
     var data: String?
@@ -798,8 +798,8 @@ class CommonModel: Mappable {
         error   <- map["error"]
     }
 }
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//=======
 
 class BlockCustomerResponse: Mappable {
     var data: [BlockCustomerModel] = []
@@ -895,4 +895,4 @@ class ServiceDataModel: Mappable {
         total_saleprice      <- map["total_saleprice"]
     }
 }
->>>>>>> ajay_work
+//>>>>>>> ajay_work
