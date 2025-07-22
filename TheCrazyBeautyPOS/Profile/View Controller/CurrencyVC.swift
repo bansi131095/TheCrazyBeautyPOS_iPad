@@ -54,8 +54,12 @@ class CurrencyVC: UIViewController {
            for i in self.CurrencyList {
                if i.currency_code == item {
                    txt_Currency.text = i.currency_code
-                   selectedCurrencyCode = i.currency_code
+//                   LocalData.currency = i.currency
+//                   LocalData.selectedCurrencyCode = i.currency_code
+//                   selectedCurrencyCode = i.currency_code
                    symbol = i.symbol
+                   /*SharedPrefs.setCurrency(i.currency_code)
+                   SharedPrefs.setSymbol(i.symbol)*/
                    break
                }
            }
@@ -83,8 +87,12 @@ class CurrencyVC: UIViewController {
             for i in self.CurrencyList {
                 if self.CurrencyGet.currency == i.currency_code{
                     self.txt_Currency.text = i.currency_code
-                    self.selectedCurrencyCode = i.currency_code
+//                    LocalData.currency = i.currency
+//                    LocalData.selectedCurrencyCode = i.currency_code
+//                    self.selectedCurrencyCode = i.currency_code
                     self.symbol = i.symbol
+                    /*SharedPrefs.setCurrency(i.currency_code)
+                    SharedPrefs.setSymbol(i.symbol)*/
                     break
                 }
             }
@@ -95,6 +103,8 @@ class CurrencyVC: UIViewController {
         APIService.shared.UpdateCurrency(currency: self.txt_Currency.text ?? "", symbol: symbol, vendorId: LocalData.userId, completion: { result in
             if result?.data != nil {
                 self.alertWithMessageOnly(result?.data ?? "")
+                SharedPrefs.setCurrency(self.txt_Currency.text ?? "")
+                SharedPrefs.setSymbol(self.symbol)
             } else {
                 self.alertWithMessageOnly(result?.error ?? "")
             }

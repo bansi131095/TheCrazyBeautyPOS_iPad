@@ -987,6 +987,33 @@ extension UIViewController
         }
     }
     
+    func formatDateToString(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yyyy"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter.string(from: date)
+    }
+
+    func convertStringToDate(_ dateStr: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d, yyyy" // 👈 updated format
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter.date(from: dateStr)
+    }
+
+
+    func convertDateFormat(input: String, fromFormat: String, toFormat: String) -> String? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = fromFormat
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        if let date = formatter.date(from: input) {
+            formatter.dateFormat = toFormat
+            return formatter.string(from: date)
+        }
+        return nil
+    }
+    
     //MARK: Alert with two Buttons'
     
     

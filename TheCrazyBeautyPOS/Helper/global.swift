@@ -183,7 +183,23 @@ class global: NSObject
     var URL_GET_OPENDATE = global.server_url + "get_opendate"
     var URL_UPDATE_OPENDATE = global.server_url + "update_opendate"
     var URL_UPDATE_BUSINESS_INFORMATION = global.server_url + "business_information"
+<<<<<<< HEAD
 //>>>>>>> ajay_work
+=======
+
+    var URL_UPDATE_BLOCK_CUSTOMERS = global.server_url + "update_block_customers"
+    var URL_BLOCK_CUSTOMERS = global.server_url + "block_customers"
+    
+    var URL_ADD_VENDOR_DATA = global.server_url + "add_vendor_data"
+    var URL_MAIN_CATAGORIES = global.server_url + "maincategories"
+    var URL_ADD_TEAM_DATA = global.server_url + "add_team_data"
+    var URL_SELECT_SERIVICES = global.server_url + "select_services"
+    var URL_SERIVICES_SALES_DATA = global.server_url + "service_sales_data"
+    var URL_GIFT_DETAILS = global.server_url + "gift_details"
+    var URL_PAYMENT_HISTORY = global.server_url + "payment_history_v1"
+    var URL_WALKIN_DETAILS = global.server_url + "walkin_details"
+    var URL_SALES_DATA = global.server_url + "sales_data"
+>>>>>>> ajay_work
     
     
     //MARK:-

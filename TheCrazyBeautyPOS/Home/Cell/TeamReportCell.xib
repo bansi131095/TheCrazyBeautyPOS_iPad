@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad10_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato_bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="TeamReportCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="TeamReportCell" id="KGk-i7-Jjw" customClass="TeamReportCell" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="1300" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="1300" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Cu-5d-Xn4">
+                        <rect key="frame" x="0.0" y="0.0" width="1300" height="50"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K07-Tx-EW7">
+                                <rect key="frame" x="20" y="13" width="100" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="4n8-tS-y4u"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="AppBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customer Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rlM-Nb-eVW">
+                                <rect key="frame" x="145" y="13" width="300" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="H7q-6K-aas"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="AppBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Staff Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CkL-HZ-VUG">
+                                <rect key="frame" x="470" y="13" width="250" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="2xH-os-PU9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="AppBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EhX-Qs-sX8">
+                                <rect key="frame" x="745" y="13" width="250" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="jGK-gs-L5t"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="AppBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X4R-Nw-X26">
+                                <rect key="frame" x="1020" y="13" width="250" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="S0Q-U5-gWY"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="AppBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="K07-Tx-EW7" firstAttribute="leading" secondItem="9Cu-5d-Xn4" secondAttribute="leading" constant="20" id="74g-uQ-dvh"/>
+                            <constraint firstItem="rlM-Nb-eVW" firstAttribute="leading" secondItem="K07-Tx-EW7" secondAttribute="trailing" constant="25" id="9Sf-Ak-iqF"/>
+                            <constraint firstItem="K07-Tx-EW7" firstAttribute="centerY" secondItem="9Cu-5d-Xn4" secondAttribute="centerY" id="AhV-0I-K6h"/>
+                            <constraint firstItem="CkL-HZ-VUG" firstAttribute="centerY" secondItem="rlM-Nb-eVW" secondAttribute="centerY" id="Jdk-hb-w5L"/>
+                            <constraint firstAttribute="height" constant="50" id="KaE-Yl-xhl"/>
+                            <constraint firstItem="EhX-Qs-sX8" firstAttribute="leading" secondItem="CkL-HZ-VUG" secondAttribute="trailing" constant="25" id="Ncw-9R-KFI"/>
+                            <constraint firstItem="EhX-Qs-sX8" firstAttribute="centerY" secondItem="CkL-HZ-VUG" secondAttribute="centerY" id="ZeY-1v-DkB"/>
+                            <constraint firstItem="X4R-Nw-X26" firstAttribute="leading" secondItem="EhX-Qs-sX8" secondAttribute="trailing" constant="25" id="caH-Ar-Rpe"/>
+                            <constraint firstItem="rlM-Nb-eVW" firstAttribute="centerY" secondItem="K07-Tx-EW7" secondAttribute="centerY" id="cbn-70-q5o"/>
+                            <constraint firstItem="X4R-Nw-X26" firstAttribute="centerY" secondItem="9Cu-5d-Xn4" secondAttribute="centerY" id="oYF-KI-LKO"/>
+                            <constraint firstItem="CkL-HZ-VUG" firstAttribute="leading" secondItem="rlM-Nb-eVW" secondAttribute="trailing" constant="25" id="xS9-M4-TXd"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="9Cu-5d-Xn4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="3vX-vX-aAM"/>
+                    <constraint firstAttribute="bottom" secondItem="9Cu-5d-Xn4" secondAttribute="bottom" id="Ybr-Fu-9YD"/>
+                    <constraint firstItem="9Cu-5d-Xn4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="hnc-yW-4Uy"/>
+                    <constraint firstAttribute="trailing" secondItem="9Cu-5d-Xn4" secondAttribute="trailing" id="yte-1d-zzl"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lbl_CustomerName" destination="rlM-Nb-eVW" id="MSe-cI-cNj"/>
+                <outlet property="lbl_Id" destination="K07-Tx-EW7" id="9mb-1T-EzZ"/>
+                <outlet property="lbl_Price" destination="X4R-Nw-X26" id="Ok6-ZP-U0i"/>
+                <outlet property="lbl_ServiceName" destination="EhX-Qs-sX8" id="vWP-k8-t6a"/>
+                <outlet property="lbl_StaffName" destination="CkL-HZ-VUG" id="iaT-UJ-lUZ"/>
+            </connections>
+            <point key="canvasLocation" x="-56" y="-33"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="AppBlack">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -28,6 +28,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PD6-Am-Qmj">
                                         <rect key="frame" x="0.0" y="0.0" width="110" height="65"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <connections>
+                                            <action selector="act_Flag:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="SgS-Je-vcL"/>
+                                        </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowtriangle.down.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="rwH-gO-42A">
                                         <rect key="frame" x="80" y="27" width="20" height="11"/>
@@ -37,7 +40,7 @@
                                             <constraint firstAttribute="width" constant="20" id="iTx-mw-Apm"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dtu-sR-TGB">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flag" translatesAutoresizingMaskIntoConstraints="NO" id="dtu-sR-TGB">
                                         <rect key="frame" x="15" y="7.5" width="55" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="55" id="4qm-5Q-TmB"/>
@@ -164,13 +167,16 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="btn_Delete" destination="7L6-V9-z4o" id="8EA-gS-6DO"/>
+                <outlet property="img_Flag" destination="dtu-sR-TGB" id="cbq-57-Ycm"/>
                 <outlet property="txt_MobileNumber" destination="Sau-vE-u7E" id="F8B-UL-hE2"/>
+                <outlet property="vw_Close" destination="iAe-SY-oKE" id="ip9-4u-I85"/>
             </connections>
             <point key="canvasLocation" x="365.48780487804879" y="-22.118644067796613"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="arrowtriangle.down.fill" catalog="system" width="128" height="120"/>
+        <image name="flag" width="151" height="100"/>
         <image name="xmark.circle" catalog="system" width="128" height="123"/>
         <namedColor name="Red">
             <color red="1" green="0.29411764705882354" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

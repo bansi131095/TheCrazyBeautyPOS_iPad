@@ -82,6 +82,10 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         get_fetchSalon()
+        if let iso = CountryUtils.getISOCode(from: selectedCountrycode),
+           let flagImage = CountryUtils.imageFromEmoji(flag: CountryUtils.flag(from: iso)) {
+            flag_imgVw.image = flagImage
+        }
     }
     
     @IBAction func switch_Visible(_ sender: UISwitch) {
@@ -105,8 +109,12 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         }
     }
     
+<<<<<<< HEAD
     
     @IBAction func act_country(_ sender: UIButton) {
+=======
+    @IBAction func btn_CountryPicker(_ sender: Any) {
+>>>>>>> ajay_work
         let countryView = CountrySelectView.shared
         countryView.show()
 //        countryView.dismiss() //dismiss the picker view
@@ -242,7 +250,11 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             self.txt_Address.text = self.SalonDetails.first?.address
             self.txt_SalonType.text = self.SalonDetails.first?.salon_type
             self.txt_BusinessName.text = self.SalonDetails.first?.salon_name
+<<<<<<< HEAD
 //            self.txt_MobileNumber.text =
+=======
+//            self.txt_MobileNumber.text = self.SalonDetails.first?.salon_phone
+>>>>>>> ajay_work
             if var phoneno = self.SalonDetails.first?.salon_phone {
                 if !phoneno.isEmpty && phoneno.count >= 3 {
                     if phoneno.contains("--") {
@@ -272,6 +284,10 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                     }
                 }
             }
+<<<<<<< HEAD
+=======
+            
+>>>>>>> ajay_work
             self.userLatitude = self.SalonDetails.first?.latitude
             self.userLongitude = self.SalonDetails.first?.longitude
             self.txt_Aboutus.attributedText = self.SalonDetails.first?.about_us?.htmlToAttributedString
@@ -290,7 +306,10 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     }
     
     func update_Salon(){
-        APIService.shared.UpdateBusinessInformation(id: LocalData.userId, salon_name: txt_BusinessName.text ?? "", salon_type: txt_SalonType.text ?? "", phone: phone, salon_phone: self.txt_MobileNumber.text ?? "", postcode: postcode, address: self.txt_Address.text ?? "", city: city, country: country, latitude: "\(String(describing: userLatitude))", longitude: "\(userLongitude ?? 0.0)", web_status: "\(web_status ?? 0)", allow_search: "\(allow_search ?? 0)", time_gap: "\(time_gap)", reminder_mail: "\(reminder_mail)", about_us: self.txt_Aboutus.text ?? "") { result in
+        let safeLatitude = userLatitude ?? 0.0
+        let safeLongitude = userLongitude ?? 0.0
+
+        APIService.shared.UpdateBusinessInformation(id: LocalData.userId, salon_name: txt_BusinessName.text ?? "", salon_type: txt_SalonType.text ?? "", phone: phone, salon_phone: "\(selectedCountrycode)-\(txt_MobileNumber.text ?? "")", postcode: postcode, address: self.txt_Address.text ?? "", city: city, country: country, latitude: "\(safeLatitude)", longitude: "\(safeLongitude)", web_status: "\(web_status ?? 0)", allow_search: "\(allow_search ?? 0)", time_gap: "\(time_gap)", reminder_mail: "\(reminder_mail)", about_us: self.txt_Aboutus.text ?? "") { result in
             if let message = result?.data{
                 self.alertWithMessageOnly(message)
             }else{

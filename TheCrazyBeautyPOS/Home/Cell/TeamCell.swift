@@ -18,6 +18,8 @@ class TeamCell: UITableViewCell {
     @IBOutlet weak var lbl_review: UILabel!
     
     
+    @IBOutlet weak var img_Width: NSLayoutConstraint!
+    @IBOutlet weak var img_Height: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad10_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato_bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="GiftcardCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="GiftcardCell" id="KGk-i7-Jjw" customClass="GiftcardCell" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="1300" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="1300" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yvc-xc-YKq">
+                        <rect key="frame" x="0.0" y="0.0" width="1300" height="50"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JtE-8u-Y2a">
+                                <rect key="frame" x="20" y="13" width="300" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="k1k-Mn-EY4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="AppBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gift Card" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QcL-7f-7NI">
+                                <rect key="frame" x="345" y="13" width="250" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="j9B-UD-Y8G"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="AppBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iE-zw-6wU">
+                                <rect key="frame" x="695" y="13" width="150" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="yHk-hA-6X8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="AppBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Used Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oRB-S8-8HJ">
+                                <rect key="frame" x="895" y="13" width="180" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="pEE-O3-4yo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="AppBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expiry Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PFU-eB-ZjV">
+                                <rect key="frame" x="1100" y="13" width="180" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="waB-Ri-eVo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="AppBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="5iE-zw-6wU" firstAttribute="centerY" secondItem="QcL-7f-7NI" secondAttribute="centerY" id="2HI-Rt-q2g"/>
+                            <constraint firstItem="PFU-eB-ZjV" firstAttribute="leading" secondItem="oRB-S8-8HJ" secondAttribute="trailing" constant="25" id="FFL-vg-lkx"/>
+                            <constraint firstItem="QcL-7f-7NI" firstAttribute="leading" secondItem="JtE-8u-Y2a" secondAttribute="trailing" constant="25" id="Svk-pU-NNJ"/>
+                            <constraint firstItem="JtE-8u-Y2a" firstAttribute="centerY" secondItem="yvc-xc-YKq" secondAttribute="centerY" id="Xe1-ga-vTW"/>
+                            <constraint firstItem="PFU-eB-ZjV" firstAttribute="centerY" secondItem="yvc-xc-YKq" secondAttribute="centerY" id="bgI-a8-m1k"/>
+                            <constraint firstItem="JtE-8u-Y2a" firstAttribute="leading" secondItem="yvc-xc-YKq" secondAttribute="leading" constant="20" id="cFj-rb-TKC"/>
+                            <constraint firstItem="QcL-7f-7NI" firstAttribute="centerY" secondItem="JtE-8u-Y2a" secondAttribute="centerY" id="lTP-R0-XMR"/>
+                            <constraint firstItem="oRB-S8-8HJ" firstAttribute="centerY" secondItem="5iE-zw-6wU" secondAttribute="centerY" id="nh0-ev-k1m"/>
+                            <constraint firstItem="5iE-zw-6wU" firstAttribute="leading" secondItem="QcL-7f-7NI" secondAttribute="trailing" constant="100" id="omn-qc-nZp"/>
+                            <constraint firstAttribute="trailing" secondItem="PFU-eB-ZjV" secondAttribute="trailing" constant="20" symbolic="YES" id="q2d-pt-46d"/>
+                            <constraint firstAttribute="height" constant="50" id="sHx-Ee-AyF"/>
+                            <constraint firstItem="oRB-S8-8HJ" firstAttribute="leading" secondItem="5iE-zw-6wU" secondAttribute="trailing" constant="50" id="zYk-JK-AZP"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="yvc-xc-YKq" secondAttribute="trailing" id="5kH-eH-4cU"/>
+                    <constraint firstItem="yvc-xc-YKq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="K00-Lt-t52"/>
+                    <constraint firstAttribute="bottom" secondItem="yvc-xc-YKq" secondAttribute="bottom" id="tuN-xW-1eg"/>
+                    <constraint firstItem="yvc-xc-YKq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="vVB-gs-yqa"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lbl_Amount" destination="5iE-zw-6wU" id="p5I-gJ-mh3"/>
+                <outlet property="lbl_ExpiryDate" destination="PFU-eB-ZjV" id="nIb-Bs-QaJ"/>
+                <outlet property="lbl_GiftCard" destination="QcL-7f-7NI" id="O3Z-LA-vhn"/>
+                <outlet property="lbl_Name" destination="JtE-8u-Y2a" id="WqG-Xd-BIO"/>
+                <outlet property="lbl_UsedDate" destination="oRB-S8-8HJ" id="NNu-rr-Ypu"/>
+            </connections>
+            <point key="canvasLocation" x="-34" y="-33"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="AppBlack">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -781,6 +781,11 @@ class OpeningDateModel: Mappable {
         opening_date <- map["opening_date"]
     }
 }
+<<<<<<< HEAD
+=======
+//<<<<<<< Updated upstream
+//=======
+>>>>>>> ajay_work
 
 class CommonModel: Mappable {
     var data: String?
@@ -793,3 +798,101 @@ class CommonModel: Mappable {
         error   <- map["error"]
     }
 }
+<<<<<<< HEAD
+=======
+
+class BlockCustomerResponse: Mappable {
+    var data: [BlockCustomerModel] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data  <- map["data"]
+        error <- map["error"]
+    }
+}
+
+class BlockCustomerModel: Mappable {
+    var block_customers: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        block_customers <- map["block_customers"]
+    }
+}
+
+class VendorData: Mappable {
+    var data: VendorDataModel?
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data    <- map["data"]
+        error   <- map["error"]
+    }
+}
+
+class VendorDataModel: Mappable {
+    var message: String?
+    var result: [VendorResultDataModel] = []
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        message <- map["message"]
+        result     <- map["result"]
+    }
+}
+
+class VendorResultDataModel: Mappable {
+    
+    var id: Int?
+    var salon_id: Int?
+    var first_name: String?
+    var last_name: String?
+    var email: String?
+    var is_verified: Int?
+    var phone: String?
+    var business_verified: String?
+    
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id          <- map["id"]
+        salon_id        <- map["salon_id"]
+        first_name       <- map["first_name"]
+        last_name <- map["last_name"]
+        email      <- map["email"]
+        is_verified      <- map["is_verified"]
+        phone      <- map["phone"]
+        business_verified      <- map["business_verified"]
+    }
+}
+
+
+// Service Sales Data
+
+class ServiceDataModel: Mappable {
+    
+    var id: Int?
+    var service_name: Int?
+    var service_for: String?
+    var test_required: Int?
+    var amount: Int?
+    var total_saleprice: Int?
+    
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id          <- map["id"]
+        service_name        <- map["service_name"]
+        service_for       <- map["service_for"]
+        test_required <- map["test_required"]
+        amount      <- map["amount"]
+        total_saleprice      <- map["total_saleprice"]
+    }
+}
+>>>>>>> ajay_work

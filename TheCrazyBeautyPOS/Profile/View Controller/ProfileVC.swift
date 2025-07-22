@@ -42,6 +42,9 @@ class ProfileVC: UIViewController,SettingCellDelegate {
     }
     
     @IBAction func btn_AddSalon(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "Business_InformationVC") as! Business_InformationVC
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     
