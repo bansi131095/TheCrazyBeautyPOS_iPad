@@ -29,7 +29,7 @@ class Giftcard_HistoryVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setTableView()
-        setGiftcardHistoryData()
+        setDefaultDateRangeAndFetch()
     }
     
     
@@ -44,6 +44,24 @@ class Giftcard_HistoryVC: UIViewController {
     }
     
     // MARK: - Function
+    func setDefaultDateRangeAndFetch() {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        guard let oneMonthAgo = calendar.date(byAdding: .month, value: -1, to: currentDate) else { return }
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d, yyyy" // Match your existing format
+
+        txt_FromDate.text = formatter.string(from: oneMonthAgo)
+        txt_ToDate.text = formatter.string(from: currentDate)
+
+        firstDate = oneMonthAgo
+        lastDate = currentDate
+
+        setGiftcardHistoryData()
+    }
+    
     func setTableView(){
         tbl_vw.register(UINib(nibName: "GiftcardCell", bundle: nil), forCellReuseIdentifier: "GiftcardCell")
         tbl_vw.register(UINib(nibName: "GiftCardHeaderCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "GiftCardHeaderCell")
@@ -106,7 +124,9 @@ class Giftcard_HistoryVC: UIViewController {
             }
 
             self.giftList = model.data
-
+            if let parentVC = self.parent as? ReportVC {
+                parentVC.updateTotalAmount(text: "\(SharedPrefs.getSymbol())" + (result?.totalSales ?? ""))
+            }
             // Show/Hide No Data Label
             if self.giftList.isEmpty {
                 self.lbl_NoDataFound.isHidden = false
@@ -197,11 +217,33 @@ extension Giftcard_HistoryVC: UITableViewDelegate, UITableViewDataSource{
             return UITableViewCell()
         }
         let data = self.giftList[indexPath.item]
-        cell.lbl_Name.text = data.gift_name
-        cell.lbl_GiftCard.text = data.gift_code
-        cell.lbl_Amount.text = String(data.amount)
-        cell.lbl_UsedDate.text = data.used_date
-        cell.lbl_ExpiryDate.text = data.expiry_date
+        
+        if data.gift_name != "" {
+            cell.lbl_Name.text = data.gift_name
+        }else{
+            cell.lbl_Name.text = "N/A"
+        }
+        
+        if data.gift_code != "" {
+            cell.lbl_GiftCard.text = data.gift_code
+        }else{
+            cell.lbl_GiftCard.text = "N/A"
+        }
+        
+        if data.used_date != "" {
+            cell.lbl_UsedDate.text = data.used_date
+        }else{
+            cell.lbl_UsedDate.text = "N/A"
+        }
+        
+        if data.expiry_date != "" {
+            cell.lbl_ExpiryDate.text = data.expiry_date
+        }else{
+            cell.lbl_ExpiryDate.text = "N/A"
+        }
+        
+        cell.lbl_Amount.text = "\(SharedPrefs.getSymbol())" +  String(data.amount)
+        
         return cell
     }
     

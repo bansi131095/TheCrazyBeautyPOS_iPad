@@ -54,11 +54,17 @@ class Appointment_DetailsVC: UIViewController {
             self.lbl_MiscellaneousNote.text = model?.miscellaneous_notes
         }
         
-        self.lbl_MiscellaneousPrice.text = model?.miscellaneous_price
-        self.lbl_Tip.text = "\(model?.tip ?? 0)"
-        self.lbl_OriginalAmount.text =  model?.grand_total
-        self.lbl_Discount.text = model?.discount_amount
-        self.lbl_Total.text = model?.grand_total
+        if model?.payment_type == ""{
+            self.lbl_Payment.text = "N/A"
+        }else{
+            self.lbl_Payment.text = model?.payment_type
+        }
+        
+        self.lbl_MiscellaneousPrice.text = "\(SharedPrefs.getSymbol())" + "\(model?.miscellaneous_price ?? "")"
+        self.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + "\(model?.tip ?? 0)"
+        self.lbl_OriginalAmount.text = "\(SharedPrefs.getSymbol())" + "\(model?.grand_total ?? "")"
+        self.lbl_Discount.text = "\(SharedPrefs.getSymbol())" + "\(model?.discount_amount ?? "")"
+        self.lbl_Total.text = "\(SharedPrefs.getSymbol())" + "\(model?.grand_total ?? "")"
         
     }
     

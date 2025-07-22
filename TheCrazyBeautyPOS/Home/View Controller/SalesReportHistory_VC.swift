@@ -16,30 +16,6 @@ class SalesReportHistory_VC: UIViewController {
     @IBOutlet weak var lbl_NoDataFound: UILabel!
     @IBOutlet weak var tbl_vw: UITableView!
     
-    
-    
-    //MARK: Popup
-    @IBOutlet weak var vw_Back: UIView!
-    @IBOutlet weak var vw_Popup: UIView!
-    
-    
-    @IBOutlet weak var lbl_Name: UILabel!
-    @IBOutlet weak var lbl_Date: UILabel!
-    @IBOutlet weak var lbl_Time: UILabel!
-    @IBOutlet weak var lbl_ServiceName: UILabel!
-    @IBOutlet weak var lbl_Type: UILabel!
-    @IBOutlet weak var lbl_Staff: UILabel!
-    @IBOutlet weak var lbl_Status: UILabel!
-    @IBOutlet weak var lbl_CouponCode: UILabel!
-    @IBOutlet weak var lbl_MiscellaneousNote: UILabel!
-    @IBOutlet weak var lbl_Payment: UILabel!
-    @IBOutlet weak var lbl_MiscellaneousPrice: UILabel!
-    @IBOutlet weak var lbl_Tip: UILabel!
-    @IBOutlet weak var lbl_OriginalAmount: UILabel!
-    @IBOutlet weak var lbl_Discount: UILabel!
-    @IBOutlet weak var lbl_Total: UILabel!
-    
-    
     var calendarVC: UIViewController?
     var firstDate: Date?
     var lastDate: Date?
@@ -53,7 +29,7 @@ class SalesReportHistory_VC: UIViewController {
         super.viewDidLoad()
         contentViewWidthConstraint.constant = 1000
         setTableView()
-        salesHistoryData()
+        setDefaultDateRangeAndFetch()
         // Do any additional setup after loading the view.
     }
     
@@ -67,9 +43,24 @@ class SalesReportHistory_VC: UIViewController {
         showCalendarPopup(sourceView: sender as! UIView)
     }
     
-    @IBAction func btn_ClosePopup(_ sender: Any) {
-        self.vw_Back.isHidden = true
-        self.vw_Popup.isHidden = true
+    
+    
+    func setDefaultDateRangeAndFetch() {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        guard let oneMonthAgo = calendar.date(byAdding: .month, value: -1, to: currentDate) else { return }
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d, yyyy" // Match your existing format
+
+        txt_FromDate.text = formatter.string(from: oneMonthAgo)
+        txt_ToDate.text = formatter.string(from: currentDate)
+
+        firstDate = oneMonthAgo
+        lastDate = currentDate
+
+        salesHistoryData()
     }
     
     func setTableView(){
@@ -135,7 +126,9 @@ class SalesReportHistory_VC: UIViewController {
             }
 
             self.salesHistoryList = model.data
-
+            if let parentVC = self.parent as? ReportVC {
+                parentVC.updateTotalAmount(text: "\(SharedPrefs.getSymbol())" + (result?.totalAmount ?? ""))
+            }
             // Show/Hide No Data Label
             if self.salesHistoryList.isEmpty {
                 self.lbl_NoDataFound.isHidden = false
@@ -233,14 +226,21 @@ extension SalesReportHistory_VC: UITableViewDelegate, UITableViewDataSource{
         cell.lbl_Time.text = data.booking_time
         cell.lbl_Type.text = data.customer_type.capitalized
         cell.lbl_Staff.text = data.staff_names.capitalized
+        
+        if data.booking_status.capitalized == "Completed"{
+            cell.lbl_Status.textColor = UIColor.green
+        }else{
+            cell.lbl_Status.textColor = #colorLiteral(red: 1, green: 0.2941176471, blue: 0.3333333333, alpha: 1)
+        }
         cell.lbl_Status.text = data.booking_status.capitalized
+        
         cell.lbl_Payment.text = data.payment_type.capitalized
         if data.tip == 0 {
             cell.lbl_Tip.text = "N/A"
         }else{
             cell.lbl_Tip.text = String(data.tip)
         }
-        cell.lbl_Total.text = String(data.sub_total)
+        cell.lbl_Total.text = "\(SharedPrefs.getSymbol())" +  String(data.sub_total)
         
         cell.Act_Action = {
             let storyboard = UIStoryboard(name: "Home", bundle: nil)

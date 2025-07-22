@@ -30,7 +30,12 @@ class Service_ReportVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setTableView()
-        self.serviceReport()
+        setDefaultDateRangeAndFetch()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.setTableView()
+        setDefaultDateRangeAndFetch()
     }
     
     // MARK: - Button Action
@@ -44,6 +49,24 @@ class Service_ReportVC: UIViewController {
     }
     
     //MARK: -  Function
+    func setDefaultDateRangeAndFetch() {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        guard let oneMonthAgo = calendar.date(byAdding: .month, value: -1, to: currentDate) else { return }
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d, yyyy" // Match your existing format
+
+        txt_FromDate.text = formatter.string(from: oneMonthAgo)
+        txt_ToDate.text = formatter.string(from: currentDate)
+
+        firstDate = oneMonthAgo
+        lastDate = currentDate
+
+        self.serviceReport()
+    }
+    
     func setTableView(){
         tbl_vw.register(UINib(nibName: "ServiceReportCell", bundle: nil), forCellReuseIdentifier: "ServiceReportCell")
         tbl_vw.register(UINib(nibName: "ServiceReportHaderCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "ServiceReportHaderCell")
@@ -125,7 +148,10 @@ class Service_ReportVC: UIViewController {
             }
 
             self.serviceList = model.data
-
+            if let parentVC = self.parent as? ReportVC {
+                parentVC.updateTotalAmount(text: "\(SharedPrefs.getSymbol())" + (result?.total_sales ?? ""))
+            }
+            
             // Show/Hide No Data Label
             if self.serviceList.isEmpty {
                 self.lbl_NoDataFound.isHidden = false
@@ -219,8 +245,7 @@ extension Service_ReportVC: UITableViewDelegate, UITableViewDataSource{
         let data = self.serviceList[indexPath.item]
         cell.lbl_no.text = "\(indexPath.row+1)"
         cell.lbl_name.text = data.service_name
-        cell.lbl_Amount.text = String(data.amount)
-        
+        cell.lbl_Amount.text = "\(SharedPrefs.getSymbol())" +  String(data.amount)
         return cell
     }
     

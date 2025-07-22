@@ -29,6 +29,11 @@ class ReportVC: UIViewController {
     
     @IBOutlet weak var containerView: UIView!
     
+    // Static method to set label text
+    func updateTotalAmount(text: String) {
+            lbl_TotalAmount.text = text
+        }
+    
     //MARK: - Global Variable
     //MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -38,7 +43,7 @@ class ReportVC: UIViewController {
         vw_Sales.backgroundColor = .white
         vw_Walkin.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
         vw_GiftCard.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
-        loadEmbeddedViewController(for: 1)
+        loadEmbeddedViewController(for: 0)
     }
     
     //MARK: -  Button Action
@@ -47,6 +52,7 @@ class ReportVC: UIViewController {
     
     
     @IBAction func btn_Team(_ sender: Any) {
+        loadEmbeddedViewController(for: 0)
         vw_SaleWalkinGift.isHidden = true
         img_Team.image = UIImage(named: "ic_Check")
         img_Sales.image = UIImage(named: "ic_Uncheck")
@@ -55,10 +61,18 @@ class ReportVC: UIViewController {
     
     @IBAction func btn_Sales(_ sender: Any) {
         vw_SaleWalkinGift.isHidden = false
-        loadEmbeddedViewController(for: 2)
+        loadEmbeddedViewController(for: 1)
         img_Team.image = UIImage(named: "ic_Uncheck")
         img_Sales.image = UIImage(named: "ic_Check")
         img_Service.image = UIImage(named: "ic_Uncheck")
+        
+        lbl_Sales.textColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
+        lbl_Walkin.textColor = .black
+        lbl_GiftCard.textColor = .black
+        
+        vw_Sales.backgroundColor = .white
+        vw_Walkin.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
+        vw_GiftCard.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
     }
     
     @IBAction func btn_Service(_ sender: Any) {
@@ -66,13 +80,13 @@ class ReportVC: UIViewController {
         img_Team.image = UIImage(named: "ic_Uncheck")
         img_Sales.image = UIImage(named: "ic_Uncheck")
         img_Service.image = UIImage(named: "ic_Check")
-        loadEmbeddedViewController(for: 3)
+        loadEmbeddedViewController(for: 2)
     }
     
     
     
     @IBAction func btn_Sales_Second(_ sender: Any) {
-        loadEmbeddedViewController(for: 2)
+        loadEmbeddedViewController(for: 1)
         lbl_Sales.textColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         lbl_Walkin.textColor = .black
         lbl_GiftCard.textColor = .black
@@ -83,7 +97,7 @@ class ReportVC: UIViewController {
     }
     
     @IBAction func btn_Walkin(_ sender: Any) {
-        loadEmbeddedViewController(for: 5)
+        loadEmbeddedViewController(for: 3)
         lbl_Sales.textColor = .black
         lbl_Walkin.textColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         lbl_GiftCard.textColor = .black
@@ -113,23 +127,15 @@ class ReportVC: UIViewController {
 
         switch index {
         case 0:
-            selectedVC = storyboard.instantiateViewController(withIdentifier: "UpcomingAppointmentsVC") as? UpcomingAppointmentsVC
-        case 1:
             selectedVC = storyboard.instantiateViewController(withIdentifier: "Team_ReportVC") as? Team_ReportVC
-        case 2:
+        case 1:
             selectedVC = storyboard.instantiateViewController(withIdentifier: "SalesReportHistory_VC") as? SalesReportHistory_VC
-        case 3:
+        case 2:
             selectedVC = storyboard.instantiateViewController(withIdentifier: "Service_ReportVC") as? Service_ReportVC
+        case 3:
+            selectedVC = storyboard.instantiateViewController(withIdentifier: "WalkinHistory_VC") as? WalkinHistory_VC
         case 4:
             selectedVC = storyboard.instantiateViewController(withIdentifier: "Giftcard_HistoryVC") as? Giftcard_HistoryVC
-        case 5:
-            selectedVC = storyboard.instantiateViewController(withIdentifier: "WalkinHistory_VC") as? WalkinHistory_VC
-        case 6:
-            selectedVC = storyboard.instantiateViewController(withIdentifier: "PromotionVC") as? PromotionVC
-        case 7:
-            selectedVC = storyboard.instantiateViewController(withIdentifier: "InventoryVC") as? InventoryVC
-        case 8:
-            selectedVC = storyboard.instantiateViewController(withIdentifier: "ReportVC") as? ReportVC
         default:
             print("Invalid index")
             return
@@ -151,4 +157,6 @@ class ReportVC: UIViewController {
     }
     
     //MARK: - Web Api Calling
-} 
+    
+}
+

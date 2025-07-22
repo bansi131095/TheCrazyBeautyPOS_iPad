@@ -55,7 +55,7 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     @IBOutlet weak var switch_visible: UISwitch!
     @IBOutlet weak var switch_Salon: UISwitch!
     
-    @IBOutlet weak var countryImage: UIImageView!
+    @IBOutlet weak var flag_imgVw: UIImageView!
     
     var locationManager = CLLocationManager()
     var userLatitude:CLLocationDegrees! = 0
@@ -76,12 +76,16 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     var country = String()
     var time_gap = Int()
     var reminder_mail = Int()
-    
+    var selectedCountrycode = "+353"
     var SalonDetails: [SalonDetailsModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         get_fetchSalon()
+        if let iso = CountryUtils.getISOCode(from: selectedCountrycode),
+           let flagImage = CountryUtils.imageFromEmoji(flag: CountryUtils.flag(from: iso)) {
+            flag_imgVw.image = flagImage
+        }
     }
     
     @IBAction func switch_Visible(_ sender: UISwitch) {
@@ -106,6 +110,27 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     }
     
     @IBAction func btn_CountryPicker(_ sender: Any) {
+        let countryView = CountrySelectView.shared
+        countryView.show()
+//        countryView.dismiss() //dismiss the picker view
+        countryView.barTintColor = .gray //default is green
+        countryView.searchBarPlaceholder = "serach" //default is "search"
+        countryView.displayLanguage = .english //default is english
+        countryView.selectedCountryCallBack = { countryDic in
+            print(countryDic)
+            if let locale = countryDic["locale"] as? String {
+                let path = Bundle(for: CountrySelectView.self).resourcePath! + "/CountryPicker.bundle"
+                let CABundle = Bundle(path: path)!
+                self.flag_imgVw.image = UIImage(named: locale, in:  CABundle, compatibleWith: nil)
+            }
+            if let countryCode = countryDic["code"] as? Int {
+                let phoneCode = "+\(countryCode)"
+                print("Phone Code: \(phoneCode)")
+                self.selectedCountrycode = phoneCode  // Example: set it to a UILabel
+            } else {
+                print("⚠️ code not found in countryDic")
+            }
+        }
         
     }
     
@@ -220,7 +245,37 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             self.txt_Address.text = self.SalonDetails.first?.address
             self.txt_SalonType.text = self.SalonDetails.first?.salon_type
             self.txt_BusinessName.text = self.SalonDetails.first?.salon_name
-            self.txt_MobileNumber.text = self.SalonDetails.first?.salon_phone
+//            self.txt_MobileNumber.text = self.SalonDetails.first?.salon_phone
+            if var phoneno = self.SalonDetails.first?.salon_phone {
+                if !phoneno.isEmpty && phoneno.count >= 3 {
+                    if phoneno.contains("--") {
+                        phoneno = phoneno.replacingOccurrences(of: "--", with: "-")
+                    }
+
+    //                if phoneno.contains("+") {
+    //                    phoneno = phoneno.replacingOccurrences(of: "+", with: "")
+    //                }
+
+                    print("Mobile No: \(phoneno)")
+
+                    let split = phoneno.components(separatedBy: "-")
+
+                    if split.count >= 2 {
+                        let countryCode = split[0]
+                        let mobileNo = split[1]
+                        self.selectedCountrycode = countryCode
+                        self.txt_MobileNumber.text = mobileNo // Assuming this is your UITextField
+                        if let iso = CountryUtils.getISOCode(from: countryCode) {
+                            let emojiFlag = CountryUtils.flag(from: iso)
+                            if let flagImage = CountryUtils.imageFromEmoji(flag: emojiFlag) {
+                                self.flag_imgVw.image = flagImage
+                            }
+                        }
+
+                    }
+                }
+            }
+            
             self.userLatitude = self.SalonDetails.first?.latitude
             self.userLongitude = self.SalonDetails.first?.longitude
             self.txt_Aboutus.attributedText = self.SalonDetails.first?.about_us?.htmlToAttributedString
@@ -239,7 +294,10 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     }
     
     func update_Salon(){
-        APIService.shared.UpdateBusinessInformation(id: LocalData.userId, salon_name: txt_BusinessName.text ?? "", salon_type: txt_SalonType.text ?? "", phone: phone, salon_phone: self.txt_MobileNumber.text ?? "", postcode: postcode, address: self.txt_Address.text ?? "", city: city, country: country, latitude: "\(String(describing: userLatitude))", longitude: "\(userLongitude ?? 0.0)", web_status: "\(web_status ?? 0)", allow_search: "\(allow_search ?? 0)", time_gap: "\(time_gap)", reminder_mail: "\(reminder_mail)", about_us: self.txt_Aboutus.text ?? "") { result in
+        let safeLatitude = userLatitude ?? 0.0
+        let safeLongitude = userLongitude ?? 0.0
+
+        APIService.shared.UpdateBusinessInformation(id: LocalData.userId, salon_name: txt_BusinessName.text ?? "", salon_type: txt_SalonType.text ?? "", phone: phone, salon_phone: "\(selectedCountrycode)-\(txt_MobileNumber.text ?? "")", postcode: postcode, address: self.txt_Address.text ?? "", city: city, country: country, latitude: "\(safeLatitude)", longitude: "\(safeLongitude)", web_status: "\(web_status ?? 0)", allow_search: "\(allow_search ?? 0)", time_gap: "\(time_gap)", reminder_mail: "\(reminder_mail)", about_us: self.txt_Aboutus.text ?? "") { result in
             if let message = result?.data{
                 self.alertWithMessageOnly(message)
             }else{

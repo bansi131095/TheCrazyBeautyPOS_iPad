@@ -33,10 +33,7 @@ class WalkinHistory_VC: UIViewController {
         super.viewDidLoad()
         contentViewWidthConstraint.constant = 1500
         self.setTableView()
-        self.WalkinHistory()
-        print(LocalData.currency)
-        print(LocalData.symbol)
-        print(LocalData.selectedSymbol as Any)
+        setDefaultDateRangeAndFetch()
     }
     
     // MARK: - Button Action
@@ -50,6 +47,24 @@ class WalkinHistory_VC: UIViewController {
     }
     
     //MARK: -  Function
+    func setDefaultDateRangeAndFetch() {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        guard let oneMonthAgo = calendar.date(byAdding: .month, value: -1, to: currentDate) else { return }
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d, yyyy" // Match your existing format
+
+        txt_FromDate.text = formatter.string(from: oneMonthAgo)
+        txt_ToDate.text = formatter.string(from: currentDate)
+
+        firstDate = oneMonthAgo
+        lastDate = currentDate
+
+        self.WalkinHistory()
+    }
+    
     func setTableView(){
         tbl_vw.register(UINib(nibName: "WalkinHistoryCell", bundle: nil), forCellReuseIdentifier: "WalkinHistoryCell")
         tbl_vw.register(UINib(nibName: "WalkinHistoryHeaderCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "WalkinHistoryHeaderCell")
@@ -113,8 +128,12 @@ class WalkinHistory_VC: UIViewController {
             }
 
             self.WalkingList = model.data
-
-            // Show/Hide No Data Label
+            
+            if let parentVC = self.parent as? ReportVC {
+                parentVC.updateTotalAmount(text: "\(SharedPrefs.getSymbol())" + (result?.total_sales ?? ""))
+            }
+        
+            
             if self.WalkingList.isEmpty {
                 self.lbl_NoDataFound.isHidden = false
             } else {
@@ -207,11 +226,17 @@ extension WalkinHistory_VC: UITableViewDelegate, UITableViewDataSource{
         let data = self.WalkingList[indexPath.item]
         cell.lbl_ID.text = data.booking_number
         cell.lbl_Date.text = data.created_at
-        cell.lbl_ServiceName.text = data.service_names
+        
+        if data.service_names == ""{
+            cell.lbl_ServiceName.text = "N/A"
+        }else{
+            cell.lbl_ServiceName.text = data.service_names
+        }
+        
         if data.payment_type == ""{
             cell.lbl_PaymentType.text = "N/A"
         }else{
-            cell.lbl_PaymentType.text = data.payment_type
+            cell.lbl_PaymentType.text = data.payment_type.capitalized
         }
         
         if data.coupon_code == ""{
@@ -223,13 +248,19 @@ extension WalkinHistory_VC: UITableViewDelegate, UITableViewDataSource{
         if data.tip == 0{
             cell.lbl_Tip.text = "N/A"
         }else{
-            cell.lbl_Tip.text = "\(data.tip)"
+            cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + "\(data.tip)"
         }
-        cell.lbl_Discount.text = "\(data.discount_amount)"
         
-        cell.lbl_Total.text = "\(data.sub_total)"
-        cell.lbl_GrandTotal.text = "\(data.total)"
-        cell.lbl_MisPrice.text = "\(data.miscellaneous_price)"
+        cell.lbl_Discount.text = "\(SharedPrefs.getSymbol())" + "\(data.discount_amount)"
+        if data.giftCardDisplayString == ""{
+            cell.lbl_GiftCard?.text = "N/A"
+        }else{
+            cell.lbl_GiftCard?.text = data.giftCardDisplayString
+        }
+        
+        cell.lbl_Total.text = "\(SharedPrefs.getSymbol())" + "\(data.sub_total)"
+        cell.lbl_GrandTotal.text = "\(SharedPrefs.getSymbol())" + "\(data.total)"
+        cell.lbl_MisPrice.text = "\(SharedPrefs.getSymbol())" + "\(data.miscellaneous_price)"
         return cell
     }
     

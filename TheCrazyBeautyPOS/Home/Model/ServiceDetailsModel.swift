@@ -104,7 +104,7 @@ class GiftModel: Mappable {
     var total: Int = 0
     var totalpages: Int = 0
     var data: [GiftDateModel] = []
-    var total_sales: String = ""
+    var totalSales: String = ""
     var error: String = ""
 
     required init?(map: Map) {}
@@ -113,7 +113,7 @@ class GiftModel: Mappable {
         total       <- map["total"]
         totalpages  <- map["totalpages"]
         data        <- map["data"]
-        total_sales <- map["total_sales"]
+        totalSales <- map["totalSales"]
         error       <- map["error"]
     }
 }
@@ -163,7 +163,7 @@ class SalesHistoryModel: Mappable {
     var total: Int = 0
     var totalpages: Int = 0
     var passcode_status: Int = 0
-    var totalAmount: Int = 0
+    var totalAmount: String = ""
     var data: [SalesHistoryDateModel] = []
     var error: String = ""
 
@@ -297,7 +297,70 @@ class WalkinHistoryDateModel: Mappable {
         created_at              <- map["created_at"]
         updated_at           	<- map["updated_at"]
         service_names           <- map["service_names"]
-        
+    }
+    
+    var giftCardDisplayString: String {
+        guard let data = gift_card.data(using: .utf8) else { return "" }
+        do {
+            let giftCards = try JSONDecoder().decode([GiftCardModel].self, from: data)
+            return giftCards.map { "\($0.qty) × ₹\($0.price)" }.joined(separator: ", ")
+        } catch {
+            print("GiftCard parsing error: \(error)")
+            return ""
+        }
+    }
+    
+}
+
+struct GiftCardModel: Codable {
+    let price: Int
+    let qty: Int
+}
+
+class SalesModel: Mappable {
+    var total: Int = 0
+    var totalpages: Int = 0
+    var totalsales: Int = 0
+    var data: [SalesDateModel] = []
+    var error: String = ""
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        total       <- map["total"]
+        totalpages  <- map["totalpages"]
+        totalsales <- map["totalsales"]
+        data        <- map["data"]
+        error       <- map["error"]
+    }
+}
+
+
+class SalesDateModel: Mappable {
+    
+    var id: Int = 0
+    var customer_id: Int = 0
+    var customer_name: String = ""
+    var booking_number: String = ""
+    var staff_id: String = ""
+    var staff_name: String = ""
+    var service_id: Int = 0
+    var service_name: String = ""
+    var price: Int = 0
+    
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id                      <- map["id"]
+        customer_id             <- map["customer_id"]
+        customer_name           <- map["customer_name"]
+        booking_number          <- map["booking_number"]
+        staff_id                <- map["staff_id"]
+        staff_name              <- map["staff_name"]
+        service_id              <- map["service_id"]
+        service_name            <- map["service_name"]
+        price                   <- map["price"]
     }
 }
 

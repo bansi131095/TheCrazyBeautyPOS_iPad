@@ -15,9 +15,13 @@ class Team_ReportVC: UIViewController {
     @IBOutlet weak var txt_SelectStaff: UITextField!
     @IBOutlet weak var txt_FromDate: UITextField!
     @IBOutlet weak var txt_ToDate: UITextField!
+    @IBOutlet weak var tbl_vw: UITableView!
+    @IBOutlet weak var lbl_NoDataFound: UILabel!
     
     var TeamDetails: [TeamDetailsModel] = []
     let dropDown = DropDown()
+    
+    var salesData: [SalesDateModel] = []
     
     var calendarVC: UIViewController?
     var firstDate: Date?
@@ -29,6 +33,8 @@ class Team_ReportVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         get_TeamDetails()
+        setDefaultDateRangeAndFetch()
+        setTableView()
     }
     
     func get_TeamDetails(){
@@ -40,6 +46,40 @@ class Team_ReportVC: UIViewController {
         }
     }
     
+    func get_SalesData(staff_id: String){
+        guard let fromDateString = self.txt_FromDate.text,
+              let toDateString = self.txt_ToDate.text,
+              let fromDate = convertStringToDate(fromDateString),
+              let toDate = convertStringToDate(toDateString) else {
+            print("Invalid date format")
+            return
+        }
+
+        let formattedFrom = formatDateToString(fromDate)
+        let formattedTo = formatDateToString(toDate)
+        
+        APIService.shared.SalesDataGet(vendor_id: LocalData.userId, staff_id: staff_id, limt: "10", page: "1", start_date: formattedFrom, end_date: formattedTo) { result in
+            guard let model = result else {
+                print("API failed or empty response")
+                self.salesData = []
+                self.tbl_vw.reloadData()
+                self.lbl_NoDataFound.isHidden = false
+                return
+            }
+
+            self.salesData = model.data
+            if let parentVC = self.parent as? ReportVC {
+                parentVC.updateTotalAmount(text: "\(SharedPrefs.getSymbol())" + "\(result?.totalsales ?? 0)")
+            }
+            // Show/Hide No Data Label
+            if self.salesData.isEmpty {
+                self.lbl_NoDataFound.isHidden = false
+            } else {
+                self.lbl_NoDataFound.isHidden = true
+            }
+            self.tbl_vw.reloadData()
+        }
+    }
     
     @IBAction func btn_SelectStaff(_ sender: Any) {
         dropDown.anchorView = txt_SelectStaff
@@ -49,10 +89,10 @@ class Team_ReportVC: UIViewController {
             txt_SelectStaff.text = item
             
             if index == 0 {
-                print("No staff selected")  // First item: "Select Staff"
+                get_SalesData(staff_id: "")
             } else {
-                let selectedStaff = TeamDetails[index - 1] // Subtract 1 because of "Select Staff"
-                print("Selected ID: \(selectedStaff.id), Name: \(selectedStaff.first_name)")
+                let selectedStaff = TeamDetails[index - 1]
+                self.get_SalesData(staff_id: "\(selectedStaff.id)")
             }
         }
         dropDown.show()
@@ -68,6 +108,34 @@ class Team_ReportVC: UIViewController {
     }
     
     //MARK: -  Function
+    func setDefaultDateRangeAndFetch() {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        guard let oneMonthAgo = calendar.date(byAdding: .month, value: -1, to: currentDate) else { return }
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d, yyyy" // Match your existing format
+
+        txt_FromDate.text = formatter.string(from: oneMonthAgo)
+        txt_ToDate.text = formatter.string(from: currentDate)
+
+        firstDate = oneMonthAgo
+        lastDate = currentDate
+
+        get_SalesData(staff_id: "")
+    }
+
+    
+    func setTableView(){
+        tbl_vw.register(UINib(nibName: "TeamReportCell", bundle: nil), forCellReuseIdentifier: "TeamReportCell")
+        tbl_vw.register(UINib(nibName: "TeamReportHeaderCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "TeamReportHeaderCell")
+        tbl_vw.delegate = self
+        tbl_vw.dataSource = self
+        tbl_vw.rowHeight = UITableView.automaticDimension
+        tbl_vw.estimatedRowHeight = 60
+    }
+    
     func showCalendarPopup(sourceView: UIView) {
         calendarVC = UIViewController()
         calendarVC?.modalPresentationStyle = .popover
@@ -120,15 +188,16 @@ extension Team_ReportVC: FSCalendarDelegate, FSCalendarDataSource {
                 calendar.select(d)
             }
 
+            // 👇 Update here: Format as "MMM d, yyyy"
             let formatter = DateFormatter()
-            formatter.dateFormat = "dd MMM yyyy"
+            formatter.dateFormat = "MMM d, yyyy"
             txt_FromDate.text = formatter.string(from: firstDate!)
             txt_ToDate.text = formatter.string(from: lastDate!)
 
+            get_SalesData(staff_id: "")
             calendarVC?.dismiss(animated: true, completion: nil)
-
+            
         } else {
-            // Reset all
             for selected in calendar.selectedDates {
                 calendar.deselect(selected)
             }
@@ -136,7 +205,6 @@ extension Team_ReportVC: FSCalendarDelegate, FSCalendarDataSource {
             lastDate = nil
             calendar.select(date)
 
-            // Clear text fields
             txt_FromDate.text = ""
             txt_ToDate.text = ""
         }
@@ -154,5 +222,38 @@ extension Team_ReportVC: FSCalendarDelegate, FSCalendarDataSource {
         }
         return dates
     }
+}
+
+
+extension Team_ReportVC: UITableViewDelegate, UITableViewDataSource{
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.salesData.count
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "TeamReportHeaderCell") as? TeamReportHeaderCell else {
+                return nil
+            }
+            return header
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tbl_vw.dequeueReusableCell(withIdentifier: "TeamReportCell", for: indexPath) as? TeamReportCell else {
+            return UITableViewCell()
+        }
+        let data = self.salesData[indexPath.item]
+        cell.lbl_Id.text = data.booking_number
+        cell.lbl_CustomerName.text = data.customer_name
+        cell.lbl_StaffName.text = data.staff_name
+        cell.lbl_ServiceName.text = data.service_name
+        cell.lbl_Price.text = "\(SharedPrefs.getSymbol())" +  String(data.price)
+        return cell
+    }
+    
 }
 

@@ -55,7 +55,7 @@ extension CartCell: UITableViewDelegate, UITableViewDataSource {
         }
         let items = data[indexPath.row]
         cell.lbl_service.text = items.name
-        cell.lbl_price.text = "-\(LocalData.symbol)\(items.price)"
+        cell.lbl_price.text = "-\(SharedPrefs.getSymbol())\(items.price)"
         cell.lbl_count.text = "\(items.count)"
         return cell
     }

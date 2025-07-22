@@ -231,12 +231,12 @@ extension Block_CustomerVC : UITableViewDataSource, UITableViewDelegate{
         cell.txt_MobileNumber.tag = indexPath.row
         cell.txt_MobileNumber.addTarget(self, action: #selector(mobileTextChanged(_:)), for: .editingChanged)
         
-//        let code = item["countryCode"] ?? "+000"
-        /*if let iso = CountryUtils.getISOCode(from: code),
+        let code = item["countryCode"] ?? "+000"
+        if let iso = CountryUtils.getISOCode(from: code),
            let flagImage = CountryUtils.imageFromEmoji(flag: CountryUtils.flag(from: iso)) {
             cell.img_Flag.image = flagImage
-        }*/
-
+        }
+        
         cell.txt_MobileNumber.tag = indexPath.row
         cell.txt_MobileNumber.addTarget(self, action: #selector(mobileTextChanged(_:)), for: .editingChanged)
         
