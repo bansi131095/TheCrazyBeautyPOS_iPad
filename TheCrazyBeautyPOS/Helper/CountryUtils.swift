@@ -181,7 +181,6 @@ struct CountryUtils {
     static func getISOCode(from dialCode: String) -> String? {
         return dialCodeToISO[dialCode]
     }
-<<<<<<< HEAD
    
     static func flag(from countryCode: String) -> String {
         let base: UInt32 = 127397
@@ -193,21 +192,20 @@ struct CountryUtils {
         return String(scalars)
     }
 
-=======
+
     
-    static func flag(from countryCode: String) -> String {
-        let base: UInt32 = 127397
-        var scalarView = String.UnicodeScalarView()
-
-        for u in countryCode.uppercased().unicodeScalars {
-            if let scalar = UnicodeScalar(base + u.value) {
-                scalarView.append(scalar)
-            }
-        }
-
-        return String(scalarView)
-    }
->>>>>>> ajay_work
+//    static func flag(from countryCode: String) -> String {
+//        let base: UInt32 = 127397
+//        var scalarView = String.UnicodeScalarView()
+//
+//        for u in countryCode.uppercased().unicodeScalars {
+//            if let scalar = UnicodeScalar(base + u.value) {
+//                scalarView.append(scalar)
+//            }
+//        }
+//
+//        return String(scalarView)
+//    }
     
     static func imageFromEmoji(flag: String, fontSize: CGFloat = 60) -> UIImage? {
         let size = CGSize(width: fontSize, height: fontSize)

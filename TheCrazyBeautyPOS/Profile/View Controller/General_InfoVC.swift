@@ -109,12 +109,11 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         }
     }
     
-<<<<<<< HEAD
+
     
-    @IBAction func act_country(_ sender: UIButton) {
-=======
+    @IBAction func act_country(_ sender: UIButton) {}
+
     @IBAction func btn_CountryPicker(_ sender: Any) {
->>>>>>> ajay_work
         let countryView = CountrySelectView.shared
         countryView.show()
 //        countryView.dismiss() //dismiss the picker view
@@ -250,11 +249,10 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             self.txt_Address.text = self.SalonDetails.first?.address
             self.txt_SalonType.text = self.SalonDetails.first?.salon_type
             self.txt_BusinessName.text = self.SalonDetails.first?.salon_name
-<<<<<<< HEAD
+
 //            self.txt_MobileNumber.text =
-=======
+
 //            self.txt_MobileNumber.text = self.SalonDetails.first?.salon_phone
->>>>>>> ajay_work
             if var phoneno = self.SalonDetails.first?.salon_phone {
                 if !phoneno.isEmpty && phoneno.count >= 3 {
                     if phoneno.contains("--") {
@@ -284,10 +282,6 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                     }
                 }
             }
-<<<<<<< HEAD
-=======
-            
->>>>>>> ajay_work
             self.userLatitude = self.SalonDetails.first?.latitude
             self.userLongitude = self.SalonDetails.first?.longitude
             self.txt_Aboutus.attributedText = self.SalonDetails.first?.about_us?.htmlToAttributedString

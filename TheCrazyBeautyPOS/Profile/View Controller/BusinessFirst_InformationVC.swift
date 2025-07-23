@@ -290,13 +290,21 @@ class BusinessFirst_InformationVC: UIViewController {
         let url = global.shared.URL_UPDATE_BUSINESS_INFORMATION + "/\(vendor_ID)"
         print("URL:- \(url)")
         APIService.shared.BusinessInformation(url: url, address: self.txt_Address.text ?? "", latitude: "\(userLatitude ?? 0.0)", longitude: "\(userLongitude ?? 0.0)", postcode: "", salon_name: self.txt_BusinessName.text ?? "", salon_type: self.txt_SalonType.text ?? "", web_status: "\(web_status ?? 0)") { result in
-            if let message = result?.data{
-                let storyboard = UIStoryboard(name: "Profile", bundle: nil)
-                let vc = storyboard.instantiateViewController(withIdentifier: "BusinessSecond_InformationVC") as! BusinessSecond_InformationVC
-                vc.vendor_Id = self.vendor_ID
-                self.navigationController?.pushViewController(vc, animated: false)
-                self.alertWithMessageOnly(message)
-            }else{
+            if let data = result?.data {
+                        DispatchQueue.main.async {
+                            let storyboard = UIStoryboard(name: "Profile", bundle: nil)
+                            let vc = storyboard.instantiateViewController(withIdentifier: "BusinessSecond_InformationVC") as! BusinessSecond_InformationVC
+                            vc.vendor_Id = self.vendor_ID
+                            self.navigationController?.pushViewController(vc, animated: true)
+                            
+                            // Safely unwrap message string
+                            if let messageString = data as? String {
+                                self.alertWithMessageOnly(messageString)
+                            } else {
+                                self.alertWithMessageOnly("Business information updated successfully.")
+                            }
+                        }
+                    }else{
                 self.alertWithMessageOnly("Something went wrong.")
             }
         }

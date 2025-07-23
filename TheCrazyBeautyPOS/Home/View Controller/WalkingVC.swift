@@ -197,7 +197,7 @@ class WalkingVC: UIViewController {
         let checkout = self.storyboard?.instantiateViewController(withIdentifier: "WalkinCheckoutVC") as! WalkinCheckoutVC
         checkout.giftCards = GiftBookingJson
         checkout.serviceId = ServiceBookingJson
-        checkout.price = totalPrice
+        checkout.price = Double(totalPrice)
         checkout.totalServices = totalServices
         checkout.totalGiftCard = totalGiftCard
         self.present(checkout, animated: true)

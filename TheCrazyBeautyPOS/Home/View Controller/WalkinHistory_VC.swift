@@ -265,3 +265,35 @@ extension WalkinHistory_VC: UITableViewDelegate, UITableViewDataSource{
     }
     
 }
+
+protocol WalkinHistoryDownloadable {
+    var fromDate: String? { get }
+    var toDate: String? { get }
+    func downloadWalkinHistoryReport(startDate: String, endDate: String)
+}
+
+
+extension WalkinHistory_VC: WalkinHistoryDownloadable {
+    
+    var fromDate: String? {
+        return txt_FromDate.text
+    }
+    
+    var toDate: String? {
+        return txt_ToDate.text
+    }
+
+    func downloadWalkinHistoryReport(startDate: String, endDate: String) {
+        let vendorID = LocalData.userId
+        
+        APIService.shared.downloadWalkinHistoryReport(vendor_id: vendorID,start_date: startDate,end_date: endDate) { model in
+            guard let filename = model?.filename else {
+                self.alertWithMessageOnly("Download failed")
+                return
+            }
+
+            let urlPath = "\(global.reportUrl)\(filename)"
+            self.downloadAndSaveFile(urlString: urlPath, in: self)
+        }
+    }
+}

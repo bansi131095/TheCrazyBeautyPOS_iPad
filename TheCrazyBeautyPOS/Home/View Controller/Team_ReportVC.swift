@@ -254,6 +254,45 @@ extension Team_ReportVC: UITableViewDelegate, UITableViewDataSource{
         cell.lbl_Price.text = "\(SharedPrefs.getSymbol())" +  String(data.price)
         return cell
     }
+}
+
+protocol ReportDownloadable {
+    var fromDate: String? { get }
+    var toDate: String? { get }
+    func downloadReport(startDate: String, endDate: String)
+}
+
+
+extension Team_ReportVC: ReportDownloadable {
     
+    var fromDate: String? {
+        return txt_FromDate.text
+    }
+    
+    var toDate: String? {
+        return txt_ToDate.text
+    }
+
+    func downloadReport(startDate: String, endDate: String) {
+        let vendorID = LocalData.userId
+        let staff_id = "" // If dynamic, pass it accordingly
+
+        APIService.shared.downloadSalesReport(vendor_id: vendorID,start_date: startDate,end_date: endDate,
+        staff_id: staff_id) { model in
+            guard let filename = model?.filename else {
+                self.alertWithMessageOnly("Download failed")
+                return
+            }
+
+            let urlPath = "\(global.reportUrl)\(filename)"
+            self.downloadAndSaveFile(urlString: urlPath, in: self)
+        }
+    }
+}
+
+extension Team_ReportVC: UIDocumentInteractionControllerDelegate {
+    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
+        return self
+    }
 }
 

@@ -12,6 +12,7 @@ class SalesReportHistory_VC: UIViewController {
 
     @IBOutlet weak var txt_FromDate: UITextField!
     @IBOutlet weak var txt_ToDate: UITextField!
+    @IBOutlet weak var txt_search: UITextField!
     @IBOutlet weak var contentViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var lbl_NoDataFound: UILabel!
     @IBOutlet weak var tbl_vw: UITableView!
@@ -25,10 +26,17 @@ class SalesReportHistory_VC: UIViewController {
     
     var salesHistoryList: [SalesHistoryDateModel] = []
     
+    var searchWorkItem: DispatchWorkItem?
+    var currentPage = 1
+    var isLoadingMore = false
+    var hasMoreData = true
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         contentViewWidthConstraint.constant = 1000
         setTableView()
+        self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         setDefaultDateRangeAndFetch()
         // Do any additional setup after loading the view.
     }
@@ -60,7 +68,18 @@ class SalesReportHistory_VC: UIViewController {
         firstDate = oneMonthAgo
         lastDate = currentDate
 
-        salesHistoryData()
+        salesHistoryData(Search: "")
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        searchWorkItem?.cancel()
+
+        let newWorkItem = DispatchWorkItem { [weak self] in
+            self?.salesHistoryData(Search: textField.text ?? "")
+        }
+
+        searchWorkItem = newWorkItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newWorkItem)
     }
     
     func setTableView(){
@@ -103,7 +122,7 @@ class SalesReportHistory_VC: UIViewController {
         self.present(calendarVC!, animated: true, completion: nil)
     }
     
-    func salesHistoryData() {
+    /*func salesHistoryData() {
         guard let fromDateString = self.txt_FromDate.text,
               let toDateString = self.txt_ToDate.text,
               let fromDate = convertStringToDate(fromDateString),
@@ -138,7 +157,51 @@ class SalesReportHistory_VC: UIViewController {
             
             self.tbl_vw.reloadData()
         }
+    }*/
+    
+    func salesHistoryData(Search: String, isPagination: Bool = false) {
+        guard let fromDateString = self.txt_FromDate.text,
+              let toDateString = self.txt_ToDate.text,
+              let fromDate = convertStringToDate(fromDateString),
+              let toDate = convertStringToDate(toDateString) else {
+            print("Invalid date format")
+            return
+        }
+
+        let formattedFrom = formatDateToString(fromDate)
+        let formattedTo = formatDateToString(toDate)
+
+        if isPagination {
+            self.isLoadingMore = true
+        } else {
+            self.currentPage = 1
+            self.salesHistoryList.removeAll()
+            self.hasMoreData = true
+        }
+
+        APIService.shared.SalesPaymentHistory(vendor_id: LocalData.userId,start_date: formattedFrom,end_date: formattedTo,limit: "10",page: "\(currentPage)",customer_type: "",search: Search,staff_id: "") { result in
+            self.isLoadingMore = false
+
+            guard let model = result else {
+                self.salesHistoryList = []
+                self.lbl_NoDataFound.isHidden = false
+                self.tbl_vw.reloadData()
+                return
+            }
+
+            self.salesHistoryList += model.data
+            self.currentPage += 1
+            self.hasMoreData = !model.data.isEmpty
+
+            if let parentVC = self.parent as? ReportVC {
+                parentVC.updateTotalAmount(text: "\(SharedPrefs.getSymbol())" + (result?.totalAmount ?? ""))
+            }
+
+            self.lbl_NoDataFound.isHidden = !self.salesHistoryList.isEmpty
+            self.tbl_vw.reloadData()
+        }
     }
+
 }
 
 extension SalesReportHistory_VC: FSCalendarDelegate, FSCalendarDataSource {
@@ -168,7 +231,8 @@ extension SalesReportHistory_VC: FSCalendarDelegate, FSCalendarDataSource {
             txt_ToDate.text = formatter.string(from: lastDate!)
 
 //            serviceReport()
-            salesHistoryData()
+//            salesHistoryData()
+            salesHistoryData(Search: "")
             calendarVC?.dismiss(animated: true, completion: nil)
             
         } else {
@@ -254,5 +318,63 @@ extension SalesReportHistory_VC: UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let frameHeight = scrollView.frame.size.height
+
+        if offsetY > contentHeight - frameHeight - 400 {
+            if !isLoadingMore && hasMoreData {
+                self.salesHistoryData(Search: txt_search.text ?? "", isPagination: true)
+            }
+        }
+    }
+
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if isLoadingMore {
+            let spinner = UIActivityIndicatorView(style: .medium)
+            spinner.startAnimating()
+            return spinner
+        }
+        return nil
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return isLoadingMore ? 50 : 0
+    }
+    
 }
 
+
+protocol SalesReportDownloadable {
+    var fromDate: String? { get }
+    var toDate: String? { get }
+    func downloadSalesReport(startDate: String, endDate: String)
+}
+
+
+extension SalesReportHistory_VC: SalesReportDownloadable {
+    
+    var fromDate: String? {
+        return txt_FromDate.text
+    }
+    
+    var toDate: String? {
+        return txt_ToDate.text
+    }
+
+    func downloadSalesReport(startDate: String, endDate: String) {
+        let vendorID = LocalData.userId
+        
+        APIService.shared.downloadBookingHistoryReport(vendor_id: vendorID,start_date: startDate,end_date: endDate,customer_type: "") { model in
+            guard let filename = model?.filename else {
+                self.alertWithMessageOnly("Download failed")
+                return
+            }
+
+            let urlPath = "\(global.reportUrl)\(filename)"
+            self.downloadAndSaveFile(urlString: urlPath, in: self)
+        }
+    }
+}

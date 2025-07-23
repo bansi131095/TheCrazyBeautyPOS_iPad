@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GiftcardCell: UITableViewCell {
+class Giftcard_Cell: UITableViewCell {
 
     
     @IBOutlet weak var lbl_Name: UILabel!

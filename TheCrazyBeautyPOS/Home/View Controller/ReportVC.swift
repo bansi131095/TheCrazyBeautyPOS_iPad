@@ -48,6 +48,70 @@ class ReportVC: UIViewController {
     
     //MARK: -  Button Action
     @IBAction func btn_DownloadReport(_ sender: Any) {
+        if let currentVC = children.first as? ReportDownloadable {
+            let formatterInput = DateFormatter()
+            formatterInput.dateFormat = "MMM d, yyyy"
+
+            let formatterOutput = DateFormatter()
+            formatterOutput.dateFormat = "dd-MM-yyyy"
+
+            let formattedStart = formatterOutput.string(from: formatterInput.date(from: currentVC.fromDate ?? "") ?? Date())
+                let formattedEnd = formatterOutput.string(from: formatterInput.date(from: currentVC.toDate ?? "") ?? Date())
+            print("From: \(formattedStart) To: \(formattedEnd)")
+            currentVC.downloadReport(startDate: formattedStart, endDate: formattedEnd)
+        }
+        if let serviceReport = children.first as? Service_ReportVC {
+            let formatterInput = DateFormatter()
+            formatterInput.dateFormat = "MMM d, yyyy"
+
+            let formatterOutput = DateFormatter()
+            formatterOutput.dateFormat = "dd-MM-yyyy"
+
+            let formattedStart = formatterOutput.string(from: formatterInput.date(from: serviceReport.fromDate ?? "") ?? Date())
+                let formattedEnd = formatterOutput.string(from: formatterInput.date(from: serviceReport.toDate ?? "") ?? Date())
+            print("From: \(formattedStart) To: \(formattedEnd)")
+            serviceReport.downloadServiceReport(startDate: formattedStart, endDate: formattedEnd)
+            
+        }
+        if let salesReporthistoryReport = children.first as? SalesReportHistory_VC {
+            let formatterInput = DateFormatter()
+            formatterInput.dateFormat = "MMM d, yyyy"
+
+            let formatterOutput = DateFormatter()
+            formatterOutput.dateFormat = "dd-MM-yyyy"
+
+            let formattedStart = formatterOutput.string(from: formatterInput.date(from: salesReporthistoryReport.fromDate ?? "") ?? Date())
+                let formattedEnd = formatterOutput.string(from: formatterInput.date(from: salesReporthistoryReport.toDate ?? "") ?? Date())
+            print("From: \(formattedStart) To: \(formattedEnd)")
+            salesReporthistoryReport.downloadSalesReport(startDate: formattedStart, endDate: formattedEnd)
+        }
+        if let walkingHistoryReport = children.first as? WalkinHistory_VC {
+            let formatterInput = DateFormatter()
+            formatterInput.dateFormat = "MMM d, yyyy"
+
+            let formatterOutput = DateFormatter()
+            formatterOutput.dateFormat = "dd-MM-yyyy"
+
+            let formattedStart = formatterOutput.string(from: formatterInput.date(from: walkingHistoryReport.fromDate ?? "") ?? Date())
+                let formattedEnd = formatterOutput.string(from: formatterInput.date(from: walkingHistoryReport.toDate ?? "") ?? Date())
+            print("From: \(formattedStart) To: \(formattedEnd)")
+            walkingHistoryReport.downloadWalkinHistoryReport(startDate: formattedStart, endDate: formattedEnd)
+        }
+        if let giftcardReport = children.first as? Giftcard_HistoryVC {
+            let formatterInput = DateFormatter()
+            formatterInput.dateFormat = "MMM d, yyyy"
+
+            let formatterOutput = DateFormatter()
+            formatterOutput.dateFormat = "dd-MM-yyyy"
+
+            let formattedStart = formatterOutput.string(from: formatterInput.date(from: giftcardReport.fromDate ?? "") ?? Date())
+                let formattedEnd = formatterOutput.string(from: formatterInput.date(from: giftcardReport.toDate ?? "") ?? Date())
+            print("From: \(formattedStart) To: \(formattedEnd)")
+            giftcardReport.downloadGiftReport(startDate: formattedStart, endDate: formattedEnd)
+        }
+        else{
+            print("Current VC doesn't support download.")
+        }
     }
     
     

@@ -3341,19 +3341,19 @@ To Partner.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Block Customer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GDX-Pa-FQI">
-                                <rect key="frame" x="30" y="54" width="1120" height="34"/>
+                                <rect key="frame" x="30" y="54" width="1120" height="33"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="28"/>
                                 <color key="textColor" name="AppBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Phone Number to Block Customers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fI1-tN-GTz">
-                                <rect key="frame" x="30" y="108" width="1120" height="24"/>
+                                <rect key="frame" x="30" y="107" width="1120" height="23.5"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="AppBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8yV-Bv-V6z">
-                                <rect key="frame" x="30" y="152" width="1120" height="64"/>
+                                <rect key="frame" x="30" y="150.5" width="1120" height="64"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Search" translatesAutoresizingMaskIntoConstraints="NO" id="ux0-tX-300">
                                         <rect key="frame" x="20" y="14.5" width="35" height="35"/>
@@ -3396,10 +3396,10 @@ To Partner.</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2eo-dc-MgC">
-                                <rect key="frame" x="0.0" y="236" width="1180" height="534"/>
+                                <rect key="frame" x="0.0" y="234.5" width="1180" height="535.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UKc-Un-JNW">
-                                        <rect key="frame" x="0.0" y="0.0" width="1180" height="534"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1180" height="535.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tmB-MH-ch0">
                                                 <rect key="frame" x="30" y="5" width="1120" height="65"/>
@@ -3535,7 +3535,7 @@ To Partner.</string>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add More" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VdC-BL-A3q">
-                                                                <rect key="frame" x="265" y="16.5" width="145" height="31.5"/>
+                                                                <rect key="frame" x="265" y="17" width="145" height="30.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="145" id="cNc-8A-574"/>
                                                                 </constraints>
@@ -3651,9 +3651,12 @@ To Partner.</string>
                                             <constraint firstItem="tmB-MH-ch0" firstAttribute="leading" secondItem="UKc-Un-JNW" secondAttribute="leading" constant="30" id="1Rm-pd-ZXo"/>
                                             <constraint firstItem="8qV-el-Cht" firstAttribute="top" secondItem="sLq-FB-NjW" secondAttribute="bottom" constant="20" id="3Op-CK-4Fp"/>
                                             <constraint firstItem="tmB-MH-ch0" firstAttribute="top" secondItem="UKc-Un-JNW" secondAttribute="top" constant="5" id="6ze-Qo-Ni4"/>
+                                            <constraint firstItem="sLq-FB-NjW" firstAttribute="leading" secondItem="UKc-Un-JNW" secondAttribute="leading" constant="20" symbolic="YES" id="QLg-NH-fBT"/>
                                             <constraint firstAttribute="trailing" secondItem="sLq-FB-NjW" secondAttribute="trailing" constant="20" id="RAn-KL-f1n"/>
+                                            <constraint firstItem="8qV-el-Cht" firstAttribute="leading" secondItem="UKc-Un-JNW" secondAttribute="leading" constant="20" symbolic="YES" id="V0c-q5-g2l"/>
                                             <constraint firstAttribute="trailing" secondItem="tmB-MH-ch0" secondAttribute="trailing" constant="30" id="Xi0-RX-W0l"/>
                                             <constraint firstItem="8qV-el-Cht" firstAttribute="trailing" secondItem="sLq-FB-NjW" secondAttribute="trailing" id="dzw-Gi-7nT"/>
+                                            <constraint firstAttribute="trailing" secondItem="8qV-el-Cht" secondAttribute="trailing" constant="20" symbolic="YES" id="eaK-Mb-kWY"/>
                                             <constraint firstItem="sLq-FB-NjW" firstAttribute="top" secondItem="tmB-MH-ch0" secondAttribute="bottom" constant="10" id="edz-gt-N91"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="8qV-el-Cht" secondAttribute="bottom" constant="20" id="f23-fM-yEf"/>
                                             <constraint firstItem="8qV-el-Cht" firstAttribute="leading" secondItem="sLq-FB-NjW" secondAttribute="leading" id="pko-ra-u6v"/>

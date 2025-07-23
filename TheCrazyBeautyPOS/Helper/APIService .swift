@@ -3065,13 +3065,13 @@ class APIService {
             }
         }
         
-        func AddTeamData(salon_id: String, completion: @escaping (CurrencyResponse?) -> Void) {
+        func AddTeamData(salon_id: String, completion: @escaping (CurrencyResponseA?) -> Void) {
             let url = global.shared.URL_ADD_TEAM_DATA
             
             let params: [String: Any] = ["salon_id": salon_id]
 
             AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
-                .responseObject { (response: DataResponse<CurrencyResponse, AFError>) in
+                .responseObject { (response: DataResponse<CurrencyResponseA, AFError>) in
 
                 // 📦 Print request info
                 print("🌐 URL: \(url)")
@@ -3290,7 +3290,188 @@ class APIService {
             }
         }
         
+    func downloadSalesReport(vendor_id: String, start_date: String, end_date: String, staff_id: String, completion: @escaping (ReportDownloadModel?) -> Void) {
+
+    let url = global.shared.URL_SALES_REPORT
+
+    let params: [String: Any] = [
+        "vendor_id": vendor_id,
+        "start_date": start_date,
+        "end_date": end_date,
+        "staff_id": staff_id
+    ]
+
+    AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+        .responseObject { (response: DataResponse<ReportDownloadModel, AFError>) in
+            
+            // Debug Info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headers: \(self.headers)")
+            
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Download File: \(result.filename)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
     
+
+    func downloadServiceReport(vendor_id: String, start_date: String, end_date: String, completion: @escaping (ReportDownloadModel?) -> Void) {
+
+    let url = global.shared.URL_SARVICE_REPORT
+
+    let params: [String: Any] = [
+        "vendor_id": vendor_id,
+        "start_date": start_date,
+        "end_date": end_date
+    ]
+
+    AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+        .responseObject { (response: DataResponse<ReportDownloadModel, AFError>) in
+            
+            // Debug Info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headers: \(self.headers)")
+            
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Download File: \(result.filename)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    func downloadBookingHistoryReport(vendor_id: String, start_date: String, end_date: String,customer_type:String, completion: @escaping (ReportDownloadModel?) -> Void) {
+
+    let url = global.shared.URL_BOOKING_HISTORY_REPORT
+
+    let params: [String: Any] = [
+        "vendor_id": vendor_id,
+        "start_date": start_date,
+        "end_date": end_date,
+        "customer_type": customer_type
+    ]
+
+    AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+        .responseObject { (response: DataResponse<ReportDownloadModel, AFError>) in
+            
+            // Debug Info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headers: \(self.headers)")
+            
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Download File: \(result.filename)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    func downloadWalkinHistoryReport(vendor_id: String, start_date: String, end_date: String, completion: @escaping (ReportDownloadModel?) -> Void) {
+
+    let url = global.shared.URL_WALKIN_REPORT
+
+    let params: [String: Any] = [
+        "vendor_id": vendor_id,
+        "start_date": start_date,
+        "end_date": end_date
+    ]
+
+    AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+        .responseObject { (response: DataResponse<ReportDownloadModel, AFError>) in
+            
+            // Debug Info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headers: \(self.headers)")
+            
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Download File: \(result.filename)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    func downloadGiftReport(vendor_id: String, start_date: String, end_date: String, completion: @escaping (ReportDownloadModel?) -> Void) {
+
+    let url = global.shared.URL_GIFT_REPORT
+
+    let params: [String: Any] = [
+        "vendor_id": vendor_id,
+        "start_date": start_date,
+        "end_date": end_date
+    ]
+
+    AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+        .responseObject { (response: DataResponse<ReportDownloadModel, AFError>) in
+            
+            // Debug Info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headers: \(self.headers)")
+            
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Download File: \(result.filename)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
     
 }
 

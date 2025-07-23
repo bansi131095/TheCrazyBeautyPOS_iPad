@@ -252,3 +252,36 @@ extension Service_ReportVC: UITableViewDelegate, UITableViewDataSource{
 }
 
 
+
+protocol ServiceDownloadable {
+    var fromDate: String? { get }
+    var toDate: String? { get }
+    func downloadServiceReport(startDate: String, endDate: String)
+}
+
+
+extension Service_ReportVC: ServiceDownloadable {
+    
+    var fromDate: String? {
+        return txt_FromDate.text
+    }
+    
+    var toDate: String? {
+        return txt_ToDate.text
+    }
+
+    func downloadServiceReport(startDate: String, endDate: String) {
+        let vendorID = LocalData.userId
+        
+        APIService.shared.downloadServiceReport(vendor_id: vendorID,start_date: startDate,end_date: endDate) { model in
+            guard let filename = model?.filename else {
+                self.alertWithMessageOnly("Download failed")
+                return
+            }
+
+            let urlPath = "\(global.reportUrl)\(filename)"
+            self.downloadAndSaveFile(urlString: urlPath, in: self)
+        }
+    }
+}
+

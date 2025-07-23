@@ -63,7 +63,7 @@ class Giftcard_HistoryVC: UIViewController {
     }
     
     func setTableView(){
-        tbl_vw.register(UINib(nibName: "GiftcardCell", bundle: nil), forCellReuseIdentifier: "GiftcardCell")
+        tbl_vw.register(UINib(nibName: "Giftcard_Cell", bundle: nil), forCellReuseIdentifier: "Giftcard_Cell")
         tbl_vw.register(UINib(nibName: "GiftCardHeaderCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "GiftCardHeaderCell")
         tbl_vw.delegate = self
         tbl_vw.dataSource = self
@@ -213,7 +213,7 @@ extension Giftcard_HistoryVC: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tbl_vw.dequeueReusableCell(withIdentifier: "GiftcardCell", for: indexPath) as? GiftcardCell else {
+        guard let cell = tbl_vw.dequeueReusableCell(withIdentifier: "Giftcard_Cell", for: indexPath) as? Giftcard_Cell else {
             return UITableViewCell()
         }
         let data = self.giftList[indexPath.item]
@@ -248,3 +248,37 @@ extension Giftcard_HistoryVC: UITableViewDelegate, UITableViewDataSource{
     }
     
 }
+
+protocol GiftcardDownloadable {
+    var fromDate: String? { get }
+    var toDate: String? { get }
+    func downloadGiftReport(startDate: String, endDate: String)
+}
+
+
+extension Giftcard_HistoryVC: GiftcardDownloadable {
+    
+    var fromDate: String? {
+        return txt_FromDate.text
+    }
+    
+    var toDate: String? {
+        return txt_ToDate.text
+    }
+
+    func downloadGiftReport(startDate: String, endDate: String) {
+        let vendorID = LocalData.userId
+        
+        APIService.shared.downloadGiftReport(vendor_id: vendorID,start_date: startDate,end_date: endDate) { model in
+            guard let filename = model?.filename else {
+                self.alertWithMessageOnly("Download failed")
+                return
+            }
+
+            let urlPath = "\(global.reportUrl)\(filename)"
+            self.downloadAndSaveFile(urlString: urlPath, in: self)
+        }
+    }
+}
+
+

@@ -3093,3 +3093,94 @@ class StringUtils {
     
     
 }
+extension UIViewController {
+    func downloadFile(from url: URL, fileName: String) {
+        let session = URLSession(configuration: .default)
+
+        let downloadTask = session.downloadTask(with: url) { (tempURL, response, error) in
+            guard let tempURL = tempURL, error == nil else {
+                DispatchQueue.main.async {
+                    self.showAlertToast(message: "Download error: \(error?.localizedDescription ?? "Unknown error")")
+                }
+                return
+            }
+
+            do {
+                let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+                let savedURL = documentsURL.appendingPathComponent(fileName)
+
+                // Remove existing file if any
+                if FileManager.default.fileExists(atPath: savedURL.path) {
+                    try FileManager.default.removeItem(at: savedURL)
+                }
+
+                try FileManager.default.moveItem(at: tempURL, to: savedURL)
+
+                DispatchQueue.main.async {
+                    self.alertWithMessageOnly("File saved successfully at: \(fileName)")
+                    self.presentShareSheet(fileURL: savedURL)
+                }
+
+            } catch {
+                DispatchQueue.main.async {
+                    self.alertWithMessageOnly("File save error: \(error.localizedDescription)")
+                }
+            }
+        }
+
+        downloadTask.resume()
+    }
+    
+    func presentShareSheet(fileURL: URL) {
+        let activityVC = UIActivityViewController(activityItems: [fileURL], applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = self.view // for iPad
+
+        self.present(activityVC, animated: true, completion: nil)
+    }
+    
+    
+    func downloadAndSaveFile(urlString: String, in viewController: UIViewController) {
+        guard let url = URL(string: urlString) else { return }
+
+        let task = URLSession.shared.downloadTask(with: url) { localURL, response, error in
+            guard let localURL = localURL, error == nil else {
+                print("Download error: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+
+            let fileManager = FileManager.default
+
+            let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let downloadsFolder = documentsURL.appendingPathComponent("Downloads")
+
+            if !fileManager.fileExists(atPath: downloadsFolder.path) {
+                do {
+                    try fileManager.createDirectory(at: downloadsFolder, withIntermediateDirectories: true, attributes: nil)
+                } catch {
+                    print("Failed to create folder: \(error.localizedDescription)")
+                    return
+                }
+            }
+            
+            let fileName = url.lastPathComponent
+            let destinationURL = downloadsFolder.appendingPathComponent(fileName)
+
+            try? fileManager.removeItem(at: destinationURL)
+
+            do {
+                try fileManager.copyItem(at: localURL, to: destinationURL)
+
+                DispatchQueue.main.async {
+                    self.alertWithMessageOnly("Download Completed, Please Check File Location at /File/TheCrazyBeauty/Downloads/")
+                }
+            } catch {
+                print("File save error: \(error.localizedDescription)")
+            }
+        }
+
+        task.resume()
+    }
+    
+}
+
+

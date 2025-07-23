@@ -364,3 +364,14 @@ class SalesDateModel: Mappable {
     }
 }
 
+
+class ReportDownloadModel: Mappable {
+    var filename: String = ""
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        filename <- map["filename"]
+    }
+}
+

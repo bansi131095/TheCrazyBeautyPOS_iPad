@@ -84,7 +84,7 @@ class TeamVC: UIViewController {
             self.tbl_vw.reloadData()
         }
     }
-<<<<<<< HEAD
+
 
     
     // Button Action
@@ -129,8 +129,6 @@ class TeamVC: UIViewController {
     }
     */
 
-=======
->>>>>>> ajay_work
 }
 
 extension TeamVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate{
