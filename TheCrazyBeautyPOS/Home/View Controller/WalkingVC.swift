@@ -26,14 +26,14 @@ class WalkingVC: UIViewController {
     // Cart View
     @IBOutlet weak var tbl_vw: UITableView!
     @IBOutlet weak var vw_service: UIView!
-    @IBOutlet weak var vw_serviceHeightConst: NSLayoutConstraint!
+//    @IBOutlet weak var vw_serviceHeightConst: NSLayoutConstraint!
     @IBOutlet weak var lbl_serviceTotal: UILabel!
 
     @IBOutlet weak var vw_giftCard: UIView!
-    @IBOutlet weak var vw_giftHeightConst: NSLayoutConstraint!
+//    @IBOutlet weak var vw_giftHeightConst: NSLayoutConstraint!
     @IBOutlet weak var lbl_giftCardTotal: UILabel!
     @IBOutlet weak var vw_total: UIView!
-    @IBOutlet weak var vw_totalHeightConst: NSLayoutConstraint!
+//    @IBOutlet weak var vw_totalHeightConst: NSLayoutConstraint!
     @IBOutlet weak var lbl_Total: UILabel!
     @IBOutlet weak var btn_clear: UIButton!
     @IBOutlet weak var btn_payNow: GradientButton!
@@ -195,6 +195,8 @@ class WalkingVC: UIViewController {
         }
         
         let checkout = self.storyboard?.instantiateViewController(withIdentifier: "WalkinCheckoutVC") as! WalkinCheckoutVC
+        checkout.modalPresentationStyle = .overCurrentContext
+        checkout.modalTransitionStyle = .crossDissolve
         checkout.giftCards = GiftBookingJson
         checkout.serviceId = ServiceBookingJson
         checkout.price = Double(totalPrice)
@@ -232,7 +234,6 @@ class WalkingVC: UIViewController {
         self.lbl_50Count.text = "\(self.gift50Count)"
         if (totalGiftCard > 0) {
             self.vw_giftCard.isHidden = false
-            self.vw_giftHeightConst.constant = 50
             self.lbl_giftCardTotal.text = "x\(totalGiftCard)"
             if let index = cartDataList.firstIndex(where: { $0.categoryName == "Gift Card" }) {
                 // Update properties as needed
@@ -251,6 +252,7 @@ class WalkingVC: UIViewController {
         let nonGiftCards = cartDataList.filter { $0.categoryName != "Gift Card" }
         let giftCards = cartDataList.filter { $0.categoryName == "Gift Card" }
         cartDataList = nonGiftCards + giftCards
+        calculateTotalPrice()
         self.tbl_vw.reloadData()
     }
     
@@ -282,13 +284,37 @@ class WalkingVC: UIViewController {
         }
         
         self.vw_service.isHidden = false
-        self.vw_serviceHeightConst.constant = 50
         self.lbl_serviceTotal.text = "x\(totalServices)"
         let nonGiftCards = cartDataList.filter { $0.categoryName != "Gift Card" }
         let giftCards = cartDataList.filter { $0.categoryName == "Gift Card" }
         cartDataList = nonGiftCards + giftCards
+        self.calculateTotalPrice()
         self.tbl_vw.reloadData()
     }
+    
+    func calculateTotalPrice() {
+        var total: Double = 0.0
+
+        for category in cartDataList {
+            for service in category.services {
+                total += Double(service.count) * service.price
+            }
+        }
+
+        // Store the total in the variable used for checkout
+        self.totalPrice = Int(total)
+
+        // Update total label in the UI
+        self.lbl_Total.text = "\(LocalData.symbol)\(String(format: "%.2f", total))"
+        
+        // Show Pay Now and Clear buttons if total > 0
+        self.btn_clear.isHidden = totalServices == 0 && totalGiftCard == 0
+        self.btn_payNow.isHidden = totalServices == 0 && totalGiftCard == 0
+        if total != 0 {
+            self.vw_total.isHidden = false
+        }
+    }
+
 
     func updateCartTotals() {
         self.totalServices = cartDataList
@@ -305,6 +331,7 @@ class WalkingVC: UIViewController {
         self.lbl_50Count.text = "\(self.gift50Count)"
         self.vw_service.isHidden = totalServices == 0
         self.vw_giftCard.isHidden = totalGiftCard == 0
+        self.calculateTotalPrice()
     }
 
     

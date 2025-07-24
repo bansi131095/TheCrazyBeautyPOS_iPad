@@ -203,6 +203,9 @@ class global: NSObject
     var URL_SALES_REPORT = global.server_url + "sales_report"
     var URL_SARVICE_REPORT = global.server_url + "service_report"
     
+    var URL_CHECK_COUPON = global.server_url + "check_coupon"
+    var URL_APPLY_COUPON = global.server_url + "apply_coupon"
+    
     
     //MARK:-
     override init()
