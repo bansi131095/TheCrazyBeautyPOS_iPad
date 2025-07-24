@@ -34,7 +34,10 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     let genderOptions = ["Male", "Female", "Rather not to say"]
     var isDropdownVisible = false
     var selectedCountrycode = "+353"
+    var calendar: FSCalendar!
     var calendarVC: UIViewController?
+    var years: [Int] = Array(1900...2030)
+
     var selectedDate: Date = Date.now
     var isEdit = false
     var serviceIds = String()
@@ -422,7 +425,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     }
 
     
-    func showCalendarPopup(sourceView: UIView) {
+  /*  func showCalendarPopup(sourceView: UIView) {
         calendarVC = UIViewController()
         calendarVC?.modalPresentationStyle = .popover
         calendarVC?.preferredContentSize = CGSize(width: 500, height: 400)
@@ -440,8 +443,77 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         }
 
         self.present(calendarVC!, animated: true, completion: nil)
-    }
+    } */
     
+    
+    func showCalendarPopup(sourceView: UIView) {
+        calendarVC = UIViewController()
+        calendarVC?.modalPresentationStyle = .popover
+        calendarVC?.preferredContentSize = CGSize(width: 500, height: 460)
+        calendarVC?.view.backgroundColor = .white
+
+        calendar = FSCalendar(frame: .zero)
+        calendar.delegate = self
+        calendar.dataSource = self
+        calendar.translatesAutoresizingMaskIntoConstraints = false
+        calendar.appearance.headerDateFormat = "MMMM yyyy"
+        calendar.appearance.todayColor = .systemBlue
+        calendar.appearance.selectionColor = .systemPurple
+
+        guard let calendarVC = calendarVC else { return }
+        calendarVC.view.addSubview(calendar)
+
+        // ✅ Year tap area over calendar header
+        let headerTapButton = UIButton()
+        headerTapButton.backgroundColor = .clear
+        headerTapButton.translatesAutoresizingMaskIntoConstraints = false
+        headerTapButton.addTarget(self, action: #selector(headerTapped), for: .touchUpInside)
+        calendarVC.view.addSubview(headerTapButton)
+
+        // 📌 Constraints
+        NSLayoutConstraint.activate([
+            calendar.topAnchor.constraint(equalTo: calendarVC.view.topAnchor),
+            calendar.leadingAnchor.constraint(equalTo: calendarVC.view.leadingAnchor),
+            calendar.trailingAnchor.constraint(equalTo: calendarVC.view.trailingAnchor),
+            calendar.bottomAnchor.constraint(equalTo: calendarVC.view.bottomAnchor),
+
+            headerTapButton.topAnchor.constraint(equalTo: calendar.topAnchor, constant: 20),
+            headerTapButton.leadingAnchor.constraint(equalTo: calendar.leadingAnchor),
+            headerTapButton.trailingAnchor.constraint(equalTo: calendar.trailingAnchor),
+            headerTapButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+
+        if let popover = calendarVC.popoverPresentationController {
+            popover.sourceView = sourceView
+            popover.sourceRect = sourceView.bounds
+            popover.permittedArrowDirections = .up
+            popover.delegate = self
+        }
+
+        self.present(calendarVC, animated: true)
+    }
+
+    @objc func headerTapped() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
+            guard let self = self else { return }
+
+            let alert = UIAlertController(title: "Select Year", message: "\n\n\n\n\n\n", preferredStyle: .alert)
+
+            let picker = UIPickerView(frame: CGRect(x: 5, y: 20, width: 250, height: 140))
+            picker.dataSource = self
+            picker.delegate = self
+            alert.view.addSubview(picker)
+
+            let currentYear = Calendar.current.component(.year, from: self.calendar.currentPage)
+            if let index = self.years.firstIndex(of: currentYear) {
+                picker.selectRow(index, inComponent: 0, animated: false)
+            }
+
+            // ✅ Present from calendarVC (not self), safely
+            self.calendarVC?.present(alert, animated: true)
+        }
+    }
+
     
     /*
     // MARK: - Navigation
@@ -524,4 +596,30 @@ extension AddTeamVC: UIImagePickerControllerDelegate, UINavigationControllerDele
     }
 
     
+}
+
+
+extension AddTeamVC: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return years.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "\(years[row])"
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let selectedYear = self.years[row]
+        var components = Calendar.current.dateComponents([.month], from: self.calendar.currentPage)
+        components.year = selectedYear
+        components.day = 1
+        if let date = Calendar.current.date(from: components) {
+            self.calendar.setCurrentPage(date, animated: true)
+        }
+        self.calendarVC?.dismiss(animated: true)
+    }
 }

@@ -211,6 +211,7 @@ class global: NSObject
     var URL_APPLY_COUPON = global.server_url + "apply_coupon"
     var URL_APPLY_GIFTCARD = global.server_url + "apply_giftcard"
     
+    var URL_GET_SHIFTS = global.server_url + "get_shifts"
     
     
     //MARK:-

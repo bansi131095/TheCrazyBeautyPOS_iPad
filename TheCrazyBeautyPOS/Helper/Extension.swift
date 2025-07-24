@@ -1000,7 +1000,14 @@ extension UIViewController
         formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter.date(from: dateStr)
     }
-
+    
+    // dd MMM
+    func convertStringToDate1(_ dateStr: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMM" // 👈 updated format
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter.date(from: dateStr)
+    }
 
     func convertDateFormat(input: String, fromFormat: String, toFormat: String) -> String? {
         let formatter = DateFormatter()
@@ -3184,3 +3191,11 @@ extension UIViewController {
 }
 
 
+extension DateFormatter {
+    static let ddMMyyyy: DateFormatter = {
+        let df = DateFormatter()
+        df.dateFormat = "dd-MM-yyyy"
+        df.timeZone = .current
+        return df
+    }()
+}
