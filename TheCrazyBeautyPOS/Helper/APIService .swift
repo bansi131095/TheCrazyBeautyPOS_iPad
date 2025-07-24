@@ -3517,7 +3517,7 @@ class APIService {
         
         let params: [String: Any] = [
             "vendor_id": vendor_id,
-            "code": code
+            "coupon_code": code
         ]
 
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
@@ -3547,5 +3547,166 @@ class APIService {
         }
     }
     
+    
+    
+    func ApplyGiftCard(vendor_id: String, code: String, total: String, customerId: String, completion: @escaping (GiftCardResponse?) -> Void) {
+        let url = global.shared.URL_APPLY_GIFTCARD
+        
+        let params: [String: Any] = [
+            "vendor_id": vendor_id,
+            "gift_code": code,
+            "customer_id": customerId,
+            "sub_total": total,
+        ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<GiftCardResponse, AFError>) in
+
+            // 📦 Print request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headere: \(self.headers)")
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    
+    
+    func addCartDetails(vendorId: String, subTotal: Double, grandTotal: Double, discountAmount: String, serviceIds: String, couponCode: String, discountPercentage: String, transactionId: String, paymentType: String, discountType: String, giftCard: String, miscellaneousNote: String, miscellaneousPrice: Double, tips: Double, completion: @escaping (CommonModel?) -> Void) {
+        let url = global.shared.URL_ADD_CART_DETAILS
+        
+        let params: [String: Any] = [
+            "vendor_id": vendorId,
+            "coupon_code": couponCode,
+            "discount_amount": discountAmount,
+            "discount_percentage": discountPercentage,
+            "discount_type": discountType,
+            "gift_card": giftCard,
+            "miscellaneous_notes": miscellaneousNote,
+            "miscellaneous_price": miscellaneousPrice,
+            "payment_type": paymentType,
+            "service_ids": serviceIds,
+            "sub_total": subTotal,
+            "tip": tips,
+            "total": grandTotal,
+            "transaction_id": transactionId
+        ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<CommonModel, AFError>) in
+
+            // 📦 Print request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headere: \(self.headers)")
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    
+    func WalkinTransaction(vendorId: String, amount: String, miscPrice: String, miscNotes: String, completion: @escaping (CommonModel?) -> Void) {
+        let url = global.shared.URL_WALKIN_TRANSACTION
+        
+        let params: [String: Any] = [
+            "vendor_id": vendorId,
+            "amount": amount,
+            "price": miscPrice,
+            "notes": miscNotes
+        ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<CommonModel, AFError>) in
+
+            // 📦 Print request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headere: \(self.headers)")
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    
+    func WalkinPayment(vendorId: String, transactionId: String, completion: @escaping (PosPaymentModel?) -> Void) {
+        let url = global.shared.URL_WALKIN_PAYMENT
+        
+        let params: [String: Any] = [
+            "vendor_id": vendorId,
+            "transaction_id": transactionId
+        ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<PosPaymentModel, AFError>) in
+
+            // 📦 Print request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headere: \(self.headers)")
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
 }
 

@@ -9,7 +9,7 @@ import UIKit
 import SDWebImage
 import SDWebImageSVGCoder
 
-class WalkingVC: UIViewController {
+class WalkingVC: UIViewController, WalkingDelegate {
 
     // Walkin View
     @IBOutlet weak var collect_category: UICollectionView!
@@ -202,8 +202,52 @@ class WalkingVC: UIViewController {
         checkout.price = Double(totalPrice)
         checkout.totalServices = totalServices
         checkout.totalGiftCard = totalGiftCard
+        checkout.delegate = self
         self.present(checkout, animated: true)
 
+    }
+    
+    func didClearData() {
+        // 1. Clear cart data
+        self.cartDataList.removeAll()
+
+        // 2. Reset gift card counts
+        self.gift30Count = 0
+        self.gift50Count = 0
+        self.totalGiftCard = 0
+        self.totalServices = 0
+
+        // 3. Reset all counts in serviceCategoryList
+        for i in 0..<self.serviceCategoryList.count {
+            self.serviceCategoryList[i].totalCount = 0
+            for j in 0..<self.serviceCategoryList[i].services.count {
+                self.serviceCategoryList[i].services[j].count = 0
+            }
+        }
+
+        // 4. Reset displayed services as well
+        for i in 0..<self.ServiceCategoryList.count {
+            self.ServiceCategoryList[i].count = 0
+        }
+
+        // 5. Hide UI sections
+        self.vw_service.isHidden = true
+        self.vw_giftCard.isHidden = true
+        self.vw_total.isHidden = true
+
+        // 6. Reset labels
+        self.lbl_30Count.text = "0"
+        self.lbl_50Count.text = "0"
+        self.lbl_serviceTotal.text = "x0"
+        self.lbl_giftCardTotal.text = "x0"
+        self.lbl_Total.text = "₹0"
+
+        // 7. Reload views
+        self.tbl_vw.reloadData()
+        self.collect_category.reloadData()
+        self.collect_service.reloadData()
+        self.btn_clear.isHidden = true
+        self.btn_payNow.isHidden = true
     }
     
     func setGiftCard() {
