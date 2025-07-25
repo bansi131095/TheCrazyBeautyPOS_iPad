@@ -3611,7 +3611,7 @@
                                 <rect key="frame" x="30" y="104" width="220" height="50"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="247" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="W4J-0e-iRN">
-                                        <rect key="frame" x="55" y="10" width="66.5" height="30"/>
+                                        <rect key="frame" x="55" y="10" width="72.5" height="30"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Jun 18">
                                                 <attributes>
@@ -3624,13 +3624,13 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RrC-7S-7sl">
-                                        <rect key="frame" x="131.5" y="10" width="11" height="30"/>
+                                        <rect key="frame" x="137.5" y="10" width="11" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q37-7o-ivy">
-                                        <rect key="frame" x="152.5" y="10" width="51.5" height="30"/>
+                                        <rect key="frame" x="158.5" y="10" width="51.5" height="30"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Jun 18">
                                                 <attributes>
@@ -3662,7 +3662,7 @@
                                 <constraints>
                                     <constraint firstItem="8YO-qT-hmf" firstAttribute="leading" secondItem="DGL-ux-F91" secondAttribute="leading" id="7gL-qo-iXf"/>
                                     <constraint firstAttribute="height" constant="50" id="9Wf-hL-f34"/>
-                                    <constraint firstAttribute="trailing" secondItem="q37-7o-ivy" secondAttribute="trailing" constant="16" id="DfZ-Tg-y0V"/>
+                                    <constraint firstAttribute="trailing" secondItem="q37-7o-ivy" secondAttribute="trailing" constant="10" id="DfZ-Tg-y0V"/>
                                     <constraint firstItem="q37-7o-ivy" firstAttribute="leading" secondItem="RrC-7S-7sl" secondAttribute="trailing" constant="10" id="KFE-p0-Ydn"/>
                                     <constraint firstItem="RrC-7S-7sl" firstAttribute="leading" secondItem="W4J-0e-iRN" secondAttribute="trailing" constant="10" id="NgB-2F-j8A"/>
                                     <constraint firstAttribute="bottom" secondItem="q37-7o-ivy" secondAttribute="bottom" constant="10" id="PdY-vH-Mvl"/>
@@ -3691,11 +3691,11 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ef-NK-s9k" customClass="GradientButton" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                <rect key="frame" x="410" y="104" width="190" height="56"/>
+                                <rect key="frame" x="430" y="104" width="190" height="50"/>
                                 <color key="backgroundColor" name="AccentColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="190" id="QzH-Os-M2L"/>
-                                    <constraint firstAttribute="height" constant="56" id="tWx-v6-e4Q"/>
+                                    <constraint firstAttribute="height" constant="50" id="tWx-v6-e4Q"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                 <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -3710,7 +3710,7 @@
                                         <color key="value" name="MainSen"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="28"/>
+                                        <real key="value" value="25"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -3718,11 +3718,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RRi-NZ-vG4" customClass="GradientButton" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                <rect key="frame" x="615" y="104" width="190" height="56"/>
+                                <rect key="frame" x="635" y="104" width="190" height="50"/>
                                 <color key="backgroundColor" name="AccentColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="190" id="Byk-xs-Yjz"/>
-                                    <constraint firstAttribute="height" constant="56" id="qug-Op-3Se"/>
+                                    <constraint firstAttribute="height" constant="50" id="qug-Op-3Se"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="download">
@@ -3744,7 +3744,7 @@
                                         <color key="value" name="MainSen"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="28"/>
+                                        <real key="value" value="25"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -3752,10 +3752,10 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g7Z-nF-HCr">
-                                <rect key="frame" x="830" y="104" width="320" height="56"/>
+                                <rect key="frame" x="850" y="104" width="300" height="50"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Search" translatesAutoresizingMaskIntoConstraints="NO" id="QIk-nF-osC">
-                                        <rect key="frame" x="15" y="13" width="30" height="30"/>
+                                        <rect key="frame" x="15" y="10" width="30" height="30"/>
                                         <color key="tintColor" name="txtGray"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="AcB-4e-dfh"/>
@@ -3763,7 +3763,7 @@
                                         </constraints>
                                     </imageView>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Search by name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AEb-Nr-g0H">
-                                        <rect key="frame" x="55" y="5" width="255" height="46"/>
+                                        <rect key="frame" x="55" y="5" width="235" height="40"/>
                                         <attributedString key="attributedText"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
@@ -3777,9 +3777,9 @@
                                     <constraint firstAttribute="bottom" secondItem="AEb-Nr-g0H" secondAttribute="bottom" constant="5" id="4qJ-Sf-hhE"/>
                                     <constraint firstItem="QIk-nF-osC" firstAttribute="leading" secondItem="g7Z-nF-HCr" secondAttribute="leading" constant="15" id="7os-e3-ugX"/>
                                     <constraint firstItem="AEb-Nr-g0H" firstAttribute="leading" secondItem="QIk-nF-osC" secondAttribute="trailing" constant="10" id="A8r-oh-ahe"/>
-                                    <constraint firstAttribute="height" constant="56" id="Fem-Pn-OFJ"/>
+                                    <constraint firstAttribute="height" constant="50" id="Fem-Pn-OFJ"/>
                                     <constraint firstItem="QIk-nF-osC" firstAttribute="centerY" secondItem="g7Z-nF-HCr" secondAttribute="centerY" id="oj7-Rd-B46"/>
-                                    <constraint firstAttribute="width" constant="320" id="xE1-Y9-ra7"/>
+                                    <constraint firstAttribute="width" constant="300" id="xE1-Y9-ra7"/>
                                     <constraint firstAttribute="trailing" secondItem="AEb-Nr-g0H" secondAttribute="trailing" constant="10" id="xdM-1R-2C5"/>
                                     <constraint firstItem="AEb-Nr-g0H" firstAttribute="centerY" secondItem="g7Z-nF-HCr" secondAttribute="centerY" id="yOz-9O-u3y"/>
                                 </constraints>
@@ -3791,7 +3791,7 @@
                                         <color key="value" name="txtGray"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="28"/>
+                                        <real key="value" value="25"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -7605,16 +7605,16 @@
                                                                 <rect key="frame" x="0.0" y="70" width="513.5" height="60"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YUp-07-vwA">
-                                                                        <rect key="frame" x="10" y="10" width="145" height="40"/>
+                                                                        <rect key="frame" x="10" y="10" width="135" height="40"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sales" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mmo-Zi-IRZ">
-                                                                                <rect key="frame" x="40" y="5.5" width="65" height="29"/>
+                                                                                <rect key="frame" x="40" y="5.5" width="55" height="29"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="24"/>
                                                                                 <color key="textColor" name="AccentColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ldr-3K-fEK">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="145" height="40"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="135" height="40"/>
                                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                 <connections>
                                                                                     <action selector="btn_Sales_Second:" destination="llV-lq-vxG" eventType="touchUpInside" id="KOV-JC-o5f"/>
@@ -7638,16 +7638,16 @@
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="atO-em-ISB">
-                                                                        <rect key="frame" x="175" y="10" width="154.5" height="40"/>
+                                                                        <rect key="frame" x="165" y="10" width="164.5" height="40"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Walkin" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWe-5a-SUr">
-                                                                                <rect key="frame" x="40" y="5.5" width="74.5" height="29"/>
+                                                                                <rect key="frame" x="40" y="5.5" width="84.5" height="29"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="24"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plT-Nt-5fM">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="154.5" height="40"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="164.5" height="40"/>
                                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                 <connections>
                                                                                     <action selector="btn_Walkin:" destination="llV-lq-vxG" eventType="touchUpInside" id="egl-59-d8W"/>

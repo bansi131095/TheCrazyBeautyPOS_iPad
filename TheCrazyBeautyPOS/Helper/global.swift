@@ -212,8 +212,8 @@ class global: NSObject
     var URL_APPLY_GIFTCARD = global.server_url + "apply_giftcard"
     
     var URL_GET_SHIFTS = global.server_url + "get_shifts"
-    
-    
+    var URL_STAFF_REPORT = global.server_url + "staff_report"
+
     //MARK:-
     override init()
     {

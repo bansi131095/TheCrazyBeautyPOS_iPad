@@ -28,8 +28,12 @@ class TeamVC: UIViewController {
         contentViewWidthConstraint.constant = 100 // or any dynamic value
         self.setTableView()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        self.loadData(Search: "")
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.loadData(Search: "")
     }
     
     

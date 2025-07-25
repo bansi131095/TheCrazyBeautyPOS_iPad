@@ -30,8 +30,13 @@ class InventoryVC: UIViewController {
         contentViewWidthConstraint.constant = 0 // or any dynamic value
         self.setTableView()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        self.loadData(Search: "")
+//        self.loadData(Search: "")
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.loadData(Search: "")
     }
     
     

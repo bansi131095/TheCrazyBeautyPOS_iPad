@@ -37,6 +37,7 @@ class TeamRosterVC: UIViewController {
     let contentView = UIView()
     let headerRow = UIStackView()
     let tableView = UITableView()
+    var tableHeightConstraint: NSLayoutConstraint?
 
     
     //MARK: View life cycle
@@ -91,9 +92,6 @@ class TeamRosterVC: UIViewController {
         scrollView.addSubview(contentView)
         contentView.addSubview(headerRow)
         contentView.addSubview(tableView)
-        scrollView.borderWidth = 1
-        scrollView.borderColor = #colorLiteral(red: 0.631372549, green: 0.631372549, blue: 0.631372549, alpha: 1)
-        scrollView.cornerRadius = 10
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -101,11 +99,11 @@ class TeamRosterVC: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         let screenWidth = UIScreen.main.bounds.width
-            let totalAvailableWidth = screenWidth - 60 // 30 left + 30 right
-            let columnWidth = totalAvailableWidth / 9
-            let totalColumns = dates.count + 2 // Team + Total Hours + days count
-            let contentWidth = columnWidth * CGFloat(totalColumns)
-
+        let totalAvailableWidth = screenWidth - 60 // 30 left + 30 right
+        let columnWidth = totalAvailableWidth / 9
+        let totalColumns = dates.count + 2 // Team + Total Hours + days count
+        let contentWidth = columnWidth * CGFloat(totalColumns)
+        let contentHeight = teamRosterItem.count * 75 + 85
         
         NSLayoutConstraint.activate([
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
@@ -124,11 +122,19 @@ class TeamRosterVC: UIViewController {
             headerRow.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             headerRow.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             headerRow.heightAnchor.constraint(equalToConstant: 80),
-            
+
+        ])
+        
+        
+        // Set table height constraint (will update later)
+        tableHeightConstraint = tableView.heightAnchor.constraint(equalToConstant: 1)
+        tableHeightConstraint?.isActive = true
+
+        NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: headerRow.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            // Do NOT constrain bottomAnchor here
         ])
         
         headerRow.axis = .horizontal
@@ -138,10 +144,18 @@ class TeamRosterVC: UIViewController {
         for view in buildHeaderLabels() {
             headerRow.addArrangedSubview(view)
         }
-        
+      
         tableView.register(TeamRosterCell.self, forCellReuseIdentifier: "cell")
         tableView.dataSource = self
         tableView.rowHeight = 75
+        tableView.isScrollEnabled = false // Important: disable internal scroll
+        tableView.separatorStyle = .none
+
+        // Optional: border only around actual data
+        tableView.layer.borderWidth = 1
+        tableView.layer.borderColor = #colorLiteral(red: 0.7529411765, green: 0.7529411765, blue: 0.7529411765, alpha: 1)
+        tableView.layer.masksToBounds = true
+        
         
     }
         
@@ -483,6 +497,10 @@ class TeamRosterVC: UIViewController {
                     self.TeamList = arr
                     self.teamRosterItem = self.buildRosterFromJson(dates: self.dates, items: self.TeamList)
                     self.tableView.reloadData()
+                    DispatchQueue.main.async {
+                        self.tableView.layoutIfNeeded()
+                        self.tableHeightConstraint?.constant = self.tableView.contentSize.height
+                    }
                 }
             } else {
                 self.show_alert(msg: model.error!, title: "Team Roster")
