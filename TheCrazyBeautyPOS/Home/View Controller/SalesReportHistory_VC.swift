@@ -34,7 +34,7 @@ class SalesReportHistory_VC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 1000
+        contentViewWidthConstraint.constant = 1200
         setTableView()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         setDefaultDateRangeAndFetch()

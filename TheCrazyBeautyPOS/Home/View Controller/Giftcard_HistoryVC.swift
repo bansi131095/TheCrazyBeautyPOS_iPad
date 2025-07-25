@@ -16,6 +16,7 @@ class Giftcard_HistoryVC: UIViewController {
     
     @IBOutlet weak var lbl_NoDataFound: UILabel!
     @IBOutlet weak var tbl_vw: UITableView!
+    @IBOutlet weak var contentViewWidthConstraint: NSLayoutConstraint!
     
     var calendarVC: UIViewController?
     var firstDate: Date?
@@ -28,6 +29,7 @@ class Giftcard_HistoryVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        contentViewWidthConstraint.constant = 150
         self.setTableView()
         setDefaultDateRangeAndFetch()
     }

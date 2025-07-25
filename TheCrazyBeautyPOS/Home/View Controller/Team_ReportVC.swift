@@ -17,7 +17,7 @@ class Team_ReportVC: UIViewController {
     @IBOutlet weak var txt_ToDate: UITextField!
     @IBOutlet weak var tbl_vw: UITableView!
     @IBOutlet weak var lbl_NoDataFound: UILabel!
-    
+    @IBOutlet weak var contentViewWidthConstraint: NSLayoutConstraint!
     var TeamDetails: [TeamDetailsModel] = []
     let dropDown = DropDown()
     
@@ -32,6 +32,7 @@ class Team_ReportVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        contentViewWidthConstraint.constant = 250
         get_TeamDetails()
         setDefaultDateRangeAndFetch()
         setTableView()
@@ -69,7 +70,7 @@ class Team_ReportVC: UIViewController {
 
             self.salesData = model.data
             if let parentVC = self.parent as? ReportVC {
-                parentVC.updateTotalAmount(text: "\(SharedPrefs.getSymbol())" + "\(result?.totalsales ?? 0)")
+                parentVC.updateTotalAmount(text: "\(SharedPrefs.getSymbol())" + "\(result?.totalsales ?? 0).00")
             }
             // Show/Hide No Data Label
             if self.salesData.isEmpty {
@@ -247,8 +248,8 @@ extension Team_ReportVC: UITableViewDelegate, UITableViewDataSource{
             return UITableViewCell()
         }
         let data = self.salesData[indexPath.item]
-        cell.lbl_Id.text = data.booking_number
-        cell.lbl_CustomerName.text = data.customer_name
+        cell.lbl_Id.text = "\(indexPath.row+1)"
+        cell.lbl_CustomerName.text = data.customer_name.capitalized
         cell.lbl_StaffName.text = data.staff_name
         cell.lbl_ServiceName.text = data.service_name
         cell.lbl_Price.text = "\(SharedPrefs.getSymbol())" +  String(data.price)
