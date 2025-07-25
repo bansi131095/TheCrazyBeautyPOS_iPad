@@ -24,6 +24,7 @@ class UpcomingAppointmentsVC: UIViewController {
     let daysValues = [7, 15, 30] // Corresponding values
     var selectedDays: Int = 7
     var isDropdownVisible = false
+
     
     //MARK: View life cycle
     override func viewDidLoad() {
@@ -68,7 +69,7 @@ class UpcomingAppointmentsVC: UIViewController {
         NSLayoutConstraint.activate([
             dropdownView.topAnchor.constraint(equalTo: txt_days.bottomAnchor, constant: -10),
             dropdownView.centerXAnchor.constraint(equalTo: txt_days.centerXAnchor),
-            dropdownView.widthAnchor.constraint(equalTo: txt_days.widthAnchor),
+            dropdownView.widthAnchor.constraint(equalTo: txt_days.widthAnchor, constant: 80),
             dropdownView.heightAnchor.constraint(equalToConstant: CGFloat(daysOptions.count * 45))
         ])
     }
@@ -202,6 +203,13 @@ extension UpcomingAppointmentsVC: UITableViewDelegate, UITableViewDataSource, UI
             }
             if let price = upcoming.grandTotal, price != "" {
                 cell.lbl_amount.text = "\(LocalData.symbol)\(price)"
+            }
+            cell.Act_Info = {
+                let popup = self.storyboard?.instantiateViewController(withIdentifier: "BookingDetailsPopupVC") as! BookingDetailsPopupVC
+                popup.modalPresentationStyle = .overCurrentContext
+                popup.modalTransitionStyle = .crossDissolve
+                popup.dictBookingDetails = upcoming
+                self.present(popup, animated: true , completion: nil)
             }
             return cell
         } else {

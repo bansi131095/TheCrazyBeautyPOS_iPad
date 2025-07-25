@@ -10,6 +10,7 @@ import UIKit
 class HomeVC: UIViewController {
 
     
+    @IBOutlet weak var img_profile: UIImageView!
     @IBOutlet weak var tbl_vw: UITableView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var txt_salon: UITextField!
@@ -23,6 +24,8 @@ class HomeVC: UIViewController {
     @IBOutlet weak var vwPopup: UIView!
     @IBOutlet weak var lbl_UserName: UILabel!
     @IBOutlet weak var lbl_Version: UILabel!
+    @IBOutlet weak var lbl_salonName: UILabel!
+    
     
     let imageArray: [UIImage] = [
         #imageLiteral(resourceName: "Dashboard.png"),
@@ -46,8 +49,11 @@ class HomeVC: UIViewController {
         loadEmbeddedViewController(for: 1)
         self.getAllSalonData()
         let salonName = SharedPrefs.getSalonName()
+        let userName = SharedPrefs.getUserName()
         self.txt_salon.text = salonName
-    
+        self.lbl_salonName.text = salonName
+        self.lbl_UserName.text = userName
+        self.get_Image()
         // Do any additional setup after loading the view.
     }
     
@@ -197,6 +203,22 @@ class HomeVC: UIViewController {
                     self.present(navDashboard, animated: true, completion: nil)
                 }
             }
+        }
+    }
+    
+    func get_Image() {
+        APIService.shared.fetchProfileImage { result in
+            guard let model = result?.data.first else {
+                print("⚠️ No profile data found")
+                return
+            }
+
+            // Load profile image
+            let imgUrl = global.imageUrl_Profile + (model.profile_photo ?? "")
+            if let url = URL(string: imgUrl) {
+                self.img_profile.sd_setImage(with: url, placeholderImage: UIImage(named: "ProductDemo"))
+            }
+
         }
     }
 

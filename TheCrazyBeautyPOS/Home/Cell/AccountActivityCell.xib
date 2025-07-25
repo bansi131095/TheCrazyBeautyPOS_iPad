@@ -60,7 +60,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kgg-oh-mNO">
-                                <rect key="frame" x="1107" y="19" width="43" height="22"/>
+                                <rect key="frame" x="1107.5" y="19" width="42.5" height="22"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="18"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -101,6 +101,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btn_tooltip" destination="POh-rz-Bsg" id="me4-u3-rr6"/>
                 <outlet property="lbl_activity" destination="Z3w-n0-ljj" id="pkY-UQ-xe6"/>
                 <outlet property="lbl_time" destination="Kgg-oh-mNO" id="cdA-bD-rl5"/>
             </connections>

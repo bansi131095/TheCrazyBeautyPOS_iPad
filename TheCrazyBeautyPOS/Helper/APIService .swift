@@ -929,7 +929,7 @@ class APIService {
         let url = global.shared.URL_BOOKINGS_HISTORY
         
         var params: [String: Any] = [:]
-        if days == "300" {
+        if days != "300" {
             params = [
                 "page": page,
                 "limit": limit,

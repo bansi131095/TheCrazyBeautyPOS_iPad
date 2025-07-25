@@ -131,6 +131,9 @@ extension AccountActivityVC: UITableViewDelegate, UITableViewDataSource, UIScrol
         let converted = ConvertDateFormat(date: updatedAt, inputdate: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", outputdateformat: "EEEE, MMM dd, yyyy 'at' hh:mm a")
 
         cell.lbl_time.text = converted
+        cell.Act_ToolTip = {
+            cell.showTooltip(message: activity.message)
+        }
         return cell
     }
     
