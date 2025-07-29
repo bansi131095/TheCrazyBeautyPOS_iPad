@@ -30,6 +30,12 @@ class OfflineGiftCardVC: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    
+    @IBAction func btn_AddNew(_ sender: Any) {
+        let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddOfflineGiftCard_VC") as! AddOfflineGiftCard_VC
+        self.navigationController?.pushViewController(addNew, animated: true)
+    }
+    
 
     /*
     // MARK: - Navigation

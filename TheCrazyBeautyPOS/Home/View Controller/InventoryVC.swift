@@ -96,7 +96,26 @@ class InventoryVC: UIViewController {
     
     //MARK: Button Action
     @IBAction func act_addNew(_ sender: UIButton) {
-        
+        let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddInventory_VC") as! AddInventory_VC
+        self.navigationController?.pushViewController(addNew, animated: true)
+    }
+    
+    func deleteInventory(InventoryId: Int) {
+        APIService.shared.deleteInventory(Id: InventoryId) { result in
+            guard let model = result else {
+                return
+            }
+            self.hideLoader()
+            if model.error == "" || model.error == nil {
+                DispatchQueue.main.async {
+                    // safe UI code here
+                    self.showToast(message: model.data)
+                }
+                self.loadData(Search: "")
+            } else {
+                self.show_alert(msg: model.error ?? "", title: "Delete Team")
+            }
+        }
     }
   
     
@@ -141,10 +160,22 @@ extension InventoryVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewD
         cell.lbl_price.text = "\(LocalData.symbol) \(inventory.price)"
         cell.lbl_qty.text = "\(inventory.qty)"
         cell.Act_Edit = {
-
+            let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddInventory_VC") as! AddInventory_VC
+            addNew.isEdit = true
+            addNew.InventoryService = inventory
+            self.navigationController?.pushViewController(addNew, animated: true)
         }
         cell.Act_Delete = {
-
+            let popup = ConfirmDeletePopupVC()
+            popup.modalPresentationStyle = .overFullScreen
+            popup.modalTransitionStyle = .crossDissolve
+            popup.titleText = "Are you sure you want to delete this Inventory?"
+            popup.onConfirm = {
+                print("Inventory confirmed delete")
+                // Call your delete logic here
+                self.deleteInventory(InventoryId: inventory.id)
+            }
+            self.present(popup, animated: true, completion: nil)
         }
         return cell
     }

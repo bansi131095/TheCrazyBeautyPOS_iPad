@@ -26,7 +26,7 @@ class GiftCardVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 700 // or any dynamic value
+        contentViewWidthConstraint.constant = 500 // or any dynamic value
         self.setTableView()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
@@ -95,7 +95,26 @@ class GiftCardVC: UIViewController {
     
     //MARK: Button Action
     @IBAction func act_addNew(_ sender: UIButton) {
-        
+        let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddGiftCard_VC") as! AddGiftCard_VC
+        self.navigationController?.pushViewController(addNew, animated: true)
+    }
+    
+    func deleteGiftCard(Id: Int) {
+        APIService.shared.deleteGiftCard(Id: Id) { result in
+            guard let model = result else {
+                return
+            }
+            self.hideLoader()
+            if model.error == "" || model.error == nil {
+                DispatchQueue.main.async {
+                    // safe UI code here
+                    self.showToast(message: model.data)
+                }
+                self.loadData(Search: "")
+            } else {
+                self.show_alert(msg: model.error ?? "", title: "Delete Team")
+            }
+        }
     }
     
     /*
@@ -153,10 +172,21 @@ extension GiftCardVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
             }
         }
         cell.Act_Edit = {
-
+            let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddGiftCard_VC") as! AddGiftCard_VC
+            addNew.isEdit = true
+            addNew.GiftCardData = giftCard
+            self.navigationController?.pushViewController(addNew, animated: true)
         }
         cell.Act_Delete = {
-
+            let popup = ConfirmDeletePopupVC()
+            popup.modalPresentationStyle = .overFullScreen
+            popup.modalTransitionStyle = .crossDissolve
+            popup.titleText = "Are you sure you want to delete this Gift Card?"
+            popup.onConfirm = {
+                print("Gift Card confirmed delete")
+                // Call your delete logic here
+                self.deleteGiftCard(Id: giftCard.id)
+            }
         }
         return cell
     }

@@ -10,6 +10,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="lato_bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
         <array key="lato_regular.ttf">
             <string>Lato-Regular</string>
         </array>
@@ -34,17 +37,10 @@
                                     <constraint firstAttribute="height" constant="33" id="gWt-sB-XwQ"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3w-n0-ljj">
-                                <rect key="frame" x="83" y="19" width="43" height="22"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="Label">
-                                        <attributes>
-                                            <color key="NSColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <font key="NSFont" size="18" name="Lato-Bold"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3w-n0-ljj">
+                                <rect key="frame" x="83" y="15" width="43" height="27"/>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="POh-rz-Bsg">
@@ -84,11 +80,12 @@
                             <constraint firstItem="Kgg-oh-mNO" firstAttribute="centerY" secondItem="r7s-mz-2Sg" secondAttribute="centerY" id="HhP-gE-oQA"/>
                             <constraint firstAttribute="trailing" secondItem="AK1-fh-5Yp" secondAttribute="trailing" constant="20" id="b1j-Px-lv7"/>
                             <constraint firstAttribute="bottom" secondItem="AK1-fh-5Yp" secondAttribute="bottom" constant="2" id="bQ1-wB-dFB"/>
+                            <constraint firstItem="AK1-fh-5Yp" firstAttribute="top" secondItem="Z3w-n0-ljj" secondAttribute="bottom" constant="15" id="cgg-iW-abx"/>
                             <constraint firstItem="AK1-fh-5Yp" firstAttribute="leading" secondItem="r7s-mz-2Sg" secondAttribute="leading" constant="20" id="egR-mP-deJ"/>
                             <constraint firstItem="Z3w-n0-ljj" firstAttribute="leading" secondItem="o2g-bc-nRe" secondAttribute="trailing" constant="20" id="ghU-hU-ogp"/>
                             <constraint firstAttribute="trailing" secondItem="Kgg-oh-mNO" secondAttribute="trailing" constant="30" id="r0p-Nh-Qhh"/>
                             <constraint firstItem="o2g-bc-nRe" firstAttribute="leading" secondItem="r7s-mz-2Sg" secondAttribute="leading" constant="30" id="tHy-X9-Hwx"/>
-                            <constraint firstItem="Z3w-n0-ljj" firstAttribute="centerY" secondItem="r7s-mz-2Sg" secondAttribute="centerY" id="xHI-7D-BZh"/>
+                            <constraint firstItem="Z3w-n0-ljj" firstAttribute="top" secondItem="r7s-mz-2Sg" secondAttribute="top" constant="15" id="uYp-PC-ib4"/>
                         </constraints>
                     </view>
                 </subviews>

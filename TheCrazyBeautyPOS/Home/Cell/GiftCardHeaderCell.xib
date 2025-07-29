@@ -17,56 +17,66 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" restorationIdentifier="GiftCardHeaderCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="GiftCardHeaderCell" rowHeight="50" id="KGk-i7-Jjw" customClass="GiftCardHeaderCell" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="1300" height="50"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="GiftCardHeaderCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="GiftCardHeaderCell" rowHeight="64" id="KGk-i7-Jjw" customClass="GiftCardHeaderCell" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="1650" height="63"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="1300" height="50"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="1650" height="63"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SVg-Hz-5Ut">
-                        <rect key="frame" x="0.0" y="0.0" width="1300" height="50"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tfl-pa-M0b">
+                        <rect key="frame" x="0.0" y="0.0" width="1650" height="50"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6iY-yh-mb0">
-                                <rect key="frame" x="20" y="13" width="300" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="doO-qZ-LWF">
+                                <rect key="frame" x="24" y="13" width="30" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="CeB-V4-TNA"/>
+                                    <constraint firstAttribute="width" constant="30" id="qK0-2s-1xX"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="txtGray"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gift Card" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ox3-iq-mqB">
-                                <rect key="frame" x="345" y="13" width="250" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3nq-KQ-zWW">
+                                <rect key="frame" x="134" y="13" width="415" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="250" id="8m1-Jj-9xj"/>
+                                    <constraint firstAttribute="width" constant="415" id="qT8-IX-VDR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="txtGray"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftc-zn-Z5c">
-                                <rect key="frame" x="695" y="13" width="150" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nIy-S4-ngl">
+                                <rect key="frame" x="599" y="13" width="250" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="vGm-8s-1Md"/>
+                                    <constraint firstAttribute="width" constant="250" id="dCj-7a-zef"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="txtGray"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Used Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YEt-eC-VQp">
-                                <rect key="frame" x="895" y="13" width="180" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jya-hp-2De">
+                                <rect key="frame" x="899" y="13" width="300" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="180" id="l6Q-V0-Rfc"/>
+                                    <constraint firstAttribute="width" constant="300" id="OgR-4C-7IZ"/>
+                                </constraints>
+                                <string key="text">Expiry Days	</string>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="txtGray"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z8g-pI-EOl">
+                                <rect key="frame" x="1219" y="13" width="200" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="Znr-wK-JMi"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="txtGray"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expiry Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JeG-o5-zun">
-                                <rect key="frame" x="1100" y="13" width="180" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Action" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="grS-MI-fUb">
+                                <rect key="frame" x="1439" y="13" width="130" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="180" id="30e-rW-AtD"/>
+                                    <constraint firstAttribute="width" constant="130" id="qPc-8N-Aqs"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="txtGray"/>
@@ -75,30 +85,33 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6iY-yh-mb0" firstAttribute="centerY" secondItem="SVg-Hz-5Ut" secondAttribute="centerY" id="2qs-bH-tRJ"/>
-                            <constraint firstItem="JeG-o5-zun" firstAttribute="centerY" secondItem="SVg-Hz-5Ut" secondAttribute="centerY" id="5Q0-4c-A6J"/>
-                            <constraint firstAttribute="trailing" secondItem="JeG-o5-zun" secondAttribute="trailing" constant="20" symbolic="YES" id="Gqe-tb-2xF"/>
-                            <constraint firstItem="JeG-o5-zun" firstAttribute="leading" secondItem="YEt-eC-VQp" secondAttribute="trailing" constant="25" id="IAl-JX-eog"/>
-                            <constraint firstItem="Ox3-iq-mqB" firstAttribute="leading" secondItem="6iY-yh-mb0" secondAttribute="trailing" constant="25" id="Nuh-zd-maY"/>
-                            <constraint firstItem="YEt-eC-VQp" firstAttribute="leading" secondItem="ftc-zn-Z5c" secondAttribute="trailing" constant="50" id="PCP-C3-tvc"/>
-                            <constraint firstItem="YEt-eC-VQp" firstAttribute="centerY" secondItem="ftc-zn-Z5c" secondAttribute="centerY" id="PJx-Dv-b8n"/>
-                            <constraint firstAttribute="height" constant="50" id="T4U-ct-nlp"/>
-                            <constraint firstItem="6iY-yh-mb0" firstAttribute="leading" secondItem="SVg-Hz-5Ut" secondAttribute="leading" constant="20" id="T9o-st-nLZ"/>
-                            <constraint firstItem="Ox3-iq-mqB" firstAttribute="centerY" secondItem="6iY-yh-mb0" secondAttribute="centerY" id="Tb2-3K-Luk"/>
-                            <constraint firstItem="ftc-zn-Z5c" firstAttribute="leading" secondItem="Ox3-iq-mqB" secondAttribute="trailing" constant="100" id="csW-QI-b0I"/>
-                            <constraint firstItem="ftc-zn-Z5c" firstAttribute="centerY" secondItem="Ox3-iq-mqB" secondAttribute="centerY" id="s6w-uQ-Epf"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="grS-MI-fUb" secondAttribute="trailing" constant="40" id="2Is-HN-vlm"/>
+                            <constraint firstItem="grS-MI-fUb" firstAttribute="leading" secondItem="Z8g-pI-EOl" secondAttribute="trailing" constant="20" id="63u-uT-6jE"/>
+                            <constraint firstItem="doO-qZ-LWF" firstAttribute="centerY" secondItem="Tfl-pa-M0b" secondAttribute="centerY" id="6Ik-p4-a3t"/>
+                            <constraint firstItem="doO-qZ-LWF" firstAttribute="leading" secondItem="Tfl-pa-M0b" secondAttribute="leading" constant="24" id="9kD-Pi-oph"/>
+                            <constraint firstItem="nIy-S4-ngl" firstAttribute="leading" secondItem="3nq-KQ-zWW" secondAttribute="trailing" constant="50" id="EPA-Wi-LNt"/>
+                            <constraint firstItem="nIy-S4-ngl" firstAttribute="top" secondItem="doO-qZ-LWF" secondAttribute="top" id="G6w-D1-xrt"/>
+                            <constraint firstItem="3nq-KQ-zWW" firstAttribute="top" secondItem="doO-qZ-LWF" secondAttribute="top" id="RSw-F7-QYc"/>
+                            <constraint firstAttribute="height" constant="50" id="Z2Z-az-2aR"/>
+                            <constraint firstItem="jya-hp-2De" firstAttribute="leading" secondItem="nIy-S4-ngl" secondAttribute="trailing" constant="50" id="Zlk-rc-SRj"/>
+                            <constraint firstItem="3nq-KQ-zWW" firstAttribute="leading" secondItem="doO-qZ-LWF" secondAttribute="trailing" constant="80" id="klq-D3-7JS"/>
+                            <constraint firstItem="grS-MI-fUb" firstAttribute="top" secondItem="3nq-KQ-zWW" secondAttribute="top" id="o7F-CP-Fzv"/>
+                            <constraint firstItem="jya-hp-2De" firstAttribute="top" secondItem="doO-qZ-LWF" secondAttribute="top" id="p57-XR-KvG"/>
+                            <constraint firstItem="Z8g-pI-EOl" firstAttribute="leading" secondItem="jya-hp-2De" secondAttribute="trailing" constant="20" id="pFn-TU-UJH"/>
+                            <constraint firstItem="Z8g-pI-EOl" firstAttribute="top" secondItem="doO-qZ-LWF" secondAttribute="top" id="tlN-cf-AcV"/>
+                            <constraint firstItem="3nq-KQ-zWW" firstAttribute="centerY" secondItem="Tfl-pa-M0b" secondAttribute="centerY" id="v8n-Nl-xwB"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="SVg-Hz-5Ut" secondAttribute="bottom" id="7dM-8f-fOB"/>
-                    <constraint firstItem="SVg-Hz-5Ut" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="dhO-Ih-rFj"/>
-                    <constraint firstItem="SVg-Hz-5Ut" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="scx-hj-BAZ"/>
-                    <constraint firstAttribute="trailing" secondItem="SVg-Hz-5Ut" secondAttribute="trailing" id="yFo-56-fLs"/>
+                    <constraint firstAttribute="trailing" secondItem="Tfl-pa-M0b" secondAttribute="trailing" id="0bJ-Ke-2nd"/>
+                    <constraint firstAttribute="bottom" secondItem="Tfl-pa-M0b" secondAttribute="bottom" id="Rfs-Bo-Zlp"/>
+                    <constraint firstItem="Tfl-pa-M0b" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="eou-UO-myK"/>
+                    <constraint firstItem="Tfl-pa-M0b" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="iKs-ve-fg3"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <point key="canvasLocation" x="352.6829268292683" y="21.35593220338983"/>
+            <point key="canvasLocation" x="175.60975609756096" y="24.152542372881356"/>
         </tableViewCell>
     </objects>
     <resources>

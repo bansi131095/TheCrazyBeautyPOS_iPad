@@ -87,6 +87,61 @@ class AccountActivityVC: UIViewController {
     }
     
     
+    func showCustomTooltipCentered(message: String) {
+        // Get the top-level window
+        guard let window = UIApplication.shared.connectedScenes
+            .compactMap({ ($0 as? UIWindowScene)?.keyWindow })
+            .first else {
+            return
+        }
+
+        // Remove existing tooltip
+        if let existing = window.viewWithTag(9999) {
+            existing.removeFromSuperview()
+        }
+
+        // Create overlay
+        let overlayView = UIView(frame: window.bounds)
+        overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        overlayView.tag = 9999
+        overlayView.translatesAutoresizingMaskIntoConstraints = false
+        window.addSubview(overlayView)
+
+        // Add tooltip
+        let tooltip = ToolTipView()
+        tooltip.setMessage(message)
+        tooltip.translatesAutoresizingMaskIntoConstraints = false
+        overlayView.addSubview(tooltip)
+
+        // Center with constraints
+        NSLayoutConstraint.activate([
+            overlayView.leadingAnchor.constraint(equalTo: window.leadingAnchor),
+            overlayView.trailingAnchor.constraint(equalTo: window.trailingAnchor),
+            overlayView.topAnchor.constraint(equalTo: window.topAnchor),
+            overlayView.bottomAnchor.constraint(equalTo: window.bottomAnchor),
+
+            tooltip.centerXAnchor.constraint(equalTo: overlayView.centerXAnchor),
+            tooltip.centerYAnchor.constraint(equalTo: overlayView.centerYAnchor),
+            tooltip.widthAnchor.constraint(equalToConstant: window.bounds.width),
+            tooltip.heightAnchor.constraint(equalToConstant: window.bounds.height)
+        ])
+
+        // Animate in
+        overlayView.alpha = 0
+        UIView.animate(withDuration: 0.3) {
+            overlayView.alpha = 1
+        }
+
+        // Dismiss after 2.5 seconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            UIView.animate(withDuration: 0.3, animations: {
+                overlayView.alpha = 0
+            }) { _ in
+                overlayView.removeFromSuperview()
+            }
+        }
+    }
+
     
     /*
     // MARK: - Navigation
@@ -131,8 +186,13 @@ extension AccountActivityVC: UITableViewDelegate, UITableViewDataSource, UIScrol
         let converted = ConvertDateFormat(date: updatedAt, inputdate: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", outputdateformat: "EEEE, MMM dd, yyyy 'at' hh:mm a")
 
         cell.lbl_time.text = converted
+        if activity.description.isEmpty {
+            cell.btn_tooltip.isHidden = true
+        } else {
+            cell.btn_tooltip.isHidden = false
+        }
         cell.Act_ToolTip = {
-            cell.showTooltip(message: activity.message)
+            self.showCustomTooltipCentered(message: activity.description)
         }
         return cell
     }
@@ -161,5 +221,6 @@ extension AccountActivityVC: UITableViewDelegate, UITableViewDataSource, UIScrol
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return isLoadingMore ? 50 : 0
     }
+    
     
 }

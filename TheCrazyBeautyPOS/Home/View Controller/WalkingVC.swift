@@ -22,6 +22,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
     @IBOutlet weak var lbl_30Count: UILabel!
     @IBOutlet weak var vw_50Count: UIView!
     @IBOutlet weak var lbl_50Count: UILabel!
+    @IBOutlet weak var lbl_emptyCart: UILabel!
     
     // Cart View
     @IBOutlet weak var tbl_vw: UITableView!
@@ -66,6 +67,8 @@ class WalkingVC: UIViewController, WalkingDelegate {
         self.vw_service.isHidden = true
         self.vw_giftCard.isHidden = true
         self.vw_total.isHidden = true
+        self.btn_clear.isHidden = true
+        self.btn_payNow.isHidden = true
         // Do any additional setup after loading the view.
     }
     
@@ -97,6 +100,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
         tbl_vw.isScrollEnabled = true
         tbl_vw.estimatedRowHeight = 80
         tbl_vw.rowHeight = UITableView.automaticDimension
+        tbl_vw.separatorStyle = .none
     }
     
     @IBAction func btn_30Gift(_ sender: UIButton) {
@@ -354,8 +358,12 @@ class WalkingVC: UIViewController, WalkingDelegate {
         // Show Pay Now and Clear buttons if total > 0
         self.btn_clear.isHidden = totalServices == 0 && totalGiftCard == 0
         self.btn_payNow.isHidden = totalServices == 0 && totalGiftCard == 0
-        if total != 0 {
+        if total != 0 || totalServices != 0 || totalGiftCard != 0 {
+            self.lbl_emptyCart.isHidden = true
             self.vw_total.isHidden = false
+        } else {
+            self.lbl_emptyCart.isHidden = false
+            self.vw_total.isHidden = true
         }
     }
 
@@ -468,7 +476,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
         var rowWidths: CGFloat = 0
         var rowCount: Int = 1
 
-        for service in services {
+       /* for service in services {
             let text = service.name
             let textSize = (text as NSString).size(withAttributes: [.font: font])
             let itemWidth = ceil(textSize.width + horizontalPadding)
@@ -476,10 +484,24 @@ class WalkingVC: UIViewController, WalkingDelegate {
             if rowWidths + itemWidth > collectionViewWidth {
                 // Start a new row
                 rowCount += 1
-                rowWidths = itemWidth + interItemSpacing
+                rowWidths = itemWidth //+ interItemSpacing
             } else {
                 // Add to current row
-                rowWidths += itemWidth + interItemSpacing
+                rowWidths += itemWidth  //+ interItemSpacing
+            }
+        } */
+        
+        for (index, service) in services.enumerated() {
+            let text = service.name
+            let textSize = (text as NSString).size(withAttributes: [.font: font])
+            let countWidth: CGFloat = service.count > 0 ? 40.0 : 0.0
+            let itemWidth = ceil(textSize.width + horizontalPadding + countWidth)
+
+            if rowWidths + itemWidth > collectionViewWidth {
+                rowCount += 1
+                rowWidths = itemWidth
+            } else {
+                rowWidths += index == 0 ? itemWidth : (itemWidth + interItemSpacing)
             }
         }
 
@@ -609,10 +631,10 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
         if collectionView == collect_category {
             let collectionViewWidth = collectionView.bounds.width
             let sectionInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
-            let interItemSpacing: CGFloat = 10
+            let interItemSpacing: CGFloat = 5
             
             let totalSpacing = sectionInsets.left + sectionInsets.right + (interItemSpacing * 3) // 4 items → 3 gaps
-            let itemsPerRow: CGFloat = collectionViewWidth > 700 ? 6 : collectionViewWidth > 500 ? 4 : 3
+            let itemsPerRow: CGFloat = collectionViewWidth > 700 ? 6 : collectionViewWidth > 500 ? 5 : 4
             
             let availableWidth = collectionViewWidth - totalSpacing
             let itemWidth = floor(availableWidth / itemsPerRow)
@@ -626,7 +648,7 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
             let font = UIFont(name: "Lato-Medium", size: 17.0) ?? UIFont.systemFont(ofSize: 17.0)
 
             // Get more accurate text width
-            let textWidth = sizeForText(text, font: font)
+          /*  let textWidth = sizeForText(text, font: font)
 
             // Apply padding
             let horizontalPadding: CGFloat = 40  // Tune this to match your capsule style
@@ -636,7 +658,17 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
             } else {
                 totalWidth = textWidth + horizontalPadding
             }
-            return CGSize(width: totalWidth, height: 45)
+            return CGSize(width: totalWidth, height: 45) */
+            
+            let countWidth: CGFloat = count > 0 ? 40.0 : 0.0
+            let horizontalPadding: CGFloat = 25.0 // Less padding = tighter wrap
+
+            let textWidth = sizeForText(text, font: font)
+            let totalWidth = textWidth + horizontalPadding + countWidth
+
+            return CGSize(width: ceil(totalWidth), height: 45)
+
+            
         } else  {
             return CGSize(width: 0.0, height: 0.0)
         }
@@ -697,31 +729,13 @@ extension WalkingVC: UITableViewDelegate, UITableViewDataSource {
             fatalError("The cell is not registered")
         }
         cell.lbl_category.text = self.cartDataList[indexPath.row].categoryName
-        cell.setTableView()
         cell.data = self.cartDataList[indexPath.row].services
+        cell.setTableView()
         cell.tbl_item.reloadData()
-        cell.onItemUpdate = {itemIndex, changeAmount in
-            // Update service count
-            self.cartDataList[indexPath.row].services[itemIndex].count += changeAmount
-            // Recalculate totalCount
-            if self.cartDataList[indexPath.row].services[itemIndex].count == 0 {
-                self.cartDataList[indexPath.row].services.remove(at: itemIndex)
-            }
-            if self.cartDataList[indexPath.row].services.isEmpty {
-                self.cartDataList.remove(at: indexPath.row)
-            } else {
-                let newTotal = self.cartDataList[indexPath.row].services.reduce(0) { $0 + $1.count }
-                self.cartDataList[indexPath.row].totalCount = newTotal
-                
-            }
-            // Update total labels
-            self.updateCartTotals()
-            self.tbl_vw.reloadData()
-        }
         cell.onItemUpdate = {itemIndex, changeAmount in
 //            guard let self = self else { return }
 
-            var service = self.cartDataList[indexPath.row].services[itemIndex]
+            let service = self.cartDataList[indexPath.row].services[itemIndex]
             service.count += changeAmount
 
             // ✅ Update cartDataList

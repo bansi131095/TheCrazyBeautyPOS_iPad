@@ -95,10 +95,27 @@ class CouponVC: UIViewController {
     
     //MARK: Button Action
     @IBAction func act_addNew(_ sender: UIButton) {
-        
+        let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddCoupon_VC") as! AddCoupon_VC
+        self.navigationController?.pushViewController(addNew, animated: true)
     }
   
-    
+    func deleteCoupon(Id: Int) {
+        APIService.shared.deleteCoupon(Id: Id) { result in
+            guard let model = result else {
+                return
+            }
+            self.hideLoader()
+            if model.error == "" || model.error == nil {
+                DispatchQueue.main.async {
+                    // safe UI code here
+                    self.showToast(message: model.data)
+                }
+                self.loadData(Search: "")
+            } else {
+                self.show_alert(msg: model.error ?? "", title: "Delete Team")
+            }
+        }
+    }
     
 
     /*
@@ -153,10 +170,22 @@ extension CouponVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDele
         cell.lbl_endDate.text = "\(coupon.end_date)"
         cell.lbl_status.text = coupon.status
         cell.Act_Edit = {
-
+            let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddCoupon_VC") as! AddCoupon_VC
+            addNew.isEdit = true
+            addNew.CouponData = coupon
+            self.navigationController?.pushViewController(addNew, animated: true)
         }
         cell.Act_Delete = {
-
+            let popup = ConfirmDeletePopupVC()
+            popup.modalPresentationStyle = .overFullScreen
+            popup.modalTransitionStyle = .crossDissolve
+            popup.titleText = "Are you sure you want to delete this Coupon?"
+            popup.onConfirm = {
+                print("Coupon confirmed delete")
+                // Call your delete logic here
+                self.deleteCoupon(Id: coupon.id)
+            }
+            self.present(popup, animated: true, completion: nil)
         }
         return cell
     }

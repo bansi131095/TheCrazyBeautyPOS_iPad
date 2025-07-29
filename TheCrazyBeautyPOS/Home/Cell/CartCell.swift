@@ -20,7 +20,7 @@ class CartCell: UITableViewCell {
         didSet {
             tbl_item.reloadData()
             DispatchQueue.main.async {
-                self.tbl_item_heightConst.constant = self.tbl_item.contentSize.height
+                self.updateTableViewHeight()
             }
         }
     }
@@ -28,7 +28,17 @@ class CartCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        setTableView()
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // This is called when the cell's frame changes or it needs to re-layout.
+        // It's a good place to ensure the internal table view's height is accurate.
+        // However, avoid calling reloadData here as it can cause an infinite loop.
+        updateTableViewHeight()
+    }
+
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -40,8 +50,24 @@ class CartCell: UITableViewCell {
         self.tbl_item.register(UINib(nibName: "CartItemCell", bundle: nil), forCellReuseIdentifier: "CartItemCell")
         self.tbl_item.delegate = self
         self.tbl_item.dataSource = self
-        self.tbl_item.estimatedRowHeight = 70  // Provide a reasonable estimate
-        self.tbl_item.rowHeight = UITableView.automaticDimension
+        self.tbl_item.estimatedRowHeight = 44  // Crucial: Provide a good estimate!
+        self.tbl_item.rowHeight = UITableView.automaticDimension // Allow individual item cells to size themselves
+        self.tbl_item.isScrollEnabled = false
+        self.tbl_item.separatorStyle = .none // Remove separators if not needed for cleaner look
+    }
+
+    private func updateTableViewHeight() {
+        // Force layout pass for the inner table view to get accurate contentSize
+        self.tbl_item.setNeedsLayout()
+        self.tbl_item.layoutIfNeeded()
+        
+        let newHeight = self.tbl_item.contentSize.height
+        if self.tbl_item_heightConst.constant != newHeight {
+            self.tbl_item_heightConst.constant = newHeight
+            // Inform the cell itself to re-layout, which in turn helps the parent table.
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
+        }
     }
     
 }
@@ -63,6 +89,7 @@ extension CartCell: UITableViewDelegate, UITableViewDataSource {
 //            self.data[indexPath.row].count += 1
 //            self.tbl_item.reloadData()
             self.onItemUpdate?(indexPath.row, 1)
+            
         }
         cell.Act_Minus = {
             if self.data[indexPath.row].count > 0 {

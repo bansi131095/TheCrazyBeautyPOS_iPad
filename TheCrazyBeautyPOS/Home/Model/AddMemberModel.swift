@@ -28,6 +28,7 @@ class AddMemberModel: Mappable {
 
 class MemberData: Mappable {
     var id: Int = 0
+    var message: String = ""
 
     required init?(map: Map) {}
 
@@ -37,5 +38,8 @@ class MemberData: Mappable {
 
     func mapping(map: Map) {
         id <- map["id"]
+        message <- map["message"]
     }
 }
+
+

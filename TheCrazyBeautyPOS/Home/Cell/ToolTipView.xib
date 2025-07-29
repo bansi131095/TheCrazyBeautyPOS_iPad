@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad12_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ToolTipView" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+            <connections>
+                <outlet property="lbl_tooltip" destination="2zL-5n-dgA" id="tVZ-9A-2m5"/>
+                <outlet property="vw_toolTip" destination="xvA-Gc-Rzo" id="LDh-9c-lIR"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xvA-Gc-Rzo">
+                    <rect key="frame" x="269.5" y="491.5" width="827" height="41"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label " textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2zL-5n-dgA">
+                            <rect key="frame" x="25" y="12" width="777" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" name="AppWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" name="TextBlack"/>
+                    <constraints>
+                        <constraint firstItem="2zL-5n-dgA" firstAttribute="leading" secondItem="xvA-Gc-Rzo" secondAttribute="leading" constant="25" id="Flj-1Q-nid"/>
+                        <constraint firstItem="2zL-5n-dgA" firstAttribute="top" secondItem="xvA-Gc-Rzo" secondAttribute="top" constant="12" id="LJh-Td-Wa3"/>
+                        <constraint firstAttribute="trailing" secondItem="2zL-5n-dgA" secondAttribute="trailing" constant="25" id="VqE-zJ-UKF"/>
+                        <constraint firstAttribute="bottom" secondItem="2zL-5n-dgA" secondAttribute="bottom" constant="12" id="non-Vq-bln"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="25"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xvA-Gc-Rzo" secondAttribute="trailing" constant="30" id="9r9-Cb-FcA"/>
+                <constraint firstItem="xvA-Gc-Rzo" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="TQM-gp-xza"/>
+                <constraint firstItem="xvA-Gc-Rzo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="30" id="cFA-Bn-Py0"/>
+                <constraint firstItem="xvA-Gc-Rzo" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="rSn-MU-kox"/>
+            </constraints>
+            <point key="canvasLocation" x="64.568081991215223" y="-463.47656249999994"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="AppWhite">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TextBlack">
+            <color red="0.043137254901960784" green="0.043137254901960784" blue="0.043137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

@@ -14,12 +14,10 @@ class AccountActivityCell: UITableViewCell {
     @IBOutlet weak var lbl_time: UILabel!
     @IBOutlet weak var btn_tooltip: UIButton!
     
-    var tooltip: TooltipView?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        tooltip = TooltipView()
 
     }
 
@@ -31,70 +29,55 @@ class AccountActivityCell: UITableViewCell {
     
     var Act_ToolTip:(()->Void)?
     @IBAction func act_tooltip(_ sender: UIButton) {
-        self.Act_ToolTip?()
-    }
-    
-    func showTooltip(message: String) {
-        if let tooltip = tooltip {
-            tooltip.show(message: message, in: self.contentView, above: btn_tooltip)
-        }
+        Act_ToolTip?()
     }
 
     
 }
 
 
-class TooltipView: UIView {
-    private let label = UILabel()
-
-    init() {
-        super.init(frame: .zero)
-        self.backgroundColor = UIColor.black
-        self.layer.cornerRadius = 8
-        self.clipsToBounds = true
-        self.alpha = 0
-
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .white
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-
-        self.addSubview(label)
-        NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            label.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            label.topAnchor.constraint(equalTo: self.topAnchor, constant: 4),
-            label.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -4)
-        ])
-        self.translatesAutoresizingMaskIntoConstraints = false
+func showTooltip(from view: UIView, in container: UIView, message: String) {
+    // Remove existing tooltip
+    if let existingTooltip = container.viewWithTag(9999) {
+        existingTooltip.removeFromSuperview()
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    let tooltipLabel = UILabel()
+    tooltipLabel.text = message
+    tooltipLabel.textColor = .white
+    tooltipLabel.font = UIFont.systemFont(ofSize: 13)
+    tooltipLabel.backgroundColor = UIColor.black.withAlphaComponent(0.85)
+    tooltipLabel.textAlignment = .center
+    tooltipLabel.numberOfLines = 0
+    tooltipLabel.layer.cornerRadius = 6
+    tooltipLabel.layer.masksToBounds = true
+    tooltipLabel.tag = 9999
+    tooltipLabel.translatesAutoresizingMaskIntoConstraints = false
+    container.addSubview(tooltipLabel)
+
+    // Convert the position of the view to container coordinates
+    let convertedFrame = view.convert(view.bounds, to: container)
+
+    // Set tooltip position using frame instead of Auto Layout for simplicity
+    let tooltipWidth: CGFloat = 160
+    let tooltipHeight: CGFloat = 60
+    let x = convertedFrame.midX - tooltipWidth / 2
+    let y = convertedFrame.minY - tooltipHeight - 8
+
+    tooltipLabel.frame = CGRect(x: x, y: y, width: tooltipWidth, height: tooltipHeight)
+    tooltipLabel.alpha = 0
+
+    UIView.animate(withDuration: 0.3) {
+        tooltipLabel.alpha = 1
     }
 
-    func show(message: String, in view: UIView, above button: UIView) {
-        self.label.text = message
-        view.addSubview(self)
-
-        NSLayoutConstraint.activate([
-            self.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -8),
-            self.centerXAnchor.constraint(equalTo: button.centerXAnchor),
-            self.widthAnchor.constraint(lessThanOrEqualToConstant: 250)
-        ])
-        view.layoutIfNeeded()
-
-        UIView.animate(withDuration: 0.3) {
-            self.alpha = 1
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.alpha = 0
-            }, completion: { _ in
-                self.removeFromSuperview()
-            })
-        }
+    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        UIView.animate(withDuration: 0.3, animations: {
+            tooltipLabel.alpha = 0
+        }, completion: { _ in
+            tooltipLabel.removeFromSuperview()
+        })
     }
 }
+
+
