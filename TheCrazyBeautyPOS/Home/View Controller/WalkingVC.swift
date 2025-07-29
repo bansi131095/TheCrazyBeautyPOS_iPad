@@ -101,6 +101,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
         tbl_vw.estimatedRowHeight = 80
         tbl_vw.rowHeight = UITableView.automaticDimension
         tbl_vw.separatorStyle = .none
+        tbl_vw.layoutIfNeeded()
     }
     
     @IBAction func btn_30Gift(_ sender: UIButton) {
@@ -618,6 +619,8 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
                 cell.lbl_countWidth.constant = 0.0
             } else {
                 cell.lbl_countWidth.constant = 28.0
+                self.tbl_vw.reloadData()
+                self.tbl_vw.layoutIfNeeded()
             }
             return cell
         } else {
@@ -710,6 +713,9 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
                 // category.services.sort { $0.count > $1.count }
                 category.totalCount = category.services.reduce(0) { $0 + $1.count }
             }
+            self.updateCartTotals()
+            self.tbl_vw.reloadData()
+            self.tbl_vw.layoutIfNeeded()
             collectionView.reloadData()
             self.collect_category.reloadData()
             self.setSelectedCategoryItem()
@@ -732,6 +738,9 @@ extension WalkingVC: UITableViewDelegate, UITableViewDataSource {
         cell.data = self.cartDataList[indexPath.row].services
         cell.setTableView()
         cell.tbl_item.reloadData()
+        self.tbl_vw.layoutIfNeeded()
+        cell.updateTableViewHeight()
+        cell.tbl_item_heightConst.constant = cell.tbl_item.contentSize.height
         cell.onItemUpdate = {itemIndex, changeAmount in
 //            guard let self = self else { return }
 
@@ -770,6 +779,9 @@ extension WalkingVC: UITableViewDelegate, UITableViewDataSource {
             // ✅ Refresh views
             self.updateCartTotals()
             self.tbl_vw.reloadData()
+            cell.tbl_item.reloadData()
+            self.tbl_vw.layoutIfNeeded()
+            cell.tbl_item.layoutIfNeeded()
             self.collect_category.reloadData()
             self.collect_service.reloadData()
         }

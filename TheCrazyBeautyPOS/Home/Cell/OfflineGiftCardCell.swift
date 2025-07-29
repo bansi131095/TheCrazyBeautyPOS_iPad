@@ -1,20 +1,22 @@
 //
-//  GiftcardCell.swift
+//  OfflineGiftCardCell.swift
 //  TheCrazyBeautyPOS
 //
-//  Created by mini new on 17/07/25.
+//  Created by mini new on 29/07/25.
 //
 
 import UIKit
 
-class Giftcard_Cell: UITableViewCell {
+class OfflineGiftCardCell: UITableViewCell {
 
-    
+    @IBOutlet weak var lbl_Id: UILabel!
     @IBOutlet weak var lbl_Name: UILabel!
-    @IBOutlet weak var lbl_GiftCard: UILabel!
-    @IBOutlet weak var lbl_Amount: UILabel!
-    @IBOutlet weak var lbl_UsedDate: UILabel!
+    @IBOutlet weak var lbl_Price: UILabel!
     @IBOutlet weak var lbl_ExpiryDate: UILabel!
+    @IBOutlet weak var lbl_GiftCode: UILabel!
+    @IBOutlet weak var lbl_Message: UILabel!
+    
+    
     
     
     override func awakeFromNib() {
@@ -22,16 +24,17 @@ class Giftcard_Cell: UITableViewCell {
         setCustomFont()
     }
 
+    
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Medium", size: 20.0) {
+        if let customFont = UIFont(name: "Lato-Regular", size: 20.0) {
+            lbl_Id.font = customFont
             lbl_Name.font = customFont
-            lbl_GiftCard.font = customFont
-            lbl_Amount.font = customFont
-            lbl_UsedDate.font = customFont
+            lbl_Price.font = customFont
             lbl_ExpiryDate.font = customFont
+            lbl_GiftCode.font = customFont
+            lbl_Message.font = customFont
         }
     }
-    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

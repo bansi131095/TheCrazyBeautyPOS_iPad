@@ -50,13 +50,15 @@ class CartCell: UITableViewCell {
         self.tbl_item.register(UINib(nibName: "CartItemCell", bundle: nil), forCellReuseIdentifier: "CartItemCell")
         self.tbl_item.delegate = self
         self.tbl_item.dataSource = self
-        self.tbl_item.estimatedRowHeight = 44  // Crucial: Provide a good estimate!
+        self.tbl_item.estimatedRowHeight = 100  // Crucial: Provide a good estimate!
         self.tbl_item.rowHeight = UITableView.automaticDimension // Allow individual item cells to size themselves
         self.tbl_item.isScrollEnabled = false
         self.tbl_item.separatorStyle = .none // Remove separators if not needed for cleaner look
+        self.tbl_item.layoutIfNeeded()
     }
 
-    private func updateTableViewHeight() {
+//    private func updateTableViewHeight() {
+    func updateTableViewHeight() {
         // Force layout pass for the inner table view to get accurate contentSize
         self.tbl_item.setNeedsLayout()
         self.tbl_item.layoutIfNeeded()

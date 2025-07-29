@@ -886,7 +886,7 @@ class APIService {
     
     
     //MARK: Offline Gift Card Api
-    func getofflineGiftCardDetails(page: String, limit: String, vendorId: String, search: String, completion: @escaping (OfflineGiftCardListResponse?) -> Void) {
+    func getofflineGiftCardDetails(page: String, limit: String, vendorId: String, search: String,filter:String, completion: @escaping (OfflineGiftCardListResponse?) -> Void) {
         let url = global.shared.URL_GIFT_CARDS
         
         let params: [String: Any] = [
@@ -894,6 +894,7 @@ class APIService {
                 "limit": limit,
                 "vendor_id": vendorId,
                 "search": search,
+                "filter": filter,
             ]
 
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))

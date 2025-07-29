@@ -5417,6 +5417,66 @@
                                 <color key="textColor" name="txtGray"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYi-WL-yqr">
+                                <rect key="frame" x="530" y="32.5" width="170" height="50"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FXQ-d5-NWe">
+                                        <rect key="frame" x="15" y="10" width="110" height="30"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Select Staff">
+                                                <attributes>
+                                                    <color key="NSColor" systemColor="labelColor"/>
+                                                    <font key="NSFont" size="18" name="PTSans-Regular"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down" translatesAutoresizingMaskIntoConstraints="NO" id="KrX-4z-d2n">
+                                        <rect key="frame" x="140" y="17.5" width="15" height="15"/>
+                                        <color key="tintColor" name="Lightgray"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="15" id="dxF-EK-c1L"/>
+                                            <constraint firstAttribute="width" constant="15" id="h6E-Ye-S2a"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rSK-Mf-2QD">
+                                        <rect key="frame" x="0.0" y="0.0" width="170" height="50"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <connections>
+                                            <action selector="btn_Filter:" destination="yJ6-yW-thz" eventType="touchUpInside" id="Rkq-pi-RUb"/>
+                                            <action selector="btn_SelectStaff:" destination="P8y-bg-9Pp" eventType="touchUpInside" id="G5g-Nn-vJJ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="74R-O2-eAn"/>
+                                    <constraint firstItem="KrX-4z-d2n" firstAttribute="centerY" secondItem="YYi-WL-yqr" secondAttribute="centerY" id="FZP-FG-Rqj"/>
+                                    <constraint firstItem="KrX-4z-d2n" firstAttribute="leading" secondItem="FXQ-d5-NWe" secondAttribute="trailing" constant="15" id="HUs-fP-pdX"/>
+                                    <constraint firstAttribute="trailing" secondItem="rSK-Mf-2QD" secondAttribute="trailing" id="QbP-Aj-a3b"/>
+                                    <constraint firstAttribute="trailing" secondItem="KrX-4z-d2n" secondAttribute="trailing" constant="15" id="ZRo-qT-knd"/>
+                                    <constraint firstAttribute="bottom" secondItem="FXQ-d5-NWe" secondAttribute="bottom" constant="10" id="d85-T4-sda"/>
+                                    <constraint firstItem="rSK-Mf-2QD" firstAttribute="top" secondItem="YYi-WL-yqr" secondAttribute="top" id="fuk-o3-BR9"/>
+                                    <constraint firstItem="rSK-Mf-2QD" firstAttribute="leading" secondItem="YYi-WL-yqr" secondAttribute="leading" id="j8i-1Y-MoM"/>
+                                    <constraint firstItem="FXQ-d5-NWe" firstAttribute="top" secondItem="YYi-WL-yqr" secondAttribute="top" constant="10" id="lkn-0u-lLd"/>
+                                    <constraint firstAttribute="width" constant="170" id="ooU-DI-rD2"/>
+                                    <constraint firstItem="FXQ-d5-NWe" firstAttribute="leading" secondItem="YYi-WL-yqr" secondAttribute="leading" constant="15" id="uuS-nX-X1F"/>
+                                    <constraint firstAttribute="bottom" secondItem="rSK-Mf-2QD" secondAttribute="bottom" id="xpC-px-Egu"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" name="txtGray"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sy0-NT-Ruy">
                                 <rect key="frame" x="720" y="30" width="250" height="55"/>
                                 <subviews>
@@ -5502,6 +5562,10 @@
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Qzn-rX-xVB">
                                                 <rect key="frame" x="0.0" y="0.0" width="1180" height="665"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="yJ6-yW-thz" id="dJE-Xi-hr2"/>
+                                                    <outlet property="delegate" destination="yJ6-yW-thz" id="fcK-b7-HIh"/>
+                                                </connections>
                                             </tableView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -5531,6 +5595,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="v8n-ZD-hNb" firstAttribute="trailing" secondItem="InP-FW-Bx1" secondAttribute="trailing" constant="40" id="0Qi-0Y-kNh"/>
+                            <constraint firstItem="YYi-WL-yqr" firstAttribute="centerY" secondItem="sy0-NT-Ruy" secondAttribute="centerY" id="CaT-bR-SOC"/>
                             <constraint firstItem="C7P-Cv-HgO" firstAttribute="leading" secondItem="v8n-ZD-hNb" secondAttribute="leading" constant="31" id="EbX-s3-pQN"/>
                             <constraint firstItem="edG-GJ-Yk6" firstAttribute="bottom" secondItem="v8n-ZD-hNb" secondAttribute="bottom" id="O7A-OM-q4D"/>
                             <constraint firstItem="kVv-eK-Cxd" firstAttribute="top" secondItem="v8n-ZD-hNb" secondAttribute="top" constant="6" id="RqQ-PQ-o3b"/>
@@ -5540,6 +5605,7 @@
                             <constraint firstItem="sy0-NT-Ruy" firstAttribute="top" secondItem="kVv-eK-Cxd" secondAttribute="top" id="gwk-Io-NG7"/>
                             <constraint firstItem="edG-GJ-Yk6" firstAttribute="top" secondItem="sy0-NT-Ruy" secondAttribute="bottom" constant="20" id="ibQ-YS-9n3"/>
                             <constraint firstItem="kVv-eK-Cxd" firstAttribute="leading" secondItem="v8n-ZD-hNb" secondAttribute="leading" constant="31" id="kQK-2y-gln"/>
+                            <constraint firstItem="sy0-NT-Ruy" firstAttribute="leading" secondItem="YYi-WL-yqr" secondAttribute="trailing" constant="20" id="yOx-TI-AuU"/>
                             <constraint firstItem="C7P-Cv-HgO" firstAttribute="top" secondItem="kVv-eK-Cxd" secondAttribute="bottom" constant="2" id="ypx-1O-BDF"/>
                             <constraint firstItem="edG-GJ-Yk6" firstAttribute="trailing" secondItem="v8n-ZD-hNb" secondAttribute="trailing" id="yqX-aP-dvS"/>
                         </constraints>
@@ -5549,6 +5615,7 @@
                         <outlet property="lbl_totalClient" destination="C7P-Cv-HgO" id="4Id-Lu-ejV"/>
                         <outlet property="scroll_vw" destination="edG-GJ-Yk6" id="4yg-Y3-qdx"/>
                         <outlet property="tbl_vw" destination="Qzn-rX-xVB" id="LOf-Lq-4Ph"/>
+                        <outlet property="txt_Filter" destination="FXQ-d5-NWe" id="dnw-vJ-jnW"/>
                         <outlet property="txt_search" destination="Ej3-b5-0RO" id="Qz3-UG-7Bm"/>
                     </connections>
                 </viewController>
@@ -11142,6 +11209,9 @@
         </namedColor>
         <namedColor name="Bg_color">
             <color red="0.98039215686274506" green="0.98039215686274506" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Lightgray">
+            <color red="0.66274509803921566" green="0.69019607843137254" blue="0.76078431372549016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="MainPrim">
             <color red="0.80392156862745101" green="0.18823529411764706" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -23,8 +23,24 @@ class SalesHistoryCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setCustomFont()
     }
 
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Medium", size: 20.0) {
+            lbl_ID.font = customFont
+            lbl_Name.font = customFont
+            lbl_Date.font = customFont
+            lbl_Time.font = customFont
+            lbl_Type.font = customFont
+            lbl_Staff.font = customFont
+            lbl_Status.font = customFont
+            lbl_Payment.font = customFont
+            lbl_Tip.font = customFont
+            lbl_Total.font = customFont
+        }
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }

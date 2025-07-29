@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato_bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="OfflineGiftCardCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="OfflineGiftCardCell" id="KGk-i7-Jjw" customClass="OfflineGiftCardCell" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="1644" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="1644" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Idk-HQ-Il1">
+                        <rect key="frame" x="0.0" y="0.0" width="1644" height="50"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pGB-8q-ZIl">
+                                <rect key="frame" x="24" y="13" width="30" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="Fst-QA-0sD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="TextBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTK-GM-1Zc">
+                                <rect key="frame" x="144" y="13" width="400" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="400" id="BaM-zy-GJc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="TextBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sM1-lg-ac8">
+                                <rect key="frame" x="569" y="13" width="150" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="nTD-yH-Wce"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="TextBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expiry Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZ2-jC-aDq">
+                                <rect key="frame" x="744" y="13" width="200" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="KJ6-gW-4Nb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="TextBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gift Code" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fQO-yl-t4m">
+                                <rect key="frame" x="969" y="13" width="250" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="NlY-f0-XJh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="TextBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKH-Js-H9m">
+                                <rect key="frame" x="1244" y="13" width="180" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="9jZ-P4-dOg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                <color key="textColor" name="TextBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NGa-Gs-BBj">
+                                <rect key="frame" x="1449" y="11" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="Ous-rb-dsw"/>
+                                    <constraint firstAttribute="width" constant="28" id="dDC-2S-QeP"/>
+                                </constraints>
+                                <color key="tintColor" name="txtGray"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="printer" catalog="system" symbolScale="large"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fQO-yl-t4m" firstAttribute="top" secondItem="pGB-8q-ZIl" secondAttribute="top" id="4Kn-Ce-yCV"/>
+                            <constraint firstItem="fKH-Js-H9m" firstAttribute="leading" secondItem="fQO-yl-t4m" secondAttribute="trailing" constant="25" id="4WN-SA-qdm"/>
+                            <constraint firstItem="gZ2-jC-aDq" firstAttribute="leading" secondItem="sM1-lg-ac8" secondAttribute="trailing" constant="25" id="4wX-Eo-QUB"/>
+                            <constraint firstItem="NGa-Gs-BBj" firstAttribute="leading" secondItem="fKH-Js-H9m" secondAttribute="trailing" constant="25" id="6ed-ic-OWt"/>
+                            <constraint firstItem="fQO-yl-t4m" firstAttribute="leading" secondItem="gZ2-jC-aDq" secondAttribute="trailing" constant="25" id="B1y-gd-AOl"/>
+                            <constraint firstItem="LTK-GM-1Zc" firstAttribute="top" secondItem="pGB-8q-ZIl" secondAttribute="top" id="E3Y-BX-76M"/>
+                            <constraint firstItem="NGa-Gs-BBj" firstAttribute="centerY" secondItem="fKH-Js-H9m" secondAttribute="centerY" id="KIO-Zz-RFt"/>
+                            <constraint firstItem="gZ2-jC-aDq" firstAttribute="top" secondItem="pGB-8q-ZIl" secondAttribute="top" id="La4-hS-6Kk"/>
+                            <constraint firstAttribute="trailing" secondItem="NGa-Gs-BBj" secondAttribute="trailing" constant="167" id="Qaa-72-loZ"/>
+                            <constraint firstItem="sM1-lg-ac8" firstAttribute="leading" secondItem="LTK-GM-1Zc" secondAttribute="trailing" constant="25" id="Rq4-A2-SPy"/>
+                            <constraint firstItem="pGB-8q-ZIl" firstAttribute="centerY" secondItem="Idk-HQ-Il1" secondAttribute="centerY" id="crF-A6-uw2"/>
+                            <constraint firstItem="LTK-GM-1Zc" firstAttribute="leading" secondItem="pGB-8q-ZIl" secondAttribute="trailing" constant="90" id="eQX-V0-69N"/>
+                            <constraint firstItem="sM1-lg-ac8" firstAttribute="top" secondItem="pGB-8q-ZIl" secondAttribute="top" id="eVm-aJ-Xgo"/>
+                            <constraint firstAttribute="height" constant="50" id="jNV-no-4ZX"/>
+                            <constraint firstItem="fKH-Js-H9m" firstAttribute="top" secondItem="pGB-8q-ZIl" secondAttribute="top" id="rSQ-zg-Zjr"/>
+                            <constraint firstItem="pGB-8q-ZIl" firstAttribute="leading" secondItem="Idk-HQ-Il1" secondAttribute="leading" constant="24" id="ypW-oJ-R6x"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Idk-HQ-Il1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Qgz-8a-a1p"/>
+                    <constraint firstAttribute="trailing" secondItem="Idk-HQ-Il1" secondAttribute="trailing" id="hFr-n2-drU"/>
+                    <constraint firstItem="Idk-HQ-Il1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="s3y-l3-l7Z"/>
+                    <constraint firstAttribute="bottom" secondItem="Idk-HQ-Il1" secondAttribute="bottom" id="tvx-1c-7gM"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lbl_ExpiryDate" destination="gZ2-jC-aDq" id="lne-xY-BeP"/>
+                <outlet property="lbl_GiftCode" destination="fQO-yl-t4m" id="RBW-CN-mgS"/>
+                <outlet property="lbl_Id" destination="pGB-8q-ZIl" id="x8M-sn-5bf"/>
+                <outlet property="lbl_Message" destination="fKH-Js-H9m" id="sfP-3b-Ixo"/>
+                <outlet property="lbl_Name" destination="LTK-GM-1Zc" id="mug-er-kCG"/>
+                <outlet property="lbl_Price" destination="sM1-lg-ac8" id="F37-Sf-gyc"/>
+            </connections>
+            <point key="canvasLocation" x="-3" y="-32"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="printer" catalog="system" width="128" height="111"/>
+        <namedColor name="TextBlack">
+            <color red="0.043137254901960784" green="0.043137254901960784" blue="0.043137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="txtGray">
+            <color red="0.63137254901960782" green="0.63137254901960782" blue="0.63137254901960782" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

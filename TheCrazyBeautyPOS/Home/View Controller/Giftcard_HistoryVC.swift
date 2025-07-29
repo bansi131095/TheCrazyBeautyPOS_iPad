@@ -29,7 +29,7 @@ class Giftcard_HistoryVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 150
+        contentViewWidthConstraint.constant = 250
         self.setTableView()
         setDefaultDateRangeAndFetch()
     }
@@ -66,7 +66,7 @@ class Giftcard_HistoryVC: UIViewController {
     
     func setTableView(){
         tbl_vw.register(UINib(nibName: "Giftcard_Cell", bundle: nil), forCellReuseIdentifier: "Giftcard_Cell")
-        tbl_vw.register(UINib(nibName: "GiftCardHeaderCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "GiftCardHeaderCell")
+        tbl_vw.register(UINib(nibName: "GiftCard_HeaderCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "GiftCard_HeaderCell")
         tbl_vw.delegate = self
         tbl_vw.dataSource = self
         tbl_vw.rowHeight = UITableView.automaticDimension
@@ -208,7 +208,7 @@ extension Giftcard_HistoryVC: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "GiftCardHeaderCell") as? GiftCardHeaderCell else {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "GiftCard_HeaderCell") as? GiftCard_HeaderCell else {
                 return nil
             }
             return header
