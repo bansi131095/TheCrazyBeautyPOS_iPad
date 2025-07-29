@@ -26,6 +26,7 @@ class Team_ReportVC: UIViewController {
     var calendarVC: UIViewController?
     var firstDate: Date?
     var lastDate: Date?
+    
     var datesRange: [Date] = []
     var selectingDateFor: UITextField?
     var calendar: FSCalendar!
