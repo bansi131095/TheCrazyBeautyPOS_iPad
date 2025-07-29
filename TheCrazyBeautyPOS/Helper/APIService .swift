@@ -2609,8 +2609,11 @@ class APIService {
     
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
 =======
+=======
+>>>>>>> Stashed changes
     func add_offgift(vendorId: String, gift_name: String, price: String, expiry_date: String, description: String, completion: @escaping (OfflineGift?) -> Void) {
         let url = global.shared.URL_Add_OFFGIFT
         
@@ -2649,6 +2652,9 @@ class APIService {
         }
     }
     
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     func add_AddCoupon(vendorId: String, status: String, start_date: String, highest_amount: String, end_date: String,discount_type: String,coupon_name:String,coupon_code:String,amount:String, completion: @escaping (OfflineGift?) -> Void) {
         let url = global.shared.URL_Add_Coupon
@@ -3151,6 +3157,9 @@ class APIService {
     }
     
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
