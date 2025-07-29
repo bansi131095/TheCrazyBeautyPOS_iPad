@@ -159,6 +159,9 @@ class global: NSObject
     var URL_UPDATE_INVENTORY = global.server_url + "edit_inventory/"
     var URL_DELETE_INVENTORY = global.server_url + "delete_inventory/"
     
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     //MARK:-
     override init()

@@ -925,4 +925,7 @@ class OfflineGiftData: Mappable {
     }
 }
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes

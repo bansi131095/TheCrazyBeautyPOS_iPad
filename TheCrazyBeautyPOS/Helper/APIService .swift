@@ -2608,7 +2608,48 @@ class APIService {
     }
     
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+    func add_offgift(vendorId: String, gift_name: String, price: String, expiry_date: String, description: String, completion: @escaping (OfflineGift?) -> Void) {
+        let url = global.shared.URL_Add_OFFGIFT
+        
+        let params: [String: Any] = [
+            "vendor_id": vendorId,
+            "gift_name": gift_name,
+            "price": price,
+            "expiry_date": expiry_date,
+            "description": description
+        ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<OfflineGift, AFError>) in
+
+            // 📦 Print request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headere: \(self.headers)")
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+>>>>>>> Stashed changes
     func add_AddCoupon(vendorId: String, status: String, start_date: String, highest_amount: String, end_date: String,discount_type: String,coupon_name:String,coupon_code:String,amount:String, completion: @escaping (OfflineGift?) -> Void) {
         let url = global.shared.URL_Add_Coupon
         
@@ -3109,6 +3150,9 @@ class APIService {
         }.resume()
     }
     
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
 

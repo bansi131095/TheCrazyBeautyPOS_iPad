@@ -91,6 +91,9 @@ class InventoryVC: UIViewController {
                 self.show_alert(msg: model.error ?? "", title: "Delete Team")
             }
         }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     }
 
