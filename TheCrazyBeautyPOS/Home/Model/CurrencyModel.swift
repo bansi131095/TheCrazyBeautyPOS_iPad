@@ -889,3 +889,40 @@ class ServiceDataModel: Mappable {
         total_saleprice      <- map["total_saleprice"]
     }
 }
+<<<<<<< Updated upstream
+=======
+//>>>>>>> ajay_work
+
+
+class OfflineGift: Mappable {
+    var data: OfflineGiftData?
+    var error: String = ""
+
+    init() {}
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data  <- map["data"]
+        error <- map["error"]
+    }
+}
+
+
+class OfflineGiftData: Mappable {
+    var message: String = ""
+    var insertId: Int = 0
+    var code: String = ""
+
+    init() {}
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        message  <- map["message"]
+        insertId          <- map["insertId"]
+        code          <- map["code"]
+    }
+}
+
+>>>>>>> Stashed changes

@@ -134,6 +134,32 @@ class global: NSObject
     var URL_SALES_DATA = global.server_url + "sales_data"
     
     
+<<<<<<< Updated upstream
+=======
+    var URL_CHECK_COUPON = global.server_url + "check_coupon"
+    var URL_APPLY_COUPON = global.server_url + "apply_coupon"
+    var URL_APPLY_GIFTCARD = global.server_url + "apply_giftcard"
+    
+    var URL_GET_SHIFTS = global.server_url + "get_shifts"
+    var URL_STAFF_REPORT = global.server_url + "staff_report"
+    
+    var URL_Add_OFFGIFT = global.server_url + "add_offgift"
+    
+    var URL_Add_Coupon = global.server_url + "add_coupon"
+    var URL_UPDATE_Coupon = global.server_url + "edit_coupon/"
+    var URL_DELETE_COUPON = global.server_url + "delete_coupon/"
+    
+    var URL_Add_GIFTCARD = global.server_url + "add_giftcard"
+    var URL_UPDATE_GIFTCARD = global.server_url + "edit_giftcard/"
+    var URL_DELETE_GIFTCARD = global.server_url + "delete_giftcard/"
+    
+    
+    
+    var URL_Add_INVENTORY = global.server_url + "add_inventory"
+    var URL_UPDATE_INVENTORY = global.server_url + "edit_inventory/"
+    var URL_DELETE_INVENTORY = global.server_url + "delete_inventory/"
+    
+>>>>>>> Stashed changes
     //MARK:-
     override init()
     {
