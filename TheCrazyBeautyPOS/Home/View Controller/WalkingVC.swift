@@ -157,6 +157,8 @@ class WalkingVC: UIViewController, WalkingDelegate {
         self.collect_service.reloadData()
         self.btn_clear.isHidden = true
         self.btn_payNow.isHidden = true
+        self.lbl_emptyCart.isHidden = false
+        
     }
     
     @IBAction func act_payNow(_ sender: GradientButton) {

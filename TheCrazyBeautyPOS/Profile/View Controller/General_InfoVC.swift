@@ -81,6 +81,7 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setCustomFont()
         get_fetchSalon()
         if let iso = CountryUtils.getISOCode(from: selectedCountrycode),
            let flagImage = CountryUtils.imageFromEmoji(flag: CountryUtils.flag(from: iso)) {
@@ -111,8 +112,7 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
 
     
-    @IBAction func act_country(_ sender: UIButton) {}
-
+    
     @IBAction func btn_CountryPicker(_ sender: Any) {
         let countryView = CountrySelectView.shared
         countryView.show()
@@ -310,6 +310,16 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                 self.alertWithMessageOnly("Something went wrong.")
             }
             
+        }
+    }
+    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+            txt_BusinessName.font = customFont
+            txt_SalonType.font = customFont
+            txt_MobileNumber.font = customFont
+            txt_Address.font = customFont
+            txt_Aboutus.font = customFont
         }
     }
     

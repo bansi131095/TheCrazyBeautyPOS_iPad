@@ -23,6 +23,7 @@ class CurrencyVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setCustomFont()
         call_CurrencyAPI()
     }
     
@@ -32,6 +33,12 @@ class CurrencyVC: UIViewController {
     
     @IBAction func btn_Save(_ sender: Any) {
         call_UpdateCurrencyAPI()
+    }
+    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+            txt_Currency.font = customFont
+        }
     }
     
     func openCurrency() {

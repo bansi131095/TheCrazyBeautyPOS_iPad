@@ -19,6 +19,7 @@ class Booking_ReminderVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setCustomFont()
         if let savedSlot = LocalData.setHours, hoursArray.contains(savedSlot) {
             select_Hours = savedSlot
         } else {
@@ -39,6 +40,12 @@ class Booking_ReminderVC: UIViewController {
         let numericHour = select_Hours.replacingOccurrences(of: " Hours", with: "")
         update_BookingReminder(reminder_mail: numericHour)
         
+    }
+    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+            txt_Reminder.font = customFont
+        }
     }
     
     func openHours() {

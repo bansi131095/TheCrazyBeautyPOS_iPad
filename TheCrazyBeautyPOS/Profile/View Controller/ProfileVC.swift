@@ -18,6 +18,7 @@ class ProfileVC: UIViewController,SettingCellDelegate {
     
 
     //MARK: - Outlets
+    @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var tbl_Categories_List: UITableView!
     @IBOutlet weak var containerView: UIView!
     
@@ -31,6 +32,7 @@ class ProfileVC: UIViewController,SettingCellDelegate {
     //MARK: - View Lify Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setCustomFont()
         setupData()
         setUpTableView()
         loadEmbeddedViewController(for: 0)
@@ -56,6 +58,12 @@ class ProfileVC: UIViewController,SettingCellDelegate {
         self.tbl_Categories_List.delegate = self
         self.tbl_Categories_List.dataSource = self
         
+    }
+    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Bold", size: 26.0) {
+            lblTitle.font = customFont
+        }
     }
     
     func setupData() {

@@ -23,6 +23,7 @@ class Team_LoginVC: UIViewController {
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setCustomFont()
         self.btn_eye.setImage(#imageLiteral(resourceName: "view"), for: .normal)
         self.txt_Password.isSecureTextEntry = true
         get_TeamLogin()
@@ -62,6 +63,14 @@ class Team_LoginVC: UIViewController {
     }
     
     //MARK: - Function
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+            txt_Name.font = customFont
+            txt_Email.font = customFont
+            txt_Password.font = customFont
+        }
+    }
+    
     //MARK: - Web Api Calling
     func get_TeamLogin(){
         APIService.shared.fetchSubvendor { result in

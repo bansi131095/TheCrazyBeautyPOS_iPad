@@ -18,6 +18,7 @@ class BlockCustomerCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setCustomFont()
         // Initialization code
     }
 
@@ -36,5 +37,11 @@ class BlockCustomerCell: UITableViewCell {
     var Act_Flag:(()->Void)?
     @IBAction func act_Flag(_ sender: UIButton) {
         self.Act_Flag?()
+    }
+    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+            txt_MobileNumber.font = customFont
+        }
     }
 }

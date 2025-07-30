@@ -15,6 +15,7 @@ class Notifications_SettingsVC: UIViewController {
     @IBOutlet weak var lbl_Time: UILabel!
     @IBOutlet weak var lbl_Amount: UILabel!
     
+    @IBOutlet weak var lblTitle: UILabel!
     
     @IBOutlet weak var lbl_SMSSettings: UILabel!
     @IBOutlet weak var img_Down: UIImageView!
@@ -74,6 +75,7 @@ class Notifications_SettingsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setCustomFont()
         setInitialVisibility()
         self.lbl_Time.text = arr_TimeSlot[0]
         select_Hours = "1 Hours"
@@ -128,6 +130,12 @@ class Notifications_SettingsVC: UIViewController {
     }
     
     //MARK: - Function
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Bold", size: 26.0) {
+            lblTitle.font = customFont
+        }
+    }
+    
     func setInitialVisibility() {
         // Hide all toggle sections initially
         vw_StyleFactory.isHidden = true

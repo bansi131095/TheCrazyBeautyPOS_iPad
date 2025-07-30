@@ -29,6 +29,7 @@ class Salon_HolidayVC: UIViewController {
         txt_to.delegate = self
         setTableView()
         fetchHolidays()
+        setCustomFont()
     }
     
     @IBAction func act_save(_ sender: GradientButton) {
@@ -38,6 +39,13 @@ class Salon_HolidayVC: UIViewController {
             return
         }
         self.updateHolidaysDate()
+    }
+    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+            txt_from.font = customFont
+            txt_to.font = customFont
+        }
     }
     
     func setTableView(){

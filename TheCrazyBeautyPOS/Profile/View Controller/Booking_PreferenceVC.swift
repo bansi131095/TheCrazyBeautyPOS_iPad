@@ -16,7 +16,7 @@ class Booking_PreferenceVC: UIViewController {
     @IBOutlet weak var img_Guest: UIImageView!
     
     //MARK: - Global Variable
-    var booking_Flow = 0
+    var booking_Flow = -1
     
     //MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -67,7 +67,8 @@ class Booking_PreferenceVC: UIViewController {
                 self.vw_Guest.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
                 self.img_Staff.image = UIImage(named: "ic_Uncheck")
                 self.img_Guest.image = UIImage(named: "ic_Check")
-            }else{
+            }
+            if result?.data?.booking_flow == 0{
                 self.vw_Staff.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
                 self.vw_Guest.backgroundColor = .white
                 self.img_Staff.image = UIImage(named: "ic_Check")

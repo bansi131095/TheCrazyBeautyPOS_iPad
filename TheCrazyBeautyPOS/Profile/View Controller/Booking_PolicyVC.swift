@@ -11,8 +11,6 @@ class Booking_PolicyVC: UIViewController {
 
     //MARK: - Outlet
     @IBOutlet weak var txtvw_Note: UITextView!
-    @IBOutlet weak var lbl_AllFields: UILabel!
-    @IBOutlet weak var lbl_FieldHeight: NSLayoutConstraint!
     
     //MARK: - Global Variable
     
@@ -21,20 +19,21 @@ class Booking_PolicyVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         get_Notes()
+        setCustomFont()
     }
     
     //MARK: -  Button Action
     @IBAction func btn_Save(_ sender: Any) {
-        if self.txtvw_Note.text == ""{
-            alertWithImage(title: "Notes", Msg: "Notes is required.")
-        }else{
-            update_Notes()
-        }
+        update_Notes()
     }
     
     //MARK: - Function
     
-    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+            txtvw_Note.font = customFont
+        }
+    }
     
     //MARK: - Web Api Calling
     func get_Notes(){

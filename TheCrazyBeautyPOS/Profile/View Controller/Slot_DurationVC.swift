@@ -17,6 +17,7 @@ class Slot_DurationVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setCustomFont()
         if let savedSlot = LocalData.setSlotDuration, arr_SlotDuration.contains(savedSlot) {
             select_Slot = savedSlot
         } else {
@@ -32,6 +33,12 @@ class Slot_DurationVC: UIViewController {
     
     @IBAction func btn_Save(_ sender: UIButton) {
         update_TimeGap()
+    }
+    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+            txt_SlotDuration.font = customFont
+        }
     }
     
     func openSlotDuration() {

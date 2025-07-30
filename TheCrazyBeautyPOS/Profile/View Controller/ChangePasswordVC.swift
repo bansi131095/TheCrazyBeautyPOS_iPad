@@ -21,6 +21,7 @@ class ChangePasswordVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setCustomFont()
         self.btn_Oeye.setImage(#imageLiteral(resourceName: "view"), for: .normal)
         self.txt_OldPassword.isSecureTextEntry = true
         self.btn_Neye.setImage(#imageLiteral(resourceName: "view"), for: .normal)
@@ -60,7 +61,12 @@ class ChangePasswordVC: UIViewController {
     }
     
     //MARK: - Function
-    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+            txt_OldPassword.font = customFont
+            txt_NewPassword.font = customFont
+        }
+    }
     //MARK: - Web Api Calling
     func changePassword(){
         APIService.shared.ChangePassword(vendorId: LocalData.userId, new_pass: self.txt_NewPassword.text ?? "", old_pass: self.txt_OldPassword.text ?? "") { result in

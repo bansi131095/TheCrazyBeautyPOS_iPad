@@ -41,10 +41,10 @@ class OfflineGiftCardVC: UIViewController {
         self.loadData(Search: "", filter: self.txt_Filter.text?.lowercased() ?? "active")
     }
     
-    /*override func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.loadData(Search: "", filter: self.txt_Filter.text?.lowercased() ?? "active")
-    }*/
+    }
     
     @IBAction func btn_AddNew(_ sender: Any) {
         let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddOfflineGiftCard_VC") as! AddOfflineGiftCard_VC

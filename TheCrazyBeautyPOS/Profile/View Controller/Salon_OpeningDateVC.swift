@@ -19,6 +19,7 @@ class Salon_OpeningDateVC: UIViewController {
         super.viewDidLoad()
         txt_Date.delegate = self
         fetchGetDate()
+        setCustomFont()
     }
     
     @IBAction func act_save(_ sender: GradientButton) {
@@ -29,6 +30,12 @@ class Salon_OpeningDateVC: UIViewController {
         updateOpenDate()
     }
 
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+            txt_Date.font = customFont
+        }
+    }
+    
     //MARK: Custom Function
     func showCalendarPopup(sourceView: UIView) {
     

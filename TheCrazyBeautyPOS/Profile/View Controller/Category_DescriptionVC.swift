@@ -197,8 +197,10 @@ extension Category_DescriptionVC: UITableViewDelegate,UITableViewDataSource{
         }
         if data.descriptionText != ""{
             cell.txt_Description.text = data.descriptionText
+            cell.placeholderLabel.isHidden = true
         }else{
             cell.txt_Description.text = ""
+            cell.placeholderLabel.isHidden = false
         }
         
         if data.sequence != ""{

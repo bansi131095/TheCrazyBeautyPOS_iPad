@@ -33,6 +33,7 @@ class Payment_CancellationVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         get_Amount()
+        setCustomFont()
     }
     
 
@@ -53,6 +54,16 @@ class Payment_CancellationVC: UIViewController {
     }
     
     //MARK: - Function
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+            txt_PaymentPercent.font = customFont
+            txt_CancellationDuration.font = customFont
+            txt_CancellationAmount.font = customFont
+            txt_CancellationPolicy.font = customFont
+        }
+    }
+    
+    
     func openCancellationDuration() {
         let slotDuration = DropDown()
         slotDuration.anchorView = txt_CancellationDuration

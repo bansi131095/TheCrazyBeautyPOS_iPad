@@ -47,6 +47,7 @@ class Block_CustomerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTableView()
+        setCustomFont()
         /*if let iso = CountryUtils.getISOCode(from: selectedCountrycode),
            let flagImage = CountryUtils.imageFromEmoji(flag: CountryUtils.flag(from: iso)) {
             img_Flag.image = flagImage
@@ -66,18 +67,24 @@ class Block_CustomerVC: UIViewController {
         tbl_vw.delegate = self
         tbl_vw.dataSource = self
         tbl_vw.rowHeight = UITableView.automaticDimension
-        tbl_vw.estimatedRowHeight = 90
+        tbl_vw.estimatedRowHeight = 60
     }
     
     func AddMoreField() {
 //        self.arr_Number.append("")
         arr_Number.append(["countryCode": "+353", "mobile": "", "locale": "IE"])
-        self.tbl_Height.constant = CGFloat(self.arr_Number.count * 90)
+        self.tbl_Height.constant = CGFloat(self.arr_Number.count * 60)
         self.tbl_vw.performBatchUpdates({
             self.tbl_vw.insertRows(at: [IndexPath(row: self.arr_Number.count - 1, section: 0)], with: .automatic)
         }, completion: nil)
     }
 
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+            txt_MobileNumber.font = customFont
+        }
+    }
+    
     //MARK: - Button Action
     @IBAction func btn_Flag(_ sender: Any) {
         openCountryPicker { code, image, locale in
@@ -195,7 +202,7 @@ class Block_CustomerVC: UIViewController {
                     }
 
                     self.tbl_vw.reloadData()
-                    self.tbl_Height.constant = CGFloat(self.arr_Number.count * 90)
+                    self.tbl_Height.constant = CGFloat(self.arr_Number.count * 60)
                     completion()
                     
                 case .failure(let error):

@@ -21,6 +21,7 @@ class KioskUsersVC: UIViewController {
         self.btn_Eye.setImage(#imageLiteral(resourceName: "view"), for: .normal)
         self.txt_Password.isSecureTextEntry = true
         get_KioskUsers()
+        setCustomFont()
     }
     
 
@@ -47,6 +48,14 @@ class KioskUsersVC: UIViewController {
             update_KioskUsers()
         }
     }
+    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+            txt_Email.font = customFont
+            txt_Password.font = customFont
+        }
+    }
+    
     
     
     func get_KioskUsers() {
