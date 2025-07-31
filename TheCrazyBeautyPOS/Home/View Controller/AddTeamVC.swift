@@ -51,6 +51,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     //MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setCustomFont()
         self.api_getBusinessHours()
         self.dobTextField.delegate = self
         setupGenderTextField()
@@ -101,6 +102,14 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         
         isDropdownVisible.toggle()
         dropdownView.isHidden = !isDropdownVisible
+    }
+    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Bold", size: 20.0) {
+            btn_editService.titleLabel?.font = customFont
+            btn_editSchedule.titleLabel?.font = customFont
+            btn_addTimeOff.titleLabel?.font = customFont
+        }
     }
     
     func setEditData() {

@@ -53,6 +53,7 @@ class HomeVC: UIViewController {
         self.txt_salon.text = salonName
         self.lbl_salonName.text = salonName
         self.lbl_UserName.text = userName
+        self.lbl_Version.text = "V - \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] ?? "")" +  " (\(Bundle.main.infoDictionary?["CFBundleVersion"] ?? "")) "
         self.get_Image()
         // Do any additional setup after loading the view.
     }
@@ -83,6 +84,7 @@ class HomeVC: UIViewController {
 
             // Also dismiss dropdown manually if using a custom dropdown manager
             DropdownManager.shared.hideDropdown()
+            vwPopup.isHidden = true
     }
 
     func loadEmbeddedViewController(for index: Int) {
@@ -216,7 +218,7 @@ class HomeVC: UIViewController {
             // Load profile image
             let imgUrl = global.imageUrl_Profile + (model.profile_photo ?? "")
             if let url = URL(string: imgUrl) {
-                self.img_profile.sd_setImage(with: url, placeholderImage: UIImage(named: "ProductDemo"))
+                self.img_profile.sd_setImage(with: url, placeholderImage: UIImage(named: "user"))
             }
 
         }

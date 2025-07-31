@@ -34,7 +34,10 @@ class global: NSObject
     static let apikey = "Ti99nbZ4zl9fu3AfUv8afirAiyXWAWtas7Kgm8jWY2wEUGthZ3jLsUO7kNWpcPng22mnIC0LM4torLEEjrgMBVcpmHrY40CLzXBBqredshUNRtrkXehq5a8pnwVC533f";
      
     let Device_Type = "IOS"
-    var App_Version = Bundle.main.infoDictionary?["CFBundleVersion"] ?? ""
+//    var App_Version = Bundle.main.infoDictionary?["CFBundleVersion"] ?? ""
+    
+    var App_Version = "\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] ?? "") (\(Bundle.main.infoDictionary?["CFBundleVersion"] ?? ""))"
+    
     var App_Package = Bundle.main.infoDictionary?["CFBundleIdentifier"] ?? ""
     var DeviceId = String() // DeviceId.getDeviceID()
     var Device_Name = UIDevice.modelName

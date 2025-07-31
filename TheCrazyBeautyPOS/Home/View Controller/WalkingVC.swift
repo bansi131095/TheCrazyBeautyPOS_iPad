@@ -15,6 +15,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
     @IBOutlet weak var collect_category: UICollectionView!
     @IBOutlet weak var collectCategoryHeight: NSLayoutConstraint!
     @IBOutlet weak var lbl_service: UILabel!
+    @IBOutlet weak var lbl_serviceTop: NSLayoutConstraint!
     @IBOutlet weak var lbl_serviceLine: UIView!
     @IBOutlet weak var collect_service: UICollectionView!
     @IBOutlet weak var collectServiceHeight: NSLayoutConstraint!
@@ -69,6 +70,11 @@ class WalkingVC: UIViewController, WalkingDelegate {
         self.vw_total.isHidden = true
         self.btn_clear.isHidden = true
         self.btn_payNow.isHidden = true
+        tbl_vw.tableFooterView = UIView()
+            
+            if #available(iOS 15.0, *) {
+                tbl_vw.sectionHeaderTopPadding = 0
+            }
         // Do any additional setup after loading the view.
     }
     
@@ -87,6 +93,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
         collect_service.delegate = self
         self.collect_service.isHidden = true
         self.collectServiceHeight.constant = 0
+        self.lbl_serviceTop.constant = 0
         self.lbl_service.text = ""
         self.lbl_serviceLine.isHidden = true
     }
@@ -102,6 +109,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
         tbl_vw.rowHeight = UITableView.automaticDimension
         tbl_vw.separatorStyle = .none
         tbl_vw.layoutIfNeeded()
+        tbl_vw.contentInset = .zero
     }
     
     @IBAction func btn_30Gift(_ sender: UIButton) {
@@ -145,6 +153,8 @@ class WalkingVC: UIViewController, WalkingDelegate {
         self.vw_total.isHidden = true
 
         // 6. Reset labels
+        self.vw_30Count.isHidden = true
+        self.vw_50Count.isHidden = true
         self.lbl_30Count.text = "0"
         self.lbl_50Count.text = "0"
         self.lbl_serviceTotal.text = "x0"
@@ -305,6 +315,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
         cartDataList = nonGiftCards + giftCards
         calculateTotalPrice()
         self.tbl_vw.reloadData()
+        self.tbl_vw.layoutIfNeeded()
     }
     
     func setSelectedCategoryItem() {
@@ -700,6 +711,7 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
                 self.collect_service.isHidden = false
                 let calculatedHeight = self.calculateCollectionServiceViewHeight(for: self.ServiceCategoryList, collectionViewWidth: collect_service.bounds.width)
                 self.collectServiceHeight.constant = calculatedHeight
+                self.lbl_serviceTop.constant = 15
                 self.lbl_service.text = "Select Service"
                 self.lbl_serviceLine.isHidden = false
                 self.collect_service.reloadData()

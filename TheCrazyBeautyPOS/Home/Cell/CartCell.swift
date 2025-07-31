@@ -58,7 +58,7 @@ class CartCell: UITableViewCell {
     }
 
 //    private func updateTableViewHeight() {
-    func updateTableViewHeight() {
+    /*func updateTableViewHeight() {
         // Force layout pass for the inner table view to get accurate contentSize
         self.tbl_item.setNeedsLayout()
         self.tbl_item.layoutIfNeeded()
@@ -70,8 +70,11 @@ class CartCell: UITableViewCell {
             self.setNeedsLayout()
             self.layoutIfNeeded()
         }
-    }
+    }*/
     
+    func updateTableViewHeight() {
+            tbl_item_heightConst.constant = tbl_item.contentSize.height
+        }
 }
 
 extension CartCell: UITableViewDelegate, UITableViewDataSource {

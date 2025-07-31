@@ -46,7 +46,7 @@ class GiftCardVC: UIViewController {
         tbl_vw.delegate = self
         tbl_vw.dataSource = self
         tbl_vw.rowHeight = UITableView.automaticDimension
-        tbl_vw.estimatedRowHeight = 60
+        tbl_vw.estimatedRowHeight = 90
     }
     
 

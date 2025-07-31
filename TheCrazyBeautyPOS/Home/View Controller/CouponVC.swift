@@ -26,7 +26,7 @@ class CouponVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 700 // or any dynamic value
+        contentViewWidthConstraint.constant = 900 // or any dynamic value
         self.setTableView()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 //        self.loadData(Search: "")

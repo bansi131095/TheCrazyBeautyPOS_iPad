@@ -15,6 +15,7 @@ class ServicesVC: UIViewController {
     @IBOutlet weak var txt_search: UITextField!
     @IBOutlet weak var lbl_totalClient: UILabel!
     
+    @IBOutlet weak var lbl_NoDataFound: UILabel!
     var serviceList: [ServiceData] = []
     var searchWorkItem: DispatchWorkItem?
     var currentPage = 1
@@ -26,7 +27,7 @@ class ServicesVC: UIViewController {
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 700 // or any dynamic value
+        contentViewWidthConstraint.constant = 400 // or any dynamic value
         self.setTableView()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
@@ -45,7 +46,7 @@ class ServicesVC: UIViewController {
         tbl_vw.delegate = self
         tbl_vw.dataSource = self
         tbl_vw.rowHeight = UITableView.automaticDimension
-        tbl_vw.estimatedRowHeight = 60
+        tbl_vw.estimatedRowHeight = 50
     }
     
 

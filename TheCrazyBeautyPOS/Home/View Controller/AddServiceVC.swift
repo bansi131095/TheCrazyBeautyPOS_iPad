@@ -71,7 +71,7 @@ class AddServiceVC: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if self.isEdit {
                 self.lbl_title.text = "Edit Service"
-                self.btn_service.setTitle("Edit Service", for: .normal)
+                self.btn_service.setTitle("Update Service", for: .normal)
                 self.setData()
             } else {
                 self.lbl_title.text = "Add Service"
