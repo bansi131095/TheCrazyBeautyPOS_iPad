@@ -64,11 +64,12 @@ class BookingDetailsPopupVC: UIViewController {
         if let dict = self.dictBookingDetails {
             let bookedBy = dict.bookedBy
             var BookedBy = ""
-            if bookedBy == "customer" {
-                BookedBy = "Customer"
-            } else if bookedBy == "vendor" {
+            if bookedBy == "vendor" {
                 BookedBy = "Salon"
+            }else{
+                BookedBy = "Customer"
             }
+            
             var amountPayable: Double = 0.0
             let grandTotal = Double(dict.grandTotal ?? "0.0") ?? 0.0
             let paidAmount = Double(dict.paidAmount ?? "0.0") ?? 0.0

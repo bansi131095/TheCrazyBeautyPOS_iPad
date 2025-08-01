@@ -38,7 +38,7 @@ class OfflineGiftCardVC: UIViewController {
         setTableView()
         setCustomFont()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        self.loadData(Search: "", filter: self.txt_Filter.text?.lowercased() ?? "active")
+//        self.loadData(Search: "", filter: self.txt_Filter.text?.lowercased() ?? "active")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -109,10 +109,19 @@ class OfflineGiftCardVC: UIViewController {
             self.OfflineGiftCardList += newItems
             self.currentPage += 1
             self.isLoadingMore = false
+            self.tbl_vw.backgroundView = self.OfflineGiftCardList.isEmpty ? self.getNoDataLabel() : nil
             self.tbl_vw.reloadData()
         }
     }
     
+    func getNoDataLabel() -> UILabel {
+        let noDataLabel = UILabel()
+        noDataLabel.text = "No Gift Cards Found"
+        noDataLabel.textAlignment = .center
+        noDataLabel.textColor = .gray
+        noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)
+        return noDataLabel
+    }
 
     func setTableView(){
         tbl_vw.register(UINib(nibName: "OfflineGiftCardCell", bundle: nil), forCellReuseIdentifier: "OfflineGiftCardCell")
