@@ -302,9 +302,9 @@ extension SalesReportHistory_VC: UITableViewDelegate, UITableViewDataSource{
         if data.tip == 0 {
             cell.lbl_Tip.text = "N/A"
         }else{
-            cell.lbl_Tip.text = String(data.tip)
+            cell.lbl_Tip.text = String(Double(data.tip))
         }
-        cell.lbl_Total.text = "\(SharedPrefs.getSymbol())" +  String(data.sub_total)
+        cell.lbl_Total.text = "\(SharedPrefs.getSymbol())" +  String(Double(data.sub_total))
         
         cell.Act_Action = {
             let storyboard = UIStoryboard(name: "Home", bundle: nil)

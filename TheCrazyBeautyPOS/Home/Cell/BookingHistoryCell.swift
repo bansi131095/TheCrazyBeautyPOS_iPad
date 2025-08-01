@@ -16,6 +16,8 @@ class BookingHistoryCell: UITableViewCell {
     @IBOutlet weak var lbl_amount: UILabel!
     @IBOutlet weak var lbl_type: UIButton!
     
+    @IBOutlet weak var img_leading: NSLayoutConstraint!
+    @IBOutlet weak var img_width: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()

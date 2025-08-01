@@ -38,12 +38,21 @@ class ReportVC: UIViewController {
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setCustomFont()
         vw_SaleWalkinGift.isHidden = true
         lbl_Sales.textColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         vw_Sales.backgroundColor = .white
         vw_Walkin.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
         vw_GiftCard.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
         loadEmbeddedViewController(for: 0)
+    }
+    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Bold", size: 20.0) {
+            lbl_Sales.font = customFont
+            lbl_Walkin.font = customFont
+            lbl_GiftCard.font = customFont
+        }
     }
     
     //MARK: -  Button Action

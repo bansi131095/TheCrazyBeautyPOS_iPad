@@ -15,10 +15,29 @@ class PromotionVC: UIViewController {
     private var currentVC: UIViewController?
 
     
+    @IBOutlet weak var vw_GiftCard: UIView!
+    @IBOutlet weak var vw_Coupon: UIView!
+    @IBOutlet weak var vw_OfflineGiftCard: UIView!
+    
+    
+    @IBOutlet weak var lbl_GiftCard: UILabel!
+    @IBOutlet weak var lbl_Coupon: UILabel!
+    @IBOutlet weak var lbl_OfflineGiftCard: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setSegment()
+        setCustomFont()
+        loadSegment(at: 0)
+//        self.setSegment()
         // Do any additional setup after loading the view.
+    }
+    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Bold", size: 20.0) {
+            lbl_GiftCard.font = customFont
+            lbl_Coupon.font = customFont
+            lbl_OfflineGiftCard.font = customFont
+        }
     }
     
     func setSegment() {
@@ -48,6 +67,39 @@ class PromotionVC: UIViewController {
         segmentCard.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
         loadSegment(at: 0)
 
+    }
+    
+    @IBAction func btn_GiftCard(_ sender: Any) {
+        lbl_GiftCard.textColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
+        lbl_Coupon.textColor = .black
+        lbl_OfflineGiftCard.textColor = .black
+        
+        vw_GiftCard.backgroundColor = .white
+        vw_Coupon.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
+        vw_OfflineGiftCard.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
+        loadSegment(at: 0)
+    }
+    
+    @IBAction func btn_Coupon(_ sender: Any) {
+        lbl_GiftCard.textColor = .black
+        lbl_Coupon.textColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
+        lbl_OfflineGiftCard.textColor = .black
+        
+        vw_GiftCard.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
+        vw_Coupon.backgroundColor = .white
+        vw_OfflineGiftCard.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
+        loadSegment(at: 1)
+    }
+    
+    @IBAction func btn_OfflineGiftCard(_ sender: Any) {
+        lbl_GiftCard.textColor = .black
+        lbl_Coupon.textColor = .black
+        lbl_OfflineGiftCard.textColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
+        
+        vw_GiftCard.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
+        vw_Coupon.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
+        vw_OfflineGiftCard.backgroundColor = .white
+        loadSegment(at: 2)
     }
     
     @objc func segmentChanged(_ sender: UISegmentedControl) {

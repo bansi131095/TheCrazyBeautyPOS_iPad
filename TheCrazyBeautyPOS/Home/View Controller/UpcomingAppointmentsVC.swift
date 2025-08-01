@@ -39,7 +39,7 @@ class UpcomingAppointmentsVC: UIViewController {
     
     //MARK: Set Table View
     func setTableView(){
-        tbl_vw.register(UINib(nibName: "UpcomingAppointmentCell", bundle: nil), forCellReuseIdentifier: "UpcomingAppointmentCell")
+        tbl_vw.register(UINib(nibName: "BookingHistoryCell", bundle: nil), forCellReuseIdentifier: "BookingHistoryCell")
         tbl_vw.delegate = self
         tbl_vw.dataSource = self
         tbl_vw.rowHeight = UITableView.automaticDimension
@@ -185,9 +185,11 @@ extension UpcomingAppointmentsVC: UITableViewDelegate, UITableViewDataSource, UI
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == tbl_vw {
-            guard let cell = tbl_vw.dequeueReusableCell(withIdentifier: "UpcomingAppointmentCell", for: indexPath) as? UpcomingAppointmentCell else {
+            guard let cell = tbl_vw.dequeueReusableCell(withIdentifier: "BookingHistoryCell", for: indexPath) as? BookingHistoryCell else {
                 return UITableViewCell()
             }
+            cell.img_width.constant = 0
+            cell.img_leading.constant = 0
             let upcoming = self.upcomingList[indexPath.item]
             if let bookingDate = upcoming.bookingDate, bookingDate != "" {
                 cell.lbl_bookingDate.text = formatBookingDate(bookingDate)

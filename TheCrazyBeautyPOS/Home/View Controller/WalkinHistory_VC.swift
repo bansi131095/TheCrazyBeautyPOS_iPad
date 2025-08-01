@@ -248,7 +248,7 @@ extension WalkinHistory_VC: UITableViewDelegate, UITableViewDataSource{
         if data.tip == 0{
             cell.lbl_Tip.text = "N/A"
         }else{
-            cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + "\(data.tip)"
+            cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + "\(Double(data.tip))"
         }
         
         cell.lbl_Discount.text = "\(SharedPrefs.getSymbol())" + "\(data.discount_amount)"
@@ -258,8 +258,8 @@ extension WalkinHistory_VC: UITableViewDelegate, UITableViewDataSource{
             cell.lbl_GiftCard?.text = data.giftCardDisplayString
         }
         
-        cell.lbl_Total.text = "\(SharedPrefs.getSymbol())" + "\(data.sub_total)"
-        cell.lbl_GrandTotal.text = "\(SharedPrefs.getSymbol())" + "\(data.total)"
+        cell.lbl_Total.text = "\(SharedPrefs.getSymbol())" + "\(Double(data.sub_total))"
+        cell.lbl_GrandTotal.text = "\(SharedPrefs.getSymbol())" + "\(Double(data.total))"
         cell.lbl_MisPrice.text = "\(SharedPrefs.getSymbol())" + "\(data.miscellaneous_price)"
         return cell
     }

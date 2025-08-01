@@ -62,7 +62,7 @@ class BookingDetailsPopupVC: UIViewController {
     //MARK: Set Data
     func setData() {
         if let dict = self.dictBookingDetails {
-            let bookedBy = dict.customerType
+            let bookedBy = dict.bookedBy
             var BookedBy = ""
             if bookedBy == "customer" {
                 BookedBy = "Customer"

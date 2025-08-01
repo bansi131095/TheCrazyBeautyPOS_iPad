@@ -14,15 +14,28 @@ class NotificationVC: UIViewController {
     
     private var currentVC: UIViewController?
 
+    @IBOutlet weak var vw_AccountActivity: UIView!
+    @IBOutlet weak var lbl_AccountActivity: UILabel!
+    @IBOutlet weak var vw_BookingHistory: UIView!
+    @IBOutlet weak var lbl_BookingHistory: UILabel!
+    
     
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setSegment()
-        // Do any additional setup after loading the view.
+        setCustomFont()
+        lbl_AccountActivity.textColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
+        vw_AccountActivity.backgroundColor = .white
+        vw_BookingHistory.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
+        loadSegment(at: 0)
     }
     
-    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Bold", size: 20.0) {
+            lbl_AccountActivity.font = customFont
+            lbl_BookingHistory.font = customFont
+        }
+    }
     //MARK: Button Action
     @IBAction func act_back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -63,6 +76,26 @@ class NotificationVC: UIViewController {
         loadSegment(at: sender.selectedSegmentIndex)
     }
 
+    
+    
+    @IBAction func btn_AccountActivity(_ sender: Any) {
+        lbl_AccountActivity.textColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
+        lbl_BookingHistory.textColor = .black
+        
+        vw_AccountActivity.backgroundColor = .white
+        vw_BookingHistory.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
+        loadSegment(at: 0)
+    }
+    
+    @IBAction func btn_BookingHistory(_ sender: Any) {
+        lbl_BookingHistory.textColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
+        lbl_AccountActivity.textColor = .black
+        
+        vw_BookingHistory.backgroundColor = .white
+        vw_AccountActivity.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
+        loadSegment(at: 1)
+    }
+    
     private func loadSegment(at index: Int) {
         currentVC?.willMove(toParent: nil)
         currentVC?.view.removeFromSuperview()

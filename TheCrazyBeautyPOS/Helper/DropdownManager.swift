@@ -34,7 +34,7 @@ class DropdownManager: NSObject, UITableViewDelegate, UITableViewDataSource {
         tableView.dataSource = self
         tableView.isHidden = true
         tableView.layer.borderWidth = 1
-        tableView.layer.borderColor = UIColor.lightGray.cgColor
+        tableView.layer.borderColor = UIColor.white.cgColor
         tableView.layer.cornerRadius = 10
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
