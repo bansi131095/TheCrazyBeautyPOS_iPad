@@ -14,6 +14,7 @@ class UpcomingAppointmentsVC: UIViewController {
     @IBOutlet weak var txt_days: UITextField!
     @IBOutlet weak var lbl_total: UILabel!
     
+    @IBOutlet weak var width_tbl: NSLayoutConstraint!
     var upcomingList: [BookingData] = []
     var currentPage = 1
     var totalCount = 0
@@ -29,6 +30,7 @@ class UpcomingAppointmentsVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        width_tbl.constant = 1300
         self.setTableView()
         self.loadData(Search: "", days: "\(selectedDays)")
         setupDaysTextField()
@@ -39,7 +41,7 @@ class UpcomingAppointmentsVC: UIViewController {
     
     //MARK: Set Table View
     func setTableView(){
-        tbl_vw.register(UINib(nibName: "BookingHistoryCell", bundle: nil), forCellReuseIdentifier: "BookingHistoryCell")
+        tbl_vw.register(UINib(nibName: "UpcomingAppointmentCell", bundle: nil), forCellReuseIdentifier: "UpcomingAppointmentCell")
         tbl_vw.delegate = self
         tbl_vw.dataSource = self
         tbl_vw.rowHeight = UITableView.automaticDimension
@@ -185,11 +187,11 @@ extension UpcomingAppointmentsVC: UITableViewDelegate, UITableViewDataSource, UI
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == tbl_vw {
-            guard let cell = tbl_vw.dequeueReusableCell(withIdentifier: "BookingHistoryCell", for: indexPath) as? BookingHistoryCell else {
+            guard let cell = tbl_vw.dequeueReusableCell(withIdentifier: "UpcomingAppointmentCell", for: indexPath) as? UpcomingAppointmentCell else {
                 return UITableViewCell()
             }
-            cell.img_width.constant = 0
-            cell.img_leading.constant = 0
+//            cell.img_width.constant = 0
+//            cell.img_leading.constant = 0
             let upcoming = self.upcomingList[indexPath.item]
             if let bookingDate = upcoming.bookingDate, bookingDate != "" {
                 cell.lbl_bookingDate.text = formatBookingDate(bookingDate)
@@ -198,7 +200,7 @@ extension UpcomingAppointmentsVC: UITableViewDelegate, UITableViewDataSource, UI
                 cell.lbl_bookingTime.text = formatBookingTime(bookingTime)
             }
             if let name = upcoming.name, name != "" {
-                cell.lbl_customerName.text = name
+                cell.lbl_customerName.text = name.capitalized
             }
             if let bookingId = upcoming.bookingNumber, bookingId != "" {
                 cell.lbl_bookingId.text = "#\(bookingId)"

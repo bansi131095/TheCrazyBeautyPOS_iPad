@@ -48,10 +48,10 @@ class Block_CustomerVC: UIViewController {
         super.viewDidLoad()
         setTableView()
         setCustomFont()
-        /*if let iso = CountryUtils.getISOCode(from: selectedCountrycode),
+        if let iso = CountryUtils.getISOCode(from: selectedCountrycode),
            let flagImage = CountryUtils.imageFromEmoji(flag: CountryUtils.flag(from: iso)) {
             img_Flag.image = flagImage
-        }*/
+        }
         
         fetchBlockedCustomers{}
         if arr_Number.isEmpty{

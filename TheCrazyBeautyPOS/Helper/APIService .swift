@@ -1322,9 +1322,13 @@ class APIService {
     func getAllSalonData(completion: @escaping (GetAllSalonModel?) -> Void) {
         let url = global.shared.URL_GET_ALL_SALONS
         
-        let params: [String: Any] = [
+        var params: [String: Any] = [
             "vendor_id": LocalData.salonId,
         ]
+        
+        if LocalData.salonId == "0" {
+            params["vendor_id"] = LocalData.userId
+        }
 
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
             .responseObject { (response: DataResponse<GetAllSalonModel, AFError>) in
@@ -4329,6 +4333,100 @@ class APIService {
                 completion(nil)
             }
         }.resume()
+    }
+    
+    func fetchNoShowLimit(completion: @escaping (ShowLimitModel?) -> Void) {
+        let url = global.shared.URL_GET_NoShowLimit + "/\(LocalData.userId)"
+
+        AF.request(url, method: .get, headers: HTTPHeaders(headers))
+            .validate()
+            .responseObject { (response: DataResponse<ShowLimitModel, AFError>) in
+            switch response.result {
+            case .success(let model):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Received \(model.data.count) business services")
+                completion(model)
+            case .failure(let error):
+                print("❌ API Call Failed: \(error)")
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                completion(nil)
+            }
+        }
+    }
+    
+    func UpdateNoShowlimit(vendorId: String, noshow_limit: String, completion: @escaping (CommonModel?) -> Void) {
+        let url = global.shared.URL_UPDATE_NoShowLimit
+        
+        let params: [String: Any] = [
+            "vendor_id": vendorId,
+            "noshow_limit": noshow_limit
+        ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<CommonModel, AFError>) in
+
+            // 📦 Print request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headere: \(self.headers)")
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    //MARK: Clients Api
+    func SendInvoice(booking_id: String, email: String, completion: @escaping (CommonResponses?) -> Void) {
+        let url = global.shared.URL_SEND_INVOICE
+        
+        let params: [String: Any] = [
+                "booking_id": booking_id,
+                "email": email
+            ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<CommonResponses, AFError>) in
+
+            // 📦 Print request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headere: \(self.headers)")
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
     }
     
 }

@@ -9,6 +9,7 @@ import UIKit
 
 class CouponVC: UIViewController {
     
+    @IBOutlet weak var lbl_Title: UILabel!
     @IBOutlet weak var scroll_vw: UIScrollView!
     @IBOutlet weak var contentViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var tbl_vw: UITableView!
@@ -26,7 +27,8 @@ class CouponVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 900 // or any dynamic value
+        setCustomFont()
+        contentViewWidthConstraint.constant = 400 // or any dynamic value
         self.setTableView()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 //        self.loadData(Search: "")
@@ -49,6 +51,11 @@ class CouponVC: UIViewController {
         tbl_vw.estimatedRowHeight = 60
     }
     
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Bold", size: 24.0) {
+            lbl_Title.font = customFont
+        }
+    }
 
     @objc func textFieldDidChange(_ textField: UITextField) {
         searchWorkItem?.cancel()

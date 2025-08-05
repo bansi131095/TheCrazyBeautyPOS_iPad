@@ -10,6 +10,7 @@ import DropDown
 
 class OfflineGiftCardVC: UIViewController {
     
+    @IBOutlet weak var lbl_TitleOfflineGiftCard: UILabel!
     @IBOutlet weak var scroll_vw: UIScrollView!
     @IBOutlet weak var contentViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var tbl_vw: UITableView!
@@ -33,7 +34,7 @@ class OfflineGiftCardVC: UIViewController {
     //MARK:  View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 500
+        contentViewWidthConstraint.constant = 300
         txt_Filter.text = arr_Filter.first
         setTableView()
         setCustomFont()
@@ -135,6 +136,9 @@ class OfflineGiftCardVC: UIViewController {
     func setCustomFont() {
         if let customFont = UIFont(name: "Lato-Regular", size: 20.0) {
             txt_Filter.font = customFont
+        }
+        if let customFont = UIFont(name: "Lato-Bold", size: 24.0) {
+            lbl_TitleOfflineGiftCard.font = customFont
         }
     }
     

@@ -20,11 +20,23 @@ class TeamCell: UITableViewCell {
     
     @IBOutlet weak var img_Width: NSLayoutConstraint!
     @IBOutlet weak var img_Height: NSLayoutConstraint!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        setCustomFont()
     }
 
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Regular", size: 20.0) {
+            lbl_no.font = customFont
+            lbl_name.font = customFont
+            lbl_email.font = customFont
+            lbl_phone.font = customFont
+            lbl_jobTitle.font = customFont
+            lbl_review.font = customFont
+        }
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

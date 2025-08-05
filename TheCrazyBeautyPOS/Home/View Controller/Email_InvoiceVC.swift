@@ -1,0 +1,56 @@
+//
+//  Email_InvoiceVC.swift
+//  TheCrazyBeautyPOS
+//
+//  Created by mini new on 05/08/25.
+//
+
+import UIKit
+
+class Email_InvoiceVC: UIViewController {
+
+    
+    
+    @IBOutlet weak var txt_Email: TextInputLayout!
+    
+    var booking_ID : String = ""
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+
+    
+    @IBAction func btn_Close(_ sender: Any) {
+        dismiss(animated: true)
+    }
+    
+    @IBAction func btn_Continue(_ sender: Any) {
+        if (self.txt_Email.text == "") {
+            self.txt_Email.showErrorMessage(message: "Please enter email")
+        } else if !self.txt_Email.text!.isValidEmail() {
+            self.txt_Email.showErrorMessage(message: "Please enter valid email")
+        }else{
+            api_SendInvoiceEmail()
+        }
+    }
+    
+    
+    func api_SendInvoiceEmail() {
+        APIService.shared.SendInvoice(booking_id: booking_ID, email: self.txt_Email.text ?? "") { result in
+            guard let model = result else {
+                return
+            }
+            self.hideLoader()
+            if model.error == "" || model.error == nil {
+                self.showToast(message: model.data)
+        
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.dismiss(animated: true)
+                }
+            } else {
+                self.show_alert(msg: model.error ?? "", title: "Update Staff")
+            }
+        }
+    }
+}

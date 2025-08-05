@@ -32,7 +32,7 @@ class WalkinHistoryCell: UITableViewCell {
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Medium", size: 20.0) {
+        if let customFont = UIFont(name: "Lato-Regular", size: 20.0) {
             lbl_ID.font = customFont
             lbl_Date.font = customFont
             lbl_ServiceName.font = customFont

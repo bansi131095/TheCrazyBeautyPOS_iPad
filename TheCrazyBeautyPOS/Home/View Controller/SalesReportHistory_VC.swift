@@ -34,7 +34,7 @@ class SalesReportHistory_VC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 1200
+        contentViewWidthConstraint.constant = 900
         setTableView()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         setDefaultDateRangeAndFetch()
@@ -293,8 +293,10 @@ extension SalesReportHistory_VC: UITableViewDelegate, UITableViewDataSource{
         
         if data.booking_status.capitalized == "Completed"{
             cell.lbl_Status.textColor = UIColor.green
+            cell.btn_Mail.isHidden = false
         }else{
             cell.lbl_Status.textColor = #colorLiteral(red: 1, green: 0.2941176471, blue: 0.3333333333, alpha: 1)
+            cell.btn_Mail.isHidden = true
         }
         cell.lbl_Status.text = data.booking_status.capitalized
         
@@ -302,14 +304,24 @@ extension SalesReportHistory_VC: UITableViewDelegate, UITableViewDataSource{
         if data.tip == 0 {
             cell.lbl_Tip.text = "N/A"
         }else{
-            cell.lbl_Tip.text = String(Double(data.tip))
+            cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + String(Double(data.tip))
         }
-        cell.lbl_Total.text = "\(SharedPrefs.getSymbol())" +  String(Double(data.sub_total))
+        cell.lbl_Total.text = "\(SharedPrefs.getSymbol())" +  String(Double(data.grand_total)!)
         
         cell.Act_Action = {
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
             if let vc = storyboard.instantiateViewController(withIdentifier: "Appointment_DetailsVC") as? Appointment_DetailsVC {
                 vc.model = data
+                vc.modalPresentationStyle = .overCurrentContext
+                vc.modalTransitionStyle = .crossDissolve
+                self.present(vc, animated: true)
+            }
+        }
+        
+        cell.Act_Mail = {
+            let storyboard = UIStoryboard(name: "Home", bundle: nil)
+            if let vc = storyboard.instantiateViewController(withIdentifier: "Email_InvoiceVC") as? Email_InvoiceVC {
+                vc.booking_ID = "\(data.id)"
                 vc.modalPresentationStyle = .overCurrentContext
                 vc.modalTransitionStyle = .crossDissolve
                 self.present(vc, animated: true)

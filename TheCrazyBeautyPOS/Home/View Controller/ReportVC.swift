@@ -29,6 +29,13 @@ class ReportVC: UIViewController {
     
     @IBOutlet weak var containerView: UIView!
     
+    @IBOutlet weak var lbl_TotalSales: UILabel!
+    
+    @IBOutlet weak var lbl_TTeam: UILabel!
+    @IBOutlet weak var lbl_TSales: UILabel!
+    @IBOutlet weak var lbl_TService: UILabel!
+    
+    
     // Static method to set label text
     func updateTotalAmount(text: String) {
             lbl_TotalAmount.text = text
@@ -48,10 +55,15 @@ class ReportVC: UIViewController {
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Bold", size: 20.0) {
+        if let customFont = UIFont(name: "Lato-Medium", size: 20.0) {
             lbl_Sales.font = customFont
             lbl_Walkin.font = customFont
             lbl_GiftCard.font = customFont
+            
+            lbl_TotalSales.font = customFont
+            lbl_TTeam.font = customFont
+            lbl_TSales.font = customFont
+            lbl_TService.font = customFont
         }
     }
     

@@ -17,7 +17,15 @@ class ServiceReportCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        setCustomFont()
+    }
+    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Regular", size: 20.0) {
+            lbl_no.font = customFont
+            lbl_name.font = customFont
+            lbl_Amount.font = customFont
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

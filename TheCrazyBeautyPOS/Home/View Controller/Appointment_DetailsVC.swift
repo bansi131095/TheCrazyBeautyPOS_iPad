@@ -57,12 +57,12 @@ class Appointment_DetailsVC: UIViewController {
         if model?.payment_type == ""{
             self.lbl_Payment.text = "N/A"
         }else{
-            self.lbl_Payment.text = model?.payment_type
+            self.lbl_Payment.text = model?.payment_type.capitalized
         }
         
         self.lbl_MiscellaneousPrice.text = "\(SharedPrefs.getSymbol())" + "\(model?.miscellaneous_price ?? "")"
-        self.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + "\(model?.tip ?? 0)"
-        self.lbl_OriginalAmount.text = "\(SharedPrefs.getSymbol())" + "\(model?.grand_total ?? "")"
+        self.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + "\(Double(model?.tip ?? 0))"
+        self.lbl_OriginalAmount.text = "\(SharedPrefs.getSymbol())" + "\(model?.sub_total ?? 0)"
         self.lbl_Discount.text = "\(SharedPrefs.getSymbol())" + "\(model?.discount_amount ?? "")"
         self.lbl_Total.text = "\(SharedPrefs.getSymbol())" + "\(model?.grand_total ?? "")"
         

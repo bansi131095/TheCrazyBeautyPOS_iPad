@@ -58,6 +58,7 @@ class AssignServiceVC: UIViewController {
     
     
     @IBAction func act_continue(_ sender: GradientButton) {
+        print("Count:- \(serviceIds)")
         onDataReturn?(serviceIds) // Pass the data back
         dismiss(animated: true, completion: nil)
     }

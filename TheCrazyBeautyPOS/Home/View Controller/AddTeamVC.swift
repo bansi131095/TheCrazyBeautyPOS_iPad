@@ -51,6 +51,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     //MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("serviceIds data: \(self.serviceIds)")
         setCustomFont()
         self.api_getBusinessHours()
         self.dobTextField.delegate = self

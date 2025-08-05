@@ -31,7 +31,7 @@ class NotificationVC: UIViewController {
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Bold", size: 20.0) {
+        if let customFont = UIFont(name: "Lato-Medium", size: 20.0) {
             lbl_AccountActivity.font = customFont
             lbl_BookingHistory.font = customFont
         }

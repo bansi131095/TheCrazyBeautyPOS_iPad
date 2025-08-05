@@ -77,7 +77,7 @@ class Notifications_SettingsVC: UIViewController {
         super.viewDidLoad()
         setCustomFont()
         setInitialVisibility()
-        self.lbl_Time.text = arr_TimeSlot[0]
+//        self.lbl_Time.text = arr_TimeSlot[0]
         select_Hours = "1 Hours"
         get_NotificationSettings()
     }

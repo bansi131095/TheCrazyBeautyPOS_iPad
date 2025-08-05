@@ -10,6 +10,7 @@ import UIKit
 class InventoryVC: UIViewController {
     
     
+    @IBOutlet weak var lbl_InventoryTitle: UILabel!
     @IBOutlet weak var scroll_vw: UIScrollView!
     @IBOutlet weak var contentViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var tbl_vw: UITableView!
@@ -29,6 +30,7 @@ class InventoryVC: UIViewController {
         super.viewDidLoad()
         contentViewWidthConstraint.constant = 0 // or any dynamic value
         self.setTableView()
+        setCustomFont()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 //        self.loadData(Search: "")
         // Do any additional setup after loading the view.
@@ -50,7 +52,12 @@ class InventoryVC: UIViewController {
         tbl_vw.estimatedRowHeight = 60
     }
     
-
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Bold", size: 24.0) {
+            lbl_InventoryTitle.font = customFont
+        }
+    }
+    
     @objc func textFieldDidChange(_ textField: UITextField) {
         searchWorkItem?.cancel()
 

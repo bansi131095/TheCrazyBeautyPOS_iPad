@@ -33,7 +33,7 @@ class Team_ReportVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 250
+        contentViewWidthConstraint.constant = 100
         get_TeamDetails()
         setDefaultDateRangeAndFetch()
         setTableView()

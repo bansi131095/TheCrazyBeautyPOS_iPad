@@ -9,6 +9,7 @@ import UIKit
 
 class GiftCardVC: UIViewController {
     
+    @IBOutlet weak var lbl_TitleGiftCard: UILabel!
     @IBOutlet weak var scroll_vw: UIScrollView!
     @IBOutlet weak var contentViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var tbl_vw: UITableView!
@@ -26,8 +27,9 @@ class GiftCardVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 500 // or any dynamic value
+        contentViewWidthConstraint.constant = 150 // or any dynamic value
         self.setTableView()
+        setCustomFont()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         // Do any additional setup after loading the view.
@@ -92,6 +94,11 @@ class GiftCardVC: UIViewController {
         }
     }
     
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Bold", size: 24.0) {
+            lbl_TitleGiftCard.font = customFont
+        }
+    }
     
     //MARK: Button Action
     @IBAction func act_addNew(_ sender: UIButton) {

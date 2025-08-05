@@ -31,7 +31,7 @@ class WalkinHistory_VC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 1500
+        contentViewWidthConstraint.constant = 1250
         self.setTableView()
         setDefaultDateRangeAndFetch()
     }

@@ -928,3 +928,30 @@ class OfflineGiftData: Mappable {
     }
 }
 
+
+class ShowLimitModel: Mappable {
+    
+    var data: [ShowLimitModelData] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data         <- map["data"]
+        error        <- map["error"]
+    }
+}
+
+class ShowLimitModelData: Mappable {
+    var allow_noshow: String = ""
+    var noshow_limit: Int = 0
+    
+    init() {}
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        allow_noshow  <- map["allow_noshow"]
+        noshow_limit  <- map["noshow_limit"]
+    }
+}

@@ -33,7 +33,7 @@ class PromotionVC: UIViewController {
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Bold", size: 20.0) {
+        if let customFont = UIFont(name: "Lato-Medium", size: 20.0) {
             lbl_GiftCard.font = customFont
             lbl_Coupon.font = customFont
             lbl_OfflineGiftCard.font = customFont

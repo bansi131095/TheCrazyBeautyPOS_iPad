@@ -70,7 +70,7 @@ class ProfileVC: UIViewController,SettingCellDelegate {
             sections = [
                 SectionModel(title: "Salon Details", items: ["General Information", "Salon Images", "Categories", "Categories Description"]),
                 SectionModel(title: "Notifications", items: ["Notifications", "Booking Reminder"]),
-                SectionModel(title: "Booking", items: ["Slot Duration", "Booking Preference", "Booking Policy"]),
+                SectionModel(title: "Booking", items: ["Slot Duration", "Booking Preference", "Booking Policy","No Show Limit"]),
                 SectionModel(title: "Team", items: ["Team Login", "Team Sequence"]),
                 SectionModel(title: "Schedule", items: ["Opening Date", "Business Hours", "Salon Off Days/Hours", "Salon Holiday"]),
                 SectionModel(title: "Payment", items: ["Bank Details", "Set Advance Payment & Cancellation Duration", "Curreny"]),
@@ -160,6 +160,8 @@ class ProfileVC: UIViewController,SettingCellDelegate {
                 vc = storyboard.instantiateViewController(withIdentifier: "Booking_PreferenceVC")
             case 2:
                 vc = storyboard.instantiateViewController(withIdentifier: "Booking_PolicyVC")
+            case 3:
+                vc = storyboard.instantiateViewController(withIdentifier: "No_ShowLimitVC")
             default: break
             }
         } else if sectionIndex == 3 {

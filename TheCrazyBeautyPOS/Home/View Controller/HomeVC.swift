@@ -226,7 +226,12 @@ class HomeVC: UIViewController {
 
     //=======
     @IBAction func btn_Profile(_ sender: UIButton) {
-        vwPopup.isHidden = false
+        if vwPopup.isHidden == false {
+            vwPopup.isHidden = true
+        }else{
+            vwPopup.isHidden = false
+        }
+        
     }
     
     @IBAction func btn_MyProfile(_ sender: Any) {

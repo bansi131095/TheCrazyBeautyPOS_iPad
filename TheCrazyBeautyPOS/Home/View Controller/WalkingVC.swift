@@ -12,6 +12,10 @@ import SDWebImageSVGCoder
 class WalkingVC: UIViewController, WalkingDelegate {
 
     // Walkin View
+    
+    @IBOutlet weak var lbl_TitleCategory: UILabel!
+    @IBOutlet weak var lbl_TitleGiftCard: UILabel!
+    
     @IBOutlet weak var collect_category: UICollectionView!
     @IBOutlet weak var collectCategoryHeight: NSLayoutConstraint!
     @IBOutlet weak var lbl_service: UILabel!
@@ -70,6 +74,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
         self.vw_total.isHidden = true
         self.btn_clear.isHidden = true
         self.btn_payNow.isHidden = true
+        self.setCustomFont()
         tbl_vw.tableFooterView = UIView()
             
             if #available(iOS 15.0, *) {
@@ -110,6 +115,14 @@ class WalkingVC: UIViewController, WalkingDelegate {
         tbl_vw.separatorStyle = .none
         tbl_vw.layoutIfNeeded()
         tbl_vw.contentInset = .zero
+    }
+    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Bold", size: 24.0) {
+            lbl_TitleGiftCard.font = customFont
+            lbl_TitleCategory.font = customFont
+            lbl_service.font = customFont
+        }
     }
     
     @IBAction func btn_30Gift(_ sender: UIButton) {

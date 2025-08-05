@@ -10,6 +10,7 @@ import UIKit
 class TeamVC: UIViewController {
 
     
+    @IBOutlet weak var lbl_TitleTeam: UILabel!
     @IBOutlet weak var scroll_vw: UIScrollView!
     @IBOutlet weak var contentViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var tbl_vw: UITableView!
@@ -27,6 +28,7 @@ class TeamVC: UIViewController {
         super.viewDidLoad()
         contentViewWidthConstraint.constant = 200 // or any dynamic value
         self.setTableView()
+        setCustomFont()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         // Do any additional setup after loading the view.
     }
@@ -36,6 +38,11 @@ class TeamVC: UIViewController {
         self.loadData(Search: "")
     }
     
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Bold", size: 22.0) {
+            lbl_TitleTeam.font = customFont
+        }
+    }
     
     func setTableView(){
         tbl_vw.register(UINib(nibName: "TeamCell", bundle: nil), forCellReuseIdentifier: "TeamCell")
@@ -43,7 +50,7 @@ class TeamVC: UIViewController {
         tbl_vw.delegate = self
         tbl_vw.dataSource = self
         tbl_vw.rowHeight = UITableView.automaticDimension
-        tbl_vw.estimatedRowHeight = 60
+        tbl_vw.estimatedRowHeight = 80
     }
     
 
@@ -230,8 +237,3 @@ extension TeamVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelega
     
 }
 
-extension TeamVC: UITextFieldDelegate {
-    
-    
-    
-}

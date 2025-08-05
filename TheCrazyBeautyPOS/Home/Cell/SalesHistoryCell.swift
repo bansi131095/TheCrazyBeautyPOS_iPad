@@ -20,6 +20,7 @@ class SalesHistoryCell: UITableViewCell {
     @IBOutlet weak var lbl_Tip: UILabel!
     @IBOutlet weak var lbl_Total: UILabel!
     @IBOutlet weak var btn_Action: UIButton!
+    @IBOutlet weak var btn_Mail: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,7 +28,7 @@ class SalesHistoryCell: UITableViewCell {
     }
 
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Medium", size: 20.0) {
+        if let customFont = UIFont(name: "Lato-Regular", size: 20.0) {
             lbl_ID.font = customFont
             lbl_Name.font = customFont
             lbl_Date.font = customFont
@@ -50,5 +51,9 @@ class SalesHistoryCell: UITableViewCell {
         self.Act_Action?()
     }
     
+    var Act_Mail:(()->Void)?
+    @IBAction func act_Mail(_ sender: Any) {
+        self.Act_Mail?()
+    }
     
 }

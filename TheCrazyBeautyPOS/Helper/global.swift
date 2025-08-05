@@ -232,6 +232,12 @@ class global: NSObject
     var URL_Add_INVENTORY = global.server_url + "add_inventory"
     var URL_UPDATE_INVENTORY = global.server_url + "edit_inventory/"
     var URL_DELETE_INVENTORY = global.server_url + "delete_inventory/"
+    
+    
+    var URL_GET_NoShowLimit = global.server_url + "get_noshowlimit"
+    var URL_UPDATE_NoShowLimit = global.server_url + "update_noshowlimit"
+    var URL_SEND_INVOICE = global.server_url + "send_invoice"
+    
 
     //MARK:-
     override init()

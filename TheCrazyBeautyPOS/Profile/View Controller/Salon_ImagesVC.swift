@@ -25,6 +25,7 @@ class Salon_ImagesVC: UIViewController {
     @IBOutlet weak var cv_HeightConst: NSLayoutConstraint!
     
     @IBOutlet weak var lbl_Atleast1: UILabel!
+    @IBOutlet weak var img_Delete: UIImageView!
     //MARK: - Global Variable
 //    var arr_photo: [UIImage] = []
     var profileModel: [profileDetailsModel] = []
@@ -208,7 +209,12 @@ class Salon_ImagesVC: UIViewController {
                 // Load profile image
                 let imgUrl = global.imageUrl_Profile + (model.profile_photo ?? "")
                 if let url = URL(string: imgUrl) {
-                    self.img_Profile.sd_setImage(with: url, placeholderImage: UIImage(named: "ProductDemo"))
+                    self.img_Profile.sd_setImage(with: url, placeholderImage: UIImage(named: "img_Upload"))
+                    if self.img_Profile.image == UIImage(named: "img_Upload"){
+                        self.img_Delete.isHidden = true
+                    }else{
+                        self.img_Delete.isHidden = false
+                    }
                 }
 
                 // Load gallery images
