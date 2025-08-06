@@ -3199,3 +3199,43 @@ extension DateFormatter {
         return df
     }()
 }
+
+class Loader {
+    
+    static let shared = Loader()
+    private var spinner: UIActivityIndicatorView?
+    private var backgroundView: UIView?
+
+    private init() {}
+
+    func show(on view: UIView) {
+        DispatchQueue.main.async {
+            // Avoid showing multiple spinners
+            if self.spinner != nil { return }
+            
+            // Background dimming view
+            let bgView = UIView(frame: view.bounds)
+            bgView.backgroundColor = UIColor.black.withAlphaComponent(0.1)
+            view.addSubview(bgView)
+            self.backgroundView = bgView
+            
+            // Activity indicator setup
+            let spinner = UIActivityIndicatorView(style: .large)
+            spinner.center = bgView.center
+            spinner.startAnimating()
+            bgView.addSubview(spinner)
+            self.spinner = spinner
+        }
+    }
+
+    func hide() {
+        DispatchQueue.main.async {
+            self.spinner?.stopAnimating()
+            self.spinner?.removeFromSuperview()
+            self.spinner = nil
+
+            self.backgroundView?.removeFromSuperview()
+            self.backgroundView = nil
+        }
+    }
+}

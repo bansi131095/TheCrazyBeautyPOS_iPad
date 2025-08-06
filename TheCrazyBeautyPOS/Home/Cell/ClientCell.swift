@@ -22,7 +22,7 @@ class ClientCell: UITableViewCell {
     }
 
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Regular", size: 20.0) {
+        if let customFont = UIFont(name: "Lato-Medium", size: 18.0) {
             lbl_name.font = customFont
             lbl_email.font = customFont
             lbl_phone.font = customFont

@@ -30,7 +30,6 @@ class UpcomingAppointmentsVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        width_tbl.constant = 1300
         self.setTableView()
         self.loadData(Search: "", days: "\(selectedDays)")
         setupDaysTextField()

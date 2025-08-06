@@ -118,7 +118,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Bold", size: 24.0) {
+        if let customFont = UIFont(name: "Lato-Bold", size: 22.0) {
             lbl_TitleGiftCard.font = customFont
             lbl_TitleCategory.font = customFont
             lbl_service.font = customFont

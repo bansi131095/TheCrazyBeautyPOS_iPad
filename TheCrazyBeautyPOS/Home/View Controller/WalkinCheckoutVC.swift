@@ -369,7 +369,7 @@ class WalkinCheckoutVC: UIViewController {
                 if model.error == "" || model.error == nil {
                     DispatchQueue.main.async {
                         // safe UI code here
-                        self.showToast(message: model.data ?? "")
+                        self.showToast(message: model.data?.message ?? "")
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             self.delegate?.didClearData()
                             self.dismiss(animated: true)
@@ -481,7 +481,7 @@ class WalkinCheckoutVC: UIViewController {
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
                     // safe UI code here
-                    self.showToast(message: model.data ?? "")
+                    self.showToast(message: model.data?.message ?? "")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         self.delegate?.didClearData()
                         self.dismiss(animated: true)

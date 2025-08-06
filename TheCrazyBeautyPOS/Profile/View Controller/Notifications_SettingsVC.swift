@@ -131,7 +131,7 @@ class Notifications_SettingsVC: UIViewController {
     
     //MARK: - Function
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Bold", size: 26.0) {
+        if let customFont = UIFont(name: "Lato-Bold", size: 22.0) {
             lblTitle.font = customFont
         }
     }

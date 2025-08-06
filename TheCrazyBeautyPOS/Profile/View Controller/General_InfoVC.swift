@@ -314,7 +314,7 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+        if let customFont = UIFont(name: "Lato-Medium", size: 20.0) {
             txt_BusinessName.font = customFont
             txt_SalonType.font = customFont
             txt_MobileNumber.font = customFont

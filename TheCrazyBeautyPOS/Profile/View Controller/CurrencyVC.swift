@@ -36,7 +36,7 @@ class CurrencyVC: UIViewController {
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+        if let customFont = UIFont(name: "Lato-Medium", size: 20.0) {
             txt_Currency.font = customFont
         }
     }

@@ -1482,6 +1482,7 @@ class APIService {
 
     //MARK: AJAY
     func fetchSalonCurrency(completion: @escaping (CurrencyModel?) -> Void) {
+        
         let url = global.shared.URL_CURRENCY_DETAILS
 
         AF.request(url, method: .get, headers: HTTPHeaders(headers))
@@ -2959,7 +2960,7 @@ class APIService {
             }
         }
         
-        func BusinessInformation(url:String,address:String,latitude:String,longitude:String,postcode:String,salon_name: String,salon_type:String,web_status:String, completion: @escaping (CurrencyResponse?) -> Void) {
+        func BusinessInformation(url:String,address:String,latitude:String,longitude:String,postcode:String,salon_name: String,salon_type:String,web_status:String, completion: @escaping (CommonModel?) -> Void) {
             let url = url
             
             let params: [String: Any] = [
@@ -2973,7 +2974,7 @@ class APIService {
                 ]
 
             AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
-                .responseObject { (response: DataResponse<CurrencyResponse, AFError>) in
+                .responseObject { (response: DataResponse<CommonModel, AFError>) in
 
                 // 📦 Print request info
                 
@@ -3593,7 +3594,7 @@ class APIService {
     
     
     
-    func addCartDetails(vendorId: String, subTotal: Double, grandTotal: Double, discountAmount: String, serviceIds: String, couponCode: String, discountPercentage: String, transactionId: String, paymentType: String, discountType: String, giftCard: String, miscellaneousNote: String, miscellaneousPrice: Double, tips: Double, completion: @escaping (CommonModel?) -> Void) {
+    func addCartDetails(vendorId: String, subTotal: Double, grandTotal: Double, discountAmount: String, serviceIds: String, couponCode: String, discountPercentage: String, transactionId: String, paymentType: String, discountType: String, giftCard: String, miscellaneousNote: String, miscellaneousPrice: Double, tips: Double, completion: @escaping (VendorData?) -> Void) {
         let url = global.shared.URL_ADD_CART_DETAILS
         
         let params: [String: Any] = [
@@ -3614,7 +3615,7 @@ class APIService {
         ]
 
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
-            .responseObject { (response: DataResponse<CommonModel, AFError>) in
+            .responseObject { (response: DataResponse<VendorData, AFError>) in
 
             // 📦 Print request info
             print("🌐 URL: \(url)")
@@ -4336,6 +4337,7 @@ class APIService {
     }
     
     func fetchNoShowLimit(completion: @escaping (ShowLimitModel?) -> Void) {
+        
         let url = global.shared.URL_GET_NoShowLimit + "/\(LocalData.userId)"
 
         AF.request(url, method: .get, headers: HTTPHeaders(headers))

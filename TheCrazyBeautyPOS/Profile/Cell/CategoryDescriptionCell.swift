@@ -22,7 +22,7 @@ class CategoryDescriptionCell: UITableViewCell,UITextViewDelegate {
         txt_Description.delegate = self
         
         placeholderLabel.text = "Description"
-        placeholderLabel.font = UIFont(name: "Lato-Medium", size: 20.0)
+        placeholderLabel.font = UIFont(name: "Lato-Medium", size: 18.0)
         placeholderLabel.textColor = UIColor.lightGray
         placeholderLabel.numberOfLines = 1
         placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -38,7 +38,7 @@ class CategoryDescriptionCell: UITableViewCell,UITextViewDelegate {
     
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+        if let customFont = UIFont(name: "Lato-Medium", size: 18.0) {
             txt_Sequence.font = customFont
             txt_Description.font = customFont
         }

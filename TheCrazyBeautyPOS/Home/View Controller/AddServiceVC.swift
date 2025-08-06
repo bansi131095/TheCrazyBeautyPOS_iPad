@@ -66,8 +66,8 @@ class AddServiceVC: UIViewController {
             self.txt_priceType.setText(selected)
         }
         staffTextField.delegate = self
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openStaffPopup))
-        staffTextField.addGestureRecognizer(tapGesture)
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openStaffPopup))
+//        staffTextField.addGestureRecognizer(tapGesture)
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if self.isEdit {
                 self.lbl_title.text = "Edit Service"
@@ -136,6 +136,29 @@ class AddServiceVC: UIViewController {
         } else if sender.currentImage == UIImage(named: "rdUncheck") {
             sender.setImage(UIImage(named: "rdCheck"), for: .normal)
         }
+    }
+    
+    @IBAction func btn_StaffSelection(_ sender: Any) {
+        if !self.selectedStaffList.isEmpty {
+            for staff in self.selectedStaffList {
+                selected.append("\(staff.id ?? 0)")
+            }
+        }
+        let popup = PreferredStaffPopupViewController()
+        popup.staffList = staffList
+        popup.selectedStaff = selected
+        popup.onComplete = { selected in
+            print("Selected staff: \(selected)")
+            self.selectedStaffList = []
+            self.selected = selected
+            for staff in self.staffList {
+                if selected.contains("\(staff.id ?? 0)") {
+                    self.selectedStaffList.append(staff)
+                }
+            }
+            self.refreshTags()
+        }
+        self.present(popup, animated: true)
     }
     
     //MARK: Set Data

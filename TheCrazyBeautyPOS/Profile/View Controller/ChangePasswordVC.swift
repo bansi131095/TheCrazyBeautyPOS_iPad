@@ -62,7 +62,7 @@ class ChangePasswordVC: UIViewController {
     
     //MARK: - Function
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+        if let customFont = UIFont(name: "Lato-Medium", size: 20.0) {
             txt_OldPassword.font = customFont
             txt_NewPassword.font = customFont
         }

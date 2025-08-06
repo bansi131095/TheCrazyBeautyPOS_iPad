@@ -95,7 +95,7 @@ class GiftCardVC: UIViewController {
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Bold", size: 24.0) {
+        if let customFont = UIFont(name: "Lato-Bold", size: 22.0) {
             lbl_TitleGiftCard.font = customFont
         }
     }

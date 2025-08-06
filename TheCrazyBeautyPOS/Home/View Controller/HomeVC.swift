@@ -9,6 +9,7 @@ import UIKit
 
 class HomeVC: UIViewController {
 
+    @IBOutlet weak var lbl_Title: UILabel!
     
     @IBOutlet weak var img_profile: UIImageView!
     @IBOutlet weak var tbl_vw: UITableView!

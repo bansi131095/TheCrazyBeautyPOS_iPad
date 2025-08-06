@@ -137,7 +137,7 @@ class OfflineGiftCardVC: UIViewController {
         if let customFont = UIFont(name: "Lato-Regular", size: 20.0) {
             txt_Filter.font = customFont
         }
-        if let customFont = UIFont(name: "Lato-Bold", size: 24.0) {
+        if let customFont = UIFont(name: "Lato-Bold", size: 20.0) {
             lbl_TitleOfflineGiftCard.font = customFont
         }
     }

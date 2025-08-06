@@ -51,7 +51,7 @@ class ClientsVC: UIViewController {
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Bold", size: 24.0) {
+        if let customFont = UIFont(name: "Lato-Bold", size: 22.0) {
             lbl_Title_Client.font = customFont
         }
     }

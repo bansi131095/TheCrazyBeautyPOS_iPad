@@ -26,7 +26,7 @@ class UpcomingAppointmentCell: UITableViewCell {
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Regular", size: 18.0) {
+        if let customFont = UIFont(name: "Lato-Medium", size: 16.0) {
             lbl_bookingDate.font = customFont
             lbl_bookingTime.font = customFont
             lbl_titleCustomerName.font = customFont

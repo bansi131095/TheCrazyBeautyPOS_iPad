@@ -40,7 +40,7 @@ class BlockCustomerCell: UITableViewCell {
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+        if let customFont = UIFont(name: "Lato-Medium", size: 18.0) {
             txt_MobileNumber.font = customFont
         }
     }

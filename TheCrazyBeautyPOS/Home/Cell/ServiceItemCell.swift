@@ -19,6 +19,7 @@ class ServiceItemCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setCustomFont()
         // Initialization code
     }
 
@@ -38,5 +39,15 @@ class ServiceItemCell: UITableViewCell {
         self.Act_Delete?()
     }
     
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Medium", size: 18.0) {
+            lbl_no.font = customFont
+            lbl_category.font = customFont
+            lbl_service.font = customFont
+            lbl_time.font = customFont
+            lbl_serviceFor.font = customFont
+            lbl_price.font = customFont
+        }
+    }
     
 }
