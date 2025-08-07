@@ -27,7 +27,7 @@ class GiftCardVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 150 // or any dynamic value
+        contentViewWidthConstraint.constant = 30 // or any dynamic value
         self.setTableView()
         setCustomFont()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)

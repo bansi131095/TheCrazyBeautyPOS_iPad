@@ -29,7 +29,7 @@ class Giftcard_HistoryVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 150
+        contentViewWidthConstraint.constant = 200
         self.setTableView()
         setDefaultDateRangeAndFetch()
     }

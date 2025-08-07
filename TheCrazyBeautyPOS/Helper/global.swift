@@ -237,6 +237,7 @@ class global: NSObject
     var URL_GET_NoShowLimit = global.server_url + "get_noshowlimit"
     var URL_UPDATE_NoShowLimit = global.server_url + "update_noshowlimit"
     var URL_SEND_INVOICE = global.server_url + "send_invoice"
+    var URL_VERIFY_PASSCODE = global.server_url + "verify_passcode"
     
 
     //MARK:-

@@ -34,7 +34,7 @@ class OfflineGiftCardVC: UIViewController {
     //MARK:  View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 300
+        contentViewWidthConstraint.constant = 200
         txt_Filter.text = arr_Filter.first
         setTableView()
         setCustomFont()

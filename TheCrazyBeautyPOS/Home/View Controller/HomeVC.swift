@@ -28,7 +28,7 @@ class HomeVC: UIViewController {
     @IBOutlet weak var lbl_salonName: UILabel!
     
     
-    let imageArray: [UIImage] = [
+    var imageArray: [UIImage] = [
         #imageLiteral(resourceName: "Dashboard.png"),
         #imageLiteral(resourceName: "Booking"),
         #imageLiteral(resourceName: "Walkin"),
@@ -37,11 +37,13 @@ class HomeVC: UIViewController {
         #imageLiteral(resourceName: "Clients"),
         #imageLiteral(resourceName: "Promotion"),
         #imageLiteral(resourceName: "Inventory"),
-        #imageLiteral(resourceName: "Report"),
+//        #imageLiteral(resourceName: "Report"),
     ]
     
     var selectedIndex: Int = 1
-    
+    private var tapCount = 0
+    private let maxTaps = 8
+    private var isReportImageAdded = false
     
     //MARK: View life cycle
     override func viewDidLoad() {
@@ -139,6 +141,32 @@ class HomeVC: UIViewController {
         self.navigationController?.pushViewController(notification, animated: true)
     }
     
+    
+    @IBAction func btn_TopClick(_ sender: Any) {
+        tapCount += 1
+        if tapCount == maxTaps {
+           tapCount = 0
+
+           if !isReportImageAdded {
+               // Add the missing image
+               imageArray.append(#imageLiteral(resourceName: "Report"))
+               self.tbl_vw.reloadData()
+               isReportImageAdded = true
+               showPopup()
+           } else {
+               print("Already not add")
+           }
+        }
+    }
+    
+    private func showPopup() {
+        let storyboard = UIStoryboard(name: "Home", bundle: nil)
+        if let vc = storyboard.instantiateViewController(withIdentifier: "Passcode_VC") as? Passcode_VC {
+            vc.modalPresentationStyle = .overCurrentContext
+            vc.modalTransitionStyle = .crossDissolve
+            self.present(vc, animated: true)
+        }
+    }
     
     //MARK: Api Data
     func getAllSalonData() {

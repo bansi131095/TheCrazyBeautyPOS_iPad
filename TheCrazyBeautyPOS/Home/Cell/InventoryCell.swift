@@ -17,8 +17,19 @@ class InventoryCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        setCustomFont()
         // Initialization code
     }
+    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Medium", size: 18.0) {
+            lbl_no.font = customFont
+            lbl_productName.font = customFont
+            lbl_price.font = customFont
+            lbl_qty.font = customFont
+        }
+    }
+    
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

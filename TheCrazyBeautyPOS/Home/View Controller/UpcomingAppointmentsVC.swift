@@ -108,10 +108,19 @@ class UpcomingAppointmentsVC: UIViewController {
             self.upcomingList += newItems
             self.currentPage += 1
             self.isLoadingMore = false
+            self.tbl_vw.backgroundView = self.upcomingList.isEmpty ? self.getNoDataLabel() : nil
             self.tbl_vw.reloadData()
         }
     }
     
+    func getNoDataLabel() -> UILabel {
+        let noDataLabel = UILabel()
+        noDataLabel.text = "No Data Found"
+        noDataLabel.textAlignment = .center
+        noDataLabel.textColor = .gray
+        noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)
+        return noDataLabel
+    }
     
     func formatBookingDate(_ inputDate: String) -> String {
         let inputFormatter = DateFormatter()
