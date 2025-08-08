@@ -118,6 +118,8 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
             self.firstNameTextField.text = dict.firstName
             self.lastNameTextField.text = dict.lastName
             self.jobTitleTextField.text = dict.jobTitle
+//            self.btn_editService.currentTitle = "Edit Service \(dict.serviceIds)"
+            self.btn_editService.setTitle("Edit service (\(dict.serviceIds?.count ?? 0))", for: .normal)
             self.emailTextField.text = dict.email
             if var phoneno = dict.phone {
                 if !phoneno.isEmpty && phoneno.count >= 3 {
@@ -256,8 +258,9 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         editService.modalPresentationStyle = .overCurrentContext
         editService.modalTransitionStyle = .crossDissolve
         editService.onDataReturn = { [weak self] returnedData in
-            print("Received data: \(returnedData)")
+            print("Received data: \(returnedData.count)")
             self?.serviceIds = returnedData
+            self?.btn_editService.setTitle("Edit service (\(returnedData.count))", for: .normal)
             // self?.yourLabel.text = returnedData
         }
         self.present(editService, animated: true)
@@ -477,7 +480,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         let headerTapButton = UIButton()
         headerTapButton.backgroundColor = .clear
         headerTapButton.translatesAutoresizingMaskIntoConstraints = false
-        headerTapButton.addTarget(self, action: #selector(headerTapped), for: .touchUpInside)
+//        headerTapButton.addTarget(self, action: #selector(headerTapped), for: .touchUpInside)
         calendarVC.view.addSubview(headerTapButton)
 
         // 📌 Constraints

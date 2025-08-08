@@ -955,3 +955,30 @@ class ShowLimitModelData: Mappable {
         noshow_limit  <- map["noshow_limit"]
     }
 }
+
+class verifyPasscode: Mappable {
+    var data: verifyPasscodeDataModel?
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data    <- map["data"]
+        error   <- map["error"]
+    }
+}
+
+class verifyPasscodeDataModel: Mappable {
+    var status: Int?
+    var error: String?
+    var message: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        status     <- map["status"]
+        error <- map["error"]
+        message <- map["message"]
+    }
+}
+

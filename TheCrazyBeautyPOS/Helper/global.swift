@@ -24,7 +24,8 @@ class global: NSObject
 //    static let base_url = "https://api.thecrazybeauty.com/" // LIVE
     static let server_url = global.base_url + "api/"
     
-    static let CAL_WEB_URL = "https://tcb-ten.vercel.app/vendor/booking?id=%@&auth=%@&rand=%lld" //TCB
+//    static let CAL_WEB_URL = "https://tcb-ten.vercel.app/vendor/booking?id=%@&auth=%@&rand=%lld" //TCB
+    static let CAL_WEB_URL = "https://tcb-ten.vercel.app/vendor/booking_touch?id=%@&auth=%@&rand=%lld" //TCB
 //    static let CAL_WEB_URL = "https://thecrazybeauty.com/vendor/booking?id=%@&auth=%@&rand=%lld" //LIVE
 
     static let TEAM_ROASTER_WEB_URL = "https://tcb-ten.vercel.app/vendor/team-roaster?id=%@&auth=%@&rand=%lld" //TCB

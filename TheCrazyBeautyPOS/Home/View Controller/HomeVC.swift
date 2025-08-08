@@ -19,7 +19,7 @@ class HomeVC: UIViewController {
     
     var salonList: [String] = []
     var selectedSalon: String = ""
-    
+    var OTP = String()
     
 //    MARK: - Popup
     @IBOutlet weak var vwPopup: UIView!
@@ -27,6 +27,18 @@ class HomeVC: UIViewController {
     @IBOutlet weak var lbl_Version: UILabel!
     @IBOutlet weak var lbl_salonName: UILabel!
     
+    
+    //MARK: - PASSCODE POPUP
+    @IBOutlet weak var vwMainPasscode: UIView!
+    @IBOutlet weak var vwPasscodePopup: UIView!
+    
+    
+    @IBOutlet weak var txt_1: UITextField!
+    @IBOutlet weak var txt_2: UITextField!
+    @IBOutlet weak var txt_3: UITextField!
+    @IBOutlet weak var txt_4: UITextField!
+    @IBOutlet weak var txt_5: UITextField!
+    @IBOutlet weak var txt_6: UITextField!
     
     var imageArray: [UIImage] = [
         #imageLiteral(resourceName: "Dashboard.png"),
@@ -58,7 +70,26 @@ class HomeVC: UIViewController {
         self.lbl_UserName.text = userName
         self.lbl_Version.text = "V - \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] ?? "")" +  " (\(Bundle.main.infoDictionary?["CFBundleVersion"] ?? "")) "
         self.get_Image()
-        // Do any additional setup after loading the view.
+        txt_1.tag = 1
+        txt_2.tag = 2
+        txt_3.tag = 3
+        txt_4.tag = 4
+        txt_5.tag = 5
+        txt_6.tag = 6
+        setCustomFont()
+        self.vwMainPasscode.isHidden = true
+    }
+    
+    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Regular", size: 22.0) {
+            txt_1.font = customFont
+            txt_2.font = customFont
+            txt_3.font = customFont
+            txt_4.font = customFont
+            txt_5.font = customFont
+            txt_6.font = customFont
+        }
     }
     
     func setUpTableView() {
@@ -149,22 +180,41 @@ class HomeVC: UIViewController {
 
            if !isReportImageAdded {
                // Add the missing image
-               imageArray.append(#imageLiteral(resourceName: "Report"))
-               self.tbl_vw.reloadData()
                isReportImageAdded = true
-               showPopup()
+               self.vwMainPasscode.isHidden = false
            } else {
                print("Already not add")
            }
         }
     }
     
-    private func showPopup() {
-        let storyboard = UIStoryboard(name: "Home", bundle: nil)
-        if let vc = storyboard.instantiateViewController(withIdentifier: "Passcode_VC") as? Passcode_VC {
-            vc.modalPresentationStyle = .overCurrentContext
-            vc.modalTransitionStyle = .crossDissolve
-            self.present(vc, animated: true)
+    @IBAction func btn_Close(_ sender: Any) {
+        self.vwMainPasscode.isHidden = true
+    }
+    
+    
+    @IBAction func btn_Continue(_ sender: Any) {
+        if txt_1.text != "" && txt_2.text != "" && txt_3.text != "" && txt_4.text != "" && txt_5.text != "" && txt_6.text != "" {
+            var otpStr = txt_1.text! + txt_2.text!
+            otpStr.append(txt_3.text! + txt_4.text!)
+            otpStr.append(txt_5.text! + txt_6.text!)
+            if otpStr != ""{
+                self.OTP = otpStr;
+                verfiyPasscode1(passcode: OTP)
+            }
+        }
+    }
+    
+    func verfiyPasscode1(passcode: String){
+        APIService.shared.verifyPasscode(passcode: passcode, vendorId: LocalData.userId) { result in
+            if result?.data?.status == 1{
+                self.vwMainPasscode.isHidden = true
+                self.imageArray.append(#imageLiteral(resourceName: "Report"))
+                self.tbl_vw.reloadData()
+                self.showToast(message: result?.data?.message ?? "Passcode verified successfully")
+            }else{
+                self.showToast(message: result?.data?.error ?? "Please enter correct passcode")
+            }
         }
     }
     
@@ -330,3 +380,42 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         }
     }
 }
+
+
+
+extension HomeVC: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == txt_4 {
+            textField.resignFirstResponder()
+            textField.endEditing(true)
+        }
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string.isEmpty {
+            if let previousTextField = view.viewWithTag(textField.tag - 1) as? UITextField {
+                previousTextField.becomeFirstResponder()
+            }
+            textField.text = string
+            return false
+        }
+        
+        // Allow only one character per text field
+        if let text = textField.text, text.count >= 1 {
+            if let nextTextField = view.viewWithTag(textField.tag + 1) as? UITextField {
+                nextTextField.becomeFirstResponder()
+                nextTextField.text = string
+                if (nextTextField.tag == 6) {
+                    nextTextField.endEditing(true)
+                }
+            }
+            return false
+        }
+        
+        return true
+    }
+    
+}
+

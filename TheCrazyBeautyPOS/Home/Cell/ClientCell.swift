@@ -52,4 +52,9 @@ class ClientCell: UITableViewCell {
         self.Act_info?()
     }
     
+    var Act_Calender:(()->Void)?
+    @IBAction func act_calender(_ sender: Any) {
+        self.Act_Calender?()
+    }
+    
 }

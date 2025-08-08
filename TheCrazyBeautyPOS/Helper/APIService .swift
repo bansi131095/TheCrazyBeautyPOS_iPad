@@ -4431,7 +4431,7 @@ class APIService {
         }
     }
     
-    func verifyPasscode(passcode: String, vendorId: String, completion: @escaping (CommonModel?) -> Void) {
+    func verifyPasscode(passcode: String, vendorId: String, completion: @escaping (verifyPasscode?) -> Void) {
         let url = global.shared.URL_VERIFY_PASSCODE
         
         let params: [String: Any] = [
@@ -4440,7 +4440,7 @@ class APIService {
             ]
 
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
-            .responseObject { (response: DataResponse<CommonModel, AFError>) in
+            .responseObject { (response: DataResponse<verifyPasscode, AFError>) in
 
             // 📦 Print request info
             print("🌐 URL: \(url)")

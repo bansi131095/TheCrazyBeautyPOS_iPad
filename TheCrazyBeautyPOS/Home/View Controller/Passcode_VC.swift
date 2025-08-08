@@ -60,12 +60,13 @@ class Passcode_VC: UIViewController {
     
     func verfiyPasscode(passcode: String){
         APIService.shared.verifyPasscode(passcode: passcode, vendorId: LocalData.userId) { result in
-            if result != nil {
+            if result?.data?.status == 1{
                 DispatchQueue.main.async {
                     self.dismiss(animated: true)
+                    self.showToast(message: result?.data?.error ?? "")
                 }
             }else{
-                self.showToast(message: "Something went wrong")
+                self.showToast(message: result?.error ?? "Please enter correct passcode")
             }
             
         }

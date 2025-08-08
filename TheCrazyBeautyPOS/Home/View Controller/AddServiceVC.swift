@@ -25,6 +25,7 @@ class AddServiceVC: UIViewController {
     @IBOutlet weak var tagHolderView: UIView!
     @IBOutlet weak var btn_service: GradientButton!
     
+    @IBOutlet weak var lbl_vendorOnly: UILabel!
     var dictService: ServiceData?
     var isEdit = false
     var durationList:[DurationItem] = []
@@ -44,6 +45,10 @@ class AddServiceVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+            lbl_vendorOnly.font = customFont
+        }
+        
         self.loadDuationData()
         self.loadCategoryData()
         self.loadData()
