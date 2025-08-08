@@ -190,3 +190,60 @@ class WorkingHours: Codable { // ✅ Codable = Decodable + Encodable
 }
 
 
+
+
+class ClientBooking: Mappable {
+    var data: [ClientBookingModelData] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data        <- map["data"]
+        error       <- map["error"]
+    }
+}
+
+class ClientBookingModelData: Mappable {
+    var id: Int = 0
+    var staff_id: String?
+    var service_id: String?
+    var booking_date: String?
+    var booking_time: String?
+    var booking_status: String?
+    var duration: String?
+    var booking_number: String?
+    var sub_total: Int = 0
+    var discount_amount: String?
+    var grand_total: String?
+    var staff_booking: String?
+    var miscellaneous_notes: String?
+    var miscellaneous_price: String?
+    var tip: String?
+    var payment_type: String?
+    var c_id: Int = 0
+    var service_name: String?
+    
+    required init?(map: Map) {}
+    
+    func mapping(map: Map) {
+        id     <- map["id"]
+        staff_id     <- map["staff_id"]
+        service_id     <- map["service_id"]
+        booking_date     <- map["booking_date"]
+        booking_time     <- map["booking_time"]
+        booking_status     <- map["booking_status"]
+        duration     <- map["duration"]
+        booking_number     <- map["booking_number"]
+        sub_total     <- map["sub_total"]
+        discount_amount     <- map["discount_amount"]
+        grand_total     <- map["grand_total"]
+        staff_booking     <- map["staff_booking"]
+        miscellaneous_notes     <- map["miscellaneous_notes"]
+        miscellaneous_price     <- map["miscellaneous_price"]
+        tip     <- map["tip"]
+        payment_type     <- map["payment_type"]
+        c_id     <- map["c_id"]
+        service_name     <- map["service_name"]
+    }
+}

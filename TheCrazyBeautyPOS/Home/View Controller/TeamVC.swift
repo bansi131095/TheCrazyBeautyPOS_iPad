@@ -165,7 +165,7 @@ extension TeamVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelega
         guard let cell = tbl_vw.dequeueReusableCell(withIdentifier: "TeamCell", for: indexPath) as? TeamCell else {
             return UITableViewCell()
         }
-        let staff = self.staffList[indexPath.item]
+        let staff = self.staffList[indexPath.row]
         cell.lbl_no.text = "\(indexPath.row+1)"
         cell.lbl_name.text = (staff.firstName ?? "").capitalized + " " + (staff.lastName ?? "").capitalized
         cell.lbl_email.text = staff.email

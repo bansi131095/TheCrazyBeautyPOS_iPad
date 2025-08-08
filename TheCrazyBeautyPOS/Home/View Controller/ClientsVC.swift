@@ -187,6 +187,7 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
         }
         cell.Act_Calender = {
             let addNew = self.storyboard?.instantiateViewController(withIdentifier: "BookingList_VC") as! BookingList_VC
+            addNew.bookingId = "\(client.id)"
             self.navigationController?.pushViewController(addNew, animated: true)
         }
         return cell

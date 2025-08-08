@@ -25,7 +25,7 @@ class global: NSObject
     static let server_url = global.base_url + "api/"
     
 //    static let CAL_WEB_URL = "https://tcb-ten.vercel.app/vendor/booking?id=%@&auth=%@&rand=%lld" //TCB
-    static let CAL_WEB_URL = "https://tcb-ten.vercel.app/vendor/booking_touch?id=%@&auth=%@&rand=%lld" //TCB
+    static let CAL_WEB_URL = "https://tcb-ten.vercel.app/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true" //TCB
 //    static let CAL_WEB_URL = "https://thecrazybeauty.com/vendor/booking?id=%@&auth=%@&rand=%lld" //LIVE
 
     static let TEAM_ROASTER_WEB_URL = "https://tcb-ten.vercel.app/vendor/team-roaster?id=%@&auth=%@&rand=%lld" //TCB
@@ -239,6 +239,7 @@ class global: NSObject
     var URL_UPDATE_NoShowLimit = global.server_url + "update_noshowlimit"
     var URL_SEND_INVOICE = global.server_url + "send_invoice"
     var URL_VERIFY_PASSCODE = global.server_url + "verify_passcode"
+    var URL_CLIENT_BOOKINGS = global.server_url + "client_bookings"
     
 
     //MARK:-
