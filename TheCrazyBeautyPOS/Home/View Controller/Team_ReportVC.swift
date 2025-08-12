@@ -41,7 +41,7 @@ class Team_ReportVC: UIViewController {
     
     func get_TeamDetails(){
         APIService.shared.fetchTeamDetails(vendorId: LocalData.userId) { result in
-            self.TeamDetails = result!.data
+            self.TeamDetails = result?.data ?? []
             var names = self.TeamDetails.map { $0.first_name }
             names.insert("Select Staff", at: 0)
             self.dropDown.dataSource = names

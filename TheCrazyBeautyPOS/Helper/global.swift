@@ -241,6 +241,12 @@ class global: NSObject
     var URL_VERIFY_PASSCODE = global.server_url + "verify_passcode"
     var URL_CLIENT_BOOKINGS = global.server_url + "client_bookings"
     
+    var URL_GET_STAFF = global.server_url + "get_staff/"
+    var URL_TEST_DETAILS = global.server_url + "test_details"
+    var URL_ADD_TEST = global.server_url + "add_test"
+    var URL_SELECT_SLOT = global.server_url + "select_slot"
+    var URL_PAST_REBOOKING = global.server_url + "past_rebooking"
+    
 
     //MARK:-
     override init()

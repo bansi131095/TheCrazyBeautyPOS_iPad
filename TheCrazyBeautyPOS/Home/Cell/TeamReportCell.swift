@@ -23,7 +23,7 @@ class TeamReportCell: UITableViewCell {
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Medium", size: 18.0) {
+        if let customFont = UIFont(name: "Lato-Regular", size: 18.0) {
             lbl_Id.font = customFont
             lbl_CustomerName.font = customFont
             lbl_StaffName.font = customFont

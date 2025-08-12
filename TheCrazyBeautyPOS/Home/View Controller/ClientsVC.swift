@@ -185,6 +185,11 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
             }
             self.present(popup, animated: true, completion: nil)
         }
+        cell.Act_info = {
+            let addNew = self.storyboard?.instantiateViewController(withIdentifier: "PatchTestList_VC") as! PatchTestList_VC
+            addNew.id = "\(client.id)"
+            self.navigationController?.pushViewController(addNew, animated: true)
+        }
         cell.Act_Calender = {
             let addNew = self.storyboard?.instantiateViewController(withIdentifier: "BookingList_VC") as! BookingList_VC
             addNew.bookingId = "\(client.id)"

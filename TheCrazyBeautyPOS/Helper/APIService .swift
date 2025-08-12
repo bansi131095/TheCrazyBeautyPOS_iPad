@@ -4502,5 +4502,203 @@ class APIService {
         }
     }
     
+    func fetchStaffList(service_id: String, completion: @escaping (StaffListModel?) -> Void) {
+        let url = global.shared.URL_GET_STAFF + "\(LocalData.userId)"
+
+        let params: [String: Any] = [
+            "service_id": service_id
+        ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<StaffListModel, AFError>) in
+
+            // 🌐 Log request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headers: \(self.headers)")
+
+            // 📩 Log response
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    func fetchTestDetails(customer_id: String, completion: @escaping (TeamListModel?) -> Void) {
+        let url = global.shared.URL_TEST_DETAILS
+
+        let params: [String: Any] = [
+            "customer_id": customer_id
+        ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<TeamListModel, AFError>) in
+
+            // 🌐 Log request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headers: \(self.headers)")
+
+            // 📩 Log response
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    func UpdateNewTest(customer_id: String, description: String,status: String,tested_by:String,tested_date:String,title:String, completion: @escaping (CurrencyResponseA?) -> Void) {
+        let url = global.shared.URL_ADD_TEST
+
+        // Prepare parameters
+        let params: [String: Any] = [
+            "customer_id": customer_id,
+            "description": description,
+            "status": status,
+            "tested_by": tested_by,
+            "tested_date": tested_date,
+            "title": title,
+        ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<CurrencyResponseA, AFError>) in
+
+            // 🌐 Log request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headers: \(self.headers)")
+
+            // 📩 Log response
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    
+    func TimeSlot(duration: String, full_date: String,staff_id: String, completion: @escaping (TimeSlotResponse?) -> Void) {
+        let url = global.shared.URL_SELECT_SLOT + "/v1"
+
+        // Prepare parameters
+        let params: [String: Any] = [
+            "duration": duration,
+            "full_date": full_date,
+            "staff_id": staff_id,
+        ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<TimeSlotResponse, AFError>) in
+
+            // 🌐 Log request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headers: \(self.headers)")
+
+            // 📩 Log response
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    func PastBooking(booking_date: String,booking_id: String,startTime: String,endTime: String,staffBookingArray: [[String: Any]],staff_id: String,completion: @escaping (CurrencyResponseA?) -> Void) {
+        let url = global.shared.URL_PAST_REBOOKING
+        
+        // Convert booking_time dictionary to JSON string
+        let bookingTimeDict: [String: Any] = [
+            "startTime": startTime,
+            "endTime": endTime
+        ]
+        let bookingTimeData = try? JSONSerialization.data(withJSONObject: bookingTimeDict, options: [])
+        let bookingTimeString = String(data: bookingTimeData ?? Data(), encoding: .utf8) ?? ""
+        
+        // Convert staff_booking array to JSON string
+        let staffBookingData = try? JSONSerialization.data(withJSONObject: staffBookingArray, options: [])
+        let staffBookingString = String(data: staffBookingData ?? Data(), encoding: .utf8) ?? ""
+        
+        // Prepare parameters
+        let params: [String: Any] = [
+            "booking_date": booking_date,
+            "booking_id": booking_id,
+            "booking_time": bookingTimeString,
+            "is_fav": "0",
+            "staff_booking": staffBookingString,
+            "staff_id": staff_id
+        ]
+        
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<CurrencyResponseA, AFError>) in
+                
+                print("🌐 URL: \(url)")
+                print("📤 Parameters: \(params)")
+                print("📤 Headers: \(self.headers)")
+                
+                if let httpResponse = response.response {
+                    print("✅ Status Code: \(httpResponse.statusCode)")
+                }
+                
+                switch response.result {
+                case .success(let result):
+                    if let data = response.data,
+                       let responseStr = String(data: data, encoding: .utf8) {
+                        print("📦 Raw Response: \(responseStr)")
+                    }
+                    completion(result)
+                case .failure(let error):
+                    print("❌ Error: \(error.localizedDescription)")
+                    completion(nil)
+                }
+            }
+    }
+
+    
 }
+
 

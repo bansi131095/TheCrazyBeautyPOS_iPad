@@ -28,7 +28,7 @@ class ServicesVC: UIViewController {
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 150 // or any dynamic value
+        contentViewWidthConstraint.constant = 100 // or any dynamic value
         self.setTableView()
         self.setCustomFont()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)

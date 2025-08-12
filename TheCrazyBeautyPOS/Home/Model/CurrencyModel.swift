@@ -982,3 +982,99 @@ class verifyPasscodeDataModel: Mappable {
     }
 }
 
+class StaffListModel: Mappable {
+    
+    var data: [StaffListResponseModel] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data         <- map["data"]
+        error        <- map["error"]
+    }
+}
+
+class StaffListResponseModel: Mappable {
+    var id: Int?
+    var photo: String?
+    var fullname: String?
+    var service_ids: String?
+    var services: String?
+    var staff_id: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id     <- map["id"]
+        photo <- map["photo"]
+        fullname <- map["fullname"]
+        service_ids <- map["service_ids"]
+        services <- map["services"]
+        staff_id <- map["staff_id"]
+    }
+}
+
+
+class TeamListModel: Mappable {
+    
+    var data: [TeamListResponseModel] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data         <- map["data"]
+        error        <- map["error"]
+    }
+}
+
+class TeamListResponseModel: Mappable {
+    var id: Int?
+    var customer_id: Int?
+    var title: String?
+    var tested_date: String?
+    var tested_by: String?
+    var status: String?
+    var description: String?
+    var created_at: String?
+    var updated_at: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id     <- map["id"]
+        customer_id     <- map["customer_id"]
+        title <- map["title"]
+        tested_date <- map["tested_date"]
+        tested_by <- map["tested_by"]
+        status <- map["status"]
+        description <- map["description"]
+        created_at <- map["created_at"]
+        updated_at <- map["updated_at"]
+    }
+}
+
+
+class TimeSlotResponse: Mappable {
+    var data: [TimeSlotModel] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data  <- map["data"]
+        error <- map["error"]
+    }
+}
+
+
+class TimeSlotModel: Mappable {
+    var startTime: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        startTime <- map["startTime"]
+    }
+}

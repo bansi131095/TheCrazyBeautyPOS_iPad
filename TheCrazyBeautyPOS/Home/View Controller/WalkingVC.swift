@@ -692,10 +692,10 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
             let countWidth: CGFloat = count > 0 ? 40.0 : 0.0
             let horizontalPadding: CGFloat = 25.0 // Less padding = tighter wrap
 
-            let textWidth = sizeForText(text, font: font)
+            let textWidth = sizeForText(text, font: font) + 10.0
             let totalWidth = textWidth + horizontalPadding + countWidth
 
-            return CGSize(width: ceil(totalWidth), height: 45)
+            return CGSize(width: ceil(totalWidth), height: 50)
 
             
         } else  {
@@ -743,6 +743,7 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
             self.updateCartTotals()
             self.tbl_vw.reloadData()
             self.tbl_vw.layoutIfNeeded()
+            collect_service.reloadData()
             collectionView.reloadData()
             self.collect_category.reloadData()
             self.setSelectedCategoryItem()

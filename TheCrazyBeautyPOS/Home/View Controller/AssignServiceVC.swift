@@ -59,6 +59,7 @@ class AssignServiceVC: UIViewController {
     
     @IBAction func act_continue(_ sender: GradientButton) {
         print("Count:- \(serviceIds)")
+        serviceIds = selectedServiceId.joined(separator: ",")
         onDataReturn?(serviceIds) // Pass the data back
         dismiss(animated: true, completion: nil)
     }
@@ -83,17 +84,18 @@ class AssignServiceVC: UIViewController {
 
         if selectedServiceId.count == serviceList.count {
             selectedServiceId.removeAll()
-            serviceIds = ""
+//            serviceIds = ""
         } else {
-            selectedServiceId.removeAll()
+            /*selectedServiceId.removeAll()
             for service in serviceList {
                 selectedServiceId.append("\(service.id)")
-            }
-            serviceIds = selectedServiceId.joined(separator: ",")
+            }*/
+            selectedServiceId = serviceList.map { "\($0.id)" }
+            
         }
-
+        serviceIds = selectedServiceId.joined(separator: ",")
         // Call setState equivalent if needed, like:
-        // self.tableView.reloadData()
+        self.tbl_vw.reloadData()
     }
 
 
@@ -110,8 +112,70 @@ class AssignServiceVC: UIViewController {
 }
 
 
+extension AssignServiceVC: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int { 1 }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        serviceList.count
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AssignServiceHeaderCell") as? AssignServiceHeaderCell else {
+            return nil
+        }
+        
+        let allSelected = selectedServiceId.count == serviceList.count
+        header.btn_checkAll.setImage(allSelected ? #imageLiteral(resourceName: "check.png") : #imageLiteral(resourceName: "unchecked"), for: .normal)
+        
+        header.Act_Check = {
+            self.selectAllServices()
+        }
+        
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tbl_vw.dequeueReusableCell(withIdentifier: "AssignServiceCell", for: indexPath) as? AssignServiceCell else {
+            return UITableViewCell()
+        }
+        
+        let service = serviceList[indexPath.row]
+        cell.lbl_category.text = service.category
+        cell.lbl_service.text = service.service
+        cell.lbl_time.text = "\(service.duration) Min"
+        cell.lbl_serviceFor.text = service.service_for
+        cell.lbl_price.text = "\(LocalData.symbol)\(service.price)"
+        
+        let isSelected = selectedServiceId.contains("\(service.id)")
+        cell.btn_check.setImage(isSelected ? #imageLiteral(resourceName: "check.png") : #imageLiteral(resourceName: "unchecked"), for: .normal)
+        
+        cell.Act_Check = {
+            if let index = self.selectedServiceId.firstIndex(of: "\(service.id)") {
+                self.selectedServiceId.remove(at: index)
+            } else {
+                self.selectedServiceId.append("\(service.id)")
+            }
+            self.serviceIds = self.selectedServiceId.joined(separator: ",")
+            self.tbl_vw.reloadData()
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let service = serviceList[indexPath.row]
+        if let index = selectedServiceId.firstIndex(of: "\(service.id)") {
+            selectedServiceId.remove(at: index)
+        } else {
+            selectedServiceId.append("\(service.id)")
+        }
+        serviceIds = selectedServiceId.joined(separator: ",")
+        tbl_vw.reloadData()
+    }
+}
 
-extension AssignServiceVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
+/*extension AssignServiceVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -182,4 +246,4 @@ extension AssignServiceVC: UITableViewDelegate, UITableViewDataSource, UIScrollV
         self.tbl_vw.reloadData()
     }
     
-}
+}*/

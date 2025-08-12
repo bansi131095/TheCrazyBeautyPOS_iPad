@@ -45,6 +45,7 @@ class ReportVC: UIViewController {
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        lbl_TotalAmount.font = UIFont(name: "Lato-Medium", size: 20.0)
         setCustomFont()
         vw_SaleWalkinGift.isHidden = true
         lbl_Sales.textColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
@@ -55,7 +56,7 @@ class ReportVC: UIViewController {
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Medium", size: 20.0) {
+        if let customFont = UIFont(name: "Lato-Medium", size: 18.0) {
             lbl_Sales.font = customFont
             lbl_Walkin.font = customFont
             lbl_GiftCard.font = customFont

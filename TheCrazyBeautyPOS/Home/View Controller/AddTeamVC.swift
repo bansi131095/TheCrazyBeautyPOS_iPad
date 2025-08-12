@@ -118,8 +118,13 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
             self.firstNameTextField.text = dict.firstName
             self.lastNameTextField.text = dict.lastName
             self.jobTitleTextField.text = dict.jobTitle
-//            self.btn_editService.currentTitle = "Edit Service \(dict.serviceIds)"
-            self.btn_editService.setTitle("Edit service (\(dict.serviceIds?.count ?? 0))", for: .normal)
+            if dict.serviceIds != ""{
+                let count = dict.serviceIds!.split(separator: ",").count
+                self.btn_editService.setTitle("Edit service (\(count))", for: .normal)
+            }else{
+                self.btn_editService.setTitle("Assign service", for: .normal)
+            }
+            
             self.emailTextField.text = dict.email
             if var phoneno = dict.phone {
                 if !phoneno.isEmpty && phoneno.count >= 3 {
@@ -252,15 +257,19 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     @IBAction func act_editService(_ sender: UIButton) {
         let editService = self.storyboard?.instantiateViewController(withIdentifier: "AssignServiceVC") as! AssignServiceVC
         editService.isEdit = isEdit
+        editService.serviceIds = self.serviceIds
         if isEdit {
             editService.teamName = self.dictStaff!.firstName!.capitalized + " " + self.dictStaff!.lastName!.capitalized
         }
         editService.modalPresentationStyle = .overCurrentContext
         editService.modalTransitionStyle = .crossDissolve
         editService.onDataReturn = { [weak self] returnedData in
-            print("Received data: \(returnedData.count)")
+            print("Received data: \(returnedData)")
             self?.serviceIds = returnedData
-            self?.btn_editService.setTitle("Edit service (\(returnedData.count))", for: .normal)
+            
+            let count = returnedData.split(separator: ",").filter { $0 != "0" }.count
+            self?.btn_editService.setTitle("Edit service (\(count))", for: .normal)
+            
             // self?.yourLabel.text = returnedData
         }
         self.present(editService, animated: true)
