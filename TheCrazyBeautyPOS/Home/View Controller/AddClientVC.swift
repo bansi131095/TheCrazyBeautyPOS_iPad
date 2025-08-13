@@ -295,8 +295,9 @@ class AddClientVC: UIViewController {
     //MARK: Load Add Api
     func addClientData() {
         let mobileNo = "\(selectedCountrycode)-\(self.mobileTextField.text ?? "")"
-        
+        self.showLoader()
         APIService.shared.addClientData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: LocalData.userId, email: self.emailTextField.text ?? "", clientType: self.clientTypeTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo) { staffResult in
+            self.hideLoader()
             guard let model = staffResult else {
                 return
             }
@@ -317,9 +318,10 @@ class AddClientVC: UIViewController {
     
     func updateClientData(clientId: Int) {
         let mobileNo = "\(selectedCountrycode)-\(self.mobileTextField.text ?? "")"
-//        self.showLoader()
+        self.showLoader()
         
         APIService.shared.updateClientData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: LocalData.userId, email: self.emailTextField.text ?? "", clientType: self.clientTypeTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, clientId: clientId) { staffResult in
+            self.hideLoader()
             guard let model = staffResult else {
                 return
             }

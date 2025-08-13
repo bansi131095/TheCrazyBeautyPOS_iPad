@@ -37,13 +37,17 @@ class Booking_PolicyVC: UIViewController {
     
     //MARK: - Web Api Calling
     func get_Notes(){
+        self.showLoader()
         APIService.shared.fetchNotes { result in
+            self.hideLoader()
             self.txtvw_Note.text = result?.data.first?.notes
         }
     }
     
     func update_Notes(){
+        self.showLoader()
         APIService.shared.UpdateNotes(vendorId: LocalData.userId, notes: self.txtvw_Note.text ?? "") { result in
+            self.hideLoader()
             if let message = result?.data{
                 self.alertWithMessageOnly(message)
             }else{

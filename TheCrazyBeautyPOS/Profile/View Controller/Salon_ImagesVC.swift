@@ -200,7 +200,9 @@ class Salon_ImagesVC: UIViewController {
     }
     //MARK: - Web Api Calling
     func get_Image() {
+        showLoader()
             APIService.shared.fetchProfileImage { result in
+                self.hideLoader()
                 guard let model = result?.data.first else {
                     print("⚠️ No profile data found")
                     return
@@ -286,10 +288,11 @@ class Salon_ImagesVC: UIViewController {
             guard let fullUrl = display.imageUrl else { return nil }
             return fullUrl.replacingOccurrences(of: global.imageUrl_Profile, with: "")
         }
-
+        showLoader()
         // 4. Call the API
         APIService.shared.uploadSalonImages(photo: profileImage, otherPhotos: oldImageNames, photos: galleryImages
         ) { response in
+            self.hideLoader()
             if let result = response {
                 print("✅ Upload complete: \(result)")
                 self.alertWithMessageOnly("Images uploaded successfully.")

@@ -271,7 +271,9 @@ class Business_HoursVC: UIViewController {
     
     //MARK: - Web Api Calling
     func api_getBusinessHours() {
+        self.showLoader()
         APIService.shared.fetchTiming { workingHours in
+            self.hideLoader()
             self.updateBusinessHoursUI(from: workingHours)
         }
     }
@@ -344,9 +346,11 @@ class Business_HoursVC: UIViewController {
 
     
     func update_business_hours() {
+        showLoader()
         let workingHoursToSend: [WorkingHour1] = createWorkingHoursFromUI()
 
         APIService.shared.UpdateBusinessHours(workingHours: workingHoursToSend) { result  in
+            self.hideLoader()
         if result {
             self.alertWithMessageOnly("Business timing updated successfully")
         } else {

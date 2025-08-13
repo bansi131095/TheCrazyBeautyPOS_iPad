@@ -84,7 +84,9 @@ class AddOfflineGiftCard_VC: UIViewController {
     }
     
     func AddOfflineGiftCardApiCall() {
+        showLoader()
         APIService.shared.add_offgift(vendorId: LocalData.userId, gift_name: self.txt_GiftName.text ?? "", price: self.txt_Price.text ?? "", expiry_date: self.txt_ExpiryDate.text ?? "", description: self.txt_Description.text) { result in
+            self.hideLoader()
             guard let model = result else {
                 return
             }

@@ -94,7 +94,9 @@ class BusinessThird_InformationVC: UIViewController {
     }*/
     
     func fetchCategoryData() {
+        showLoader()
         APIService.shared.fetchBusinessServices { businessResult in
+            self.hideLoader()
             guard let businessModel = businessResult else { return }
             self.categoryList = businessModel.data
 
@@ -123,7 +125,9 @@ class BusinessThird_InformationVC: UIViewController {
     }
 
     func SyncApiCall() {
+        showLoader()
         APIService.shared.AddTeamData(salon_id: String(salon_Id)) { (result) in
+            self.hideLoader()
             if let message = result?.data {
                 self.btnSync.alpha = 0.5
                 self.btnSync.isUserInteractionEnabled = false
@@ -135,7 +139,9 @@ class BusinessThird_InformationVC: UIViewController {
     }
     
     func update_CategoryList(service_id: String){
+        showLoader()
         APIService.shared.UpdateSelectServices(service_id: service_id, vendorId: String(salon_Id), completion: { result in
+            self.hideLoader()
             if let message = result?.data?.message {
                 let sb = UIStoryboard(name: "Home", bundle:nil)
                 let navDashboard = sb.instantiateViewController(withIdentifier: "NavigateHome") as! UINavigationController

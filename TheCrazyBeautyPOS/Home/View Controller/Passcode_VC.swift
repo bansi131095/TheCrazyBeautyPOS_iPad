@@ -59,7 +59,9 @@ class Passcode_VC: UIViewController {
     
     
     func verfiyPasscode(passcode: String){
+        self.showLoader()
         APIService.shared.verifyPasscode(passcode: passcode, vendorId: LocalData.userId) { result in
+            self.hideLoader()
             if result?.data?.status == 1{
                 DispatchQueue.main.async {
                     self.dismiss(animated: true)

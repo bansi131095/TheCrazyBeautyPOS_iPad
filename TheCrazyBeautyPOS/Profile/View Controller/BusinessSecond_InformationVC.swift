@@ -302,7 +302,9 @@ class BusinessSecond_InformationVC: UIViewController {
         let workingHoursToSend: [WorkingHour1] = createWorkingHoursFromUI()
         let url = global.shared.URL_UPDATE_BUSINESS_TIMING + "/\(vendor_Id)"
         print("url:- \(url)")
+        showLoader()
         APIService.shared.Add_BusinessHours(url: url,workingHours: workingHoursToSend) { result  in
+            self.hideLoader()
             if result {
                 let storyboard = UIStoryboard(name: "Profile", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "BusinessThird_InformationVC") as! BusinessThird_InformationVC

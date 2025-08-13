@@ -107,7 +107,9 @@ class Category_DescriptionVC: UIViewController {
     }*/
     
     func get_CategoryDescriptionNew() {
+        showLoader()
         APIService.shared.fetchcategory_description { result in
+            self.hideLoader()
             guard let result = result else {
                 print("❌ Failed to fetch category description")
                 return
@@ -157,8 +159,10 @@ class Category_DescriptionVC: UIViewController {
     
     
     func update_CategoryDescription(category: [[String: String]]) {
+        self.showLoader()
         APIService.shared.updateCategoryDescription(category_description: category,vendorid: LocalData.userId
         ) { response in
+            self.hideLoader()   
             if let message = response?.data {
                 self.alertWithMessageOnly(message)
             } else {

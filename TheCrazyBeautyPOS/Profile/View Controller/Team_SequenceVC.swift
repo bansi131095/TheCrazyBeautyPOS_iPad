@@ -52,8 +52,9 @@ class Team_SequenceVC: UIViewController {
                 sequenceArray.append(dict)
             }
         }
-        
+        showLoader()
         APIService.shared.updateStaffSequence(staffSequenceList: sequenceArray, vendorid: LocalData.userId) { result in
+            self.hideLoader()
             if result?.data != nil {
                 self.alertWithMessageOnly(result?.data ?? "")
             } else {
@@ -63,7 +64,9 @@ class Team_SequenceVC: UIViewController {
     }
     
     func get_TeamDetails(){
+        showLoader()
         APIService.shared.fetchTeamDetails(vendorId: LocalData.userId) { result in
+            self.hideLoader()
             self.TeamDetails = result!.data
             self.get_staffSequence()
         }

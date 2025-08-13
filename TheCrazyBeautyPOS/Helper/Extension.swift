@@ -2130,7 +2130,7 @@ extension UIViewController {
             if self.activityIndicator == nil {
                 let indicator = UIActivityIndicatorView(style: .large)
                 indicator.center = self.view.center
-                indicator.color = .gray
+                indicator.color = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
                 indicator.hidesWhenStopped = true
                 self.view.addSubview(indicator)
                 self.activityIndicator = indicator

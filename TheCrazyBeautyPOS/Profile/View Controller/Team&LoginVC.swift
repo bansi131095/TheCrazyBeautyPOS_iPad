@@ -73,7 +73,9 @@ class Team_LoginVC: UIViewController {
     
     //MARK: - Web Api Calling
     func get_TeamLogin(){
+        showLoader()
         APIService.shared.fetchSubvendor { result in
+            self.hideLoader()
             self.TeamLogin = result!.data
             if result?.data != nil {
                 self.txt_Name.text = self.TeamLogin.first?.name
@@ -85,7 +87,9 @@ class Team_LoginVC: UIViewController {
     }
     
     func update_Subvendor(){
+        showLoader()
         APIService.shared.UpdateCreateSubvendor(email: self.txt_Email.text!, name: self.txt_Name.text!, password: self.txt_Password.text!, vendorId: LocalData.userId) { result in
+            self.hideLoader()
             if result?.data != nil {
                 self.txt_Password.text = ""
                 self.alertWithMessageOnly(result?.data ?? "")

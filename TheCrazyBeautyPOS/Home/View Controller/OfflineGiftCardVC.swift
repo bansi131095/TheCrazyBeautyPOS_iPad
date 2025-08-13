@@ -92,9 +92,11 @@ class OfflineGiftCardVC: UIViewController {
             self.currentPage = 1
             self.OfflineGiftCardList.removeAll()
             self.hasMoreData = true
+            showLoader()
         }
 
         APIService.shared.getofflineGiftCardDetails(page: "\(currentPage)", limit: "10", vendorId: LocalData.userId, search: Search, filter: filter){ staffResult in
+            self.hideLoader()
             guard let model = staffResult else {
                 self.isLoadingMore = false
                 return
@@ -117,7 +119,7 @@ class OfflineGiftCardVC: UIViewController {
     
     func getNoDataLabel() -> UILabel {
         let noDataLabel = UILabel()
-        noDataLabel.text = "No Gift Cards Found"
+        noDataLabel.text = "No OfflineGiftCards Found"
         noDataLabel.textAlignment = .center
         noDataLabel.textColor = .gray
         noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)

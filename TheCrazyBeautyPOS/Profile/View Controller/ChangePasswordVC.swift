@@ -69,7 +69,9 @@ class ChangePasswordVC: UIViewController {
     }
     //MARK: - Web Api Calling
     func changePassword(){
+        showLoader()
         APIService.shared.ChangePassword(vendorId: LocalData.userId, new_pass: self.txt_NewPassword.text ?? "", old_pass: self.txt_OldPassword.text ?? "") { result in
+            self.hideLoader()
             if let message = result?.data{
                 self.alertWithMessageOnly(message)
                 self.txt_NewPassword.text = ""

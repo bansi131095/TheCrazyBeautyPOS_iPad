@@ -45,10 +45,11 @@ class AddServiceVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+        /*if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
             lbl_vendorOnly.font = customFont
-        }
-        
+            
+        }*/
+        lbl_vendorOnly?.font = UIFont(name: "Lato-Bold", size: 24.0)!
         self.loadDuationData()
         self.loadCategoryData()
         self.loadData()
@@ -177,7 +178,7 @@ class AddServiceVC: UIViewController {
         self.selectedDuration = self.dictService?.duration ?? 0
         self.txt_priceType.setText(self.dictService?.price_type ?? "")
         self.txt_regulatPrice.setText(self.dictService?.price ?? "")
-        self.txt_salesPrice.setText(self.dictService?.sale_price ?? "")
+        self.txt_salesPrice.setText(String(self.dictService?.sale_price ?? 0))
         if let venderOnly = self.dictService?.isVendorOnly, venderOnly == 1 {
             self.btn_vendorOnly.setImage(UIImage(named: "rdCheck"), for: .normal)
         } else {
@@ -255,8 +256,9 @@ class AddServiceVC: UIViewController {
     
     //MARK: Load Api
     func loadDuationData() {
-    
+        showLoader()
         APIService.shared.getDurationDetails() { staffResult in
+            self.hideLoader()
             guard let model = staffResult else {
                 return
             }
@@ -288,8 +290,9 @@ class AddServiceVC: UIViewController {
     }
     
     func loadCategoryData() {
-    
+        showLoader()
         APIService.shared.getselectMainCategory() { staffResult in
+            self.hideLoader()
             guard let model = staffResult else {
                 return
             }
@@ -321,8 +324,9 @@ class AddServiceVC: UIViewController {
     }
     
     func loadData() {
-    
+    showLoader()
         APIService.shared.getteamDetails(page: "1", limit: "100000", vendorId: LocalData.userId, search: "") { staffResult in
+            self.hideLoader()
             guard let model = staffResult else {
                 return
             }
@@ -357,9 +361,10 @@ class AddServiceVC: UIViewController {
                 parentId = data.id
             }
         }
-        
+        showLoader()
         let staffIds = !self.selected.isEmpty ? self.selected.joined(separator: ",") : ""
-        APIService.shared.addServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: self.txt_serviceFor.text ?? "", duration: selectedDuration, priceType: self.txt_priceType.text ?? "", price: Int(self.txt_regulatPrice.text ?? "") ?? 0, salePrice: Int(self.txt_salesPrice.text ?? "") ?? 0, vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds) { staffResult in
+        APIService.shared.addServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: self.txt_serviceFor.text ?? "", duration: selectedDuration, priceType: self.txt_priceType.text ?? "", price: self.txt_regulatPrice.text ?? "0", salePrice: self.txt_salesPrice.text ?? "0", vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds) { staffResult in
+            self.hideLoader()
             guard let model = staffResult else {
                 return
             }
@@ -390,9 +395,10 @@ class AddServiceVC: UIViewController {
                 parentId = data.id
             }
         }
-        
+        showLoader()
         let staffIds = !self.selected.isEmpty ? self.selected.joined(separator: ",") : ""
-        APIService.shared.updateServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: self.txt_serviceFor.text ?? "", duration: selectedDuration, priceType: self.txt_priceType.text ?? "", price: Int(self.txt_regulatPrice.text ?? "") ?? 0, salePrice: Int(self.txt_salesPrice.text ?? "") ?? 0, vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds, serviceId: serviceId) { staffResult in
+        APIService.shared.updateServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: self.txt_serviceFor.text ?? "", duration: selectedDuration, priceType: self.txt_priceType.text ?? "", price: self.txt_regulatPrice.text ?? "0", salePrice: self.txt_salesPrice.text ?? "0", vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds, serviceId: serviceId) { staffResult in
+            self.hideLoader()
             guard let model = staffResult else {
                 return
             }

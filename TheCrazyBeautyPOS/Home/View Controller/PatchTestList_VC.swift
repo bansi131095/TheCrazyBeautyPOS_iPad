@@ -52,7 +52,9 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
     
     
     func test(id:String){
+        self.showLoader()
         APIService.shared.fetchTestDetails(customer_id: id) { (result) in
+            self.hideLoader()
         guard let model = result else {
             return
         }
@@ -69,7 +71,9 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
     }
     
     func loadData() {
+        showLoader()
         APIService.shared.getteamDetails(page: "", limit: "10", vendorId: LocalData.userId, search: "", isTeamDetails: 1) { staffResult in
+            self.hideLoader()
             self.staffList = staffResult?.data ?? []
         }
     }
@@ -136,7 +140,9 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
     }
     
     func Apiservice(customer_id:String,description:String,status:String,tested_by:String,tested_date:String,title:String) {
+        showLoader()
         APIService.shared.UpdateNewTest(customer_id: customer_id, description: description, status: status, tested_by: tested_by, tested_date: tested_date, title: title) { result in
+            self.hideLoader()
                 guard let model = result else {
                     return
                 }

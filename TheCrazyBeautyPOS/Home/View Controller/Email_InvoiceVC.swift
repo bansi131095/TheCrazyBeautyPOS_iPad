@@ -37,7 +37,9 @@ class Email_InvoiceVC: UIViewController {
     
     
     func api_SendInvoiceEmail() {
+        self.showLoader()
         APIService.shared.SendInvoice(booking_id: booking_ID, email: self.txt_Email.text ?? "") { result in
+            self.hideLoader()
             guard let model = result else {
                 return
             }

@@ -277,8 +277,9 @@ class SalonOff_DaysVC: UIViewController {
                     ])
                 }
             }
-
+        showLoader()
         APIService.shared.UpdateBreakTime(breakTimes: breakTimeArray,vendorID: LocalData.userId) { success in
+            self.hideLoader()
                 DispatchQueue.main.async {
                     if success {
                         self.alertWithMessageOnly("Break time updated successfully")
@@ -372,7 +373,9 @@ class SalonOff_DaysVC: UIViewController {
     }
     
     func api_getBusinessHours() {
+        self.showLoader()
         APIService.shared.fetchTiming { workingHours in
+            self.hideLoader()
             self.updateBusinessHoursUI(from: workingHours)
         }
     }
@@ -420,7 +423,9 @@ class SalonOff_DaysVC: UIViewController {
     }
     
     func api_getBreakTime() {
+        showLoader()
         APIService.shared.fetchBreakTime { [weak self] breakTimes in
+            self?.hideLoader()
             guard let self = self else { return }
 
             // Create dictionary from breakTimes

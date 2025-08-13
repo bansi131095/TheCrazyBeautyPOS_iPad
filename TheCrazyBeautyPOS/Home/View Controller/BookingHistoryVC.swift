@@ -37,8 +37,9 @@ class BookingHistoryVC: UIViewController {
     
     //MARK: Load Api
     func loadData() {
-
+        showLoader()
         APIService.shared.getbookingHistory(page: "1", limit: "10", vendorId: LocalData.userId, search: "", days: "300") { staffResult in
+            self.hideLoader()
             guard let model = staffResult else {
                 return
             }

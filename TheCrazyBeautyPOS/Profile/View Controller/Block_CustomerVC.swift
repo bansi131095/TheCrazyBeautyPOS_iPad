@@ -119,8 +119,9 @@ class Block_CustomerVC: UIViewController {
 
         let joinedNumbers = numbers.joined(separator: ",")
         print("📤 Sending block customers: \(joinedNumbers)")
-        
+        showLoader()
         APIService.shared.uploadBlockCustomers(vendorId: LocalData.userId, blockCustomers: joinedNumbers) { success, errorMessage in
+            self.hideLoader()
             if success {
                 self.alertWithMessageOnly("Customer blocked successfully")
             } else {

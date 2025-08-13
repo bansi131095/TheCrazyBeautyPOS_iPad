@@ -73,42 +73,16 @@ class Business_CategoriesVC: UIViewController {
     //MARK: - Web Api Calling
     
     func get_CategoryList() {
+        self.showLoader()
         APIService.shared.fetchBusinessServices { businessResult in
+            self.hideLoader()
             guard let businessModel = businessResult else {
                 return
             }
             self.categoryList = businessModel.data.filter {
                 self.categoryNames.contains($0.service_name)
             }
-            /*for category in self.categoryList {
-                let services: [ServiceItem] = self.serviceList
-                .filter { $0.category == category.service_name }
-                .map {
-                    ServiceItem(id: $0.id, name: $0.service, price: Double($0.price) ?? 0.0, count: 0)
-                }
-                let serviceCategory = ServiceCategory(
-                    categoryName: category.service_name,
-                    icon: category.icon,
-                    services: services,
-                    totalCount: 0
-                )
-                self.serviceCategoryList.append(serviceCategory)
-            }*/
             self.categoryList = businessModel.data
-            /*for category in self.categoryList {
-                if category.color != ""{
-                    self.selectedIndexes.insert(category.id)
-                }
-            }
-            */
-            /*for category in self.categoryList {
-                if !category.color.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                    self.selectedIndexes.insert(category.id)
-                }
-            }*/
-            
-            print("Filtered Category List: \(self.categoryList)")
-//            print("Service Category List: \(self.serviceCategoryList)")
             DispatchQueue.main.async {
                 let collectionViewWidth = self.cv_BusinessCategories.bounds.width
                 let itemsPerRow: CGFloat = collectionViewWidth > 700 ? 6 :
@@ -135,7 +109,9 @@ class Business_CategoriesVC: UIViewController {
     }
     
     func update_CategoryList(service_id: String){
+        self.showLoader()
         APIService.shared.UpdateSelectServices(service_id: service_id, vendorId: LocalData.userId, completion: { result in
+            self.hideLoader()
             if let message = result?.data?.message {
                 self.alertWithMessageOnly(message)
             }else{

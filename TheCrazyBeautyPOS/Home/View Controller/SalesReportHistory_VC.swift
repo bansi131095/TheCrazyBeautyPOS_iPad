@@ -177,9 +177,11 @@ class SalesReportHistory_VC: UIViewController {
             self.currentPage = 1
             self.salesHistoryList.removeAll()
             self.hasMoreData = true
+            showLoader()
         }
 
         APIService.shared.SalesPaymentHistory(vendor_id: LocalData.userId,start_date: formattedFrom,end_date: formattedTo,limit: "10",page: "\(currentPage)",customer_type: "",search: Search,staff_id: "") { result in
+            self.hideLoader()
             self.isLoadingMore = false
 
             guard let model = result else {

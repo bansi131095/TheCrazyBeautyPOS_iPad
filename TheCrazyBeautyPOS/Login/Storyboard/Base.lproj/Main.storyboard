@@ -261,6 +261,14 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </button>
+                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="gYi-go-jC7">
+                                                        <rect key="frame" x="215" y="417.5" width="20" height="20"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="20" id="H6T-Lw-oKX"/>
+                                                            <constraint firstAttribute="height" constant="20" id="qfz-fk-qK6"/>
+                                                        </constraints>
+                                                        <color key="color" name="AccentColor"/>
+                                                    </activityIndicatorView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
@@ -271,6 +279,7 @@
                                                     <constraint firstItem="xZg-2Q-jvz" firstAttribute="leading" secondItem="yQA-B1-LXK" secondAttribute="leading" constant="20" symbolic="YES" id="Axq-23-2ME"/>
                                                     <constraint firstAttribute="width" constant="450" id="FNU-6x-fTH"/>
                                                     <constraint firstItem="GrW-xw-i3Z" firstAttribute="centerX" secondItem="yQA-B1-LXK" secondAttribute="centerX" id="KL8-h6-uJp"/>
+                                                    <constraint firstItem="gYi-go-jC7" firstAttribute="centerX" secondItem="yQA-B1-LXK" secondAttribute="centerX" id="KR2-qY-7I1"/>
                                                     <constraint firstAttribute="trailing" secondItem="xZg-2Q-jvz" secondAttribute="trailing" constant="20" symbolic="YES" id="L1q-GP-fhw"/>
                                                     <constraint firstItem="0XO-OV-Iwv" firstAttribute="top" secondItem="DqI-1l-JT2" secondAttribute="bottom" constant="35" id="MMR-XG-Eiy"/>
                                                     <constraint firstItem="E5e-NW-wks" firstAttribute="centerX" secondItem="yQA-B1-LXK" secondAttribute="centerX" id="Mpv-0Z-buJ"/>
@@ -292,6 +301,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="kIL-zK-9pS" secondAttribute="trailing" constant="35" id="lGN-gl-Lxi"/>
                                                     <constraint firstItem="WcM-xc-BCW" firstAttribute="leading" secondItem="yQA-B1-LXK" secondAttribute="leading" constant="35" id="lOI-du-cnI"/>
                                                     <constraint firstItem="W3N-8k-xcW" firstAttribute="top" secondItem="kIL-zK-9pS" secondAttribute="bottom" constant="8" id="s8K-Qv-mT3"/>
+                                                    <constraint firstItem="gYi-go-jC7" firstAttribute="top" secondItem="DqI-1l-JT2" secondAttribute="bottom" constant="5" id="sT4-qZ-jLW"/>
                                                     <constraint firstItem="W3N-8k-xcW" firstAttribute="leading" secondItem="yQA-B1-LXK" secondAttribute="leading" constant="35" id="wXH-dx-OYt"/>
                                                     <constraint firstAttribute="trailing" secondItem="0XO-OV-Iwv" secondAttribute="trailing" constant="35" id="wfX-H3-VGY"/>
                                                     <constraint firstAttribute="bottom" secondItem="GrW-xw-i3Z" secondAttribute="bottom" constant="40" id="xfL-2V-Z2b"/>
@@ -338,6 +348,7 @@
                     <navigationItem key="navigationItem" id="Ics-GH-wfV"/>
                     <connections>
                         <outlet property="btn_eye" destination="VrR-ma-bVq" id="Pze-1f-g0w"/>
+                        <outlet property="loader" destination="gYi-go-jC7" id="bNo-ra-JhZ"/>
                         <outlet property="txt_email" destination="VQ3-e6-i6h" id="m1d-C7-JlR"/>
                         <outlet property="txt_password" destination="DqI-1l-JT2" id="Wab-p5-Zld"/>
                     </connections>

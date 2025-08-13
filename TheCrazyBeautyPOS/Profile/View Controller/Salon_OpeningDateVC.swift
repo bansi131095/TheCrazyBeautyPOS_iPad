@@ -61,7 +61,9 @@ class Salon_OpeningDateVC: UIViewController {
     }
     
     func fetchGetDate() {
+        showLoader()
         APIService.shared.fetchGetOpenDate { result in
+            self.hideLoader()
             guard let result = result else {
                 print("❌ Failed to get opening date")
                 return
@@ -76,7 +78,9 @@ class Salon_OpeningDateVC: UIViewController {
     }
 
     func updateOpenDate(){
+        showLoader()
         APIService.shared.UpdateOpenDate(vendor_id: LocalData.userId, opening_date: self.txt_Date.text ?? "") { result in
+            self.hideLoader()
             if result != nil {
                 self.alertWithMessageOnly(result?.data ?? "")
             }else{

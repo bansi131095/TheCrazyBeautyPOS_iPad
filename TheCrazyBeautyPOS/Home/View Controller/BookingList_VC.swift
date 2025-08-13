@@ -231,7 +231,9 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     
     //MARK: - Web Api Calling
     func apiPastBookingList(is_past:String,search:String){
+        showLoader()
         APIService.shared.Past_Client_Booking(customer_id: bookingId, is_past: is_past,search: search) { result in
+            self.hideLoader()
             guard let model = result else {
                 return
             }
@@ -250,7 +252,9 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     }
     
     func apifutureBookingsList(is_past:String,search:String){
+        self.showLoader()
         APIService.shared.Past_Client_Booking(customer_id: bookingId, is_past: is_past,search: search) { result in
+            self.hideLoader()
             guard let model = result else {
                 return
             }
@@ -269,7 +273,9 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     }
     
     func get_Staff(id:String){
+        self.showLoader()
         APIService.shared.fetchStaffList(service_id: id) { result in
+            self.hideLoader()
             guard let model = result else {
                 return
             }
@@ -289,7 +295,9 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     }*/
     
     func getTimeSlots(duration: String, full_date: String, staff_id: String) {
+        self.showLoader()
         APIService.shared.TimeSlot(duration: duration, full_date: full_date, staff_id: staff_id) { result in
+            self.hideLoader()
             guard let model = result else {
                 return
             }

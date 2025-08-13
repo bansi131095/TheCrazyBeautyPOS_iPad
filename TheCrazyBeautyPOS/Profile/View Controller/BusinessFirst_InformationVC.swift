@@ -40,10 +40,20 @@ class BusinessFirst_InformationVC: UIViewController {
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setCustomFont()
         txt_SalonType.text = arr_SalonType.first
         self.determineMyCurrentLocation()
         apicall()
     }
+    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Medium", size: 20.0) {
+            txt_BusinessName.font = customFont
+            txt_SalonType.font = customFont
+            txt_Address.font = customFont
+        }
+    }
+    
     //MARK: -  Button Action
     
     @IBAction func btn_SalonType(_ sender: Any) {
@@ -76,7 +86,9 @@ class BusinessFirst_InformationVC: UIViewController {
     //MARK: - Function
     //MARK: - Web Api Calling
     func apicall(){
+        showLoader()
         APIService.shared.AddVendorData(salon_id: LocalData.userId) { result in
+            self.hideLoader()
             if let response = result {
                 if let results = response.data?.result {
                     for vendor in results {
@@ -289,7 +301,9 @@ class BusinessFirst_InformationVC: UIViewController {
     func AddBusiness(){
         let url = global.shared.URL_UPDATE_BUSINESS_INFORMATION + "/\(vendor_ID)"
         print("URL:- \(url)")
+        showLoader()
         APIService.shared.BusinessInformation(url: url, address: self.txt_Address.text ?? "", latitude: "\(userLatitude ?? 0.0)", longitude: "\(userLongitude ?? 0.0)", postcode: "", salon_name: self.txt_BusinessName.text ?? "", salon_type: self.txt_SalonType.text ?? "", web_status: "\(web_status ?? 0)") { result in
+            self.hideLoader()
             if let data = result?.data {
                         DispatchQueue.main.async {
                             let storyboard = UIStoryboard(name: "Profile", bundle: nil)

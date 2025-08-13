@@ -60,7 +60,9 @@ class AddTimeDiffVC: UIViewController {
     
     //MARK: Api Call
     func getStaffHolidays() {
+        showLoader()
         APIService.shared.getStaffHoliday(staffId: self.TeamId) { staffResult in
+            self.hideLoader()
             guard let model = staffResult else {
                 return
             }

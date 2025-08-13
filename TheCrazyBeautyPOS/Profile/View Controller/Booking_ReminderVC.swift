@@ -67,7 +67,9 @@ class Booking_ReminderVC: UIViewController {
     }
     
     func update_BookingReminder(reminder_mail:String) {
+        self.showLoader()
         APIService.shared.UpdateReminderMail(reminder_mail: reminder_mail, vendorId: LocalData.userId) { result in
+            self.hideLoader()
             if result?.data != nil {
                 self.alertWithMessageOnly(result?.data ?? "")
             } else {

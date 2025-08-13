@@ -28,7 +28,7 @@ class ServicesVC: UIViewController {
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 100 // or any dynamic value
+        contentViewWidthConstraint.constant = 120 // or any dynamic value
         self.setTableView()
         self.setCustomFont()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -77,9 +77,11 @@ class ServicesVC: UIViewController {
             self.currentPage = 1
             self.serviceList.removeAll()
             self.hasMoreData = true
+            showLoader()
         }
 
         APIService.shared.getServiceDetails(page: "\(currentPage)", limit: "15", vendorId: LocalData.userId, search: Search, booking: "", categoryId: "", isGroup: true) { staffResult in
+            self.hideLoader()
             guard let model = staffResult else {
                 self.isLoadingMore = false
                 return
@@ -95,10 +97,19 @@ class ServicesVC: UIViewController {
             self.serviceList += newItems
             self.currentPage += 1
             self.isLoadingMore = false
+            self.tbl_vw.backgroundView = self.serviceList.isEmpty ? self.getNoDataLabel() : nil
             self.tbl_vw.reloadData()
         }
     }
     
+    func getNoDataLabel() -> UILabel {
+        let noDataLabel = UILabel()
+        noDataLabel.text = "No Services Data Found"
+        noDataLabel.textAlignment = .center
+        noDataLabel.textColor = .gray
+        noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)
+        return noDataLabel
+    }
     
     //MARK: Button Action
     @IBAction func act_addNew(_ sender: UIButton) {
@@ -118,7 +129,9 @@ class ServicesVC: UIViewController {
     
     //MARK: Delete API
     func deleteServiceData(serviceId: Int) {
+        showLoader()
         APIService.shared.deleteServiceData(serviceId: serviceId) { staffResult in
+            self.hideLoader()
             guard let model = staffResult else {
                 return
             }
@@ -176,6 +189,24 @@ extension ServicesVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
         cell.lbl_service.text = service.service
         cell.lbl_time.text = "\(service.duration) Min"
         cell.lbl_serviceFor.text = service.service_for
+        
+        /*if service.price_type != "Fixed" && !(service.sale_price != nil && service.sale_price > 0) {
+            cell.lbl_price.text = service.price_type + " \(LocalData.symbol)\(service.price)"
+        }else{
+            cell.lbl_price.text = "\(LocalData.symbol)\(service.price)"
+        }
+        
+        
+        if service.sale_price != nil && service.sale_price > 0 {
+            if service.price_type != "Fixed"{
+                cell.lbl_price.text = service.price_type + " \(LocalData.symbol)\(service.sale_price)"
+            }else{
+                cell.lbl_price.text = "\(LocalData.symbol)\(service.sale_price)"
+            }
+        }*/
+        
+        
+        
         cell.lbl_price.text = "\(LocalData.symbol)\(service.price)"
         cell.Act_Edit = {
             let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddServiceVC") as! AddServiceVC

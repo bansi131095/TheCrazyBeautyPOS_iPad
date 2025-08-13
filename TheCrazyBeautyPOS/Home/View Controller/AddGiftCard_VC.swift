@@ -155,7 +155,9 @@ class AddGiftCard_VC: UIViewController {
     }
     
     func AddGiftCard(){
+        showLoader()
         APIService.shared.addGiftCard(card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: self.txt_Status.text ?? "", image: self.img_User.image, imageKey: "file") { result in
+            self.hideLoader()
             if result != nil {
                 DispatchQueue.main.async {
                     // safe UI code here
@@ -169,7 +171,9 @@ class AddGiftCard_VC: UIViewController {
     }
     
     func updateGiftCard(Id:Int){
+        showLoader()
         APIService.shared.UpdateGiftCard(Id: Id, card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: self.txt_Status.text ?? "", image: self.img_User.image, imageKey: "file") { result in
+            self.hideLoader()
             if result != nil {
                 DispatchQueue.main.async {
                     // safe UI code here

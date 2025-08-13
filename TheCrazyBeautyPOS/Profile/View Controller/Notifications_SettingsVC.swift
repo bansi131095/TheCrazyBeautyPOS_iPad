@@ -117,8 +117,9 @@ class Notifications_SettingsVC: UIViewController {
             ["cancel_booking": Switch_BookingN_BookingCancel.isOn ? 1 : 0],
             ["noshow_booking": Switch_BookingN_NotShown.isOn ? 1 : 0]
         ]
-
+        self.showLoader()
         APIService.shared.updateNotificationSettings(vendorId: LocalData.userId,reminderTime: getReminderTimeMinutes(),smsSettings: smsSettings,emailSettings: emailSettings, emailNotifications: emailNotifications) { success in
+            self.hideLoader()
             DispatchQueue.main.async {
                 if success {
                     self.alertWithMessageOnly("SMS/Emails settings saved successfully")
@@ -235,7 +236,9 @@ class Notifications_SettingsVC: UIViewController {
     
     //MARK: - Web Api Calling
     func get_NotificationSettings() {
+        self.showLoader()
         APIService.shared.fetchSMSDetails { details in
+            self.hideLoader()
             if let details = details {
                 self.lbl_Time.text = "\(details.reminder_time ?? 0) Minutes"
 

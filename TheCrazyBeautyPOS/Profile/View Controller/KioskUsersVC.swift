@@ -59,7 +59,9 @@ class KioskUsersVC: UIViewController {
     
     
     func get_KioskUsers() {
+        self.showLoader()
         APIService.shared.fetchKioskUser { result in
+            self.hideLoader()
             self.TeamLogin = result!.data
             if result?.data != nil {
                 self.txt_Email.text = self.TeamLogin.first?.email
@@ -70,7 +72,9 @@ class KioskUsersVC: UIViewController {
     }
     
     func update_KioskUsers() {
+        self.showLoader()
         APIService.shared.UpdateAddKiosk(email: self.txt_Email.text!, password: self.txt_Password.text!, vendorId: LocalData.userId) { result in
+            self.hideLoader()
             if result?.data != nil {
                 self.txt_Email.text = ""
                 self.txt_Password.text = ""

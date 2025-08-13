@@ -57,8 +57,9 @@ class ServiceSequenceVC: UIViewController {
     
     //MARK: Load Api
     func loadData() {
-//        self.showLoader()
+        self.showLoader()
         APIService.shared.getServiceDetails(page: "1", limit: "10000", vendorId: LocalData.userId, search: "", booking: "", categoryId: self.selectedCategory, isGroup: false) { staffResult in
+            self.hideLoader()
             guard let model = staffResult else {
                 return
             }
@@ -118,6 +119,7 @@ class ServiceSequenceVC: UIViewController {
             let jsonData = try JSONSerialization.data(withJSONObject: servicesMap, options: [])
             if let jsonString = String(data: jsonData, encoding: .utf8) {
                 print("Service Sequence Data Update: \(jsonString)")
+                showLoader()
                 APIService.shared.updateServiceSequence(serviceSequence: jsonString) { result in
                     guard let model = result else {
                         return

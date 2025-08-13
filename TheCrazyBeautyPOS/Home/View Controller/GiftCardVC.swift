@@ -72,9 +72,11 @@ class GiftCardVC: UIViewController {
             self.currentPage = 1
             self.giftCardList.removeAll()
             self.hasMoreData = true
+            showLoader()
         }
 
         APIService.shared.getGiftCardDetails(page: "\(currentPage)", limit: "15", vendorId: LocalData.userId, search: Search){ staffResult in
+            self.hideLoader()
             guard let model = staffResult else {
                 self.isLoadingMore = false
                 return
@@ -83,6 +85,8 @@ class GiftCardVC: UIViewController {
             let newItems = model.data
             self.totalCount = model.total // Make sure this field exists in your response model
             self.lbl_totalClient.text = "\(self.totalCount) Cards"
+            
+            
             if newItems.isEmpty || self.giftCardList.count + newItems.count >= self.totalCount {
                 self.hasMoreData = false
             }
@@ -90,8 +94,18 @@ class GiftCardVC: UIViewController {
             self.giftCardList += newItems
             self.currentPage += 1
             self.isLoadingMore = false
+            self.tbl_vw.backgroundView = self.giftCardList.isEmpty ? self.getNoDataLabel() : nil
             self.tbl_vw.reloadData()
         }
+    }
+    
+    func getNoDataLabel() -> UILabel {
+        let noDataLabel = UILabel()
+        noDataLabel.text = "No Gift Card Found"
+        noDataLabel.textAlignment = .center
+        noDataLabel.textColor = .gray
+        noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)
+        return noDataLabel
     }
     
     func setCustomFont() {
@@ -107,6 +121,7 @@ class GiftCardVC: UIViewController {
     }
     
     func deleteGiftCard(Id: Int) {
+        showLoader()
         APIService.shared.deleteGiftCard(Id: Id) { result in
             guard let model = result else {
                 return

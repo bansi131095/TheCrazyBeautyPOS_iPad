@@ -115,8 +115,9 @@ class Giftcard_HistoryVC: UIViewController {
 
         let formattedFrom = formatDateToString(fromDate)
         let formattedTo = formatDateToString(toDate)
-        
+        showLoader()
         APIService.shared.GiftCardGet(vendor_id: LocalData.userId, limt: "10", page: "1", start_date: formattedFrom, end_date: formattedTo) { result in
+            self.hideLoader()
             guard let model = result else {
                 print("API failed or empty response")
                 self.giftList = []
@@ -270,8 +271,9 @@ extension Giftcard_HistoryVC: GiftcardDownloadable {
 
     func downloadGiftReport(startDate: String, endDate: String) {
         let vendorID = LocalData.userId
-        
+        showLoader()
         APIService.shared.downloadGiftReport(vendor_id: vendorID,start_date: startDate,end_date: endDate) { model in
+            self.hideLoader()
             guard let filename = model?.filename else {
                 self.alertWithMessageOnly("Download failed")
                 return

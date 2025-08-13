@@ -117,8 +117,9 @@ class WalkinHistory_VC: UIViewController {
         let formattedFrom = formatDateToString(fromDate)
         let formattedTo = formatDateToString(toDate)
         
-        
+        showLoader()
         APIService.shared.WalkinHistoryGet(vendor_id: LocalData.userId, limt: "10", page: "1", start_date: formattedFrom, end_date: formattedTo) { result in
+            self.hideLoader()
             guard let model = result else {
                 print("API failed or empty response")
                 self.WalkingList = []

@@ -233,7 +233,9 @@ class AddCoupon_VC: UIViewController {
     
     //MARK: - Web Api Calling
     func addFunctionApiCalling(highest_amount: String,Amount:String) {
+        showLoader()
         APIService.shared.add_AddCoupon(vendorId: LocalData.userId, status: self.txt_Status.text ?? "", start_date: self.txt_StartDate.text ?? "", highest_amount: highest_amount, end_date: self.txt_EndDate.text ?? "", discount_type: self.txt_DiscountType.text ?? "", coupon_name: self.txt_CouponName.text ?? "", coupon_code: self.txt_CouponCode.text ?? "", amount: Amount) { result in
+            self.hideLoader()
             guard let model = result else {
                 return
             }
@@ -254,7 +256,9 @@ class AddCoupon_VC: UIViewController {
     }
     
     func UpdateCoupon(highest_amount: String,Amount:String,Id:Int){
+        showLoader()
         APIService.shared.updateGiftCoupon(Id: Id, amount: Amount, coupon_code: self.txt_CouponCode.text ?? "", discount_type: self.txt_DiscountType.text ?? "", vendor_id: LocalData.userId, coupon_name: self.txt_CouponName.text ?? "", end_date: self.txt_EndDate.text ?? "", highest_amount: highest_amount, start_date: self.txt_StartDate.text ?? "", status: self.txt_Status.text ?? "") { result in
+            self.hideLoader()
             guard let model = result else {
                 return
             }

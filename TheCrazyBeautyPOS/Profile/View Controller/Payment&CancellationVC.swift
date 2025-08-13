@@ -110,7 +110,9 @@ class Payment_CancellationVC: UIViewController {
     
     //MARK: - Web Api Calling
     func get_Amount() {
+        showLoader()
         APIService.shared.fetchAmount { response in
+            self.hideLoader()
             guard let model = response?.data?.first else { return }
 
             self.txt_PaymentPercent.text = "\(model.advance_pay)"
@@ -148,7 +150,9 @@ class Payment_CancellationVC: UIViewController {
     
     
     func update_Amount() {
+        showLoader()
         APIService.shared.UpdateAmount(vendorId: LocalData.userId, amount: txt_PaymentPercent.text ?? "0", penaltyFees: txt_CancellationAmount.text ?? "0", penaltyDuration: getPenaltyDurationValue(), cancellationPolicy: txt_CancellationPolicy.text ?? "") { result in
+            self.hideLoader()
             if let message = result?.data{
                 self.alertWithMessageOnly(message)
             }else{

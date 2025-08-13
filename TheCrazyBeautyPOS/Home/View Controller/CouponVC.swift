@@ -77,9 +77,11 @@ class CouponVC: UIViewController {
             self.currentPage = 1
             self.couponList.removeAll()
             self.hasMoreData = true
+            showLoader()
         }
 
         APIService.shared.getcouponDetails(page: "\(currentPage)", limit: "15", vendorId: LocalData.userId, search: Search){ staffResult in
+            self.hideLoader()
             guard let model = staffResult else {
                 self.isLoadingMore = false
                 return
@@ -95,10 +97,19 @@ class CouponVC: UIViewController {
             self.couponList += newItems
             self.currentPage += 1
             self.isLoadingMore = false
+            self.tbl_vw.backgroundView = self.couponList.isEmpty ? self.getNoDataLabel() : nil
             self.tbl_vw.reloadData()
         }
     }
     
+    func getNoDataLabel() -> UILabel {
+        let noDataLabel = UILabel()
+        noDataLabel.text = "No Coupons Data Found"
+        noDataLabel.textAlignment = .center
+        noDataLabel.textColor = .gray
+        noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)
+        return noDataLabel
+    }
     
     //MARK: Button Action
     @IBAction func act_addNew(_ sender: UIButton) {

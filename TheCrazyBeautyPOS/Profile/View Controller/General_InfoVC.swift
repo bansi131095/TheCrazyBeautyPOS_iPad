@@ -237,7 +237,9 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     //MARK: - Api Call
     func get_fetchSalon(){
+        showLoader()
         APIService.shared.fetchSalonDetails  { result in
+            self.hideLoader()
             self.SalonDetails = result?.data ?? []
             self.phone = self.SalonDetails.first?.phone ?? ""
             self.postcode = self.SalonDetails.first?.postcode ?? ""
@@ -302,8 +304,9 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     func update_Salon(){
         let safeLatitude = userLatitude ?? 0.0
         let safeLongitude = userLongitude ?? 0.0
-
+        showLoader()
         APIService.shared.UpdateBusinessInformation(id: LocalData.userId, salon_name: txt_BusinessName.text ?? "", salon_type: txt_SalonType.text ?? "", phone: phone, salon_phone: "\(selectedCountrycode)-\(txt_MobileNumber.text ?? "")", postcode: postcode, address: self.txt_Address.text ?? "", city: city, country: country, latitude: "\(safeLatitude)", longitude: "\(safeLongitude)", web_status: "\(web_status ?? 0)", allow_search: "\(allow_search ?? 0)", time_gap: "\(time_gap)", reminder_mail: "\(reminder_mail)", about_us: self.txt_Aboutus.text ?? "") { result in
+            self.hideLoader()
             if let message = result?.data{
                 self.alertWithMessageOnly(message)
             }else{

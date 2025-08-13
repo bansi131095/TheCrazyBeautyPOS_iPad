@@ -206,7 +206,9 @@ class HomeVC: UIViewController {
     }
     
     func verfiyPasscode1(passcode: String){
+        showLoader()
         APIService.shared.verifyPasscode(passcode: passcode, vendorId: LocalData.userId) { result in
+            self.hideLoader()
             if result?.data?.status == 1{
                 self.vwMainPasscode.isHidden = true
                 self.imageArray.append(#imageLiteral(resourceName: "Report"))
@@ -221,12 +223,12 @@ class HomeVC: UIViewController {
     //MARK: Api Data
     func getAllSalonData() {
     
-        //self.showLoader()
+        self.showLoader()
         APIService.shared.getAllSalonData() { staffResult in
             guard let model = staffResult else {
                 return
             }
-            //self.hideLoader()
+            self.hideLoader()
             let newItems = model.data
             if !newItems.isEmpty {
                 let CategoryList = newItems
@@ -288,7 +290,9 @@ class HomeVC: UIViewController {
     }
     
     func get_Image() {
+        showLoader()
         APIService.shared.fetchProfileImage { result in
+            self.hideLoader()
             guard let model = result?.data.first else {
                 print("⚠️ No profile data found")
                 return

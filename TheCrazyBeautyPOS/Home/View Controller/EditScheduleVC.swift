@@ -456,7 +456,9 @@ class EditScheduleVC: UIViewController {
 
     //MARK: API Call
     func api_getstaffShifts() {
+        self.showLoader()
         APIService.shared.getstaffShift(staffId: self.TeamId) { result in
+            self.hideLoader()
             if let data = result?.data, !data.isEmpty {
                 self.staffShiftlist = data
                 self.customSchedules = self.parseCustomScheduleData(from: self.staffShiftlist)
@@ -465,7 +467,9 @@ class EditScheduleVC: UIViewController {
     }
     
     func api_getHolidays() {
+        self.showLoader()
         APIService.shared.getHolidays() { result in
+            self.hideLoader()
             let holidayDates = result
             if !holidayDates.isEmpty {
                 if let data = holidayDates.data(using: .utf8),

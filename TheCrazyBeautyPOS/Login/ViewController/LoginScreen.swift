@@ -16,11 +16,13 @@ class LoginScreen: UIViewController {
     
     @IBOutlet weak var btn_eye: UIButton!
     
+    @IBOutlet weak var loader: UIActivityIndicatorView!
     
     
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        loader.isHidden = true
         self.btn_eye.setImage(#imageLiteral(resourceName: "view"), for: .normal)
         self.txt_password.isSecureTextEntry = true
         // Do any additional setup after loading the view.
@@ -59,8 +61,11 @@ class LoginScreen: UIViewController {
     func performLogin() {
         let email = txt_email.text ?? ""
         let password = txt_password.text ?? ""
-
+        self.loader.hidesWhenStopped = false
+        self.loader.startAnimating()
             APIService.shared.login(email: email, password: password) { loginData in
+                self.loader.stopAnimating()
+                self.loader.hidesWhenStopped = true
                 if let data = loginData {
                     print("✅ Login successful!")
                     print("🔑 Token: \(data.token ?? "N/A")")

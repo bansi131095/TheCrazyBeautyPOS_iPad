@@ -40,7 +40,9 @@ class Team_ReportVC: UIViewController {
     }
     
     func get_TeamDetails(){
+        showLoader()
         APIService.shared.fetchTeamDetails(vendorId: LocalData.userId) { result in
+            self.hideLoader()
             self.TeamDetails = result?.data ?? []
             var names = self.TeamDetails.map { $0.first_name }
             names.insert("Select Staff", at: 0)
@@ -59,8 +61,9 @@ class Team_ReportVC: UIViewController {
 
         let formattedFrom = formatDateToString(fromDate)
         let formattedTo = formatDateToString(toDate)
-        
+        showLoader()
         APIService.shared.SalesDataGet(vendor_id: LocalData.userId, staff_id: staff_id, limt: "10", page: "1", start_date: formattedFrom, end_date: formattedTo) { result in
+            self.hideLoader()
             guard let model = result else {
                 print("API failed or empty response")
                 self.salesData = []
@@ -278,9 +281,10 @@ extension Team_ReportVC: ReportDownloadable {
     func downloadReport(startDate: String, endDate: String) {
         let vendorID = LocalData.userId
         let staff_id = "" // If dynamic, pass it accordingly
-
+        showLoader()
         APIService.shared.downloadSalesReport(vendor_id: vendorID,start_date: startDate,end_date: endDate,
         staff_id: staff_id) { model in
+            self.hideLoader()
             guard let filename = model?.filename else {
                 self.alertWithMessageOnly("Download failed")
                 return

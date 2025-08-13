@@ -415,6 +415,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
 
     
     func loadAllData() {
+        showLoader()
         APIService.shared.getServiceDetails(page: "1", limit: "100000", vendorId: LocalData.userId, search: "", booking: "", categoryId: "", isGroup: true) { serviceResult in
             guard let model = serviceResult else {
                 return
@@ -469,6 +470,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
                         )
                         self.collectCategoryHeight.constant = calculatedHeight
                         self.collect_category.reloadData()
+                        self.hideLoader()
                     }
                 }
             } else {

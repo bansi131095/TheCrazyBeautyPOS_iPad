@@ -50,7 +50,9 @@ class Booking_PreferenceVC: UIViewController {
     //MARK: - Function
     //MARK: - Web Api Calling
     func call_BookingFlow(){
+        showLoader()
         APIService.shared.UpdateBookingFlow(booking_flow: booking_Flow, vendorId: LocalData.userId, completion: { result in
+            self.hideLoader()
             if let message = result?.data{
                 self.alertWithMessageOnly(message)
             }else{
@@ -61,7 +63,9 @@ class Booking_PreferenceVC: UIViewController {
     
     
     func get_BookingFlow(){
+        self.showLoader()
         APIService.shared.fetchBookingFlow { result in
+            self.hideLoader()
             if result?.data?.booking_flow == 1{
                 self.vw_Staff.backgroundColor = .white
                 self.vw_Guest.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
@@ -76,5 +80,4 @@ class Booking_PreferenceVC: UIViewController {
             }
         }
     }
-    
 }

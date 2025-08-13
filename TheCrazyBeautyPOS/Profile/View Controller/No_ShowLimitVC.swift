@@ -42,7 +42,9 @@ class No_ShowLimitVC: UIViewController {
     
     //MARK: - Web Api Calling
     func api_NoShowLimit() {
+        showLoader()
         APIService.shared.fetchNoShowLimit { [weak self] result in
+            self?.hideLoader()
             guard let self = self else { return }
 
             DispatchQueue.main.async {
@@ -53,7 +55,9 @@ class No_ShowLimitVC: UIViewController {
     }
     
     func api_UpdateNoShowLimit() {
+        showLoader()
         APIService.shared.UpdateNoShowlimit(vendorId: LocalData.userId, noshow_limit: self.txt_NoShowLimit.text ?? "", completion: { result in
+            self.hideLoader()
             if let message = result?.data {
                 self.alertWithMessageOnly(message)
             }else{

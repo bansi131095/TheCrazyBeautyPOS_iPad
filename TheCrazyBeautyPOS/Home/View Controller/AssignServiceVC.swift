@@ -67,8 +67,9 @@ class AssignServiceVC: UIViewController {
     
     //MARK: Load Api
     func loadData() {
-        
+        showLoader()
         APIService.shared.getServiceDetails(page: "1", limit: "1000000", vendorId: LocalData.userId, search: "", booking: "booking", categoryId: "", isGroup: true) { staffResult in
+            self.hideLoader()
             guard let model = staffResult else {
                 return
             }

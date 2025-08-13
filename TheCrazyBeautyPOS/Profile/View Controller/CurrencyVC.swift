@@ -74,7 +74,9 @@ class CurrencyVC: UIViewController {
     }
     
     func call_CurrencyAPI() {
+        showLoader()
         APIService.shared.fetchSalonCurrency { result in
+            self.hideLoader()
             if result?.data != nil {
                 self.CurrencyList = result!.data
                 self.call_GetCurrencyAPI()
@@ -85,7 +87,9 @@ class CurrencyVC: UIViewController {
     }
     
     func call_GetCurrencyAPI() {
+        showLoader()
         APIService.shared.getCurrencyA(completion: { result in
+            self.hideLoader()
             guard let data = result?.data else { return }
             if (data.count > 0) {
                 self.CurrencyGet = data[0]

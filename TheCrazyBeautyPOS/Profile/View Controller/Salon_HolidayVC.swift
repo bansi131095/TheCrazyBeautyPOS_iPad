@@ -82,7 +82,9 @@ class Salon_HolidayVC: UIViewController {
     
     //MARK: - APICAll
     func fetchHolidays() {
+        showLoader()
         APIService.shared.fetchSalonHolidays { result in
+            self.hideLoader()
             if let holidayWrapper = result?.data.first {
                 self.salonHolidaysList = holidayWrapper.holiday_dates
                 DispatchQueue.main.async {
@@ -117,9 +119,10 @@ class Salon_HolidayVC: UIViewController {
            let newTo = txt_to.text, !newTo.isEmpty {
             allDates.append(HolidayDate1(from: newFrom, to: newTo))
         }
-
+        showLoader()
         // Send to API
         APIService.shared.updateSalonHolidays(vendorID: LocalData.userId, holidays: allDates) { success in
+            self.hideLoader()
             if success {
                 self.alertWithMessageOnly("Salon holidays updated successfully")
                 self.txt_from.text = ""

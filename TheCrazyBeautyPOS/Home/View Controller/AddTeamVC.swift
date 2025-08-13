@@ -308,7 +308,9 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     
     //MARK: API Call
     func api_getBusinessHours() {
+        self.showLoader()
         APIService.shared.fetchTiming1 { workingHours in
+            self.hideLoader()
             let salonHours = workingHours
             self.workingHoursJson = workingHours
             self.shiftTimingJson = workingHours
@@ -337,6 +339,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
                 }
             }
          } else {
+             showLoader()
              APIService.shared.addTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: self.btn_visibility.currentImage == UIImage(named: "rdCheck") ? "1" : "0", showInCalendar: "1", serviceIds: self.serviceIds, workingHours: self.workingHoursJson, shiftTimings: self.shiftTimingJson, image: nil, imageKey: "file") { response in
                  self.hideLoader()
                  if response != nil {
@@ -375,6 +378,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
                 }
             }
          } else {
+             showLoader()
              APIService.shared.updateTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: self.btn_visibility.currentImage == UIImage(named: "rdCheck") ? "1" : "0", showInCalendar: "1", serviceIds: self.serviceIds, workingHours: self.workingHoursJson, shiftTimings: self.shiftTimingJson, image: nil, imageKey: "file", teamId: "\(self.dictStaff!.id ?? 0)") { response in
                  self.hideLoader()
                  if response != nil {

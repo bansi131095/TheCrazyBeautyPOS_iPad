@@ -134,9 +134,9 @@ class TeamRosterVC: UIViewController {
             tableView.topAnchor.constraint(equalTo: headerRow.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            tableView.bottomAnchor.constraint(greaterThanOrEqualTo: contentView.bottomAnchor, constant: -20)
+//            tableView.bottomAnchor.constraint(greaterThanOrEqualTo: contentView.bottomAnchor, constant: -20)
 
-//            tableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: >=20),
+            tableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
             
             // Do NOT constrain bottomAnchor here
         ])
@@ -502,8 +502,11 @@ class TeamRosterVC: UIViewController {
                     self.teamRosterItem = self.buildRosterFromJson(dates: self.dates, items: self.TeamList)
                     self.tableView.reloadData()
                     DispatchQueue.main.async {
+                        self.tableView.reloadData()
                         self.tableView.layoutIfNeeded()
                         self.tableHeightConstraint?.constant = self.tableView.contentSize.height
+                        self.contentView.layoutIfNeeded()
+                        
                     }
                 }
             } else {

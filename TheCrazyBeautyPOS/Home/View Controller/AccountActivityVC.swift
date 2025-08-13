@@ -47,9 +47,11 @@ class AccountActivityVC: UIViewController {
             self.currentPage = 1
             self.notificationList.removeAll()
             self.hasMoreData = true
+            showLoader()
         }
         
         APIService.shared.getNotificationList(page: "\(currentPage)", limit: "10") { activityResult in
+            self.hideLoader()
             guard let model = activityResult else {
                 self.isLoadingMore = false
                 return
@@ -70,7 +72,9 @@ class AccountActivityVC: UIViewController {
     
     
     func updateNotificationData() {
+        showLoader()
         APIService.shared.updateActivity(){ activityResult in
+            self.hideLoader()
             guard let model = activityResult else {
                 return
             }

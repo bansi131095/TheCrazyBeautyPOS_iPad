@@ -96,7 +96,9 @@ class Business_InformationVC: UIViewController {
 
     //MARK: - Web Api Calling
     func apicall(){
+        showLoader()
         APIService.shared.AddVendorData(salon_id: LocalData.userId) { result in
+            self.hideLoader()
             if let response = result {
                 if let results = response.data?.result {
                     for vendor in results {

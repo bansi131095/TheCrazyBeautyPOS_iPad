@@ -125,7 +125,7 @@ class APIService {
     }
     
     
-    func addServiceData(serviceName: String, parentId: Int, vendorId: String, description: String, serviceFor: String, duration: Int, priceType: String, price: Int, salePrice: Int, vendorOnly: String, contactSalon: String, testRequired: String, staffId: String, completion: @escaping (AddServiceModel?) -> Void) {
+    func addServiceData(serviceName: String, parentId: Int, vendorId: String, description: String, serviceFor: String, duration: Int, priceType: String, price: String, salePrice: String, vendorOnly: String, contactSalon: String, testRequired: String, staffId: String, completion: @escaping (AddServiceModel?) -> Void) {
         let url = global.shared.URL_ADD_SERVICE
         
         let params: [String: Any] = [
@@ -172,7 +172,7 @@ class APIService {
     }
     
     
-    func updateServiceData(serviceName: String, parentId: Int, vendorId: String, description: String, serviceFor: String, duration: Int, priceType: String, price: Int, salePrice: Int, vendorOnly: String, contactSalon: String, testRequired: String, staffId: String, serviceId: String, completion: @escaping (CommonResponse?) -> Void) {
+    func updateServiceData(serviceName: String, parentId: Int, vendorId: String, description: String, serviceFor: String, duration: Int, priceType: String, price: String, salePrice: String, vendorOnly: String, contactSalon: String, testRequired: String, staffId: String, serviceId: String, completion: @escaping (CommonResponse?) -> Void) {
         let urlString = "\(global.shared.URL_UPDATE_SERVICE)\(serviceId)"
         guard let url = URL(string: urlString) else { return }
         

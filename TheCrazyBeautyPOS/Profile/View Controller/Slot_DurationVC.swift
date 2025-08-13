@@ -79,9 +79,11 @@ class Slot_DurationVC: UIViewController {
     
     
     func update_TimeGap(){
+        self.showLoader()
         let selectedTimeGap = getPenaltyDurationValue() // e.g. "6", "10", etc.
         
         APIService.shared.updateTimeGap(vendorId: LocalData.userId, time_gap: selectedTimeGap) { result in
+            self.hideLoader()
             if result?.data != nil {
                 self.alertWithMessageOnly(result?.data ?? "")
             } else {

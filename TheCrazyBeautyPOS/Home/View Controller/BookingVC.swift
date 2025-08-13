@@ -44,6 +44,7 @@ class BookingVC: UIViewController {
             return
         }
         let request = URLRequest(url: requestUrl)
+        showLoader()
         webView.load(request)
         self.hideProgressBar()
         // Web view settings are handled by WKWebView automatically,
@@ -53,8 +54,9 @@ class BookingVC: UIViewController {
     
     //MARK: Load Api
     func loadData() {
-    
+        showLoader()
         APIService.shared.getCurrency() { staffResult in
+            self.hideLoader()
             guard let model = staffResult else {
                 return
             }
@@ -84,5 +86,18 @@ class BookingVC: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        hideLoader() // stop loader when finished
+    }
+
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        hideLoader()
+        print("❌ Web loading failed:", error.localizedDescription)
+    }
+
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        showLoader() // ensure loader starts when navigating
+    }
 
 }

@@ -78,9 +78,11 @@ class InventoryVC: UIViewController {
             self.currentPage = 1
             self.inventoryList.removeAll()
             self.hasMoreData = true
+            showLoader()
         }
 
         APIService.shared.getInventoryDetails(page: "\(currentPage)", limit: "15", vendorId: LocalData.userId, search: Search) { staffResult in
+            self.hideLoader()
             guard let model = staffResult else {
                 self.isLoadingMore = false
                 return
@@ -96,10 +98,19 @@ class InventoryVC: UIViewController {
             self.inventoryList += newItems
             self.currentPage += 1
             self.isLoadingMore = false
+            self.tbl_vw.backgroundView = self.inventoryList.isEmpty ? self.getNoDataLabel() : nil
             self.tbl_vw.reloadData()
         }
     }
     
+    func getNoDataLabel() -> UILabel {
+        let noDataLabel = UILabel()
+        noDataLabel.text = "No Inventory Data Found"
+        noDataLabel.textAlignment = .center
+        noDataLabel.textColor = .gray
+        noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)
+        return noDataLabel
+    }
     
     //MARK: Button Action
     @IBAction func act_addNew(_ sender: UIButton) {

@@ -75,7 +75,9 @@ class AddInventory_VC: UIViewController {
     
     
     func addInverty(){
+        showLoader()
         APIService.shared.add_AddInventory(vendorId: LocalData.userId, price: self.txt_Price.text ?? "", product_name: self.txt_ProductName.text ?? "", qty: self.txt_QTY.text ?? "") { result in
+            self.hideLoader()
             if result != nil {
                 DispatchQueue.main.async {
                     self.showToast(message: result?.data?.message ?? "")
@@ -90,7 +92,9 @@ class AddInventory_VC: UIViewController {
     }
     
     func updateInventory(clientId: Int){
+        showLoader()
         APIService.shared.updateInventory(clientId: clientId, price: self.txt_Price.text ?? "", product_name: self.txt_ProductName.text ?? "", qty: self.txt_QTY.text ?? "", vendor_id: LocalData.userId) { result in
+            self.hideLoader()
             guard let model = result else {
                 return
             }
