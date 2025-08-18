@@ -21,6 +21,7 @@ class WalkinHistoryCell: UITableViewCell {
     @IBOutlet weak var lbl_Total: UILabel!
     @IBOutlet weak var lbl_GrandTotal: UILabel!
     @IBOutlet weak var btn_Action: UIButton!
+    @IBOutlet weak var btn_Delete: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -53,5 +54,9 @@ class WalkinHistoryCell: UITableViewCell {
         self.Act_Action?()
     }
     
+    var Act_Delete:(()->Void)?
+    @IBAction func act_Delete(_ sender: UIButton) {
+        self.Act_Delete?()
+    }
     
 }

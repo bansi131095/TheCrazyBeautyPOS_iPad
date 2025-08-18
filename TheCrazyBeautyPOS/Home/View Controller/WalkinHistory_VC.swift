@@ -28,6 +28,7 @@ class WalkinHistory_VC: UIViewController {
     var calendar: FSCalendar!
     
     var WalkingList: [WalkinHistoryDateModel] = []
+    var deleteShownSales = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,6 +145,24 @@ class WalkinHistory_VC: UIViewController {
             self.tbl_vw.reloadData()
         }
     }
+    
+    func deleteWalkingHistory(walkinId: Int){
+        APIService.shared.deleteWalkin(WalkinId: walkinId) { result in
+            guard let model = result else {
+                return
+            }
+            self.hideLoader()
+            if model.error == "" || model.error == nil {
+                DispatchQueue.main.async {
+                    // safe UI code here
+                    self.showToast(message: model.data)
+                }
+                self.WalkinHistory()
+            } else {
+                self.show_alert(msg: model.error ?? "", title: "Delete Team")
+            }
+        }
+    }
 }
 
 extension WalkinHistory_VC: FSCalendarDelegate, FSCalendarDataSource {
@@ -257,6 +276,25 @@ extension WalkinHistory_VC: UITableViewDelegate, UITableViewDataSource{
             cell.lbl_GiftCard?.text = "N/A"
         }else{
             cell.lbl_GiftCard?.text = data.giftCardDisplayString
+        }
+        
+        if deleteShownSales{
+            cell.btn_Delete.isHidden = false
+        } else {
+            cell.btn_Delete.isHidden = true
+        }
+        
+        cell.Act_Delete = {
+            let popup = ConfirmDeletePopupVC()
+            popup.modalPresentationStyle = .overFullScreen
+            popup.modalTransitionStyle = .crossDissolve
+            popup.titleText = "Are you sure you want to delete this booking?"
+            popup.onConfirm = {
+                print("Inventory confirmed delete")
+                // Call your delete logic here
+                self.deleteWalkingHistory(walkinId: data.id)
+            }
+            self.present(popup, animated: true, completion: nil)
         }
         
         cell.lbl_Total.text = "\(SharedPrefs.getSymbol())" + "\(Double(data.sub_total))"

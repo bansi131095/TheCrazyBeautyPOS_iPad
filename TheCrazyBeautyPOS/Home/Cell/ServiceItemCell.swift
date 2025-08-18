@@ -48,6 +48,7 @@ class ServiceItemCell: UITableViewCell {
             lbl_time.font = customFont
             lbl_serviceFor.font = customFont
             lbl_price.font = customFont
+            lbl_SalePrice.font = customFont
         }
     }
     

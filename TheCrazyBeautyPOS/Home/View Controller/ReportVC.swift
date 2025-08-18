@@ -68,7 +68,33 @@ class ReportVC: UIViewController {
         }
     }
     
+    private var tapCount = 0
+    private let maxTaps = 10
+    private var isReportImageAdded = false
+    
     //MARK: -  Button Action
+    @IBAction func btn_DeleteHideShow(_ sender: Any) {
+        tapCount += 1
+        if tapCount == maxTaps {
+           tapCount = 0
+           if !isReportImageAdded {
+               isReportImageAdded = true
+               if let currentVC = children.first as? SalesReportHistory_VC {
+                   currentVC.deleteShownSales = true
+                   currentVC.tbl_vw.reloadData()
+               }else if let walkinVC = children.first as? WalkinHistory_VC {
+                   walkinVC.deleteShownSales = true
+                   walkinVC.tbl_vw.reloadData()
+               }
+               
+           } else {
+               print("Already not add")
+               isReportImageAdded = false
+           }
+        }
+    }
+    
+    
     @IBAction func btn_DownloadReport(_ sender: Any) {
         if let currentVC = children.first as? ReportDownloadable {
             let formatterInput = DateFormatter()

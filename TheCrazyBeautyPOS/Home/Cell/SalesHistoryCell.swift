@@ -21,6 +21,7 @@ class SalesHistoryCell: UITableViewCell {
     @IBOutlet weak var lbl_Total: UILabel!
     @IBOutlet weak var btn_Action: UIButton!
     @IBOutlet weak var btn_Mail: UIButton!
+    @IBOutlet weak var btn_Delete: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -56,4 +57,8 @@ class SalesHistoryCell: UITableViewCell {
         self.Act_Mail?()
     }
     
+    var Act_Delete:(()->Void)?
+    @IBAction func act_Delete(_ sender: Any) {
+        self.Act_Delete?()
+    }
 }

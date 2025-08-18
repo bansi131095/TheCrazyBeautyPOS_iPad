@@ -178,7 +178,7 @@ class AddServiceVC: UIViewController {
         self.selectedDuration = self.dictService?.duration ?? 0
         self.txt_priceType.setText(self.dictService?.price_type ?? "")
         self.txt_regulatPrice.setText(self.dictService?.price ?? "")
-        self.txt_salesPrice.setText(String(self.dictService?.sale_price ?? 0))
+        self.txt_salesPrice.setText(String(self.dictService?.sale_price ?? "0"))
         if let venderOnly = self.dictService?.isVendorOnly, venderOnly == 1 {
             self.btn_vendorOnly.setImage(UIImage(named: "rdCheck"), for: .normal)
         } else {

@@ -110,16 +110,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBG-x1-Mbr">
-                                <rect key="frame" x="1530" y="13" width="150" height="24"/>
+                                <rect key="frame" x="1530" y="13" width="120" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="ErS-Q9-HgV"/>
+                                    <constraint firstAttribute="width" constant="120" id="ErS-Q9-HgV"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="AppBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dcq-sG-Kfq">
-                                <rect key="frame" x="1700" y="13" width="28" height="28"/>
+                                <rect key="frame" x="1670" y="13" width="28" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="OOI-st-xNX"/>
                                     <constraint firstAttribute="width" constant="28" id="cSP-x1-dyR"/>
@@ -134,7 +134,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fct-6R-vYQ">
-                                <rect key="frame" x="1738" y="13" width="28" height="28"/>
+                                <rect key="frame" x="1708" y="13" width="28" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="28" id="m0N-WI-94R"/>
                                     <constraint firstAttribute="height" constant="28" id="vqp-Xh-qJJ"/>
@@ -148,12 +148,28 @@
                                     <action selector="act_Mail:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="QvT-zn-7WD"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbA-6T-IGL">
+                                <rect key="frame" x="1746" y="14.5" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="Fze-bO-ynd"/>
+                                    <constraint firstAttribute="width" constant="25" id="rYs-9N-spR"/>
+                                </constraints>
+                                <color key="tintColor" name="txtGray"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="delete" symbolScale="large"/>
+                                </state>
+                                <connections>
+                                    <action selector="act_Delete:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="fIa-Cf-8DC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="BNa-Au-hQS" firstAttribute="top" secondItem="FRv-ru-RgU" secondAttribute="top" id="1Xo-YA-hhA"/>
                             <constraint firstItem="YyB-rF-8p8" firstAttribute="top" secondItem="FRv-ru-RgU" secondAttribute="top" id="2VK-gB-isB"/>
                             <constraint firstItem="EBG-1X-dma" firstAttribute="leading" secondItem="ZKa-CS-LFi" secondAttribute="trailing" constant="20" id="5S3-6i-9jZ"/>
+                            <constraint firstItem="kbA-6T-IGL" firstAttribute="leading" secondItem="fct-6R-vYQ" secondAttribute="trailing" constant="10" id="5WU-98-b98"/>
                             <constraint firstItem="YBG-x1-Mbr" firstAttribute="top" secondItem="cZj-JD-6OM" secondAttribute="top" id="71C-LP-gao"/>
                             <constraint firstItem="FRv-ru-RgU" firstAttribute="centerY" secondItem="TUN-Ww-Fn5" secondAttribute="centerY" id="BQq-ch-4qu"/>
                             <constraint firstItem="ZKa-CS-LFi" firstAttribute="leading" secondItem="YyB-rF-8p8" secondAttribute="trailing" constant="20" id="EXi-Lo-0BY"/>
@@ -165,8 +181,10 @@
                             <constraint firstItem="ZKa-CS-LFi" firstAttribute="top" secondItem="YyB-rF-8p8" secondAttribute="top" id="KOi-OR-xJi"/>
                             <constraint firstItem="iRd-3N-Yn8" firstAttribute="leading" secondItem="NrF-t6-0JS" secondAttribute="trailing" constant="20" id="Ke7-IX-EZi"/>
                             <constraint firstItem="FRv-ru-RgU" firstAttribute="leading" secondItem="TUN-Ww-Fn5" secondAttribute="leading" constant="20" id="KyX-PG-5ra"/>
+                            <constraint firstItem="kbA-6T-IGL" firstAttribute="centerY" secondItem="fct-6R-vYQ" secondAttribute="centerY" id="LpG-J2-iPl"/>
                             <constraint firstItem="Mzf-ED-xmP" firstAttribute="leading" secondItem="FRv-ru-RgU" secondAttribute="trailing" constant="20" id="OEZ-II-WBp"/>
                             <constraint firstItem="fct-6R-vYQ" firstAttribute="centerY" secondItem="Dcq-sG-Kfq" secondAttribute="centerY" id="QnY-Jp-KBH"/>
+                            <constraint firstAttribute="trailing" secondItem="kbA-6T-IGL" secondAttribute="trailing" constant="29" id="RLg-Dp-sM2"/>
                             <constraint firstItem="Mzf-ED-xmP" firstAttribute="top" secondItem="FRv-ru-RgU" secondAttribute="top" id="SQD-3y-26f"/>
                             <constraint firstItem="Dcq-sG-Kfq" firstAttribute="top" secondItem="YBG-x1-Mbr" secondAttribute="top" id="UAa-y1-MHO"/>
                             <constraint firstItem="YBG-x1-Mbr" firstAttribute="leading" secondItem="cZj-JD-6OM" secondAttribute="trailing" constant="20" id="cr7-Pf-vcc"/>
@@ -175,7 +193,6 @@
                             <constraint firstItem="YyB-rF-8p8" firstAttribute="leading" secondItem="BNa-Au-hQS" secondAttribute="trailing" constant="20" id="i3X-1S-Gv9"/>
                             <constraint firstItem="iRd-3N-Yn8" firstAttribute="top" secondItem="FRv-ru-RgU" secondAttribute="top" id="nws-WK-Xec"/>
                             <constraint firstItem="NrF-t6-0JS" firstAttribute="leading" secondItem="Mzf-ED-xmP" secondAttribute="trailing" constant="20" id="uYj-Nf-EWz"/>
-                            <constraint firstAttribute="trailing" secondItem="fct-6R-vYQ" secondAttribute="trailing" constant="34" id="xyZ-sC-Cc8"/>
                             <constraint firstItem="NrF-t6-0JS" firstAttribute="top" secondItem="FRv-ru-RgU" secondAttribute="top" id="ziL-5Y-Hta"/>
                         </constraints>
                     </view>
@@ -189,6 +206,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="btn_Action" destination="Dcq-sG-Kfq" id="gcn-4n-xIy"/>
+                <outlet property="btn_Delete" destination="kbA-6T-IGL" id="MVG-7E-3Rj"/>
                 <outlet property="btn_Mail" destination="fct-6R-vYQ" id="HiG-NH-9ZP"/>
                 <outlet property="lbl_Date" destination="NrF-t6-0JS" id="TGm-h5-utp"/>
                 <outlet property="lbl_ID" destination="FRv-ru-RgU" id="LBp-px-zi1"/>
@@ -205,6 +223,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="delete" width="60" height="60"/>
         <image name="exclamationmark.circle" catalog="system" width="128" height="123"/>
         <image name="ic_Mail" width="64" height="64"/>
         <namedColor name="AppBlack">

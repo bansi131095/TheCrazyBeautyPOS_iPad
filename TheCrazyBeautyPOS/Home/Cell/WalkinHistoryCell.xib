@@ -142,17 +142,32 @@
                                     <action selector="act_Action:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="1le-zh-iJd"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYf-jT-Kao">
+                                <rect key="frame" x="2003" y="14.5" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="ky4-qq-TjK"/>
+                                    <constraint firstAttribute="width" constant="25" id="nFK-3h-ZEy"/>
+                                </constraints>
+                                <color key="tintColor" name="txtGray"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="delete" symbolScale="large"/>
+                                </state>
+                                <connections>
+                                    <action selector="act_Delete:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="cQP-iZ-7VI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="BNa-Au-hQS" firstAttribute="top" secondItem="FRv-ru-RgU" secondAttribute="top" id="1Xo-YA-hhA"/>
                             <constraint firstItem="YyB-rF-8p8" firstAttribute="top" secondItem="FRv-ru-RgU" secondAttribute="top" id="2VK-gB-isB"/>
-                            <constraint firstAttribute="trailing" secondItem="Dcq-sG-Kfq" secondAttribute="trailing" constant="107" id="2eQ-0k-wYu"/>
                             <constraint firstItem="EBG-1X-dma" firstAttribute="leading" secondItem="ZKa-CS-LFi" secondAttribute="trailing" constant="20" id="5S3-6i-9jZ"/>
                             <constraint firstItem="YBG-x1-Mbr" firstAttribute="top" secondItem="cZj-JD-6OM" secondAttribute="top" id="71C-LP-gao"/>
                             <constraint firstItem="FRv-ru-RgU" firstAttribute="centerY" secondItem="TUN-Ww-Fn5" secondAttribute="centerY" id="BQq-ch-4qu"/>
                             <constraint firstItem="ZKa-CS-LFi" firstAttribute="leading" secondItem="YyB-rF-8p8" secondAttribute="trailing" constant="20" id="EXi-Lo-0BY"/>
                             <constraint firstItem="cZj-JD-6OM" firstAttribute="leading" secondItem="EBG-1X-dma" secondAttribute="trailing" constant="20" id="HK2-s6-NXK"/>
+                            <constraint firstItem="gYf-jT-Kao" firstAttribute="centerY" secondItem="Dcq-sG-Kfq" secondAttribute="centerY" id="HUR-fa-CAu"/>
                             <constraint firstAttribute="height" constant="50" id="HtH-4N-Vyx"/>
                             <constraint firstItem="m9I-UQ-igA" firstAttribute="leading" secondItem="YBG-x1-Mbr" secondAttribute="trailing" constant="20" id="Ini-g3-ONM"/>
                             <constraint firstItem="cZj-JD-6OM" firstAttribute="top" secondItem="EBG-1X-dma" secondAttribute="top" id="J4O-24-XkW"/>
@@ -161,12 +176,14 @@
                             <constraint firstItem="iRd-3N-Yn8" firstAttribute="leading" secondItem="NrF-t6-0JS" secondAttribute="trailing" constant="20" id="Ke7-IX-EZi"/>
                             <constraint firstItem="FRv-ru-RgU" firstAttribute="leading" secondItem="TUN-Ww-Fn5" secondAttribute="leading" constant="20" id="KyX-PG-5ra"/>
                             <constraint firstItem="m9I-UQ-igA" firstAttribute="centerY" secondItem="YBG-x1-Mbr" secondAttribute="centerY" id="Lv2-jm-TT9"/>
+                            <constraint firstItem="gYf-jT-Kao" firstAttribute="leading" secondItem="Dcq-sG-Kfq" secondAttribute="trailing" constant="10" id="MYS-4d-0uh"/>
                             <constraint firstItem="Mzf-ED-xmP" firstAttribute="leading" secondItem="FRv-ru-RgU" secondAttribute="trailing" constant="20" id="OEZ-II-WBp"/>
                             <constraint firstItem="Dcq-sG-Kfq" firstAttribute="leading" secondItem="m9I-UQ-igA" secondAttribute="trailing" constant="20" id="RUb-sX-YFL"/>
                             <constraint firstItem="Mzf-ED-xmP" firstAttribute="top" secondItem="FRv-ru-RgU" secondAttribute="top" id="SQD-3y-26f"/>
                             <constraint firstItem="Dcq-sG-Kfq" firstAttribute="top" secondItem="YBG-x1-Mbr" secondAttribute="top" id="UAa-y1-MHO"/>
                             <constraint firstItem="YBG-x1-Mbr" firstAttribute="leading" secondItem="cZj-JD-6OM" secondAttribute="trailing" constant="20" id="cr7-Pf-vcc"/>
                             <constraint firstItem="BNa-Au-hQS" firstAttribute="leading" secondItem="iRd-3N-Yn8" secondAttribute="trailing" constant="20" id="ehf-Kh-j9v"/>
+                            <constraint firstAttribute="trailing" secondItem="gYf-jT-Kao" secondAttribute="trailing" constant="72" id="gfp-1c-RG6"/>
                             <constraint firstItem="EBG-1X-dma" firstAttribute="top" secondItem="ZKa-CS-LFi" secondAttribute="top" id="hvg-OI-lv8"/>
                             <constraint firstItem="YyB-rF-8p8" firstAttribute="leading" secondItem="BNa-Au-hQS" secondAttribute="trailing" constant="20" id="i3X-1S-Gv9"/>
                             <constraint firstItem="iRd-3N-Yn8" firstAttribute="top" secondItem="FRv-ru-RgU" secondAttribute="top" id="nws-WK-Xec"/>
@@ -184,6 +201,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="btn_Action" destination="Dcq-sG-Kfq" id="gcn-4n-xIy"/>
+                <outlet property="btn_Delete" destination="gYf-jT-Kao" id="neq-4D-sxx"/>
                 <outlet property="lbl_CouponCode" destination="YyB-rF-8p8" id="jgo-w5-HrK"/>
                 <outlet property="lbl_Date" destination="Mzf-ED-xmP" id="5F9-gi-Pml"/>
                 <outlet property="lbl_Discount" destination="ZKa-CS-LFi" id="o3P-Df-7Pm"/>
@@ -200,6 +218,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="delete" width="60" height="60"/>
         <image name="printer" catalog="system" width="128" height="111"/>
         <namedColor name="AppBlack">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

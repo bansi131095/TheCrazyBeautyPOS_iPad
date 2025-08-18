@@ -32,7 +32,8 @@ class ServiceData: Mappable {
     var id: Int = 0
     var duration: Int = 0
     var price: String = ""
-    var sale_price: Double?
+//    var sale_price: Double?
+    var sale_price: String = ""
     var category_id: Int = 0
     var category: String = ""
     var service: String = ""

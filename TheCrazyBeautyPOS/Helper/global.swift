@@ -246,6 +246,8 @@ class global: NSObject
     var URL_ADD_TEST = global.server_url + "add_test"
     var URL_SELECT_SLOT = global.server_url + "select_slot"
     var URL_PAST_REBOOKING = global.server_url + "past_rebooking"
+    var URL_DELETE_WALKIN = global.server_url + "delete_walkin/"
+    var URL_DELETE_BOOKING = global.server_url + "delete_booking"
     
 
     //MARK:-

@@ -28,7 +28,7 @@ class ServicesVC: UIViewController {
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 120 // or any dynamic value
+        contentViewWidthConstraint.constant = 100 // or any dynamic value
         self.setTableView()
         self.setCustomFont()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -190,24 +190,53 @@ extension ServicesVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
         cell.lbl_time.text = "\(service.duration) Min"
         cell.lbl_serviceFor.text = service.service_for
         
-        /*if service.price_type != "Fixed" && !(service.sale_price != nil && service.sale_price > 0) {
+        /*if service.price_type != "Fixed" && !(service.sale_price != nil && service.sale_price! > 0) {
             cell.lbl_price.text = service.price_type + " \(LocalData.symbol)\(service.price)"
         }else{
             cell.lbl_price.text = "\(LocalData.symbol)\(service.price)"
         }
         
         
-        if service.sale_price != nil && service.sale_price > 0 {
+        if service.sale_price != nil && service.sale_price! > 0.00 {
             if service.price_type != "Fixed"{
-                cell.lbl_price.text = service.price_type + " \(LocalData.symbol)\(service.sale_price)"
+                cell.lbl_SalePrice.text = service.price_type + " \(LocalData.symbol)\(service.sale_price ?? 0.00)"
             }else{
-                cell.lbl_price.text = "\(LocalData.symbol)\(service.sale_price)"
+                cell.lbl_SalePrice.text = "\(LocalData.symbol)\(service.sale_price ?? 0.00)"
             }
         }*/
         
+        cell.lbl_SalePrice.text = ""
+        cell.lbl_price.attributedText = nil
+        cell.lbl_price.textColor = .black
         
+        let price = Double(service.price) ?? 0.0
+        let salePrice = Double(service.sale_price) ?? 0.0
+        let priceType = service.price_type
+
+        // Price Label
+        if service.price_type != "Fixed" && Double(service.sale_price) ?? 0.0 > 0 {
+            cell.lbl_price.text = "\(service.price_type) \(LocalData.symbol)\(String(format: "%.2f", price))"
+        } else {
+            cell.lbl_price.text = "\(LocalData.symbol)\(String(format: "%.2f", price))"
+        }
+
+        // Sale Price Label
+        if salePrice > 0 {
+            if priceType != "Fixed" {
+                cell.lbl_SalePrice.text = "\(service.price_type) \(LocalData.symbol)\(String(format: "%.2f", salePrice))"
+            } else {
+                cell.lbl_SalePrice.text = "\(LocalData.symbol)\(String(format: "%.2f", salePrice))"
+            }
+
+            // Strike-through effect on the original price
+            let attributeString = NSMutableAttributedString(string: cell.lbl_price.text ?? "")
+            attributeString.addAttribute(.strikethroughStyle,
+                                         value: NSUnderlineStyle.single.rawValue,
+                                         range: NSMakeRange(0, attributeString.length))
+            cell.lbl_price.attributedText = attributeString
+        }
         
-        cell.lbl_price.text = "\(LocalData.symbol)\(service.price)"
+//        cell.lbl_price.text = "\(LocalData.symbol)\(service.price)"
         cell.Act_Edit = {
             let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddServiceVC") as! AddServiceVC
             addNew.isEdit = true

@@ -30,7 +30,7 @@ class SalesReportHistory_VC: UIViewController {
     var currentPage = 1
     var isLoadingMore = false
     var hasMoreData = true
-    
+    var deleteShownSales = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -204,6 +204,23 @@ class SalesReportHistory_VC: UIViewController {
         }
     }
 
+    func deleteBookings(Booking_Id: String){
+        APIService.shared.DeleteBooking(vendor_id: LocalData.userId, booking_id: Booking_Id) { result in
+            guard let model = result else {
+                return
+            }
+            self.hideLoader()
+            if model.error == "" || model.error == nil {
+                DispatchQueue.main.async {
+                    // safe UI code here
+                    self.showToast(message: model.data)
+                }
+                self.salesHistoryData(Search: "")
+            } else {
+                self.show_alert(msg: model.error ?? "", title: "Delete Team")
+            }
+        }
+    }
 }
 
 extension SalesReportHistory_VC: FSCalendarDelegate, FSCalendarDataSource {
@@ -262,6 +279,27 @@ extension SalesReportHistory_VC: FSCalendarDelegate, FSCalendarDataSource {
         }
         return dates
     }
+    
+    /*func deleteWalkingHistory(walkinId: Int){
+        APIService.shared.deleteWalkin(WalkinId: walkinId) { result in
+            guard let model = result else {
+                return
+            }
+            self.hideLoader()
+            if model.error == "" || model.error == nil {
+                DispatchQueue.main.async {
+                    // safe UI code here
+                    self.showToast(message: model.data)
+                }
+                self.WalkinHistory()
+            } else {
+                self.show_alert(msg: model.error ?? "", title: "Delete Team")
+            }
+        }
+    }*/
+    
+    
+    
 }
 
 extension SalesReportHistory_VC: UITableViewDelegate, UITableViewDataSource{
@@ -296,9 +334,11 @@ extension SalesReportHistory_VC: UITableViewDelegate, UITableViewDataSource{
         if data.booking_status.capitalized == "Completed"{
             cell.lbl_Status.textColor = UIColor.green
             cell.btn_Mail.isHidden = false
+//            cell.btn_Delete.isHidden = false
         }else{
             cell.lbl_Status.textColor = #colorLiteral(red: 1, green: 0.2941176471, blue: 0.3333333333, alpha: 1)
             cell.btn_Mail.isHidden = true
+//            cell.btn_Delete.isHidden = true
         }
         cell.lbl_Status.text = data.booking_status.capitalized
         
@@ -310,6 +350,12 @@ extension SalesReportHistory_VC: UITableViewDelegate, UITableViewDataSource{
         }
         cell.lbl_Total.text = "\(SharedPrefs.getSymbol())" +  String(Double(data.grand_total)!)
         
+        if deleteShownSales && data.booking_status.capitalized == "Completed"{
+            cell.btn_Delete.isHidden = false
+        } else {
+            cell.btn_Delete.isHidden = true
+        }
+
         cell.Act_Action = {
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
             if let vc = storyboard.instantiateViewController(withIdentifier: "Appointment_DetailsVC") as? Appointment_DetailsVC {
@@ -318,6 +364,19 @@ extension SalesReportHistory_VC: UITableViewDelegate, UITableViewDataSource{
                 vc.modalTransitionStyle = .crossDissolve
                 self.present(vc, animated: true)
             }
+        }
+        
+        cell.Act_Delete = {
+            let popup = ConfirmDeletePopupVC()
+            popup.modalPresentationStyle = .overFullScreen
+            popup.modalTransitionStyle = .crossDissolve
+            popup.titleText = "Are you sure you want to delete this booking?"
+            popup.onConfirm = {
+                print("Inventory confirmed delete")
+                // Call your delete logic here
+                self.deleteBookings(Booking_Id: String(data.id))
+            }
+            self.present(popup, animated: true, completion: nil)
         }
         
         cell.Act_Mail = {
