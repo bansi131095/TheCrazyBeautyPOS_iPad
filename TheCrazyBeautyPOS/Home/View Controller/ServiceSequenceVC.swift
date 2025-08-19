@@ -23,7 +23,7 @@ class ServiceSequenceVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 400 // or any dynamic value
+        contentViewWidthConstraint.constant = 100 // or any dynamic value
         self.setTableView()
         self.loadCategoryData()
         // Do any additional setup after loading the view.
