@@ -21,7 +21,7 @@ open class CountrySelectView: UIView {
     fileprivate var searchBarView = UISearchBar()
     fileprivate var regex = ""
     
-    fileprivate var _searchBarPlaceholder: String = "search"
+    fileprivate var _searchBarPlaceholder: String = "Search"
     public var searchBarPlaceholder: String{
         get{
             return _searchBarPlaceholder

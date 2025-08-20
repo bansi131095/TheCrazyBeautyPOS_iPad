@@ -22,7 +22,7 @@ class BookingVC: UIViewController {
         self.loadData()
         let loginTimeString = SharedPrefs.getLoginTime()
         let loginTime = loginTimeString.isEmpty ? Int(Date().timeIntervalSince1970 * 1000) : Int(loginTimeString) ?? 0
-        self.showProgressBar()
+//        self.showProgressBar()
         // Format page link
         let link = global.CAL_WEB_URL
         let pageLink = String(format: link, userId, token, loginTime)
@@ -46,7 +46,7 @@ class BookingVC: UIViewController {
         let request = URLRequest(url: requestUrl)
         showLoader()
         webView.load(request)
-        self.hideProgressBar()
+        self.hideLoader()
         // Web view settings are handled by WKWebView automatically,
         // unlike Android WebView which needs `settings`
     }
@@ -54,9 +54,7 @@ class BookingVC: UIViewController {
     
     //MARK: Load Api
     func loadData() {
-        showLoader()
         APIService.shared.getCurrency() { staffResult in
-            self.hideLoader()
             guard let model = staffResult else {
                 return
             }
@@ -88,16 +86,16 @@ class BookingVC: UIViewController {
     */
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        hideLoader() // stop loader when finished
+//        hideLoader() // stop loader when finished
     }
 
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        hideLoader()
+//        hideLoader()
         print("❌ Web loading failed:", error.localizedDescription)
     }
 
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        showLoader() // ensure loader starts when navigating
+//        showLoader() // ensure loader starts when navigating
     }
 
 }

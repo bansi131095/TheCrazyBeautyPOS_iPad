@@ -45,6 +45,7 @@ class AddServiceVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setRegularFont()
         /*if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
             lbl_vendorOnly.font = customFont
             
@@ -168,6 +169,19 @@ class AddServiceVC: UIViewController {
     }
     
     //MARK: Set Data
+    func setRegularFont(){
+        if let customFont = UIFont(name: "Lato-Regular", size: 22.0) {
+            txt_serviceName.font = customFont
+            txt_mainCategory.font = customFont
+            txt_serviceFor.font = customFont
+            txt_serviceDuration.font = customFont
+            txt_priceType.font = customFont
+            txt_regulatPrice.font = customFont
+            txt_salesPrice.font = customFont
+            staffTextField.font = customFont
+        }
+    }
+    
     func setData() {
 //        self.txt_serviceName.showLabel()
         self.txt_serviceName.setText(self.dictService?.service ?? "")

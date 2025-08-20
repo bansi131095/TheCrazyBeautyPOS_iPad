@@ -134,7 +134,7 @@ class Block_CustomerVC: UIViewController {
         let countryView = CountrySelectView.shared
         countryView.show()
         countryView.barTintColor = .gray
-        countryView.searchBarPlaceholder = "search"
+        countryView.searchBarPlaceholder = "Search"
         countryView.displayLanguage = .english
 
         countryView.selectedCountryCallBack = { countryDic in

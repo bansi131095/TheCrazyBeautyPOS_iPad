@@ -19,6 +19,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var genderTextField: TextInputLayout!
     @IBOutlet weak var emailTextField: TextInputLayout!
     @IBOutlet weak var dobTextField: TextInputLayout!
+    @IBOutlet weak var lbl_Visibility: UILabel!
     @IBOutlet weak var mobileTextField: TextInputLayout!
     @IBOutlet weak var flag_imgVw: UIImageView!
     @IBOutlet weak var btn_visibility: UIButton!
@@ -53,6 +54,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         super.viewDidLoad()
         print("serviceIds data: \(self.serviceIds)")
         setCustomFont()
+        setRegularFont()
         self.api_getBusinessHours()
         self.dobTextField.delegate = self
         setupGenderTextField()
@@ -110,6 +112,19 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
             btn_editService.titleLabel?.font = customFont
             btn_editSchedule.titleLabel?.font = customFont
             btn_addTimeOff.titleLabel?.font = customFont
+            lbl_Visibility.font = customFont
+        }
+    }
+    
+    func setRegularFont(){
+        if let customFont = UIFont(name: "Lato-Regular", size: 22.0) {
+            firstNameTextField.font = customFont
+            lastNameTextField.font = customFont
+            jobTitleTextField.font = customFont
+            emailTextField.font = customFont
+            dobTextField.font = customFont
+            mobileTextField.font = customFont
+            genderTextField.font = customFont
         }
     }
     
@@ -120,7 +135,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
             self.jobTitleTextField.text = dict.jobTitle
             if dict.serviceIds != ""{
                 let count = dict.serviceIds!.split(separator: ",").count
-                self.btn_editService.setTitle("Edit service (\(count))", for: .normal)
+                self.btn_editService.setTitle("Edit service", for: .normal)
             }else{
                 self.btn_editService.setTitle("Assign service", for: .normal)
             }
@@ -209,7 +224,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         countryView.show()
 //        countryView.dismiss() //dismiss the picker view
         countryView.barTintColor = .gray //default is green
-        countryView.searchBarPlaceholder = "serach" //default is "search"
+        countryView.searchBarPlaceholder = "Search" //default is "search"
         countryView.displayLanguage = .english //default is english
         countryView.selectedCountryCallBack = { countryDic in
             print(countryDic)
@@ -483,9 +498,13 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         calendar.dataSource = self
         calendar.translatesAutoresizingMaskIntoConstraints = false
         calendar.appearance.headerDateFormat = "MMMM yyyy"
-        calendar.appearance.todayColor = .systemBlue
-        calendar.appearance.selectionColor = .systemPurple
-
+//        calendar.appearance.todayColor = #colorLiteral(red: 0.7529411765, green: 0.7529411765, blue: 0.7529411765, alpha: 1)
+        calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
+        
+        calendar.scope = .month
+        calendar.scrollDirection = .horizontal   // default
+        calendar.appearance.headerMinimumDissolvedAlpha = 0.0
+        
         guard let calendarVC = calendarVC else { return }
         calendarVC.view.addSubview(calendar)
 
@@ -603,6 +622,15 @@ extension AddTeamVC: FSCalendarDelegate, FSCalendarDataSource {
         self.dobTextField.showLabel()
         calendarVC?.dismiss(animated: true)
     }
+    
+    func maximumDate(for calendar: FSCalendar) -> Date {
+        return Date() // today's date as max
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
+        return #colorLiteral(red: 0.7686, green: 0.4, blue: 0.8902, alpha: 1) // ← Your desired selection color
+    }
+    
 }
 
 extension AddTeamVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate{

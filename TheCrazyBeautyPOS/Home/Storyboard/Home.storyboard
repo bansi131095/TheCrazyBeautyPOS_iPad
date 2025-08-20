@@ -894,16 +894,16 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lK9-gc-mbc">
-                                        <rect key="frame" x="612" y="12.5" width="363" height="45"/>
+                                        <rect key="frame" x="777" y="12.5" width="198" height="45"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="The Style Factory" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Un-y7-JEy">
-                                                <rect key="frame" x="15" y="10" width="288" height="25"/>
+                                                <rect key="frame" x="15" y="10" width="138" height="25"/>
                                                 <color key="textColor" name="AppBlack"/>
                                                 <fontDescription key="fontDescription" name="Lato-Medium" family="Lato" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down" translatesAutoresizingMaskIntoConstraints="NO" id="S0W-5I-k2Z">
-                                                <rect key="frame" x="333" y="15" width="15" height="15"/>
+                                                <rect key="frame" x="168" y="15" width="15" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="15" id="WyM-Jq-sda"/>
                                                     <constraint firstAttribute="width" constant="15" id="jx3-Xa-wlx"/>
@@ -918,7 +918,7 @@
                                             <constraint firstAttribute="height" constant="45" id="jRa-uf-L2O"/>
                                             <constraint firstItem="5Un-y7-JEy" firstAttribute="leading" secondItem="lK9-gc-mbc" secondAttribute="leading" constant="15" id="qf2-5w-BjQ"/>
                                             <constraint firstItem="5Un-y7-JEy" firstAttribute="top" secondItem="lK9-gc-mbc" secondAttribute="top" constant="10" id="xQv-Cy-vPE"/>
-                                            <constraint firstItem="S0W-5I-k2Z" firstAttribute="leading" secondItem="5Un-y7-JEy" secondAttribute="trailing" constant="30" id="yrA-Kz-ZGa"/>
+                                            <constraint firstItem="S0W-5I-k2Z" firstAttribute="leading" secondItem="5Un-y7-JEy" secondAttribute="trailing" constant="15" id="yrA-Kz-ZGa"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -932,20 +932,10 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ijB-OK-477">
-                                        <rect key="frame" x="600" y="0.0" width="2" height="70"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="2" id="FAw-dZ-Efd"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fPV-CF-yd9">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="70"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="500" height="70"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="600" id="zlS-nE-iou"/>
+                                            <constraint firstAttribute="width" constant="500" id="zlS-nE-iou"/>
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <connections>
@@ -956,10 +946,8 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="Mqp-IR-g2s" firstAttribute="top" secondItem="eiD-Y7-ljE" secondAttribute="top" id="2om-td-b5j"/>
-                                    <constraint firstItem="lK9-gc-mbc" firstAttribute="leading" secondItem="fPV-CF-yd9" secondAttribute="trailing" constant="12" id="4kh-2D-qSU"/>
                                     <constraint firstItem="mcu-sI-2co" firstAttribute="top" secondItem="dey-Sm-AZ9" secondAttribute="top" constant="5" id="De9-Xg-15X"/>
                                     <constraint firstItem="eiD-Y7-ljE" firstAttribute="centerY" secondItem="dey-Sm-AZ9" secondAttribute="centerY" id="GtI-1M-6ji"/>
-                                    <constraint firstItem="ijB-OK-477" firstAttribute="top" secondItem="dey-Sm-AZ9" secondAttribute="top" id="Hgt-n9-PpY"/>
                                     <constraint firstAttribute="bottom" secondItem="fPV-CF-yd9" secondAttribute="bottom" id="JDu-cT-UG4"/>
                                     <constraint firstAttribute="trailing" secondItem="fDB-RI-XNJ" secondAttribute="trailing" constant="40" id="NTl-2h-Avp"/>
                                     <constraint firstItem="lK9-gc-mbc" firstAttribute="centerY" secondItem="dey-Sm-AZ9" secondAttribute="centerY" id="UJF-ug-h8y"/>
@@ -970,10 +958,8 @@
                                     <constraint firstItem="fPV-CF-yd9" firstAttribute="top" secondItem="dey-Sm-AZ9" secondAttribute="top" id="nBg-jr-5it"/>
                                     <constraint firstItem="fDB-RI-XNJ" firstAttribute="leading" secondItem="eiD-Y7-ljE" secondAttribute="trailing" constant="20" id="qzP-SX-zt2"/>
                                     <constraint firstItem="fDB-RI-XNJ" firstAttribute="centerY" secondItem="dey-Sm-AZ9" secondAttribute="centerY" id="suz-KN-jEC"/>
-                                    <constraint firstItem="lK9-gc-mbc" firstAttribute="leading" secondItem="ijB-OK-477" secondAttribute="trailing" constant="10" id="vMy-mN-uRr"/>
                                     <constraint firstAttribute="bottom" secondItem="mcu-sI-2co" secondAttribute="bottom" constant="5" id="w73-Nc-LFW"/>
                                     <constraint firstItem="eiD-Y7-ljE" firstAttribute="leading" secondItem="lK9-gc-mbc" secondAttribute="trailing" constant="20" id="x7R-3b-ifi"/>
-                                    <constraint firstAttribute="bottom" secondItem="ijB-OK-477" secondAttribute="bottom" id="z7Z-hh-USq"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5oL-aX-cmt">
@@ -4036,6 +4022,7 @@
                         <outlet property="img_teamMember" destination="kS6-GH-uKF" id="Ghk-cy-Ztv"/>
                         <outlet property="jobTitleTextField" destination="MoL-23-TD1" id="M8I-tb-CTq"/>
                         <outlet property="lastNameTextField" destination="YAU-cA-FfI" id="xyR-BV-oz0"/>
+                        <outlet property="lbl_Visibility" destination="nqZ-pG-Ibi" id="D9V-AZ-hfE"/>
                         <outlet property="lbl_title" destination="T88-5T-vMm" id="Ibz-pn-XR2"/>
                         <outlet property="mobileTextField" destination="fJ8-GH-caS" id="hfP-Ge-y0i"/>
                     </connections>
@@ -8132,23 +8119,23 @@
                                         <rect key="frame" x="0.0" y="0.0" width="1180" height="746"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KVX-Ub-og5">
-                                                <rect key="frame" x="30" y="20" width="1120" height="231"/>
+                                                <rect key="frame" x="30" y="20" width="1120" height="233"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Sales" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jVk-PV-Gxh">
-                                                        <rect key="frame" x="15" y="20" width="116" height="28"/>
+                                                        <rect key="frame" x="15" y="20" width="112.5" height="29"/>
                                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="24"/>
                                                         <color key="textColor" name="AppBlack"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGf-Tq-fWL">
-                                                        <rect key="frame" x="131" y="20" width="739" height="76"/>
+                                                        <rect key="frame" x="127.5" y="20" width="742.5" height="78"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <connections>
                                                             <action selector="btn_DeleteHideShow:" destination="llV-lq-vxG" eventType="touchUpInside" id="LHa-i5-o0X"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xgv-Wg-LFS">
-                                                        <rect key="frame" x="15" y="58" width="27" height="28"/>
+                                                        <rect key="frame" x="15" y="59" width="28" height="29"/>
                                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="24"/>
                                                         <color key="textColor" name="AppBlack"/>
                                                         <nil key="highlightedColor"/>
@@ -8165,7 +8152,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Download Report" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBQ-p2-a14">
-                                                                <rect key="frame" x="55" y="11" width="165" height="23.5"/>
+                                                                <rect key="frame" x="55" y="10.5" width="165" height="24"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                                                 <color key="textColor" name="AppWhite"/>
                                                                 <nil key="highlightedColor"/>
@@ -8205,7 +8192,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ece-GM-mKg">
-                                                        <rect key="frame" x="15" y="96" width="513.5" height="125"/>
+                                                        <rect key="frame" x="15" y="98" width="513.5" height="125"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W6O-py-Z8n">
                                                                 <rect key="frame" x="0.0" y="0.0" width="513.5" height="60"/>
@@ -8221,7 +8208,7 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P1S-TA-aJp">
-                                                                                <rect key="frame" x="50" y="17" width="67" height="26"/>
+                                                                                <rect key="frame" x="50" y="17" width="67" height="26.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="22"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
@@ -8259,7 +8246,7 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sales" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jD0-Pb-ESV">
-                                                                                <rect key="frame" x="50" y="17" width="65" height="26"/>
+                                                                                <rect key="frame" x="50" y="17" width="65" height="26.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="22"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
@@ -8297,7 +8284,7 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cqh-dY-6GM">
-                                                                                <rect key="frame" x="50" y="17" width="88" height="26"/>
+                                                                                <rect key="frame" x="50" y="17" width="88" height="26.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="22"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
@@ -8343,16 +8330,16 @@
                                                                 <rect key="frame" x="0.0" y="70" width="513.5" height="55"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YUp-07-vwA">
-                                                                        <rect key="frame" x="10" y="10" width="139" height="35"/>
+                                                                        <rect key="frame" x="10" y="10" width="145" height="35"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sales" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mmo-Zi-IRZ">
-                                                                                <rect key="frame" x="40" y="3.5" width="59" height="28"/>
+                                                                                <rect key="frame" x="40" y="3" width="65" height="29"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="24"/>
                                                                                 <color key="textColor" name="AccentColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ldr-3K-fEK">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="139" height="35"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="145" height="35"/>
                                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                 <connections>
                                                                                     <action selector="btn_Sales_Second:" destination="llV-lq-vxG" eventType="touchUpInside" id="KOV-JC-o5f"/>
@@ -8376,16 +8363,16 @@
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="atO-em-ISB">
-                                                                        <rect key="frame" x="169" y="10" width="151" height="35"/>
+                                                                        <rect key="frame" x="175" y="10" width="154.5" height="35"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Walkin" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWe-5a-SUr">
-                                                                                <rect key="frame" x="40" y="3.5" width="71" height="28"/>
+                                                                                <rect key="frame" x="40" y="3" width="74.5" height="29"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="24"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plT-Nt-5fM">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="151" height="35"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="154.5" height="35"/>
                                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                 <connections>
                                                                                     <action selector="btn_Walkin:" destination="llV-lq-vxG" eventType="touchUpInside" id="egl-59-d8W"/>
@@ -8409,16 +8396,16 @@
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pcs-Td-ZHo">
-                                                                        <rect key="frame" x="340" y="10" width="163.5" height="35"/>
+                                                                        <rect key="frame" x="349.5" y="10" width="154" height="35"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gift Card" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vNV-mN-CTZ">
-                                                                                <rect key="frame" x="28.5" y="3.5" width="106.5" height="28"/>
+                                                                                <rect key="frame" x="28.5" y="3" width="97" height="29"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="24"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cYX-Ot-Enj">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="163.5" height="35"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="154" height="35"/>
                                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                 <connections>
                                                                                     <action selector="btn_GiftCard:" destination="llV-lq-vxG" eventType="touchUpInside" id="b15-hD-0O6"/>
@@ -8466,7 +8453,7 @@
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qh2-Xl-MUm">
-                                                        <rect key="frame" x="528.5" y="96" width="591.5" height="135"/>
+                                                        <rect key="frame" x="528.5" y="98" width="591.5" height="135"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <connections>
                                                             <action selector="btn_DeleteHideShow:" destination="llV-lq-vxG" eventType="touchUpInside" id="Df7-yP-4Yo"/>
@@ -8504,7 +8491,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cAQ-PD-pvj">
-                                                <rect key="frame" x="30" y="271" width="1120" height="447"/>
+                                                <rect key="frame" x="30" y="273" width="1120" height="447"/>
                                                 <subviews>
                                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hWL-gn-L7J">
                                                         <rect key="frame" x="0.0" y="0.0" width="1120" height="447"/>
@@ -10744,7 +10731,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HAy-uh-6yC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-123" y="2446"/>
+            <point key="canvasLocation" x="-123.05084745762713" y="2445.3658536585367"/>
         </scene>
         <!--AddCoupon_VC-->
         <scene sceneID="658-eo-rx7">
@@ -13488,8 +13475,8 @@
         <image name="Search" width="24" height="24"/>
         <image name="arrow.down" catalog="system" width="118" height="128"/>
         <image name="back" width="78" height="79"/>
-        <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="calendar" width="72" height="72"/>
+        <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="cat_back" width="602" height="602"/>
         <image name="close" width="64" height="64"/>
         <image name="down" width="20" height="11"/>
@@ -13561,13 +13548,13 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGrayColor">
-            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

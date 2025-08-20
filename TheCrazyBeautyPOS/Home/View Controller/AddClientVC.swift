@@ -151,7 +151,7 @@ class AddClientVC: UIViewController {
         countryView.show()
 //        countryView.dismiss() //dismiss the picker view
         countryView.barTintColor = .gray //default is green
-        countryView.searchBarPlaceholder = "serach" //default is "search"
+        countryView.searchBarPlaceholder = "Search" //default is "search"
         countryView.displayLanguage = .english //default is english
         countryView.selectedCountryCallBack = { countryDic in
             print(countryDic)
@@ -426,5 +426,13 @@ extension AddClientVC: FSCalendarDelegate, FSCalendarDataSource {
         self.dobTextField.text = formatter.string(from: selectedDate)
         self.dobTextField.showLabel()
         calendarVC?.dismiss(animated: true)
+    }
+    
+    func maximumDate(for calendar: FSCalendar) -> Date {
+        return Date() // today's date as max
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
+        return #colorLiteral(red: 0.7686, green: 0.4, blue: 0.8902, alpha: 1) // ← Your desired selection color
     }
 }

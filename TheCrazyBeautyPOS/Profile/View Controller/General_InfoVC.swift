@@ -118,7 +118,7 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         countryView.show()
 //        countryView.dismiss() //dismiss the picker view
         countryView.barTintColor = .gray //default is green
-        countryView.searchBarPlaceholder = "serach" //default is "search"
+        countryView.searchBarPlaceholder = "Search" //default is "search"
         countryView.displayLanguage = .english //default is english
         countryView.selectedCountryCallBack = { countryDic in
             print(countryDic)
