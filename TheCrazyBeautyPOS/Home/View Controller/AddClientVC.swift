@@ -35,11 +35,14 @@ class AddClientVC: UIViewController {
     var isEdit = false
     var calendarVC: UIViewController?
     var selectedDate: Date = Date.now
-    
+    var years: [Int] = []
+    var calendar: FSCalendar!
     
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        let currentYear = Calendar.current.component(.year, from: Date())
+        years = Array(1900...currentYear)
         self.dobTextField.delegate = self
         setupGenderTextField()
         setupDropdownTable()
@@ -175,21 +178,77 @@ class AddClientVC: UIViewController {
     func showCalendarPopup(sourceView: UIView) {
         calendarVC = UIViewController()
         calendarVC?.modalPresentationStyle = .popover
-        calendarVC?.preferredContentSize = CGSize(width: 500, height: 400)
-
-        let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 500, height: 400))
+        calendarVC?.preferredContentSize = CGSize(width: 500, height: 460)
+        calendarVC?.view.backgroundColor = .white
+//        let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 500, height: 400))
+        calendar = FSCalendar(frame: .zero)
         calendar.delegate = self
         calendar.dataSource = self
+        calendar.translatesAutoresizingMaskIntoConstraints = false
+        calendar.appearance.headerDateFormat = "MMMM yyyy"
         calendar.select(selectedDate)
-        calendarVC?.view.addSubview(calendar)
+//        calendarVC?.view.addSubview(calendar)
 
-        if let popover = calendarVC?.popoverPresentationController {
+        calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
+        
+        calendar.scope = .month
+        calendar.scrollDirection = .horizontal   // default
+        calendar.appearance.headerMinimumDissolvedAlpha = 0.0
+        
+        guard let calendarVC = calendarVC else { return }
+        calendarVC.view.addSubview(calendar)
+
+        // ✅ Year tap area over calendar header
+        let headerTapButton = UIButton()
+        headerTapButton.backgroundColor = .clear
+        headerTapButton.translatesAutoresizingMaskIntoConstraints = false
+        headerTapButton.addTarget(self, action: #selector(headerTapped), for: .touchUpInside)
+        calendarVC.view.addSubview(headerTapButton)
+
+        // 📌 Constraints
+        NSLayoutConstraint.activate([
+            calendar.topAnchor.constraint(equalTo: calendarVC.view.topAnchor),
+            calendar.leadingAnchor.constraint(equalTo: calendarVC.view.leadingAnchor),
+            calendar.trailingAnchor.constraint(equalTo: calendarVC.view.trailingAnchor),
+            calendar.bottomAnchor.constraint(equalTo: calendarVC.view.bottomAnchor),
+
+            headerTapButton.topAnchor.constraint(equalTo: calendar.topAnchor, constant: 20),
+            headerTapButton.leadingAnchor.constraint(equalTo: calendar.leadingAnchor),
+            headerTapButton.trailingAnchor.constraint(equalTo: calendar.trailingAnchor),
+            headerTapButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        if let popover = calendarVC.popoverPresentationController {
             popover.sourceView = sourceView
             popover.sourceRect = sourceView.bounds
             popover.permittedArrowDirections = .up
         }
 
-        self.present(calendarVC!, animated: true, completion: nil)
+        self.present(calendarVC, animated: true, completion: nil)
+    }
+    
+    @objc func headerTapped() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
+            guard let self = self else { return }
+
+            //let currentYear = Calendar.current.component(.year, from: Date())
+            //self.years = [currentYear]
+            
+            let alert = UIAlertController(title: "Select Year", message: "\n\n\n\n\n\n", preferredStyle: .alert)
+
+            let picker = UIPickerView(frame: CGRect(x: 5, y: 20, width: 250, height: 140))
+            picker.dataSource = self
+            picker.delegate = self
+            alert.view.addSubview(picker)
+
+            let currentYear = Calendar.current.component(.year, from: self.calendar.currentPage)
+            if let index = self.years.firstIndex(of: currentYear) {
+                picker.selectRow(index, inComponent: 0, animated: false)
+            }
+
+            // ✅ Present from calendarVC (not self), safely
+            self.calendarVC?.present(alert, animated: true)
+        }
     }
     
     func setEditData() {
@@ -407,7 +466,7 @@ extension AddClientVC: UITextFieldDelegate {
     // MARK: - UITextFieldDelegate
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if (textField == dobTextField) {
-            self.view.endEditing(true)
+//            self.view.endEditing(true)
             showCalendarPopup(sourceView: textField)
             return false // Prevent keyboard
         } else {
@@ -428,6 +487,11 @@ extension AddClientVC: FSCalendarDelegate, FSCalendarDataSource {
         calendarVC?.dismiss(animated: true)
     }
     
+    func minimumDate(for calendar: FSCalendar) -> Date {
+        // ✅ Allow earliest year 1900
+        return Calendar.current.date(from: DateComponents(year: 1900, month: 1, day: 1))!
+    }
+    
     func maximumDate(for calendar: FSCalendar) -> Date {
         return Date() // today's date as max
     }
@@ -436,3 +500,29 @@ extension AddClientVC: FSCalendarDelegate, FSCalendarDataSource {
         return #colorLiteral(red: 0.7686, green: 0.4, blue: 0.8902, alpha: 1) // ← Your desired selection color
     }
 }
+
+extension AddClientVC: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return years.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "\(years[row])"
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let selectedYear = self.years[row]
+        var components = Calendar.current.dateComponents([.month], from: self.calendar.currentPage)
+        components.year = selectedYear
+        components.day = 1
+        if let date = Calendar.current.date(from: components) {
+            self.calendar.setCurrentPage(date, animated: true)
+        }
+        self.calendarVC?.dismiss(animated: true)
+    }
+}
+

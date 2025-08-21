@@ -238,6 +238,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
     }
     
     func didClearData() {
+        self.showToast(message: "Booking completed successfully")
         // 1. Clear cart data
         self.cartDataList.removeAll()
 

@@ -322,7 +322,6 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             txt_SalonType.font = customFont
             txt_MobileNumber.font = customFont
             txt_Address.font = customFont
-            txt_Aboutus.font = customFont
         }
     }
     

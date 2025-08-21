@@ -124,6 +124,8 @@ class WalkinCheckoutVC: UIViewController {
     
     @IBAction func act_save(_ sender: GradientButton) {
         if !isButtonDisabled {
+            sender.isEnabled = false
+            print("Tapped!")
             self.AddServiceData()
         }
     }
@@ -369,8 +371,9 @@ class WalkinCheckoutVC: UIViewController {
                 if model.error == "" || model.error == nil {
                     DispatchQueue.main.async {
                         // safe UI code here
-                        self.showToast(message: model.data?.message ?? "")
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                        self.showToast(message: model.data?.message ?? "")
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        DispatchQueue.main.asyncAfter(deadline: .now()) {
                             self.delegate?.didClearData()
                             self.dismiss(animated: true)
                         }

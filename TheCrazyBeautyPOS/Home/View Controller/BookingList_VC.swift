@@ -46,6 +46,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     @IBOutlet weak var cv_Height: NSLayoutConstraint!
     
     //MARK: - Global Variable
+    
     var bookingId = String()
     var pastBookingsArray: [ClientBookingModelData] = []
     var futureBookingsArray: [ClientBookingModelData] = []
@@ -90,7 +91,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
         vw_Rebook.isHidden = true
         
         self.tbl_vw2.isHidden = true
-        vw_Client.constant = 1200
+        vw_Client.constant = 950
         apiPastBookingList(is_past: "1", search: "")
         setTableView()
         setCollectCategory()
@@ -99,7 +100,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     
     //MARK: -  Button Action
     @IBAction func btn_PastBooking(_ sender: UIButton) {
-        vw_Client.constant = 1200
+        vw_Client.constant = 950
         apiPastBookingList(is_past: "1", search: "")
         lbl_Title.text = "Client Past Bookings"
         lbl_PastBooking.textColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
@@ -111,7 +112,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     }
     
     @IBAction func btn_FutureBooking(_ sender: UIButton) {
-        vw_Client.constant = 1100
+        vw_Client.constant = 750
         apifutureBookingsList(is_past: "0", search: "")
         lbl_Title.text = "Client Future Bookings"
         lbl_FutureBooking.textColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
@@ -241,12 +242,13 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             if newItems.isEmpty{
                 self.tbl_vw.isHidden = true
                 self.tbl_vw2.isHidden = true
-                self.showNoDataMessage("No more data found")
+                self.showNoDataMessage("No more data found", in: self.view)
             }else{
                 self.pastBookingsArray = newItems
                 self.tbl_vw.isHidden = false
                 self.tbl_vw.reloadData()
                 self.tbl_vw2.isHidden = true
+                self.hideNoDataMessage()
             }
         }
     }
@@ -262,12 +264,13 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             if newItems.isEmpty{
                 self.tbl_vw.isHidden = true
                 self.tbl_vw2.isHidden = true
-                self.showNoDataMessage("No more data found")
+                self.showNoDataMessage("No more data found", in: self.view)
             }else{
                 self.futureBookingsArray = newItems
                 self.tbl_vw.isHidden = true
                 self.tbl_vw2.reloadData()
                 self.tbl_vw2.isHidden = false
+                self.hideNoDataMessage()
             }
         }
     }
@@ -283,6 +286,39 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             
         }
     }
+    
+    /*func get_Staff(id: String) {
+        self.showLoader()
+        
+        APIService.shared.fetchStaffList(service_id: id) { result in
+            self.hideLoader()
+            
+            guard let model = result else { return }
+            
+            // Map response into StaffListResponseModel
+            let staffListMapped: [StaffListResponseModel] = model.data.map { dataItem in
+                // Check if the staff's ID is present in the "services" list
+                let isFavorite: Bool
+                if let services = dataItem.services {
+                    let serviceIds = services.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
+                    isFavorite = serviceIds.contains(id)   // 👈 compare with requested service_id
+                } else {
+                    isFavorite = false
+                }
+                
+                // Create and return StaffListResponseModel safely
+                return StaffListResponseModel(
+                    id: Int(dataItem.id ?? 0),
+                    fullname: dataItem.fullname ?? "Unknown",
+                    isFavorite: isFavorite,
+                )!
+            }
+            
+            self.staffList = staffListMapped
+        }
+    }*/
+
+
     
     /*func getTimeSlots(duration:String,full_date:String,staff_id:String) {
         APIService.shared.TimeSlot(duration: duration, full_date: full_date, staff_id: staff_id) { result in
@@ -309,7 +345,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
                 self.cv_AvailableTime.isHidden = true
                 
                 // Show "No slots available"
-                self.showNoDataMessage("No time slots available")
+                self.showNoDataMessage("No time slots available", in: self.view)
             } else {
                 self.cv_AvailableTime.isHidden = false
             }
@@ -332,7 +368,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
        var itemArray: [String] = []
 
        for i in self.staffList {
-           itemArray.append(i.fullname ?? "")
+           itemArray.append(i.fullname?.capitalized ?? "")
        }
 
        let slotDuration = DropDown()
@@ -558,7 +594,7 @@ extension BookingList_VC: UITextFieldDelegate {
 }
 
 extension UIViewController{
-    func showNoDataMessage(_ message: String) {
+    /*func showNoDataMessage(_ message: String) {
         let label = UILabel()
         label.text = message
         label.textAlignment = .center
@@ -568,10 +604,45 @@ extension UIViewController{
         self.view.addSubview(label)
         
         // Remove after few seconds if you want
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        /*DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             label.removeFromSuperview()
+        }*/
+    }*/
+    
+    
+    
+
+    func showNoDataMessage(_ message: String, in parentView: UIView) {
+        // If already exists, don’t add again
+        if global.shared.noDataLabel == nil {
+            let label = UILabel()
+            label.textAlignment = .center
+            label.textColor = .gray
+            label.font = UIFont(name: "Lato-Medium", size: 18.0)
+            label.numberOfLines = 0
+            label.translatesAutoresizingMaskIntoConstraints = false
+            parentView.addSubview(label)
+            
+            // Center label in parent view
+            NSLayoutConstraint.activate([
+                label.centerXAnchor.constraint(equalTo: parentView.centerXAnchor),
+                label.centerYAnchor.constraint(equalTo: parentView.centerYAnchor),
+                label.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: 20),
+                label.trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant: -20)
+            ])
+            
+            global.shared.noDataLabel = label
         }
+        
+        global.shared.noDataLabel?.text = message
+        global.shared.noDataLabel?.isHidden = false
     }
+
+    func hideNoDataMessage() {
+        global.shared.noDataLabel?.isHidden = true
+    }
+
+    
 }
 
 extension BookingList_VC : UICollectionViewDelegate, UICollectionViewDataSource {

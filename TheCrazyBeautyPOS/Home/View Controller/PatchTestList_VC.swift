@@ -61,11 +61,12 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
             let newItems = model.data
             if newItems.isEmpty{
                 self.tbl_vw.isHidden = true
-                self.showNoDataMessage("No more data found")
+                self.showNoDataMessage("No more data found", in: self.view)
             }else{
                 self.teamList = result?.data ?? []
                 self.tbl_vw.isHidden = false
                 self.tbl_vw.reloadData()
+                self.hideNoDataMessage()
             }
         }
     }

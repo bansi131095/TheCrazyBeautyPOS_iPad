@@ -2696,12 +2696,12 @@ class FloatingTextView: UIView, UITextViewDelegate {
         textView.delegate = self
         textView.backgroundColor = .clear
         textView.textContainerInset = UIEdgeInsets(top: 35, left: 24, bottom: 10, right: 24)
-        textView.font = UIFont.systemFont(ofSize: 16)
+        textView.font = UIFont(name: "Lato-Regular", size: 20.0)
         addSubview(textView)
 
         // Configure Placeholder Label
         placeholderLabel.text = placeholder
-        placeholderLabel.font = UIFont.systemFont(ofSize: 20)
+        placeholderLabel.font = UIFont(name: "Lato-Regular", size: 20.0)
         placeholderLabel.textColor = .gray
         placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(placeholderLabel)

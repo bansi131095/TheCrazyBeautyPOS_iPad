@@ -37,8 +37,8 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     var selectedCountrycode = "+353"
     var calendar: FSCalendar!
     var calendarVC: UIViewController?
-    var years: [Int] = Array(1900...2030)
-
+    var years: [Int] = []
+    
     var selectedDate: Date = Date.now
     var isEdit = false
     var serviceIds = String()
@@ -52,7 +52,8 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     //MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("serviceIds data: \(self.serviceIds)")
+        let currentYear = Calendar.current.component(.year, from: Date())
+        years = Array(1900...currentYear)
         setCustomFont()
         setRegularFont()
         self.api_getBusinessHours()
@@ -117,7 +118,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     }
     
     func setRegularFont(){
-        if let customFont = UIFont(name: "Lato-Regular", size: 22.0) {
+        if let customFont = UIFont(name: "Lato-Regular", size: 20.0) {
             firstNameTextField.font = customFont
             lastNameTextField.font = customFont
             jobTitleTextField.font = customFont
@@ -512,7 +513,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         let headerTapButton = UIButton()
         headerTapButton.backgroundColor = .clear
         headerTapButton.translatesAutoresizingMaskIntoConstraints = false
-//        headerTapButton.addTarget(self, action: #selector(headerTapped), for: .touchUpInside)
+        headerTapButton.addTarget(self, action: #selector(headerTapped), for: .touchUpInside)
         calendarVC.view.addSubview(headerTapButton)
 
         // 📌 Constraints
@@ -542,6 +543,9 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
             guard let self = self else { return }
 
+            //let currentYear = Calendar.current.component(.year, from: Date())
+            //self.years = [currentYear]
+            
             let alert = UIAlertController(title: "Select Year", message: "\n\n\n\n\n\n", preferredStyle: .alert)
 
             let picker = UIPickerView(frame: CGRect(x: 5, y: 20, width: 250, height: 140))
@@ -621,6 +625,11 @@ extension AddTeamVC: FSCalendarDelegate, FSCalendarDataSource {
         self.dobTextField.text = formatter.string(from: selectedDate)
         self.dobTextField.showLabel()
         calendarVC?.dismiss(animated: true)
+    }
+    
+    func minimumDate(for calendar: FSCalendar) -> Date {
+        // ✅ Allow earliest year 1900
+        return Calendar.current.date(from: DateComponents(year: 1900, month: 1, day: 1))!
     }
     
     func maximumDate(for calendar: FSCalendar) -> Date {
