@@ -75,7 +75,7 @@ class GiftCardVC: UIViewController {
             showLoader()
         }
 
-        APIService.shared.getGiftCardDetails(page: "\(currentPage)", limit: "15", vendorId: LocalData.userId, search: Search){ staffResult in
+        APIService.shared.getGiftCardDetails(page: "\(currentPage)", limit: "10", vendorId: LocalData.userId, search: Search){ staffResult in
             self.hideLoader()
             guard let model = staffResult else {
                 self.isLoadingMore = false
@@ -174,7 +174,7 @@ extension GiftCardVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
         guard let cell = tbl_vw.dequeueReusableCell(withIdentifier: "GiftCardCell", for: indexPath) as? GiftCardCell else {
             return UITableViewCell()
         }
-        let giftCard = self.giftCardList[indexPath.item]
+        let giftCard = self.giftCardList[indexPath.row]
         cell.lbl_no.text = "\(indexPath.row+1)"
         cell.lbl_name.text = giftCard.card_name
         cell.lbl_price.text = "\(LocalData.symbol)\(giftCard.price)"

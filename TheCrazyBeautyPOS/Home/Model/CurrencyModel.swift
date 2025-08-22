@@ -1015,6 +1015,11 @@ class StaffListResponseModel: Mappable {
     }
 }
 
+struct SpinnerStaffModel {
+    let id: Int?
+    let fullname: String
+    let isFavorite: Bool
+}
 
 class TeamListModel: Mappable {
     

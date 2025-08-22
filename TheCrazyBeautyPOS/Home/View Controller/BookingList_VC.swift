@@ -45,6 +45,12 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     
     @IBOutlet weak var cv_Height: NSLayoutConstraint!
     
+    @IBOutlet weak var vw_NoDate: UIView!
+    @IBOutlet weak var lbl_AvailableTime: UILabel!
+    
+    @IBOutlet weak var btn_Booking: GradientButton!
+    
+    @IBOutlet weak var tbl_Rebook: UITableView!
     //MARK: - Global Variable
     
     var bookingId = String()
@@ -55,7 +61,8 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     var calendarVC: UIViewController?
     var selectedDate: Date = Date.now
     
-    var staffList: [StaffListResponseModel] = []
+//    var staffList: [StaffListResponseModel] = []
+    var staffList: [SpinnerStaffModel] = []
     var timeSlotList: [TimeSlotModel] = []
     let dropDown = DropDown()
     
@@ -86,11 +93,13 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setRegularFont()
         vw_TitleRebook.isHidden = true
         vw_MainPopup.isHidden = true
         vw_Rebook.isHidden = true
-        
+        vw_NoDate.isHidden = true
         self.tbl_vw2.isHidden = true
+        self.tbl_Rebook.isHidden = true
         vw_Client.constant = 950
         apiPastBookingList(is_past: "1", search: "")
         setTableView()
@@ -135,7 +144,9 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     }
     
     @IBAction func btn_Staff(_ sender: Any) {
-        openStaff()
+        self.tbl_Rebook.isHidden = false
+        self.tbl_Rebook.reloadData()
+//        openStaff()
     }
     
     @IBAction func btn_BookingAppointment(_ sender: Any) {
@@ -219,6 +230,12 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
         tbl_vw2.rowHeight = UITableView.automaticDimension
         tbl_vw2.estimatedRowHeight = 60
         
+        tbl_Rebook.register(UINib(nibName: "RebookListCell", bundle: nil), forCellReuseIdentifier: "RebookListCell")
+        tbl_Rebook.register(UINib(nibName: "RebookListHeaderCell", bundle: nil), forHeaderFooterViewReuseIdentifier: "RebookListHeaderCell")
+        tbl_Rebook.delegate = self
+        tbl_Rebook.dataSource = self
+        tbl_Rebook.rowHeight = UITableView.automaticDimension
+        tbl_Rebook.estimatedRowHeight = 50
     }
     
     
@@ -229,6 +246,12 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     }
     
     
+    func setRegularFont(){
+        if let customFont = UIFont(name: "Lato-Regular", size: 20.0) {
+            txt_DateOfBirth.font = customFont
+            txt_Staff.font = customFont
+        }
+    }
     
     //MARK: - Web Api Calling
     func apiPastBookingList(is_past:String,search:String){
@@ -275,7 +298,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
         }
     }
     
-    func get_Staff(id:String){
+    /*func get_Staff(id:String){
         self.showLoader()
         APIService.shared.fetchStaffList(service_id: id) { result in
             self.hideLoader()
@@ -285,7 +308,42 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             self.staffList = result?.data ?? []
             
         }
+    }*/
+    
+    func get_Staff(id: String) {
+        self.showLoader()
+        APIService.shared.fetchStaffList(service_id: id) { result in
+            self.hideLoader()
+            guard let model = result else {
+                return
+            }
+            
+            // Map staff into SpinnerStaffModel list
+            let mappedList = model.data.map { staff -> SpinnerStaffModel in
+                let isFavorite: Bool = staff.services?
+                    .split(separator: ",")
+                    .map { $0.trimmingCharacters(in: .whitespaces) }
+                    .contains(id) ?? false
+                print("isFavorite:-**-**-\(isFavorite)")
+                return SpinnerStaffModel(
+                    id: staff.id,
+                    fullname: staff.fullname ?? "Unknown",
+                    isFavorite: isFavorite
+                    
+                    
+                )
+            } ?? []
+            
+            self.staffList = mappedList
+            
+            // Reload UI if needed
+            DispatchQueue.main.async {
+                self.tbl_Rebook.reloadData()
+            }
+        }
     }
+
+    
     
     /*func get_Staff(id: String) {
         self.showLoader()
@@ -342,12 +400,19 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             
             if self.timeSlotList.isEmpty {
                 // Hide collection view if no slots
+                self.lbl_AvailableTime.isHidden = true
                 self.cv_AvailableTime.isHidden = true
                 
                 // Show "No slots available"
-                self.showNoDataMessage("No time slots available", in: self.view)
+                self.vw_NoDate.isHidden = false
+                self.btn_Booking.isUserInteractionEnabled = false
+                self.btn_Booking.alpha = 0.5
             } else {
+                self.vw_NoDate.isHidden = true
+                self.lbl_AvailableTime.isHidden = false
                 self.cv_AvailableTime.isHidden = false
+                self.btn_Booking.isUserInteractionEnabled = true
+                self.btn_Booking.alpha = 1.0
             }
             
             self.cv_AvailableTime.reloadData()
@@ -368,7 +433,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
        var itemArray: [String] = []
 
        for i in self.staffList {
-           itemArray.append(i.fullname?.capitalized ?? "")
+           itemArray.append(i.fullname)
        }
 
        let slotDuration = DropDown()
@@ -383,7 +448,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
            txt_Staff.text = item
            for i in self.staffList {
                if i.fullname == item {
-                   txt_Staff.text = i.fullname?.capitalized
+                   txt_Staff.text = i.fullname
                    self.vw_Date.isHidden = false
                    self.vw_AvailableTime.isHidden = false
                    self.cv_AvailableTime.isHidden = false
@@ -436,6 +501,17 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             return []
         }
     }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == tbl_Rebook {
+            let sectionHeaderHeight: CGFloat = 0 // apne header ki height dalna
+            if scrollView.contentOffset.y <= sectionHeaderHeight,
+               scrollView.contentOffset.y >= 0 {
+                scrollView.contentInset = UIEdgeInsets(top: -scrollView.contentOffset.y, left: 0, bottom: 0, right: 0)
+            } else if scrollView.contentOffset.y >= sectionHeaderHeight {
+                scrollView.contentInset = UIEdgeInsets(top: -sectionHeaderHeight, left: 0, bottom: 0, right: 0)
+            }
+        }
+    }
 }
 
 extension BookingList_VC : UITableViewDelegate,UITableViewDataSource{
@@ -447,11 +523,22 @@ extension BookingList_VC : UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == tbl_vw{
             return self.pastBookingsArray.count
-        }else{
+        }else if tableView == tbl_vw2{
             return self.futureBookingsArray.count
+        }else{
+            return self.staffList.count
         }
     }
+    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        if tableView == tbl_Rebook{
+            return 0
+        }
+        return 50
+    }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UITableView.automaticDimension
+    }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if tableView == tbl_vw{
             guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ClientPastBookingsHeaderCell") as? ClientPastBookingsHeaderCell else {
@@ -460,6 +547,11 @@ extension BookingList_VC : UITableViewDelegate,UITableViewDataSource{
                 return header
         }else if tableView == tbl_vw2{
             guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ClientFutureBookingsHeaderCell") as? ClientFutureBookingsHeaderCell else {
+                    return nil
+                }
+                return header
+        }else {
+            guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "RebookListHeaderCell") as? RebookListHeaderCell else {
                     return nil
                 }
                 return header
@@ -521,8 +613,7 @@ extension BookingList_VC : UITableViewDelegate,UITableViewDataSource{
             staffBookingArray = data.staff_booking ?? ""
             cell.lbl_GrandTotal.text = "\(LocalData.symbol)\(data.grand_total ?? "")"
             return cell
-        }
-        else{
+        }else if tableView == tbl_vw2{
             guard let cell = tbl_vw2.dequeueReusableCell(withIdentifier: "ClientFutureBookingsCell", for: indexPath) as? ClientFutureBookingsCell else {
                 return UITableViewCell()
             }
@@ -563,6 +654,40 @@ extension BookingList_VC : UITableViewDelegate,UITableViewDataSource{
             }
             cell.lbl_GrandTotal.text = "\(LocalData.symbol)\(data.grand_total ?? "")"
             return cell
+        }else {
+            guard let cell = tbl_Rebook.dequeueReusableCell(withIdentifier: "RebookListCell", for: indexPath) as? RebookListCell else {
+                return UITableViewCell()
+            }
+            let data = self.staffList[indexPath.row]
+            cell.lbl_FullName.text = data.fullname.capitalized
+            cell.img_Heart.isHidden = true
+            if data.isFavorite == true{
+                cell.img_Heart.isHidden = false
+            }else{
+                cell.img_Heart.isHidden = true
+            }
+            return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == tbl_Rebook{
+            let data = self.staffList[indexPath.row]
+            self.txt_Staff.text = data.fullname
+            self.tbl_Rebook.isHidden = true
+            self.vw_Date.isHidden = false
+            self.vw_AvailableTime.isHidden = false
+            self.cv_AvailableTime.isHidden = false
+            self.vw_Save.isHidden = false
+            self.selectedTimeIndex = nil
+            self.cv_AvailableTime.reloadData()
+            self.vw_HeightRebook.constant = 560
+            let formatter = DateFormatter()
+                formatter.dateFormat = "dd-MM-yyyy"
+             txt_DateOfBirth.text = formatter.string(from: Date())
+             txt_DateOfBirth.showLabel()
+            getTimeSlots(duration: duration, full_date: self.txt_DateOfBirth.text ?? "", staff_id: staff_id)
+            cv_Height.constant = 180
         }
     }
 }
@@ -577,6 +702,11 @@ extension BookingList_VC: FSCalendarDelegate, FSCalendarDataSource {
         self.txt_DateOfBirth.showLabel()
         getTimeSlots(duration: duration, full_date: self.txt_DateOfBirth.text ?? "", staff_id: staff_id)
         calendarVC?.dismiss(animated: true)
+    }
+    
+    
+    func minimumDate(for calendar: FSCalendar) -> Date {
+        return Date()
     }
 }
 
@@ -702,3 +832,4 @@ struct StaffBooking: Codable {
     let duration: String
     let is_fav: Int
 }
+

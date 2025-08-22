@@ -97,7 +97,7 @@ class BookingDetailsPopupVC: UIViewController {
             }
             if dict.discountAmount != "0.00", dict.discountAmount != "0" {
                 self.vw_discount.isHidden = false
-                self.lbl_discount.text = "\(LocalData.symbol) \(dict.discountAmount ?? "")"
+                self.lbl_discount.text = "\(LocalData.symbol) \(dict.discountAmount ?? "").00"
             } else {
                 self.vw_discount.isHidden = true
             }
@@ -120,7 +120,7 @@ class BookingDetailsPopupVC: UIViewController {
             if dict.bookingStatus == "booked" {
                 if dict.paidAmount != "0.00", dict.paidAmount != "0" {
                     self.vw_paidAmount.isHidden = false
-                    self.lbl_paidAmount.text = "\(LocalData.symbol) \(dict.paidAmount ?? "")"
+                    self.lbl_paidAmount.text = "\(LocalData.symbol) \(Double(dict.paidAmount ?? "") ?? 00)0"
                 } else {
                     self.vw_paidAmount.isHidden = true
                 }

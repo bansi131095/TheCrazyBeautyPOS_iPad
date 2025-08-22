@@ -141,6 +141,13 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
                 self.btn_editService.setTitle("Assign service", for: .normal)
             }
             
+            if let visibility = dict.showCustomer, visibility == 1 {
+                self.btn_visibility.setImage(UIImage(named: "rdCheck"), for: .normal)
+            } else {
+                self.btn_visibility.setImage(UIImage(named: "rdUncheck"), for: .normal)
+            }
+            
+            
             self.emailTextField.text = dict.email
             if var phoneno = dict.phone {
                 if !phoneno.isEmpty && phoneno.count >= 3 {
@@ -380,6 +387,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
          if let image = self.img_teamMember.image {
              APIService.shared.updateTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: self.btn_visibility.currentImage == UIImage(named: "rdCheck") ? "1" : "0", showInCalendar: "1", serviceIds: self.serviceIds, workingHours: self.workingHoursJson, shiftTimings: self.shiftTimingJson, image: image, imageKey: "file", teamId: "\(self.dictStaff!.id ?? 0)") { response in
                  self.hideLoader()
+                 print("Image:- \(image)")
                  if response != nil {
                     DispatchQueue.main.async {
                         // safe UI code here

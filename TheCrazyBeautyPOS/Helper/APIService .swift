@@ -368,7 +368,7 @@ class APIService {
     }
     
     
-    func addTeamData(firstName: String, lastName: String, vendorId: String, email: String, jobTitle: String, gender: String, dob: String, phone: String, showCustomer: String, showInCalendar: String, serviceIds: String, workingHours: String, shiftTimings: String, image: UIImage?, imageKey: String = "photo", completion: @escaping (AddMemberModel?) -> Void) {
+    func addTeamData(firstName: String, lastName: String, vendorId: String, email: String, jobTitle: String, gender: String, dob: String, phone: String, showCustomer: String, showInCalendar: String, serviceIds: String, workingHours: String, shiftTimings: String, image: UIImage?, imageKey: String = "file", completion: @escaping (AddMemberModel?) -> Void) {
         let url = global.shared.URL_ADD_TEAM
         
         let params: [String: Any] = [
@@ -437,7 +437,94 @@ class APIService {
         }
     }
     
-    func updateTeamData(firstName: String, lastName: String, vendorId: String, email: String, jobTitle: String, gender: String, dob: String, phone: String, showCustomer: String, showInCalendar: String, serviceIds: String, workingHours: String, shiftTimings: String, image: UIImage?, imageKey: String = "photo", teamId: String, completion: @escaping (CommonResponse?) -> Void) {
+    func updateTeamData(
+        firstName: String,
+        lastName: String,
+        vendorId: String,
+        email: String,
+        jobTitle: String,
+        gender: String,
+        dob: String,
+        phone: String,
+        showCustomer: String,
+        showInCalendar: String,
+        serviceIds: String,
+        workingHours: String,
+        shiftTimings: String,
+        image: UIImage?,
+        imageKey: String = "file",
+        teamId: String,
+        completion: @escaping (CommonResponse?) -> Void
+    ) {
+        let urlString = "\(global.shared.URL_UPDATE_TEAM)\(teamId)"
+        guard let url = URL(string: urlString) else { return }
+        
+        let params: [String: Any] = [
+            "first_name": firstName,
+            "last_name": lastName,
+            "vendor_id": vendorId,
+            "email": email,
+            "job_title": jobTitle,
+            "gender": gender,
+            "dob": dob,
+            "phone": phone,
+            "show_customer": showCustomer,
+            "show_in_calandar": showInCalendar,
+            "service_ids": serviceIds,
+            "working_hours": workingHours,
+            "shift_timings": shiftTimings
+        ]
+        
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                // ✅ Attach Image if available
+                if let image = image, let imageData = image.jpegData(compressionQuality: 0.8) {
+                    multipartFormData.append(
+                        imageData,
+                        withName: imageKey,
+                        fileName: "team.jpg",
+                        mimeType: "image/jpeg"
+                    )
+                }
+                
+                // ✅ Attach other parameters
+                for (key, value) in params {
+                    if let stringValue = "\(value)".data(using: .utf8) {
+                        multipartFormData.append(stringValue, withName: key)
+                    }
+                }
+            },
+            to: url,
+            method: .put,
+            headers: HTTPHeaders(headers)
+        )
+        .validate()
+        .responseDecodable(of: CommonResponse.self) { response in
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headers: \(self.headers)")
+            
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+
+    
+    /*
+    func updateTeamData(firstName: String, lastName: String, vendorId: String, email: String, jobTitle: String, gender: String, dob: String, phone: String, showCustomer: String, showInCalendar: String, serviceIds: String, workingHours: String, shiftTimings: String, image: UIImage?, imageKey: String = "file", teamId: String, completion: @escaping (CommonResponse?) -> Void) {
         let urlString = "\(global.shared.URL_UPDATE_TEAM)\(teamId)"
         guard let url = URL(string: urlString) else { return }
         
@@ -507,7 +594,7 @@ class APIService {
             }
         }.resume()
     }
-    
+    */
     
     func deleteTeamData(teamId: Int, completion: @escaping (CommonResponse?) -> Void) {
         let urlString = "\(global.shared.URL_DELETE_TEAM)\(teamId)"
