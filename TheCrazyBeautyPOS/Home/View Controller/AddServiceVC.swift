@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import DropDown
 
 class AddServiceVC: UIViewController {
     
@@ -26,6 +27,31 @@ class AddServiceVC: UIViewController {
     @IBOutlet weak var btn_service: GradientButton!
     
     @IBOutlet weak var lbl_vendorOnly: UILabel!
+    
+    @IBOutlet weak var txt_TypeofService: TextInputLayout!
+    @IBOutlet weak var txt_SecondaryType: TextInputLayout!
+    @IBOutlet weak var txt_ParentService: TextInputLayout!
+    @IBOutlet weak var txt_Resource: TextInputLayout!
+    
+    
+    //MARK: - View
+    
+    @IBOutlet weak var vw_TypeOfService: UIView!
+    @IBOutlet weak var vw_SecondaryType: UIView!
+    @IBOutlet weak var vw_MainCategory: UIView!
+    @IBOutlet weak var vw_ServiceFor: UIView!
+    @IBOutlet weak var vw_SelectPreferredStaff: UIView!
+    @IBOutlet weak var lbl_Line: UILabel!
+    @IBOutlet weak var vw_ServiceDuration: UIView!
+    @IBOutlet weak var vw_Price: UIView!
+    @IBOutlet weak var vw_RegularPrice: UIView!
+    @IBOutlet weak var vw_VendorOnly: UIView!
+    @IBOutlet weak var vw_PatchTest: UIView!
+    @IBOutlet weak var vw_Cancel: UIView!
+    @IBOutlet weak var vw_ParentService: UIView!
+    @IBOutlet weak var vw_Resourc: UIView!
+    
+    
     var dictService: ServiceData?
     var isEdit = false
     var durationList:[DurationItem] = []
@@ -41,10 +67,23 @@ class AddServiceVC: UIViewController {
     var selected:[String] = []
     var selectedDuration = 0
     var parentId = 0
+    var resoucreId = 0
+    
+    
+    var hasSubService = "0"
+    var isSubService = "0"
+    var categoryParId = "0"
+    
+    var arr_ServiceType = ["Service Without Sub Type","Service With Sub Type"]
+    var arr_SecondaryType = ["Main Service","Sub Service"]
+    var arr_NailRemoval = ["Test Main Service","Nail Paint Removal"]
+    
+    var resourcList: [InventoryData] = []
     
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        ResourceDetails()
         setRegularFont()
         /*if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
             lbl_vendorOnly.font = customFont
@@ -81,6 +120,8 @@ class AddServiceVC: UIViewController {
                 self.btn_service.setTitle("Update Service", for: .normal)
                 self.setData()
             } else {
+                self.txt_TypeofService.text = self.arr_ServiceType[0]
+                self.txt_SecondaryType.text = self.arr_SecondaryType[0]
                 self.lbl_title.text = "Add Service"
                 self.btn_service.setTitle("Add Service", for: .normal)
             }
@@ -168,9 +209,25 @@ class AddServiceVC: UIViewController {
         self.present(popup, animated: true)
     }
     
+    @IBAction func btn_TypeOfService(_ sender: Any) {
+        openTypeofService()
+    }
+    
+    @IBAction func btn_TypeSecondary(_ sender: Any) {
+        openSecondaryType()
+    }
+    
+    @IBAction func btn_ParentService(_ sender: Any) {
+        openParentService()
+    }
+    
+    @IBAction func btn_ResourceService(_ sender: Any) {
+        openResourcList()
+    }
+    
     //MARK: Set Data
     func setRegularFont(){
-        if let customFont = UIFont(name: "Lato-Regular", size: 22.0) {
+        if let customFont = UIFont(name: "Lato-Regular", size: 20.0) {
             txt_serviceName.font = customFont
             txt_mainCategory.font = customFont
             txt_serviceFor.font = customFont
@@ -179,6 +236,10 @@ class AddServiceVC: UIViewController {
             txt_regulatPrice.font = customFont
             txt_salesPrice.font = customFont
             staffTextField.font = customFont
+            txt_TypeofService.font = customFont
+            txt_SecondaryType.font = customFont
+            txt_ParentService.font = customFont
+            txt_Resource.font = customFont
         }
     }
     
@@ -193,6 +254,51 @@ class AddServiceVC: UIViewController {
         self.txt_priceType.setText(self.dictService?.price_type ?? "")
         self.txt_regulatPrice.setText(self.dictService?.price ?? "")
         self.txt_salesPrice.setText(String(self.dictService?.sale_price ?? "0"))
+        
+        if dictService?.has_sub_service == 0 {
+            self.txt_TypeofService.text = "Service Without Sub Type"
+            self.vw_TypeOfService.isHidden = false
+            self.vw_SecondaryType.isHidden = false
+            self.vw_MainCategory.isHidden = false
+            self.vw_ParentService.isHidden = true
+            self.txt_description.isHidden = false
+            self.vw_ServiceFor.isHidden = false
+            self.vw_SelectPreferredStaff.isHidden = false
+            self.lbl_Line.isHidden = false
+            self.vw_ServiceDuration.isHidden = false
+            self.vw_Price.isHidden = false
+            self.vw_RegularPrice.isHidden = false
+            self.vw_VendorOnly.isHidden = false
+            self.vw_PatchTest.isHidden = false
+            self.vw_Cancel.isHidden = false
+        }else{
+            self.txt_TypeofService.text = "Service With Sub Type"
+            self.vw_TypeOfService.isHidden = false
+            self.vw_SecondaryType.isHidden = true
+            self.vw_ParentService.isHidden = true
+            self.vw_MainCategory.isHidden = false
+            self.txt_description.isHidden = false
+            self.vw_ServiceFor.isHidden = true
+            self.vw_SelectPreferredStaff.isHidden = true
+            self.lbl_Line.isHidden = true
+            self.vw_ServiceDuration.isHidden = true
+            self.vw_Price.isHidden = true
+            self.vw_RegularPrice.isHidden = true
+            self.vw_VendorOnly.isHidden = true
+            self.vw_PatchTest.isHidden = true
+            self.vw_Cancel.isHidden = false
+        }
+        
+        if dictService?.is_sub_service == 0 {
+            self.txt_SecondaryType.text = "Sub Service"
+            vw_ParentService.isHidden = false
+            vw_MainCategory.isHidden = true
+        }else{
+            self.txt_SecondaryType.text = "Main Service"
+            vw_MainCategory.isHidden = false
+            vw_ParentService.isHidden = true
+        }
+        
         if let venderOnly = self.dictService?.isVendorOnly, venderOnly == 1 {
             self.btn_vendorOnly.setImage(UIImage(named: "rdCheck"), for: .normal)
         } else {
@@ -211,7 +317,120 @@ class AddServiceVC: UIViewController {
         
     }
 
+    func openTypeofService() {
+        let TypeofService = DropDown()
+        TypeofService.anchorView = txt_TypeofService
+        TypeofService.bottomOffset = CGPoint(x: 0, y:(TypeofService.anchorView?.plainView.bounds.height)!)
+        TypeofService.direction = .bottom
+        TypeofService.dataSource = arr_ServiceType
+        TypeofService.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+        TypeofService.cellHeight = 35
+        TypeofService.backgroundColor = .white
+        TypeofService.show()
+        
+        TypeofService.selectionAction = {  [unowned self] (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+            self.txt_TypeofService.text = item
+            if item == "Service With Sub Type"{
+                self.vw_TypeOfService.isHidden = false
+                self.vw_SecondaryType.isHidden = true
+                self.vw_ParentService.isHidden = true
+                self.vw_MainCategory.isHidden = false
+                self.txt_description.isHidden = false
+                self.vw_ServiceFor.isHidden = true
+                self.vw_SelectPreferredStaff.isHidden = true
+                self.lbl_Line.isHidden = true
+                self.vw_ServiceDuration.isHidden = true
+                self.vw_Price.isHidden = true
+                self.vw_RegularPrice.isHidden = true
+                self.vw_VendorOnly.isHidden = true
+                self.vw_PatchTest.isHidden = true
+                self.vw_Cancel.isHidden = false
+            }else{
+                self.vw_TypeOfService.isHidden = false
+                self.vw_SecondaryType.isHidden = false
+                self.vw_MainCategory.isHidden = false
+                self.vw_ParentService.isHidden = true
+                self.txt_description.isHidden = false
+                self.vw_ServiceFor.isHidden = false
+                self.vw_SelectPreferredStaff.isHidden = false
+                self.lbl_Line.isHidden = false
+                self.vw_ServiceDuration.isHidden = false
+                self.vw_Price.isHidden = false
+                self.vw_RegularPrice.isHidden = false
+                self.vw_VendorOnly.isHidden = false
+                self.vw_PatchTest.isHidden = false
+                self.vw_Cancel.isHidden = false
+            }
+        }
+    }
+    
+    func openSecondaryType() {
+        let SecondaryType = DropDown()
+        SecondaryType.anchorView = txt_SecondaryType
+        SecondaryType.bottomOffset = CGPoint(x: 0, y:(SecondaryType.anchorView?.plainView.bounds.height)!)
+        SecondaryType.direction = .bottom
+        SecondaryType.dataSource = arr_SecondaryType
+        SecondaryType.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+        SecondaryType.cellHeight = 35
+        SecondaryType.backgroundColor = .white
+        SecondaryType.show()
+        
+        SecondaryType.selectionAction = {  [unowned self] (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+            self.txt_SecondaryType.text = item
+            if item == "Sub Service"{
+                vw_ParentService.isHidden = false
+                vw_MainCategory.isHidden = true
+            }else{
+                vw_MainCategory.isHidden = false
+                vw_ParentService.isHidden = true
+            }
+        }
+    }
+    
+    func openParentService() {
+        let ParentService = DropDown()
+        ParentService.anchorView = txt_ParentService
+        ParentService.bottomOffset = CGPoint(x: 0, y:(ParentService.anchorView?.plainView.bounds.height)!)
+        ParentService.direction = .bottom
+        ParentService.dataSource = arr_NailRemoval
+        ParentService.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+        ParentService.cellHeight = 35
+        ParentService.backgroundColor = .white
+        ParentService.show()
+        
+        ParentService.selectionAction = {  [unowned self] (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+            self.txt_ParentService.text = item
+        }
+    }
 
+    
+    func openResourcList() {
+       var itemArray: [String] = []
+
+       for i in self.resourcList {
+           itemArray.append("\(i.name) - \(i.qty)")
+       }
+
+       let slotDuration = DropDown()
+       slotDuration.anchorView = txt_Resource
+       slotDuration.bottomOffset = CGPoint(x: 0, y: (slotDuration.anchorView?.plainView.bounds.height) ?? 0)
+       slotDuration.direction = .bottom
+       slotDuration.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+       slotDuration.backgroundColor = .white
+       slotDuration.dataSource = itemArray
+       slotDuration.cellHeight = 35
+       slotDuration.show()
+
+       slotDuration.selectionAction = { [unowned self] (index: Int, item: String) in
+        let selectedResource = self.resourcList[index]
+            txt_Resource.text = "\(selectedResource.name) - \(selectedResource.qty)"
+            resoucreId = selectedResource.id
+       }
+    }
+    
     @objc func openStaffPopup() {
         if !self.selectedStaffList.isEmpty {
             for staff in self.selectedStaffList {
@@ -409,9 +628,26 @@ class AddServiceVC: UIViewController {
                 parentId = data.id
             }
         }
+        
+        if (txt_TypeofService.text == "Service Without Sub Type"){
+            hasSubService = "0"
+
+            if (self.txt_SecondaryType.text == "Main Service"){
+                isSubService = "0"
+//                categoryParId = servicesMainList[binding.spnCategory.selectedItemPosition].id.toString()
+            }else if (self.txt_SecondaryType.text == "Sub Service"){
+                isSubService = "1"
+//                categoryParId = subServiceMainList[binding.spnCategory.selectedItemPosition].id.toString()
+            }
+
+        }else if (txt_TypeofService.text == "Service With Sub Type"){
+            hasSubService = "1"
+//            categoryParId = servicesMainList[binding.spnCategory.selectedItemPosition].id.toString()
+        }
+        
         showLoader()
         let staffIds = !self.selected.isEmpty ? self.selected.joined(separator: ",") : ""
-        APIService.shared.updateServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: self.txt_serviceFor.text ?? "", duration: selectedDuration, priceType: self.txt_priceType.text ?? "", price: self.txt_regulatPrice.text ?? "0", salePrice: self.txt_salesPrice.text ?? "0", vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds, serviceId: serviceId) { staffResult in
+        APIService.shared.updateServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: self.txt_serviceFor.text ?? "", duration: selectedDuration, priceType: self.txt_priceType.text ?? "", price: self.txt_regulatPrice.text ?? "0", salePrice: self.txt_salesPrice.text ?? "0", vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds, serviceId: serviceId,has_sub_service: hasSubService,is_sub_service: isSubService,resource_id: "\(resoucreId)") { staffResult in
             self.hideLoader()
             guard let model = staffResult else {
                 return
@@ -431,16 +667,13 @@ class AddServiceVC: UIViewController {
         }
     }
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func ResourceDetails(){
+        APIService.shared.ResourceDetails(vendorId: LocalData.userId) { ResourceDetails in
+            self.hideLoader()
+            self.resourcList = ResourceDetails?.data ?? []
+        }
     }
-    */
+    
 
 }
 

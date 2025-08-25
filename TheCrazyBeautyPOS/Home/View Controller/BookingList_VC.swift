@@ -51,6 +51,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     @IBOutlet weak var btn_Booking: GradientButton!
     
     @IBOutlet weak var tbl_Rebook: UITableView!
+    @IBOutlet weak var tbl_RebookHeight: NSLayoutConstraint!
     //MARK: - Global Variable
     
     var bookingId = String()
@@ -140,6 +141,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
         vw_TitleRebook.isHidden = true
         vw_MainPopup.isHidden = true
         self.txt_Staff.text = ""
+        self.tbl_Rebook.isHidden = true
         self.vw_HeightRebook.constant = 160
     }
     
@@ -339,6 +341,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             // Reload UI if needed
             DispatchQueue.main.async {
                 self.tbl_Rebook.reloadData()
+                self.tbl_RebookHeight.constant = self.tbl_Rebook.contentSize.height
             }
         }
     }
@@ -604,6 +607,8 @@ extension BookingList_VC : UITableViewDelegate,UITableViewDataSource{
                 self.vw_MainPopup.isHidden = false
                 self.vw_Rebook.isHidden = false
                 self.get_Staff(id: data.service_id ?? "")
+                print(data.staff_id ?? "")
+                print(data.service_id ?? "")
                 self.duration = data.duration ?? ""
                 self.staff_id = data.staff_id ?? ""
             }

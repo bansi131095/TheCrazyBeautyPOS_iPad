@@ -39,7 +39,7 @@ class Team_SequenceVC: UIViewController {
                 let sequenceText = cell.txt_Sequence.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
                 
                 if sequenceText.isEmpty {
-                    alertWithImage(title: "Team Sequence", Msg: "Duplicate sequence found!")
+                    alertWithImage(title: "Team Sequence", Msg: "Please fill in field.")
                     return
                 }
 

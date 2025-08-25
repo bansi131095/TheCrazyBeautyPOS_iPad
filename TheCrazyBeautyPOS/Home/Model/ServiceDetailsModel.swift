@@ -52,6 +52,8 @@ class ServiceData: Mappable {
     var isFav: Int = 0
     var amount: Int = 0
     var total_saleprice: Int = 0
+    var has_sub_service: Int = 0
+    var is_sub_service: Int = 0
     var guests: [Guest] = []
 
     required init?(map: Map) {}

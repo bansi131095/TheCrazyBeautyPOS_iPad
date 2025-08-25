@@ -65,3 +65,5 @@ class OfflineGiftCardData: Mappable {
         updated_at      <- map["updated_at"]
     }
 }
+
+

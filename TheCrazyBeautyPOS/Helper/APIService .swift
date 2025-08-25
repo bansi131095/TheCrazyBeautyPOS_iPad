@@ -172,7 +172,7 @@ class APIService {
     }
     
     
-    func updateServiceData(serviceName: String, parentId: Int, vendorId: String, description: String, serviceFor: String, duration: Int, priceType: String, price: String, salePrice: String, vendorOnly: String, contactSalon: String, testRequired: String, staffId: String, serviceId: String, completion: @escaping (CommonResponse?) -> Void) {
+    func updateServiceData(serviceName: String, parentId: Int, vendorId: String, description: String, serviceFor: String, duration: Int, priceType: String, price: String, salePrice: String, vendorOnly: String, contactSalon: String, testRequired: String, staffId: String, serviceId: String,has_sub_service:String,is_sub_service:String,resource_id:String, completion: @escaping (CommonResponse?) -> Void) {
         let urlString = "\(global.shared.URL_UPDATE_SERVICE)\(serviceId)"
         guard let url = URL(string: urlString) else { return }
         
@@ -195,9 +195,12 @@ class APIService {
             "contact_salon": contactSalon,
             "test_required": testRequired,
             "staff_id": staffId,
+            "has_sub_service":has_sub_service,
+            "is_sub_service":is_sub_service,
+            "resource_id":resource_id
         ]
 
-        
+        print("Params:- \(params)")
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: params, options: [])
             request.httpBody = jsonData
@@ -4878,7 +4881,39 @@ class APIService {
         }
     }
     
-    
+    func ResourceDetails(vendorId: String, completion: @escaping (InventoryListResponse?) -> Void) {
+        let url = global.shared.URL_RESOURCE_DETAILS
+        
+        let params: [String: Any] = [
+                "vendor_id": vendorId,
+            ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<InventoryListResponse, AFError>) in
+
+            // 📦 Print request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headere: \(self.headers)")
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
 }
 
 

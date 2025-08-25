@@ -248,6 +248,7 @@ class global: NSObject
     var URL_PAST_REBOOKING = global.server_url + "past_rebooking"
     var URL_DELETE_WALKIN = global.server_url + "delete_walkin/"
     var URL_DELETE_BOOKING = global.server_url + "delete_booking"
+    var URL_RESOURCE_DETAILS = global.server_url + "resource_details"
     var noDataLabel: UILabel?
 
     //MARK:-
