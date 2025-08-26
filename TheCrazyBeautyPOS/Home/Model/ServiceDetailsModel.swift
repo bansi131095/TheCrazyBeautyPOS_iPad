@@ -54,6 +54,7 @@ class ServiceData: Mappable {
     var total_saleprice: Int = 0
     var has_sub_service: Int = 0
     var is_sub_service: Int = 0
+    var resource_id: String = ""
     var guests: [Guest] = []
 
     required init?(map: Map) {}
@@ -83,6 +84,9 @@ class ServiceData: Mappable {
         isFav              <- map["isFav"]
         amount             <- map["amount"]
         total_saleprice    <- map["total_saleprice"]
+        has_sub_service    <- map["has_sub_service"]
+        is_sub_service    <- map["is_sub_service"]
+        resource_id    <- map["resource_id"]
         guests             <- map["guests"]
     }
 }

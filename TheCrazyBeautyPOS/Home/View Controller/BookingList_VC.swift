@@ -52,6 +52,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     
     @IBOutlet weak var tbl_Rebook: UITableView!
     @IBOutlet weak var tbl_RebookHeight: NSLayoutConstraint!
+    @IBOutlet weak var txt_Search: UITextField!
     //MARK: - Global Variable
     
     var bookingId = String()
@@ -74,7 +75,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     var selectedTimeIndex: IndexPath?
     var startTime = String()
     var endTime = String()
-    
+    var searchWorkItem: DispatchWorkItem?
     var service_id = String()
     var price = String()
     
@@ -106,6 +107,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
         setTableView()
         setCollectCategory()
         self.txt_DateOfBirth.delegate = self
+        self.txt_Search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     
     //MARK: -  Button Action
@@ -240,6 +242,27 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
         tbl_Rebook.estimatedRowHeight = 50
     }
     
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        searchWorkItem?.cancel()
+        
+        let searchText = textField.text ?? ""
+        
+        let newWorkItem = DispatchWorkItem { [weak self] in
+            guard let self = self else { return }
+            
+            if self.lbl_Title.text == "Client Past Bookings" {
+                // 🔎 Search past bookings
+                self.apiPastBookingList(is_past: "1", search: searchText)
+            } else if self.lbl_Title.text == "Client Future Bookings" {
+                // 🔎 Search future bookings
+                self.apifutureBookingsList(is_past: "0", search: searchText)
+            }
+        }
+        
+        searchWorkItem = newWorkItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newWorkItem) // debounce
+    }
+
     
     func setCollectCategory() {
         self.cv_AvailableTime.register(UINib(nibName: "TimeListCell", bundle: nil), forCellWithReuseIdentifier: "TimeListCell")

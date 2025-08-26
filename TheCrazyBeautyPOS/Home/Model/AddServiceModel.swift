@@ -41,3 +41,27 @@ class AddServiceDatas: Mappable {
         message <- map["message"]
     }
 }
+
+class AddResource: Mappable {
+    var data: AddResourceModel?
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data  <- map["data"]
+        error <- map["error"]
+    }
+}
+
+class AddResourceModel: Mappable {
+    var message: String = ""
+    var insertId: Int = 0
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        message  <- map["message"]
+        insertId <- map["insertId"]
+    }
+}

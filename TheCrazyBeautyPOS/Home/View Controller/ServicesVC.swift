@@ -17,6 +17,11 @@ class ServicesVC: UIViewController {
     @IBOutlet weak var lbl_totalClient: UILabel!
     
     @IBOutlet weak var lbl_NoDataFound: UILabel!
+    @IBOutlet weak var btnResources: GradientButton!
+    
+    @IBOutlet weak var vw_SubResource: UIView!
+    
+    
     var serviceList: [ServiceData] = []
     var searchWorkItem: DispatchWorkItem?
     var currentPage = 1
@@ -28,7 +33,9 @@ class ServicesVC: UIViewController {
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.vw_SubResource.isHidden = true
         contentViewWidthConstraint.constant = 100 // or any dynamic value
+        btnResources.titleLabel?.font = UIFont(name: "Lato-Bold", size: 20.0)!
         self.setTableView()
         self.setCustomFont()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -126,6 +133,33 @@ class ServicesVC: UIViewController {
         
     }
     
+    @IBAction func act_Resources(_ sender: Any) {
+        if vw_SubResource.isHidden == false {
+            vw_SubResource.isHidden = true
+        }else{
+            vw_SubResource.isHidden = false
+        }
+//        self.vw_SubResource.isHidden = false
+    }
+    
+    
+    @IBAction func btn_AddResource(_ sender: Any) {
+        vw_SubResource.isHidden = true
+        let popup = self.storyboard?.instantiateViewController(withIdentifier: "AddResources_VC") as! AddResources_VC
+        popup.AddResources = "AddResources"
+        popup.modalPresentationStyle = .overCurrentContext
+        popup.modalTransitionStyle = .crossDissolve
+        self.present(popup, animated: true , completion: nil)
+    }
+    
+    @IBAction func btn_ViewResource(_ sender: Any) {
+        let popup = self.storyboard?.instantiateViewController(withIdentifier: "AddResources_VC") as! AddResources_VC
+        popup.AddResources = "AllResources"
+        popup.modalPresentationStyle = .overCurrentContext
+        popup.modalTransitionStyle = .crossDissolve
+        self.present(popup, animated: true , completion: nil)
+        
+    }
     
     //MARK: Delete API
     func deleteServiceData(serviceId: Int) {
@@ -187,9 +221,15 @@ extension ServicesVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
         cell.lbl_no.text = "\(indexPath.item + 1)"
         cell.lbl_category.text = service.category
         cell.lbl_service.text = service.service
-        cell.lbl_time.text = "\(service.duration) Min"
-        cell.lbl_serviceFor.text = service.service_for
         
+        
+        if service.has_sub_service == 1{
+            cell.lbl_time.text! = "-"
+            cell.lbl_serviceFor.text = "-"
+        }else{
+            cell.lbl_serviceFor.text = service.service_for
+            cell.lbl_time.text = "\(service.duration) Min"
+        }
         /*if service.price_type != "Fixed" && !(service.sale_price != nil && service.sale_price! > 0) {
             cell.lbl_price.text = service.price_type + " \(LocalData.symbol)\(service.price)"
         }else{

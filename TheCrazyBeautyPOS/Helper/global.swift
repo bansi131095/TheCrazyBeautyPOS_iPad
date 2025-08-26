@@ -249,6 +249,10 @@ class global: NSObject
     var URL_DELETE_WALKIN = global.server_url + "delete_walkin/"
     var URL_DELETE_BOOKING = global.server_url + "delete_booking"
     var URL_RESOURCE_DETAILS = global.server_url + "resource_details"
+    
+    var URL_UPDATE_RESOURCE = global.server_url + "update_resource"
+    var URL_ADD_RESOURCE = global.server_url + "add_resource"
+    
     var noDataLabel: UILabel?
 
     //MARK:-

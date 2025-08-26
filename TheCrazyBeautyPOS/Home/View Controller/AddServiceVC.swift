@@ -83,7 +83,7 @@ class AddServiceVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        ResourceDetails()
+        loadResourceData()
         setRegularFont()
         /*if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
             lbl_vendorOnly.font = customFont
@@ -222,7 +222,8 @@ class AddServiceVC: UIViewController {
     }
     
     @IBAction func btn_ResourceService(_ sender: Any) {
-        openResourcList()
+//        openResourcList()
+        loadResourceData()
     }
     
     //MARK: Set Data
@@ -254,6 +255,9 @@ class AddServiceVC: UIViewController {
         self.txt_priceType.setText(self.dictService?.price_type ?? "")
         self.txt_regulatPrice.setText(self.dictService?.price ?? "")
         self.txt_salesPrice.setText(String(self.dictService?.sale_price ?? "0"))
+        print("Resource :\(Int(self.dictService?.resource_id ?? "") ?? 0)")
+        print("resoucreId :\(resoucreId)")
+        self.resoucreId = Int(self.dictService?.resource_id ?? "") ?? 0
         
         if dictService?.has_sub_service == 0 {
             self.txt_TypeofService.text = "Service Without Sub Type"
@@ -290,13 +294,13 @@ class AddServiceVC: UIViewController {
         }
         
         if dictService?.is_sub_service == 0 {
-            self.txt_SecondaryType.text = "Sub Service"
-            vw_ParentService.isHidden = false
-            vw_MainCategory.isHidden = true
-        }else{
             self.txt_SecondaryType.text = "Main Service"
             vw_MainCategory.isHidden = false
             vw_ParentService.isHidden = true
+        }else{
+            self.txt_SecondaryType.text = "Sub Service"
+            vw_ParentService.isHidden = false
+            vw_MainCategory.isHidden = true
         }
         
         if let venderOnly = self.dictService?.isVendorOnly, venderOnly == 1 {
@@ -429,6 +433,7 @@ class AddServiceVC: UIViewController {
             txt_Resource.text = "\(selectedResource.name) - \(selectedResource.qty)"
             resoucreId = selectedResource.id
        }
+        
     }
     
     @objc func openStaffPopup() {
@@ -556,6 +561,55 @@ class AddServiceVC: UIViewController {
         }
     }
     
+    /*func ResourceDetails(){
+        APIService.shared.ResourceDetails(vendorId: LocalData.userId) { ResourceDetails in
+            self.hideLoader()
+            self.resourcList = ResourceDetails?.data ?? []
+        }
+        if self.isEdit {
+            for i in self.resourcList {
+                if i.id == Int(self.resoucreId) {
+                    self.txt_Resource.setText(i.name)
+                }
+            }
+        }
+    }*/
+    
+    func loadResourceData() {
+        showLoader()
+        APIService.shared.ResourceDetails(vendorId: LocalData.userId) { ResourceDetails in
+            self.hideLoader()
+            guard let model = ResourceDetails else {
+                return
+            }
+            let newItems = model.data
+            
+            if !newItems.isEmpty {
+                self.resourcList = ResourceDetails?.data ?? []
+                var options: [String] = []
+                for i in self.resourcList {
+                    options.append("\(i.name) - \(i.qty)")
+                }
+                DropdownManager.shared.setupDropdown(
+                    for: self.txt_Resource,
+                    in: self.view,
+                    with: options
+                ) { [weak self] selected in
+                    guard let self = self else { return }
+                    self.txt_Resource.setText(selected)
+                }
+                if self.isEdit {
+                    for data in self.resourcList {
+                        if data.id == self.resoucreId {
+                            self.txt_Resource.setText("\(data.name) - \(data.qty)")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
     func loadData() {
     showLoader()
         APIService.shared.getteamDetails(page: "1", limit: "100000", vendorId: LocalData.userId, search: "") { staffResult in
@@ -589,14 +643,37 @@ class AddServiceVC: UIViewController {
                 selectedDuration = Int(data.duration) ?? 0
             }
         }
+        
         for data in categoryList {
             if data.service_name == self.txt_mainCategory.text ?? "" {
                 parentId = data.id
             }
         }
+        
+        for data in resourcList {
+            if data.id == Int(self.txt_Resource.text ?? "") ?? 0 {
+                resoucreId = data.id
+            }
+        }
+        
+        if (txt_TypeofService.text == "Service Without Sub Type"){
+            hasSubService = "0"
+
+            if (self.txt_SecondaryType.text == "Main Service"){
+                isSubService = "0"
+//                categoryParId = servicesMainList[binding.spnCategory.selectedItemPosition].id.toString()
+            }else if (self.txt_SecondaryType.text == "Sub Service"){
+                isSubService = "1"
+//                categoryParId = subServiceMainList[binding.spnCategory.selectedItemPosition].id.toString()
+            }
+
+        }else if (txt_TypeofService.text == "Service With Sub Type"){
+            hasSubService = "1"
+//            categoryParId = servicesMainList[binding.spnCategory.selectedItemPosition].id.toString()
+        }
         showLoader()
         let staffIds = !self.selected.isEmpty ? self.selected.joined(separator: ",") : ""
-        APIService.shared.addServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: self.txt_serviceFor.text ?? "", duration: selectedDuration, priceType: self.txt_priceType.text ?? "", price: self.txt_regulatPrice.text ?? "0", salePrice: self.txt_salesPrice.text ?? "0", vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds) { staffResult in
+        APIService.shared.addServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: self.txt_serviceFor.text ?? "", duration: selectedDuration, priceType: self.txt_priceType.text ?? "", price: self.txt_regulatPrice.text ?? "0", salePrice: self.txt_salesPrice.text ?? "0", vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds,has_sub_service: hasSubService,is_sub_service: isSubService,resource_id: "\(resoucreId)") { staffResult in
             self.hideLoader()
             guard let model = staffResult else {
                 return
@@ -626,6 +703,12 @@ class AddServiceVC: UIViewController {
         for data in categoryList {
             if data.id == Int(self.txt_mainCategory.text ?? "") ?? 0 {
                 parentId = data.id
+            }
+        }
+        
+        for data in resourcList {
+            if data.id == Int(self.txt_Resource.text ?? "") ?? 0 {
+                resoucreId = data.id
             }
         }
         
@@ -667,12 +750,7 @@ class AddServiceVC: UIViewController {
         }
     }
 
-    func ResourceDetails(){
-        APIService.shared.ResourceDetails(vendorId: LocalData.userId) { ResourceDetails in
-            self.hideLoader()
-            self.resourcList = ResourceDetails?.data ?? []
-        }
-    }
+    
     
 
 }

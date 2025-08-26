@@ -125,7 +125,7 @@ class APIService {
     }
     
     
-    func addServiceData(serviceName: String, parentId: Int, vendorId: String, description: String, serviceFor: String, duration: Int, priceType: String, price: String, salePrice: String, vendorOnly: String, contactSalon: String, testRequired: String, staffId: String, completion: @escaping (AddServiceModel?) -> Void) {
+    func addServiceData(serviceName: String, parentId: Int, vendorId: String, description: String, serviceFor: String, duration: Int, priceType: String, price: String, salePrice: String, vendorOnly: String, contactSalon: String, testRequired: String, staffId: String,has_sub_service:String,is_sub_service:String,resource_id:String, completion: @escaping (AddServiceModel?) -> Void) {
         let url = global.shared.URL_ADD_SERVICE
         
         let params: [String: Any] = [
@@ -141,7 +141,10 @@ class APIService {
             "is_vendor_only": vendorOnly,
             "contact_salon": contactSalon,
             "test_required": testRequired,
-            "staff_id": staffId
+            "staff_id": staffId,
+            "has_sub_service":has_sub_service,
+            "is_sub_service":is_sub_service,
+            "resource_id":resource_id
         ]
 
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
@@ -4914,6 +4917,83 @@ class APIService {
             }
         }
     }
+    
+    func addResource(description: String, name: String, qty: String, vendor_id:String, completion: @escaping (AddResource?) -> Void) {
+        let url = global.shared.URL_ADD_RESOURCE
+        
+        let params: [String: Any] = [
+            "vendor_id": vendor_id,
+            "description": description,
+            "name": name,
+            "qty": qty,
+        ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<AddResource, AFError>) in
+
+            // 📦 Print request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headere: \(self.headers)")
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    /*func addResource(description: String, name: String, qty: String, resource_id: String, vendor_id:String, completion: @escaping (AddServiceModel?) -> Void) {
+        let url = global.shared.URL_UPDATE_RESOURCE
+        
+        let params: [String: Any] = [
+            "vendor_id": vendor_id,
+            "description": description,
+            "name": name,
+            "qty": qty,
+            "resource_id": resource_id
+        ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .responseObject { (response: DataResponse<AddServiceModel, AFError>) in
+
+            // 📦 Print request info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headere: \(self.headers)")
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }*/
+    
+    
 }
 
 
