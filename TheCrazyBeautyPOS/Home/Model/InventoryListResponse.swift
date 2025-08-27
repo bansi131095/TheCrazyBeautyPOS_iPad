@@ -31,6 +31,7 @@ class InventoryData: Mappable {
     var vendor_id: Int = 0
     var product_name: String = ""
     var name: String = ""
+    var description: String = ""
     var price: Int = 0
     var qty: Int = 0
 
@@ -41,6 +42,7 @@ class InventoryData: Mappable {
         vendor_id     <- map["vendor_id"]
         product_name  <- map["product_name"]
         name  <- map["name"]
+        description  <- map["description"]
         price         <- map["price"]
         qty           <- map["qty"]
     }

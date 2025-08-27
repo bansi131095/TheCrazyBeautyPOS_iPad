@@ -34,7 +34,7 @@ class ServicesVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.vw_SubResource.isHidden = true
-        contentViewWidthConstraint.constant = 100 // or any dynamic value
+        contentViewWidthConstraint.constant = 200 // or any dynamic value
         btnResources.titleLabel?.font = UIFont(name: "Lato-Bold", size: 20.0)!
         self.setTableView()
         self.setCustomFont()
@@ -87,7 +87,7 @@ class ServicesVC: UIViewController {
             showLoader()
         }
 
-        APIService.shared.getServiceDetails(page: "\(currentPage)", limit: "15", vendorId: LocalData.userId, search: Search, booking: "", categoryId: "", isGroup: true) { staffResult in
+        APIService.shared.getServiceDetails(page: "\(currentPage)", limit: "10", vendorId: LocalData.userId, search: Search, booking: "", categoryId: "", isGroup: true) { staffResult in
             self.hideLoader()
             guard let model = staffResult else {
                 self.isLoadingMore = false
@@ -153,6 +153,7 @@ class ServicesVC: UIViewController {
     }
     
     @IBAction func btn_ViewResource(_ sender: Any) {
+        vw_SubResource.isHidden = true
         let popup = self.storyboard?.instantiateViewController(withIdentifier: "AddResources_VC") as! AddResources_VC
         popup.AddResources = "AllResources"
         popup.modalPresentationStyle = .overCurrentContext
@@ -229,6 +230,12 @@ extension ServicesVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
         }else{
             cell.lbl_serviceFor.text = service.service_for
             cell.lbl_time.text = "\(service.duration) Min"
+        }
+        
+        if service.is_sub_service == 0{
+            cell.lbl_type.text = "Main"
+        }else{
+            cell.lbl_type.text = "Sub"
         }
         /*if service.price_type != "Fixed" && !(service.sale_price != nil && service.sale_price! > 0) {
             cell.lbl_price.text = service.price_type + " \(LocalData.symbol)\(service.price)"

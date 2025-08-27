@@ -240,7 +240,7 @@ class TeamDetailsModel: Mappable {
     var status: String?
     var total_hours: String = ""
     var sequence_Tems: String = ""
-    var sequence: String = ""
+    var sequence = Int()
 
     required init?(map: Map) {}
 
@@ -437,7 +437,8 @@ class categorydescriptionModel: Mappable {
 }
 
 struct categoryData: Codable {
-    let category_id: Int
+//    let category_id: Int
+    let category_id: String
     let description: String
     let sequence: String
 }

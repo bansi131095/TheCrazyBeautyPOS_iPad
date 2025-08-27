@@ -50,7 +50,7 @@ class global: NSObject
     static let imageUrl = global.base_url + "uploads/";
     
     static let imageUrl_Profile = global.base_url + "upload/"
-    static let reportUrl = global.base_url + "uploads/reports/";
+    static let reportUrl = global.base_url + "upload/reports/";
     
     //Common Parameter
         
@@ -58,7 +58,7 @@ class global: NSObject
     var URL_LOGIN = global.server_url + "login"
     // Accesskey, Email_Id, Password
    
-    var URL_SERVICE_DETAILS = global.server_url + "service_details"
+    var URL_SERVICE_DETAILS = global.server_url + "service_details_v1"
     
     var URL_BUSINESS_SERVICES = global.server_url + "business_services"
     
@@ -153,7 +153,7 @@ class global: NSObject
     
     var URL_Team_Details = global.server_url + "team_details"
     var URL_GET_STAFFSEQUENCE = global.server_url + "get_staffsequence"
-    var URL_UPDATE_STAFFSEQUENCE = global.server_url + "update_staffsequence"
+    var URL_UPDATE_STAFFSEQUENCE = global.server_url + "update_staffsequence/v1"
     
     var URL_UPDATE_TIMEGAP = global.server_url + "update_timegap"
     var URL_CHANGE_PASSWORD = global.server_url + "change_password"
@@ -252,6 +252,7 @@ class global: NSObject
     
     var URL_UPDATE_RESOURCE = global.server_url + "update_resource"
     var URL_ADD_RESOURCE = global.server_url + "add_resource"
+    var URL_DELETE_RESOURCE = global.server_url + "delete_resource/"
     
     var noDataLabel: UILabel?
 

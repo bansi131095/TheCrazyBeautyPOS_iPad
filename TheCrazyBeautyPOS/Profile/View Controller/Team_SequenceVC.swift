@@ -33,6 +33,7 @@ class Team_SequenceVC: UIViewController {
     
     @IBAction func btn_Save(_ sender: Any) {
        var sequenceArray: [[String: String]] = []
+        var calendarSequenceArray: [[String: Any]] = []
         for i in 0..<TeamDetails.count {
             let indexPath = IndexPath(row: i, section: 0)
             if let cell = tbl_TeamSequnence.cellForRow(at: indexPath) as? TeamSequnenceCell {
@@ -42,18 +43,28 @@ class Team_SequenceVC: UIViewController {
                     alertWithImage(title: "Team Sequence", Msg: "Please fill in field.")
                     return
                 }
-
+                
+                let orderText = cell.txt_Calender.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "0"
+                let orderValue = Int(orderText) ?? 0
+                
                 TeamDetails[i].sequence_Tems = sequenceText
-
+                TeamDetails[i].sequence = orderValue
+                
                 let dict: [String: String] = [
                     "staff_id": "\(TeamDetails[i].id)",
                     "sequence": sequenceText
                 ]
                 sequenceArray.append(dict)
+                
+                let calendarDict: [String: Any] = [
+                    "staff_id": "\(TeamDetails[i].id)",
+                    "order": orderValue
+                ]
+                calendarSequenceArray.append(calendarDict)
             }
         }
         showLoader()
-        APIService.shared.updateStaffSequence(staffSequenceList: sequenceArray, vendorid: LocalData.userId) { result in
+        APIService.shared.updateStaffSequence(staffSequenceList: sequenceArray, calendar_sequence: calendarSequenceArray, vendorid: LocalData.userId) { result in
             self.hideLoader()
             if result?.data != nil {
                 self.alertWithMessageOnly(result?.data ?? "")
@@ -102,7 +113,13 @@ extension Team_SequenceVC: UITableViewDelegate,UITableViewDataSource{
         let data = TeamDetails[indexPath.row]
         cell.lbl_UserName.text = "\(data.first_name)" + "\(data.last_name)"
         cell.txt_Sequence.text = data.sequence_Tems
-        cell.txt_Calender.text = data.sequence
+        if data.sequence == 0{
+            cell.txt_Calender.text = ""
+        }else{
+            cell.txt_Calender.text = "\(data.sequence)"
+        }
+        
+        
         if data.photo != "" {
             let imgUrl = global.imageUrl + data.photo
             if let url = URL(string: imgUrl) {

@@ -16,9 +16,19 @@ class AllResourcesCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setCustomFont()
         // Initialization code
     }
 
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Medium", size: 18.0) {
+            lbl_Number.font = customFont
+            lbl_Name.font = customFont
+            lbl_Qty.font = customFont
+            lbl_Description.font = customFont
+        }
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

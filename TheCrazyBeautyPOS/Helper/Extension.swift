@@ -3178,7 +3178,9 @@ extension UIViewController {
                 try fileManager.copyItem(at: localURL, to: destinationURL)
 
                 DispatchQueue.main.async {
-                    self.alertWithMessageOnly("Download Completed, Please Check File Location at /File/TheCrazyBeauty/Downloads/")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2){
+                        self.alertWithMessageOnly("Download Completed, Please Check File Location at /File/TheCrazyBeauty/Downloads/")
+                    }
                 }
             } catch {
                 print("File save error: \(error.localizedDescription)")

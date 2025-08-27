@@ -39,6 +39,8 @@ class TeamRosterVC: UIViewController {
     let tableView = UITableView()
     var tableHeightConstraint: NSLayoutConstraint?
 
+    var fDate = String()
+    var lDate = String()
     
     //MARK: View life cycle
     override func viewDidLoad() {
@@ -61,9 +63,11 @@ class TeamRosterVC: UIViewController {
     }
     
     @IBAction func act_sendEmail(_ sender: GradientButton) {
+        Apicall_SendMail()
     }
     
     @IBAction func act_download(_ sender: GradientButton) {
+        Apicall_Download()
     }
     
     @IBAction func btn_Calender(_ sender: UIButton) {
@@ -256,6 +260,14 @@ class TeamRosterVC: UIViewController {
         firstDate = weekStart
         lastDate = weekEnd
 
+        
+        let date = DateFormatter()
+        date.dateFormat = "dd-MM-yyyy"
+        
+        fDate = date.string(from: weekStart)
+        lDate = date.string(from: weekEnd)
+        
+        
         // 🔹 Generate your weekday blocks
         dates = generateWeekDates(start: firstDate, end: lastDate)
 
@@ -515,16 +527,33 @@ class TeamRosterVC: UIViewController {
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func Apicall_SendMail() {
+        APIService.shared.staffReport(vendorId: LocalData.userId, endDate: lDate, send_email: "1", search: "", startDate: fDate) { result in
+            guard let model = result else {
+                return
+            }
+            if model.error == "" || model.error == nil {
+                self.show_alert(msg: model.data, title: "Team Roster")
+            }else{
+                self.show_alert(msg: model.error!, title: "Team Roster")
+            }
+        }
     }
-    */
+    
+    func Apicall_Download() {
+        showLoader()
+        APIService.shared.staffReport(vendorId: LocalData.userId, endDate: lDate, send_email: "0", search: "", startDate: fDate) { result in
+            self.hideLoader()
+            guard let filename = result?.data else {
+                self.alertWithMessageOnly("Download failed")
+                return
+            }
 
+            let urlPath = "\(global.reportUrl)\(filename)"
+            print("Path:- \(urlPath)")
+            self.downloadAndSaveFile(urlString: urlPath, in: self)
+        }
+    }
 }
 
 

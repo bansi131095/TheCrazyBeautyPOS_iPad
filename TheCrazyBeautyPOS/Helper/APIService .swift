@@ -1990,7 +1990,7 @@ class APIService {
         }
     }
     
-    func updateStaffSequence(staffSequenceList: [[String: String]], vendorid:String, completion: @escaping (CurrencyResponseA?) -> Void) {
+    func updateStaffSequence(staffSequenceList: [[String: String]],calendar_sequence: [[String: Any]], vendorid:String, completion: @escaping (CurrencyResponseA?) -> Void) {
         
         let url = global.shared.URL_UPDATE_STAFFSEQUENCE
         
@@ -2004,8 +2004,19 @@ class APIService {
             print("❌ Failed to convert staff sequence to JSON string")
         }
         
+        // Convert to JSON string
+        var calendarSequenceJSONString = ""
+        if let data = try? JSONSerialization.data(withJSONObject: calendar_sequence, options: []),
+           let jsonString = String(data: data, encoding: .utf8) {
+            calendarSequenceJSONString = jsonString
+            print("✅ staff_sequence JSON: \(jsonString)")
+        } else {
+            print("❌ Failed to convert staff sequence to JSON string")
+        }
+        
         // Parameters
         let params: [String: Any] = [
+            "calendar_sequence":calendarSequenceJSONString,
             "staff_sequence": staffSequenceJSONString,
             "vendor_id" : vendorid
         ]
@@ -3852,19 +3863,19 @@ class APIService {
     
     
     
-    func staffReport(vendorId: String, endDate: String, isTeamDetails: String, limit: String, page: String, search: String, startDate: String, completion: @escaping (StaffListResponse?) -> Void) {
+    func staffReport(vendorId: String, endDate: String, send_email: String, search: String, startDate: String, completion: @escaping (CommonResponses?) -> Void) {
         let url = global.shared.URL_STAFF_REPORT
         
         let params: [String: Any] = [
             "vendor_id": vendorId,
             "end_date": endDate,
-            "send_email": isTeamDetails,
+            "send_email": send_email,
             "search": search,
             "start_date": startDate,
         ]
 
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
-            .responseObject { (response: DataResponse<StaffListResponse, AFError>) in
+            .responseObject { (response: DataResponse<CommonResponses, AFError>) in
 
             // 📦 Print request info
             print("🌐 URL: \(url)")
@@ -4955,7 +4966,7 @@ class APIService {
         }
     }
     
-    /*func addResource(description: String, name: String, qty: String, resource_id: String, vendor_id:String, completion: @escaping (AddServiceModel?) -> Void) {
+    func UpdateResource(description: String, name: String, qty: String, resource_id: String, vendor_id:String, completion: @escaping (CommonResponses?) -> Void) {
         let url = global.shared.URL_UPDATE_RESOURCE
         
         let params: [String: Any] = [
@@ -4967,7 +4978,7 @@ class APIService {
         ]
 
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
-            .responseObject { (response: DataResponse<AddServiceModel, AFError>) in
+            .responseObject { (response: DataResponse<CommonResponses, AFError>) in
 
             // 📦 Print request info
             print("🌐 URL: \(url)")
@@ -4991,8 +5002,63 @@ class APIService {
                 completion(nil)
             }
         }
-    }*/
+    }
     
+    func deleteResource(id: Int, completion: @escaping (CommonResponse?) -> Void) {
+        let urlString = "\(global.shared.URL_DELETE_RESOURCE)\(id)"
+        guard let url = URL(string: urlString) else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE" // ✅ OR "PUT" if your backend expects it
+        request.headers = HTTPHeaders(headers)
+       
+        // ✅ JSON Body
+        let params: [String: Any] = [:]
+        
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: params, options: [])
+            request.httpBody = jsonData
+        } catch {
+            print("❌ Failed to encode JSON: \(error)")
+            completion(nil)
+            return
+        }
+        
+        // ✅ Execute Request
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("❌ Request error: \(error)")
+                completion(nil)
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("❌ Invalid response")
+                completion(nil)
+                return
+            }
+            
+            print("📬 Status Code: \(httpResponse.statusCode)")
+            
+            guard let data = data else {
+                print("❌ No data returned")
+                completion(nil)
+                return
+            }
+            
+            do {
+                let decoded = try JSONDecoder().decode(CommonResponse.self, from: data)
+                print("✅ Decoded Response: \(decoded)")
+                completion(decoded)
+            } catch {
+                print("❌ JSON Decoding failed: \(error)")
+                if let rawString = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(rawString)")
+                }
+                completion(nil)
+            }
+        }.resume()
+    }
     
 }
 

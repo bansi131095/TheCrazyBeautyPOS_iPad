@@ -49,6 +49,7 @@ class Service_ReportVC: UIViewController {
     }
     
     //MARK: -  Function
+    
     func setDefaultDateRangeAndFetch() {
         let currentDate = Date()
         let calendar = Calendar.current

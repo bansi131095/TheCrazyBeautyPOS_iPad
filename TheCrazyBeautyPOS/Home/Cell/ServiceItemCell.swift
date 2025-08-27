@@ -13,6 +13,7 @@ class ServiceItemCell: UITableViewCell {
     @IBOutlet weak var lbl_category: UILabel!
     @IBOutlet weak var lbl_service: UILabel!
     @IBOutlet weak var lbl_time: UILabel!
+    @IBOutlet weak var lbl_type: UILabel!
     @IBOutlet weak var lbl_serviceFor: UILabel!
     @IBOutlet weak var lbl_price: UILabel!
     @IBOutlet weak var lbl_SalePrice: UILabel!
@@ -49,6 +50,7 @@ class ServiceItemCell: UITableViewCell {
             lbl_serviceFor.font = customFont
             lbl_price.font = customFont
             lbl_SalePrice.font = customFont
+            lbl_type.font = customFont
         }
     }
     

@@ -4614,7 +4614,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ATR-Hn-XyD">
-                                <rect key="frame" x="240" y="49" width="700" height="696"/>
+                                <rect key="frame" x="235" y="57" width="710" height="680"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Resources" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFO-cr-gkg">
                                         <rect key="frame" x="30" y="25" width="131.5" height="26.5"/>
@@ -4623,7 +4623,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VXQ-oa-BEF">
-                                        <rect key="frame" x="642" y="22" width="33" height="33"/>
+                                        <rect key="frame" x="652" y="22" width="33" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="33" id="PJj-CF-g9r"/>
                                             <constraint firstAttribute="height" constant="33" id="vQx-do-1Qj"/>
@@ -4635,7 +4635,7 @@
                                         </connections>
                                     </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="AllResourcesCell" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="OAK-ef-x3x">
-                                        <rect key="frame" x="0.0" y="71.5" width="700" height="624.5"/>
+                                        <rect key="frame" x="10" y="71.5" width="690" height="608.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="motionIdentifier" value="AllResourcesCell"/>
@@ -4648,14 +4648,14 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="700" id="77n-0W-tA7"/>
-                                    <constraint firstAttribute="height" constant="696" id="9e3-1j-G3X"/>
+                                    <constraint firstAttribute="width" constant="710" id="77n-0W-tA7"/>
+                                    <constraint firstAttribute="height" constant="680" id="9e3-1j-G3X"/>
                                     <constraint firstItem="OAK-ef-x3x" firstAttribute="top" secondItem="oFO-cr-gkg" secondAttribute="bottom" constant="20" id="FoY-HS-aLX"/>
                                     <constraint firstAttribute="trailing" secondItem="VXQ-oa-BEF" secondAttribute="trailing" constant="25" id="NeG-M6-WQ4"/>
                                     <constraint firstItem="oFO-cr-gkg" firstAttribute="leading" secondItem="ATR-Hn-XyD" secondAttribute="leading" constant="30" id="g3G-VG-GB2"/>
                                     <constraint firstItem="oFO-cr-gkg" firstAttribute="top" secondItem="ATR-Hn-XyD" secondAttribute="top" constant="25" id="gm4-BF-RTH"/>
-                                    <constraint firstItem="OAK-ef-x3x" firstAttribute="leading" secondItem="ATR-Hn-XyD" secondAttribute="leading" id="izq-Pg-fpS"/>
-                                    <constraint firstAttribute="trailing" secondItem="OAK-ef-x3x" secondAttribute="trailing" id="l53-jc-fWZ"/>
+                                    <constraint firstItem="OAK-ef-x3x" firstAttribute="leading" secondItem="ATR-Hn-XyD" secondAttribute="leading" constant="10" id="izq-Pg-fpS"/>
+                                    <constraint firstAttribute="trailing" secondItem="OAK-ef-x3x" secondAttribute="trailing" constant="10" id="l53-jc-fWZ"/>
                                     <constraint firstItem="VXQ-oa-BEF" firstAttribute="centerY" secondItem="oFO-cr-gkg" secondAttribute="centerY" id="qK3-UB-W6Z"/>
                                     <constraint firstAttribute="bottom" secondItem="OAK-ef-x3x" secondAttribute="bottom" id="zqV-CE-bc7"/>
                                 </constraints>
@@ -4676,6 +4676,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="lbl_AddResources" destination="LvG-io-Wq5" id="Ncv-KR-ZUd"/>
                         <outlet property="tbl_AllResources" destination="OAK-ef-x3x" id="BLL-Y2-BBi"/>
                         <outlet property="txt_Description" destination="r8C-Jj-Hpa" id="UjL-2P-brB"/>
                         <outlet property="txt_Name" destination="Q3t-qT-Y0M" id="95h-nF-S1a"/>
@@ -8935,16 +8936,16 @@
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="atO-em-ISB">
-                                                                        <rect key="frame" x="165" y="10" width="164.5" height="35"/>
+                                                                        <rect key="frame" x="165" y="10" width="154.5" height="35"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Walkin" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWe-5a-SUr">
-                                                                                <rect key="frame" x="40" y="3" width="84.5" height="29"/>
+                                                                                <rect key="frame" x="40" y="3" width="74.5" height="29"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="24"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plT-Nt-5fM">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="164.5" height="35"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="154.5" height="35"/>
                                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                 <connections>
                                                                                     <action selector="btn_Walkin:" destination="llV-lq-vxG" eventType="touchUpInside" id="egl-59-d8W"/>
@@ -8968,16 +8969,16 @@
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pcs-Td-ZHo">
-                                                                        <rect key="frame" x="349.5" y="10" width="154" height="35"/>
+                                                                        <rect key="frame" x="339.5" y="10" width="164" height="35"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gift Card" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vNV-mN-CTZ">
-                                                                                <rect key="frame" x="28.5" y="3" width="97" height="29"/>
+                                                                                <rect key="frame" x="28.5" y="3" width="107" height="29"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="24"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cYX-Ot-Enj">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="154" height="35"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="164" height="35"/>
                                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                 <connections>
                                                                                     <action selector="btn_GiftCard:" destination="llV-lq-vxG" eventType="touchUpInside" id="b15-hD-0O6"/>
@@ -15160,8 +15161,8 @@ Please Choose Diffrent Date</string>
         <image name="Search" width="24" height="24"/>
         <image name="arrow.down" catalog="system" width="118" height="128"/>
         <image name="back" width="78" height="79"/>
-        <image name="calendar" width="72" height="72"/>
         <image name="calendar" catalog="system" width="128" height="107"/>
+        <image name="calendar" width="72" height="72"/>
         <image name="cat_back" width="602" height="602"/>
         <image name="clock" width="87" height="87"/>
         <image name="close" width="64" height="64"/>
@@ -15236,13 +15237,13 @@ Please Choose Diffrent Date</string>
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGrayColor">
-            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
