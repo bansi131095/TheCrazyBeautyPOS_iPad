@@ -13,6 +13,7 @@ class Business_CategoriesVC: UIViewController {
     @IBOutlet weak var cv_BusinessCategories: UICollectionView!
     @IBOutlet weak var cv_BusinessCategoriesHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var btn_Save: GradientButton!
     //MARK: - Global Variable
     var categoryList: [ServiceDatas] = []
     var categoryNames: [String] = []
@@ -29,6 +30,14 @@ class Business_CategoriesVC: UIViewController {
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        let attributedTitle = NSAttributedString(
+            string: "Save",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         self.setCollectCategory()
         self.get_CategoryList()
     }

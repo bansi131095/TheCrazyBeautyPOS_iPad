@@ -21,6 +21,7 @@ class ProfileVC: UIViewController,SettingCellDelegate {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var tbl_Categories_List: UITableView!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var btn_AddSalon: GradientButton!
     
     //MARK: - Global Variable
     let arr_ImageList = ["ic_Store","ic_Notification","ic_Booking","ic_Team","ic_Schedule","ic_Payment","ic_Team","ic_Privacy"]
@@ -32,6 +33,14 @@ class ProfileVC: UIViewController,SettingCellDelegate {
     //MARK: - View Lify Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        let attributedTitle = NSAttributedString(
+            string: "Add Salon",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 20)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_AddSalon.setAttributedTitle(attributedTitle, for: .normal)
         setCustomFont()
         setupData()
         setUpTableView()

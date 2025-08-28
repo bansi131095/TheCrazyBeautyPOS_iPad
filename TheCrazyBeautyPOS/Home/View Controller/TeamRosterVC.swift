@@ -490,7 +490,7 @@ class TeamRosterVC: UIViewController {
     
     func getShiftData() {
         
-        guard let fromDateString = self.txt_FromDate.text,
+        /*guard let fromDateString = self.txt_FromDate.text,
               let toDateString = self.txt_ToDate.text,
               let fromDate = convertStringToDate1(fromDateString),
               let toDate = convertStringToDate1(toDateString) else {
@@ -499,10 +499,10 @@ class TeamRosterVC: UIViewController {
         }
 
         let formattedFrom = formatDateToString(fromDate)
-        let formattedTo = formatDateToString(toDate)
+        let formattedTo = formatDateToString(toDate)*/
         
         
-        APIService.shared.getShiftTeam(vendorId: LocalData.userId, endDate: formattedTo, isTeamDetails: "1", limit: "10", page: "1", search: self.txt_search.text ?? "", startDate: formattedFrom,) { result in
+        APIService.shared.getShiftTeam(vendorId: LocalData.userId, endDate: lDate, isTeamDetails: "1", limit: "10", page: "1", search: self.txt_search.text ?? "", startDate: fDate,) { result in
             guard let model = result else {
                 return
             }

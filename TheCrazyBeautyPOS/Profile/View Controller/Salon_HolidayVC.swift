@@ -15,6 +15,7 @@ class Salon_HolidayVC: UIViewController {
     @IBOutlet weak var tbl_vw: UITableView!
     @IBOutlet weak var vwHoliday: UIView!
     @IBOutlet weak var vwHolidayHeight: NSLayoutConstraint!
+    @IBOutlet weak var btn_Save: GradientButton!
     
     var salonHolidaysList: [HolidayDateModel] = []
     
@@ -28,6 +29,14 @@ class Salon_HolidayVC: UIViewController {
         txt_from.delegate = self
         txt_to.delegate = self
         setTableView()
+        let attributedTitle = NSAttributedString(
+            string: "Save",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         fetchHolidays()
         setCustomFont()
     }

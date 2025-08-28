@@ -18,6 +18,7 @@ class Block_CustomerVC: UIViewController {
     
     @IBOutlet weak var tbl_vw: UITableView!
     @IBOutlet weak var tbl_Height: NSLayoutConstraint!
+    @IBOutlet weak var btn_Save: GradientButton!
     
     var arr_Number = [[String: String]]()
     var selectedCountrycode = "+353"
@@ -47,6 +48,14 @@ class Block_CustomerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTableView()
+        let attributedTitle = NSAttributedString(
+            string: "Save",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         setCustomFont()
         if let iso = CountryUtils.getISOCode(from: selectedCountrycode),
            let flagImage = CountryUtils.imageFromEmoji(flag: CountryUtils.flag(from: iso)) {

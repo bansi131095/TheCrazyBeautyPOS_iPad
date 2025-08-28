@@ -76,12 +76,22 @@ class AddOfflineGiftCard_VC: UIViewController {
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Regular", size: 22.0) {
+        if let customFont = UIFont(name: "Lato-Regular", size: 20.0) {
             txt_GiftName.font = customFont
             txt_Price.font = customFont
             txt_ExpiryDate.font = customFont
         }
     }
+    
+    func getNoDataLabel() -> UILabel {
+        let noDataLabel = UILabel()
+        noDataLabel.text = "No Data Found"
+        noDataLabel.textAlignment = .center
+        noDataLabel.textColor = .gray
+        noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)
+        return noDataLabel
+    }
+    
     
     func AddOfflineGiftCardApiCall() {
         showLoader()

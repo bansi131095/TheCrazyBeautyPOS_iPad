@@ -11,12 +11,21 @@ class Team_SequenceVC: UIViewController {
 
     @IBOutlet weak var tbl_TeamSequnence: UITableView!
     @IBOutlet weak var tbl_Height: NSLayoutConstraint!
+    @IBOutlet weak var btn_Save: GradientButton!
     
     var TeamDetails: [TeamDetailsModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setTableView()
+        let attributedTitle = NSAttributedString(
+            string: "Save",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         get_TeamDetails()
     }
     

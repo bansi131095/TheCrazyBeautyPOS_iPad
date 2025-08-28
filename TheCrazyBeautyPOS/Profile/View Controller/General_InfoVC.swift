@@ -56,6 +56,7 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     @IBOutlet weak var switch_Salon: UISwitch!
     
     @IBOutlet weak var flag_imgVw: UIImageView!
+    @IBOutlet weak var btn_Save: GradientButton!
     
     var locationManager = CLLocationManager()
     var userLatitude:CLLocationDegrees! = 0
@@ -81,6 +82,15 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let attributedTitle = NSAttributedString(
+            string: "Save",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
+        txt_Aboutus.applyLatoBoldFont(size: 20)
         setCustomFont()
         get_fetchSalon()
         if let iso = CountryUtils.getISOCode(from: selectedCountrycode),
@@ -322,6 +332,7 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             txt_SalonType.font = customFont
             txt_MobileNumber.font = customFont
             txt_Address.font = customFont
+            txt_Aboutus.font = customFont
         }
     }
     
@@ -956,3 +967,9 @@ extension General_InfoVC: UIColorPickerViewControllerDelegate {
 }
 
 
+
+extension UITextView {
+    func applyLatoBoldFont(size: CGFloat) {
+        self.font = UIFont(name: "Lato-Bold", size: size)
+    }
+}

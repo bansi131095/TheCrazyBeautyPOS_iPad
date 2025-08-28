@@ -11,6 +11,7 @@ import DropDown
 class Slot_DurationVC: UIViewController {
 
     @IBOutlet weak var txt_SlotDuration: TextInputLayout!
+    @IBOutlet weak var btn_Save: GradientButton!
     
     var arr_SlotDuration: [String] = ["5 Minutes","10 Minutes","15 Minutes","20 Minutes","25 Minutes","30 Minutes"]
     var select_Slot: String = ""
@@ -18,6 +19,14 @@ class Slot_DurationVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setCustomFont()
+        let attributedTitle = NSAttributedString(
+            string: "Save",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         if let savedSlot = LocalData.setSlotDuration, arr_SlotDuration.contains(savedSlot) {
             select_Slot = savedSlot
         } else {

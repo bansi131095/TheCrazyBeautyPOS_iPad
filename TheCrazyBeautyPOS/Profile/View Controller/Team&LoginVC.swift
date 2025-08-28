@@ -16,6 +16,9 @@ class Team_LoginVC: UIViewController {
     
     @IBOutlet weak var btn_eye: UIButton!
     
+    @IBOutlet weak var btn_Save: GradientButton!
+    @IBOutlet weak var btn_LoginasStaff: GradientButton!
+    
     
     //MARK: - Global Variable
     var TeamLogin: [KioskDetailsModel] = []
@@ -23,6 +26,22 @@ class Team_LoginVC: UIViewController {
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        let attributedTitle = NSAttributedString(
+            string: "Submit",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        let LogattributedTitle = NSAttributedString(
+            string: "Login as Staff",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
+        btn_LoginasStaff.setAttributedTitle(LogattributedTitle, for: .normal)
         setCustomFont()
         self.btn_eye.setImage(#imageLiteral(resourceName: "view"), for: .normal)
         self.txt_Password.isSecureTextEntry = true

@@ -71,6 +71,7 @@ class Business_HoursVC: UIViewController {
     
     @IBOutlet weak var Switch_Sun: UISwitch!
     
+    @IBOutlet weak var btn_Save: GradientButton!
     
     //MARK: - Global Variable
     var timeSlots: [String] = []
@@ -79,6 +80,14 @@ class Business_HoursVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let attributedTitle = NSAttributedString(
+            string: "Save",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         Switch_Sun.isOn = false
         vw_SunClose.isHidden = false
         vw_SunTime.isHidden = true

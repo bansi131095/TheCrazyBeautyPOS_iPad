@@ -26,6 +26,10 @@ class Salon_ImagesVC: UIViewController {
     
     @IBOutlet weak var lbl_Atleast1: UILabel!
     @IBOutlet weak var img_Delete: UIImageView!
+    
+    @IBOutlet weak var btn_Save: GradientButton!
+    
+    
     //MARK: - Global Variable
 //    var arr_photo: [UIImage] = []
     var profileModel: [profileDetailsModel] = []
@@ -37,6 +41,14 @@ class Salon_ImagesVC: UIViewController {
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        let attributedTitle = NSAttributedString(
+            string: "Save",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         self.lbl_Atleast1.isHidden = true
         self.cv_HeightConst.constant = 0
         self.cv_Imgs.isHidden = true

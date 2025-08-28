@@ -27,6 +27,7 @@ class BusinessFirst_InformationVC: UIViewController {
     @IBOutlet weak var txt_Address: TextInputLayout!
     @IBOutlet weak var map_vw: UIView!
     @IBOutlet weak var switch_visible: UISwitch!
+    @IBOutlet weak var btn_Continue: GradientButton!
     
     //MARK: - Global Variable
     var web_status : Int?
@@ -40,6 +41,14 @@ class BusinessFirst_InformationVC: UIViewController {
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        let attributedTitle = NSAttributedString(
+            string: "Continue",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 20)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Continue.setAttributedTitle(attributedTitle, for: .normal)
         setCustomFont()
         txt_SalonType.text = arr_SalonType.first
         self.determineMyCurrentLocation()

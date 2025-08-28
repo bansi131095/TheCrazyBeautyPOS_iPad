@@ -64,6 +64,7 @@ class Notifications_SettingsVC: UIViewController {
     @IBOutlet weak var Switch_BookingN_EditBooking: UISwitch!
     @IBOutlet weak var Switch_BookingN_NotShown: UISwitch!
     
+    @IBOutlet weak var btn_Save: GradientButton!
     
     //MARK: - Global Variable
     var isSMSExpanded = false
@@ -75,6 +76,14 @@ class Notifications_SettingsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let attributedTitle = NSAttributedString(
+            string: "Save",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         setCustomFont()
         setInitialVisibility()
 //        self.lbl_Time.text = arr_TimeSlot[0]

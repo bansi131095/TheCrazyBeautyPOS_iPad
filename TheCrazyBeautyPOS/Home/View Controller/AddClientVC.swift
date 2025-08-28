@@ -53,8 +53,13 @@ class AddClientVC: UIViewController {
             self.setEditData()
         } else {
             self.btn_addEditTeam.setTitle("Add Client", for: .normal)
+            if let iso = CountryUtils.getISOCode(from: selectedCountrycode),
+               let flagImage = CountryUtils.imageFromEmoji(flag: CountryUtils.flag(from: iso)) {
+                flag_imgVw.image = flagImage
+            }
         }
         self.setCustomFont()
+        
         // Do any additional setup after loading the view.
     }
     
@@ -169,6 +174,22 @@ class AddClientVC: UIViewController {
                 self.selectedCountrycode = phoneCode  // Example: set it to a UILabel
             } else {
                 print("⚠️ code not found in countryDic")
+            }
+            
+            // ✅ Get ISO code and set flag image
+            if let locale = countryDic["locale"] as? String {
+                let isoCode = locale.uppercased()
+
+                // Convert ISO → Emoji flag
+                let flagEmoji = CountryUtils.flag(from: isoCode)
+
+                // Convert Emoji flag → UIImage
+                if let flagImage = CountryUtils.imageFromEmoji(flag: flagEmoji) {
+                    self.flag_imgVw.image = flagImage
+                } else {
+                    self.flag_imgVw.image = nil
+                    print("⚠️ Could not generate flag image")
+                }
             }
         }
         
@@ -340,7 +361,7 @@ class AddClientVC: UIViewController {
     }
 
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Regular", size: 22.0) {
+        if let customFont = UIFont(name: "Lato-Regular", size: 20.0) {
             firstNameTextField.font = customFont
             lastNameTextField.font = customFont
             emailTextField.font = customFont

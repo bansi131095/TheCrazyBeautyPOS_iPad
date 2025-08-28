@@ -12,6 +12,7 @@ class Booking_PolicyVC: UIViewController {
     //MARK: - Outlet
     @IBOutlet weak var txtvw_Note: UITextView!
     
+    @IBOutlet weak var btn_Save: GradientButton!
     //MARK: - Global Variable
     
     
@@ -19,6 +20,14 @@ class Booking_PolicyVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         get_Notes()
+        let attributedTitle = NSAttributedString(
+            string: "Save",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         setCustomFont()
     }
     

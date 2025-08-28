@@ -2033,10 +2033,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WHW-Nh-tO6">
-                                <rect key="frame" x="740" y="30" width="250" height="50"/>
+                                <rect key="frame" x="740" y="30" width="250" height="45"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Search" translatesAutoresizingMaskIntoConstraints="NO" id="4He-p8-Qkx">
-                                        <rect key="frame" x="15" y="10" width="30" height="30"/>
+                                        <rect key="frame" x="15" y="7.5" width="30" height="30"/>
                                         <color key="tintColor" name="txtGray"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="js3-So-ao8"/>
@@ -2044,7 +2044,7 @@
                                         </constraints>
                                     </imageView>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Search" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6yJ-Fs-eSI">
-                                        <rect key="frame" x="55" y="5" width="185" height="40"/>
+                                        <rect key="frame" x="55" y="5" width="185" height="35"/>
                                         <attributedString key="attributedText"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -2052,7 +2052,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="6yJ-Fs-eSI" firstAttribute="centerY" secondItem="WHW-Nh-tO6" secondAttribute="centerY" id="4ja-IR-7qX"/>
-                                    <constraint firstAttribute="height" constant="50" id="9aY-2k-Hrl"/>
+                                    <constraint firstAttribute="height" constant="45" id="9aY-2k-Hrl"/>
                                     <constraint firstItem="4He-p8-Qkx" firstAttribute="leading" secondItem="WHW-Nh-tO6" secondAttribute="leading" constant="15" id="GP0-t8-evD"/>
                                     <constraint firstAttribute="width" constant="250" id="JAC-aU-R54"/>
                                     <constraint firstItem="6yJ-Fs-eSI" firstAttribute="top" secondItem="WHW-Nh-tO6" secondAttribute="top" constant="5" id="RL5-O8-Nb5"/>
@@ -2069,15 +2069,15 @@
                                         <color key="value" name="txtGray"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="25"/>
+                                        <real key="value" value="22.5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4SO-I3-zuu" customClass="GradientButton" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                <rect key="frame" x="1010" y="30" width="150" height="50"/>
+                                <rect key="frame" x="1010" y="30" width="150" height="45"/>
                                 <color key="backgroundColor" name="AccentColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="fY4-lr-VNj"/>
+                                    <constraint firstAttribute="height" constant="45" id="fY4-lr-VNj"/>
                                     <constraint firstAttribute="width" constant="150" id="n5T-ia-vJi"/>
                                 </constraints>
                                 <inset key="titleEdgeInsets" minX="-50" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -2095,7 +2095,7 @@
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="25"/>
+                                        <real key="value" value="22.5"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="startColor">
                                         <color key="value" name="MainPrim"/>
@@ -2109,13 +2109,13 @@
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vIC-kF-CkZ">
-                                <rect key="frame" x="0.0" y="100" width="1180" height="670"/>
+                                <rect key="frame" x="0.0" y="95" width="1180" height="675"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sRg-YA-WNn">
-                                        <rect key="frame" x="0.0" y="0.0" width="1180" height="670"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1180" height="675"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gRp-8k-Kb8">
-                                                <rect key="frame" x="0.0" y="0.0" width="1180" height="670"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1180" height="675"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </tableView>
                                         </subviews>
@@ -2434,10 +2434,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="azT-UJ-eyg">
-                                                        <rect key="frame" x="35" y="105" width="894" height="80"/>
+                                                        <rect key="frame" x="35" y="105" width="894" height="65"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="First Name*" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8CW-mC-wBb" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="10" y="0.0" width="429.5" height="80"/>
+                                                                <rect key="frame" x="10" y="0.0" width="429.5" height="65"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -2458,7 +2458,7 @@
                                                                         <color key="value" name="txtGray"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="40"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                         <real key="value" value="18"/>
@@ -2466,7 +2466,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Last Name " minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gxm-Sh-7gC" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="454.5" y="0.0" width="429.5" height="80"/>
+                                                                <rect key="frame" x="454.5" y="0.0" width="429.5" height="65"/>
                                                                 <color key="textColor" name="AppBlack"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -2488,7 +2488,7 @@
                                                                         <color key="value" name="txtGray"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="40"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                         <real key="value" value="18"/>
@@ -2505,18 +2505,18 @@
                                                             <constraint firstItem="Gxm-Sh-7gC" firstAttribute="leading" secondItem="8CW-mC-wBb" secondAttribute="trailing" constant="15" id="Ou8-8w-RR4"/>
                                                             <constraint firstAttribute="bottom" secondItem="Gxm-Sh-7gC" secondAttribute="bottom" id="hJw-9I-xfK"/>
                                                             <constraint firstItem="8CW-mC-wBb" firstAttribute="top" secondItem="azT-UJ-eyg" secondAttribute="top" id="iY4-fo-8gg"/>
-                                                            <constraint firstAttribute="height" constant="80" id="oJi-su-qPR"/>
+                                                            <constraint firstAttribute="height" constant="65" id="oJi-su-qPR"/>
                                                             <constraint firstItem="8CW-mC-wBb" firstAttribute="leading" secondItem="azT-UJ-eyg" secondAttribute="leading" constant="10" id="u8N-Wb-Ny9"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BKe-8S-6oV">
-                                                        <rect key="frame" x="35" y="200" width="894" height="80"/>
+                                                        <rect key="frame" x="35" y="185" width="894" height="65"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oUG-af-1bb">
-                                                                <rect key="frame" x="10" y="0.0" width="434.5" height="80"/>
+                                                                <rect key="frame" x="10" y="0.0" width="434.5" height="65"/>
                                                                 <subviews>
                                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Gender" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xCS-Eg-6hj" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="434.5" height="80"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="434.5" height="65"/>
                                                                         <color key="textColor" name="AppBlack"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <textInputTraits key="textInputTraits"/>
@@ -2538,7 +2538,7 @@
                                                                                 <color key="value" name="txtGray"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                <real key="value" value="40"/>
+                                                                                <real key="value" value="32.5"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                                 <real key="value" value="18"/>
@@ -2546,7 +2546,7 @@
                                                                         </userDefinedRuntimeAttributes>
                                                                     </textField>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down" translatesAutoresizingMaskIntoConstraints="NO" id="iwu-my-u1M">
-                                                                        <rect key="frame" x="394.5" y="30" width="20" height="20"/>
+                                                                        <rect key="frame" x="394.5" y="22.5" width="20" height="20"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="20" id="5oK-QP-ivx"/>
                                                                             <constraint firstAttribute="height" constant="20" id="p62-TI-9p0"/>
@@ -2564,10 +2564,10 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pyq-g0-V6y">
-                                                                <rect key="frame" x="459.5" y="0.0" width="434.5" height="80"/>
+                                                                <rect key="frame" x="459.5" y="0.0" width="434.5" height="65"/>
                                                                 <subviews>
                                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Client Type" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tiQ-Sj-yxG" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="424.5" height="80"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="424.5" height="65"/>
                                                                         <color key="textColor" name="AppBlack"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <textInputTraits key="textInputTraits"/>
@@ -2589,7 +2589,7 @@
                                                                                 <color key="value" name="txtGray"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                <real key="value" value="40"/>
+                                                                                <real key="value" value="32.5"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                                 <real key="value" value="18"/>
@@ -2597,7 +2597,7 @@
                                                                         </userDefinedRuntimeAttributes>
                                                                     </textField>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down" translatesAutoresizingMaskIntoConstraints="NO" id="RTP-rG-QGU">
-                                                                        <rect key="frame" x="384.5" y="30" width="20" height="20"/>
+                                                                        <rect key="frame" x="384.5" y="22.5" width="20" height="20"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="20" id="6Nj-Ge-n9Y"/>
                                                                             <constraint firstAttribute="height" constant="20" id="hn4-3K-zkJ"/>
@@ -2623,16 +2623,16 @@
                                                             <constraint firstItem="Pyq-g0-V6y" firstAttribute="leading" secondItem="oUG-af-1bb" secondAttribute="trailing" constant="15" id="FsH-cB-RKU"/>
                                                             <constraint firstItem="Pyq-g0-V6y" firstAttribute="width" secondItem="oUG-af-1bb" secondAttribute="width" id="MGh-d4-yKr"/>
                                                             <constraint firstItem="Pyq-g0-V6y" firstAttribute="top" secondItem="BKe-8S-6oV" secondAttribute="top" id="Oaa-fh-psB"/>
-                                                            <constraint firstAttribute="height" constant="80" id="etP-fr-2wJ"/>
+                                                            <constraint firstAttribute="height" constant="65" id="etP-fr-2wJ"/>
                                                             <constraint firstItem="oUG-af-1bb" firstAttribute="leading" secondItem="BKe-8S-6oV" secondAttribute="leading" constant="10" id="rRt-Uc-PGI"/>
                                                             <constraint firstAttribute="bottom" secondItem="Pyq-g0-V6y" secondAttribute="bottom" id="y6C-hw-tvJ"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0wf-ja-POU">
-                                                        <rect key="frame" x="35" y="295" width="894" height="80"/>
+                                                        <rect key="frame" x="35" y="265" width="894" height="65"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Date of Birth" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U7j-ph-wF2" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="10" y="0.0" width="874" height="80"/>
+                                                                <rect key="frame" x="10" y="0.0" width="874" height="65"/>
                                                                 <color key="textColor" name="AppBlack"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -2654,7 +2654,7 @@
                                                                         <color key="value" name="txtGray"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="40"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                         <real key="value" value="18"/>
@@ -2662,7 +2662,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="hJT-9V-keE">
-                                                                <rect key="frame" x="834" y="25" width="30" height="30"/>
+                                                                <rect key="frame" x="834" y="17.5" width="30" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="KLh-o3-I4Y"/>
                                                                     <constraint firstAttribute="width" constant="30" id="L80-K4-Jmi"/>
@@ -2673,7 +2673,7 @@
                                                         <constraints>
                                                             <constraint firstItem="U7j-ph-wF2" firstAttribute="top" secondItem="0wf-ja-POU" secondAttribute="top" id="BJx-b1-jx5"/>
                                                             <constraint firstItem="hJT-9V-keE" firstAttribute="centerY" secondItem="0wf-ja-POU" secondAttribute="centerY" id="aoE-uX-OeC"/>
-                                                            <constraint firstAttribute="height" constant="80" id="atD-HO-XOS"/>
+                                                            <constraint firstAttribute="height" constant="65" id="atD-HO-XOS"/>
                                                             <constraint firstItem="U7j-ph-wF2" firstAttribute="leading" secondItem="0wf-ja-POU" secondAttribute="leading" constant="10" id="isG-8H-DkS"/>
                                                             <constraint firstAttribute="trailing" secondItem="U7j-ph-wF2" secondAttribute="trailing" constant="10" id="mvt-ah-seT"/>
                                                             <constraint firstAttribute="bottom" secondItem="U7j-ph-wF2" secondAttribute="bottom" id="tpb-NX-PKp"/>
@@ -2681,9 +2681,9 @@
                                                         </constraints>
                                                     </view>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Email Address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Vw-Gt-Zwt" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                        <rect key="frame" x="45" y="390" width="874" height="80"/>
+                                                        <rect key="frame" x="45" y="345" width="874" height="65"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="80" id="zxW-G6-95S"/>
+                                                            <constraint firstAttribute="height" constant="65" id="zxW-G6-95S"/>
                                                         </constraints>
                                                         <color key="textColor" name="AppBlack"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
@@ -2706,7 +2706,7 @@
                                                                 <color key="value" name="txtGray"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                <real key="value" value="40"/>
+                                                                <real key="value" value="32.5"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                 <real key="value" value="18"/>
@@ -2714,34 +2714,34 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="68g-KP-t37">
-                                                        <rect key="frame" x="45" y="485" width="874" height="80"/>
+                                                        <rect key="frame" x="45" y="425" width="874" height="65"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="een-1M-xuM">
-                                                                <rect key="frame" x="0.0" y="0.0" width="120" height="80"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="120" height="65"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flag" translatesAutoresizingMaskIntoConstraints="NO" id="nB5-me-1PW">
-                                                                        <rect key="frame" x="35" y="20" width="40" height="40"/>
+                                                                        <rect key="frame" x="35" y="12.5" width="40" height="40"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="40" id="0sa-6F-LvK"/>
                                                                             <constraint firstAttribute="width" constant="40" id="eLc-OX-hPu"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down 1" translatesAutoresizingMaskIntoConstraints="NO" id="Zfd-Fu-Rgi">
-                                                                        <rect key="frame" x="85" y="32.5" width="15" height="15"/>
+                                                                        <rect key="frame" x="85" y="25" width="15" height="15"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="15" id="G8g-3g-hh1"/>
                                                                             <constraint firstAttribute="height" constant="15" id="pnI-gy-PeP"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="omZ-Zs-EuA">
-                                                                        <rect key="frame" x="5" y="5" width="109" height="70"/>
+                                                                        <rect key="frame" x="5" y="5" width="109" height="55"/>
                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                         <connections>
                                                                             <action selector="act_country:" destination="llU-kg-9h3" eventType="touchUpInside" id="imG-tl-WOC"/>
                                                                         </connections>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGy-iC-PPh">
-                                                                        <rect key="frame" x="119" y="0.0" width="1" height="80"/>
+                                                                        <rect key="frame" x="119" y="0.0" width="1" height="65"/>
                                                                         <color key="backgroundColor" name="txtGray"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="1" id="G9H-rl-Yde"/>
@@ -2768,7 +2768,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Mobile Number*" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fhe-OE-0cq" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="135" y="0.0" width="739" height="80"/>
+                                                                <rect key="frame" x="135" y="0.0" width="739" height="65"/>
                                                                 <color key="textColor" name="AppBlack"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
@@ -2794,7 +2794,7 @@
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="80" id="6Rp-xC-MqW"/>
+                                                            <constraint firstAttribute="height" constant="65" id="6Rp-xC-MqW"/>
                                                             <constraint firstAttribute="bottom" secondItem="Fhe-OE-0cq" secondAttribute="bottom" id="98v-d1-jfB"/>
                                                             <constraint firstAttribute="bottom" secondItem="een-1M-xuM" secondAttribute="bottom" id="FC5-7c-Kfz"/>
                                                             <constraint firstItem="Fhe-OE-0cq" firstAttribute="top" secondItem="68g-KP-t37" secondAttribute="top" id="ODA-eg-PVM"/>
@@ -2805,7 +2805,7 @@
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                <real key="value" value="40"/>
+                                                                <real key="value" value="32.5"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                 <real key="value" value="1"/>
@@ -2816,7 +2816,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ndg-bv-wvn">
-                                                        <rect key="frame" x="35" y="590" width="894" height="1.5"/>
+                                                        <rect key="frame" x="35" y="515" width="894" height="1.5"/>
                                                         <color key="backgroundColor" systemColor="secondaryLabelColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1.5" id="0xN-BN-Ce7"/>
@@ -2826,10 +2826,10 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WUD-pe-YUx">
-                                                        <rect key="frame" x="45" y="621.5" width="874" height="80"/>
+                                                        <rect key="frame" x="45" y="546.5" width="874" height="65"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z1V-58-9KH">
-                                                                <rect key="frame" x="0.0" y="7.5" width="150" height="65"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="150" height="65"/>
                                                                 <color key="backgroundColor" name="Peach"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="150" id="2Cy-FE-0P9"/>
@@ -2849,7 +2849,7 @@
                                                                 </state>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="33"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                                 <connections>
@@ -2857,7 +2857,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3XL-zg-dTd" customClass="GradientButton" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="170" y="7.5" width="694" height="65"/>
+                                                                <rect key="frame" x="170" y="0.0" width="694" height="65"/>
                                                                 <color key="backgroundColor" name="AccentLight"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="65" id="FGt-4O-TUD"/>
@@ -2869,7 +2869,7 @@
                                                                 </state>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="33"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="startColor">
                                                                         <color key="value" name="MainPrim"/>
@@ -2888,7 +2888,7 @@
                                                             <constraint firstItem="z1V-58-9KH" firstAttribute="leading" secondItem="WUD-pe-YUx" secondAttribute="leading" id="2iK-xx-UXv"/>
                                                             <constraint firstItem="z1V-58-9KH" firstAttribute="centerY" secondItem="WUD-pe-YUx" secondAttribute="centerY" id="RLX-xS-nFZ"/>
                                                             <constraint firstItem="3XL-zg-dTd" firstAttribute="centerY" secondItem="WUD-pe-YUx" secondAttribute="centerY" id="S9u-Ls-oL2"/>
-                                                            <constraint firstAttribute="height" constant="80" id="Xhl-aJ-P9l"/>
+                                                            <constraint firstAttribute="height" constant="65" id="Xhl-aJ-P9l"/>
                                                             <constraint firstItem="3XL-zg-dTd" firstAttribute="leading" secondItem="z1V-58-9KH" secondAttribute="trailing" constant="20" id="f5g-Nc-8Sw"/>
                                                             <constraint firstAttribute="trailing" secondItem="3XL-zg-dTd" secondAttribute="trailing" constant="10" id="oMz-hx-9RO"/>
                                                         </constraints>
@@ -3636,31 +3636,31 @@
                                                         <rect key="frame" x="45" y="635" width="890" height="65"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kRv-rb-J3A">
-                                                                <rect key="frame" x="0.0" y="0.0" width="110" height="65"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="120" height="65"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flag" translatesAutoresizingMaskIntoConstraints="NO" id="YDl-H1-8Jq">
-                                                                        <rect key="frame" x="20" y="16.5" width="50" height="32"/>
+                                                                        <rect key="frame" x="35" y="12.5" width="40" height="40"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="height" constant="32" id="UoG-5u-azI"/>
-                                                                            <constraint firstAttribute="width" constant="50" id="rf1-sf-U5M"/>
+                                                                            <constraint firstAttribute="height" constant="40" id="UoG-5u-azI"/>
+                                                                            <constraint firstAttribute="width" constant="40" id="rf1-sf-U5M"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down 1" translatesAutoresizingMaskIntoConstraints="NO" id="0RE-UG-Q9z">
-                                                                        <rect key="frame" x="80" y="25" width="15" height="15"/>
+                                                                        <rect key="frame" x="85" y="25" width="15" height="15"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="15" id="U9C-ju-dPG"/>
                                                                             <constraint firstAttribute="height" constant="15" id="ciH-LF-Zo3"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b7z-Zs-n7g">
-                                                                        <rect key="frame" x="5" y="5" width="99" height="55"/>
+                                                                        <rect key="frame" x="5" y="5" width="109" height="55"/>
                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                         <connections>
                                                                             <action selector="act_country:" destination="KQA-Pt-XEB" eventType="touchUpInside" id="kQB-2D-d9s"/>
                                                                         </connections>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MBb-FO-yBp">
-                                                                        <rect key="frame" x="109" y="0.0" width="1" height="65"/>
+                                                                        <rect key="frame" x="119" y="0.0" width="1" height="65"/>
                                                                         <color key="backgroundColor" name="txtGray"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="1" id="f1e-KC-gQG"/>
@@ -3673,21 +3673,21 @@
                                                                 <color key="backgroundColor" name="lightGrayBg 1"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="bottom" secondItem="MBb-FO-yBp" secondAttribute="bottom" id="24m-21-sRW"/>
+                                                                    <constraint firstItem="YDl-H1-8Jq" firstAttribute="centerY" secondItem="kRv-rb-J3A" secondAttribute="centerY" id="3D7-Um-m2I"/>
                                                                     <constraint firstAttribute="trailing" secondItem="MBb-FO-yBp" secondAttribute="trailing" id="7WF-V3-UCg"/>
                                                                     <constraint firstItem="0RE-UG-Q9z" firstAttribute="leading" secondItem="YDl-H1-8Jq" secondAttribute="trailing" constant="10" id="7b0-dv-gz5"/>
                                                                     <constraint firstItem="MBb-FO-yBp" firstAttribute="leading" secondItem="b7z-Zs-n7g" secondAttribute="trailing" constant="5" id="9Wt-C6-ZRj"/>
                                                                     <constraint firstItem="0RE-UG-Q9z" firstAttribute="centerY" secondItem="kRv-rb-J3A" secondAttribute="centerY" id="Bmd-Ju-Ixb"/>
                                                                     <constraint firstItem="b7z-Zs-n7g" firstAttribute="leading" secondItem="kRv-rb-J3A" secondAttribute="leading" constant="5" id="DCM-sO-XWx"/>
                                                                     <constraint firstItem="MBb-FO-yBp" firstAttribute="top" secondItem="kRv-rb-J3A" secondAttribute="top" id="IYQ-Sa-UUF"/>
-                                                                    <constraint firstItem="MBb-FO-yBp" firstAttribute="leading" secondItem="0RE-UG-Q9z" secondAttribute="trailing" constant="14" id="JXF-yH-BfP"/>
                                                                     <constraint firstAttribute="bottom" secondItem="b7z-Zs-n7g" secondAttribute="bottom" constant="5" id="KAe-Lo-rnT"/>
-                                                                    <constraint firstItem="YDl-H1-8Jq" firstAttribute="centerY" secondItem="kRv-rb-J3A" secondAttribute="centerY" id="XqY-if-87v"/>
+                                                                    <constraint firstItem="YDl-H1-8Jq" firstAttribute="leading" secondItem="kRv-rb-J3A" secondAttribute="leading" constant="35" id="XWT-uJ-uOn"/>
                                                                     <constraint firstItem="b7z-Zs-n7g" firstAttribute="top" secondItem="kRv-rb-J3A" secondAttribute="top" constant="5" id="eLs-yx-qzg"/>
-                                                                    <constraint firstAttribute="width" constant="110" id="hCa-xZ-mo3"/>
+                                                                    <constraint firstAttribute="width" constant="120" id="hCa-xZ-mo3"/>
                                                                 </constraints>
                                                             </view>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Mobile Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fJ8-GH-caS" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="125" y="0.0" width="765" height="65"/>
+                                                                <rect key="frame" x="135" y="0.0" width="755" height="65"/>
                                                                 <color key="textColor" name="AppBlack"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
@@ -4634,7 +4634,7 @@
                                             <action selector="btn_CloseAll:" destination="FE1-SV-xt3" eventType="touchUpInside" id="7mA-6P-d3C"/>
                                         </connections>
                                     </button>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="AllResourcesCell" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="OAK-ef-x3x">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="AllResourcesCell" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="OAK-ef-x3x">
                                         <rect key="frame" x="10" y="71.5" width="690" height="608.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
@@ -6644,6 +6644,9 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 Team Members" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hLh-Bq-Xoc">
                                 <rect key="frame" x="35" y="63.5" width="130" height="19.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="130" id="qtG-wG-yPk"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Medium" family="Lato" pointSize="16"/>
                                 <color key="textColor" name="txtGray"/>
                                 <nil key="highlightedColor"/>
@@ -6974,6 +6977,7 @@
                             <constraint firstItem="aT8-aT-d65" firstAttribute="leading" secondItem="XaN-ur-PLC" secondAttribute="leading" id="RQD-kG-czm"/>
                             <constraint firstItem="S7X-4l-0t3" firstAttribute="leading" secondItem="XaN-ur-PLC" secondAttribute="leading" constant="35" id="Ugf-nb-UbQ"/>
                             <constraint firstItem="S7X-4l-0t3" firstAttribute="top" secondItem="XaN-ur-PLC" secondAttribute="top" constant="6" id="Vaz-1D-Pda"/>
+                            <constraint firstItem="yla-vq-Qpj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hLh-Bq-Xoc" secondAttribute="trailing" constant="20" id="Y0E-so-LjY"/>
                             <constraint firstItem="aT8-aT-d65" firstAttribute="trailing" secondItem="XaN-ur-PLC" secondAttribute="trailing" id="i8L-jm-AGW"/>
                             <constraint firstItem="XaN-ur-PLC" firstAttribute="trailing" secondItem="7qy-wg-u5e" secondAttribute="trailing" constant="20" id="kSX-NF-pOf"/>
                             <constraint firstItem="yla-vq-Qpj" firstAttribute="top" secondItem="Kym-JV-7Am" secondAttribute="top" id="l4S-M3-jaQ"/>
@@ -10543,10 +10547,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N3g-ek-v8s">
-                                                        <rect key="frame" x="35" y="105" width="894" height="80"/>
+                                                        <rect key="frame" x="35" y="105" width="894" height="65"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Gift Name*" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tUS-7S-PGS" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="10" y="0.0" width="874" height="80"/>
+                                                                <rect key="frame" x="10" y="0.0" width="874" height="65"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -10567,7 +10571,7 @@
                                                                         <color key="value" name="txtGray"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="40"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                         <real key="value" value="18"/>
@@ -10582,16 +10586,16 @@
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="tUS-7S-PGS" secondAttribute="trailing" constant="10" id="9z2-eQ-TP5"/>
                                                             <constraint firstItem="tUS-7S-PGS" firstAttribute="leading" secondItem="N3g-ek-v8s" secondAttribute="leading" constant="10" id="JYb-Gi-zK5"/>
-                                                            <constraint firstAttribute="height" constant="80" id="ccB-JU-etr"/>
+                                                            <constraint firstAttribute="height" constant="65" id="ccB-JU-etr"/>
                                                             <constraint firstAttribute="bottom" secondItem="tUS-7S-PGS" secondAttribute="bottom" id="foU-VO-gdS"/>
                                                             <constraint firstItem="tUS-7S-PGS" firstAttribute="top" secondItem="N3g-ek-v8s" secondAttribute="top" id="l8n-DV-Ew3"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qna-4d-ofw">
-                                                        <rect key="frame" x="35" y="200" width="894" height="80"/>
+                                                        <rect key="frame" x="35" y="185" width="894" height="65"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Price ($)*" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S3B-g8-4Sb" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="10" y="0.0" width="874" height="80"/>
+                                                                <rect key="frame" x="10" y="0.0" width="874" height="65"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -10612,7 +10616,7 @@
                                                                         <color key="value" name="txtGray"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="40"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                         <real key="value" value="18"/>
@@ -10625,7 +10629,7 @@
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="80" id="CR5-fa-KPv"/>
+                                                            <constraint firstAttribute="height" constant="65" id="CR5-fa-KPv"/>
                                                             <constraint firstAttribute="trailing" secondItem="S3B-g8-4Sb" secondAttribute="trailing" constant="10" id="dFF-dB-bQI"/>
                                                             <constraint firstItem="S3B-g8-4Sb" firstAttribute="top" secondItem="qna-4d-ofw" secondAttribute="top" id="kr1-GZ-Dxc"/>
                                                             <constraint firstAttribute="bottom" secondItem="S3B-g8-4Sb" secondAttribute="bottom" id="nCb-2X-nYQ"/>
@@ -10633,7 +10637,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YGE-qe-nbc" customClass="FloatingTextView" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                        <rect key="frame" x="45" y="295" width="874" height="180"/>
+                                                        <rect key="frame" x="45" y="265" width="874" height="180"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="180" id="hCz-AR-cli"/>
@@ -10652,10 +10656,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CA4-p5-TvA">
-                                                        <rect key="frame" x="35" y="490" width="894" height="80"/>
+                                                        <rect key="frame" x="35" y="460" width="894" height="65"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Expiry Date *" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ib2-8t-gAL" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="10" y="0.0" width="874" height="80"/>
+                                                                <rect key="frame" x="10" y="0.0" width="874" height="65"/>
                                                                 <color key="textColor" name="AppBlack"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -10677,7 +10681,7 @@
                                                                         <color key="value" name="txtGray"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="40"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                         <real key="value" value="18"/>
@@ -10688,7 +10692,7 @@
                                                                 </connections>
                                                             </textField>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="Qtn-N7-OH2">
-                                                                <rect key="frame" x="834" y="25" width="30" height="30"/>
+                                                                <rect key="frame" x="834" y="17.5" width="30" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="30" id="9Wu-MN-LaI"/>
                                                                     <constraint firstAttribute="height" constant="30" id="Bd2-Pq-A9w"/>
@@ -10700,14 +10704,14 @@
                                                             <constraint firstAttribute="bottom" secondItem="Ib2-8t-gAL" secondAttribute="bottom" id="XxU-sD-i0f"/>
                                                             <constraint firstItem="Qtn-N7-OH2" firstAttribute="centerY" secondItem="CA4-p5-TvA" secondAttribute="centerY" id="fyz-AP-81S"/>
                                                             <constraint firstItem="Ib2-8t-gAL" firstAttribute="leading" secondItem="CA4-p5-TvA" secondAttribute="leading" constant="10" id="hNj-V0-hng"/>
-                                                            <constraint firstAttribute="height" constant="80" id="k5H-Sd-xKE"/>
+                                                            <constraint firstAttribute="height" constant="65" id="k5H-Sd-xKE"/>
                                                             <constraint firstItem="Ib2-8t-gAL" firstAttribute="top" secondItem="CA4-p5-TvA" secondAttribute="top" id="mpT-vp-zJc"/>
                                                             <constraint firstAttribute="trailing" secondItem="Ib2-8t-gAL" secondAttribute="trailing" constant="10" id="t9B-mI-zmn"/>
                                                             <constraint firstItem="Qtn-N7-OH2" firstAttribute="trailing" secondItem="Ib2-8t-gAL" secondAttribute="trailing" constant="-20" id="vpj-5v-zHM"/>
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7xC-nM-F1N">
-                                                        <rect key="frame" x="35" y="605" width="894" height="1.5"/>
+                                                        <rect key="frame" x="35" y="560" width="894" height="1.5"/>
                                                         <color key="backgroundColor" systemColor="secondaryLabelColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1.5" id="dcx-Ei-TfT"/>
@@ -10717,10 +10721,10 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NSa-ua-GWL">
-                                                        <rect key="frame" x="45" y="621.5" width="874" height="80"/>
+                                                        <rect key="frame" x="45" y="576.5" width="874" height="65"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o2t-EE-qsj">
-                                                                <rect key="frame" x="0.0" y="7.5" width="150" height="65"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="150" height="65"/>
                                                                 <color key="backgroundColor" name="Peach"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="65" id="JlG-5x-vaZ"/>
@@ -10740,7 +10744,7 @@
                                                                 </state>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="33"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                                 <connections>
@@ -10748,7 +10752,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uXH-z8-AAO" customClass="GradientButton" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="170" y="7.5" width="694" height="65"/>
+                                                                <rect key="frame" x="170" y="0.0" width="694" height="65"/>
                                                                 <color key="backgroundColor" name="AccentLight"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="65" id="2k3-al-hoV"/>
@@ -10760,7 +10764,7 @@
                                                                 </state>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="33"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="startColor">
                                                                         <color key="value" name="MainPrim"/>
@@ -10777,7 +10781,7 @@
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstItem="uXH-z8-AAO" firstAttribute="leading" secondItem="o2t-EE-qsj" secondAttribute="trailing" constant="20" id="TUv-A2-A4m"/>
-                                                            <constraint firstAttribute="height" constant="80" id="eax-fS-DSb"/>
+                                                            <constraint firstAttribute="height" constant="65" id="eax-fS-DSb"/>
                                                             <constraint firstAttribute="trailing" secondItem="uXH-z8-AAO" secondAttribute="trailing" constant="10" id="sAV-YY-vdG"/>
                                                             <constraint firstItem="o2t-EE-qsj" firstAttribute="leading" secondItem="NSa-ua-GWL" secondAttribute="leading" id="sXG-dt-hyP"/>
                                                             <constraint firstItem="uXH-z8-AAO" firstAttribute="centerY" secondItem="NSa-ua-GWL" secondAttribute="centerY" id="yr1-VC-iEf"/>
@@ -10968,10 +10972,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rdo-2I-VXJ">
-                                                        <rect key="frame" x="35" y="310" width="910" height="80"/>
+                                                        <rect key="frame" x="35" y="310" width="910" height="65"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Card Name*" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tTm-n3-LGa" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="10" y="0.0" width="890" height="80"/>
+                                                                <rect key="frame" x="10" y="0.0" width="890" height="65"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -10992,7 +10996,7 @@
                                                                         <color key="value" name="txtGray"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="40"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                         <real key="value" value="18"/>
@@ -11003,17 +11007,17 @@
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="tTm-n3-LGa" secondAttribute="bottom" id="IhM-Zo-dr8"/>
-                                                            <constraint firstAttribute="height" constant="80" id="MH1-sV-L5l"/>
+                                                            <constraint firstAttribute="height" constant="65" id="MH1-sV-L5l"/>
                                                             <constraint firstItem="tTm-n3-LGa" firstAttribute="leading" secondItem="Rdo-2I-VXJ" secondAttribute="leading" constant="10" id="Qg6-oW-IFM"/>
                                                             <constraint firstAttribute="trailing" secondItem="tTm-n3-LGa" secondAttribute="trailing" constant="10" id="lhr-M4-L4F"/>
                                                             <constraint firstItem="tTm-n3-LGa" firstAttribute="top" secondItem="Rdo-2I-VXJ" secondAttribute="top" id="tEZ-rM-RrJ"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qYA-g0-UeI">
-                                                        <rect key="frame" x="35" y="405" width="910" height="80"/>
+                                                        <rect key="frame" x="35" y="390" width="910" height="65"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Price ($)*" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VGo-4c-Rar" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="10" y="0.0" width="890" height="80"/>
+                                                                <rect key="frame" x="10" y="0.0" width="890" height="65"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -11034,7 +11038,7 @@
                                                                         <color key="value" name="txtGray"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="40"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                         <real key="value" value="18"/>
@@ -11047,15 +11051,15 @@
                                                             <constraint firstItem="VGo-4c-Rar" firstAttribute="top" secondItem="qYA-g0-UeI" secondAttribute="top" id="GnQ-B1-ZAc"/>
                                                             <constraint firstAttribute="bottom" secondItem="VGo-4c-Rar" secondAttribute="bottom" id="Gus-MV-DAB"/>
                                                             <constraint firstItem="VGo-4c-Rar" firstAttribute="leading" secondItem="qYA-g0-UeI" secondAttribute="leading" constant="10" id="II8-yD-KdP"/>
-                                                            <constraint firstAttribute="height" constant="80" id="dU1-nq-yiQ"/>
+                                                            <constraint firstAttribute="height" constant="65" id="dU1-nq-yiQ"/>
                                                             <constraint firstAttribute="trailing" secondItem="VGo-4c-Rar" secondAttribute="trailing" constant="10" id="z1u-iN-lcU"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lzT-Kk-PWQ">
-                                                        <rect key="frame" x="35" y="500" width="910" height="80"/>
+                                                        <rect key="frame" x="35" y="470" width="910" height="65"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Expiry in Days *" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V1d-9X-EyM" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="10" y="0.0" width="890" height="80"/>
+                                                                <rect key="frame" x="10" y="0.0" width="890" height="65"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -11076,7 +11080,7 @@
                                                                         <color key="value" name="txtGray"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="40"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                         <real key="value" value="18"/>
@@ -11090,14 +11094,14 @@
                                                             <constraint firstAttribute="bottom" secondItem="V1d-9X-EyM" secondAttribute="bottom" id="OrV-Wg-D2r"/>
                                                             <constraint firstItem="V1d-9X-EyM" firstAttribute="leading" secondItem="lzT-Kk-PWQ" secondAttribute="leading" constant="10" id="jDq-4H-bhG"/>
                                                             <constraint firstAttribute="trailing" secondItem="V1d-9X-EyM" secondAttribute="trailing" constant="10" id="nD3-Bk-zEm"/>
-                                                            <constraint firstAttribute="height" constant="80" id="ohD-SJ-meE"/>
+                                                            <constraint firstAttribute="height" constant="65" id="ohD-SJ-meE"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0P6-Rc-FK9">
-                                                        <rect key="frame" x="35" y="595" width="910" height="80"/>
+                                                        <rect key="frame" x="35" y="550" width="910" height="65"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Status *" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bcs-12-8CJ" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="10" y="0.0" width="890" height="80"/>
+                                                                <rect key="frame" x="10" y="0.0" width="890" height="65"/>
                                                                 <color key="textColor" name="AppBlack"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -11119,7 +11123,7 @@
                                                                         <color key="value" name="txtGray"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="40"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                         <real key="value" value="18"/>
@@ -11127,14 +11131,14 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down" translatesAutoresizingMaskIntoConstraints="NO" id="IVr-k1-7cn">
-                                                                <rect key="frame" x="855" y="30" width="20" height="20"/>
+                                                                <rect key="frame" x="855" y="22.5" width="20" height="20"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="20" id="KeK-Vl-WEb"/>
                                                                     <constraint firstAttribute="width" constant="20" id="k7Q-ZU-FA5"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k25-30-HKW">
-                                                                <rect key="frame" x="0.0" y="0.0" width="910" height="80"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="910" height="65"/>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <connections>
                                                                     <action selector="btn_StatusDropdown:" destination="LxZ-Pd-nKL" eventType="touchUpInside" id="qIW-zJ-tLb"/>
@@ -11149,7 +11153,7 @@
                                                             <constraint firstAttribute="trailing" secondItem="k25-30-HKW" secondAttribute="trailing" id="JIh-0k-ksa"/>
                                                             <constraint firstItem="bcs-12-8CJ" firstAttribute="leading" secondItem="0P6-Rc-FK9" secondAttribute="leading" constant="10" id="Kqa-fy-8kN"/>
                                                             <constraint firstAttribute="bottom" secondItem="bcs-12-8CJ" secondAttribute="bottom" id="U0L-8C-CD8"/>
-                                                            <constraint firstAttribute="height" constant="80" id="Zwj-G0-K3o"/>
+                                                            <constraint firstAttribute="height" constant="65" id="Zwj-G0-K3o"/>
                                                             <constraint firstItem="k25-30-HKW" firstAttribute="top" secondItem="0P6-Rc-FK9" secondAttribute="top" id="abM-tp-vLg"/>
                                                             <constraint firstItem="IVr-k1-7cn" firstAttribute="centerY" secondItem="0P6-Rc-FK9" secondAttribute="centerY" id="eki-QL-WqL"/>
                                                             <constraint firstItem="k25-30-HKW" firstAttribute="leading" secondItem="0P6-Rc-FK9" secondAttribute="leading" id="i4o-gl-8Pl"/>
@@ -11157,10 +11161,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="njH-l2-gem">
-                                                        <rect key="frame" x="45" y="695" width="890" height="80"/>
+                                                        <rect key="frame" x="45" y="635" width="890" height="65"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xjC-qm-1SM">
-                                                                <rect key="frame" x="0.0" y="7.5" width="150" height="65"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="150" height="65"/>
                                                                 <color key="backgroundColor" name="Peach"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="150" id="Fbg-Tg-VFc"/>
@@ -11188,7 +11192,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVo-2G-gdK" customClass="GradientButton" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="170" y="7.5" width="710" height="65"/>
+                                                                <rect key="frame" x="170" y="0.0" width="710" height="65"/>
                                                                 <color key="backgroundColor" name="AccentLight"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="65" id="Ihc-nB-uKf"/>
@@ -11219,7 +11223,7 @@
                                                             <constraint firstItem="xjC-qm-1SM" firstAttribute="centerY" secondItem="njH-l2-gem" secondAttribute="centerY" id="Qjs-Tb-tYE"/>
                                                             <constraint firstItem="xjC-qm-1SM" firstAttribute="leading" secondItem="njH-l2-gem" secondAttribute="leading" id="eKT-d0-yzo"/>
                                                             <constraint firstAttribute="trailing" secondItem="CVo-2G-gdK" secondAttribute="trailing" constant="10" id="mwB-SI-SHC"/>
-                                                            <constraint firstAttribute="height" constant="80" id="qij-du-B9H"/>
+                                                            <constraint firstAttribute="height" constant="65" id="qij-du-B9H"/>
                                                             <constraint firstItem="CVo-2G-gdK" firstAttribute="leading" secondItem="xjC-qm-1SM" secondAttribute="trailing" constant="20" id="u1v-Vr-kXl"/>
                                                             <constraint firstItem="CVo-2G-gdK" firstAttribute="centerY" secondItem="njH-l2-gem" secondAttribute="centerY" id="uYA-as-Ngc"/>
                                                         </constraints>
@@ -11372,10 +11376,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UtR-XI-ZkV">
-                                                        <rect key="frame" x="35" y="105" width="910" height="80"/>
+                                                        <rect key="frame" x="35" y="105" width="910" height="65"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Coupon Name*" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DAU-sH-L78" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="10" y="0.0" width="890" height="80"/>
+                                                                <rect key="frame" x="10" y="0.0" width="890" height="65"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -11396,7 +11400,7 @@
                                                                         <color key="value" name="txtGray"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="40"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                         <real key="value" value="18"/>
@@ -11411,16 +11415,16 @@
                                                         <constraints>
                                                             <constraint firstItem="DAU-sH-L78" firstAttribute="leading" secondItem="UtR-XI-ZkV" secondAttribute="leading" constant="10" id="ACc-Os-fRD"/>
                                                             <constraint firstAttribute="trailing" secondItem="DAU-sH-L78" secondAttribute="trailing" constant="10" id="Aaj-6w-HfG"/>
-                                                            <constraint firstAttribute="height" constant="80" id="iZt-k7-Ty7"/>
+                                                            <constraint firstAttribute="height" constant="65" id="iZt-k7-Ty7"/>
                                                             <constraint firstItem="DAU-sH-L78" firstAttribute="top" secondItem="UtR-XI-ZkV" secondAttribute="top" id="lKO-gr-WC7"/>
                                                             <constraint firstAttribute="bottom" secondItem="DAU-sH-L78" secondAttribute="bottom" id="wNe-Ms-0gR"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6hj-oN-07e">
-                                                        <rect key="frame" x="35" y="200" width="910" height="80"/>
+                                                        <rect key="frame" x="35" y="185" width="910" height="65"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Coupon Code*" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QTi-0B-esA" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="10" y="0.0" width="890" height="80"/>
+                                                                <rect key="frame" x="10" y="0.0" width="890" height="65"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -11441,7 +11445,7 @@
                                                                         <color key="value" name="txtGray"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="40"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                         <real key="value" value="18"/>
@@ -11455,17 +11459,17 @@
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="QTi-0B-esA" secondAttribute="bottom" id="GAk-9W-j31"/>
-                                                            <constraint firstAttribute="height" constant="80" id="M5m-RQ-9DZ"/>
+                                                            <constraint firstAttribute="height" constant="65" id="M5m-RQ-9DZ"/>
                                                             <constraint firstAttribute="trailing" secondItem="QTi-0B-esA" secondAttribute="trailing" constant="10" id="X9j-9t-t54"/>
                                                             <constraint firstItem="QTi-0B-esA" firstAttribute="leading" secondItem="6hj-oN-07e" secondAttribute="leading" constant="10" id="YxB-Bd-bdC"/>
                                                             <constraint firstItem="QTi-0B-esA" firstAttribute="top" secondItem="6hj-oN-07e" secondAttribute="top" id="aHN-u3-LW2"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZQa-GC-wag">
-                                                        <rect key="frame" x="35" y="300" width="910" height="80"/>
+                                                        <rect key="frame" x="35" y="270" width="910" height="65"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Discount*" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6dI-4Q-3zN" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="10" y="0.0" width="890" height="80"/>
+                                                                <rect key="frame" x="10" y="0.0" width="890" height="65"/>
                                                                 <color key="textColor" name="AppBlack"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -11487,7 +11491,7 @@
                                                                         <color key="value" name="txtGray"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="40"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                         <real key="value" value="18"/>
@@ -11495,14 +11499,14 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down" translatesAutoresizingMaskIntoConstraints="NO" id="a4l-eq-P2u">
-                                                                <rect key="frame" x="855" y="30" width="20" height="20"/>
+                                                                <rect key="frame" x="855" y="22.5" width="20" height="20"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="20" id="700-aU-djh"/>
                                                                     <constraint firstAttribute="height" constant="20" id="hOK-4M-J9I"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9KI-mc-9lD">
-                                                                <rect key="frame" x="0.0" y="0.0" width="910" height="80"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="910" height="65"/>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <connections>
                                                                     <action selector="btn_DiscountType:" destination="Lb2-8L-2dk" eventType="touchUpInside" id="TrW-Q7-Hg7"/>
@@ -11519,19 +11523,19 @@
                                                             <constraint firstAttribute="bottom" secondItem="9KI-mc-9lD" secondAttribute="bottom" id="art-AE-cQL"/>
                                                             <constraint firstItem="a4l-eq-P2u" firstAttribute="centerY" secondItem="ZQa-GC-wag" secondAttribute="centerY" id="bYt-ra-pZa"/>
                                                             <constraint firstAttribute="trailing" secondItem="9KI-mc-9lD" secondAttribute="trailing" id="jTv-TL-snL"/>
-                                                            <constraint firstAttribute="height" constant="80" id="omJ-SU-a8f"/>
+                                                            <constraint firstAttribute="height" constant="65" id="omJ-SU-a8f"/>
                                                             <constraint firstItem="6dI-4Q-3zN" firstAttribute="top" secondItem="ZQa-GC-wag" secondAttribute="top" id="qZv-E7-maf"/>
                                                             <constraint firstAttribute="bottom" secondItem="6dI-4Q-3zN" secondAttribute="bottom" id="xAz-ao-9s6"/>
                                                         </constraints>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="8sB-HH-cJI">
-                                                        <rect key="frame" x="35" y="395" width="910" height="80"/>
+                                                        <rect key="frame" x="35" y="350" width="910" height="65"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="55p-0f-R37">
-                                                                <rect key="frame" x="0.0" y="0.0" width="910" height="80"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="910" height="65"/>
                                                                 <subviews>
                                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Amount ($)*" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pKz-nX-BLl" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                        <rect key="frame" x="10" y="0.0" width="890" height="80"/>
+                                                                        <rect key="frame" x="10" y="0.0" width="890" height="65"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                         <userDefinedRuntimeAttributes>
@@ -11552,7 +11556,7 @@
                                                                                 <color key="value" name="txtGray"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                <real key="value" value="40"/>
+                                                                                <real key="value" value="32.5"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                                 <real key="value" value="18"/>
@@ -11566,17 +11570,17 @@
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstItem="pKz-nX-BLl" firstAttribute="leading" secondItem="55p-0f-R37" secondAttribute="leading" constant="10" id="E13-PB-iZa"/>
-                                                                    <constraint firstAttribute="height" constant="80" id="OCD-6v-Zeu"/>
+                                                                    <constraint firstAttribute="height" constant="65" id="OCD-6v-Zeu"/>
                                                                     <constraint firstItem="pKz-nX-BLl" firstAttribute="top" secondItem="55p-0f-R37" secondAttribute="top" id="lfJ-5e-4nf"/>
                                                                     <constraint firstAttribute="trailing" secondItem="pKz-nX-BLl" secondAttribute="trailing" constant="10" id="ndu-EP-Jpp"/>
                                                                     <constraint firstAttribute="bottom" secondItem="pKz-nX-BLl" secondAttribute="bottom" id="oKn-33-Lcy"/>
                                                                 </constraints>
                                                             </view>
                                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R0P-Xr-opL">
-                                                                <rect key="frame" x="0.0" y="0.0" width="910" height="80"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="910" height="65"/>
                                                                 <subviews>
                                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Percentage*" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O5E-ao-UDu" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                        <rect key="frame" x="10" y="0.0" width="437.5" height="80"/>
+                                                                        <rect key="frame" x="10" y="0.0" width="437.5" height="65"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                         <userDefinedRuntimeAttributes>
@@ -11597,7 +11601,7 @@
                                                                                 <color key="value" name="txtGray"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                <real key="value" value="40"/>
+                                                                                <real key="value" value="32.5"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                                 <real key="value" value="18"/>
@@ -11608,7 +11612,7 @@
                                                                         </connections>
                                                                     </textField>
                                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Amount Into($)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lv8-Y5-aid" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                        <rect key="frame" x="462.5" y="0.0" width="437.5" height="80"/>
+                                                                        <rect key="frame" x="462.5" y="0.0" width="437.5" height="65"/>
                                                                         <color key="textColor" name="AppBlack"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
@@ -11630,7 +11634,7 @@
                                                                                 <color key="value" name="txtGray"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                <real key="value" value="40"/>
+                                                                                <real key="value" value="32.5"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                                 <real key="value" value="18"/>
@@ -11646,7 +11650,7 @@
                                                                     <constraint firstItem="O5E-ao-UDu" firstAttribute="leading" secondItem="R0P-Xr-opL" secondAttribute="leading" constant="10" id="6G5-Lo-EE8"/>
                                                                     <constraint firstItem="lv8-Y5-aid" firstAttribute="width" secondItem="O5E-ao-UDu" secondAttribute="width" id="BG3-3j-7T2"/>
                                                                     <constraint firstAttribute="bottom" secondItem="lv8-Y5-aid" secondAttribute="bottom" id="Kml-8T-cUM"/>
-                                                                    <constraint firstAttribute="height" constant="80" id="R0O-q1-lVK"/>
+                                                                    <constraint firstAttribute="height" constant="65" id="R0O-q1-lVK"/>
                                                                     <constraint firstAttribute="trailing" secondItem="lv8-Y5-aid" secondAttribute="trailing" constant="10" id="VX4-eB-ZF8"/>
                                                                     <constraint firstItem="lv8-Y5-aid" firstAttribute="top" secondItem="R0P-Xr-opL" secondAttribute="top" id="dgr-zG-u13"/>
                                                                     <constraint firstAttribute="bottom" secondItem="O5E-ao-UDu" secondAttribute="bottom" id="iRs-Jx-4ft"/>
@@ -11657,13 +11661,13 @@
                                                         </subviews>
                                                     </stackView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WXN-mV-FKI">
-                                                        <rect key="frame" x="35" y="490" width="910" height="80"/>
+                                                        <rect key="frame" x="35" y="430" width="910" height="65"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q6g-sV-mlD">
-                                                                <rect key="frame" x="0.0" y="0.0" width="447.5" height="80"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="447.5" height="65"/>
                                                                 <subviews>
                                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Start Date *" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QOR-CC-oPc" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                        <rect key="frame" x="10" y="0.0" width="427.5" height="80"/>
+                                                                        <rect key="frame" x="10" y="0.0" width="427.5" height="65"/>
                                                                         <color key="textColor" name="AppBlack"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                                         <textInputTraits key="textInputTraits"/>
@@ -11685,7 +11689,7 @@
                                                                                 <color key="value" name="txtGray"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                <real key="value" value="40"/>
+                                                                                <real key="value" value="32.5"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                                 <real key="value" value="18"/>
@@ -11696,7 +11700,7 @@
                                                                         </connections>
                                                                     </textField>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="wb8-q9-FMv">
-                                                                        <rect key="frame" x="387.5" y="25" width="30" height="30"/>
+                                                                        <rect key="frame" x="387.5" y="17.5" width="30" height="30"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="30" id="Fpa-zQ-fwh"/>
                                                                             <constraint firstAttribute="width" constant="30" id="lBY-lV-ZlC"/>
@@ -11711,14 +11715,14 @@
                                                                     <constraint firstItem="QOR-CC-oPc" firstAttribute="top" secondItem="Q6g-sV-mlD" secondAttribute="top" id="dGi-mV-1hW"/>
                                                                     <constraint firstAttribute="trailing" secondItem="QOR-CC-oPc" secondAttribute="trailing" constant="10" id="eMP-f6-wIL"/>
                                                                     <constraint firstAttribute="bottom" secondItem="QOR-CC-oPc" secondAttribute="bottom" id="j2o-Ll-HbR"/>
-                                                                    <constraint firstAttribute="height" constant="80" id="j8M-f9-n3R"/>
+                                                                    <constraint firstAttribute="height" constant="65" id="j8M-f9-n3R"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1iM-NJ-EqO">
-                                                                <rect key="frame" x="462.5" y="0.0" width="447.5" height="80"/>
+                                                                <rect key="frame" x="462.5" y="0.0" width="447.5" height="65"/>
                                                                 <subviews>
                                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="End Date *" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e2y-Us-YUA" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                        <rect key="frame" x="10" y="0.0" width="427.5" height="80"/>
+                                                                        <rect key="frame" x="10" y="0.0" width="427.5" height="65"/>
                                                                         <color key="textColor" name="AppBlack"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                                         <textInputTraits key="textInputTraits"/>
@@ -11740,7 +11744,7 @@
                                                                                 <color key="value" name="txtGray"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                <real key="value" value="40"/>
+                                                                                <real key="value" value="32.5"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                                 <real key="value" value="18"/>
@@ -11751,7 +11755,7 @@
                                                                         </connections>
                                                                     </textField>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="JzY-Y3-DZs">
-                                                                        <rect key="frame" x="387.5" y="25" width="30" height="30"/>
+                                                                        <rect key="frame" x="387.5" y="17.5" width="30" height="30"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="30" id="NYS-UP-vmG"/>
                                                                             <constraint firstAttribute="width" constant="30" id="g28-wA-HIF"/>
@@ -11760,7 +11764,7 @@
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="80" id="9Ze-4r-zYb"/>
+                                                                    <constraint firstAttribute="height" constant="65" id="9Ze-4r-zYb"/>
                                                                     <constraint firstItem="JzY-Y3-DZs" firstAttribute="trailing" secondItem="e2y-Us-YUA" secondAttribute="trailing" constant="-20" id="Lft-en-fgT"/>
                                                                     <constraint firstItem="e2y-Us-YUA" firstAttribute="leading" secondItem="1iM-NJ-EqO" secondAttribute="leading" constant="10" id="ac4-HV-1d4"/>
                                                                     <constraint firstAttribute="bottom" secondItem="e2y-Us-YUA" secondAttribute="bottom" id="ebF-Qg-phz"/>
@@ -11772,7 +11776,7 @@
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="80" id="5ah-al-ytL"/>
+                                                            <constraint firstAttribute="height" constant="65" id="5ah-al-ytL"/>
                                                             <constraint firstAttribute="bottom" secondItem="Q6g-sV-mlD" secondAttribute="bottom" id="Py7-8P-et2"/>
                                                             <constraint firstItem="1iM-NJ-EqO" firstAttribute="width" secondItem="Q6g-sV-mlD" secondAttribute="width" id="S5I-gZ-KE8"/>
                                                             <constraint firstItem="1iM-NJ-EqO" firstAttribute="leading" secondItem="Q6g-sV-mlD" secondAttribute="trailing" constant="15" id="TL4-OX-tgE"/>
@@ -11784,10 +11788,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3VS-xX-D8L">
-                                                        <rect key="frame" x="35" y="585" width="910" height="80"/>
+                                                        <rect key="frame" x="35" y="510" width="910" height="65"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Status*" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RXg-gb-goy" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="10" y="0.0" width="890" height="80"/>
+                                                                <rect key="frame" x="10" y="0.0" width="890" height="65"/>
                                                                 <color key="textColor" name="AppBlack"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -11809,7 +11813,7 @@
                                                                         <color key="value" name="txtGray"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="40"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                         <real key="value" value="18"/>
@@ -11817,14 +11821,14 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down" translatesAutoresizingMaskIntoConstraints="NO" id="1Kh-LH-xop">
-                                                                <rect key="frame" x="855" y="30" width="20" height="20"/>
+                                                                <rect key="frame" x="855" y="22.5" width="20" height="20"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="20" id="e40-yf-4iK"/>
                                                                     <constraint firstAttribute="height" constant="20" id="ihr-Xm-Ern"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0nk-Db-qjg">
-                                                                <rect key="frame" x="0.0" y="0.0" width="910" height="80"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="910" height="65"/>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                 <connections>
                                                                     <action selector="btn_StatusDropdown:" destination="Lb2-8L-2dk" eventType="touchUpInside" id="dMU-Vs-I29"/>
@@ -11842,15 +11846,15 @@
                                                             <constraint firstAttribute="bottom" secondItem="0nk-Db-qjg" secondAttribute="bottom" id="gir-pE-v4l"/>
                                                             <constraint firstAttribute="bottom" secondItem="RXg-gb-goy" secondAttribute="bottom" id="gko-a0-7DE"/>
                                                             <constraint firstItem="1Kh-LH-xop" firstAttribute="centerY" secondItem="3VS-xX-D8L" secondAttribute="centerY" id="lFy-JN-fRd"/>
-                                                            <constraint firstAttribute="height" constant="80" id="xGl-ZV-aji"/>
+                                                            <constraint firstAttribute="height" constant="65" id="xGl-ZV-aji"/>
                                                             <constraint firstAttribute="trailing" secondItem="0nk-Db-qjg" secondAttribute="trailing" id="ymB-q7-bAa"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rie-ut-VTl">
-                                                        <rect key="frame" x="45" y="690" width="890" height="80"/>
+                                                        <rect key="frame" x="45" y="600" width="890" height="65"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cbx-LS-mrI">
-                                                                <rect key="frame" x="0.0" y="7.5" width="150" height="65"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="150" height="65"/>
                                                                 <color key="backgroundColor" name="Peach"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="65" id="JNr-ZF-RqI"/>
@@ -11878,7 +11882,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bsH-cG-jbu" customClass="GradientButton" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="170" y="7.5" width="710" height="65"/>
+                                                                <rect key="frame" x="170" y="0.0" width="710" height="65"/>
                                                                 <color key="backgroundColor" name="AccentLight"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="65" id="Awz-Vy-7BJ"/>
@@ -11910,7 +11914,7 @@
                                                             <constraint firstAttribute="trailing" secondItem="bsH-cG-jbu" secondAttribute="trailing" constant="10" id="KzN-KX-HiI"/>
                                                             <constraint firstItem="bsH-cG-jbu" firstAttribute="leading" secondItem="cbx-LS-mrI" secondAttribute="trailing" constant="20" id="XT8-Ih-UpQ"/>
                                                             <constraint firstItem="cbx-LS-mrI" firstAttribute="centerY" secondItem="rie-ut-VTl" secondAttribute="centerY" id="fak-DN-h5p"/>
-                                                            <constraint firstAttribute="height" constant="80" id="iE3-nd-mfS"/>
+                                                            <constraint firstAttribute="height" constant="65" id="iE3-nd-mfS"/>
                                                             <constraint firstItem="bsH-cG-jbu" firstAttribute="centerY" secondItem="rie-ut-VTl" secondAttribute="centerY" id="vbl-KX-KAr"/>
                                                         </constraints>
                                                     </view>
@@ -12021,7 +12025,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="1164" height="817"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="33Z-jH-1sD">
-                                                <rect key="frame" x="100" y="60" width="964" height="520"/>
+                                                <rect key="frame" x="100" y="60" width="964" height="466.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="053-GW-2DH">
                                                         <rect key="frame" x="10" y="0.0" width="944" height="85"/>
@@ -12072,10 +12076,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uWg-2O-Ee6">
-                                                        <rect key="frame" x="35" y="105" width="894" height="80"/>
+                                                        <rect key="frame" x="35" y="105" width="894" height="65"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Product Name*" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VOh-GH-dHU" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="10" y="0.0" width="874" height="80"/>
+                                                                <rect key="frame" x="10" y="0.0" width="874" height="65"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -12096,7 +12100,7 @@
                                                                         <color key="value" name="txtGray"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="40"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                         <real key="value" value="18"/>
@@ -12112,15 +12116,15 @@
                                                             <constraint firstItem="VOh-GH-dHU" firstAttribute="top" secondItem="uWg-2O-Ee6" secondAttribute="top" id="81P-Tv-sfG"/>
                                                             <constraint firstAttribute="trailing" secondItem="VOh-GH-dHU" secondAttribute="trailing" constant="10" id="8pf-G1-bl2"/>
                                                             <constraint firstItem="VOh-GH-dHU" firstAttribute="leading" secondItem="uWg-2O-Ee6" secondAttribute="leading" constant="10" id="dDm-jY-pQu"/>
-                                                            <constraint firstAttribute="height" constant="80" id="fD3-y6-OxQ"/>
+                                                            <constraint firstAttribute="height" constant="65" id="fD3-y6-OxQ"/>
                                                             <constraint firstAttribute="bottom" secondItem="VOh-GH-dHU" secondAttribute="bottom" id="u8W-QN-B5Z"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Qk-jf-DWK">
-                                                        <rect key="frame" x="35" y="200" width="894" height="80"/>
+                                                        <rect key="frame" x="35" y="185" width="894" height="65"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Price ($)*" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vNL-t2-dZB" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="10" y="0.0" width="874" height="80"/>
+                                                                <rect key="frame" x="10" y="0.0" width="874" height="65"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -12141,7 +12145,7 @@
                                                                         <color key="value" name="txtGray"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="40"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                         <real key="value" value="18"/>
@@ -12154,7 +12158,7 @@
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="80" id="03x-oE-ta6"/>
+                                                            <constraint firstAttribute="height" constant="65" id="03x-oE-ta6"/>
                                                             <constraint firstItem="vNL-t2-dZB" firstAttribute="top" secondItem="1Qk-jf-DWK" secondAttribute="top" id="4FU-pM-nyA"/>
                                                             <constraint firstAttribute="bottom" secondItem="vNL-t2-dZB" secondAttribute="bottom" id="HTr-tw-hdt"/>
                                                             <constraint firstAttribute="trailing" secondItem="vNL-t2-dZB" secondAttribute="trailing" constant="10" id="LD1-f4-MHc"/>
@@ -12162,10 +12166,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xLT-7a-nZx">
-                                                        <rect key="frame" x="35" y="295" width="894" height="80"/>
+                                                        <rect key="frame" x="35" y="265" width="894" height="65"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Qty *" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wUv-Ft-SJB" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="10" y="0.0" width="874" height="80"/>
+                                                                <rect key="frame" x="10" y="0.0" width="874" height="65"/>
                                                                 <color key="textColor" name="AppBlack"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -12187,7 +12191,7 @@
                                                                         <color key="value" name="txtGray"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="40"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="difference">
                                                                         <real key="value" value="18"/>
@@ -12204,11 +12208,11 @@
                                                             <constraint firstAttribute="bottom" secondItem="wUv-Ft-SJB" secondAttribute="bottom" id="MFf-CQ-9al"/>
                                                             <constraint firstItem="wUv-Ft-SJB" firstAttribute="top" secondItem="xLT-7a-nZx" secondAttribute="top" id="OmS-7F-pgq"/>
                                                             <constraint firstItem="wUv-Ft-SJB" firstAttribute="leading" secondItem="xLT-7a-nZx" secondAttribute="leading" constant="10" id="tib-d0-FAk"/>
-                                                            <constraint firstAttribute="height" constant="80" id="vo6-Ix-tiU"/>
+                                                            <constraint firstAttribute="height" constant="65" id="vo6-Ix-tiU"/>
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fX-fQ-6An">
-                                                        <rect key="frame" x="35" y="410" width="894" height="1.5"/>
+                                                        <rect key="frame" x="35" y="365" width="894" height="1.5"/>
                                                         <color key="backgroundColor" systemColor="secondaryLabelColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1.5" id="UgH-7u-Cjt"/>
@@ -12218,10 +12222,10 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d1n-60-Y7H">
-                                                        <rect key="frame" x="45" y="426.5" width="874" height="80"/>
+                                                        <rect key="frame" x="45" y="381.5" width="884" height="65"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iug-bh-lsb">
-                                                                <rect key="frame" x="0.0" y="7.5" width="150" height="65"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="150" height="65"/>
                                                                 <color key="backgroundColor" name="Peach"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="65" id="3OV-jd-adN"/>
@@ -12241,7 +12245,7 @@
                                                                 </state>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="33"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                                 <connections>
@@ -12249,7 +12253,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m6K-zJ-hS4" customClass="GradientButton" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="170" y="7.5" width="694" height="65"/>
+                                                                <rect key="frame" x="170" y="0.0" width="714" height="65"/>
                                                                 <color key="backgroundColor" name="AccentLight"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="65" id="vyN-5i-eeG"/>
@@ -12261,7 +12265,7 @@
                                                                 </state>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <real key="value" value="33"/>
+                                                                        <real key="value" value="32.5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="startColor">
                                                                         <color key="value" name="MainPrim"/>
@@ -12278,11 +12282,11 @@
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstItem="m6K-zJ-hS4" firstAttribute="centerY" secondItem="d1n-60-Y7H" secondAttribute="centerY" id="4Ip-SU-Pny"/>
-                                                            <constraint firstAttribute="height" constant="80" id="6Hw-bX-VzF"/>
+                                                            <constraint firstAttribute="height" constant="65" id="6Hw-bX-VzF"/>
                                                             <constraint firstItem="Iug-bh-lsb" firstAttribute="centerY" secondItem="d1n-60-Y7H" secondAttribute="centerY" id="71g-2V-Bph"/>
                                                             <constraint firstItem="m6K-zJ-hS4" firstAttribute="leading" secondItem="Iug-bh-lsb" secondAttribute="trailing" constant="20" id="8T7-r7-lsE"/>
                                                             <constraint firstItem="Iug-bh-lsb" firstAttribute="leading" secondItem="d1n-60-Y7H" secondAttribute="leading" id="GRO-en-XAe"/>
-                                                            <constraint firstAttribute="trailing" secondItem="m6K-zJ-hS4" secondAttribute="trailing" constant="10" id="qls-6y-rxY"/>
+                                                            <constraint firstAttribute="trailing" secondItem="m6K-zJ-hS4" secondAttribute="trailing" id="qls-6y-rxY"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -12295,16 +12299,16 @@
                                                     <constraint firstItem="1Qk-jf-DWK" firstAttribute="top" secondItem="uWg-2O-Ee6" secondAttribute="bottom" constant="15" id="Fxi-dF-8cM"/>
                                                     <constraint firstItem="xLT-7a-nZx" firstAttribute="top" secondItem="1Qk-jf-DWK" secondAttribute="bottom" constant="15" id="JcT-3G-mHd"/>
                                                     <constraint firstAttribute="trailing" secondItem="uWg-2O-Ee6" secondAttribute="trailing" constant="35" id="OAh-wy-OkU"/>
-                                                    <constraint firstAttribute="height" constant="520" id="OZw-Nk-LxE"/>
                                                     <constraint firstItem="d1n-60-Y7H" firstAttribute="top" secondItem="8fX-fQ-6An" secondAttribute="bottom" constant="15" id="Syg-lN-tZZ"/>
                                                     <constraint firstItem="053-GW-2DH" firstAttribute="leading" secondItem="33Z-jH-1sD" secondAttribute="leading" constant="10" id="TkJ-Bk-uin"/>
                                                     <constraint firstItem="8fX-fQ-6An" firstAttribute="leading" secondItem="33Z-jH-1sD" secondAttribute="leading" constant="35" id="Vat-Y4-7DP"/>
                                                     <constraint firstAttribute="trailing" secondItem="1Qk-jf-DWK" secondAttribute="trailing" constant="35" id="X6N-iD-OoA"/>
-                                                    <constraint firstAttribute="trailing" secondItem="d1n-60-Y7H" secondAttribute="trailing" constant="45" id="ZFZ-Dv-QZO"/>
+                                                    <constraint firstAttribute="trailing" secondItem="d1n-60-Y7H" secondAttribute="trailing" constant="35" id="ZFZ-Dv-QZO"/>
                                                     <constraint firstItem="uWg-2O-Ee6" firstAttribute="top" secondItem="053-GW-2DH" secondAttribute="bottom" constant="20" id="ayb-Lf-exs"/>
                                                     <constraint firstAttribute="trailing" secondItem="xLT-7a-nZx" secondAttribute="trailing" constant="35" id="bdD-1R-iWw"/>
+                                                    <constraint firstAttribute="height" constant="466.5" id="gXq-5d-E6E"/>
                                                     <constraint firstItem="8fX-fQ-6An" firstAttribute="top" secondItem="xLT-7a-nZx" secondAttribute="bottom" constant="35" id="j10-7N-xuj"/>
-                                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="d1n-60-Y7H" secondAttribute="bottom" constant="10" id="nZE-AK-nY6"/>
+                                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="d1n-60-Y7H" secondAttribute="bottom" constant="20" id="nZE-AK-nY6"/>
                                                     <constraint firstItem="053-GW-2DH" firstAttribute="top" secondItem="33Z-jH-1sD" secondAttribute="top" id="pNM-yO-7iT"/>
                                                     <constraint firstAttribute="trailing" secondItem="053-GW-2DH" secondAttribute="trailing" constant="10" id="sKK-pr-YXD"/>
                                                     <constraint firstItem="uWg-2O-Ee6" firstAttribute="leading" secondItem="33Z-jH-1sD" secondAttribute="leading" constant="35" id="v3c-N2-Noy"/>
@@ -15237,13 +15241,13 @@ Please Choose Diffrent Date</string>
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGrayColor">
-            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

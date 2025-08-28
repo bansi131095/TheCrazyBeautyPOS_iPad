@@ -71,7 +71,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="885-Ut-cc9" customClass="GradientButton" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+                                            <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="885-Ut-cc9" customClass="GradientButton" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
                                                 <rect key="frame" x="202.5" y="15" width="120" height="50"/>
                                                 <color key="backgroundColor" name="AccentColor"/>
                                                 <constraints>
@@ -83,9 +83,7 @@
                                                     <attributedString key="attributedTitle">
                                                         <fragment content="Add Salon">
                                                             <attributes>
-                                                                <color key="NSColor" name="AppWhite"/>
                                                                 <font key="NSFont" metaFont="system" size="20"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
@@ -169,6 +167,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btn_AddSalon" destination="885-Ut-cc9" id="Zkl-Ks-aYR"/>
                         <outlet property="containerView" destination="52K-9a-2sg" id="Ivh-yy-27J"/>
                         <outlet property="lblTitle" destination="UKk-Dp-hQo" id="plT-FU-ZeQ"/>
                         <outlet property="tbl_Categories_List" destination="zMG-nr-eHz" id="y2h-04-FCC"/>
@@ -363,6 +362,7 @@
                     <connections>
                         <outlet property="btn_Neye" destination="3rj-Ap-nMI" id="3HS-fl-NkL"/>
                         <outlet property="btn_Oeye" destination="KlA-05-xbC" id="SpP-hR-1OI"/>
+                        <outlet property="btn_Save" destination="gsC-WJ-UY7" id="XOl-IS-led"/>
                         <outlet property="txt_NewPassword" destination="EGj-Zq-1oJ" id="jXp-n6-WDH"/>
                         <outlet property="txt_OldPassword" destination="XAI-9w-lbF" id="YJQ-gw-mVl"/>
                     </connections>
@@ -557,6 +557,7 @@
                     </view>
                     <connections>
                         <outlet property="btn_Eye" destination="xnv-97-veb" id="nJt-Jq-Dd1"/>
+                        <outlet property="btn_Save" destination="cMI-LY-L8W" id="Rvw-j8-Pr9"/>
                         <outlet property="txt_Email" destination="VxN-dT-923" id="DD9-Qt-IOz"/>
                         <outlet property="txt_Password" destination="V3d-P2-3o5" id="yf2-dc-mnq"/>
                     </connections>
@@ -726,6 +727,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btn_Save" destination="HDM-jW-jZh" id="3t0-Kn-8vU"/>
                         <outlet property="txt_AccountHolderName" destination="Uzb-zQ-cq5" id="eJT-IX-9QG"/>
                         <outlet property="txt_AccountNumber" destination="BXi-gj-Apn" id="1FF-TA-wZp"/>
                     </connections>
@@ -1129,6 +1131,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btn_Save" destination="tni-9X-X11" id="q1o-F6-eek"/>
                         <outlet property="txt_CancellationAmount" destination="uYy-Q4-dJ5" id="beH-8l-ivC"/>
                         <outlet property="txt_CancellationDuration" destination="xZw-k5-gZv" id="wVR-Ud-wm4"/>
                         <outlet property="txt_CancellationPolicy" destination="Ioi-gd-U47" id="SY6-Kd-iKa"/>
@@ -1432,6 +1435,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btn_LoginasStaff" destination="ePx-oo-5GC" id="ecU-YD-Qcw"/>
+                        <outlet property="btn_Save" destination="he6-6y-oo9" id="a0y-em-fLj"/>
                         <outlet property="btn_eye" destination="lye-8U-9Lr" id="OmW-Oy-not"/>
                         <outlet property="txt_Email" destination="gs6-9l-jNz" id="QK0-uE-9I1"/>
                         <outlet property="txt_Name" destination="oAT-hT-hV9" id="bcx-MN-ax3"/>
@@ -1779,6 +1784,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btn_Save" destination="1JL-P8-Yj2" id="Yic-K8-9fL"/>
                         <outlet property="img_Guest" destination="9fc-qm-sUb" id="Z4B-AJ-Yci"/>
                         <outlet property="img_Staff" destination="hHf-uD-4sL" id="9om-R4-vSN"/>
                         <outlet property="vw_Guest" destination="fXk-Gs-8Wd" id="hhy-41-6TC"/>
@@ -1907,6 +1913,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btn_Save" destination="uov-PG-bPN" id="QtD-7g-bM6"/>
                         <outlet property="cv_BusinessCategories" destination="HrX-vh-yts" id="p6C-Nh-6Mb"/>
                         <outlet property="cv_BusinessCategoriesHeight" destination="N1F-tI-FMp" id="hpa-tj-b6B"/>
                     </connections>
@@ -2031,6 +2038,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btn_Save" destination="QJt-o7-rKW" id="iZj-m0-sey"/>
                         <outlet property="txtvw_Note" destination="1dc-Bq-K4L" id="gDp-wl-RjZ"/>
                     </connections>
                 </viewController>
@@ -2183,6 +2191,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btn_Save" destination="MLd-dZ-AtJ" id="pZa-s5-f0F"/>
                         <outlet property="txt_SlotDuration" destination="oh9-yk-m9g" id="Mwa-mt-Sqc"/>
                     </connections>
                 </viewController>
@@ -2329,6 +2338,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btn_Save" destination="ktD-84-AEK" id="yaq-0F-qyh"/>
                         <outlet property="txt_Reminder" destination="0Ic-QC-lo9" id="YmA-fg-NGT"/>
                     </connections>
                 </viewController>
@@ -3352,6 +3362,7 @@ To Partner.</string>
                         <outlet property="Switch_SmsF_BookingCancel" destination="vlW-ZY-fUu" id="5yI-5l-scV"/>
                         <outlet property="Switch_SmsF_BookingCompleted" destination="FEK-yx-cig" id="gGS-Bu-kfV"/>
                         <outlet property="Switch_SmsF_NewBooking" destination="BTL-H0-luv" id="hiu-mJ-b4V"/>
+                        <outlet property="btn_Save" destination="2l8-Vm-GQZ" id="cgT-Xb-QtW"/>
                         <outlet property="img_Down" destination="pt3-uL-6iM" id="tR4-jS-5ag"/>
                         <outlet property="img_EmailDown" destination="jMc-US-JfM" id="tHe-aO-w9C"/>
                         <outlet property="lblTitle" destination="Ids-mA-MvF" id="VWe-LH-gj5"/>
@@ -3509,7 +3520,7 @@ To Partner.</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EWn-yz-8Nu" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                        <rect key="frame" x="120" y="0.0" width="1000" height="60"/>
+                                                        <rect key="frame" x="120" y="0.0" width="159" height="60"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <userDefinedRuntimeAttributes>
@@ -3741,6 +3752,7 @@ To Partner.</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btn_Save" destination="ndt-DT-tII" id="jkh-6h-YbW"/>
                         <outlet property="img_Flag" destination="YsK-Wm-PJO" id="GCR-hr-oFL"/>
                         <outlet property="tbl_Height" destination="tbL-u4-Ryr" id="pHS-mN-XKF"/>
                         <outlet property="tbl_vw" destination="sLq-FB-NjW" id="dCd-Aa-DCJ"/>
@@ -3862,6 +3874,7 @@ To Partner.</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btn_Save" destination="rSK-3y-8nA" id="dUx-Pk-ydP"/>
                         <outlet property="tbl_Height" destination="XTh-1B-ib4" id="xGz-Tf-ZlK"/>
                         <outlet property="tbl_TeamSequnence" destination="h8h-f7-GMI" id="xPk-o4-b4H"/>
                     </connections>
@@ -3980,6 +3993,7 @@ To Partner.</string>
                     </view>
                     <size key="freeformSize" width="1180" height="820"/>
                     <connections>
+                        <outlet property="btn_Save" destination="Y9g-jy-j3C" id="ahJ-7i-Bna"/>
                         <outlet property="tbl_CategoriesDescription" destination="eI9-i2-Fmp" id="AP6-rk-b9I"/>
                         <outlet property="tbl_Height" destination="Ybk-yC-0cu" id="lP1-mw-630"/>
                     </connections>
@@ -4264,6 +4278,7 @@ To Partner.</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btn_Save" destination="qBC-Ck-7Kv" id="GAw-sD-m9v"/>
                         <outlet property="cv_HeightConst" destination="oUQ-Fr-zcb" id="ui6-wP-PLc"/>
                         <outlet property="cv_Imgs" destination="5gG-Wn-QUI" id="P0J-KI-FPE"/>
                         <outlet property="img_Delete" destination="aZD-Lq-G59" id="PSx-XV-hz9"/>
@@ -4490,7 +4505,6 @@ To Partner.</string>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="act_save:" destination="rHD-3p-iL1" eventType="touchUpInside" id="NeG-bb-n5b"/>
-                                                    <action selector="btn_Save:" destination="h6M-dG-jSG" eventType="touchUpInside" id="a4E-qM-uG9"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2P2-Kz-2wp">
@@ -4587,6 +4601,7 @@ To Partner.</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btn_Save" destination="GSA-ze-H7p" id="T60-cU-2Zd"/>
                         <outlet property="tbl_vw" destination="MeD-Su-4mi" id="fsT-iM-3BA"/>
                         <outlet property="txt_from" destination="5Wm-3s-MFb" id="1S5-dA-nu6"/>
                         <outlet property="txt_to" destination="ffW-cI-XkL" id="xYf-mR-Zep"/>
@@ -5729,9 +5744,6 @@ To Partner.</string>
                                                         <color key="value" name="MainSen"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="btn_Save:" destination="ePO-p8-VAc" eventType="touchUpInside" id="Ypp-kU-xWO"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -5796,6 +5808,7 @@ To Partner.</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btn_Save" destination="o9u-hp-rGN" id="IPM-Ao-6eo"/>
                         <outlet property="flag_imgVw" destination="uxX-Et-8Ma" id="xzI-Bi-Kgn"/>
                         <outlet property="map_height_const" destination="UMC-IV-Th8" id="bGM-M1-if9"/>
                         <outlet property="map_vw" destination="gWC-ZK-r1T" id="ihT-B2-kQr"/>
@@ -5945,6 +5958,7 @@ To Partner.</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btn_Save" destination="GUp-wb-c92" id="Vqn-ZA-Xh1"/>
                         <outlet property="txt_Currency" destination="oW9-GP-kua" id="CXA-Uh-ZX3"/>
                     </connections>
                 </viewController>
@@ -6140,6 +6154,7 @@ To Partner.</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btn_Save" destination="zfM-bq-HgY" id="rd2-Pk-ccr"/>
                         <outlet property="txt_Date" destination="UZf-ir-FYq" id="9jG-hp-hZY"/>
                     </connections>
                 </viewController>
@@ -6860,6 +6875,7 @@ To Partner.</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btn_Continue" destination="gsW-Cg-BvK" id="gwu-Ha-7Wh"/>
                         <outlet property="map_vw" destination="osC-S6-MU9" id="lWU-BF-e8B"/>
                         <outlet property="switch_visible" destination="BJ3-z2-E1Z" id="jGd-PX-UDt"/>
                         <outlet property="txt_Address" destination="FrM-hI-zuj" id="Wke-Qb-TIX"/>
@@ -7355,6 +7371,7 @@ To Partner.</string>
                     </view>
                     <connections>
                         <outlet property="btnSync" destination="icy-Go-AeA" id="qUu-5Q-rec"/>
+                        <outlet property="btn_Done" destination="dtL-G6-emG" id="mBL-it-3zz"/>
                         <outlet property="cv_BusinessCategories" destination="wWd-AX-n8a" id="3S0-E2-4Bt"/>
                         <outlet property="cv_BusinessCategoriesHeight" destination="P6N-bH-7AQ" id="p56-kA-jpZ"/>
                     </connections>
@@ -9197,6 +9214,7 @@ To Partner.</string>
                         <outlet property="Switch_Thurs" destination="Icl-uN-I5G" id="iMG-xO-FUt"/>
                         <outlet property="Switch_Tues" destination="eO6-xo-Uqn" id="Upk-gy-0Rw"/>
                         <outlet property="Switch_Wednes" destination="LXB-sf-ELY" id="pdK-q5-jIy"/>
+                        <outlet property="btn_Continue" destination="GfF-e4-i7B" id="cWa-DR-5J6"/>
                         <outlet property="lbl_FriFromTime" destination="d1G-dZ-zWl" id="vmF-Lr-JB8"/>
                         <outlet property="lbl_FriToTime" destination="VfG-xB-pi6" id="iFo-Qm-TTe"/>
                         <outlet property="lbl_MonFromTime" destination="UDd-pr-C44" id="1ob-oX-V1C"/>
@@ -10734,6 +10752,7 @@ To Partner.</string>
                         <outlet property="Switch_Thurs" destination="IbQ-dd-YZ6" id="oZW-Jf-LDE"/>
                         <outlet property="Switch_Tues" destination="W6n-P8-g9P" id="hvS-f6-nge"/>
                         <outlet property="Switch_Wednes" destination="7KI-dE-Mmk" id="L9S-VA-fGi"/>
+                        <outlet property="btn_Save" destination="8cM-H6-1KU" id="Txr-rK-9FY"/>
                         <outlet property="lbl_FriFromTime" destination="GKQ-I2-GOO" id="Yel-Sx-0hb"/>
                         <outlet property="lbl_FriToTime" destination="IKN-Jy-cul" id="aDs-HV-uqK"/>
                         <outlet property="lbl_MonFromTime" destination="MRg-Qb-el6" id="NbK-Ap-4x1"/>
@@ -12271,6 +12290,7 @@ To Partner.</string>
                         <outlet property="Switch_Thurs" destination="WHi-pr-wpU" id="fUI-2y-ZD8"/>
                         <outlet property="Switch_Tues" destination="qIg-xP-gcQ" id="nga-E4-woJ"/>
                         <outlet property="Switch_Wednes" destination="uog-UN-qQ9" id="jrY-s2-XLC"/>
+                        <outlet property="btn_Save" destination="VmD-Jd-ZXT" id="Ecb-O5-HiL"/>
                         <outlet property="lbl_FriClose" destination="tAN-nz-MtX" id="d4B-9b-KYa"/>
                         <outlet property="lbl_FriFromTime" destination="Syj-J3-inX" id="mvg-19-gW3"/>
                         <outlet property="lbl_FriToTime" destination="ZXw-O8-55o" id="iad-dD-Kzi"/>
@@ -12527,7 +12547,7 @@ To Partner.</string>
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -163,6 +163,8 @@ class AddCoupon_VC: UIViewController {
         slotDuration.bottomOffset = CGPoint(x: 0, y:(slotDuration.anchorView?.plainView.bounds.height)!)
         slotDuration.direction = .bottom
         slotDuration.dataSource = arr_DiscountType
+        slotDuration.backgroundColor = UIColor.white
+        slotDuration.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
         slotDuration.cellHeight = 35
         slotDuration.show()
         
@@ -185,6 +187,8 @@ class AddCoupon_VC: UIViewController {
         slotDuration.bottomOffset = CGPoint(x: 0, y:(slotDuration.anchorView?.plainView.bounds.height)!)
         slotDuration.direction = .bottom
         slotDuration.dataSource = arr_Status
+        slotDuration.backgroundColor = UIColor.white
+        slotDuration.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
         slotDuration.cellHeight = 35
         slotDuration.show()
         
@@ -218,7 +222,7 @@ class AddCoupon_VC: UIViewController {
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Regular", size: 22.0) {
+        if let customFont = UIFont(name: "Lato-Regular", size: 20.0) {
             txt_CouponName.font = customFont
             txt_CouponCode.font = customFont
             txt_DiscountType.font = customFont

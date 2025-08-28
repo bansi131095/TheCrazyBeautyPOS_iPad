@@ -22,6 +22,7 @@ class Payment_CancellationVC: UIViewController {
     @IBOutlet weak var vw_Specify: UIView!
     @IBOutlet weak var vw_TextView: UIView!
     
+    @IBOutlet weak var btn_Save: GradientButton!
     
     //MARK: - Global Variable
     var arr_CancellationDuration: [String] = ["No notice required","6 Hours Notice required","12 Hours Notice required","24 Hours Notice required","48 Hours Notice required"]
@@ -32,6 +33,14 @@ class Payment_CancellationVC: UIViewController {
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        let attributedTitle = NSAttributedString(
+            string: "Save",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         get_Amount()
         setCustomFont()
     }

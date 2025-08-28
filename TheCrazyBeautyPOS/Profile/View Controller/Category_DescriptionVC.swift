@@ -12,6 +12,7 @@ class Category_DescriptionVC: UIViewController {
     @IBOutlet weak var tbl_CategoriesDescription: UITableView!
     @IBOutlet weak var tbl_Height: NSLayoutConstraint!
     
+    @IBOutlet weak var btn_Save: GradientButton!
     
     var CategoryDetails: [CategoryDetailsModel] = []
     var CategoryDetailsModel: [categorydescriptionModel] = []
@@ -19,6 +20,14 @@ class Category_DescriptionVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTableView()
+        let attributedTitle = NSAttributedString(
+            string: "Save",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         get_CategoryDescription()
     }
     

@@ -15,6 +15,7 @@ class ChangePasswordVC: UIViewController {
     
     @IBOutlet weak var btn_Oeye: UIButton!
     @IBOutlet weak var btn_Neye: UIButton!
+    @IBOutlet weak var btn_Save: GradientButton!
     
     //MARK: - Global Variable
     //MARK: - View Life Cycle
@@ -22,6 +23,14 @@ class ChangePasswordVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setCustomFont()
+        let attributedTitle = NSAttributedString(
+            string: "Save",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         self.btn_Oeye.setImage(#imageLiteral(resourceName: "view"), for: .normal)
         self.txt_OldPassword.isSecureTextEntry = true
         self.btn_Neye.setImage(#imageLiteral(resourceName: "view"), for: .normal)

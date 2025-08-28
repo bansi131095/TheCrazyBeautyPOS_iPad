@@ -14,6 +14,7 @@ class Booking_PreferenceVC: UIViewController {
     @IBOutlet weak var vw_Guest: UIView!
     @IBOutlet weak var img_Staff: UIImageView!
     @IBOutlet weak var img_Guest: UIImageView!
+    @IBOutlet weak var btn_Save: GradientButton!
     
     //MARK: - Global Variable
     var booking_Flow = -1
@@ -21,6 +22,14 @@ class Booking_PreferenceVC: UIViewController {
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        let attributedTitle = NSAttributedString(
+            string: "Save",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         get_BookingFlow()
     }
     

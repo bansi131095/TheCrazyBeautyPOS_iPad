@@ -12,12 +12,21 @@ class KioskUsersVC: UIViewController {
     @IBOutlet weak var txt_Email: TextInputLayout!
     @IBOutlet weak var txt_Password: TextInputLayout!
     @IBOutlet weak var btn_Eye: UIButton!
+    @IBOutlet weak var btn_Save: GradientButton!
     
     
     var TeamLogin: [KioskDetailsModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let attributedTitle = NSAttributedString(
+            string: "Save",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         self.btn_Eye.setImage(#imageLiteral(resourceName: "view"), for: .normal)
         self.txt_Password.isSecureTextEntry = true
         get_KioskUsers()

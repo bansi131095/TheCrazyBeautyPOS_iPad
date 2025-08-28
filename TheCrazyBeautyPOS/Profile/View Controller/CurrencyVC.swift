@@ -12,6 +12,7 @@ class CurrencyVC: UIViewController {
 
     
     @IBOutlet weak var txt_Currency: TextInputLayout!
+    @IBOutlet weak var btn_Save: GradientButton!
     
     
     var CurrencyList: [CurrencyDataA] = []
@@ -24,6 +25,14 @@ class CurrencyVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setCustomFont()
+        let attributedTitle = NSAttributedString(
+            string: "Save",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         call_CurrencyAPI()
     }
     

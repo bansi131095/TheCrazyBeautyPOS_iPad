@@ -15,6 +15,8 @@ class BusinessThird_InformationVC: UIViewController {
     @IBOutlet weak var cv_BusinessCategoriesHeight: NSLayoutConstraint!
     
     @IBOutlet weak var btnSync: GradientButton!
+    @IBOutlet weak var btn_Done: GradientButton!
+    
     //MARK: - Global Variable
     var categoryList: [ServiceDatas] = []
     var category_Second: [ServiceDatas] = []
@@ -27,6 +29,22 @@ class BusinessThird_InformationVC: UIViewController {
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        let attributedTitle = NSAttributedString(
+            string: "Done",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 20)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Done.setAttributedTitle(attributedTitle, for: .normal)
+        let attributedTitleSync = NSAttributedString(
+            string: "Sync Team And Services As Well",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 20)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btnSync.setAttributedTitle(attributedTitleSync, for: .normal)
         setCollectCategory()
         fetchCategoryData()
     }

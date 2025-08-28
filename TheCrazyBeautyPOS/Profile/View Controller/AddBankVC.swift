@@ -15,12 +15,21 @@ class AddBankVC: UIViewController {
     
     @IBOutlet weak var txt_AccountHolderName: TextInputLayout!
     
+    @IBOutlet weak var btn_Save: GradientButton!
     //MARK: - Global Variable
     
     
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        let attributedTitle = NSAttributedString(
+            string: "Save",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         Get_BankDetails()
         setCustomFont()
     }

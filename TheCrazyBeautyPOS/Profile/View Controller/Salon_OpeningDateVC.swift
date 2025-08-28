@@ -11,12 +11,21 @@ import FSCalendar
 class Salon_OpeningDateVC: UIViewController {
 
     @IBOutlet weak var txt_Date: TextInputLayout!
+    @IBOutlet weak var btn_Save: GradientButton!
     
     var calendarVC: UIViewController?
     var SelectedDate: Date?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let attributedTitle = NSAttributedString(
+            string: "Save",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 20)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         txt_Date.delegate = self
         fetchGetDate()
         setCustomFont()

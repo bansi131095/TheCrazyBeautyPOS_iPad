@@ -68,6 +68,7 @@ class BusinessSecond_InformationVC: UIViewController {
     
     @IBOutlet weak var Switch_Sun: UISwitch!
     
+    @IBOutlet weak var btn_Continue: GradientButton!
     //MARK: - Global Variable
     var timeSlots: [String] = []
     var vendor_Id = Int()
@@ -79,6 +80,14 @@ class BusinessSecond_InformationVC: UIViewController {
         vw_SunClose.isHidden = false
         vw_SunTime.isHidden = true
         TimeSlots()
+        let attributedTitle = NSAttributedString(
+            string: "Continue",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 20)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Continue.setAttributedTitle(attributedTitle, for: .normal)
     }
     
     //MARK: -  Button Action

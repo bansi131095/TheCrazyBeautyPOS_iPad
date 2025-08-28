@@ -46,10 +46,20 @@ class BookingHistoryVC: UIViewController {
 
             let newItems = model.data ?? []
             self.upcomingList = newItems
-        
             self.tbl_vw.reloadData()
+            self.tbl_vw.backgroundView = self.upcomingList.isEmpty ? self.getNoDataLabel() : nil
         }
     }
+    
+    func getNoDataLabel() -> UILabel {
+        let noDataLabel = UILabel()
+        noDataLabel.text = "No Data Found"
+        noDataLabel.textAlignment = .center
+        noDataLabel.textColor = .gray
+        noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)
+        return noDataLabel
+    }
+    
     
     
     func formatBookingDate(_ inputDate: String) -> String {

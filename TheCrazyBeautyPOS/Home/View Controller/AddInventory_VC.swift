@@ -35,7 +35,7 @@ class AddInventory_VC: UIViewController {
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Regular", size: 22.0) {
+        if let customFont = UIFont(name: "Lato-Regular", size: 20.0) {
             txt_ProductName.font = customFont
             txt_Price.font = customFont
             txt_QTY.font = customFont

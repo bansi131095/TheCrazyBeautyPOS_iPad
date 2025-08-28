@@ -12,6 +12,7 @@ class Booking_ReminderVC: UIViewController {
 
     @IBOutlet weak var txt_Reminder: TextInputLayout!
     
+    @IBOutlet weak var btn_Save: GradientButton!
     
     var select_Hours: String = ""
     let hoursArray = (1...24).map { "\($0) Hours" }
@@ -20,6 +21,14 @@ class Booking_ReminderVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setCustomFont()
+        let attributedTitle = NSAttributedString(
+            string: "Save",
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         if let savedSlot = LocalData.setHours, hoursArray.contains(savedSlot) {
             select_Hours = savedSlot
         } else {

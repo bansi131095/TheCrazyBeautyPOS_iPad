@@ -38,6 +38,7 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
         setTableView()
         test(id:id)
         loadData()
+        setCustomFont()
         // Do any additional setup after loading the view.
     }
     
@@ -50,6 +51,15 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
         tbl_vw.estimatedRowHeight = 60
     }
     
+    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Regular", size: 20.0) {
+            txt_Title.font = customFont
+            txt_DateOfBirth.font = customFont
+            txt_Status.font = customFont
+            txt_TestedBy.font = customFont
+        }
+    }
     
     func test(id:String){
         self.showLoader()
@@ -170,6 +180,7 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
     @IBAction func btn_TestAdd(_ sender: Any) {
         self.vw_MainPopup.isHidden = false
         self.vw_SubPopup.isHidden = false
+        self.hideNoDataMessage()
     }
     
     @IBAction func btn_Close(_ sender: Any) {
