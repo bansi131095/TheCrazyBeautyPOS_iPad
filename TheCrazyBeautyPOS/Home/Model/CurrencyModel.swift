@@ -436,11 +436,39 @@ class categorydescriptionModel: Mappable {
     }
 }
 
-struct categoryData: Codable {
+/*struct categoryData: Codable {
 //    let category_id: Int
     let category_id: String
     let description: String
     let sequence: String
+}*/
+
+struct categoryData: Codable {
+    let category_id: String
+    let description: String
+    let sequence: String
+    
+    enum CodingKeys: String, CodingKey {
+        case category_id
+        case description
+        case sequence
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        // Handle category_id as Int or String
+        if let intValue = try? container.decode(Int.self, forKey: .category_id) {
+            category_id = String(intValue)
+        } else if let stringValue = try? container.decode(String.self, forKey: .category_id) {
+            category_id = stringValue
+        } else {
+            category_id = "" // fallback
+        }
+        
+        description = (try? container.decode(String.self, forKey: .description)) ?? ""
+        sequence = (try? container.decode(String.self, forKey: .sequence)) ?? ""
+    }
 }
 
 

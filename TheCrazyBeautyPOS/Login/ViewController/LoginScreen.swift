@@ -18,13 +18,42 @@ class LoginScreen: UIViewController {
     
     @IBOutlet weak var loader: UIActivityIndicatorView!
     
+    @IBOutlet weak var lbl_Login: UILabel!
+    @IBOutlet weak var lbl_AllField: UILabel!
+    @IBOutlet weak var btn_Login: GradientButton!
+    @IBOutlet weak var btn_LoginasStaff: UIButton!
+    @IBOutlet weak var lbl_Or_Login: UILabel!
+    @IBOutlet weak var btn_Google: UIButton!
     
+    @IBOutlet weak var Constraint_Bottom: NSLayoutConstraint!
+    
+    var staffLogin = String()
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         loader.isHidden = true
         self.btn_eye.setImage(#imageLiteral(resourceName: "view"), for: .normal)
         self.txt_password.isSecureTextEntry = true
+        if staffLogin == "Staff"{
+            self.btn_Login.isHidden = false
+            self.btn_LoginasStaff.isHidden = true
+            self.lbl_Or_Login.isHidden = true
+            self.btn_Google.isHidden = true
+            self.Constraint_Bottom.constant = 35
+        }else{
+            self.btn_Login.isHidden = false
+            self.btn_LoginasStaff.isHidden = false
+            self.lbl_Or_Login.isHidden = false
+            self.btn_Google.isHidden = false
+            self.Constraint_Bottom.constant = 246.5
+        }
+        /*if staffLogin != "Staff"{
+            self.btn_Login.isHidden = false
+            self.btn_LoginasStaff.isHidden = false
+            self.lbl_Or_Login.isHidden = false
+            self.btn_Google.isHidden = false
+            self.Constraint_Bottom.constant = 246.5
+        }*/
         // Do any additional setup after loading the view.
     }
     
@@ -38,7 +67,14 @@ class LoginScreen: UIViewController {
         } else if (self.txt_password.text == "") {
             self.txt_password.showErrorMessage(message: "Please enter password")
         } else {
-            self.performLogin()
+            if staffLogin == "Staff"{
+                print("Staff")
+                print("Staff")
+                print("Staff")
+                print("Staff")
+            }else{
+                self.performLogin()
+            }
         }
     }
     

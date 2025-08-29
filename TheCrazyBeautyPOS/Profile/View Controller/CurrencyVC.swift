@@ -64,7 +64,8 @@ class CurrencyVC: UIViewController {
        slotDuration.dataSource = itemArray
        slotDuration.cellHeight = 35
        slotDuration.show()
-
+        slotDuration.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+        slotDuration.backgroundColor = .white
        slotDuration.selectionAction = { [unowned self] (index: Int, item: String) in
            txt_Currency.text = item
            for i in self.CurrencyList {

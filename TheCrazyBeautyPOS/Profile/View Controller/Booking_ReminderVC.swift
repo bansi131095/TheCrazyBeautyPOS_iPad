@@ -65,7 +65,8 @@ class Booking_ReminderVC: UIViewController {
         slotHours.dataSource = hoursArray
         slotHours.cellHeight = 35
         slotHours.show()
-
+        slotHours.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+        slotHours.backgroundColor = .white
         slotHours.selectionAction = { [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
             self.txt_Reminder.text = item

@@ -225,7 +225,8 @@ class Notifications_SettingsVC: UIViewController {
         slotDuration.dataSource = arr_TimeSlot
         slotDuration.cellHeight = 35
         slotDuration.show()
-
+        slotDuration.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+        slotDuration.backgroundColor = .white
         slotDuration.selectionAction = { [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
             self.lbl_Time.text = item

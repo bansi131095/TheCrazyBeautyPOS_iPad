@@ -63,6 +63,8 @@ class OfflineGiftCardVC: UIViewController {
         Filter.direction = .bottom
         Filter.dataSource = arr_Filter
         Filter.cellHeight = 35
+        Filter.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+        Filter.backgroundColor = .white
         Filter.show()
         
         Filter.selectionAction = {  [unowned self] (index: Int, item: String) in

@@ -267,6 +267,8 @@ class Business_HoursVC: UIViewController {
         slotDuration.dataSource = timeSlots
         slotDuration.cellHeight = 35
         slotDuration.width = label.frame.width
+        slotDuration.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+        slotDuration.backgroundColor = .white
 //        slotDuration.selectionBackgroundColor = .systemGray6
 //        slotDuration.textFont = UIFont.systemFont(ofSize: 14)
 

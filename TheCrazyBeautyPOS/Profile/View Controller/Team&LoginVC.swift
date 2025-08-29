@@ -79,6 +79,10 @@ class Team_LoginVC: UIViewController {
     
     
     @IBAction func btn_LoginStaff(_ sender: Any) {
+        let sb = UIStoryboard(name: "Main", bundle:nil)
+        let vc = sb.instantiateViewController(withIdentifier: "LoginScreen") as! LoginScreen
+        vc.staffLogin = "Staff"
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     //MARK: - Function

@@ -77,6 +77,7 @@ class AddServiceVC: UIViewController {
     var arr_ServiceType = ["Service Without Sub Type","Service With Sub Type"]
     var arr_SecondaryType = ["Main Service","Sub Service"]
     var arr_NailRemoval = ["Test Main Service","Nail Paint Removal"]
+    var arr_Options = ["Male","Female","Unisex"]
     
     var resourcList: [InventoryData] = []
     
@@ -93,7 +94,7 @@ class AddServiceVC: UIViewController {
         self.loadDuationData()
         self.loadCategoryData()
         self.loadData()
-        let options: [String] = ["Male", "Female", "Unisex"]
+        /*let options: [String] = ["Male", "Female", "Unisex"]
         DropdownManager.shared.setupDropdown(
             for: self.txt_serviceFor,
             in: self.view,
@@ -101,7 +102,7 @@ class AddServiceVC: UIViewController {
         ) { [weak self] selected in
             guard let self = self else { return }
             self.txt_serviceFor.setText(selected)
-        }
+        }*/
         let options1: [String] = ["Starts From", "Fixed"]
         DropdownManager.shared.setupDropdown(
             for: self.txt_priceType,
@@ -141,22 +142,30 @@ class AddServiceVC: UIViewController {
     }
     
     @IBAction func act_addEditService(_ sender: GradientButton) {
-        if self.txt_serviceName.text!.isEmpty {
-            self.showToast(message: "Please enter service name")
-        } else if self.txt_mainCategory.text!.isEmpty {
-            self.showToast(message: "Please select category")
-        } else if self.txt_serviceFor.text!.isEmpty {
-            self.showToast(message: "Please select service for")
-        } else if self.txt_serviceDuration.text!.isEmpty {
-            self.showToast(message: "Please select service time")
-        } else if self.txt_priceType.text!.isEmpty {
-            self.showToast(message: "Please select price type")
-        } else if self.txt_regulatPrice.text!.isEmpty {
-            self.showToast(message: "Please enter price")
-        } else {
-            if isEdit {
+        if isEdit {
+            if self.txt_serviceName.text!.isEmpty {
+                self.showToast(message: "Please enter service name")
+            }else if self.txt_mainCategory.text!.isEmpty {
+                self.showToast(message: "Please select category")
+            }else if self.txt_serviceFor.text!.isEmpty {
+                self.showToast(message: "Please select service for")
+            }else{
                 self.updateServiceData(serviceId: "\(self.dictService?.id ?? 0)")
-            } else {
+            }
+        }else{
+            if self.txt_serviceName.text!.isEmpty {
+                self.showToast(message: "Please enter service name")
+            } else if self.txt_mainCategory.text!.isEmpty {
+                self.showToast(message: "Please select category")
+            } else if self.txt_serviceFor.text!.isEmpty {
+                self.showToast(message: "Please select service for")
+            } else if self.txt_serviceDuration.text!.isEmpty {
+                self.showToast(message: "Please select service time")
+            } else if self.txt_priceType.text!.isEmpty {
+                self.showToast(message: "Please select price type")
+            } else if self.txt_regulatPrice.text!.isEmpty {
+                self.showToast(message: "Please enter price")
+            }else{
                 self.addServiceData()
             }
         }
@@ -225,6 +234,11 @@ class AddServiceVC: UIViewController {
 //        openResourcList()
         loadResourceData()
     }
+    
+    @IBAction func btn_ServiceFor(_ sender: Any) {
+        openSalonType()
+    }
+    
     
     //MARK: Set Data
     func setRegularFont(){
@@ -321,6 +335,23 @@ class AddServiceVC: UIViewController {
         
     }
 
+    func openSalonType() {
+        let slotDuration = DropDown()
+        slotDuration.anchorView = txt_serviceFor
+        slotDuration.bottomOffset = CGPoint(x: 0, y:(slotDuration.anchorView?.plainView.bounds.height)!)
+        slotDuration.direction = .bottom
+        slotDuration.dataSource = arr_Options
+        slotDuration.cellHeight = 35
+        slotDuration.show()
+        slotDuration.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+        slotDuration.backgroundColor = .white
+        slotDuration.selectionAction = {  [unowned self] (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+            self.txt_serviceFor.text = item
+        }
+    }
+    
+    
     func openTypeofService() {
         let TypeofService = DropDown()
         TypeofService.anchorView = txt_TypeofService

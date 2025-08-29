@@ -266,7 +266,8 @@ class BusinessSecond_InformationVC: UIViewController {
         slotDuration.dataSource = timeSlots
         slotDuration.cellHeight = 35
         slotDuration.width = label.frame.width
-
+        slotDuration.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+        slotDuration.backgroundColor = .white
         slotDuration.selectionAction = { [weak self] (index: Int, item: String) in
             label.text = item
             print("Selected time: \(item)")

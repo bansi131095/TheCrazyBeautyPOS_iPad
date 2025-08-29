@@ -58,7 +58,8 @@ class Slot_DurationVC: UIViewController {
         slotDuration.dataSource = arr_SlotDuration
         slotDuration.cellHeight = 35
         slotDuration.show()
-        
+        slotDuration.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+        slotDuration.backgroundColor = .white
         slotDuration.selectionAction = {  [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
             self.txt_SlotDuration.text = item

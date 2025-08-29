@@ -468,6 +468,8 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
        slotDuration.direction = .bottom
        slotDuration.dataSource = itemArray
        slotDuration.cellHeight = 35
+       slotDuration.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+       slotDuration.backgroundColor = .white
        slotDuration.show()
 
        slotDuration.selectionAction = { [unowned self] (index: Int, item: String) in

@@ -103,6 +103,8 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
        slotDuration.dataSource = itemArray
        slotDuration.cellHeight = 35
        slotDuration.show()
+        slotDuration.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+        slotDuration.backgroundColor = .white
 
        slotDuration.selectionAction = { [unowned self] (index: Int, item: String) in
            txt_TestedBy.text = item
@@ -122,6 +124,8 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
         Status.direction = .bottom
         Status.dataSource = arr_Status
         Status.cellHeight = 35
+        Status.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+        Status.backgroundColor = .white
         Status.show()
         
         Status.selectionAction = {  [unowned self] (index: Int, item: String) in

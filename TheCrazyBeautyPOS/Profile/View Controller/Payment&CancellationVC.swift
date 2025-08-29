@@ -81,7 +81,8 @@ class Payment_CancellationVC: UIViewController {
         slotDuration.dataSource = arr_CancellationDuration
         slotDuration.cellHeight = 35
         slotDuration.show()
-        
+        slotDuration.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+        slotDuration.backgroundColor = .white
         slotDuration.selectionAction = {  [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
             self.txt_CancellationDuration.text = item

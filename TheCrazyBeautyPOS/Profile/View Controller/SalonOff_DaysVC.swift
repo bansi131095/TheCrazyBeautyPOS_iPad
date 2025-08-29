@@ -369,7 +369,8 @@ class SalonOff_DaysVC: UIViewController {
         dropDown.dataSource = filteredSlots
         dropDown.width = label.frame.width
         dropDown.cellHeight = 35
-
+        dropDown.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+        dropDown.backgroundColor = .white
         dropDown.selectionAction = { (_, item: String) in
             label.text = item
         }

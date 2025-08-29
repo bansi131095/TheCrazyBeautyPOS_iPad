@@ -559,7 +559,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         if let popover = calendarVC.popoverPresentationController {
             popover.sourceView = sourceView
             popover.sourceRect = sourceView.bounds
-            popover.permittedArrowDirections = .up
+            popover.permittedArrowDirections = .any
             popover.delegate = self
         }
 

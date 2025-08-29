@@ -275,6 +275,7 @@
                                                     <constraint firstItem="xZg-2Q-jvz" firstAttribute="top" secondItem="WcM-xc-BCW" secondAttribute="bottom" constant="30" id="0Nq-XQ-3Pd"/>
                                                     <constraint firstItem="kIL-zK-9pS" firstAttribute="top" secondItem="E5e-NW-wks" secondAttribute="bottom" constant="45" id="36C-xH-5Iz"/>
                                                     <constraint firstItem="DqI-1l-JT2" firstAttribute="top" secondItem="VQ3-e6-i6h" secondAttribute="bottom" constant="12" id="4fC-oM-Fhx"/>
+                                                    <constraint firstAttribute="bottom" secondItem="0XO-OV-Iwv" secondAttribute="bottom" constant="246.5" id="9ur-vU-rOX"/>
                                                     <constraint firstItem="2fq-2O-TFZ" firstAttribute="leading" secondItem="yQA-B1-LXK" secondAttribute="leading" constant="35" id="AAT-4S-tOF"/>
                                                     <constraint firstItem="xZg-2Q-jvz" firstAttribute="leading" secondItem="yQA-B1-LXK" secondAttribute="leading" constant="20" symbolic="YES" id="Axq-23-2ME"/>
                                                     <constraint firstAttribute="width" constant="450" id="FNU-6x-fTH"/>
@@ -347,7 +348,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="Ics-GH-wfV"/>
                     <connections>
+                        <outlet property="Constraint_Bottom" destination="9ur-vU-rOX" id="JfQ-Su-oqM"/>
+                        <outlet property="btn_Google" destination="GrW-xw-i3Z" id="SQR-J2-bK6"/>
+                        <outlet property="btn_Login" destination="0XO-OV-Iwv" id="VCr-0M-ACU"/>
+                        <outlet property="btn_LoginasStaff" destination="WcM-xc-BCW" id="RCx-u2-6Vc"/>
                         <outlet property="btn_eye" destination="VrR-ma-bVq" id="Pze-1f-g0w"/>
+                        <outlet property="lbl_AllField" destination="2fq-2O-TFZ" id="vyh-zm-U4w"/>
+                        <outlet property="lbl_Login" destination="W3N-8k-xcW" id="OWV-WO-2Bo"/>
+                        <outlet property="lbl_Or_Login" destination="xZg-2Q-jvz" id="wSf-cd-mUR"/>
                         <outlet property="loader" destination="gYi-go-jC7" id="bNo-ra-JhZ"/>
                         <outlet property="txt_email" destination="VQ3-e6-i6h" id="m1d-C7-JlR"/>
                         <outlet property="txt_password" destination="DqI-1l-JT2" id="Wab-p5-Zld"/>

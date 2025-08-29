@@ -47,6 +47,8 @@ class Team_ReportVC: UIViewController {
             var names = self.TeamDetails.map { $0.first_name }
             names.insert("Select Staff", at: 0)
             self.dropDown.dataSource = names
+            self.dropDown.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+            self.dropDown.backgroundColor = .white
         }
     }
     
@@ -88,6 +90,7 @@ class Team_ReportVC: UIViewController {
     
     @IBAction func btn_SelectStaff(_ sender: Any) {
         dropDown.anchorView = txt_SelectStaff
+        
         dropDown.bottomOffset = CGPoint(x: 0, y: txt_SelectStaff.bounds.height)
         dropDown.direction = .bottom
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in

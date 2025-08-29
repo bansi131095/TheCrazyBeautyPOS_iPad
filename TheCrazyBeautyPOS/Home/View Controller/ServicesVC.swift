@@ -87,7 +87,7 @@ class ServicesVC: UIViewController {
             showLoader()
         }
 
-        APIService.shared.getServiceDetails(page: "\(currentPage)", limit: "10", vendorId: LocalData.userId, search: Search, booking: "", categoryId: "", isGroup: true) { staffResult in
+        APIService.shared.getServiceDetails(page: "\(currentPage)", limit: "100000", vendorId: LocalData.userId, search: Search, booking: "", categoryId: "", isGroup: true) { staffResult in
             self.hideLoader()
             guard let model = staffResult else {
                 self.isLoadingMore = false
