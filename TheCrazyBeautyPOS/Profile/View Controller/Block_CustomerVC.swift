@@ -268,7 +268,7 @@ extension Block_CustomerVC : UITableViewDataSource, UITableViewDelegate{
                         self.vw_CountryPicker.isHidden = false
                         self.tbl_vw.reloadData() // Refresh properly
                     }
-                    self.tbl_Height.constant = CGFloat(self.arr_Number.count * 90)
+                    self.tbl_Height.constant = CGFloat(self.arr_Number.count * 60)
                 })
             }
         }

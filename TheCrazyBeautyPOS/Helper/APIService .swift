@@ -659,13 +659,14 @@ class APIService {
     }
     
     //MARK: Clients Api
-    func getclientDetails(page: String, limit: String, vendorId: String, search: String, completion: @escaping (CustomerListResponse?) -> Void) {
+    func getclientDetails(page: String, limit: String,sort:String, vendorId: String, search: String, completion: @escaping (CustomerListResponse?) -> Void) {
         let url = global.shared.URL_CLIENT_DETAILS
         
         let params: [String: Any] = [
                 "page": page,
                 "limit": limit,
                 "vendor_id": vendorId,
+                "sort": sort,
                 "search": search,
             ]
 

@@ -261,7 +261,7 @@ extension ServicesVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
         let priceType = service.price_type
 
         // Price Label
-        if service.price_type != "Fixed" && Double(service.sale_price) ?? 0.0 > 0 {
+        if service.price_type != "Fixed" && !(Double(service.sale_price) ?? 0.0 > 0) {
             cell.lbl_price.text = "\(service.price_type) \(LocalData.symbol)\(String(format: "%.2f", price))"
         } else {
             cell.lbl_price.text = "\(LocalData.symbol)\(String(format: "%.2f", price))"

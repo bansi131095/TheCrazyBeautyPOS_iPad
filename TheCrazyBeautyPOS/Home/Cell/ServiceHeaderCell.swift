@@ -7,8 +7,16 @@
 
 import UIKit
 
+protocol SortDelegate: AnyObject {
+    
+    func btnSort_Action(cell: ServiceHeaderCell)
+    
+}
+
 class ServiceHeaderCell: UITableViewHeaderFooterView {
 
+    weak var delegate: SortDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

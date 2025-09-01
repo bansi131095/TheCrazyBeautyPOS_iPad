@@ -68,7 +68,7 @@ class ClientsVC: UIViewController {
     }
     
     //MARK: Load Api
-    func loadData(Search: String, isPagination: Bool = false) {
+    func loadData(Search: String, isPagination: Bool = false,sort:String = "asc") {
         if isPagination {
             self.isLoadingMore = true
         } else {
@@ -78,7 +78,7 @@ class ClientsVC: UIViewController {
             showLoader()
         }
 
-        APIService.shared.getclientDetails(page: "\(currentPage)", limit: "10", vendorId: LocalData.userId, search: Search) { staffResult in
+        APIService.shared.getclientDetails(page: "\(currentPage)", limit: "10", sort: sort, vendorId: LocalData.userId, search: Search) { staffResult in
             self.hideLoader()
             guard let model = staffResult else {
                 self.isLoadingMore = false
@@ -150,7 +150,23 @@ class ClientsVC: UIViewController {
 }
 
 
-extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate{
+extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, ClientSortDelegate{
+    func btnSort_Action(cell: ClientHeaderCell) {
+        print("SORT ACTION")
+
+        if cell.img_AtoZ.image == UIImage(named: "a TO z") {
+            // Currently A → Z, change to Z → A
+            print("Switch to Descending")
+            cell.img_AtoZ.image = UIImage(named: "az-up")
+            loadData(Search: "", sort: "desc")
+        } else {
+            // Currently Z → A, change to A → Z
+            print("Switch to Ascending")
+            cell.img_AtoZ.image = UIImage(named: "a TO z")
+            loadData(Search: "", sort: "asc")
+        }
+    }
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -164,7 +180,7 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ClientHeaderCell") as? ClientHeaderCell else {
                 return nil
             }
-
+        header.delegate = self
             // Customize your header view
             return header
     }
@@ -178,7 +194,12 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
         cell.lbl_email.text = client.email
         cell.lbl_phone.text = client.phone
         cell.lbl_gender.text = client.gender
-        cell.lbl_clientType.text = client.client_type
+        if client.client_type == ""{
+            cell.lbl_clientType.text = "-"
+        }else{
+            cell.lbl_clientType.text = client.client_type
+        }
+        
         cell.Act_Edit = {
             let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddClientVC") as! AddClientVC
             addNew.isEdit = true

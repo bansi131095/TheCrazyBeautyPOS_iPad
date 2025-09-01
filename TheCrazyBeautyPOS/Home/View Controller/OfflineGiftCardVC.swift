@@ -121,7 +121,7 @@ class OfflineGiftCardVC: UIViewController {
     
     func getNoDataLabel() -> UILabel {
         let noDataLabel = UILabel()
-        noDataLabel.text = "No OfflineGiftCards Found"
+        noDataLabel.text = "No Offline Gift Cards Found"
         noDataLabel.textAlignment = .center
         noDataLabel.textColor = .gray
         noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)

@@ -37,6 +37,7 @@ class Category_DescriptionVC: UIViewController {
         tbl_CategoriesDescription.dataSource = self
         tbl_CategoriesDescription.rowHeight = UITableView.automaticDimension
         tbl_CategoriesDescription.reloadData()
+        tbl_CategoriesDescription.layoutIfNeeded()
     }
     
     @IBAction func btn_Save(_ sender: Any) {
@@ -158,10 +159,21 @@ class Category_DescriptionVC: UIViewController {
                 }
             }
 
-            DispatchQueue.main.async {
+            /*DispatchQueue.main.async {
                 self.tbl_CategoriesDescription.reloadData()
                 self.tbl_Height.constant = self.tbl_CategoriesDescription.contentSize.height
+            }*/
+            
+            DispatchQueue.main.async {
+                self.tbl_CategoriesDescription.reloadData()
+                self.tbl_CategoriesDescription.layoutIfNeeded()
+                
+                let rowHeight: CGFloat = 120 // your cell height
+                let rowCount = self.CategoryDetails.count
+                self.tbl_Height.constant = (CGFloat(rowCount) * rowHeight)
             }
+
+
         }
     }
 

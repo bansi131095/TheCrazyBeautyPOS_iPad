@@ -78,6 +78,7 @@ class AddServiceVC: UIViewController {
     var arr_SecondaryType = ["Main Service","Sub Service"]
     var arr_NailRemoval = ["Test Main Service","Nail Paint Removal"]
     var arr_Options = ["Male","Female","Unisex"]
+    var arr_Options1 = ["Male","Female","Unisex"]
     
     var resourcList: [InventoryData] = []
     
@@ -143,31 +144,62 @@ class AddServiceVC: UIViewController {
     
     @IBAction func act_addEditService(_ sender: GradientButton) {
         if isEdit {
-            if self.txt_serviceName.text!.isEmpty {
-                self.showToast(message: "Please enter service name")
-            }else if self.txt_mainCategory.text!.isEmpty {
-                self.showToast(message: "Please select category")
-            }else if self.txt_serviceFor.text!.isEmpty {
-                self.showToast(message: "Please select service for")
+            if txt_TypeofService.text == "Service Without Sub Type"{
+                if self.txt_serviceName.text!.isEmpty {
+                    self.showToast(message: "Please enter service name")
+                } else if self.txt_mainCategory.text!.isEmpty {
+                    self.showToast(message: "Please select category")
+                } else if self.txt_serviceFor.text!.isEmpty {
+                    self.showToast(message: "Please select service for")
+                } else if self.txt_serviceDuration.text!.isEmpty {
+                    self.showToast(message: "Please select service time")
+                } else if self.txt_priceType.text!.isEmpty {
+                    self.showToast(message: "Please select price type")
+                } else if self.txt_regulatPrice.text!.isEmpty {
+                    self.showToast(message: "Please enter price")
+                }else{
+                    self.updateServiceData(serviceId: "\(self.dictService?.id ?? 0)")
+                }
             }else{
-                self.updateServiceData(serviceId: "\(self.dictService?.id ?? 0)")
+                if self.txt_serviceName.text!.isEmpty {
+                    self.showToast(message: "Please enter service name")
+                } else if self.txt_mainCategory.text!.isEmpty {
+                    self.showToast(message: "Please select category")
+                } else if self.txt_Resource.text!.isEmpty {
+                    self.showToast(message: "Please select Resource")
+                }else{
+                    self.updateServiceData(serviceId: "\(self.dictService?.id ?? 0)")
+                }
             }
         }else{
-            if self.txt_serviceName.text!.isEmpty {
-                self.showToast(message: "Please enter service name")
-            } else if self.txt_mainCategory.text!.isEmpty {
-                self.showToast(message: "Please select category")
-            } else if self.txt_serviceFor.text!.isEmpty {
-                self.showToast(message: "Please select service for")
-            } else if self.txt_serviceDuration.text!.isEmpty {
-                self.showToast(message: "Please select service time")
-            } else if self.txt_priceType.text!.isEmpty {
-                self.showToast(message: "Please select price type")
-            } else if self.txt_regulatPrice.text!.isEmpty {
-                self.showToast(message: "Please enter price")
+            if txt_TypeofService.text == "Service Without Sub Type"{
+                if self.txt_serviceName.text!.isEmpty {
+                    self.showToast(message: "Please enter service name")
+                } else if self.txt_mainCategory.text!.isEmpty {
+                    self.showToast(message: "Please select category")
+                } else if self.txt_serviceFor.text!.isEmpty {
+                    self.showToast(message: "Please select service for")
+                } else if self.txt_serviceDuration.text!.isEmpty {
+                    self.showToast(message: "Please select service time")
+                } else if self.txt_priceType.text!.isEmpty {
+                    self.showToast(message: "Please select price type")
+                } else if self.txt_regulatPrice.text!.isEmpty {
+                    self.showToast(message: "Please enter price")
+                }else{
+                    self.addServiceData()
+                }
             }else{
-                self.addServiceData()
+                if self.txt_serviceName.text!.isEmpty {
+                    self.showToast(message: "Please enter service name")
+                } else if self.txt_mainCategory.text!.isEmpty {
+                    self.showToast(message: "Please select category")
+                } else if self.txt_Resource.text!.isEmpty {
+                    self.showToast(message: "Please select Resource")
+                }else{
+                    self.addServiceData()
+                }
             }
+            
         }
     }
     
@@ -239,6 +271,8 @@ class AddServiceVC: UIViewController {
         openSalonType()
     }
     
+    @IBAction func btn_MainCategory(_ sender: Any) {
+    }
     
     //MARK: Set Data
     func setRegularFont(){
@@ -267,7 +301,7 @@ class AddServiceVC: UIViewController {
         self.txt_description.text = self.dictService?.description ?? ""
         self.selectedDuration = self.dictService?.duration ?? 0
         self.txt_priceType.setText(self.dictService?.price_type ?? "")
-        self.txt_regulatPrice.setText(self.dictService?.price ?? "")
+        self.txt_regulatPrice.setText(self.dictService?.price ?? "0")
         self.txt_salesPrice.setText(String(self.dictService?.sale_price ?? "0"))
         print("Resource :\(Int(self.dictService?.resource_id ?? "") ?? 0)")
         print("resoucreId :\(resoucreId)")
@@ -348,6 +382,22 @@ class AddServiceVC: UIViewController {
         slotDuration.selectionAction = {  [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
             self.txt_serviceFor.text = item
+        }
+    }
+    
+    func openPriceType() {
+        let slotDuration = DropDown()
+        slotDuration.anchorView = txt_priceType
+        slotDuration.bottomOffset = CGPoint(x: 0, y:(slotDuration.anchorView?.plainView.bounds.height)!)
+        slotDuration.direction = .bottom
+        slotDuration.dataSource = arr_Options1
+        slotDuration.cellHeight = 35
+        slotDuration.show()
+        slotDuration.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+        slotDuration.backgroundColor = .white
+        slotDuration.selectionAction = {  [unowned self] (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+            self.txt_priceType.text = item
         }
     }
     
@@ -633,6 +683,7 @@ class AddServiceVC: UIViewController {
                     for data in self.resourcList {
                         if data.id == self.resoucreId {
                             self.txt_Resource.setText("\(data.name) - \(data.qty)")
+                            
                         }
                     }
                 }
@@ -703,8 +754,19 @@ class AddServiceVC: UIViewController {
 //            categoryParId = servicesMainList[binding.spnCategory.selectedItemPosition].id.toString()
         }
         showLoader()
+        var price = self.txt_regulatPrice.text
+        if price == "" {
+            price = "0"
+        }
+        
+        var salePrice = self.txt_salesPrice.text
+        if salePrice == "" {
+            salePrice = "0"
+        }
+        
+        
         let staffIds = !self.selected.isEmpty ? self.selected.joined(separator: ",") : ""
-        APIService.shared.addServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: self.txt_serviceFor.text ?? "", duration: selectedDuration, priceType: self.txt_priceType.text ?? "", price: self.txt_regulatPrice.text ?? "0", salePrice: self.txt_salesPrice.text ?? "0", vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds,has_sub_service: hasSubService,is_sub_service: isSubService,resource_id: "\(resoucreId)") { staffResult in
+        APIService.shared.addServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: self.txt_serviceFor.text ?? "", duration: selectedDuration, priceType: self.txt_priceType.text ?? "", price: price ?? "0", salePrice: salePrice ?? "0", vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds,has_sub_service: hasSubService,is_sub_service: isSubService,resource_id: "\(resoucreId)") { staffResult in
             self.hideLoader()
             guard let model = staffResult else {
                 return
@@ -760,8 +822,19 @@ class AddServiceVC: UIViewController {
         }
         
         showLoader()
+        
+        var price = self.txt_regulatPrice.text
+        if price == "" {
+            price = "0"
+        }
+        
+        var salePrice = self.txt_salesPrice.text
+        if salePrice == "" {
+            salePrice = "0"
+        }
+        
         let staffIds = !self.selected.isEmpty ? self.selected.joined(separator: ",") : ""
-        APIService.shared.updateServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: self.txt_serviceFor.text ?? "", duration: selectedDuration, priceType: self.txt_priceType.text ?? "", price: self.txt_regulatPrice.text ?? "0", salePrice: self.txt_salesPrice.text ?? "0", vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds, serviceId: serviceId,has_sub_service: hasSubService,is_sub_service: isSubService,resource_id: "\(resoucreId)") { staffResult in
+        APIService.shared.updateServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: self.txt_serviceFor.text ?? "", duration: selectedDuration, priceType: self.txt_priceType.text ?? "", price: price ?? "0", salePrice: salePrice ?? "0", vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds, serviceId: serviceId,has_sub_service: hasSubService,is_sub_service: isSubService,resource_id: "\(resoucreId)") { staffResult in
             self.hideLoader()
             guard let model = staffResult else {
                 return
