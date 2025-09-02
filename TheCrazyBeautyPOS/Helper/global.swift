@@ -254,6 +254,8 @@ class global: NSObject
     var URL_ADD_RESOURCE = global.server_url + "add_resource"
     var URL_DELETE_RESOURCE = global.server_url + "delete_resource/"
     
+    var URL_LOGIN_SUBVENDOR = global.server_url + "login_subvendor"
+    
     var noDataLabel: UILabel?
 
     //MARK:-

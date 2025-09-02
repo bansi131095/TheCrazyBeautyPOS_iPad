@@ -73,7 +73,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         windows.makeKeyAndVisible()
         
     }
-
-
+    /*func movenextScreenVendor(windows: UIWindow)  {
+        let sb = UIStoryboard(name: "Home", bundle: nil)
+            let navDashboard = sb.instantiateViewController(withIdentifier: "NavigateHome") as! UINavigationController
+            
+            // Get HomeVC (root of navigation)
+            if let homeVC = navDashboard.viewControllers.first as? HomeVC {
+                homeVC.isPass = "isPass"
+            }
+            
+            navDashboard.modalPresentationStyle = .fullScreen
+            windows.rootViewController = navDashboard
+            windows.makeKeyAndVisible()
+    }*/
+    
+    
 }
 

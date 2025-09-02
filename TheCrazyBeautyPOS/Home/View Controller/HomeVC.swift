@@ -20,6 +20,7 @@ class HomeVC: UIViewController {
     var salonList: [String] = []
     var selectedSalon: String = ""
     var OTP = String()
+    var isPass = String()
     
 //    MARK: - Popup
     @IBOutlet weak var vwPopup: UIView!
@@ -28,6 +29,7 @@ class HomeVC: UIViewController {
     @IBOutlet weak var lbl_salonName: UILabel!
     
     
+    @IBOutlet weak var vw_MyProfile: UIView!
     //MARK: - PASSCODE POPUP
     @IBOutlet weak var vwMainPasscode: UIView!
     @IBOutlet weak var vwPasscodePopup: UIView!
@@ -40,6 +42,7 @@ class HomeVC: UIViewController {
     @IBOutlet weak var txt_5: UITextField!
     @IBOutlet weak var txt_6: UITextField!
     
+    @IBOutlet weak var vw_SalonType: UIView!
     var imageArray: [UIImage] = [
         #imageLiteral(resourceName: "Dashboard.png"),
         #imageLiteral(resourceName: "Booking"),
@@ -52,16 +55,33 @@ class HomeVC: UIViewController {
 //        #imageLiteral(resourceName: "Report"),
     ]
     
+    var imageArrayN : [UIImage] = [#imageLiteral(resourceName: "Booking"),#imageLiteral(resourceName: "Team"),#imageLiteral(resourceName: "Clients"),#imageLiteral(resourceName: "Promotion"),#imageLiteral(resourceName: "Inventory")]
+
     var selectedIndex: Int = 1
+    var subvendorIndex: Int = 0
     private var tapCount = 0
     private let maxTaps = 8
     private var isReportImageAdded = false
-    
+    let vendor = SharedPrefs.getSubvendor()
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if vendor == "Subvendor"{
+            SubloadEmbeddedViewController(for: 0)
+            vw_SalonType.isHidden = true
+            lbl_UserName.isHidden = true
+            lbl_salonName.isHidden = false
+            vw_MyProfile.isHidden = true
+        }else{
+            loadEmbeddedViewController(for: 1)
+            vw_SalonType.isHidden = false
+            lbl_UserName.isHidden = false
+            lbl_salonName.isHidden = false
+            vw_MyProfile.isHidden = false
+        }
         self.setUpTableView()
-        loadEmbeddedViewController(for: 1)
+//        loadEmbeddedViewController(for: 1)
         self.getAllSalonData()
         let salonName = SharedPrefs.getSalonName()
         let userName = SharedPrefs.getUserName()
@@ -101,7 +121,7 @@ class HomeVC: UIViewController {
         self.tbl_vw.rowHeight = 100
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    /*override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
 
             guard let touch = touches.first else { return }
@@ -119,7 +139,7 @@ class HomeVC: UIViewController {
             // Also dismiss dropdown manually if using a custom dropdown manager
             DropdownManager.shared.hideDropdown()
             vwPopup.isHidden = true
-    }
+    }*/
 
     func loadEmbeddedViewController(for index: Int) {
             // Optionally switch based on index if you have multiple VCs
@@ -145,6 +165,42 @@ class HomeVC: UIViewController {
             selectedVC = storyboard.instantiateViewController(withIdentifier: "InventoryVC") as? InventoryVC
         case 8:
             selectedVC = storyboard.instantiateViewController(withIdentifier: "ReportVC") as? ReportVC
+        default:
+            print("Invalid index")
+            return
+        }
+
+        // Remove old child
+        for child in children {
+            child.willMove(toParent: nil)
+            child.view.removeFromSuperview()
+            child.removeFromParent()
+        }
+
+        if let vc = selectedVC {
+            addChild(vc)
+            vc.view.frame = containerView.bounds
+            containerView.addSubview(vc.view)
+            vc.didMove(toParent: self)
+        }
+    }
+  
+    func SubloadEmbeddedViewController(for index: Int) {
+            // Optionally switch based on index if you have multiple VCs
+        let storyboard = UIStoryboard(name: "Home", bundle: nil)
+        var selectedVC: UIViewController?
+
+        switch index {
+        case 0:
+            selectedVC = storyboard.instantiateViewController(withIdentifier: "BookingVC") as? BookingVC
+        case 1:
+            selectedVC = storyboard.instantiateViewController(withIdentifier: "TeamVC") as? TeamVC
+        case 2:
+            selectedVC = storyboard.instantiateViewController(withIdentifier: "ClientsVC") as? ClientsVC
+        case 3:
+            selectedVC = storyboard.instantiateViewController(withIdentifier: "PromotionVC") as? PromotionVC
+        case 4:
+            selectedVC = storyboard.instantiateViewController(withIdentifier: "InventoryVC") as? InventoryVC
         default:
             print("Invalid index")
             return
@@ -348,7 +404,7 @@ class HomeVC: UIViewController {
 
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    /*func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return imageArray.count + 1
     }
     
@@ -382,7 +438,65 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
             self.tbl_vw.reloadData()
             loadEmbeddedViewController(for: self.selectedIndex)
         }
+    }*/
+   
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if vendor == "Subvendor" {
+            return imageArrayN.count // include extra arrow
+        } else {
+            return imageArray.count + 1
+        }
     }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "HomeMenuCell", for: indexPath) as? HomeMenuCell else {
+            return UITableViewCell()
+        }
+        
+        if vendor == "Subvendor" {
+            if indexPath.row == imageArrayN.count {
+                // Last "arrow" cell
+                cell.img_bg.isHidden = false
+                cell.img_bg.image = UIImage(named: "icon-bg")
+                cell.menuIcon.image = UIImage(named: "up_arrow_into_square")
+            } else {
+                // Normal icon
+                let isSelected = (self.subvendorIndex == indexPath.row)
+                cell.img_bg.isHidden = !isSelected
+                cell.menuIcon.tintColor = isSelected ? .white : .black
+                cell.menuIcon.image = self.imageArrayN[indexPath.row]
+            }
+        } else {
+            if indexPath.row == imageArray.count {
+                cell.img_bg.isHidden = false
+                cell.img_bg.image = UIImage(named: "icon-bg")
+                cell.menuIcon.image = UIImage(named: "up_arrow_into_square")
+            } else {
+                let isSelected = (self.selectedIndex == indexPath.row)
+                cell.img_bg.isHidden = !isSelected
+                cell.menuIcon.tintColor = isSelected ? .white : .black
+                cell.menuIcon.image = self.imageArray[indexPath.row]
+            }
+        }
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if vendor == "Subvendor" {
+            if indexPath.row != imageArrayN.count { // avoid arrow row
+                self.subvendorIndex = indexPath.row
+                self.tbl_vw.reloadData()
+                SubloadEmbeddedViewController(for: subvendorIndex)
+            }
+        } else {
+            if indexPath.row != imageArray.count { // avoid arrow row
+                self.selectedIndex = indexPath.row
+                self.tbl_vw.reloadData()
+                loadEmbeddedViewController(for: selectedIndex)
+            }
+        }
+    }
+
 }
 
 

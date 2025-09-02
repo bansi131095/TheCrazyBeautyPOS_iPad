@@ -108,9 +108,19 @@ class SharedPrefs {
         return UserDefaults.standard.string(forKey: "loginTime") ?? ""
     }
 
+    
+    static func setSubvendor(_ subvendor: String?) {
+        UserDefaults.standard.set(subvendor, forKey: "subvendor")
+    }
+    
+    static func getSubvendor() -> String {
+        return UserDefaults.standard.string(forKey: "subvendor") ?? ""
+    }
+    
     // MARK: - Clear User Data
     static func clearUserData() {
         setUserId("")
+        setSubvendor("")
         setLoginToken("")
         setVerified(false)
         

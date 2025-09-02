@@ -162,3 +162,16 @@ class BankDetailsTransform: TransformType {
     }
 }
 
+class subVendor: Mappable {
+    var data: String = ""
+    var token: String?
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data    <- map["data"]
+        token    <- map["token"]
+        error   <- map["error"]
+    }
+}

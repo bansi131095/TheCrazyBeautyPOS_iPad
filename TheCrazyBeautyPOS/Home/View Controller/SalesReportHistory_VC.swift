@@ -34,7 +34,7 @@ class SalesReportHistory_VC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 900
+        contentViewWidthConstraint.constant = 600
         setTableView()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         setDefaultDateRangeAndFetch()
@@ -342,7 +342,12 @@ extension SalesReportHistory_VC: UITableViewDelegate, UITableViewDataSource{
         }
         cell.lbl_Status.text = data.booking_status.capitalized
         
-        cell.lbl_Payment.text = data.payment_type.capitalized
+        if data.payment_type == ""{
+            cell.lbl_Payment.text = "N/A"
+        }else{
+            cell.lbl_Payment.text = data.payment_type.capitalized
+        }
+        
         if data.tip == 0 {
             cell.lbl_Tip.text = "N/A"
         }else{
@@ -350,7 +355,7 @@ extension SalesReportHistory_VC: UITableViewDelegate, UITableViewDataSource{
         }
         cell.lbl_Total.text = "\(SharedPrefs.getSymbol())" +  String(Double(data.grand_total)!)
         
-        if deleteShownSales && data.booking_status.capitalized == "Completed"{
+        if deleteShownSales && data.booking_status.capitalized == "Completed" && data.payment_type.capitalized == "Cash"{
             cell.btn_Delete.isHidden = false
         } else {
             cell.btn_Delete.isHidden = true

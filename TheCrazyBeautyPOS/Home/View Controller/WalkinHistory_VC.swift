@@ -32,7 +32,7 @@ class WalkinHistory_VC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 1250
+        contentViewWidthConstraint.constant = 880
         self.setTableView()
         setDefaultDateRangeAndFetch()
     }
@@ -119,7 +119,7 @@ class WalkinHistory_VC: UIViewController {
         let formattedTo = formatDateToString(toDate)
         
         showLoader()
-        APIService.shared.WalkinHistoryGet(vendor_id: LocalData.userId, limt: "10", page: "1", start_date: formattedFrom, end_date: formattedTo) { result in
+        APIService.shared.WalkinHistoryGet(vendor_id: LocalData.userId, limt: "100000", page: "", start_date: formattedFrom, end_date: formattedTo) { result in
             self.hideLoader()
             guard let model = result else {
                 print("API failed or empty response")
@@ -259,6 +259,7 @@ extension WalkinHistory_VC: UITableViewDelegate, UITableViewDataSource{
             cell.lbl_PaymentType.text = data.payment_type.capitalized
         }
         
+        
         if data.coupon_code == ""{
             cell.lbl_CouponCode.text = "N/A"
         }else{
@@ -278,7 +279,7 @@ extension WalkinHistory_VC: UITableViewDelegate, UITableViewDataSource{
             cell.lbl_GiftCard?.text = data.giftCardDisplayString
         }
         
-        if deleteShownSales{
+        if deleteShownSales && data.payment_type.capitalized == "Cash"{
             cell.btn_Delete.isHidden = false
         } else {
             cell.btn_Delete.isHidden = true

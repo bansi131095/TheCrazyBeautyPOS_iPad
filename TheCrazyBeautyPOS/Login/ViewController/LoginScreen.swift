@@ -72,6 +72,7 @@ class LoginScreen: UIViewController {
                 print("Staff")
                 print("Staff")
                 print("Staff")
+                subvendor()
             }else{
                 self.performLogin()
             }
@@ -127,6 +128,41 @@ class LoginScreen: UIViewController {
             }
         }
     
+    func subvendor(){
+        let email = txt_email.text ?? ""
+        let password = txt_password.text ?? ""
+        self.loader.hidesWhenStopped = false
+        self.loader.startAnimating()
+        APIService.shared.subvendorLogin(email: email, password: password) { result in
+            self.loader.stopAnimating()
+            self.loader.hidesWhenStopped = true
+            if let data = result {
+                self.showToast(message: result?.data ?? "")
+                SharedPrefs.setLoginToken(data.token ?? "")
+                SharedPrefs.setSubvendor("Subvendor")
+                let sb = UIStoryboard(name: "Home", bundle:nil)
+                let navDashboard = sb.instantiateViewController(withIdentifier: "NavigateHome") as! UINavigationController
+                 navDashboard.modalPresentationStyle = .fullScreen
+                self.present(navDashboard, animated: true, completion: nil)
+            }else{
+                self.showToast(message: result?.error ?? "")
+            }
+            
+        }
+    }
+    /*func Subvendor(){
+        SharedPrefs.setSubvendor("Subvendor")
+        let sb = UIStoryboard(name: "Home", bundle: nil)
+            let navDashboard = sb.instantiateViewController(withIdentifier: "NavigateHome") as! UINavigationController
+            
+            // Get HomeVC (root of navigation)
+            if let homeVC = navDashboard.viewControllers.first as? HomeVC {
+                homeVC.isPass = "isPass"
+            }
+            
+            navDashboard.modalPresentationStyle = .fullScreen
+            self.present(navDashboard, animated: true, completion: nil)
+    }*/
     /*
     // MARK: - Navigation
 

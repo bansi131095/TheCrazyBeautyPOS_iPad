@@ -34,6 +34,7 @@ class LocalData {
     static var isStaffLogin: Bool = false
 
     static var allStaffIds: String = ""
+    static var subvendor: String = ""
     
     static var selectedCurrencyCode: String?
     static var selectedSymbol: String?
@@ -56,6 +57,7 @@ class LocalData {
         isStaffLogin = SharedPrefs.isStaffLogin()
         currency = SharedPrefs.getCurrency()
         symbol = SharedPrefs.getSymbol()
+        subvendor = SharedPrefs.getSubvendor()
         
 //        return true
     }
