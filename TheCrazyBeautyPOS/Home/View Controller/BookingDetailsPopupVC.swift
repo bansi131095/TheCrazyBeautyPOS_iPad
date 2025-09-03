@@ -120,7 +120,7 @@ class BookingDetailsPopupVC: UIViewController {
             if dict.bookingStatus == "booked" {
                 if dict.paidAmount != "0.00", dict.paidAmount != "0" {
                     self.vw_paidAmount.isHidden = false
-                    self.lbl_paidAmount.text = "\(LocalData.symbol) \(Double(dict.paidAmount ?? "") ?? 00)"
+                    self.lbl_paidAmount.text = "\(LocalData.symbol) \((dict.paidAmount ?? "")).00"
                 } else {
                     self.vw_paidAmount.isHidden = true
                 }

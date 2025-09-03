@@ -27,7 +27,7 @@ class ClientsVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 100 // or any dynamic value
+        contentViewWidthConstraint.constant = 250 // or any dynamic value
         self.setTableView()
         self.setCustomFont()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -111,6 +111,10 @@ class ClientsVC: UIViewController {
     
     
     //MARK: Button Action
+    @IBAction func btn_Export(_ sender: Any) {
+        downloadClientReport()
+    }
+    
     @IBAction func act_addNew(_ sender: UIButton) {
         let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddClientVC") as! AddClientVC
         addNew.isEdit = false
@@ -137,6 +141,19 @@ class ClientsVC: UIViewController {
         }
     }
 
+    func downloadClientReport() {
+        showLoader()
+        APIService.shared.downloadClientReport(vendor_id: LocalData.userId) { model in
+            self.hideLoader()
+            guard let filename = model?.filename else {
+                self.alertWithMessageOnly("Download failed")
+                return
+            }
+
+            let urlPath = "\(global.reportUrl)\(filename)"
+            self.downloadAndSaveFile(urlString: urlPath, in: self)
+        }
+    }
     /*
     // MARK: - Navigation
 
@@ -193,9 +210,35 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
         cell.lbl_name.text = (client.first_name).capitalized + " " + (client.last_name).capitalized
         cell.lbl_email.text = client.email
         cell.lbl_phone.text = client.phone
-        cell.lbl_gender.text = client.gender
+        if client.gender != ""{
+            cell.lbl_gender.text = client.gender.capitalized
+        }else{
+            cell.lbl_gender.text = "--"
+        }
+        
+        if client.kind != ""{
+            cell.lbl_userType.text = client.kind.capitalized
+        }else{
+            cell.lbl_userType.text = "--"
+        }
+        
+        if client.kind.capitalized == "Customer"{
+            cell.btn_Edit.isHidden = false
+            cell.btn_Icon.isHidden = false
+            cell.btn_Delete.isHidden = false
+            cell.btn_Calender.isHidden = false
+            cell.lbl_Line.isHidden = true
+            cell.lbl_Line.text = ""
+        }else{
+            cell.btn_Edit.isHidden = true
+            cell.btn_Icon.isHidden = true
+            cell.btn_Delete.isHidden = true
+            cell.btn_Calender.isHidden = true
+            cell.lbl_Line.isHidden = false
+            cell.lbl_Line.text = "--"
+        }
         if client.client_type == ""{
-            cell.lbl_clientType.text = "-"
+            cell.lbl_clientType.text = "--"
         }else{
             cell.lbl_clientType.text = client.client_type
         }

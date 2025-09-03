@@ -14,8 +14,14 @@ class ClientCell: UITableViewCell {
     @IBOutlet weak var lbl_phone: UILabel!
     @IBOutlet weak var lbl_clientType: UILabel!
     @IBOutlet weak var lbl_gender: UILabel!
+    @IBOutlet weak var lbl_userType: UILabel!
     
     
+    @IBOutlet weak var lbl_Line: UILabel!
+    @IBOutlet weak var btn_Edit: UIButton!
+    @IBOutlet weak var btn_Delete: UIButton!
+    @IBOutlet weak var btn_Icon: UIButton!
+    @IBOutlet weak var btn_Calender: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         setCustomFont()

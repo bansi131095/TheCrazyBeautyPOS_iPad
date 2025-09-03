@@ -16,6 +16,7 @@ class HomeVC: UIViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var txt_salon: UITextField!
     @IBOutlet weak var vw_pending: UIView!
+    @IBOutlet weak var btn_TopClick: UIButton!
     
     var salonList: [String] = []
     var selectedSalon: String = ""
@@ -62,10 +63,13 @@ class HomeVC: UIViewController {
     private var tapCount = 0
     private let maxTaps = 8
     private var isReportImageAdded = false
-    let vendor = SharedPrefs.getSubvendor()
+    var vendor = ""
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        vendor = SharedPrefs.getSubvendor()
+        
         
         if vendor == "Subvendor"{
             SubloadEmbeddedViewController(for: 0)
@@ -73,12 +77,14 @@ class HomeVC: UIViewController {
             lbl_UserName.isHidden = true
             lbl_salonName.isHidden = false
             vw_MyProfile.isHidden = true
+            btn_TopClick.isHidden = true
         }else{
             loadEmbeddedViewController(for: 1)
             vw_SalonType.isHidden = false
             lbl_UserName.isHidden = false
             lbl_salonName.isHidden = false
             vw_MyProfile.isHidden = false
+            btn_TopClick.isHidden = false
         }
         self.setUpTableView()
 //        loadEmbeddedViewController(for: 1)

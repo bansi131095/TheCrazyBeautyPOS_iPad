@@ -27,6 +27,8 @@ class LoginScreen: UIViewController {
     
     @IBOutlet weak var Constraint_Bottom: NSLayoutConstraint!
     
+    var vendorData: VendorDataItem?
+    
     var staffLogin = String()
     //MARK: View life cycle
     override func viewDidLoad() {
@@ -80,6 +82,15 @@ class LoginScreen: UIViewController {
     }
     
     @IBAction func act_loginStaff(_ sender: UIButton) {
+        if (self.txt_email.text == "") {
+            self.txt_email.showErrorMessage(message: "Please enter email")
+        } else if !self.txt_email.text!.isValidEmail() {
+            self.txt_email.showErrorMessage(message: "Please enter valid email")
+        } else if (self.txt_password.text == "") {
+            self.txt_password.showErrorMessage(message: "Please enter password")
+        }else{
+            subvendor()
+        }
     }
     
     @IBAction func act_googleLogin(_ sender: UIButton) {
@@ -114,6 +125,7 @@ class LoginScreen: UIViewController {
                     SharedPrefs.setSalonName(data.salon_name ?? "")
                     SharedPrefs.setLoginToken(data.token ?? "")
                     SharedPrefs.setStaffLogin(false)
+                    SharedPrefs.setSubvendor("Vendor")
                     let currentTimeMillis = Int(Date().timeIntervalSince1970 * 1000)
                     let timeString = String(currentTimeMillis)
                     SharedPrefs.setLoginTime(timeString)
@@ -123,7 +135,7 @@ class LoginScreen: UIViewController {
                      navDashboard.modalPresentationStyle = .fullScreen
                     self.present(navDashboard, animated: true, completion: nil)
                 } else {
-                    print("❌ Login failed or invalid response.")
+                    self.showToast(message: "You are not registered yet")
                 }
             }
         }
@@ -136,8 +148,17 @@ class LoginScreen: UIViewController {
         APIService.shared.subvendorLogin(email: email, password: password) { result in
             self.loader.stopAnimating()
             self.loader.hidesWhenStopped = true
+            if (result?.error != nil && result?.error != "") {
+                self.showToast(message: result?.error ?? "")
+                return
+            }
             if let data = result {
                 self.showToast(message: result?.data ?? "")
+                SharedPrefs.setEmail(result?.vendorData.first?.email ?? "")
+                SharedPrefs.setUserId(String(result?.vendorData.first?.id ?? 0))
+                SharedPrefs.setUserName((result?.vendorData.first?.firstName ?? "") + " " + (result?.vendorData.first?.lastName ?? ""))
+                SharedPrefs.setSalonId(String(result?.vendorData.first?.salonId ?? 0))
+                SharedPrefs.setSalonName(result?.vendorData.first?.salonName ?? "")
                 SharedPrefs.setLoginToken(data.token ?? "")
                 SharedPrefs.setSubvendor("Subvendor")
                 let sb = UIStoryboard(name: "Home", bundle:nil)

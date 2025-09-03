@@ -28,7 +28,7 @@ class CouponVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setCustomFont()
-        contentViewWidthConstraint.constant = 400 // or any dynamic value
+        contentViewWidthConstraint.constant = 250 // or any dynamic value
         self.setTableView()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 //        self.loadData(Search: "")

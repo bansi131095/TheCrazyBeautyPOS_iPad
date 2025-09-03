@@ -65,7 +65,8 @@ class global: NSObject
     var URL_TEAM_DETAILS = global.server_url + "team_details"
     
 //<<<<<<< HEAD
-    var URL_CLIENT_DETAILS = global.server_url + "client_details"
+    var URL_CLIENT_DETAILS = global.server_url + "client_guest_details"
+    var URL_CLIENT_REPORT = global.server_url + "client_report"
     
     var URL_INVENTORY_DETAILS = global.server_url + "inventory_details"
     

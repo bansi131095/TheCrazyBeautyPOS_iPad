@@ -71,7 +71,7 @@ class Team_LoginVC: UIViewController {
         } else if (self.txt_Password.text == "") {
             alertWithImage(title: "Team Login", Msg: "Please enter password.")
         }else if !self.txt_Password.text!.isValidPassword(){
-            alertWithImage(title: "Team Login", Msg: "Invalid Password.")
+            alertWithImage(title: "Team Login", Msg: "Password must contain at least one uppercase letter, one lowercase letter, one special letter and one number, and be at least 8 characters long")
         }else{
             update_Subvendor()
         }

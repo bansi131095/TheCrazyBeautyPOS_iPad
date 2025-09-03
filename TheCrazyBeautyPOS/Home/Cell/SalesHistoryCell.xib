@@ -19,14 +19,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="SalesHistoryCell" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="1500" height="44"/>
+            <rect key="frame" x="0.0" y="0.0" width="1535" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="1500" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="1535" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TUN-Ww-Fn5">
-                        <rect key="frame" x="0.0" y="-3" width="1500" height="50"/>
+                        <rect key="frame" x="0.0" y="-3" width="1535" height="50"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123456789" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FRv-ru-RgU">
                                 <rect key="frame" x="20" y="13" width="110" height="24"/>
@@ -148,8 +148,20 @@
                                     <action selector="act_Mail:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="QvT-zn-7WD"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LpO-H3-TSa">
+                                <rect key="frame" x="1461" y="13" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="28" id="fgN-o7-BZQ"/>
+                                    <constraint firstAttribute="height" constant="28" id="hw9-w3-Qx1"/>
+                                </constraints>
+                                <color key="tintColor" name="txtGray"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="printer" catalog="system" symbolScale="large"/>
+                                </state>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbA-6T-IGL">
-                                <rect key="frame" x="1461" y="14.5" width="25" height="25"/>
+                                <rect key="frame" x="1499" y="14.5" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="Fze-bO-ynd"/>
                                     <constraint firstAttribute="width" constant="25" id="rYs-9N-spR"/>
@@ -166,14 +178,15 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="kbA-6T-IGL" secondAttribute="trailing" constant="11" id="1T0-NX-yGs"/>
                             <constraint firstItem="BNa-Au-hQS" firstAttribute="top" secondItem="FRv-ru-RgU" secondAttribute="top" id="1Xo-YA-hhA"/>
                             <constraint firstItem="YyB-rF-8p8" firstAttribute="top" secondItem="FRv-ru-RgU" secondAttribute="top" id="2VK-gB-isB"/>
+                            <constraint firstItem="kbA-6T-IGL" firstAttribute="leading" secondItem="LpO-H3-TSa" secondAttribute="trailing" constant="10" id="3iV-bA-qW6"/>
                             <constraint firstItem="EBG-1X-dma" firstAttribute="leading" secondItem="ZKa-CS-LFi" secondAttribute="trailing" constant="15" id="5S3-6i-9jZ"/>
-                            <constraint firstItem="kbA-6T-IGL" firstAttribute="leading" secondItem="fct-6R-vYQ" secondAttribute="trailing" constant="10" id="5WU-98-b98"/>
                             <constraint firstItem="YBG-x1-Mbr" firstAttribute="top" secondItem="cZj-JD-6OM" secondAttribute="top" id="71C-LP-gao"/>
                             <constraint firstItem="FRv-ru-RgU" firstAttribute="centerY" secondItem="TUN-Ww-Fn5" secondAttribute="centerY" id="BQq-ch-4qu"/>
+                            <constraint firstItem="LpO-H3-TSa" firstAttribute="leading" secondItem="fct-6R-vYQ" secondAttribute="trailing" constant="10" id="DjB-mL-Nzd"/>
                             <constraint firstItem="ZKa-CS-LFi" firstAttribute="leading" secondItem="YyB-rF-8p8" secondAttribute="trailing" constant="15" id="EXi-Lo-0BY"/>
-                            <constraint firstAttribute="trailing" secondItem="kbA-6T-IGL" secondAttribute="trailing" constant="14" id="G1H-N0-PMp"/>
                             <constraint firstItem="fct-6R-vYQ" firstAttribute="leading" secondItem="Dcq-sG-Kfq" secondAttribute="trailing" constant="10" id="GJh-j9-F05"/>
                             <constraint firstItem="cZj-JD-6OM" firstAttribute="leading" secondItem="EBG-1X-dma" secondAttribute="trailing" constant="15" id="HK2-s6-NXK"/>
                             <constraint firstAttribute="height" constant="50" id="HtH-4N-Vyx"/>
@@ -189,6 +202,7 @@
                             <constraint firstItem="Dcq-sG-Kfq" firstAttribute="top" secondItem="YBG-x1-Mbr" secondAttribute="top" id="UAa-y1-MHO"/>
                             <constraint firstItem="YBG-x1-Mbr" firstAttribute="leading" secondItem="cZj-JD-6OM" secondAttribute="trailing" constant="15" id="cr7-Pf-vcc"/>
                             <constraint firstItem="BNa-Au-hQS" firstAttribute="leading" secondItem="iRd-3N-Yn8" secondAttribute="trailing" constant="15" id="ehf-Kh-j9v"/>
+                            <constraint firstItem="LpO-H3-TSa" firstAttribute="centerY" secondItem="fct-6R-vYQ" secondAttribute="centerY" id="hFZ-LQ-7hb"/>
                             <constraint firstItem="EBG-1X-dma" firstAttribute="top" secondItem="ZKa-CS-LFi" secondAttribute="top" id="hvg-OI-lv8"/>
                             <constraint firstItem="YyB-rF-8p8" firstAttribute="leading" secondItem="BNa-Au-hQS" secondAttribute="trailing" constant="15" id="i3X-1S-Gv9"/>
                             <constraint firstItem="iRd-3N-Yn8" firstAttribute="top" secondItem="FRv-ru-RgU" secondAttribute="top" id="nws-WK-Xec"/>
@@ -226,6 +240,7 @@
         <image name="delete" width="60" height="60"/>
         <image name="exclamationmark.circle" catalog="system" width="128" height="123"/>
         <image name="ic_Mail" width="64" height="64"/>
+        <image name="printer" catalog="system" width="128" height="111"/>
         <namedColor name="AppBlack">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

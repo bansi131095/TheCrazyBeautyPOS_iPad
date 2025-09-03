@@ -164,14 +164,198 @@ class BankDetailsTransform: TransformType {
 
 class subVendor: Mappable {
     var data: String = ""
+    var result: [ResultItem] = []
+    var vendorData: [VendorDataItem] = []
     var token: String?
     var error: String?
 
     required init?(map: Map) {}
 
     func mapping(map: Map) {
-        data    <- map["data"]
-        token    <- map["token"]
-        error   <- map["error"]
+        data        <- map["data"]
+        result      <- map["result"]
+        vendorData  <- map["vendor_data"]
+        token       <- map["token"]
+        error       <- map["error"]
+    }
+}
+
+class ResultItem: Mappable {
+    var id: Int = 0
+    var vendorId: Int = 0
+    var name: String = ""
+    var email: String = ""
+    var createdAt: String = ""
+    var updatedAt: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id          <- map["id"]
+        vendorId    <- map["vendor_id"]
+        name        <- map["name"]
+        email       <- map["email"]
+        createdAt   <- map["created_at"]
+        updatedAt   <- map["updated_at"]
+    }
+}
+
+class VendorDataItem: Mappable {
+    var id: Int = 0
+    var salonId: Int = 0
+    var serviceId: String = ""
+    var blockCustomers: String = ""
+    var salonName: String = ""
+    var firstName: String = ""
+    var lastName: String = ""
+    var email: String = ""
+    var isVerified: Int = 0
+    var phone: String = ""
+    var salonPhone: String = ""
+    var postcode: String = ""
+    var salonType: String = ""
+    var staffSequence: String = ""
+    var resetToken: String = ""
+    var deviceToken: String = ""
+    var fcmToken: String?
+    var lastLogin: String?
+    var averageRating: Double = 0.0
+    var paypalEmail: String?
+    var bankDetails: String = ""
+    var profilePhoto: String = ""
+    var galleryImages: String = ""
+    var otherImages: String = ""
+    var aboutSalon: String?
+    var workingHours: String = ""
+    var breakTime: String = ""
+    var businessVerified: Int = 0
+    var facebookProfile: String?
+    var twitterProfile: String?
+    var instagramProfile: String?
+    var whatsappProfile: String?
+    var address: String = ""
+    var city: String = ""
+    var country: String = ""
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
+    var passcodeStatus: Int = 0
+    var isPaid: Int = 0
+    var allowServices: Int = 0
+    var advancePay: Int = 0
+    var webStatus: Int = 0
+    var staffStatus: Int = 0
+    var cancellationPolicy: String = ""
+    var notes: String = ""
+    var smsCredit: Int = 0
+    var smsSettings: String = ""
+    var reminderTime: Int = 0
+    var allowPos: Int = 0
+    var posId: String = ""
+    var isDeleted: Int = 0
+    var membership: String?
+    var metaTitle: String?
+    var metaDescription: String?
+    var openingDate: String?
+    var holidayDates: String = ""
+    var timeGap: String = ""
+    var reminderMail: Int = 0
+    var categoryDescription: String = ""
+    var cardEnable: Int = 0
+    var penaltyFees: Int = 0
+    var penaltyDuration: Int = 0
+    var createdAt: String = ""
+    var updatedAt: String = ""
+    var currency: String = ""
+    var symbol: String = ""
+    var emailNotifications: Int = 0
+    var emailSettings: String = ""
+    var bookingFlow: Int = 0
+    var allowNoshow: Int?
+    var noshowLimit: Int = 0
+    var allowSearch: Int = 0
+    var bookingGuest: Int = 0
+    var setReschedule: Int = 0
+    var aboutUs: String = ""
+    var status: Int = 0
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        id                  <- map["id"]
+        salonId             <- map["salon_id"]
+        serviceId           <- map["service_id"]
+        blockCustomers      <- map["block_customers"]
+        salonName           <- map["salon_name"]
+        firstName           <- map["first_name"]
+        lastName            <- map["last_name"]
+        email               <- map["email"]
+        isVerified          <- map["is_verified"]
+        phone               <- map["phone"]
+        salonPhone          <- map["salon_phone"]
+        postcode            <- map["postcode"]
+        salonType           <- map["salon_type"]
+        staffSequence       <- map["staff_sequence"]
+        resetToken          <- map["reset_token"]
+        deviceToken         <- map["device_token"]
+        fcmToken            <- map["fcm_token"]
+        lastLogin           <- map["last_login"]
+        averageRating       <- map["average_rating"]
+        paypalEmail         <- map["paypal_email"]
+        bankDetails         <- map["bank_details"]
+        profilePhoto        <- map["profile_photo"]
+        galleryImages       <- map["gallery_images"]
+        otherImages         <- map["other_images"]
+        aboutSalon          <- map["about_salon"]
+        workingHours        <- map["working_hours"]
+        breakTime           <- map["break_time"]
+        businessVerified    <- map["business_verified"]
+        facebookProfile     <- map["facebook_profile"]
+        twitterProfile      <- map["twitter_profile"]
+        instagramProfile    <- map["instagram_profile"]
+        whatsappProfile     <- map["whatsapp_profie"]
+        address             <- map["address"]
+        city                <- map["city"]
+        country             <- map["country"]
+        latitude            <- map["latitude"]
+        longitude           <- map["longitude"]
+        passcodeStatus      <- map["passcode_status"]
+        isPaid              <- map["is_paid"]
+        allowServices       <- map["allow_services"]
+        advancePay          <- map["advance_pay"]
+        webStatus           <- map["web_status"]
+        staffStatus         <- map["staff_status"]
+        cancellationPolicy  <- map["cancellation_policy"]
+        notes               <- map["notes"]
+        smsCredit           <- map["sms_credit"]
+        smsSettings         <- map["sms_settings"]
+        reminderTime        <- map["reminder_time"]
+        allowPos            <- map["allow_pos"]
+        posId               <- map["pos_id"]
+        isDeleted           <- map["is_deleted"]
+        membership          <- map["membership"]
+        metaTitle           <- map["meta_title"]
+        metaDescription     <- map["meta_description"]
+        openingDate         <- map["opening_date"]
+        holidayDates        <- map["holiday_dates"]
+        timeGap             <- map["time_gap"]
+        reminderMail        <- map["reminder_mail"]
+        categoryDescription <- map["category_description"]
+        cardEnable          <- map["card_enable"]
+        penaltyFees         <- map["penalty_fees"]
+        penaltyDuration     <- map["penalty_duration"]
+        createdAt           <- map["created_at"]
+        updatedAt           <- map["updated_at"]
+        currency            <- map["currency"]
+        symbol              <- map["symbol"]
+        emailNotifications  <- map["email_notifications"]
+        emailSettings       <- map["email_settings"]
+        bookingFlow         <- map["booking_flow"]
+        allowNoshow         <- map["allow_noshow"]
+        noshowLimit         <- map["noshow_limit"]
+        allowSearch         <- map["allow_search"]
+        bookingGuest        <- map["booking_guest"]
+        setReschedule       <- map["set_reschedule"]
+        aboutUs             <- map["about_us"]
+        status              <- map["status"]
     }
 }

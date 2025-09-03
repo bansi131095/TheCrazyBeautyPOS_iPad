@@ -5094,5 +5094,39 @@ class APIService {
                 }
             }
     }
+    
+    func downloadClientReport(vendor_id: String, completion: @escaping (ReportDownloadModel?) -> Void) {
+
+    let url = global.shared.URL_CLIENT_REPORT
+
+    let params: [String: Any] = [
+        "vendor_id": vendor_id
+    ]
+
+    AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+        .responseObject { (response: DataResponse<ReportDownloadModel, AFError>) in
+            
+            // Debug Info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headers: \(self.headers)")
+            
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Download File: \(result.filename)")
+                completion(result)
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
 }
 
