@@ -3827,12 +3827,12 @@ class APIService {
         
         let params: [String: Any] = [
             "vendor_id": vendorId,
+            "start_date": startDate,
             "end_date": endDate,
             "is_teamdetails": isTeamDetails,
             "limit": limit,
             "page": page,
-            "search": search,
-            "start_date": startDate,
+            "search": search
         ]
 
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))

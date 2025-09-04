@@ -18,6 +18,7 @@ class UpcomingAppointmentCell: UITableViewCell {
     @IBOutlet weak var lbl_bookingId: UILabel!
     @IBOutlet weak var lbl_amount: UILabel!
     @IBOutlet weak var lbl_titleAmount: UILabel!
+    @IBOutlet weak var lbl_Type: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

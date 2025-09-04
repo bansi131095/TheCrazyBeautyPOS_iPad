@@ -114,8 +114,8 @@ class AddServiceVC: UIViewController {
             self.txt_priceType.setText(selected)
         }
         staffTextField.delegate = self
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openStaffPopup))
-//        staffTextField.addGestureRecognizer(tapGesture)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openStaffPopup))
+        staffTextField.addGestureRecognizer(tapGesture)
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if self.isEdit {
                 self.lbl_title.text = "Edit Service"
@@ -518,11 +518,18 @@ class AddServiceVC: UIViewController {
     }
     
     @objc func openStaffPopup() {
-        if !self.selectedStaffList.isEmpty {
+        if selectedStaffList.isEmpty {
+                selected.removeAll()
+            } else {
+                // Build fresh selected IDs from selectedStaffList
+                selected = selectedStaffList.compactMap { "\($0.id ?? 0)" }
+            }
+        
+        /*if !self.selectedStaffList.isEmpty {
             for staff in self.selectedStaffList {
                 selected.append("\(staff.id ?? 0)")
             }
-        }
+        }*/
         let popup = PreferredStaffPopupViewController()
         popup.staffList = staffList
         popup.selectedStaff = selected

@@ -218,6 +218,9 @@ extension UpcomingAppointmentsVC: UITableViewDelegate, UITableViewDataSource, UI
             if let price = upcoming.grandTotal, price != "" {
                 cell.lbl_amount.text = "\(LocalData.symbol)\(price)"
             }
+            if let type = upcoming.customerType, type != "" {
+                cell.lbl_Type.text = type.capitalized
+            }
             cell.Act_Info = {
                 let popup = self.storyboard?.instantiateViewController(withIdentifier: "BookingDetailsPopupVC") as! BookingDetailsPopupVC
                 popup.modalPresentationStyle = .overCurrentContext

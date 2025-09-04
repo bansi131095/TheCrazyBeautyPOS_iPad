@@ -179,6 +179,20 @@ class TeamRosterVC: UIViewController {
         return views
     }
     
+    func reloadHeader() {
+        // Remove old header views
+        headerRow.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        
+        // Add updated header views
+        for view in buildHeaderLabels() {
+            headerRow.addArrangedSubview(view)
+        }
+        
+        headerRow.setNeedsLayout()
+        headerRow.layoutIfNeeded()
+    }
+
+    
     func makeHeaderLabel(title: String) -> UIView {
         let container = UIView()
         container.translatesAutoresizingMaskIntoConstraints = false
@@ -270,7 +284,7 @@ class TeamRosterVC: UIViewController {
         
         // 🔹 Generate your weekday blocks
         dates = generateWeekDates(start: firstDate, end: lastDate)
-
+        reloadHeader()
         // 🔹 Fetch shift data
         self.getShiftData()
     }
@@ -589,7 +603,15 @@ extension TeamRosterVC: FSCalendarDelegate, FSCalendarDataSource {
         // 🔹 Store values and update shift data
         firstDate = weekStart
         lastDate = weekEnd
+        
+        let date = DateFormatter()
+        date.dateFormat = "dd-MM-yyyy"
+        
+        fDate = date.string(from: weekStart)
+        lDate = date.string(from: weekEnd)
+        
         dates = generateWeekDates(start: weekStart, end: weekEnd)
+        reloadHeader()
         self.getShiftData()
 
         calendarVC?.dismiss(animated: true)

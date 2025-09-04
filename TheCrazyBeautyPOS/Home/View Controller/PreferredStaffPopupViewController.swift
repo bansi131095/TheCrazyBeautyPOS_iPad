@@ -45,6 +45,7 @@ class PreferredStaffPopupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        updatePopupHeight()
     }
     
     private func setupViews() {
@@ -58,7 +59,8 @@ class PreferredStaffPopupViewController: UIViewController {
         NSLayoutConstraint.activate([
             containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 300),
-            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -300)
+            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -300),
+            containerView.heightAnchor.constraint(equalToConstant: 250)
         ])
 
         // Title Label
@@ -95,6 +97,18 @@ class PreferredStaffPopupViewController: UIViewController {
         applyConstraints()
     }
     
+    private func updatePopupHeight() {
+        collectionView.layoutIfNeeded()
+        let contentHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
+        let totalHeight = contentHeight + 200 // 👈 extra padding
+        let maxHeight = UIScreen.main.bounds.height * 0.8 // safety limit
+
+        containerView.constraints.forEach { constraint in
+            if constraint.firstAttribute == .height {
+                constraint.constant = min(totalHeight, maxHeight)
+            }
+        }
+    }
     
     private func applyConstraints() {
         [titleLabel, closeButton, collectionView, continueButton].forEach {

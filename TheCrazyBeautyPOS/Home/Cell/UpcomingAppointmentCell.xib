@@ -68,7 +68,7 @@
                                         <rect key="frame" x="240" y="0.0" width="465" height="60"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QkX-ps-hRp">
-                                                <rect key="frame" x="0.0" y="5" width="120" height="18"/>
+                                                <rect key="frame" x="0.0" y="5" width="120" height="19.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="120" id="d5I-b6-xFG"/>
                                                 </constraints>
@@ -84,7 +84,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iFc-5X-jPL">
-                                                <rect key="frame" x="120" y="5" width="340" height="18"/>
+                                                <rect key="frame" x="120" y="5" width="340" height="19.5"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="Liza Patel">
                                                         <attributes>
@@ -97,7 +97,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcm-b8-LwP">
-                                                <rect key="frame" x="0.0" y="30" width="87.5" height="18"/>
+                                                <rect key="frame" x="0.0" y="31.5" width="92.5" height="19.5"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="Booking No: ">
                                                         <attributes>
@@ -110,7 +110,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddx-sy-Fcr">
-                                                <rect key="frame" x="87.5" y="30" width="64" height="18"/>
+                                                <rect key="frame" x="92.5" y="31.5" width="78.5" height="19.5"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="#0000040">
                                                         <attributes>
@@ -283,6 +283,7 @@
             <color key="backgroundColor" name="AppWhite"/>
             <connections>
                 <outlet property="lbl_BookingNo" destination="wcm-b8-LwP" id="Ehf-q0-WCZ"/>
+                <outlet property="lbl_Type" destination="Del-M4-hZO" id="X4R-GQ-Qy7"/>
                 <outlet property="lbl_amount" destination="JiU-P5-AiU" id="P7P-1E-Hjg"/>
                 <outlet property="lbl_bookingDate" destination="oRl-lV-vpU" id="dgM-ap-TWA"/>
                 <outlet property="lbl_bookingId" destination="ddx-sy-Fcr" id="B67-FK-dBY"/>
