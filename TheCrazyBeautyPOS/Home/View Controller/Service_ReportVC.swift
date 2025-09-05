@@ -247,7 +247,8 @@ extension Service_ReportVC: UITableViewDelegate, UITableViewDataSource{
         let data = self.serviceList[indexPath.item]
         cell.lbl_no.text = "\(indexPath.row+1)"
         cell.lbl_name.text = data.service_name
-        cell.lbl_Amount.text = "\(SharedPrefs.getSymbol())" +  String(data.amount)
+//        cell.lbl_Amount.text = "\(SharedPrefs.getSymbol())" +  String(data.amount)
+        cell.lbl_Amount.text = "\(SharedPrefs.getSymbol())" +  String(format: "%.2f", Double(data.amount))
         return cell
     }
     

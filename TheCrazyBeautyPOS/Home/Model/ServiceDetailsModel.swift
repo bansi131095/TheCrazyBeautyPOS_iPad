@@ -310,7 +310,8 @@ class WalkinHistoryDateModel: Mappable {
         guard let data = gift_card.data(using: .utf8) else { return "" }
         do {
             let giftCards = try JSONDecoder().decode([GiftCardModel].self, from: data)
-            return giftCards.map { "\($0.qty) × ₹\($0.price)" }.joined(separator: ", ")
+//            return giftCards.map { "\($0.qty) × ₹\($0.price)" }.joined(separator: ", ")
+            return giftCards.map { "\(SharedPrefs.getSymbol())\($0.price) × \($0.qty)  " }.joined(separator: ", ")
         } catch {
             print("GiftCard parsing error: \(error)")
             return ""

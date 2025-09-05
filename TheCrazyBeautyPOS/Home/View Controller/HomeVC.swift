@@ -57,7 +57,8 @@ class HomeVC: UIViewController {
     ]
     
     var imageArrayN : [UIImage] = [#imageLiteral(resourceName: "Booking"),#imageLiteral(resourceName: "Team"),#imageLiteral(resourceName: "Clients"),#imageLiteral(resourceName: "Promotion"),#imageLiteral(resourceName: "Inventory")]
-
+    var notificationList: [MessageData] = []
+    
     var selectedIndex: Int = 1
     var subvendorIndex: Int = 0
     private var tapCount = 0
@@ -67,7 +68,7 @@ class HomeVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        getNotificationData()
         vendor = SharedPrefs.getSubvendor()
         
         
@@ -105,6 +106,11 @@ class HomeVC: UIViewController {
         setCustomFont()
         self.vwMainPasscode.isHidden = true
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        getNotificationData()
+    }
+    
     
     
     func setCustomFont() {
@@ -283,6 +289,26 @@ class HomeVC: UIViewController {
     }
     
     //MARK: Api Data
+    func getNotificationData() {
+//        showLoader()
+        APIService.shared.getNotificationList(page: "1", limit: "10") { activityResult in
+//            self.hideLoader()
+            guard let model = activityResult else { return }
+            self.notificationList = model.data
+            
+            if let firstUnviewed = self.notificationList.first(where: { $0.viewed == 0 }) {
+                global.shared.hasUnreadNotification = true
+                self.vw_pending.isHidden = false
+                print("Found unviewed notification with id:")
+            } else {
+                global.shared.hasUnreadNotification = false
+                self.vw_pending.isHidden = true
+                print("All notifications are viewed")
+            }
+        }
+    }
+
+    
     func getAllSalonData() {
     
         self.showLoader()
@@ -495,6 +521,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                 SubloadEmbeddedViewController(for: subvendorIndex)
             }
         } else {
+            getNotificationData()
             if indexPath.row != imageArray.count { // avoid arrow row
                 self.selectedIndex = indexPath.row
                 self.tbl_vw.reloadData()

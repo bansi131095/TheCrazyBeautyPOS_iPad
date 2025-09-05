@@ -60,12 +60,17 @@ class Appointment_DetailsVC: UIViewController {
             self.lbl_Payment.text = model?.payment_type.capitalized
         }
         
-        self.lbl_MiscellaneousPrice.text = "\(SharedPrefs.getSymbol())" + "\(model?.miscellaneous_price ?? "")"
+        /*self.lbl_MiscellaneousPrice.text = "\(SharedPrefs.getSymbol())" + "\(model?.miscellaneous_price ?? "")"
         self.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + "\(Double(model?.tip ?? 0))"
         self.lbl_OriginalAmount.text = "\(SharedPrefs.getSymbol())" + "\(model?.sub_total ?? 0)"
         self.lbl_Discount.text = "\(SharedPrefs.getSymbol())" + "\(model?.discount_amount ?? "")"
-        self.lbl_Total.text = "\(SharedPrefs.getSymbol())" + "\(model?.grand_total ?? "")"
+        self.lbl_Total.text = "\(SharedPrefs.getSymbol())" + "\(model?.grand_total ?? "")"*/
         
+        self.lbl_MiscellaneousPrice.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", Double(model?.miscellaneous_price ?? "") ?? 0.0)
+        self.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", Double(model?.tip ?? 0))
+        self.lbl_OriginalAmount.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", Double(model?.sub_total ?? 0))
+        self.lbl_Discount.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", Double(model?.discount_amount ?? "") ?? 0.0)
+        self.lbl_Total.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", Double(model?.grand_total ?? "") ?? 0.0)
     }
     
     @IBAction func btn_Close(_ sender: Any) {

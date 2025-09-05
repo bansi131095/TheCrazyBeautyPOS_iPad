@@ -259,7 +259,8 @@ extension Team_ReportVC: UITableViewDelegate, UITableViewDataSource{
         cell.lbl_CustomerName.text = data.customer_name.capitalized
         cell.lbl_StaffName.text = data.staff_name
         cell.lbl_ServiceName.text = data.service_name
-        cell.lbl_Price.text = "\(SharedPrefs.getSymbol())" + String(Double(data.price))
+//        cell.lbl_Price.text = "\(SharedPrefs.getSymbol())" + String(Double(data.price))
+        cell.lbl_Price.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", Double(data.price))
         return cell
     }
 }

@@ -143,7 +143,7 @@ class ClientsVC: UIViewController {
 
     func downloadClientReport() {
         showLoader()
-        APIService.shared.downloadClientReport(vendor_id: LocalData.userId) { model in
+        APIService.shared.downloadClientReport(vendor_id: LocalData.userId,search: self.txt_search.text ?? "") { model in
             self.hideLoader()
             guard let filename = model?.filename else {
                 self.alertWithMessageOnly("Download failed")

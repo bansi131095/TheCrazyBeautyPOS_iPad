@@ -2953,7 +2953,7 @@ class APIService {
         }
     }
  
-    func UpdateBusinessInformation(id: String,salon_name: String,salon_type:String,phone:String,salon_phone:String,postcode:String,address:String,city:String,country:String,latitude:String,longitude:String,web_status:String,allow_search:String,time_gap:String,reminder_mail:String,about_us:String, completion: @escaping (CommonModel?) -> Void) {
+    func UpdateBusinessInformation(id: String,salon_name: String,salon_type:String,phone:String,salon_phone:String,postcode:String,address:String,city:String,country:String,latitude:String,longitude:String,web_status:String,allow_search:String,time_gap:String,reminder_mail:String,about_us:String,booking_guest:String, completion: @escaping (CommonModel?) -> Void) {
         let url = global.shared.URL_UPDATE_BUSINESS_INFORMATION + "/\(LocalData.userId)"
         
         let params: [String: Any] = [
@@ -2972,7 +2972,8 @@ class APIService {
                 "allow_search": allow_search,
                 "time_gap": time_gap,
                 "reminder_mail": reminder_mail,
-                "about_us": about_us
+                "about_us": about_us,
+                "booking_guest" : booking_guest
             ]
 
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
@@ -5095,12 +5096,13 @@ class APIService {
             }
     }
     
-    func downloadClientReport(vendor_id: String, completion: @escaping (ReportDownloadModel?) -> Void) {
+    func downloadClientReport(vendor_id: String,search:String, completion: @escaping (ReportDownloadModel?) -> Void) {
 
     let url = global.shared.URL_CLIENT_REPORT
 
     let params: [String: Any] = [
-        "vendor_id": vendor_id
+        "vendor_id": vendor_id,
+        "search" : search
     ]
 
     AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))

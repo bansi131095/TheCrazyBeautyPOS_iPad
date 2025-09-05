@@ -269,10 +269,10 @@ extension WalkinHistory_VC: UITableViewDelegate, UITableViewDataSource{
         if data.tip == 0{
             cell.lbl_Tip.text = "N/A"
         }else{
-            cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + "\(Double(data.tip))"
+            cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", Double(data.tip))
         }
         
-        cell.lbl_Discount.text = "\(SharedPrefs.getSymbol())" + "\(data.discount_amount)"
+        cell.lbl_Discount.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", Double(data.discount_amount))
         if data.giftCardDisplayString == ""{
             cell.lbl_GiftCard?.text = "N/A"
         }else{
@@ -298,9 +298,15 @@ extension WalkinHistory_VC: UITableViewDelegate, UITableViewDataSource{
             self.present(popup, animated: true, completion: nil)
         }
         
-        cell.lbl_Total.text = "\(SharedPrefs.getSymbol())" + "\(Double(data.sub_total))"
+        /*cell.lbl_Total.text = "\(SharedPrefs.getSymbol())" + "\(Double(data.sub_total))"
         cell.lbl_GrandTotal.text = "\(SharedPrefs.getSymbol())" + "\(Double(data.total))"
-        cell.lbl_MisPrice.text = "\(SharedPrefs.getSymbol())" + "\(data.miscellaneous_price)"
+        cell.lbl_MisPrice.text = "\(SharedPrefs.getSymbol())" + "\(data.miscellaneous_price)"*/
+        
+        cell.lbl_Total.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", Double(data.sub_total))
+        cell.lbl_GrandTotal.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", Double(data.total))
+        cell.lbl_MisPrice.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", Double(data.miscellaneous_price))
+        
+        
         return cell
     }
     

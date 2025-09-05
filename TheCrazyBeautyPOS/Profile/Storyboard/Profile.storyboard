@@ -4637,7 +4637,7 @@ To Partner.</string>
                                 <rect key="frame" x="0.0" y="109.5" width="1180" height="660.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Sh-Lj-7ND">
-                                        <rect key="frame" x="0.0" y="0.0" width="1180" height="1262.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1180" height="1397.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wd9-El-NPI">
                                                 <rect key="frame" x="15" y="10" width="1150" height="60"/>
@@ -5715,8 +5715,60 @@ To Partner.</string>
                                                     <constraint firstItem="VZN-EF-F63" firstAttribute="top" secondItem="FBy-MC-fd2" secondAttribute="top" id="mjT-0z-T1q"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ac0-ae-CWh">
+                                                <rect key="frame" x="30" y="1167.5" width="1120" height="130"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t79-zY-7FQ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="1120" height="130"/>
+                                                        <subviews>
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allow Online Guest Booking" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDX-eN-eOb" userLabel="Configure Notifications Settings">
+                                                                <rect key="frame" x="0.0" y="0.0" width="272" height="26.5"/>
+                                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="22"/>
+                                                                <color key="textColor" name="AppBlack"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Allow guest to book appointment without registration/loggin in.)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mZ4-ar-8UZ">
+                                                                <rect key="frame" x="0.0" y="34.5" width="626" height="26.5"/>
+                                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="22"/>
+                                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Oo-4P-tie">
+                                                                <rect key="frame" x="0.0" y="71" width="51" height="35"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="35" id="qwP-rq-ZaA"/>
+                                                                </constraints>
+                                                                <color key="onTintColor" name="MainPrim"/>
+                                                                <connections>
+                                                                    <action selector="switch_Online:" destination="ePO-p8-VAc" eventType="valueChanged" id="XYy-n3-ABb"/>
+                                                                </connections>
+                                                            </switch>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="DDX-eN-eOb" firstAttribute="leading" secondItem="t79-zY-7FQ" secondAttribute="leading" id="1wz-g2-nc7"/>
+                                                            <constraint firstItem="mZ4-ar-8UZ" firstAttribute="leading" secondItem="DDX-eN-eOb" secondAttribute="leading" id="D7i-OV-ePc"/>
+                                                            <constraint firstItem="DDX-eN-eOb" firstAttribute="top" secondItem="t79-zY-7FQ" secondAttribute="top" id="QgB-5Z-dRi"/>
+                                                            <constraint firstItem="6Oo-4P-tie" firstAttribute="leading" secondItem="mZ4-ar-8UZ" secondAttribute="leading" id="RYl-BG-FKO"/>
+                                                            <constraint firstItem="mZ4-ar-8UZ" firstAttribute="top" secondItem="DDX-eN-eOb" secondAttribute="bottom" constant="8" id="mAF-ab-k7R"/>
+                                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="DDX-eN-eOb" secondAttribute="trailing" constant="10" id="oZY-Gn-0tZ"/>
+                                                            <constraint firstItem="DDX-eN-eOb" firstAttribute="leading" secondItem="t79-zY-7FQ" secondAttribute="leading" id="pc6-CC-TKr"/>
+                                                            <constraint firstItem="6Oo-4P-tie" firstAttribute="top" secondItem="mZ4-ar-8UZ" secondAttribute="bottom" constant="10" id="qgg-T4-NuK"/>
+                                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mZ4-ar-8UZ" secondAttribute="trailing" constant="20" id="vbW-zq-X3K"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="130" id="CIF-BG-bJX"/>
+                                                    <constraint firstItem="t79-zY-7FQ" firstAttribute="top" secondItem="ac0-ae-CWh" secondAttribute="top" id="EUE-V2-9E5"/>
+                                                    <constraint firstAttribute="bottom" secondItem="t79-zY-7FQ" secondAttribute="bottom" id="Gbc-fw-McP"/>
+                                                    <constraint firstAttribute="trailing" secondItem="t79-zY-7FQ" secondAttribute="trailing" id="n5Q-t3-VSu"/>
+                                                    <constraint firstItem="t79-zY-7FQ" firstAttribute="leading" secondItem="ac0-ae-CWh" secondAttribute="leading" id="viT-1B-rGv"/>
+                                                </constraints>
+                                            </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o9u-hp-rGN" customClass="GradientButton" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="1182.5" width="1120" height="60"/>
+                                                <rect key="frame" x="30" y="1317.5" width="1120" height="60"/>
                                                 <color key="backgroundColor" name="AccentColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="9ZQ-j6-lo6"/>
@@ -5753,7 +5805,8 @@ To Partner.</string>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="o9u-hp-rGN" secondAttribute="trailing" constant="30" id="0it-V5-Rd5"/>
                                             <constraint firstItem="5rS-bb-Hv5" firstAttribute="top" secondItem="dRb-vJ-KXu" secondAttribute="bottom" constant="15" id="1fE-Jb-TD2"/>
-                                            <constraint firstItem="o9u-hp-rGN" firstAttribute="top" secondItem="FBy-MC-fd2" secondAttribute="bottom" constant="25" id="6HO-eK-8Xh"/>
+                                            <constraint firstItem="ac0-ae-CWh" firstAttribute="leading" secondItem="FBy-MC-fd2" secondAttribute="leading" id="42C-Sb-mNL"/>
+                                            <constraint firstItem="ac0-ae-CWh" firstAttribute="trailing" secondItem="FBy-MC-fd2" secondAttribute="trailing" id="72r-z8-BLk"/>
                                             <constraint firstItem="dRb-vJ-KXu" firstAttribute="leading" secondItem="1Sh-Lj-7ND" secondAttribute="leading" constant="30" id="7a9-zF-kPt"/>
                                             <constraint firstItem="wd9-El-NPI" firstAttribute="top" secondItem="1Sh-Lj-7ND" secondAttribute="top" constant="10" id="AJ5-Xm-KYz"/>
                                             <constraint firstItem="dRb-vJ-KXu" firstAttribute="top" secondItem="gWC-ZK-r1T" secondAttribute="bottom" constant="15" id="ASC-ca-zAh"/>
@@ -5766,6 +5819,7 @@ To Partner.</string>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="o9u-hp-rGN" secondAttribute="bottom" constant="20" id="Jnh-kp-iZW"/>
                                             <constraint firstAttribute="trailing" secondItem="5rS-bb-Hv5" secondAttribute="trailing" constant="15" id="KH3-5m-2S1"/>
                                             <constraint firstItem="gWC-ZK-r1T" firstAttribute="leading" secondItem="1Sh-Lj-7ND" secondAttribute="leading" constant="30" id="Lhy-Vh-lzc"/>
+                                            <constraint firstItem="o9u-hp-rGN" firstAttribute="top" secondItem="ac0-ae-CWh" secondAttribute="bottom" constant="20" id="M2v-DT-qTu"/>
                                             <constraint firstItem="gYu-te-zXi" firstAttribute="leading" secondItem="1Sh-Lj-7ND" secondAttribute="leading" constant="30" id="QZp-pA-UHN"/>
                                             <constraint firstAttribute="trailing" secondItem="wd9-El-NPI" secondAttribute="trailing" constant="15" id="QxA-7d-8Oh"/>
                                             <constraint firstItem="gWC-ZK-r1T" firstAttribute="top" secondItem="Tw4-Zq-GjV" secondAttribute="bottom" constant="15" id="TXA-CR-Cn7"/>
@@ -5776,6 +5830,7 @@ To Partner.</string>
                                             <constraint firstAttribute="trailing" secondItem="dRb-vJ-KXu" secondAttribute="trailing" constant="15" id="cY1-IT-GwU"/>
                                             <constraint firstItem="Tw4-Zq-GjV" firstAttribute="top" secondItem="2B8-XF-n44" secondAttribute="bottom" constant="15" id="cYN-XF-yca"/>
                                             <constraint firstItem="5rS-bb-Hv5" firstAttribute="leading" secondItem="dRb-vJ-KXu" secondAttribute="leading" id="cz6-od-zac"/>
+                                            <constraint firstItem="ac0-ae-CWh" firstAttribute="top" secondItem="FBy-MC-fd2" secondAttribute="bottom" constant="10" id="hhZ-ek-azF"/>
                                             <constraint firstItem="gYu-te-zXi" firstAttribute="top" secondItem="oBr-2e-nIQ" secondAttribute="bottom" constant="15" id="nKA-SK-Cld"/>
                                             <constraint firstItem="2B8-XF-n44" firstAttribute="leading" secondItem="1Sh-Lj-7ND" secondAttribute="leading" constant="30" id="o8a-on-49H"/>
                                             <constraint firstItem="wd9-El-NPI" firstAttribute="leading" secondItem="1Sh-Lj-7ND" secondAttribute="leading" constant="15" id="tq8-1J-s7v"/>
@@ -5815,6 +5870,7 @@ To Partner.</string>
                         <outlet property="flag_imgVw" destination="uxX-Et-8Ma" id="xzI-Bi-Kgn"/>
                         <outlet property="map_height_const" destination="UMC-IV-Th8" id="bGM-M1-if9"/>
                         <outlet property="map_vw" destination="gWC-ZK-r1T" id="ihT-B2-kQr"/>
+                        <outlet property="switch_Online" destination="6Oo-4P-tie" id="9Ko-2A-ijP"/>
                         <outlet property="switch_Salon" destination="oOX-4S-cVM" id="kBK-jP-Ug2"/>
                         <outlet property="switch_visible" destination="8hB-Ey-mgU" id="jxb-WW-md9"/>
                         <outlet property="txt_Aboutus" destination="59l-HI-l2L" id="Uwe-mc-l89"/>

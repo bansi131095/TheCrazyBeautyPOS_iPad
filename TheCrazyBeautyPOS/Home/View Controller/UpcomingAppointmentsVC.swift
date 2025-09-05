@@ -82,7 +82,7 @@ class UpcomingAppointmentsVC: UIViewController {
     }
     
     
-    //MARK: Load Api
+    //MARK: Api Call
     func loadData(Search: String, isPagination: Bool = false, days: String) {
         if isPagination {
             self.isLoadingMore = true

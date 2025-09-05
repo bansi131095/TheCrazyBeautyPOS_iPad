@@ -245,7 +245,8 @@ extension Giftcard_HistoryVC: UITableViewDelegate, UITableViewDataSource{
             cell.lbl_ExpiryDate.text = "N/A"
         }
         
-        cell.lbl_Amount.text = "\(SharedPrefs.getSymbol())" +  String(data.amount)
+//        cell.lbl_Amount.text = "\(SharedPrefs.getSymbol())" +  String(data.amount)
+        cell.lbl_Amount.text = "\(SharedPrefs.getSymbol())" +  String(format: "%.2f", Double(data.amount))
         
         return cell
     }

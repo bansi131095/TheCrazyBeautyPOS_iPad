@@ -351,9 +351,11 @@ extension SalesReportHistory_VC: UITableViewDelegate, UITableViewDataSource{
         if data.tip == 0 {
             cell.lbl_Tip.text = "N/A"
         }else{
-            cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + String(Double(data.tip))
+//            cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + String(Double(data.tip))
+            cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", Double(data.tip))
         }
-        cell.lbl_Total.text = "\(SharedPrefs.getSymbol())" +  String(Double(data.grand_total)!)
+//        cell.lbl_Total.text = "\(SharedPrefs.getSymbol())" +  String(Double(data.grand_total)!)
+        cell.lbl_Total.text = "\(SharedPrefs.getSymbol())" +  String(format: "%.2f", Double(data.grand_total) ?? 0.0)
         
         if deleteShownSales && data.booking_status.capitalized == "Completed" && data.payment_type.capitalized == "Cash"{
             cell.btn_Delete.isHidden = false

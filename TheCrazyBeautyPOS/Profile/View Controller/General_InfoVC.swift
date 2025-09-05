@@ -58,6 +58,8 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     @IBOutlet weak var flag_imgVw: UIImageView!
     @IBOutlet weak var btn_Save: GradientButton!
     
+    @IBOutlet weak var switch_Online: UISwitch!
+    
     var locationManager = CLLocationManager()
     var userLatitude:CLLocationDegrees! = 0
     var userLongitude:CLLocationDegrees! = 0
@@ -70,6 +72,7 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     var str_edit = false
     var dictAddresss: Addresses?
     var allow_search : Int?
+    var booking_guest : Int?
     var web_status : Int?
     var phone = String()
     var postcode = String()
@@ -120,7 +123,15 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         }
     }
     
-
+    @IBAction func switch_Online(_ sender: UISwitch) {
+        if sender.isOn{
+            switch_Online.isOn = true
+            booking_guest = 1
+        }else{
+            switch_Online.isOn = false
+            booking_guest = 0
+        }
+    }
     
     
     @IBAction func btn_CountryPicker(_ sender: Any) {
@@ -302,6 +313,11 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             }else{
                 self.switch_Salon.isOn = true
             }
+            if self.SalonDetails.first?.booking_guest == 0{
+                self.switch_Online.isOn = false
+            }else{
+                self.switch_Online.isOn = true
+            }
             if self.SalonDetails.first?.web_status == 0{
                 self.switch_visible.isOn = false
             }else{
@@ -315,7 +331,7 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         let safeLatitude = userLatitude ?? 0.0
         let safeLongitude = userLongitude ?? 0.0
         showLoader()
-        APIService.shared.UpdateBusinessInformation(id: LocalData.userId, salon_name: txt_BusinessName.text ?? "", salon_type: txt_SalonType.text ?? "", phone: phone, salon_phone: "\(selectedCountrycode)-\(txt_MobileNumber.text ?? "")", postcode: postcode, address: self.txt_Address.text ?? "", city: city, country: country, latitude: "\(safeLatitude)", longitude: "\(safeLongitude)", web_status: "\(web_status ?? 0)", allow_search: "\(allow_search ?? 0)", time_gap: "\(time_gap)", reminder_mail: "\(reminder_mail)", about_us: self.txt_Aboutus.text ?? "") { result in
+        APIService.shared.UpdateBusinessInformation(id: LocalData.userId, salon_name: txt_BusinessName.text ?? "", salon_type: txt_SalonType.text ?? "", phone: phone, salon_phone: "\(selectedCountrycode)-\(txt_MobileNumber.text ?? "")", postcode: postcode, address: self.txt_Address.text ?? "", city: city, country: country, latitude: "\(safeLatitude)", longitude: "\(safeLongitude)", web_status: "\(web_status ?? 0)", allow_search: "\(allow_search ?? 0)", time_gap: "\(time_gap)", reminder_mail: "\(reminder_mail)", about_us: self.txt_Aboutus.text ?? "", booking_guest: "\(booking_guest ?? 0)") { result in
             self.hideLoader()
             if let message = result?.data{
                 self.alertWithMessageOnly(message)

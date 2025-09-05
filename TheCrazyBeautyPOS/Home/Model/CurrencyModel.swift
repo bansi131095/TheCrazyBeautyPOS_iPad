@@ -701,6 +701,7 @@ class SalonDetailsModel: Mappable {
     var longitude: Double?
     var web_status: Int?
     var allow_search: Int?
+    var booking_guest: Int?
     var time_gap: Int?
     var reminder_mail: Int?
     var about_us: String?
@@ -722,6 +723,7 @@ class SalonDetailsModel: Mappable {
         longitude      <- map["longitude"]
         web_status      <- map["web_status"]
         allow_search      <- map["allow_search"]
+        booking_guest      <- map["booking_guest"]
         time_gap      <- map["time_gap"]
         reminder_mail      <- map["reminder_mail"]
         about_us      <- map["about_us"]

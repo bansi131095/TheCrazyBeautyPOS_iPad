@@ -87,8 +87,8 @@ extension CartCell: UITableViewDelegate, UITableViewDataSource {
             fatalError("The cell is not registered")
         }
         let items = data[indexPath.row]
-        cell.lbl_service.text = items.name
-        cell.lbl_price.text = "-\(SharedPrefs.getSymbol())\(items.price)"
+        cell.lbl_service.text = items.name 
+        cell.lbl_price.text = "−   \(SharedPrefs.getSymbol())\(items.price)"
         cell.lbl_count.text = "\(items.count)"
         cell.Act_Plus = {
 //            self.data[indexPath.row].count += 1

@@ -258,7 +258,7 @@ class global: NSObject
     var URL_LOGIN_SUBVENDOR = global.server_url + "login_subvendor"
     
     var noDataLabel: UILabel?
-
+    var hasUnreadNotification: Bool = false
     //MARK:-
     override init()
     {
