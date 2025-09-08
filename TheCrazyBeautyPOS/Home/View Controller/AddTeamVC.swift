@@ -372,7 +372,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
                         // safe UI code here
                         self.showToast(message: "Team member added successfully")
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 } else {
@@ -389,7 +389,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
                         // safe UI code here
                         self.showToast(message: "Team member added successfully")
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 } else {
@@ -412,7 +412,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
                         // safe UI code here
                         self.showToast(message: response?.data ?? "")
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 } else {
@@ -429,7 +429,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
                         // safe UI code here
                         self.showToast(message: response?.data ?? "")
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 } else {

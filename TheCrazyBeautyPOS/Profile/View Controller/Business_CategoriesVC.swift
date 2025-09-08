@@ -224,7 +224,7 @@ extension Business_CategoriesVC: UICollectionViewDataSource, UICollectionViewDel
             if category.icon != "" {
                 let imgUrl = global.imageUrl + category.icon
                 if let url = URL(string: imgUrl) {
-                    let placeholder = UIImage(named: "ProductDemo")
+                    let placeholder = UIImage(named: "user")
                     cell.img_image.sd_setImage(with: url, placeholderImage: placeholder, options: [.retryFailed], completed: { image, error, _, _ in
                         if let error = error {
                             print("❌ Failed to load image: \(error.localizedDescription)")
@@ -244,7 +244,7 @@ extension Business_CategoriesVC: UICollectionViewDataSource, UICollectionViewDel
                     cell.img_image.sd_setImage(with: url, completed: { (image, error, _, _) in
                         if let error = error {
                             print("❌ Failed to load image: \(error.localizedDescription)")
-                            cell.img_image.image = UIImage(named: "ProductDemo")
+                            cell.img_image.image = UIImage(named: "user")
                         } else {
                             cell.img_image.image = image
                         }

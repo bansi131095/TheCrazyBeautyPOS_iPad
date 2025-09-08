@@ -135,7 +135,7 @@ extension Team_SequenceVC: UITableViewDelegate,UITableViewDataSource{
                 cell.img_User.sd_setImage(with: url, completed: { (image, error, _, _) in
                     if let error = error {
                         print("❌ Failed to load image: \(error.localizedDescription)")
-                        cell.img_User.image = UIImage(named: "ProductDemo")
+                        cell.img_User.image = UIImage(named: "user")
                     } else {
                         cell.img_User.image = image
                     }

@@ -269,12 +269,12 @@ class WalkinHistoryDateModel: Mappable {
     var discount_percentage: String = ""
     var discount_type: String = ""
     var discount_amount: Int = 0
-    var sub_total: Int = 0
+    var sub_total: String = ""
     var miscellaneous_notes: String = ""
-    var miscellaneous_price: Int = 0
+    var miscellaneous_price: String = ""
     var tip: Int = 0
     var payment_type: String = ""
-    var total: Int = 0
+    var total: String = ""
     var transaction_id: String = ""
     var transaction_status: String = ""
     var created_at: String = ""

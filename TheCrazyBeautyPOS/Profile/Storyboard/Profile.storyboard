@@ -2373,23 +2373,23 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XCC-zw-6wZ">
-                                                <rect key="frame" x="0.0" y="87" width="136" height="50"/>
+                                                <rect key="frame" x="0.0" y="87" width="64" height="50"/>
                                                 <subviews>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minutes" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pV-9n-uBf">
-                                                        <rect key="frame" x="15" y="0.0" width="72" height="50"/>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pV-9n-uBf">
+                                                        <rect key="frame" x="15" y="0.0" width="0.0" height="50"/>
                                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
                                                         <color key="textColor" name="AppBlack"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_Down" translatesAutoresizingMaskIntoConstraints="NO" id="PGv-Pn-CPI">
-                                                        <rect key="frame" x="102" y="15" width="20" height="20"/>
+                                                        <rect key="frame" x="30" y="15" width="20" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="MUr-kc-mJN"/>
                                                             <constraint firstAttribute="width" constant="20" id="jTu-W6-zHa"/>
                                                         </constraints>
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vg9-w8-Vjg">
-                                                        <rect key="frame" x="0.0" y="0.0" width="136" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="64" height="50"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <connections>
                                                             <action selector="btn_Time:" destination="a5Q-Uh-2XI" eventType="touchUpInside" id="0n4-ob-OtF"/>
@@ -3520,7 +3520,7 @@ To Partner.</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EWn-yz-8Nu" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                        <rect key="frame" x="120" y="0.0" width="1000" height="60"/>
+                                                        <rect key="frame" x="120" y="0.0" width="159" height="60"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <userDefinedRuntimeAttributes>
@@ -4637,7 +4637,7 @@ To Partner.</string>
                                 <rect key="frame" x="0.0" y="109.5" width="1180" height="660.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Sh-Lj-7ND">
-                                        <rect key="frame" x="0.0" y="0.0" width="1180" height="1397.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1180" height="1472.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wd9-El-NPI">
                                                 <rect key="frame" x="15" y="10" width="1150" height="60"/>
@@ -4930,8 +4930,107 @@ To Partner.</string>
                                                     <constraint firstAttribute="trailing" secondItem="sWl-Kt-bWP" secondAttribute="trailing" id="mkB-TP-Fdf"/>
                                                 </constraints>
                                             </view>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="alg-SM-Lwx">
+                                                <rect key="frame" x="15" y="235" width="1150" height="60"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iwx-4I-ZOs" userLabel="City">
+                                                        <rect key="frame" x="0.0" y="0.0" width="570" height="60"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="City *" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tpo-Rg-6SN" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+                                                                <rect key="frame" x="15" y="-2" width="555" height="64"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="64" id="wDw-rD-VCi"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isUnderLineAvailabe" value="NO"/>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                                        <color key="value" name="txtGray"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="padding_left">
+                                                                        <real key="value" value="24"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="paddingRightCustom">
+                                                                        <real key="value" value="24"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                        <real key="value" value="1"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                        <color key="value" name="txtGray"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <real key="value" value="32"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="difference">
+                                                                        <real key="value" value="18"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <outlet property="delegate" destination="ePO-p8-VAc" id="lsy-qB-sn3"/>
+                                                                </connections>
+                                                            </textField>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="YPe-Hv-JpW"/>
+                                                            <constraint firstAttribute="trailing" secondItem="tpo-Rg-6SN" secondAttribute="trailing" id="jNl-6Q-WKI"/>
+                                                            <constraint firstItem="tpo-Rg-6SN" firstAttribute="centerY" secondItem="Iwx-4I-ZOs" secondAttribute="centerY" id="mY1-qg-p1s"/>
+                                                            <constraint firstItem="tpo-Rg-6SN" firstAttribute="leading" secondItem="Iwx-4I-ZOs" secondAttribute="leading" constant="15" id="obn-0p-992"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tu9-dk-bJP" userLabel="PostalCode">
+                                                        <rect key="frame" x="580" y="0.0" width="570" height="60"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Postal Code *" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Mo-fd-q4t" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+                                                                <rect key="frame" x="15" y="-2" width="555" height="64"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="64" id="nbZ-jF-e2N"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isUnderLineAvailabe" value="NO"/>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                                        <color key="value" name="txtGray"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="padding_left">
+                                                                        <real key="value" value="24"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="paddingRightCustom">
+                                                                        <real key="value" value="24"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                        <real key="value" value="1"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                        <color key="value" name="txtGray"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <real key="value" value="32"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="difference">
+                                                                        <real key="value" value="18"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <outlet property="delegate" destination="ePO-p8-VAc" id="hgT-k6-eFh"/>
+                                                                </connections>
+                                                            </textField>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="4Mo-fd-q4t" firstAttribute="centerY" secondItem="Tu9-dk-bJP" secondAttribute="centerY" id="NZF-Sb-cBr"/>
+                                                            <constraint firstAttribute="trailing" secondItem="4Mo-fd-q4t" secondAttribute="trailing" id="Wfz-TH-QaF"/>
+                                                            <constraint firstAttribute="height" constant="60" id="ode-iz-zSt"/>
+                                                            <constraint firstItem="4Mo-fd-q4t" firstAttribute="leading" secondItem="Tu9-dk-bJP" secondAttribute="leading" constant="15" id="vD8-jm-mxv"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gWC-ZK-r1T">
-                                                <rect key="frame" x="30" y="235" width="1120" height="350"/>
+                                                <rect key="frame" x="30" y="310" width="1120" height="350"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="350" id="UMC-IV-Th8"/>
@@ -4949,7 +5048,7 @@ To Partner.</string>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRb-vJ-KXu">
-                                                <rect key="frame" x="30" y="600" width="1135" height="1"/>
+                                                <rect key="frame" x="30" y="675" width="1135" height="1"/>
                                                 <color key="backgroundColor" name="AppBlack"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1.2" id="gkl-vG-gdh"/>
@@ -4959,13 +5058,13 @@ To Partner.</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Us" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5rS-bb-Hv5">
-                                                <rect key="frame" x="30" y="616" width="1135" height="26.5"/>
+                                                <rect key="frame" x="30" y="691" width="1135" height="26.5"/>
                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="22"/>
                                                 <color key="textColor" name="AppBlack"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBr-2e-nIQ">
-                                                <rect key="frame" x="30" y="642.5" width="1135" height="0.0"/>
+                                                <rect key="frame" x="30" y="717.5" width="1135" height="0.0"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cX5-VU-kJc">
                                                         <rect key="frame" x="0.0" y="0.0" width="1230" height="0.0"/>
@@ -5588,7 +5687,7 @@ To Partner.</string>
                                                 </constraints>
                                             </scrollView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gYu-te-zXi">
-                                                <rect key="frame" x="30" y="657.5" width="1120" height="350"/>
+                                                <rect key="frame" x="30" y="732.5" width="1120" height="350"/>
                                                 <subviews>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="59l-HI-l2L">
                                                         <rect key="frame" x="10" y="10" width="1100" height="330"/>
@@ -5622,7 +5721,7 @@ To Partner.</string>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FBy-MC-fd2">
-                                                <rect key="frame" x="30" y="1027.5" width="1120" height="130"/>
+                                                <rect key="frame" x="30" y="1102.5" width="1120" height="130"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="VZN-EF-F63">
                                                         <rect key="frame" x="0.0" y="0.0" width="1120" height="130"/>
@@ -5716,7 +5815,7 @@ To Partner.</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ac0-ae-CWh">
-                                                <rect key="frame" x="30" y="1167.5" width="1120" height="130"/>
+                                                <rect key="frame" x="30" y="1242.5" width="1120" height="130"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t79-zY-7FQ">
                                                         <rect key="frame" x="0.0" y="0.0" width="1120" height="130"/>
@@ -5768,7 +5867,7 @@ To Partner.</string>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o9u-hp-rGN" customClass="GradientButton" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="1317.5" width="1120" height="60"/>
+                                                <rect key="frame" x="30" y="1392.5" width="1120" height="60"/>
                                                 <color key="backgroundColor" name="AccentColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="9ZQ-j6-lo6"/>
@@ -5813,16 +5912,18 @@ To Partner.</string>
                                             <constraint firstItem="Tw4-Zq-GjV" firstAttribute="leading" secondItem="1Sh-Lj-7ND" secondAttribute="leading" constant="15" id="Beu-ko-r0d"/>
                                             <constraint firstAttribute="trailing" secondItem="gWC-ZK-r1T" secondAttribute="trailing" constant="30" id="BkK-Wn-6T1"/>
                                             <constraint firstAttribute="trailing" secondItem="2B8-XF-n44" secondAttribute="trailing" constant="15" id="DgB-g1-yGp"/>
+                                            <constraint firstItem="gWC-ZK-r1T" firstAttribute="top" secondItem="alg-SM-Lwx" secondAttribute="bottom" constant="15" id="FJk-Oo-7j4"/>
                                             <constraint firstItem="oBr-2e-nIQ" firstAttribute="trailing" secondItem="5rS-bb-Hv5" secondAttribute="trailing" id="HnD-zv-FiV"/>
                                             <constraint firstItem="FBy-MC-fd2" firstAttribute="trailing" secondItem="gYu-te-zXi" secondAttribute="trailing" id="ILs-ah-tFR"/>
                                             <constraint firstItem="FBy-MC-fd2" firstAttribute="top" secondItem="gYu-te-zXi" secondAttribute="bottom" constant="20" id="IdK-Yi-VLQ"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="o9u-hp-rGN" secondAttribute="bottom" constant="20" id="Jnh-kp-iZW"/>
+                                            <constraint firstItem="alg-SM-Lwx" firstAttribute="top" secondItem="Tw4-Zq-GjV" secondAttribute="bottom" constant="15" id="K2T-Hx-L4T"/>
                                             <constraint firstAttribute="trailing" secondItem="5rS-bb-Hv5" secondAttribute="trailing" constant="15" id="KH3-5m-2S1"/>
+                                            <constraint firstItem="alg-SM-Lwx" firstAttribute="leading" secondItem="1Sh-Lj-7ND" secondAttribute="leading" constant="15" id="LFH-QH-olh"/>
                                             <constraint firstItem="gWC-ZK-r1T" firstAttribute="leading" secondItem="1Sh-Lj-7ND" secondAttribute="leading" constant="30" id="Lhy-Vh-lzc"/>
                                             <constraint firstItem="o9u-hp-rGN" firstAttribute="top" secondItem="ac0-ae-CWh" secondAttribute="bottom" constant="20" id="M2v-DT-qTu"/>
                                             <constraint firstItem="gYu-te-zXi" firstAttribute="leading" secondItem="1Sh-Lj-7ND" secondAttribute="leading" constant="30" id="QZp-pA-UHN"/>
                                             <constraint firstAttribute="trailing" secondItem="wd9-El-NPI" secondAttribute="trailing" constant="15" id="QxA-7d-8Oh"/>
-                                            <constraint firstItem="gWC-ZK-r1T" firstAttribute="top" secondItem="Tw4-Zq-GjV" secondAttribute="bottom" constant="15" id="TXA-CR-Cn7"/>
                                             <constraint firstItem="FBy-MC-fd2" firstAttribute="leading" secondItem="gYu-te-zXi" secondAttribute="leading" id="VX3-km-vjO"/>
                                             <constraint firstAttribute="trailing" secondItem="Tw4-Zq-GjV" secondAttribute="trailing" constant="15" id="WKV-Hq-QjG"/>
                                             <constraint firstItem="oBr-2e-nIQ" firstAttribute="top" secondItem="5rS-bb-Hv5" secondAttribute="bottom" id="Z4h-Bu-lFg"/>
@@ -5830,6 +5931,7 @@ To Partner.</string>
                                             <constraint firstAttribute="trailing" secondItem="dRb-vJ-KXu" secondAttribute="trailing" constant="15" id="cY1-IT-GwU"/>
                                             <constraint firstItem="Tw4-Zq-GjV" firstAttribute="top" secondItem="2B8-XF-n44" secondAttribute="bottom" constant="15" id="cYN-XF-yca"/>
                                             <constraint firstItem="5rS-bb-Hv5" firstAttribute="leading" secondItem="dRb-vJ-KXu" secondAttribute="leading" id="cz6-od-zac"/>
+                                            <constraint firstAttribute="trailing" secondItem="alg-SM-Lwx" secondAttribute="trailing" constant="15" id="hCz-5z-saM"/>
                                             <constraint firstItem="ac0-ae-CWh" firstAttribute="top" secondItem="FBy-MC-fd2" secondAttribute="bottom" constant="10" id="hhZ-ek-azF"/>
                                             <constraint firstItem="gYu-te-zXi" firstAttribute="top" secondItem="oBr-2e-nIQ" secondAttribute="bottom" constant="15" id="nKA-SK-Cld"/>
                                             <constraint firstItem="2B8-XF-n44" firstAttribute="leading" secondItem="1Sh-Lj-7ND" secondAttribute="leading" constant="30" id="o8a-on-49H"/>
@@ -5876,7 +5978,9 @@ To Partner.</string>
                         <outlet property="txt_Aboutus" destination="59l-HI-l2L" id="Uwe-mc-l89"/>
                         <outlet property="txt_Address" destination="eWZ-Nk-tI0" id="Inb-C1-psW"/>
                         <outlet property="txt_BusinessName" destination="Nhw-Ri-Zt6" id="fxe-hs-EPy"/>
+                        <outlet property="txt_City" destination="tpo-Rg-6SN" id="Vde-fO-4df"/>
                         <outlet property="txt_MobileNumber" destination="m0j-7Z-Y85" id="Hmb-ws-PXs"/>
+                        <outlet property="txt_PostalCode" destination="4Mo-fd-q4t" id="8tx-Fm-q7Q"/>
                         <outlet property="txt_SalonType" destination="A6n-ZG-xtF" id="XFS-wF-wRz"/>
                     </connections>
                 </viewController>
@@ -12606,7 +12710,7 @@ To Partner.</string>
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

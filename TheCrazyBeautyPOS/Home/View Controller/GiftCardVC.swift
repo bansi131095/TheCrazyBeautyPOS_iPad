@@ -174,7 +174,7 @@ extension GiftCardVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
         guard let cell = tbl_vw.dequeueReusableCell(withIdentifier: "GiftCardCell", for: indexPath) as? GiftCardCell else {
             return UITableViewCell()
         }
-        let giftCard = self.giftCardList[indexPath.row]
+        let giftCard = self.giftCardList[indexPath.item]
         cell.lbl_no.text = "\(indexPath.row+1)"
         cell.lbl_name.text = giftCard.card_name
         cell.lbl_price.text = "\(LocalData.symbol)\(giftCard.price)"
@@ -186,7 +186,7 @@ extension GiftCardVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
                 cell.img_vw.sd_setImage(with: url, completed: { (image, error, _, _) in
                     if let error = error {
                         print("❌ Failed to load image: \(error.localizedDescription)")
-                        cell.img_vw.image = UIImage(named: "ProductDemo")
+                        cell.img_vw.image = UIImage(named: "user")
                     } else {
                         cell.img_vw.image = image
                     }

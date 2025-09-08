@@ -404,11 +404,42 @@ class WalkingVC: UIViewController, WalkingDelegate {
         self.totalGiftCard = cartDataList
             .first(where: { $0.categoryName == "Gift Card" })?.totalCount ?? 0
 
+        // --- Separate Gift Card counts ---
+                var gift30total = 0
+                var gift50total = 0
+         
+                if let giftCategory = cartDataList.first(where: { $0.categoryName == "Gift Card" }) {
+                    for item in giftCategory.services {
+                        if item.price == 30 {
+                            gift30total += item.count
+                        } else if item.price == 50 {
+                            gift50total += item.count
+                        }
+                    }
+                }
+            
+                self.gift30Count = gift30total
+                self.gift50Count = gift50total
+        
         // Update service and gift card UI
         self.lbl_serviceTotal.text = "x\(totalServices)"
         self.lbl_giftCardTotal.text = "x\(totalGiftCard)"
-        self.lbl_30Count.text = "\(self.gift30Count)"
-        self.lbl_50Count.text = "\(self.gift50Count)"
+        if self.gift30Count == 0{
+            self.lbl_30Count.text = ""
+            vw_30Count.isHidden = true
+        }else{
+            vw_30Count.isHidden = false
+            self.lbl_30Count.text = "\(self.gift30Count)"
+        }
+        
+        if self.gift50Count == 0{
+            self.lbl_50Count.text = ""
+            vw_50Count.isHidden = true
+        }else{
+            vw_50Count.isHidden = false
+            self.lbl_50Count.text = "\(self.gift50Count)"
+        }
+        
         self.vw_service.isHidden = totalServices == 0
         self.vw_giftCard.isHidden = totalGiftCard == 0
         self.calculateTotalPrice()
@@ -623,7 +654,7 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
                         cell.img_image.sd_setImage(with: url, completed: { (image, error, _, _) in
                             if let error = error {
                                 print("❌ Failed to load image: \(error.localizedDescription)")
-                                cell.img_image.image = UIImage(named: "ProductDemo")
+                                cell.img_image.image = UIImage(named: "user")
                             } else {
                                 cell.img_image.image = image
                             }

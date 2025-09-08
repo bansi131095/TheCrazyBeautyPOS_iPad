@@ -387,7 +387,7 @@ class AddClientVC: UIViewController {
                     // safe UI code here
                     self.showToast(message: "Client added successfully")
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.navigationController?.popViewController(animated: true)
                 }
             } else {
@@ -411,7 +411,7 @@ class AddClientVC: UIViewController {
                     // safe UI code here
                     self.showToast(message: model.data)
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.navigationController?.popViewController(animated: true)
                 }
             } else {

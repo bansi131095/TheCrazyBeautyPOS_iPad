@@ -60,6 +60,10 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     @IBOutlet weak var switch_Online: UISwitch!
     
+    @IBOutlet weak var txt_City: TextInputLayout!
+    
+    @IBOutlet weak var txt_PostalCode: TextInputLayout!
+    
     var locationManager = CLLocationManager()
     var userLatitude:CLLocationDegrees! = 0
     var userLongitude:CLLocationDegrees! = 0
@@ -75,9 +79,12 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     var booking_guest : Int?
     var web_status : Int?
     var phone = String()
-    var postcode = String()
-    var city = String()
-    var country = String()
+//    var postcode = String()
+//    var city = String()
+    var cityOne = String()
+    var postcodeOne = String()
+    var countryOne = String()
+//    var country = String()
     var time_gap = Int()
     var reminder_mail = Int()
     var selectedCountrycode = "+353"
@@ -263,13 +270,15 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             self.hideLoader()
             self.SalonDetails = result?.data ?? []
             self.phone = self.SalonDetails.first?.phone ?? ""
-            self.postcode = self.SalonDetails.first?.postcode ?? ""
-            self.city = self.SalonDetails.first?.city ?? ""
-            self.country = self.SalonDetails.first?.country ?? ""
+//            self.postcodeOne = self.SalonDetails.first?.postcode ?? ""
+//            self.cityOne = self.SalonDetails.first?.city ?? ""
+            self.countryOne = self.SalonDetails.first?.country ?? ""
             self.reminder_mail = self.SalonDetails.first?.reminder_mail ?? 0
             self.time_gap = self.SalonDetails.first?.time_gap ?? 0
             
             self.txt_Address.text = self.SalonDetails.first?.address
+            self.txt_City.text = self.SalonDetails.first?.city ?? ""
+            self.txt_PostalCode.text = self.SalonDetails.first?.postcode ?? ""
             self.txt_SalonType.text = self.SalonDetails.first?.salon_type
             self.txt_BusinessName.text = self.SalonDetails.first?.salon_name
 
@@ -331,7 +340,7 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         let safeLatitude = userLatitude ?? 0.0
         let safeLongitude = userLongitude ?? 0.0
         showLoader()
-        APIService.shared.UpdateBusinessInformation(id: LocalData.userId, salon_name: txt_BusinessName.text ?? "", salon_type: txt_SalonType.text ?? "", phone: phone, salon_phone: "\(selectedCountrycode)-\(txt_MobileNumber.text ?? "")", postcode: postcode, address: self.txt_Address.text ?? "", city: city, country: country, latitude: "\(safeLatitude)", longitude: "\(safeLongitude)", web_status: "\(web_status ?? 0)", allow_search: "\(allow_search ?? 0)", time_gap: "\(time_gap)", reminder_mail: "\(reminder_mail)", about_us: self.txt_Aboutus.text ?? "", booking_guest: "\(booking_guest ?? 0)") { result in
+        APIService.shared.UpdateBusinessInformation(id: LocalData.userId, salon_name: txt_BusinessName.text ?? "", salon_type: txt_SalonType.text ?? "", phone: phone, salon_phone: "\(selectedCountrycode)-\(txt_MobileNumber.text ?? "")", postcode: txt_PostalCode.text ?? "", address: self.txt_Address.text ?? "", city: txt_City.text ?? "", country: countryOne, latitude: "\(safeLatitude)", longitude: "\(safeLongitude)", web_status: "\(web_status ?? 0)", allow_search: "\(allow_search ?? 0)", time_gap: "\(time_gap)", reminder_mail: "\(reminder_mail)", about_us: self.txt_Aboutus.text ?? "", booking_guest: "\(booking_guest ?? 0)") { result in
             self.hideLoader()
             if let message = result?.data{
                 self.alertWithMessageOnly(message)
@@ -349,6 +358,8 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             txt_MobileNumber.font = customFont
             txt_Address.font = customFont
             txt_Aboutus.font = customFont
+            txt_PostalCode.font = customFont
+            txt_City.font = customFont
         }
     }
     
@@ -458,6 +469,27 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             
             DispatchQueue.main.async {
                 self.txt_Address.text = streetOnly
+            }
+        }
+    }
+
+    
+    func getCityAndPostalCode(from address: String, completion: @escaping (String?, String?, String?) -> Void) {
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(address) { placemarks, error in
+            if let error = error {
+                print("Geocoding error: \(error.localizedDescription)")
+                completion(nil, nil, nil)
+                return
+            }
+            
+            if let placemark = placemarks?.first {
+                let city = placemark.locality  // Rajkot
+                let postalCode = placemark.postalCode // 360001
+                let country = placemark.country // 360001
+                completion(city, postalCode, country)
+            } else {
+                completion(nil, nil, nil)
             }
         }
     }
@@ -939,7 +971,24 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
 extension General_InfoVC: GMSAutocompleteViewControllerDelegate{
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         
-        txt_Address.text = place.name ?? ""
+//        txt_Address.text = place.name ?? ""
+        if let fullAddress = place.formattedAddress {
+                    self.txt_Address.text = fullAddress
+                    print("Full Address: \(fullAddress)")
+            getCityAndPostalCode(from: fullAddress) { city, postalCode, country in
+                self.cityOne = city ?? ""
+                self.postcodeOne = postalCode ?? ""
+                self.countryOne = country ?? ""
+                
+                self.txt_City.text = city ?? ""
+                self.txt_PostalCode.text = postalCode ?? ""
+                
+                print("cityOne:-\(self.cityOne)")
+                print("postcodeOne:-\(self.postcodeOne)")
+                print("countryOne:-\(self.countryOne)")
+            }
+            
+                }
         
         print("Place ID: \(place.placeID ?? "")")
         print("Place attributions: \(String(describing: place.attributions))")
@@ -951,6 +1000,7 @@ extension General_InfoVC: GMSAutocompleteViewControllerDelegate{
         marker.isFlat = true
         marker.title = place.name
         marker.map = self.MapView
+        print(place.name ?? "")
         updateLocation(latitude: userLatitude, longitude: userLongitude, name: place.name ?? "")
     }
     

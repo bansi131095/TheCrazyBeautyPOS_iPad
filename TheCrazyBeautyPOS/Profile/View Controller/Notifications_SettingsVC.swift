@@ -69,7 +69,7 @@ class Notifications_SettingsVC: UIViewController {
     //MARK: - Global Variable
     var isSMSExpanded = false
     var isEmailExpanded = false
-    var arr_TimeSlot = ["30 Minutes","3 Hours","6 Hours","12 Hours","24 Hours 30 Minutes"]
+    var arr_TimeSlot = ["30 Minutes","3 Hours","6 Hours","9 Hours","12 Hours","24 Hours 30 Minutes"]
     var select_Hours: String = ""
     
     //MARK: - View Life Cycle
@@ -235,23 +235,45 @@ class Notifications_SettingsVC: UIViewController {
         }
     }
     
-    func getReminderTimeMinutes() -> String {
+    /*func getReminderTimeMinutes() -> String {
         // Extract the number part only, e.g., "30 Minutes" => "30"
         let full = lbl_Time.text ?? ""
         let components = full.components(separatedBy: CharacterSet.decimalDigits.inverted)
         let minutes = components.compactMap { Int($0) }.first ?? 30
         return "\(minutes)"
+    }*/
+    
+    
+    func getReminderTimeMinutes() -> String {
+        let full = lbl_Time.text ?? ""
+        let components = full.components(separatedBy: " ")
+        
+        var totalMinutes = 0
+        var i = 0
+        while i < components.count {
+            if let value = Int(components[i]) {
+                let unit = components[i + 1].lowercased()
+                if unit.contains("hour") {
+                    totalMinutes += value * 60
+                } else if unit.contains("minute") {
+                    totalMinutes += value
+                }
+            }
+            i += 2
+        }
+        
+        return "\(totalMinutes)"
     }
-    
-    
     //MARK: - Web Api Calling
     func get_NotificationSettings() {
         self.showLoader()
         APIService.shared.fetchSMSDetails { details in
             self.hideLoader()
             if let details = details {
-                self.lbl_Time.text = "\(details.reminder_time ?? 0) Minutes"
-
+//                self.lbl_Time.text = "\(details.reminder_time ?? 0) Minutes"
+                let reminderMinutes = details.reminder_time ?? 0
+                self.lbl_Time.text = self.formatMinutesToSlot(reminderMinutes)
+                
                 // Parse and update SMS settings
                 if let smsSettingsJSON = details.sms_settings,
                    let smsData = smsSettingsJSON.data(using: .utf8),
@@ -269,6 +291,18 @@ class Notifications_SettingsVC: UIViewController {
             } else {
                 print("⚠️ No SMS details found.")
             }
+        }
+    }
+    
+    func formatMinutesToSlot(_ minutes: Int) -> String {
+        switch minutes {
+        case 30: return "30 Minutes"
+        case 180: return "3 Hours"
+        case 360: return "6 Hours"
+        case 540: return "9 Hours"
+        case 720: return "12 Hours"
+        case 1470: return "24 Hours 30 Minutes"
+        default: return "\(minutes) Minutes" // fallback
         }
     }
 

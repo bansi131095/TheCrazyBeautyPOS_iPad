@@ -188,7 +188,7 @@ extension TeamVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelega
                 cell.img_vw.sd_setImage(with: url, completed: { (image, error, _, _) in
                     if let error = error {
                         print("❌ Failed to load image: \(error.localizedDescription)")
-                        cell.img_vw.image = UIImage(named: "ProductDemo")
+                        cell.img_vw.image = UIImage(named: "user")
                     } else {
                         cell.img_vw.image = image
                     }
