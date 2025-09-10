@@ -22,6 +22,7 @@ class AddGiftCard_VC: UIViewController {
     var arr_Status = ["Active","Inactive"]
     var isEdit = false
     var GiftCardData: GiftCardData?
+    var selectedImage: UIImage? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +87,7 @@ class AddGiftCard_VC: UIViewController {
     }
     
     @IBAction func btn_AddGiftCard(_ sender: Any) {
-        if img_User.image == nil || img_User.image == UIImage(named: "upload") {
+        if selectedImage == nil || img_User.image == UIImage(named: "upload") {
             self.showToast(message: "Please select a user image.")
         }else if txt_CardName.text == ""{
             self.showToast(message: "Card Name is required.")
@@ -158,34 +159,66 @@ class AddGiftCard_VC: UIViewController {
     
     func AddGiftCard(){
         showLoader()
-        APIService.shared.addGiftCard(card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: self.txt_Status.text ?? "", image: self.img_User.image, imageKey: "file") { result in
-            self.hideLoader()
-            if result != nil {
-                DispatchQueue.main.async {
-                    // safe UI code here
-                    self.showToast(message: result?.data?.message ?? "")
-                    self.navigationController?.popViewController(animated: true)
+        if self.selectedImage != nil{
+            APIService.shared.addGiftCard(card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: self.txt_Status.text ?? "", image: self.selectedImage, imageKey: "file") { result in
+                self.hideLoader()
+                if result != nil {
+                    DispatchQueue.main.async {
+                        // safe UI code here
+                        self.showToast(message: result?.data?.message ?? "")
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }else{
+                    self.showToast(message: "Something went wrong")
                 }
-            }else{
-                self.showToast(message: "Something went wrong")
+            }
+        }else{
+            APIService.shared.addGiftCard(card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: self.txt_Status.text ?? "", image: nil, imageKey: "file") { result in
+                self.hideLoader()
+                if result != nil {
+                    DispatchQueue.main.async {
+                        // safe UI code here
+                        self.showToast(message: result?.data?.message ?? "")
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }else{
+                    self.showToast(message: "Something went wrong")
+                }
             }
         }
+        
     }
     
     func updateGiftCard(Id:Int){
         showLoader()
-        APIService.shared.UpdateGiftCard(Id: Id, card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: self.txt_Status.text ?? "", image: self.img_User.image, imageKey: "file") { result in
-            self.hideLoader()
-            if result != nil {
-                DispatchQueue.main.async {
-                    // safe UI code here
-                    self.showToast(message: result?.data?.message ?? "")
-                    self.navigationController?.popViewController(animated: true)
+        if self.selectedImage != nil{
+            APIService.shared.UpdateGiftCard(Id: Id, card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: self.txt_Status.text ?? "", image: selectedImage, imageKey: "file") { result in
+                self.hideLoader()
+                if result != nil {
+                    DispatchQueue.main.async {
+                        // safe UI code here
+                        self.showToast(message: result?.data?.message ?? "")
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }else{
+                    self.showToast(message: "Something went wrong")
                 }
-            }else{
-                self.showToast(message: "Something went wrong")
+            }
+        }else{
+            APIService.shared.UpdateGiftCard(Id: Id, card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: self.txt_Status.text ?? "", image: nil, imageKey: "file") { result in
+                self.hideLoader()
+                if result != nil {
+                    DispatchQueue.main.async {
+                        // safe UI code here
+                        self.showToast(message: result?.data?.message ?? "")
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }else{
+                    self.showToast(message: "Something went wrong")
+                }
             }
         }
+        
     }
 }
 
@@ -198,6 +231,7 @@ extension AddGiftCard_VC: UIImagePickerControllerDelegate, UINavigationControlle
             // Use selectedImage (e.g. assign to UIImageView)
             print("Image selected")
             self.img_User.image = selectedImage
+            self.selectedImage = selectedImage
         }
     }
 

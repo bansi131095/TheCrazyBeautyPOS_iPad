@@ -28,6 +28,8 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var btn_addTimeOff: UIButton!
     @IBOutlet weak var btn_addEditTeam: GradientButton!
     
+    var selectedImage: UIImage? = nil
+    
     var dictStaff: StaffData?
     
     let dropdownView = UITableView()
@@ -364,8 +366,8 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     func addTeamApi() {
         let mobileNo = "\(selectedCountrycode)-\(self.mobileTextField.text ?? "")"
         self.showLoader()
-         if let image = self.img_teamMember.image {
-             APIService.shared.addTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: self.btn_visibility.currentImage == UIImage(named: "rdCheck") ? "1" : "0", showInCalendar: "1", serviceIds: self.serviceIds, workingHours: self.workingHoursJson, shiftTimings: self.shiftTimingJson, image: image, imageKey: "file") { response in
+        if self.selectedImage != nil {
+            APIService.shared.addTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: self.btn_visibility.currentImage == UIImage(named: "rdCheck") ? "1" : "0", showInCalendar: "1", serviceIds: self.serviceIds, workingHours: self.workingHoursJson, shiftTimings: self.shiftTimingJson, image: self.selectedImage, imageKey: "file") { response in
                  self.hideLoader()
                  if response != nil {
                     DispatchQueue.main.async {
@@ -403,10 +405,10 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     func updateTeamApi() {
         let mobileNo = "\(selectedCountrycode)-\(self.mobileTextField.text ?? "")"
         self.showLoader()
-         if let image = self.img_teamMember.image {
-             APIService.shared.updateTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: self.btn_visibility.currentImage == UIImage(named: "rdCheck") ? "1" : "0", showInCalendar: "1", serviceIds: self.serviceIds, workingHours: self.workingHoursJson, shiftTimings: self.shiftTimingJson, image: image, imageKey: "file", teamId: "\(self.dictStaff!.id ?? 0)") { response in
+        if self.selectedImage != nil {
+            APIService.shared.updateTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: self.btn_visibility.currentImage == UIImage(named: "rdCheck") ? "1" : "0", showInCalendar: "1", serviceIds: self.serviceIds, workingHours: self.workingHoursJson, shiftTimings: self.shiftTimingJson, image: self.selectedImage, imageKey: "file", teamId: "\(self.dictStaff!.id ?? 0)") { response in
                  self.hideLoader()
-                 print("Image:- \(image)")
+
                  if response != nil {
                     DispatchQueue.main.async {
                         // safe UI code here
@@ -678,6 +680,7 @@ extension AddTeamVC: UIImagePickerControllerDelegate, UINavigationControllerDele
             // Use selectedImage (e.g. assign to UIImageView)
             print("Image selected")
             self.img_teamMember.image = selectedImage
+            self.selectedImage = selectedImage
         }
     }
 

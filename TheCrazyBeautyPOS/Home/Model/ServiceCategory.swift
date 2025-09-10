@@ -35,6 +35,9 @@ class ServiceCategory: Mappable {
 
 class ServiceItem: Mappable {
     var id: Int = 0
+    var category_id: Int = 0
+    var has_sub_service: Int = 0
+    var sub_service: [ServiceItem] = []
     var name: String = ""
     var price: Double = 0.0
     var count: Int = 0
@@ -42,8 +45,11 @@ class ServiceItem: Mappable {
     required init?(map: Map) {}
 //    init() {}
     
-    init(id: Int, name: String, price: Double, count: Int = 0) {
+    init(id: Int,category_id:Int,has_sub_service:Int,sub_service:[ServiceItem] = [], name: String, price: Double, count: Int = 0) {
         self.id = id
+        self.category_id = category_id
+        self.has_sub_service = has_sub_service
+        self.sub_service = sub_service
         self.name = name
         self.price = price
         self.count = count
@@ -51,6 +57,9 @@ class ServiceItem: Mappable {
 
     func mapping(map: Map) {
         id    <- map["id"]
+        category_id    <- map["category_id"]
+        has_sub_service    <- map["has_sub_service"]
+        sub_service    <- map["sub_service"]
         name  <- map["name"]
         price <- map["price"]
         count <- map["count"]

@@ -29,6 +29,12 @@ class WalkingVC: UIViewController, WalkingDelegate {
     @IBOutlet weak var lbl_50Count: UILabel!
     @IBOutlet weak var lbl_emptyCart: UILabel!
     
+    @IBOutlet weak var lbl_SubServiceTitle: UILabel!
+    @IBOutlet weak var collect_SubService: UICollectionView!
+    @IBOutlet weak var collectSubServiceHeight: NSLayoutConstraint!
+    @IBOutlet weak var lbl_SubServiceLine: UIView!
+    
+    
     // Cart View
     @IBOutlet weak var tbl_vw: UITableView!
     @IBOutlet weak var vw_service: UIView!
@@ -57,12 +63,15 @@ class WalkingVC: UIViewController, WalkingDelegate {
     var totalServices = 0
     var totalGiftCard = 0
     var totalPrice = 0
-
+    
+    var selectedServiceIndexForSubService: Int?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setCollectCategory()
         self.setCollectService()
+        self.setServiceCell()
         self.setTableCell()
         self.loadAllData()
         self.vw_30Count.isHidden = true
@@ -103,6 +112,15 @@ class WalkingVC: UIViewController, WalkingDelegate {
         self.lbl_serviceLine.isHidden = true
     }
     
+    func setServiceCell(){
+        self.collect_SubService.register(UINib(nibName: "ServiceCell", bundle: nil), forCellWithReuseIdentifier: "ServiceCell")
+        // Set the data source and delegate
+        collect_SubService.dataSource = self
+        collect_SubService.delegate = self
+        self.collect_SubService.isHidden = true
+        self.collectSubServiceHeight.constant = 0
+        self.lbl_SubServiceTitle.isHidden = true
+    }
     func setTableCell() {
         self.tbl_vw.register(UINib(nibName: "CartCell", bundle: nil), forCellReuseIdentifier: "CartCell")
         // Set the data source and delegate
@@ -122,6 +140,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
             lbl_TitleGiftCard.font = customFont
             lbl_TitleCategory.font = customFont
             lbl_service.font = customFont
+            lbl_SubServiceTitle.font = customFont
         }
     }
     
@@ -247,7 +266,12 @@ class WalkingVC: UIViewController, WalkingDelegate {
         self.gift50Count = 0
         self.totalGiftCard = 0
         self.totalServices = 0
-
+        self.vw_30Count.isHidden = true
+        self.vw_50Count.isHidden = true
+        
+        self.lbl_30Count.text = "0"
+        self.lbl_50Count.text = "0"
+        
         // 3. Reset all counts in serviceCategoryList
         for i in 0..<self.serviceCategoryList.count {
             self.serviceCategoryList[i].totalCount = 0
@@ -287,7 +311,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
         if (self.gift30Count > 0) {
             self.vw_30Count.isHidden = false
             let service1 = ServiceItem(
-                id: 0,
+                id: 0, category_id: 0, has_sub_service: 0,
                 name: "Gift Card 1",
                 price: 30.0,
                 count: gift30Count
@@ -299,7 +323,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
         if (self.gift50Count > 0) {
             self.vw_50Count.isHidden = false
             let service2 = ServiceItem(
-                id: 0,
+                id: 0, category_id: 0, has_sub_service: 0,
                 name: "Gift Card 2",
                 price: 50.0,
                 count: gift50Count
@@ -469,7 +493,17 @@ class WalkingVC: UIViewController, WalkingDelegate {
                         let services: [ServiceItem] = self.serviceList
                         .filter { $0.category == category.service_name }
                         .map {
-                            ServiceItem(id: $0.id, name: $0.service, price: Double($0.price) ?? 0.0, count: 0)
+                            ServiceItem(id: $0.id, category_id: $0.category_id, has_sub_service: $0.has_sub_service, name: $0.service, price: Double($0.price) ?? 0.0, count: 0)
+                        }
+                        for i in services {
+                            if i.has_sub_service == 1{
+                                i.sub_service = self.serviceList
+                                    .filter { $0.is_sub_service == 1 && $0.category_id == i.id }
+                                    .map {
+                                        ServiceItem(id: $0.id, category_id: $0.category_id, has_sub_service: $0.has_sub_service, name: $0.service, price: Double($0.price) ?? 0.0, count: 0)
+                                        
+                                    }
+                            }
                         }
                         let serviceCategory = ServiceCategory(
                             categoryName: category.service_name,
@@ -603,6 +637,10 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
             return self.serviceCategoryList.count// Replace with your actual data source
         } else if collectionView == self.collect_service {
             return self.ServiceCategoryList.count// Replace with your actual data source
+        } else if collectionView == self.collect_SubService{
+//            return self.serviceCategoryList.count
+            guard let index = selectedServiceIndexForSubService else { return 0 }
+            return self.ServiceCategoryList[index].sub_service.count
         } else {
             return 0
         }
@@ -673,6 +711,25 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
             let service = self.ServiceCategoryList[indexPath.item] // Get the category data
 
             cell.lbl_services.text = service.name
+            cell.lbl_serviceCount.text = "\(service.count)"
+            cell.lbl_serviceCount.isHidden = service.count == 0
+            if service.count == 0 {
+                cell.lbl_countWidth.constant = 0.0
+            } else {
+                cell.lbl_countWidth.constant = 28.0
+                self.tbl_vw.reloadData()
+                self.tbl_vw.layoutIfNeeded()
+            }
+            return cell
+        }else if collectionView == self.collect_SubService {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ServiceCell", for: indexPath) as? ServiceCell else {
+                fatalError("Unable to dequeue CategoryCell")
+            }
+            guard let index = selectedServiceIndexForSubService else { return cell }
+            let service = self.ServiceCategoryList[index].sub_service[indexPath.row] // Get the category data
+
+            cell.lbl_services.text = service.name
+            print("service.name:- \(service.name)")
             cell.lbl_serviceCount.text = "\(service.count)"
             cell.lbl_serviceCount.isHidden = service.count == 0
             if service.count == 0 {
@@ -774,10 +831,28 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
                 // category.services.sort { $0.count > $1.count }
                 category.totalCount = category.services.reduce(0) { $0 + $1.count }
             }
+            
+            if service.has_sub_service == 1 && service.sub_service.count > 0{
+                self.selectedServiceIndexForSubService = indexPath.item
+                self.collect_SubService.isHidden = false
+                let calculatedHeight = self.calculateCollectionServiceViewHeight(for: self.ServiceCategoryList, collectionViewWidth: collect_SubService.bounds.width)
+                self.collectSubServiceHeight.constant = calculatedHeight
+                self.lbl_SubServiceTitle.isHidden = false
+                self.collect_SubService.reloadData()
+            }else{
+                self.collectSubServiceHeight.constant = 0
+                self.collect_SubService.isHidden = true
+                self.lbl_SubServiceTitle.isHidden = true
+            }
+            
+            /*let newServiceList = self.serviceList[indexPath.item]
+            print("newServiceList.has_sub_service:- \(newServiceList.has_sub_service)")
+            */
             self.updateCartTotals()
             self.tbl_vw.reloadData()
             self.tbl_vw.layoutIfNeeded()
             collect_service.reloadData()
+            collect_SubService.reloadData()
             collectionView.reloadData()
             self.collect_category.reloadData()
             self.setSelectedCategoryItem()
