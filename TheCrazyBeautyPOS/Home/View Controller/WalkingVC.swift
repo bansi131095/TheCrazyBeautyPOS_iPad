@@ -29,12 +29,13 @@ class WalkingVC: UIViewController, WalkingDelegate {
     @IBOutlet weak var lbl_50Count: UILabel!
     @IBOutlet weak var lbl_emptyCart: UILabel!
     
+    @IBOutlet weak var lbl_SubServiceTop: NSLayoutConstraint!
     @IBOutlet weak var lbl_SubServiceTitle: UILabel!
     @IBOutlet weak var collect_SubService: UICollectionView!
     @IBOutlet weak var collectSubServiceHeight: NSLayoutConstraint!
     @IBOutlet weak var lbl_SubServiceLine: UIView!
     
-    
+    @IBOutlet weak var height_SubService: NSLayoutConstraint!
     // Cart View
     @IBOutlet weak var tbl_vw: UITableView!
     @IBOutlet weak var vw_service: UIView!
@@ -119,6 +120,8 @@ class WalkingVC: UIViewController, WalkingDelegate {
         collect_SubService.delegate = self
         self.collect_SubService.isHidden = true
         self.collectSubServiceHeight.constant = 0
+        self.lbl_SubServiceTop.constant = 0
+        self.height_SubService.constant = 0
         self.lbl_SubServiceTitle.isHidden = true
     }
     func setTableCell() {
@@ -639,8 +642,17 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
             return self.ServiceCategoryList.count// Replace with your actual data source
         } else if collectionView == self.collect_SubService{
 //            return self.serviceCategoryList.count
-            guard let index = selectedServiceIndexForSubService else { return 0 }
-            return self.ServiceCategoryList[index].sub_service.count
+            /*guard let index = selectedServiceIndexForSubService else { return 0 }
+            return self.ServiceCategoryList[index].sub_service.count*/
+            
+            guard let index = selectedServiceIndexForSubService else {
+                    print("⚠️ selectedServiceIndexForSubService is nil")
+                    return 0
+                }
+                let count = self.ServiceCategoryList[index].sub_service.count
+                print("📌 SubService items in section:", count)
+                return count
+            
         } else {
             return 0
         }
@@ -789,6 +801,34 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
             return CGSize(width: ceil(totalWidth), height: 50)
 
             
+        }else if collectionView == collect_SubService {
+            let service = ServiceCategoryList[indexPath.item]
+            let text = service.name
+            let count = service.count
+            let font = UIFont(name: "Lato-Medium", size: 17.0) ?? UIFont.systemFont(ofSize: 17.0)
+
+            // Get more accurate text width
+          /*  let textWidth = sizeForText(text, font: font)
+
+            // Apply padding
+            let horizontalPadding: CGFloat = 40  // Tune this to match your capsule style
+            var totalWidth = 0.0
+            if (count > 0) {
+                totalWidth = textWidth + horizontalPadding + 40.0
+            } else {
+                totalWidth = textWidth + horizontalPadding
+            }
+            return CGSize(width: totalWidth, height: 45) */
+            
+            let countWidth: CGFloat = count > 0 ? 40.0 : 0.0
+            let horizontalPadding: CGFloat = 25.0 // Less padding = tighter wrap
+
+            let textWidth = sizeForText(text, font: font) + 15.0
+            let totalWidth = textWidth + horizontalPadding + countWidth
+
+            return CGSize(width: ceil(totalWidth), height: 50)
+
+            
         } else  {
             return CGSize(width: 0.0, height: 0.0)
         }
@@ -823,7 +863,78 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
                 serviceCategoryList = []
             }
             collectionView.reloadData()
-        } else if collectionView == self.collect_service {
+        }else if collectionView == self.collect_service {
+            let service = self.ServiceCategoryList[indexPath.item]
+
+            if service.has_sub_service == 1 && service.sub_service.count > 0 {
+                // 👉 Show sub services
+                self.selectedServiceIndexForSubService = indexPath.item
+                self.collect_SubService.isHidden = false
+                self.lbl_SubServiceTitle.isHidden = false
+                self.lbl_SubServiceTitle.text = "Select Sub Service"
+                self.lbl_SubServiceTop.constant = 10
+                self.height_SubService.constant = 30
+                let calculatedHeight = self.calculateCollectionServiceViewHeight(for: service.sub_service, collectionViewWidth: collect_SubService.bounds.width)
+                self.collectSubServiceHeight.constant = calculatedHeight
+                self.collect_SubService.reloadData()
+                self.collect_SubService.layoutIfNeeded()
+            } else {
+                self.lbl_SubServiceTop.constant = 0
+                self.height_SubService.constant = 0
+                self.lbl_SubServiceTitle.isHidden = true
+                self.collectSubServiceHeight.constant = 0
+                self.collect_SubService.isHidden = true
+                self.lbl_SubServiceTitle.isHidden = true
+                
+                // 👉 Normal service (no sub-services) → add to cart
+                service.count += 1
+
+                // Update category total
+                if let categoryIndex = self.serviceCategoryList.firstIndex(where: { $0.categoryName == self.selectedCategoryName }) {
+                    self.serviceCategoryList[categoryIndex].totalCount =
+                        self.serviceCategoryList[categoryIndex].services.reduce(0) { $0 + $1.count }
+                }
+
+                // Refresh cart + UI
+                self.updateCartTotals()
+                self.tbl_vw.reloadData()
+                self.tbl_vw.layoutIfNeeded()
+                self.collect_service.reloadData()
+                self.collect_category.reloadData()
+                self.setSelectedCategoryItem()
+            }
+        }else if collectionView == self.collect_SubService {
+            guard let mainIndex = selectedServiceIndexForSubService else { return }
+
+            let subService = self.ServiceCategoryList[mainIndex].sub_service[indexPath.item]
+            subService.count += 1
+
+            // Update parent service count
+            let parentService = self.ServiceCategoryList[mainIndex]
+            parentService.count = parentService.sub_service.reduce(0) { $0 + $1.count }
+
+            // Update category total
+            if let categoryIndex = self.serviceCategoryList.firstIndex(where: { $0.categoryName == self.selectedCategoryName }) {
+                self.serviceCategoryList[categoryIndex].totalCount =
+                    self.serviceCategoryList[categoryIndex].services.reduce(0) { $0 + $1.count }
+            }
+
+            // Refresh cart + UI
+            self.updateCartTotals()
+            self.tbl_vw.reloadData()
+            self.tbl_vw.layoutIfNeeded()
+            self.collect_service.reloadData()
+            self.collect_SubService.reloadData()
+            self.collect_category.reloadData()
+            self.setSelectedCategoryItem()
+        }
+        
+        /*else if collectionView == self.collect_service {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ServiceCell", for: indexPath) as? ServiceCell else {
+                fatalError("Unable to dequeue CategoryCell")
+            }
+            
+            
             let service = self.ServiceCategoryList[indexPath.item]
             service.count += 1
     
@@ -834,12 +945,25 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
             
             if service.has_sub_service == 1 && service.sub_service.count > 0{
                 self.selectedServiceIndexForSubService = indexPath.item
+                let subServices = service.sub_service
+                
+                print("✅ Sub services count:", subServices.count)
+                cell.vw_Main.backgroundColor = UIColor.black
                 self.collect_SubService.isHidden = false
-                let calculatedHeight = self.calculateCollectionServiceViewHeight(for: self.ServiceCategoryList, collectionViewWidth: collect_SubService.bounds.width)
-                self.collectSubServiceHeight.constant = calculatedHeight
                 self.lbl_SubServiceTitle.isHidden = false
+                self.lbl_SubServiceTitle.text = "Select Sub Service"
+                self.lbl_SubServiceTop.constant = 10
+                self.height_SubService.constant = 30
+                let calculatedHeight = self.calculateCollectionServiceViewHeight(for: subServices, collectionViewWidth: collect_SubService.bounds.width)
+                self.collectSubServiceHeight.constant = calculatedHeight
+                
                 self.collect_SubService.reloadData()
+                self.collect_SubService.layoutIfNeeded()
             }else{
+                
+                self.lbl_SubServiceTop.constant = 0
+                self.height_SubService.constant = 0
+                self.lbl_SubServiceTitle.isHidden = true
                 self.collectSubServiceHeight.constant = 0
                 self.collect_SubService.isHidden = true
                 self.lbl_SubServiceTitle.isHidden = true
@@ -856,7 +980,30 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
             collectionView.reloadData()
             self.collect_category.reloadData()
             self.setSelectedCategoryItem()
-        }
+        }else if collectionView == collect_SubService {
+            guard let mainIndex = selectedServiceIndexForSubService else { return }
+            
+            let subService = self.ServiceCategoryList[mainIndex].sub_service[indexPath.item]
+            subService.count += 1
+            
+            // Update parent service count as sum of subservices
+            let parentService = self.ServiceCategoryList[mainIndex]
+            parentService.count = parentService.sub_service.reduce(0) { $0 + $1.count }
+            
+            // Update total count in category
+            for category in self.serviceCategoryList {
+                category.totalCount = category.services.reduce(0) { $0 + $1.count }
+            }
+            
+            self.updateCartTotals()
+            self.tbl_vw.reloadData()
+            self.tbl_vw.layoutIfNeeded()
+            collect_service.reloadData()
+            collect_SubService.reloadData()
+            self.collect_category.reloadData()
+            self.setSelectedCategoryItem()
+        }*/
+
     }
     
 }
@@ -873,6 +1020,7 @@ extension WalkingVC: UITableViewDelegate, UITableViewDataSource {
         }
         cell.lbl_category.text = self.cartDataList[indexPath.row].categoryName
         cell.data = self.cartDataList[indexPath.row].services
+        
         cell.setTableView()
         cell.tbl_item.reloadData()
         self.tbl_vw.layoutIfNeeded()

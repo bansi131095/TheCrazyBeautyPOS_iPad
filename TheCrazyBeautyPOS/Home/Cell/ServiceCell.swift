@@ -9,6 +9,7 @@ import UIKit
 
 class ServiceCell: UICollectionViewCell {
 
+    @IBOutlet weak var vw_Main: UIView!
     @IBOutlet weak var lbl_services: UILabel!
     @IBOutlet weak var lbl_serviceCount: UILabel!
     @IBOutlet weak var lbl_countWidth: NSLayoutConstraint!

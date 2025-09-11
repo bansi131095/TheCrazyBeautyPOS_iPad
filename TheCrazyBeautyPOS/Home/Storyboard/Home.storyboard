@@ -4859,6 +4859,9 @@
                                                                             <userDefinedRuntimeAttribute type="color" keyPath="endColor">
                                                                                 <color key="value" name="MainSen"/>
                                                                             </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="30"/>
+                                                                            </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
                                                                         <connections>
                                                                             <action selector="act_Apply:" destination="fh9-RX-AhJ" eventType="touchUpInside" id="xBZ-L9-Snd"/>
@@ -5403,7 +5406,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="701" height="960"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kKX-9r-G50">
-                                                        <rect key="frame" x="0.0" y="0.0" width="701" height="1240"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="701" height="949.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7SO-yA-74E">
                                                                 <rect key="frame" x="15" y="15" width="671" height="31.5"/>
@@ -5492,15 +5495,18 @@
                                                                     </collectionViewCell>
                                                                 </cells>
                                                             </collectionView>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="30Z-ac-EAP">
+                                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="30Z-ac-EAP">
                                                                 <rect key="frame" x="0.0" y="712" width="701" height="1"/>
                                                                 <color key="backgroundColor" name="txtGray"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="eD3-LK-rqw"/>
                                                                 </constraints>
                                                             </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSL-2A-AJA">
-                                                                <rect key="frame" x="15" y="728" width="671" height="30.5"/>
+                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSL-2A-AJA">
+                                                                <rect key="frame" x="15" y="728" width="671" height="0.0"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" id="daA-Vb-vRq"/>
+                                                                </constraints>
                                                                 <attributedString key="attributedText">
                                                                     <fragment content="Select Sub ">
                                                                         <attributes>
@@ -5521,10 +5527,10 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="08J-TM-xoU">
-                                                                <rect key="frame" x="15" y="773.5" width="671" height="260"/>
+                                                                <rect key="frame" x="15" y="743" width="671" height="0.0"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="260" id="A3T-Gr-2fH"/>
+                                                                    <constraint firstAttribute="height" id="A3T-Gr-2fH"/>
                                                                 </constraints>
                                                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HZb-Ac-zAe">
                                                                     <size key="itemSize" width="128" height="128"/>
@@ -5536,22 +5542,22 @@
                                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="yEO-sl-a3Q">
                                                                         <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="d7e-mq-TvT">
+                                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="d7e-mq-TvT">
                                                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                         </collectionViewCellContentView>
                                                                     </collectionViewCell>
                                                                 </cells>
                                                             </collectionView>
-                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="voD-YV-UqA">
-                                                                <rect key="frame" x="0.0" y="1049.5" width="701" height="1"/>
-                                                                <color key="backgroundColor" name="txtGray"/>
+                                                            <view clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="voD-YV-UqA">
+                                                                <rect key="frame" x="0.0" y="759" width="701" height="1"/>
+                                                                <color key="backgroundColor" name="TextBlack"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="bgW-bK-isp"/>
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Km-Qp-hCk">
-                                                                <rect key="frame" x="15" y="1058.5" width="671" height="31.5"/>
+                                                                <rect key="frame" x="15" y="768" width="671" height="31.5"/>
                                                                 <attributedString key="attributedText">
                                                                     <fragment content="Gift ">
                                                                         <attributes>
@@ -5573,7 +5579,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ezD-as-yqO" customClass="GradientView" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="20" y="1105" width="140" height="105"/>
+                                                                <rect key="frame" x="20" y="814.5" width="140" height="105"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vuI-hl-d5C">
                                                                         <rect key="frame" x="20" y="2.5" width="100" height="100"/>
@@ -5659,7 +5665,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5I1-zN-PQC" customClass="GradientView" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="185" y="1105" width="140" height="105"/>
+                                                                <rect key="frame" x="185" y="814.5" width="140" height="105"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LdI-B4-z17">
                                                                         <rect key="frame" x="20" y="2.5" width="100" height="100"/>
@@ -6108,10 +6114,12 @@
                         <outlet property="collect_SubService" destination="08J-TM-xoU" id="iKf-oe-WHo"/>
                         <outlet property="collect_category" destination="6jm-PV-4xg" id="RsP-UZ-OJa"/>
                         <outlet property="collect_service" destination="Hoa-Iu-gj2" id="xso-ob-MFg"/>
+                        <outlet property="height_SubService" destination="daA-Vb-vRq" id="kw7-0N-Hxe"/>
                         <outlet property="lbl_30Count" destination="P06-GY-SZq" id="env-o8-2y1"/>
                         <outlet property="lbl_50Count" destination="09g-hy-sBN" id="3pf-Aj-eAc"/>
                         <outlet property="lbl_SubServiceLine" destination="voD-YV-UqA" id="1tF-BX-GBY"/>
                         <outlet property="lbl_SubServiceTitle" destination="aSL-2A-AJA" id="wdl-PO-EP7"/>
+                        <outlet property="lbl_SubServiceTop" destination="ybL-Bq-i42" id="tM5-mW-jgz"/>
                         <outlet property="lbl_TitleCategory" destination="7SO-yA-74E" id="FX6-k2-gco"/>
                         <outlet property="lbl_TitleGiftCard" destination="0Km-Qp-hCk" id="jez-IE-NN5"/>
                         <outlet property="lbl_Total" destination="1pb-yf-rSR" id="T5f-Fl-vZd"/>
@@ -9079,16 +9087,16 @@
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="atO-em-ISB">
-                                                                        <rect key="frame" x="165" y="10" width="164.5" height="35"/>
+                                                                        <rect key="frame" x="165" y="10" width="154.5" height="35"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Walkin" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWe-5a-SUr">
-                                                                                <rect key="frame" x="40" y="3" width="84.5" height="29"/>
+                                                                                <rect key="frame" x="40" y="3" width="74.5" height="29"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="24"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plT-Nt-5fM">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="164.5" height="35"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="154.5" height="35"/>
                                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                 <connections>
                                                                                     <action selector="btn_Walkin:" destination="llV-lq-vxG" eventType="touchUpInside" id="egl-59-d8W"/>
@@ -9112,16 +9120,16 @@
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pcs-Td-ZHo">
-                                                                        <rect key="frame" x="349.5" y="10" width="154" height="35"/>
+                                                                        <rect key="frame" x="339.5" y="10" width="164" height="35"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gift Card" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vNV-mN-CTZ">
-                                                                                <rect key="frame" x="28.5" y="3" width="97" height="29"/>
+                                                                                <rect key="frame" x="28.5" y="3" width="107" height="29"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="24"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cYX-Ot-Enj">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="154" height="35"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="164" height="35"/>
                                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                 <connections>
                                                                                     <action selector="btn_GiftCard:" destination="llV-lq-vxG" eventType="touchUpInside" id="b15-hD-0O6"/>
@@ -15311,8 +15319,8 @@ Please Choose Diffrent Date</string>
         <image name="Search" width="24" height="24"/>
         <image name="arrow.down" catalog="system" width="118" height="128"/>
         <image name="back" width="78" height="79"/>
-        <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="calendar" width="72" height="72"/>
+        <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="cat_back" width="602" height="602"/>
         <image name="clock" width="87" height="87"/>
         <image name="close" width="64" height="64"/>

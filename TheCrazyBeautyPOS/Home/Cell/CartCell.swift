@@ -78,16 +78,31 @@ class CartCell: UITableViewCell {
 }
 
 extension CartCell: UITableViewDelegate, UITableViewDataSource {
+    private var flatData: [ServiceItem] {
+            var list: [ServiceItem] = []
+            for item in data {
+                list.append(item) // main service
+                if item.has_sub_service == 1 && !item.sub_service.isEmpty {
+                    for sub in item.sub_service {
+                        list.append(sub) // add each sub-service as a separate row
+                    }
+                }
+            }
+            return list
+        }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+//        return data.count
+        return flatData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CartItemCell") as? CartItemCell else {
             fatalError("The cell is not registered")
         }
-        let items = data[indexPath.row]
-        cell.lbl_service.text = items.name 
+//        let items = data[indexPath.row]
+        let items = flatData[indexPath.row]
+        cell.lbl_service.text = items.name
         cell.lbl_price.text = "−   \(SharedPrefs.getSymbol())\(items.price)"
         cell.lbl_count.text = "\(items.count)"
         cell.Act_Plus = {
