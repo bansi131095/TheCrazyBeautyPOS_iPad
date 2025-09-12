@@ -142,13 +142,16 @@ class WalkinCheckoutVC: UIViewController {
             // Apply
             self.txt_couponCode.text = ""
             self.btn_apply.setTitle("Apply", for: .normal)
-            self.grandTotal -= self.discount
+            self.vw_grandTotal.isHidden = true
+            self.vw_discount.isHidden = true
+            self.vw_payment1.isHidden = true
+            /*self.grandTotal -= self.discount
             self.discount = 0
             self.lbl_grandTotal.text = "\(LocalData.symbol)\(self.grandTotal)"
             self.lbl_discount.text = "-\(LocalData.symbol)\(self.discount)"
             self.vw_discount.isHidden = self.discount == 0
             self.vw_grandTotal.isHidden = self.grandTotal == 0
-            self.vw_payment1.isHidden = self.discount == 0
+            self.vw_payment1.isHidden = self.discount == 0*/
         }
         
     }
@@ -292,7 +295,7 @@ class WalkinCheckoutVC: UIViewController {
                         }
                     }
                 } else if checkCouponData?.is_gift == 1 {
-                    APIService.shared.ApplyGiftCard(vendor_id: LocalData.userId, code: self.txt_couponCode.text ?? "", total: "", customerId: "0") { result in
+                    APIService.shared.ApplyGiftCard(vendor_id: LocalData.userId, code: self.txt_couponCode.text ?? "", total: String(self.price)) { result in
                         guard let model = result else {
                             return
                         }

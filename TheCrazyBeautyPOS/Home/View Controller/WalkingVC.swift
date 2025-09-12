@@ -795,7 +795,7 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
             let countWidth: CGFloat = count > 0 ? 40.0 : 0.0
             let horizontalPadding: CGFloat = 25.0 // Less padding = tighter wrap
 
-            let textWidth = sizeForText(text, font: font) + 10.0
+            let textWidth = sizeForText(text, font: font) + 20.0
             let totalWidth = textWidth + horizontalPadding + countWidth
 
             return CGSize(width: ceil(totalWidth), height: 50)
@@ -823,7 +823,7 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
             let countWidth: CGFloat = count > 0 ? 40.0 : 0.0
             let horizontalPadding: CGFloat = 25.0 // Less padding = tighter wrap
 
-            let textWidth = sizeForText(text, font: font) + 15.0
+            let textWidth = sizeForText(text, font: font) + 20.0
             let totalWidth = textWidth + horizontalPadding + countWidth
 
             return CGSize(width: ceil(totalWidth), height: 50)
@@ -1018,9 +1018,25 @@ extension WalkingVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell") as? CartCell else {
             fatalError("The cell is not registered")
         }
+        let category = cartDataList[indexPath.row]
         cell.lbl_category.text = self.cartDataList[indexPath.row].categoryName
-        cell.data = self.cartDataList[indexPath.row].services
-        
+//        cell.data = self.cartDataList[indexPath.row].services
+
+        /*  for i in cell.data {
+            if i.has_sub_service == 1 && i.sub_service.count > 0 {
+                for j in i.sub_service{
+                    cell.data.append(j)
+                }
+            }
+        }*/
+        let flatServices: [ServiceItem] = category.services.flatMap { service in
+                    if service.has_sub_service == 1, !service.sub_service.isEmpty {
+                        return [service] + service.sub_service
+                    } else {
+                        return [service]
+                    }
+                }
+        cell.data = flatServices
         cell.setTableView()
         cell.tbl_item.reloadData()
         self.tbl_vw.layoutIfNeeded()

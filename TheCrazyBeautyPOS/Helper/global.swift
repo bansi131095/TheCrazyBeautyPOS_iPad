@@ -61,6 +61,7 @@ class global: NSObject
     var URL_SERVICE_DETAILS = global.server_url + "service_details_v1"
     
     var URL_BUSINESS_SERVICES = global.server_url + "business_services"
+    var URL_SELECT_MAINSERVICES = global.server_url + "select_mainservices/"
     
     var URL_TEAM_DETAILS = global.server_url + "team_details"
     

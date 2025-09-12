@@ -331,6 +331,29 @@ class APIService {
         }
     }
     
+    func fetchMainServices(completion: @escaping (ServicesModel?) -> Void) {
+        let url = "\(global.shared.URL_SELECT_MAINSERVICES)\(LocalData.userId)"
+
+        AF.request(url, method: .get, headers: HTTPHeaders(headers))
+            .validate()
+            .responseObject { (response: DataResponse<ServicesModel, AFError>) in
+            switch response.result {
+            case .success(let model):
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Received \(model.data.count) business services")
+                completion(model)
+            case .failure(let error):
+                print("❌ API Call Failed: \(error)")
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                completion(nil)
+            }
+        }
+    }
+    
     
     //MARK: Team  Api
     func getteamDetails(page: String, limit: String, vendorId: String, search: String, date: String = "", staffId: String = "", isTeamDetails: Int = 0, completion: @escaping (StaffResponse?) -> Void) {
@@ -3661,13 +3684,12 @@ class APIService {
     
     
     
-    func ApplyGiftCard(vendor_id: String, code: String, total: String, customerId: String, completion: @escaping (GiftCardResponse?) -> Void) {
+    func ApplyGiftCard(vendor_id: String, code: String, total: String, completion: @escaping (GiftCardResponse?) -> Void) {
         let url = global.shared.URL_APPLY_GIFTCARD
         
         let params: [String: Any] = [
             "vendor_id": vendor_id,
             "gift_code": code,
-            "customer_id": customerId,
             "sub_total": total,
         ]
 

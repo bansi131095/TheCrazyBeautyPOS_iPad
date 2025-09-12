@@ -91,17 +91,22 @@ extension CartCell: UITableViewDelegate, UITableViewDataSource {
             return list
         }
     
+    
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return data.count
-        return flatData.count
+        return data.count
+//        return flatData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CartItemCell") as? CartItemCell else {
             fatalError("The cell is not registered")
         }
-//        let items = data[indexPath.row]
-        let items = flatData[indexPath.row]
+        let items = data[indexPath.row]
+        
+        
+//        let items = flatData[indexPath.row]
         cell.lbl_service.text = items.name
         cell.lbl_price.text = "−   \(SharedPrefs.getSymbol())\(items.price)"
         cell.lbl_count.text = "\(items.count)"

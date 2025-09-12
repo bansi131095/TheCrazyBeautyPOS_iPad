@@ -81,10 +81,13 @@ class AddServiceVC: UIViewController {
     var arr_Options1 = ["Male","Female","Unisex"]
     
     var resourcList: [InventoryData] = []
+    var mainServices: [ServiceDatas] = []
     
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        get_CategoryList()
+        get_CategoryList()
         loadResourceData()
         setRegularFont()
         /*if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
@@ -475,11 +478,17 @@ class AddServiceVC: UIViewController {
     }
     
     func openParentService() {
+        var itemArray: [String] = []
+
+        for i in self.mainServices {
+            itemArray.append(i.service_name)
+        }
+        
         let ParentService = DropDown()
         ParentService.anchorView = txt_ParentService
         ParentService.bottomOffset = CGPoint(x: 0, y:(ParentService.anchorView?.plainView.bounds.height)!)
         ParentService.direction = .bottom
-        ParentService.dataSource = arr_NailRemoval
+        ParentService.dataSource = itemArray
         ParentService.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
         ParentService.cellHeight = 35
         ParentService.backgroundColor = .white
@@ -648,6 +657,19 @@ class AddServiceVC: UIViewController {
             
         }
     }
+    
+    func get_CategoryList() {
+        self.showLoader()
+        APIService.shared.fetchMainServices { businessResult in
+            self.hideLoader()
+            guard let businessModel = businessResult else {
+                return
+            }
+            self.mainServices = businessModel.data
+            print("mainServices:- \(self.mainServices)")
+        }
+    }
+    
     
     /*func ResourceDetails(){
         APIService.shared.ResourceDetails(vendorId: LocalData.userId) { ResourceDetails in
