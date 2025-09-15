@@ -395,6 +395,52 @@ class WalkingVC: UIViewController, WalkingDelegate {
         self.tbl_vw.reloadData()
     }
     
+    /*func setSelectedCategoryItem() {
+        totalServices = 0
+        for cart in self.serviceCategoryList {
+            if cart.totalCount != 0 {
+                let count = cart.totalCount
+                if cart.categoryName != "Gift Card" {
+                    totalServices += count
+                }
+//                self.serviceCategoryList
+                let items = cart.services.filter { $0.count != 0 }
+                if let index = cartDataList.firstIndex(where: { $0.categoryName == cart.categoryName }) {
+                    // Update properties as needed
+                    cartDataList[index].totalCount = cart.totalCount
+                    cartDataList[index].services = items
+                    
+                    for i in cart.services {
+                        if i.has_sub_service == 1 && i.sub_service.count > 0 {
+                            let Subitems = cart.services.filter { $0.count != 0 }
+                            if let index = cartDataList.firstIndex(where: { $0.categoryName == cart.categoryName }) {
+                                cartDataList[index].totalCount = cart.totalCount
+                                cartDataList[index].services = Subitems
+                            }
+                        }
+                    }
+                } else {
+                    let data = ServiceCategory(
+                        categoryName: cart.categoryName,
+                        icon: cart.icon,
+                        services: items,
+                        totalCount: cart.totalCount // or count, if needed
+                    )
+                    cartDataList.append(data)
+                }
+            
+            }
+        }
+        
+        self.vw_service.isHidden = false
+        self.lbl_serviceTotal.text = "x\(totalServices)"
+        let nonGiftCards = cartDataList.filter { $0.categoryName != "Gift Card" }
+        let giftCards = cartDataList.filter { $0.categoryName == "Gift Card" }
+        cartDataList = nonGiftCards + giftCards
+        self.calculateTotalPrice()
+        self.tbl_vw.reloadData()
+    }*/
+    
     func calculateTotalPrice() {
         var total: Double = 0.0
 
@@ -823,7 +869,7 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
             let countWidth: CGFloat = count > 0 ? 40.0 : 0.0
             let horizontalPadding: CGFloat = 25.0 // Less padding = tighter wrap
 
-            let textWidth = sizeForText(text, font: font) + 20.0
+            let textWidth = sizeForText(text, font: font) + 70.0
             let totalWidth = textWidth + horizontalPadding + countWidth
 
             return CGSize(width: ceil(totalWidth), height: 50)
