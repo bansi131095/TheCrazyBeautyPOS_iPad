@@ -200,6 +200,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
         self.tbl_vw.reloadData()
         self.collect_category.reloadData()
         self.collect_service.reloadData()
+        self.collect_SubService.reloadData()
         self.btn_clear.isHidden = true
         self.btn_payNow.isHidden = true
         self.lbl_emptyCart.isHidden = false
@@ -416,6 +417,11 @@ class WalkingVC: UIViewController, WalkingDelegate {
                             if let index = cartDataList.firstIndex(where: { $0.categoryName == cart.categoryName }) {
                                 cartDataList[index].totalCount = cart.totalCount
                                 cartDataList[index].services = Subitems
+                            }else{
+                                let data = ServiceCategory(
+                                    categoryName: i.name, icon: "", services: Subitems, totalCount: i.count
+                                )
+                                cartDataList.append(data)
                             }
                         }
                     }

@@ -263,7 +263,28 @@ class WalkinCheckoutVC: UIViewController {
                                             price -= self.discount
                                             self.grandTotal = price
                                         } else {
-                                            self.showAlertToast(message: "Please Add More service to use this coupon")
+                                            /*self.show_alert(msg: model.data?.message ?? "", title: "")
+                                            self.discount = self.price
+                                            self.discountVal = self.price
+//                                            self.grandTotal = self.price
+                                            self.grandTotal = 0*/
+                                            
+                                            DispatchQueue.main.async {        // ✅ make sure UI updates on main thread
+                                                    self.show_alert(msg: model.data?.message ?? "", title: "")
+
+                                                    self.discount     = self.price
+                                                    self.discountVal  = self.price
+                                                    self.grandTotal   = 0    // 🔥 correct value
+
+                                                    // ✅ Update labels
+                                                    self.lbl_grandTotal.text = "\(LocalData.symbol)\(String(format: "%.2f", self.grandTotal))"
+                                                    self.lbl_discount.text   = "-\(LocalData.symbol)\(String(format: "%.2f", self.discount))"
+
+                                                    // ✅ Always show views even if value is 0
+                                                    self.vw_discount.isHidden   = false
+                                                    self.vw_grandTotal.isHidden = false
+                                                    self.vw_payment1.isHidden   = false
+                                                }
                                         }
                                     } else if type == "Percentage" {
                                         self.discountVal = per
@@ -284,6 +305,8 @@ class WalkinCheckoutVC: UIViewController {
                                 if self.discount != 0 {
                                     self.btn_apply.setTitle("Remove", for: .normal)
                                 }
+                                
+                                
                                 self.lbl_grandTotal.text = "\(LocalData.symbol)\(self.grandTotal)"
                                 self.lbl_discount.text = "-\(LocalData.symbol)\(self.discount)"
                                 self.vw_discount.isHidden = self.discount == 0
@@ -304,8 +327,7 @@ class WalkinCheckoutVC: UIViewController {
                             // Assume you already parsed this using ObjectMapper:
                             if let giftCard = model.data?.results.first,
                                Double(giftCard.price) < self.price {
-
-                                self.showAlertToast(message: data?.message ?? "")
+                                self.show_alert(msg: data?.message ?? "", title: "")
                                 self.discount = Double(giftCard.price)
                                 self.grandTotal = self.price - self.discount
 
