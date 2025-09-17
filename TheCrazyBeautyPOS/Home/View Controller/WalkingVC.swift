@@ -9,7 +9,7 @@ import UIKit
 import SDWebImage
 import SDWebImageSVGCoder
 
-class WalkingVC: UIViewController, WalkingDelegate {
+class WalkingVC: UIViewController, WalkingDelegate, WalkingDelegate_ONE {
 
     // Walkin View
     
@@ -222,6 +222,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
                     teamServicesMap.append(val)
                 } else {
                     let val: [String: Any] = [
+                        "price": selectedService.sales_price,
                         "price": selectedService.price,
                         "qty": selectedService.count
                     ]
@@ -247,7 +248,19 @@ class WalkingVC: UIViewController, WalkingDelegate {
             GiftBookingJson = giftBookingJson
         }
         
-        let checkout = self.storyboard?.instantiateViewController(withIdentifier: "WalkinCheckoutVC") as! WalkinCheckoutVC
+        /*let checkout = self.storyboard?.instantiateViewController(withIdentifier: "WalkinCheckoutVC") as! WalkinCheckoutVC
+        checkout.modalPresentationStyle = .overCurrentContext
+        checkout.modalTransitionStyle = .crossDissolve
+        checkout.giftCards = GiftBookingJson
+        checkout.serviceId = ServiceBookingJson
+        checkout.price = Double(totalPrice)
+        checkout.totalServices = totalServices
+        checkout.totalGiftCard = totalGiftCard
+        checkout.delegate = self
+        self.present(checkout, animated: true)*/
+        
+        //NEW
+        let checkout = self.storyboard?.instantiateViewController(withIdentifier: "WalkinCheckoutVC_ONE") as! WalkinCheckoutVC_ONE
         checkout.modalPresentationStyle = .overCurrentContext
         checkout.modalTransitionStyle = .crossDissolve
         checkout.giftCards = GiftBookingJson
@@ -318,7 +331,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
                 id: 0, category_id: 0, has_sub_service: 0,
                 name: "Gift Card 1",
                 price: 30.0,
-                count: gift30Count
+                sales_price: 0.0, count: gift30Count
             )
             serviceGift.append(service1)
             
@@ -330,7 +343,7 @@ class WalkingVC: UIViewController, WalkingDelegate {
                 id: 0, category_id: 0, has_sub_service: 0,
                 name: "Gift Card 2",
                 price: 50.0,
-                count: gift50Count
+                sales_price: 0.0, count: gift50Count
             )
             serviceGift.append(service2)
         }
@@ -452,7 +465,11 @@ class WalkingVC: UIViewController, WalkingDelegate {
 
         for category in cartDataList {
             for service in category.services {
-                total += Double(service.count) * service.price
+                if service.sales_price != 0.0{
+                    total += Double(service.count) * service.sales_price
+                }else{
+                    total += Double(service.count) * service.price
+                }
             }
         }
 
@@ -548,14 +565,14 @@ class WalkingVC: UIViewController, WalkingDelegate {
                         let services: [ServiceItem] = self.serviceList
                         .filter { $0.category == category.service_name }
                         .map {
-                            ServiceItem(id: $0.id, category_id: $0.category_id, has_sub_service: $0.has_sub_service, name: $0.service, price: Double($0.price) ?? 0.0, count: 0)
+                            ServiceItem(id: $0.id, category_id: $0.category_id, has_sub_service: $0.has_sub_service, name: $0.service, price: Double($0.price) ?? 0.0, sales_price: Double($0.sale_price) ?? 0.0, count: 0)
                         }
                         for i in services {
                             if i.has_sub_service == 1{
                                 i.sub_service = self.serviceList
                                     .filter { $0.is_sub_service == 1 && $0.category_id == i.id }
                                     .map {
-                                        ServiceItem(id: $0.id, category_id: $0.category_id, has_sub_service: $0.has_sub_service, name: $0.service, price: Double($0.price) ?? 0.0, count: 0)
+                                        ServiceItem(id: $0.id, category_id: $0.category_id, has_sub_service: $0.has_sub_service, name: $0.service, price: Double($0.price) ?? 0.0, sales_price: Double($0.sale_price) ?? 0.0, count: 0)
                                         
                                     }
                             }

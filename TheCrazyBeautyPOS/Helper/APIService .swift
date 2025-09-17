@@ -4007,7 +4007,7 @@ class APIService {
     }
     
     
-    func addGiftCard(card_name: String, price: String, expired_in: String, vendor_id: String, status: String, image: UIImage?, imageKey: String = "photo", completion: @escaping (AddMemberModel?) -> Void) {
+    func addGiftCard(card_name: String, price: String, expired_in: String, vendor_id: String, status: String, image: UIImage?, imageKey: String = "file", completion: @escaping (AddMemberModel?) -> Void) {
         let url = global.shared.URL_Add_GIFTCARD
         
         let params: [String: Any] = [

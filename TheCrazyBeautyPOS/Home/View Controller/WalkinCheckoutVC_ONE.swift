@@ -7,12 +7,12 @@
 
 import UIKit
 
-protocol WalkingDelegate {
+protocol WalkingDelegate_ONE {
     func didClearData()
 }
 
 
-class WalkinCheckoutVC: UIViewController {
+class WalkinCheckoutVC_ONE: UIViewController {
 
     @IBOutlet weak var txt_paymentType: TextInputLayout!
     @IBOutlet weak var txt_couponCode: TextInputLayout!
@@ -35,35 +35,62 @@ class WalkinCheckoutVC: UIViewController {
     var loaderAlert: UIAlertController?
     @IBOutlet weak var btn_apply: GradientButton!
     
-    var delegate: WalkingDelegate?
+    var delegate: WalkingDelegate_ONE?
     
     var isButtonDisabled: Bool = true
-    
     let dropdownView = UITableView()
     var isDropdownVisible = false
-    var tips: String = ""
+
+    // --- price related
+    var tips: String = "0"
     var miscPrice: String = "0"
-    var price: Double = 0.0
+    var price: Double = 0.0            // baseTotal + tips
     var serviceId: String = ""
     var giftCards: String = ""
     var totalServices: Int = 0
     var totalGiftCard: Int = 0
-    var discountVal: Double = 0
+
+    // --- discount
+    var discountVal: Double = 0        // flat amount or percentage value
     var discount: Double = 0
-    var upto: Double = 0
-    var discountType: String = ""
-    var grandTotal: Double = 0
-    var widgetPrice: Double = 0 // replace with actual original total price
+    var upto: Double = 0               // max cap for percentage
+    var discountType: String = ""      // "Flat" / "Percentage"
+
+    var grandTotal: Double = 0         // baseTotal - discount + tips
+    var widgetPrice: Double = 0        // original service total
+
 
     
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.widgetPrice = self.price
-        self.grandTotal = self.price
-//        self.setupPaymentTextField()
-//        setupDropdownTable()
-        var paymentOptions:[String] = []
+        self.grandTotal  = self.price
+
+        setupDropdowns()
+
+        vw_coupon.isHidden    = true
+        vw_service.isHidden   = totalServices == 0
+        vw_giftcard.isHidden  = totalGiftCard == 0
+        vw_total.isHidden     = price == 0.0
+        vw_discount.isHidden  = true
+        vw_grandTotal.isHidden = true
+        vw_payment1.isHidden  = true
+
+        lbl_total.text   = "\(LocalData.symbol)\(String(format: "%.2f", self.price))"
+        lbl_service.text = "x\(totalServices)"
+        lbl_giftCard.text = "x\(totalGiftCard)"
+
+        txt_miscServiPrice.addTarget(self, action: #selector(miscPriceChanged(_:)), for: .editingChanged)
+        txt_tips.addTarget(self, action: #selector(tipsValueChanged(_:)), for: .editingChanged)
+
+        // Do any additional setup after loading the view.
+    }
+    
+    
+    //MARK: Dropdown
+    func setupDropdowns() {
+        var paymentOptions: [String] = []
         if totalGiftCard == 0 {
             paymentOptions = ["Cash", "Card", "Giftcard / Voucher"]
         } else {
@@ -77,18 +104,19 @@ class WalkinCheckoutVC: UIViewController {
             guard let self = self else { return }
             self.txt_paymentType.setText(selected)
             if totalGiftCard == 0 {
-                if txt_paymentType.text == paymentOptions[2] {
+                if txt_paymentType.text == paymentOptions.last {
                     self.vw_coupon.isHidden = false
-                    isButtonDisabled = true
+                    self.isButtonDisabled = true
                 } else {
                     self.vw_coupon.isHidden = true
-                    isButtonDisabled = false
+                    self.isButtonDisabled = false
                 }
             } else {
                 self.vw_coupon.isHidden = true
-                isButtonDisabled = false
+                self.isButtonDisabled = false
             }
         }
+
         let paymentOptions1 = ["Cash", "Card"]
         DropdownManager.shared.setupDropdown(
             for: self.txt_payment1,
@@ -97,24 +125,9 @@ class WalkinCheckoutVC: UIViewController {
         ) { [weak self] selected in
             guard let self = self else { return }
             self.txt_payment1.setText(selected)
-            isButtonDisabled = false
+            self.isButtonDisabled = false
         }
-        self.vw_coupon.isHidden = true
-        vw_service.isHidden = totalServices == 0
-        vw_giftcard.isHidden = totalGiftCard == 0
-        vw_total.isHidden = price == 0.0
-        self.vw_discount.isHidden = true
-        self.vw_grandTotal.isHidden = true
-        self.vw_payment1.isHidden = true
-        self.lbl_total.text = "\(LocalData.symbol)\(String(format: "%.2f", self.price))"
-        self.lbl_service.text = "x\(totalServices)"
-        self.lbl_giftCard.text = "x\(totalGiftCard)"
-        txt_miscServiPrice.addTarget(self, action: #selector(miscPriceChanged(_:)), for: .editingChanged)
-        txt_tips.addTarget(self, action: #selector(tipsValueChanged(_:)), for: .editingChanged)
-
-        // Do any additional setup after loading the view.
     }
-    
     
     //MARK: Button Action
     @IBAction func act_close(_ sender: UIButton) {
@@ -141,81 +154,82 @@ class WalkinCheckoutVC: UIViewController {
             }
         } else {
             // Apply
-            self.txt_couponCode.text = ""
+            /*self.txt_couponCode.text = ""
             self.btn_apply.setTitle("Apply", for: .normal)
             self.vw_grandTotal.isHidden = true
             self.vw_discount.isHidden = true
-            self.vw_payment1.isHidden = true
-            /*self.grandTotal -= self.discount
-            self.discount = 0
-            self.lbl_grandTotal.text = "\(LocalData.symbol)\(self.grandTotal)"
-            self.lbl_discount.text = "-\(LocalData.symbol)\(self.discount)"
-            self.vw_discount.isHidden = self.discount == 0
-            self.vw_grandTotal.isHidden = self.grandTotal == 0
-            self.vw_payment1.isHidden = self.discount == 0*/
+            self.vw_payment1.isHidden = true*/
+            self.txt_couponCode.text = ""
+            self.btn_apply.setTitle("Apply", for: .normal)
+            self.discountVal = 0
+            self.discountType = ""
+            self.upto = 0
+            recalcTotals()
+            vw_payment1.isHidden = true
         }
         
     }
 
     
-    @objc func miscPriceChanged(_ textField: UITextField) {
-        guard let value = textField.text, !value.isEmpty else {
-            price = widgetPrice
-            grandTotal = widgetPrice - discount
-            updateTotals()
-            return
-        }
+    //MARK: Text Changes
+       @objc func miscPriceChanged(_ textField: UITextField) {
+           guard let value = textField.text, !value.isEmpty else {
+               miscPrice = "0"
+               recalcTotals()
+               return
+           }
+           if let _ = Double(value) {
+               miscPrice = value
+               recalcTotals()
+           } else {
+               textField.text = ""
+           }
+       }
 
-        // Validate number
-        var total = widgetPrice
-        if let miscValue = Double(value) {
-            miscPrice = value
-            total += miscValue
-            price = total
-            grandTotal = total - discount
-        }
-        if let priceValue = Double(value) {
-            miscPrice = value
-            price = widgetPrice + priceValue
-            grandTotal = price - discount
-        } else {
-            textField.text = ""
-        }
+       @objc func tipsValueChanged(_ textField: UITextField) {
+           guard let value = textField.text, !value.isEmpty else {
+               tips = "0"
+               recalcTotals()
+               self.vw_payment1.isHidden = true
+               return
+           }
+           if let tipValue = Double(value) {
+               tips = value
+               self.vw_payment1.isHidden = tipValue == 0
+               recalcTotals()
+           } else {
+               textField.text = ""
+               self.vw_payment1.isHidden = true
+           }
+       }
 
-        updateTotals()
-    }
-    
-    @objc func tipsValueChanged(_ textField: UITextField) {
-        guard let tipText = textField.text else { return }
+       //MARK: Calculation
+       func recalcTotals() {
+           let misc = Double(miscPrice) ?? 0
+           let tip  = Double(tips) ?? 0
 
-        if tipText.isEmpty {
-            self.vw_payment1.isHidden = true
-            tips = ""
-            if !miscPrice.isEmpty, let misc = Double(miscPrice) {
-                let total = widgetPrice + misc
-                price = total
-                grandTotal = total - discount
-            } else {
-                price = widgetPrice
-                grandTotal = widgetPrice - discount
-            }
-            updateTotals()
-            return
-        }
+           let baseTotal = widgetPrice + misc   // service + misc
+           var discountAmount: Double = 0
 
-        if let tipValue = Double(tipText) {
-            tips = tipText
-            let miscValue = Double(miscPrice) ?? 0
-            price = widgetPrice + miscValue + tipValue
-            grandTotal = price - discount
-            self.vw_payment1.isHidden = false
-        } else {
-            textField.text = ""
-            self.vw_payment1.isHidden = true
-        }
+           if discountType == "Flat" {
+               discountAmount = min(discountVal, baseTotal)
+           } else if discountType == "Percentage" {
+               let calc = baseTotal * discountVal / 100.0
+               discountAmount = (upto != 0 && calc > upto) ? upto : calc
+           }
 
-        updateTotals()
-    }
+           discount   = discountAmount
+           price      = baseTotal + tip                // for Total label
+           grandTotal = (baseTotal - discountAmount) + tip  // ✅ discount NOT on tip
+
+           lbl_total.text      = "\(LocalData.symbol)\(String(format: "%.2f", price))"
+           lbl_discount.text   = "-\(LocalData.symbol)\(String(format: "%.2f", discount))"
+           lbl_grandTotal.text = "\(LocalData.symbol)\(String(format: "%.2f", grandTotal))"
+
+           vw_discount.isHidden   = discount == 0
+           vw_grandTotal.isHidden = false
+       }
+
 
 
     func updateTotals() {
@@ -226,198 +240,102 @@ class WalkinCheckoutVC: UIViewController {
     
     //MARK: Api Call
     func checkCouponCode() {
-        let bookingDate = convertDateString(Date.now)
+            let bookingDate = convertDateString(Date.now)
+            APIService.shared.CheckCouponCode(vendor_id: LocalData.userId,
+                                              code: self.txt_couponCode.text ?? "",
+                                              bookingDate: bookingDate) { result in
+                guard let model = result else { return }
+                let checkCouponData = model.data
 
-        APIService.shared.CheckCouponCode(vendor_id: LocalData.userId, code: self.txt_couponCode.text ?? "", bookingDate: bookingDate) { result in
-            guard let model = result else {
-                return
-            }
-
-            let checkCouponData = model.data
-//            if model.error == "" || model.error == nil {
                 if checkCouponData?.is_coupon == 1 {
-                    APIService.shared.ApplyCouponCode(vendor_id: LocalData.userId, code: self.txt_couponCode.text ?? "") { result in
-                        guard let model = result else {
-                            return
-                        }
+                    APIService.shared.ApplyCouponCode(vendor_id: LocalData.userId,
+                                                      code: self.txt_couponCode.text ?? "") { result in
+                        guard let model = result else { return }
                         let data = model.data
                         if model.error == "" || model.error == nil {
-//                            self.showAlertToast(message: data?.message ?? "")
-                            // Assume you already parsed this using ObjectMapper:
-                            let applyCouponData = data?.results.first
-
-                            guard let coupon = applyCouponData else { return }
-
-                            let amount = Double(coupon.amount)
-                            let type = coupon.discount_type
-                            let upto = Double(coupon.highest_amount)
-
-                            // Save type and cap globally if needed
-                            self.discountType = type
-                            self.upto = upto
-                            self.btn_apply.setTitle("Remove", for: .normal)
-                            if amount != 0 {
-                                let per = amount
-                                if per != 0 {
-                                    if type == "Flat" {
-                                        if amount < self.grandTotal {
-                                            self.discountVal = per
-                                            self.discount = per
-                                            var price = self.price
-                                            price -= self.discount
-                                            self.grandTotal = price
-                                        } else {
-                                            /*self.show_alert(msg: model.data?.message ?? "", title: "")
-                                            self.discount = self.price
-                                            self.discountVal = self.price
-//                                            self.grandTotal = self.price
-                                            self.grandTotal = 0*/
-                                            
-                                            DispatchQueue.main.async {        // ✅ make sure UI updates on main thread
-                                                    self.show_alert(msg: model.data?.message ?? "", title: "")
-
-                                                    self.discount     = self.price
-                                                    self.discountVal  = self.price
-                                                    self.grandTotal   = 0    // 🔥 correct value
-
-                                                    // ✅ Update labels
-                                                    self.lbl_grandTotal.text = "\(LocalData.symbol)\(String(format: "%.2f", self.grandTotal))"
-                                                    self.lbl_discount.text   = "-\(LocalData.symbol)\(String(format: "%.2f", self.discount))"
-
-                                                    // ✅ Always show views even if value is 0
-                                                    self.vw_discount.isHidden   = false
-                                                    self.vw_grandTotal.isHidden = false
-//                                                    self.vw_payment1.isHidden   = false
-                                                }
-                                        }
-                                    } else if type == "Percentage" {
-                                        self.discountVal = per
-                                        let price = self.widgetPrice // replace with your base price
-                                        let total = (price * self.discountVal) / 100.0
-                                        if upto != 0 && total > upto {
-                                            self.discount = upto
-                                        } else {
-                                            self.discount = total
-                                        }
-                                        var price1 = self.price
-                                        price1 -= self.discount
-                                        self.grandTotal = price1
-                                    }
-                                } else {
-                                    self.discount = 0
-                                }
-                                if self.discount != 0 {
-                                    self.btn_apply.setTitle("Remove", for: .normal)
-                                }
-                                
-                                
-                                self.lbl_grandTotal.text = "\(LocalData.symbol)\(self.grandTotal)"
-                                self.lbl_discount.text = "-\(LocalData.symbol)\(self.discount)"
-                                self.vw_discount.isHidden = self.discount == 0
-                                self.vw_grandTotal.isHidden = self.grandTotal == 0
-                                self.vw_payment1.isHidden = self.discount == 0
+                            if let coupon = data?.results.first {
+                                let amount = Double(coupon.amount)
+                                let type   = coupon.discount_type
+                                let upto   = Double(coupon.highest_amount)
+                                self.discountType = type
+                                self.discountVal  = amount
+                                self.upto         = upto
+                                self.btn_apply.setTitle("Remove", for: .normal)
+                                DispatchQueue.main.async { self.recalcTotals() }
                             }
                         } else {
                             self.show_alert(msg: model.error ?? "", title: "")
                         }
                     }
                 } else if checkCouponData?.is_gift == 1 {
-                    APIService.shared.ApplyGiftCard(vendor_id: LocalData.userId, code: self.txt_couponCode.text ?? "", total: String(self.price)) { result in
-                        guard let model = result else {
-                            return
-                        }
-                        let data = model.data
+                    APIService.shared.ApplyGiftCard(vendor_id: LocalData.userId,
+                                                    code: self.txt_couponCode.text ?? "",
+                                                    total: String(self.widgetPrice)) { result in
+                        guard let model = result else { return }
                         if model.error == "" || model.error == nil {
-                            // Assume you already parsed this using ObjectMapper:
-                            if let giftCard = model.data?.results.first,
-                               Double(giftCard.price) < self.price {
-                                self.show_alert(msg: data?.message ?? "", title: "")
+                            if let giftCard = model.data?.results.first {
+                                self.discountType = "Flat"
+                                self.discountVal  = Double(giftCard.price)
                                 self.btn_apply.setTitle("Remove", for: .normal)
-                                self.discount = Double(giftCard.price)
-                                self.grandTotal = self.price - self.discount
-                                // Uncomment and use this if you need to handle advancePay logic
-                                // if advancePay > 0 {
-                                //     totalPayable = (grandTotal * advancePay) / 100.0
-                                // }
-                                self.lbl_grandTotal.text = "\(LocalData.symbol)\(self.grandTotal)"
-                                self.lbl_discount.text = "-\(LocalData.symbol)\(self.discount)"
-                                self.vw_discount.isHidden = self.discount == 0
-                                self.vw_grandTotal.isHidden = self.grandTotal == 0
-//                                self.vw_payment1.isHidden = self.discount == 0
+                                DispatchQueue.main.async { self.recalcTotals() }
                             }
                         } else {
-                            self.show_alert(msg: model.error ?? "", title: "")
+                            self.show_alert(msg: "model.error", title: "")
                         }
                     }
-                }else if checkCouponData?.is_gift == 0 || checkCouponData?.is_coupon == 0 {
-                    self.show_alert(msg: "Invaild Coupon Code", title: "")
+                } else {
+                    self.show_alert(msg: "Invalid Coupon Code", title: "")
                 }
-//            } else {
-                
-//            }
-        }
-        
-    }
-    
-    func calcTotalPrice(Discount: Double,SerivePrice: Double,Tip: Double,MiscPrice: Double) {
-        
-    }
-    func AddServiceData() {
-        
-        var payment = ""
-        if self.txt_paymentType.text == "Cash" {
-            payment = "cash"
-        } else if self.txt_paymentType.text == "Gift Card / Voucher" {
-            payment = "giftcard"
-        } else {
-            payment = "card"
-        }
-
-        if let secondary = self.txt_payment1.text, !secondary.isEmpty {
-            if secondary == "Cash" {
-                payment += ",cash"
-            } else {
-                payment += ",card"
             }
         }
-        if payment == "card" || payment == "giftcard,card" {
-            self.startTerminalTransaction(price: self.widgetPrice, miscPrice: miscPrice, notes: self.txt_miscServiNotes.text ?? "", paymentType: payment)
-        } else {
-            APIService.shared.addCartDetails(vendorId: LocalData.userId,
-                                             subTotal: self.widgetPrice,
-                                             grandTotal: self.grandTotal,
-                                             discountAmount: String(format: "%.2f", self.discount),
-                                             serviceIds: self.serviceId,
-                                             couponCode: self.txt_couponCode.text ?? "",
-                                             discountPercentage: "0",
-                                             transactionId: "",
-                                             paymentType: payment,
-                                             discountType: self.discountType,
-                                             giftCard: self.giftCards,
-                                             miscellaneousNote: self.txt_miscServiNotes.text ?? "",
-                                             miscellaneousPrice: Double(miscPrice) ?? 0,
-                                             tips: Double(tips) ?? 0) { result in
-                guard let model = result else {
-                    return
-                }
+    
 
+    func AddServiceData() {
+            var payment = ""
+            if self.txt_paymentType.text == "Cash" {
+                payment = "cash"
+            } else if self.txt_paymentType.text == "Gift Card / Voucher" {
+                payment = "giftcard"
+            } else {
+                payment = "card"
+            }
+
+            if let secondary = self.txt_payment1.text, !secondary.isEmpty {
+                if secondary == "Cash" {
+                    payment += ",cash"
+                } else {
+                    payment += ",card"
+                }
+            }
+
+            APIService.shared.addCartDetails(
+                vendorId: LocalData.userId,
+                subTotal: self.widgetPrice,
+                grandTotal: self.grandTotal,
+                discountAmount: String(format: "%.2f", self.discount),
+                serviceIds: self.serviceId,
+                couponCode: self.txt_couponCode.text ?? "",
+                discountPercentage: discountType == "Percentage" ? String(discountVal) : "0",
+                transactionId: "",
+                paymentType: payment,
+                discountType: self.discountType,
+                giftCard: self.giftCards,
+                miscellaneousNote: self.txt_miscServiNotes.text ?? "",
+                miscellaneousPrice: Double(miscPrice) ?? 0,
+                tips: Double(tips) ?? 0
+            ) { result in
+                guard let model = result else { return }
                 if model.error == "" || model.error == nil {
                     DispatchQueue.main.async {
-                        // safe UI code here
-//                        self.showToast(message: model.data?.message ?? "")
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        DispatchQueue.main.asyncAfter(deadline: .now()) {
-                            self.delegate?.didClearData()
-                            self.dismiss(animated: true)
-                        }
+                        self.delegate?.didClearData()
+                        self.dismiss(animated: true)
                     }
                 } else {
                     self.show_alert(msg: model.error!, title: "Add Cart Details")
                 }
             }
         }
-        
-    }
+
     
     func startTerminalTransaction(price: Double, miscPrice: String, notes: String, paymentType: String) {
         let cal = price + (Double(miscPrice) ?? 0)

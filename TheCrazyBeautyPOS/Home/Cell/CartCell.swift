@@ -108,7 +108,12 @@ extension CartCell: UITableViewDelegate, UITableViewDataSource {
         
 //        let items = flatData[indexPath.row]
         cell.lbl_service.text = items.name
-        cell.lbl_price.text = "−   \(SharedPrefs.getSymbol())\(items.price)"
+        if items.sales_price != 0.0 {
+            cell.lbl_price.text = "−   \(SharedPrefs.getSymbol())\(items.sales_price)"
+        }else{
+            cell.lbl_price.text = "−   \(SharedPrefs.getSymbol())\(items.price)"
+        }
+        
         cell.lbl_count.text = "\(items.count)"
         cell.Act_Plus = {
 //            self.data[indexPath.row].count += 1
