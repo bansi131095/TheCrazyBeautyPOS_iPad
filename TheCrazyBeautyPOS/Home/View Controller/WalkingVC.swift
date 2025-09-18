@@ -174,6 +174,10 @@ class WalkingVC: UIViewController, WalkingDelegate, WalkingDelegate_ONE {
             self.serviceCategoryList[i].totalCount = 0
             for j in 0..<self.serviceCategoryList[i].services.count {
                 self.serviceCategoryList[i].services[j].count = 0
+                // ✅ Reset sub-service counts too
+                for k in 0..<self.serviceCategoryList[i].services[j].sub_service.count {
+                    self.serviceCategoryList[i].services[j].sub_service[k].count = 0
+                }
             }
         }
 
@@ -382,7 +386,7 @@ class WalkingVC: UIViewController, WalkingDelegate, WalkingDelegate_ONE {
                     totalServices += count
                 }
 //                self.serviceCategoryList
-                let items = cart.services.filter { $0.count != 0 }
+               /* let items = cart.services.filter { $0.count != 0 }
                 if let index = cartDataList.firstIndex(where: { $0.categoryName == cart.categoryName }) {
                     // Update properties as needed
                     cartDataList[index].totalCount = cart.totalCount
@@ -395,7 +399,34 @@ class WalkingVC: UIViewController, WalkingDelegate, WalkingDelegate_ONE {
                         totalCount: cart.totalCount // or count, if needed
                     )
                     cartDataList.append(data)
+                } */
+                
+                var items: [ServiceItem] = []
+
+                for service in cart.services {
+                    if service.has_sub_service == 1, !service.sub_service.isEmpty {
+                        // ✅ Only add sub-services with count > 0
+                        let subItems = service.sub_service.filter { $0.count > 0 }
+                        items.append(contentsOf: subItems)
+                    } else if service.count > 0 {
+                        // ✅ Normal service
+                        items.append(service)
+                    }
                 }
+
+                if let index = cartDataList.firstIndex(where: { $0.categoryName == cart.categoryName }) {
+                    cartDataList[index].totalCount = cart.totalCount
+                    cartDataList[index].services = items
+                } else {
+                    let data = ServiceCategory(
+                        categoryName: cart.categoryName,
+                        icon: cart.icon,
+                        services: items,
+                        totalCount: cart.totalCount
+                    )
+                    cartDataList.append(data)
+                }
+
             
             }
         }
@@ -1116,7 +1147,56 @@ extension WalkingVC: UITableViewDelegate, UITableViewDataSource {
 
             let service = self.cartDataList[indexPath.row].services[itemIndex]
             service.count += changeAmount
-
+            
+            
+            // --- If this is a sub-service ---
+            if let parentIndex = self.serviceCategoryList
+                .firstIndex(where: { $0.categoryName == self.cartDataList[indexPath.row].categoryName }) {
+                
+                // Find if this service exists as a sub-service of any parent
+                if let parentServiceIndex = self.serviceCategoryList[parentIndex].services
+                    .firstIndex(where: { $0.sub_service.contains(where: { $0.id == service.id }) }) {
+                    
+                    // Update sub-service count in master list
+                    if let subIndex = self.serviceCategoryList[parentIndex].services[parentServiceIndex]
+                        .sub_service.firstIndex(where: { $0.id == service.id }) {
+                        
+                        self.serviceCategoryList[parentIndex]
+                            .services[parentServiceIndex].sub_service[subIndex].count = service.count
+                        
+                        // ✅ Recalculate parent count as sum of all sub-services
+                        let total = self.serviceCategoryList[parentIndex]
+                            .services[parentServiceIndex].sub_service.reduce(0) { $0 + $1.count }
+                        
+                        self.serviceCategoryList[parentIndex].services[parentServiceIndex].count = total
+                    }
+                }
+            }
+            
+            // --- If this is a top-level service (not sub-service) ---
+            if let serviceIndex = self.ServiceCategoryList.firstIndex(where: { $0.id == service.id }) {
+                self.ServiceCategoryList[serviceIndex].count = service.count
+            }
+            
+            // --- Update cartDataList ---
+            self.cartDataList[indexPath.row].services[itemIndex].count = service.count
+            self.cartDataList[indexPath.row].totalCount =
+                self.cartDataList[indexPath.row].services.reduce(0) { $0 + $1.count }
+            
+            // Remove empty services
+            self.cartDataList[indexPath.row].services.removeAll { $0.count == 0 }
+            if self.cartDataList[indexPath.row].services.isEmpty {
+                self.cartDataList.remove(at: indexPath.row)
+            }
+                
+            // Refresh UI
+            self.updateCartTotals()
+            self.tbl_vw.reloadData()
+            self.collect_category.reloadData()
+            self.collect_service.reloadData()
+            self.collect_SubService.reloadData()
+            
+/*
             // ✅ Update cartDataList
             self.cartDataList[indexPath.row].services[itemIndex] = service
             // ✅ Update in ServiceCategoryList (visible services)
@@ -1153,7 +1233,7 @@ extension WalkingVC: UITableViewDelegate, UITableViewDataSource {
             self.tbl_vw.layoutIfNeeded()
             cell.tbl_item.layoutIfNeeded()
             self.collect_category.reloadData()
-            self.collect_service.reloadData()
+            self.collect_service.reloadData() */
         }
 
         return cell
