@@ -6116,7 +6116,9 @@
                         <outlet property="collect_service" destination="Hoa-Iu-gj2" id="xso-ob-MFg"/>
                         <outlet property="height_SubService" destination="daA-Vb-vRq" id="kw7-0N-Hxe"/>
                         <outlet property="lbl_30Count" destination="P06-GY-SZq" id="env-o8-2y1"/>
+                        <outlet property="lbl_30Text" destination="OIZ-Gd-WPP" id="sP6-Uu-a9b"/>
                         <outlet property="lbl_50Count" destination="09g-hy-sBN" id="3pf-Aj-eAc"/>
+                        <outlet property="lbl_50Text" destination="Uli-Me-QJI" id="SF6-ev-HbI"/>
                         <outlet property="lbl_SubServiceLine" destination="voD-YV-UqA" id="1tF-BX-GBY"/>
                         <outlet property="lbl_SubServiceTitle" destination="aSL-2A-AJA" id="wdl-PO-EP7"/>
                         <outlet property="lbl_SubServiceTop" destination="ybL-Bq-i42" id="tM5-mW-jgz"/>
@@ -15685,7 +15687,7 @@ Please Choose Diffrent Date</string>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Twc-RL-lZJ">
-                                                                        <rect key="frame" x="425.5" y="10" width="19.5" height="28"/>
+                                                                        <rect key="frame" x="425" y="10" width="20" height="28"/>
                                                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
                                                                         <color key="textColor" name="AppBlack"/>
                                                                         <nil key="highlightedColor"/>
@@ -15728,7 +15730,7 @@ Please Choose Diffrent Date</string>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x4" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UD7-PN-ysS">
-                                                                        <rect key="frame" x="425.5" y="12" width="19.5" height="26"/>
+                                                                        <rect key="frame" x="425" y="12" width="20" height="26"/>
                                                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
                                                                         <color key="textColor" name="AppBlack"/>
                                                                         <nil key="highlightedColor"/>
@@ -15774,7 +15776,7 @@ Please Choose Diffrent Date</string>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yc8-K2-Mah">
-                                                                        <rect key="frame" x="407" y="12" width="38" height="26"/>
+                                                                        <rect key="frame" x="405.5" y="12" width="39.5" height="26"/>
                                                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
                                                                         <color key="textColor" name="AppBlack"/>
                                                                         <nil key="highlightedColor"/>
@@ -15820,7 +15822,7 @@ Please Choose Diffrent Date</string>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XNb-b6-279">
-                                                                        <rect key="frame" x="407" y="12" width="38" height="26"/>
+                                                                        <rect key="frame" x="405.5" y="12" width="39.5" height="26"/>
                                                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
                                                                         <color key="textColor" name="Red"/>
                                                                         <nil key="highlightedColor"/>
@@ -15866,7 +15868,7 @@ Please Choose Diffrent Date</string>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDz-Y9-3h1">
-                                                                        <rect key="frame" x="407" y="12" width="38" height="26"/>
+                                                                        <rect key="frame" x="405.5" y="12" width="39.5" height="26"/>
                                                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
                                                                         <color key="textColor" name="TextBlack"/>
                                                                         <nil key="highlightedColor"/>
@@ -15885,6 +15887,40 @@ Please Choose Diffrent Date</string>
                                                                     <constraint firstItem="YSo-fI-Wb6" firstAttribute="leading" secondItem="lLd-uT-wVn" secondAttribute="leading" constant="25" id="zQA-OP-6cU"/>
                                                                     <constraint firstItem="pNg-G9-uQ8" firstAttribute="leading" secondItem="lLd-uT-wVn" secondAttribute="leading" constant="20" id="zyq-6L-OtD"/>
                                                                 </constraints>
+                                                            </view>
+                                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zd1-Un-kVF">
+                                                                <rect key="frame" x="0.0" y="250" width="470" height="50"/>
+                                                                <subviews>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="exclamationmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="oop-3W-xEB">
+                                                                        <rect key="frame" x="10" y="8.5" width="20" height="19"/>
+                                                                        <color key="tintColor" red="0.1176470593" green="0.2274509817" blue="0.5411764979" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="20" id="Dwc-oq-SGj"/>
+                                                                            <constraint firstAttribute="width" constant="20" id="rlf-J0-Iqh"/>
+                                                                        </constraints>
+                                                                    </imageView>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remaining amount wil be elapsed. use the full amount otherwise it will be lost." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihM-gZ-hd1">
+                                                                        <rect key="frame" x="40" y="8" width="420" height="34"/>
+                                                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                                                        <color key="textColor" red="0.1176470593" green="0.2274509817" blue="0.5411764979" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" red="0.9137254901960784" green="0.96078431372549022" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="trailing" secondItem="ihM-gZ-hd1" secondAttribute="trailing" constant="10" id="4UQ-uV-XQA"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="ihM-gZ-hd1" secondAttribute="bottom" constant="8" id="5KL-va-pWI"/>
+                                                                    <constraint firstItem="oop-3W-xEB" firstAttribute="top" secondItem="Zd1-Un-kVF" secondAttribute="top" constant="8" id="J43-xT-0Cc"/>
+                                                                    <constraint firstItem="oop-3W-xEB" firstAttribute="leading" secondItem="Zd1-Un-kVF" secondAttribute="leading" constant="10" id="V5R-Pb-hoF"/>
+                                                                    <constraint firstAttribute="height" constant="50" id="Wln-MV-Mvc"/>
+                                                                    <constraint firstItem="ihM-gZ-hd1" firstAttribute="leading" secondItem="oop-3W-xEB" secondAttribute="trailing" constant="10" id="oai-Tq-efV"/>
+                                                                    <constraint firstItem="ihM-gZ-hd1" firstAttribute="top" secondItem="Zd1-Un-kVF" secondAttribute="top" constant="8" id="uxB-7E-FxQ"/>
+                                                                </constraints>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <real key="value" value="8"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
                                                             </view>
                                                         </subviews>
                                                     </stackView>
@@ -15972,6 +16008,7 @@ Please Choose Diffrent Date</string>
                     </view>
                     <connections>
                         <outlet property="btn_apply" destination="jbt-TU-cel" id="CKm-Qc-Nqw"/>
+                        <outlet property="lbl_Remaining" destination="ihM-gZ-hd1" id="bJb-1n-1jw"/>
                         <outlet property="lbl_discount" destination="XNb-b6-279" id="YkU-Ed-hbk"/>
                         <outlet property="lbl_giftCard" destination="UD7-PN-ysS" id="SrP-zK-b9Z"/>
                         <outlet property="lbl_grandTotal" destination="YDz-Y9-3h1" id="tLb-YP-659"/>
@@ -15983,6 +16020,7 @@ Please Choose Diffrent Date</string>
                         <outlet property="txt_payment1" destination="xbJ-HD-i5f" id="zP2-5K-YyK"/>
                         <outlet property="txt_paymentType" destination="m9o-UC-YjD" id="lBX-C8-BZy"/>
                         <outlet property="txt_tips" destination="eHt-rL-XZo" id="cgJ-s1-CWa"/>
+                        <outlet property="vw_Remaining" destination="Zd1-Un-kVF" id="yEN-fC-0gm"/>
                         <outlet property="vw_coupon" destination="Azd-Py-omv" id="NqS-8x-aDQ"/>
                         <outlet property="vw_discount" destination="JoA-B5-eDX" id="vZp-oO-oFb"/>
                         <outlet property="vw_giftcard" destination="vBX-7H-U17" id="GW7-fv-oUA"/>
@@ -15994,7 +16032,7 @@ Please Choose Diffrent Date</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y7n-WF-lSB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1990" y="-721"/>
+            <point key="canvasLocation" x="1989.6610169491526" y="-721.46341463414637"/>
         </scene>
     </scenes>
     <resources>
@@ -16013,6 +16051,7 @@ Please Choose Diffrent Date</string>
         <image name="down" width="20" height="11"/>
         <image name="down 1" width="64" height="64"/>
         <image name="download" width="30" height="30"/>
+        <image name="exclamationmark.circle" catalog="system" width="128" height="123"/>
         <image name="eye.fill" catalog="system" width="128" height="80"/>
         <image name="flag" width="151" height="100"/>
         <image name="ic_Check" width="24" height="24"/>

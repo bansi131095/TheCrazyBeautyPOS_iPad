@@ -14,8 +14,13 @@ class No_ShowLimitVC: UIViewController {
     @IBOutlet weak var txt_NoShowLimit: TextInputLayout!
     @IBOutlet weak var btn_Save: GradientButton!
     
+    @IBOutlet weak var vw_IFEnable: UIView!
+    @IBOutlet weak var img_Check: UIImageView!
+    
+    @IBOutlet weak var vw_NoLimit: UIView!
     //MARK: - Global Variable
     var noShowLimit: Int?
+    var allow_noshow = -1
     
     //MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -32,6 +37,21 @@ class No_ShowLimitVC: UIViewController {
     }
     
     //MARK: -  Button Action
+    @IBAction func btn_CheckBox(_ sender: Any) {
+        if img_Check.image == UIImage(named: "ic_check_White"){
+            img_Check.image = UIImage(named: "check")
+            self.vw_NoLimit.isHidden = false
+            vw_IFEnable.backgroundColor = #colorLiteral(red: 0.9294117647, green: 0.8039215686, blue: 0.9568627451, alpha: 1)
+            allow_noshow = 0
+        }else{
+            img_Check.image = UIImage(named: "ic_check_White")
+            self.vw_NoLimit.isHidden = true
+            vw_IFEnable.backgroundColor = .white
+            allow_noshow = 1
+            self.txt_NoShowLimit.text = "0"
+        }
+    }
+    
     @IBAction func btn_Save(_ sender: Any) {
         if txt_NoShowLimit.text == ""{
             alertWithImage(title: "No Show Limit", Msg: "No.Show Limit is required.")
@@ -55,16 +75,28 @@ class No_ShowLimitVC: UIViewController {
             self?.hideLoader()
             guard let self = self else { return }
 
-            DispatchQueue.main.async {
+//            DispatchQueue.main.async {
                 let data = result?.data.first
                 self.txt_NoShowLimit.text = "\(data?.noshow_limit ?? 0)"
-            }
+                if data?.allow_noshow == 0{
+                    self.img_Check.image = UIImage(named: "check")
+                    self.vw_NoLimit.isHidden = false
+                    self.vw_IFEnable.backgroundColor = #colorLiteral(red: 0.9294117647, green: 0.8039215686, blue: 0.9568627451, alpha: 1)
+                    self.allow_noshow = 0
+                }else{
+                    self.img_Check.image = UIImage(named: "ic_check_White")
+                    self.vw_NoLimit.isHidden = true
+                    self.vw_IFEnable.backgroundColor = .white
+                    self.allow_noshow = 1
+                    
+                }
+//            }
         }
     }
     
     func api_UpdateNoShowLimit() {
         showLoader()
-        APIService.shared.UpdateNoShowlimit(vendorId: LocalData.userId, noshow_limit: self.txt_NoShowLimit.text ?? "", completion: { result in
+        APIService.shared.UpdateNoShowlimit(vendorId: LocalData.userId,allow_noshow: String(allow_noshow), noshow_limit: self.txt_NoShowLimit.text ?? "", completion: { result in
             self.hideLoader()
             if let message = result?.data {
                 self.alertWithMessageOnly(message)

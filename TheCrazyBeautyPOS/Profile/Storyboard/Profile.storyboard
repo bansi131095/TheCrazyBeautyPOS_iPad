@@ -3520,7 +3520,7 @@ To Partner.</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EWn-yz-8Nu" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                        <rect key="frame" x="120" y="0.0" width="1000" height="60"/>
+                                                        <rect key="frame" x="120" y="0.0" width="159" height="60"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <userDefinedRuntimeAttributes>
@@ -12504,37 +12504,60 @@ To Partner.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Show Limit" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i6i-OY-XYO">
-                                <rect key="frame" x="30" y="44" width="1120" height="26"/>
+                                <rect key="frame" x="30" y="44" width="1120" height="26.5"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="22"/>
                                 <color key="textColor" name="AppBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User will be blocked from further booking. After Not appering for given limit of bookings." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n2y-J1-RWa">
-                                <rect key="frame" x="30" y="75" width="1120" height="24"/>
+                                <rect key="frame" x="30" y="75.5" width="1120" height="24"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="AppBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Djv-Cs-wWP" userLabel="Reminder">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8Ss-DI-NIC">
                                 <rect key="frame" x="30" y="119" width="1120" height="65"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="No Show Limit" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lTm-Vj-9xW" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.5" width="1120" height="64"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Djv-Cs-wWP" userLabel="Reminder">
+                                        <rect key="frame" x="0.0" y="0.0" width="1120" height="65"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check_White" translatesAutoresizingMaskIntoConstraints="NO" id="2Nn-Z4-vdt">
+                                                <rect key="frame" x="10" y="20" width="25" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="25" id="C3h-Dh-95H"/>
+                                                    <constraint firstAttribute="width" constant="25" id="M3W-fA-wEx"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If enabled, user will be blocked from further booking after not appearing for the given limit of bookings." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94g-8v-myd">
+                                                <rect key="frame" x="45" y="20.5" width="1065" height="24"/>
+                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
+                                                <color key="textColor" name="AppBlack"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XQd-MS-Rd7">
+                                                <rect key="frame" x="0.0" y="0.0" width="1120" height="65"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <connections>
+                                                    <action selector="btn_CheckBox:" destination="utb-Jt-11B" eventType="touchUpInside" id="J0j-H1-3HM"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="64" id="evj-l5-woi"/>
+                                            <constraint firstItem="94g-8v-myd" firstAttribute="leading" secondItem="2Nn-Z4-vdt" secondAttribute="trailing" constant="10" id="078-Rq-vmW"/>
+                                            <constraint firstAttribute="trailing" secondItem="94g-8v-myd" secondAttribute="trailing" constant="10" id="6Qp-cb-83P"/>
+                                            <constraint firstItem="94g-8v-myd" firstAttribute="centerY" secondItem="2Nn-Z4-vdt" secondAttribute="centerY" id="Ad2-qB-xNI"/>
+                                            <constraint firstItem="2Nn-Z4-vdt" firstAttribute="centerY" secondItem="Djv-Cs-wWP" secondAttribute="centerY" id="Fl1-Uw-W7T"/>
+                                            <constraint firstItem="2Nn-Z4-vdt" firstAttribute="leading" secondItem="Djv-Cs-wWP" secondAttribute="leading" constant="10" id="LmY-WP-nHa"/>
+                                            <constraint firstAttribute="trailing" secondItem="XQd-MS-Rd7" secondAttribute="trailing" id="PLW-UY-F47"/>
+                                            <constraint firstAttribute="height" constant="65" id="gtm-rf-AA4"/>
+                                            <constraint firstItem="XQd-MS-Rd7" firstAttribute="leading" secondItem="Djv-Cs-wWP" secondAttribute="leading" id="jMM-EP-rVe"/>
+                                            <constraint firstItem="XQd-MS-Rd7" firstAttribute="top" secondItem="Djv-Cs-wWP" secondAttribute="top" id="nYL-Oo-BAr"/>
+                                            <constraint firstAttribute="bottom" secondItem="XQd-MS-Rd7" secondAttribute="bottom" id="xjl-Yh-Tnd"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isUnderLineAvailabe" value="NO"/>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                                <color key="value" name="txtGray"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="padding_left">
-                                                <real key="value" value="24"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingRightCustom">
-                                                <real key="value" value="24"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                 <real key="value" value="1"/>
@@ -12542,28 +12565,59 @@ To Partner.</string>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                 <color key="value" name="txtGray"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="32"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="difference">
-                                                <real key="value" value="18"/>
-                                            </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="utb-Jt-11B" id="EAa-45-XTa"/>
-                                        </connections>
-                                    </textField>
+                                    </view>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="24L-fx-Gav" userLabel="Reminder">
+                                        <rect key="frame" x="0.0" y="0.0" width="1120" height="65"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="No Show Limit" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N7y-aZ-NMM" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.5" width="1120" height="64"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="64" id="vqH-pL-sKD"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isUnderLineAvailabe" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                        <color key="value" name="txtGray"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="padding_left">
+                                                        <real key="value" value="24"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="paddingRightCustom">
+                                                        <real key="value" value="24"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" name="txtGray"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="32"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="difference">
+                                                        <real key="value" value="18"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="utb-Jt-11B" id="X5f-ll-xAM"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="65" id="2M9-wG-ZET"/>
+                                            <constraint firstItem="N7y-aZ-NMM" firstAttribute="centerY" secondItem="24L-fx-Gav" secondAttribute="centerY" id="Flq-DL-UeU"/>
+                                            <constraint firstItem="N7y-aZ-NMM" firstAttribute="leading" secondItem="24L-fx-Gav" secondAttribute="leading" id="Gbm-tu-0ax"/>
+                                            <constraint firstAttribute="trailing" secondItem="N7y-aZ-NMM" secondAttribute="trailing" id="en3-vo-jxK"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstItem="lTm-Vj-9xW" firstAttribute="leading" secondItem="Djv-Cs-wWP" secondAttribute="leading" id="Eov-vC-Fqf"/>
-                                    <constraint firstAttribute="trailing" secondItem="lTm-Vj-9xW" secondAttribute="trailing" id="Hey-Lz-oZe"/>
-                                    <constraint firstItem="lTm-Vj-9xW" firstAttribute="centerY" secondItem="Djv-Cs-wWP" secondAttribute="centerY" id="KZQ-DL-wIR"/>
-                                    <constraint firstAttribute="height" constant="65" id="gtm-rf-AA4"/>
-                                </constraints>
-                            </view>
+                            </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DKj-bD-rgT" customClass="GradientButton" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                <rect key="frame" x="30" y="209" width="1120" height="64"/>
+                                <rect key="frame" x="30" y="204" width="1120" height="64"/>
                                 <color key="backgroundColor" name="AccentColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="4kd-za-tpG"/>
@@ -12600,22 +12654,25 @@ To Partner.</string>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="vXK-LP-T9f" firstAttribute="trailing" secondItem="DKj-bD-rgT" secondAttribute="trailing" constant="30" id="BrY-VQ-brD"/>
-                            <constraint firstItem="Djv-Cs-wWP" firstAttribute="leading" secondItem="vXK-LP-T9f" secondAttribute="leading" constant="30" id="GoM-Q6-755"/>
-                            <constraint firstItem="Djv-Cs-wWP" firstAttribute="top" secondItem="n2y-J1-RWa" secondAttribute="bottom" constant="20" id="Ih2-s6-O05"/>
                             <constraint firstItem="DKj-bD-rgT" firstAttribute="leading" secondItem="vXK-LP-T9f" secondAttribute="leading" constant="30" id="IiY-ji-KUT"/>
-                            <constraint firstItem="vXK-LP-T9f" firstAttribute="trailing" secondItem="Djv-Cs-wWP" secondAttribute="trailing" constant="30" id="Ocw-Lc-4Nf"/>
+                            <constraint firstItem="vXK-LP-T9f" firstAttribute="trailing" secondItem="8Ss-DI-NIC" secondAttribute="trailing" constant="30" id="QeW-3S-hEp"/>
+                            <constraint firstItem="DKj-bD-rgT" firstAttribute="top" secondItem="8Ss-DI-NIC" secondAttribute="bottom" constant="20" id="Rrm-9a-Bdk"/>
                             <constraint firstItem="n2y-J1-RWa" firstAttribute="top" secondItem="i6i-OY-XYO" secondAttribute="bottom" constant="5" id="SV2-xY-Vw5"/>
                             <constraint firstItem="n2y-J1-RWa" firstAttribute="leading" secondItem="vXK-LP-T9f" secondAttribute="leading" constant="30" id="YFf-yo-X8b"/>
+                            <constraint firstItem="8Ss-DI-NIC" firstAttribute="leading" secondItem="vXK-LP-T9f" secondAttribute="leading" constant="30" id="cLG-aG-tNa"/>
                             <constraint firstItem="i6i-OY-XYO" firstAttribute="top" secondItem="vXK-LP-T9f" secondAttribute="top" constant="20" id="fKE-31-jkF"/>
-                            <constraint firstItem="DKj-bD-rgT" firstAttribute="top" secondItem="Djv-Cs-wWP" secondAttribute="bottom" constant="25" id="gCM-e0-ZVA"/>
                             <constraint firstItem="vXK-LP-T9f" firstAttribute="trailing" secondItem="n2y-J1-RWa" secondAttribute="trailing" constant="30" id="lQG-jc-Mps"/>
+                            <constraint firstItem="8Ss-DI-NIC" firstAttribute="top" secondItem="n2y-J1-RWa" secondAttribute="bottom" constant="19.5" id="ndf-VH-vAI"/>
                             <constraint firstItem="vXK-LP-T9f" firstAttribute="trailing" secondItem="i6i-OY-XYO" secondAttribute="trailing" constant="30" id="t07-bI-xRn"/>
                             <constraint firstItem="i6i-OY-XYO" firstAttribute="leading" secondItem="HJP-ZY-wdT" secondAttribute="leading" constant="30" id="tnU-Vt-T9m"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="btn_Save" destination="DKj-bD-rgT" id="yoR-CJ-s8M"/>
-                        <outlet property="txt_NoShowLimit" destination="lTm-Vj-9xW" id="e3G-FT-gao"/>
+                        <outlet property="img_Check" destination="2Nn-Z4-vdt" id="04I-vT-yHt"/>
+                        <outlet property="txt_NoShowLimit" destination="N7y-aZ-NMM" id="JBt-tt-zY4"/>
+                        <outlet property="vw_IFEnable" destination="Djv-Cs-wWP" id="RkO-Fl-VhH"/>
+                        <outlet property="vw_NoLimit" destination="24L-fx-Gav" id="yUw-hz-gAI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2U3-tf-cAn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -12645,6 +12702,7 @@ To Partner.</string>
         <image name="ic_H6" width="50" height="50"/>
         <image name="ic_Uncheck" width="24" height="24"/>
         <image name="ic_bold" width="50" height="50"/>
+        <image name="ic_check_White" width="100" height="100"/>
         <image name="ic_format_align_center" width="50" height="50"/>
         <image name="ic_format_align_left" width="50" height="50"/>
         <image name="ic_format_align_right" width="50" height="50"/>

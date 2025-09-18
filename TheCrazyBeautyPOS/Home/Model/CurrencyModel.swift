@@ -974,7 +974,7 @@ class ShowLimitModel: Mappable {
 }
 
 class ShowLimitModelData: Mappable {
-    var allow_noshow: String = ""
+    var allow_noshow: Int = 0
     var noshow_limit: Int = 0
     
     init() {}

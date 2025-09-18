@@ -4488,12 +4488,13 @@ class APIService {
         }
     }
     
-    func UpdateNoShowlimit(vendorId: String, noshow_limit: String, completion: @escaping (CommonModel?) -> Void) {
+    func UpdateNoShowlimit(vendorId: String,allow_noshow:String,noshow_limit: String, completion: @escaping (CommonModel?) -> Void) {
         let url = global.shared.URL_UPDATE_NoShowLimit
         
         let params: [String: Any] = [
             "vendor_id": vendorId,
-            "noshow_limit": noshow_limit
+            "noshow_limit": noshow_limit,
+            "allow_noshow": allow_noshow
         ]
 
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))

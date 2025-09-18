@@ -52,6 +52,8 @@ class WalkingVC: UIViewController, WalkingDelegate, WalkingDelegate_ONE {
     @IBOutlet weak var btn_payNow: GradientButton!
     
     
+    @IBOutlet weak var lbl_30Text: UILabel!
+    @IBOutlet weak var lbl_50Text: UILabel!
     var serviceList: [ServiceData] = []
     var categoryList: [ServiceDatas] = []
     var categoryNames: [String] = []
@@ -63,13 +65,16 @@ class WalkingVC: UIViewController, WalkingDelegate, WalkingDelegate_ONE {
     var gift50Count = 0;
     var totalServices = 0
     var totalGiftCard = 0
-    var totalPrice = 0
+    var totalPrice = 0.0
     
     var selectedServiceIndexForSubService: Int?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.lbl_30Text.text = "\(LocalData.symbol)30"
+        self.lbl_50Count.text = "\(LocalData.symbol)50"
+        
         self.setCollectCategory()
         self.setCollectService()
         self.setServiceCell()
@@ -226,7 +231,6 @@ class WalkingVC: UIViewController, WalkingDelegate, WalkingDelegate_ONE {
                     teamServicesMap.append(val)
                 } else {
                     let val: [String: Any] = [
-                        "price": selectedService.sales_price,
                         "price": selectedService.price,
                         "qty": selectedService.count
                     ]
@@ -505,7 +509,7 @@ class WalkingVC: UIViewController, WalkingDelegate, WalkingDelegate_ONE {
         }
 
         // Store the total in the variable used for checkout
-        self.totalPrice = Int(total)
+        self.totalPrice = Double(total)
 
         // Update total label in the UI
         self.lbl_Total.text = "\(LocalData.symbol)\(String(format: "%.2f", total))"
@@ -832,6 +836,15 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
                 self.tbl_vw.reloadData()
                 self.tbl_vw.layoutIfNeeded()
             }
+            if service.has_sub_service == 1 && service.sub_service.count > 0 {
+                cell.vw_Main.layer.backgroundColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 0.3000000119)
+                cell.vw_Main.layer.borderColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
+                cell.vw_Main.layer.borderWidth = 1
+            }else{
+                cell.vw_Main.layer.backgroundColor = UIColor.white.cgColor
+                cell.vw_Main.layer.borderColor = #colorLiteral(red: 0.631372549, green: 0.631372549, blue: 0.631372549, alpha: 1)
+                cell.vw_Main.layer.borderWidth = 1
+            }
             return cell
         }else if collectionView == self.collect_SubService {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ServiceCell", for: indexPath) as? ServiceCell else {
@@ -959,6 +972,13 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
                 self.lbl_service.text = "Select Service"
                 self.lbl_serviceLine.isHidden = false
                 self.collect_service.reloadData()
+                self.selectedServiceIndexForSubService = Int()
+                self.lbl_SubServiceTop.constant = 0
+                self.height_SubService.constant = 0
+                self.lbl_SubServiceTitle.isHidden = true
+                self.collectSubServiceHeight.constant = 0
+                self.collect_SubService.isHidden = true
+                self.lbl_SubServiceTitle.isHidden = true
             } else {
                 serviceCategoryList = []
             }
@@ -968,6 +988,12 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
 
             if service.has_sub_service == 1 && service.sub_service.count > 0 {
                 // 👉 Show sub services
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ServiceCell", for: indexPath) as? ServiceCell else {
+                    fatalError("Unable to dequeue CategoryCell")
+                }
+                
+                
+                
                 self.selectedServiceIndexForSubService = indexPath.item
                 self.collect_SubService.isHidden = false
                 self.lbl_SubServiceTitle.isHidden = false

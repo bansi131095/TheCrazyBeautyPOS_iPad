@@ -35,6 +35,8 @@ class WalkinCheckoutVC_ONE: UIViewController {
     var loaderAlert: UIAlertController?
     @IBOutlet weak var btn_apply: GradientButton!
     
+    @IBOutlet weak var vw_Remaining: UIView!
+    @IBOutlet weak var lbl_Remaining: UILabel!
     var delegate: WalkingDelegate_ONE?
     
     var isButtonDisabled: Bool = true
@@ -107,9 +109,33 @@ class WalkinCheckoutVC_ONE: UIViewController {
                 if txt_paymentType.text == paymentOptions.last {
                     self.vw_coupon.isHidden = false
                     self.isButtonDisabled = true
+                    self.txt_couponCode.text = ""
+                    self.txt_couponCode.isUserInteractionEnabled = true
+                    self.txt_couponCode.isEnabled = true
+                    self.txt_couponCode.backgroundColor = UIColor.white
+                    self.txt_couponCode.textColor = .black
+                    self.btn_apply.setTitle("Apply", for: .normal)
+                    /*self.discountVal = 0
+                    self.discountType = ""
+                    self.upto = 0
+                    recalcTotals()
+                    vw_payment1.isHidden = true*/
                 } else {
                     self.vw_coupon.isHidden = true
                     self.isButtonDisabled = false
+                    vw_coupon.isHidden    = true
+                    vw_service.isHidden   = totalServices == 0
+                    vw_giftcard.isHidden  = totalGiftCard == 0
+                    vw_total.isHidden     = price == 0.0
+                    vw_discount.isHidden  = true
+                    vw_grandTotal.isHidden = true
+                    vw_payment1.isHidden  = true
+                    self.txt_couponCode.text = ""
+                    self.discountVal = 0
+                    self.discountType = ""
+                    self.upto = 0
+                    recalcTotals()
+                    vw_payment1.isHidden = true
                 }
             } else {
                 self.vw_coupon.isHidden = true
@@ -146,6 +172,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
     
     @IBAction func act_Apply(_ sender: GradientButton) {
         if self.btn_apply.currentTitle == "Apply" {
+            
             if txt_couponCode.text!.isEmpty {
 //                self.showAlertToast(message: "Please enter coupon code")
                 self.show_alert(msg: "Please enter coupon code", title: "")
@@ -160,6 +187,10 @@ class WalkinCheckoutVC_ONE: UIViewController {
             self.vw_discount.isHidden = true
             self.vw_payment1.isHidden = true*/
             self.txt_couponCode.text = ""
+            self.txt_couponCode.isUserInteractionEnabled = true
+            self.txt_couponCode.isEnabled = true
+            self.txt_couponCode.backgroundColor = UIColor.white
+            self.txt_couponCode.textColor = .black
             self.btn_apply.setTitle("Apply", for: .normal)
             self.discountVal = 0
             self.discountType = ""
@@ -210,6 +241,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
 
            let baseTotal = widgetPrice + misc   // service + misc
            var discountAmount: Double = 0
+           var remainDiscountAmount: Double = 0
 
            if discountType == "Flat" {
                discountAmount = min(discountVal, baseTotal)
@@ -217,15 +249,29 @@ class WalkinCheckoutVC_ONE: UIViewController {
                let calc = baseTotal * discountVal / 100.0
                discountAmount = (upto != 0 && calc > upto) ? upto : calc
            }
+           
+           if (discountVal > 0) {
+               remainDiscountAmount = discountVal - discountAmount
+           }
 
            discount   = discountAmount
            price      = baseTotal + tip                // for Total label
            grandTotal = (baseTotal - discountAmount) + tip  // ✅ discount NOT on tip
 
            lbl_total.text      = "\(LocalData.symbol)\(String(format: "%.2f", price))"
-           lbl_discount.text   = "-\(LocalData.symbol)\(String(format: "%.2f", discount))"
+           lbl_discount.text   = "- \(LocalData.symbol)\(String(format: "%.2f", discount))"
            lbl_grandTotal.text = "\(LocalData.symbol)\(String(format: "%.2f", grandTotal))"
-
+           if remainDiscountAmount > 0 {
+               vw_Remaining.isHidden = false
+               lbl_Remaining.font = UIFont(name: "Lato-Regular", size: 14.0)
+               lbl_Remaining.text = "Remaining \(LocalData.symbol)\(String(format: "%.2f", remainDiscountAmount)) amount will be elapsed. Use the full amount otherwise it will be lost."
+               print("Test:-\(remainDiscountAmount)")
+               
+           }else{
+               vw_Remaining.isHidden = true
+//               hide
+           }
+           
            vw_discount.isHidden   = discount == 0
            vw_grandTotal.isHidden = false
        }
@@ -254,6 +300,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                         let data = model.data
                         if model.error == "" || model.error == nil {
                             if let coupon = data?.results.first {
+                                self.show_alert(msg: model.data?.message ?? "", title: "")
                                 let amount = Double(coupon.amount)
                                 let type   = coupon.discount_type
                                 let upto   = Double(coupon.highest_amount)
@@ -261,6 +308,11 @@ class WalkinCheckoutVC_ONE: UIViewController {
                                 self.discountVal  = amount
                                 self.upto         = upto
                                 self.btn_apply.setTitle("Remove", for: .normal)
+                                self.txt_couponCode.isUserInteractionEnabled = false
+                                self.txt_couponCode.isEnabled = false
+                                self.txt_couponCode.isUserInteractionEnabled = false
+                                self.txt_couponCode.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+                                self.txt_couponCode.textColor = .gray
                                 DispatchQueue.main.async { self.recalcTotals() }
                             }
                         } else {
@@ -277,10 +329,16 @@ class WalkinCheckoutVC_ONE: UIViewController {
                                 self.discountType = "Flat"
                                 self.discountVal  = Double(giftCard.price)
                                 self.btn_apply.setTitle("Remove", for: .normal)
+                                self.txt_couponCode.isUserInteractionEnabled = false
+                                self.txt_couponCode.isEnabled = false
+                                self.txt_couponCode.isUserInteractionEnabled = false
+                                self.txt_couponCode.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+                                self.txt_couponCode.textColor = .gray
+                                
                                 DispatchQueue.main.async { self.recalcTotals() }
                             }
                         } else {
-                            self.show_alert(msg: "model.error", title: "")
+                            self.show_alert(msg: model.error ?? "", title: "")
                         }
                     }
                 } else {

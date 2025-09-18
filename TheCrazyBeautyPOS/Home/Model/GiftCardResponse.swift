@@ -32,7 +32,7 @@ class ApplyGiftCardData: Mappable {
 
     func mapping(map: Map) {
         message <- map["message"]
-        results <- map["results"]
+        results <- map["result"]
     }
 }
 
