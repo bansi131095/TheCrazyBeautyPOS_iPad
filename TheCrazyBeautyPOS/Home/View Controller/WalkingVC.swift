@@ -979,6 +979,7 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
                 self.collect_SubService.reloadData()
                 self.collect_SubService.layoutIfNeeded()
             } else {
+                self.selectedServiceIndexForSubService = Int()
                 self.lbl_SubServiceTop.constant = 0
                 self.height_SubService.constant = 0
                 self.lbl_SubServiceTitle.isHidden = true
@@ -1171,6 +1172,9 @@ extension WalkingVC: UITableViewDelegate, UITableViewDataSource {
                         self.serviceCategoryList[parentIndex].services[parentServiceIndex].count = total
                     }
                 }
+                // Update totalCount of that category
+                let total = self.serviceCategoryList[parentIndex].services.reduce(0) { $0 + $1.count }
+                self.serviceCategoryList[parentIndex].totalCount = total
             }
             
             // --- If this is a top-level service (not sub-service) ---
