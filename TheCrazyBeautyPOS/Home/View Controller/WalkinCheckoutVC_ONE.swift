@@ -14,6 +14,7 @@ protocol WalkingDelegate_ONE {
 
 class WalkinCheckoutVC_ONE: UIViewController {
 
+    @IBOutlet weak var vw_Main: UIView!
     @IBOutlet weak var txt_paymentType: TextInputLayout!
     @IBOutlet weak var txt_couponCode: TextInputLayout!
     @IBOutlet weak var txt_miscServiPrice: TextInputLayout!
@@ -352,7 +353,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
             var payment = ""
             if self.txt_paymentType.text == "Cash" {
                 payment = "cash"
-            } else if self.txt_paymentType.text == "Gift Card / Voucher" {
+            } else if self.txt_paymentType.text == "Giftcard / Voucher" {
                 payment = "giftcard"
             } else {
                 payment = "card"
@@ -365,7 +366,9 @@ class WalkinCheckoutVC_ONE: UIViewController {
                     payment += ",card"
                 }
             }
-
+        if payment == "card" || payment == "giftcard,card" {
+            self.startTerminalTransaction(price: self.widgetPrice, miscPrice: miscPrice, notes: self.txt_miscServiNotes.text ?? "", paymentType: payment)
+        }else{
             APIService.shared.addCartDetails(
                 vendorId: LocalData.userId,
                 subTotal: self.widgetPrice,
@@ -393,6 +396,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                 }
             }
         }
+    }
 
     
     func startTerminalTransaction(price: Double, miscPrice: String, notes: String, paymentType: String) {

@@ -49,7 +49,28 @@ class Booking_PolicyVC: UIViewController {
         self.showLoader()
         APIService.shared.fetchNotes { result in
             self.hideLoader()
-            self.txtvw_Note.text = result?.data.first?.notes
+//            self.txtvw_Note.text = result?.data.first?.notes
+            if let data = result?.data.first?.notes.data(using: .utf8) {
+                do {
+                    let attributedString = try NSAttributedString(
+                        data: data,
+                        options: [
+                            .documentType: NSAttributedString.DocumentType.html,
+                            .characterEncoding: String.Encoding.utf8.rawValue
+                        ],
+                        documentAttributes: nil
+                    )
+                    let mutableAttrStr = NSMutableAttributedString(attributedString: attributedString)
+                       let fullRange = NSRange(location: 0, length: mutableAttrStr.length)
+                       mutableAttrStr.addAttribute(.font, value: UIFont(name: "Lato-Medium", size: 20.0)!, range: fullRange)
+                       
+                       self.txtvw_Note.attributedText = mutableAttrStr
+                    
+                } catch {
+                    print("❌ Error parsing HTML: \(error)")
+//                    txtvw_Note.text = htmlString   fallback
+                }
+            }
         }
     }
     

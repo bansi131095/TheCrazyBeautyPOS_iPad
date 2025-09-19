@@ -269,7 +269,8 @@ extension WalkinHistory_VC: UITableViewDelegate, UITableViewDataSource{
         if data.tip == 0{
             cell.lbl_Tip.text = "N/A"
         }else{
-            cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + "\(Double(data.tip))"
+//            cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + "\(Double(data.tip))"
+            cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", data.tip)
         }
         
         cell.lbl_Discount.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", Double(data.discount_amount))

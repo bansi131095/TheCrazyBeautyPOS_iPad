@@ -272,7 +272,7 @@ class WalkinHistoryDateModel: Mappable {
     var sub_total: String = ""
     var miscellaneous_notes: String = ""
     var miscellaneous_price: String = ""
-    var tip: Int = 0
+    var tip: Double = 0.0
     var payment_type: String = ""
     var total: String = ""
     var transaction_id: String = ""
