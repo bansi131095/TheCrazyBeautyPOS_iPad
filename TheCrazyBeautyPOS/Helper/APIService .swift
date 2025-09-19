@@ -925,13 +925,14 @@ class APIService {
     
     
     //MARK: GiftCard Api
-    func getGiftCardDetails(page: String, limit: String, vendorId: String, search: String, completion: @escaping (GiftCardListResponse?) -> Void) {
+    func getGiftCardDetails(page: String, limit: String, vendorId: String,filter:String, search: String, completion: @escaping (GiftCardListResponse?) -> Void) {
         let url = global.shared.URL_GIFTCARD_DETAILS
         
         let params: [String: Any] = [
                 "page": page,
                 "limit": limit,
                 "vendor_id": vendorId,
+                "filter": filter,
                 "search": search,
             ]
 
@@ -940,7 +941,7 @@ class APIService {
 
             // 📦 Print request info
             print("🌐 URL: \(url)")
-            print("📤 Parameters: \(params)")
+            print("123:-Parameters:-: \(params)")
             print("📤 Headere: \(self.headers)")
 
             // 📩 Print HTTP response status code
@@ -4007,7 +4008,7 @@ class APIService {
     }
     
     
-    func addGiftCard(card_name: String, price: String, expired_in: String, vendor_id: String, status: String, image: UIImage?, imageKey: String = "file", completion: @escaping (AddMemberModel?) -> Void) {
+    /*func addGiftCard(card_name: String, price: String, expired_in: String, vendor_id: String, status: String, image: UIImage?, imageKey: String = "file", completion: @escaping (AddMemberModel?) -> Void) {
         let url = global.shared.URL_Add_GIFTCARD
         
         let params: [String: Any] = [
@@ -4066,7 +4067,81 @@ class APIService {
                 completion(nil)
             }
         }
+    }*/
+    func addGiftCard(
+        card_name: String,
+        price: String,
+        expired_in: String,
+        vendor_id: String,
+        status: String,
+        image: UIImage?,
+        imageKey: String = "file",
+        completion: @escaping (AddMemberModel?) -> Void
+    ) {
+        let url = global.shared.URL_Add_GIFTCARD
+        
+        // ✅ Use [String: Any] but only send String values
+        let params: [String: Any] = [
+            "card_name": card_name,
+            "price": price,
+            "expired_in": expired_in,
+            "vendor_id": vendor_id,
+            "status": status
+        ]
+        
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                // ✅ Add Image Data (if available)
+                if let image = image, let imageData = image.jpegData(compressionQuality: 0.8) {
+                    multipartFormData.append(
+                        imageData,
+                        withName: imageKey,
+                        fileName: "profile.jpg",
+                        mimeType: "image/jpeg"
+                    )
+                }
+                // ✅ Add Other Parameters
+                for (key, value) in params {
+                    if let stringValue = "\(value)".data(using: .utf8) {
+                        multipartFormData.append(stringValue, withName: key)
+                    }
+                }
+            },
+            to: url,
+            method: .post,
+            headers: HTTPHeaders(headers)   // 🔑 Use your existing headers
+        )
+        .validate() // Accept 200..<300 by default
+        .responseObject { (response: DataResponse<AddMemberModel, AFError>) in
+            
+            // 🌐 Debug Info
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headers: \(self.headers)")
+            
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            } else {
+                print("⚠️ No HTTP Response (check network)")
+            }
+            
+            switch response.result {
+            case .success(let result):
+                if let data = response.data,
+                   let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                print("✅ Parsed Response Object: \(result)")
+                completion(result)
+                
+            case .failure(let error):
+                print("❌ Upload Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
     }
+
+
     
     func add_AddInventory(vendorId: String, price: String, product_name: String, qty: String,completion: @escaping (OfflineGift?) -> Void) {
         let url = global.shared.URL_Add_INVENTORY

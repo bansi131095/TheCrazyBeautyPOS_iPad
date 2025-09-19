@@ -75,7 +75,7 @@ class GiftCardVC: UIViewController {
             showLoader()
         }
 
-        APIService.shared.getGiftCardDetails(page: "\(currentPage)", limit: "10", vendorId: LocalData.userId, search: Search){ staffResult in
+        APIService.shared.getGiftCardDetails(page: "\(currentPage)", limit: "10", vendorId: LocalData.userId, filter: "active", search: Search){ staffResult in
             self.hideLoader()
             guard let model = staffResult else {
                 self.isLoadingMore = false
