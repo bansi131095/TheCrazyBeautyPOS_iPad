@@ -30,6 +30,8 @@ class LoginScreen: UIViewController {
     var vendorData: VendorDataItem?
     
     var staffLogin = String()
+    var isPasswordVisible = false
+    
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
