@@ -304,7 +304,8 @@ class AddServiceVC: UIViewController {
         self.txt_description.text = self.dictService?.description ?? ""
         self.selectedDuration = self.dictService?.duration ?? 0
         self.txt_priceType.setText(self.dictService?.price_type ?? "")
-        self.txt_regulatPrice.setText(self.dictService?.price ?? "0")
+        self.txt_regulatPrice.setText(self.dictService?.price ?? "")
+        self.txt_regulatPrice.setText(self.dictService?.price ?? "")
         self.txt_salesPrice.setText(String(self.dictService?.sale_price ?? "0"))
         print("Resource :\(Int(self.dictService?.resource_id ?? "") ?? 0)")
         print("resoucreId :\(resoucreId)")

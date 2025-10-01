@@ -39,14 +39,14 @@ class ServiceItem: Mappable {
     var has_sub_service: Int = 0
     var sub_service: [ServiceItem] = []
     var name: String = ""
-    var price: Double = 0.0
-    var sales_price: Double = 0.0
+    var price: String = ""
+    var sales_price: String = ""
     var count: Int = 0
 
     required init?(map: Map) {}
 //    init() {}
     
-    init(id: Int,category_id:Int,has_sub_service:Int,sub_service:[ServiceItem] = [], name: String, price: Double,sales_price:Double, count: Int = 0) {
+    init(id: Int,category_id:Int,has_sub_service:Int,sub_service:[ServiceItem] = [], name: String, price: String,sales_price:String, count: Int = 0) {
         self.id = id
         self.category_id = category_id
         self.has_sub_service = has_sub_service

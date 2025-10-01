@@ -338,8 +338,8 @@ class WalkingVC: UIViewController, WalkingDelegate, WalkingDelegate_ONE {
             let service1 = ServiceItem(
                 id: 0, category_id: 0, has_sub_service: 0,
                 name: "Gift Card 1",
-                price: 30.0,
-                sales_price: 0.0, count: gift30Count
+                price: "30.0",
+                sales_price: "0.0", count: gift30Count
             )
             serviceGift.append(service1)
             
@@ -350,8 +350,8 @@ class WalkingVC: UIViewController, WalkingDelegate, WalkingDelegate_ONE {
             let service2 = ServiceItem(
                 id: 0, category_id: 0, has_sub_service: 0,
                 name: "Gift Card 2",
-                price: 50.0,
-                sales_price: 0.0, count: gift50Count
+                price: "50.0",
+                sales_price: "0.0", count: gift50Count
             )
             serviceGift.append(service2)
         }
@@ -500,10 +500,12 @@ class WalkingVC: UIViewController, WalkingDelegate, WalkingDelegate_ONE {
 
         for category in cartDataList {
             for service in category.services {
-                if service.sales_price != 0.0{
-                    total += Double(service.count) * service.sales_price
+                let sales_price = Double(service.sales_price) ?? 0.0
+                let price = Double(service.price) ?? 0.0
+                if sales_price != 0.0{
+                    total += Double(service.count) * sales_price
                 }else{
-                    total += Double(service.count) * service.price
+                    total += Double(service.count) * price
                 }
             }
         }
@@ -541,9 +543,10 @@ class WalkingVC: UIViewController, WalkingDelegate, WalkingDelegate_ONE {
          
                 if let giftCategory = cartDataList.first(where: { $0.categoryName == "Gift Card" }) {
                     for item in giftCategory.services {
-                        if item.price == 30 {
+                        let price = Double(item.price) ?? 0.0
+                        if price == 30 {
                             gift30total += item.count
-                        } else if item.price == 50 {
+                        } else if price == 50 {
                             gift50total += item.count
                         }
                     }
@@ -596,7 +599,61 @@ class WalkingVC: UIViewController, WalkingDelegate, WalkingDelegate_ONE {
                     self.categoryList = businessModel.data.filter {
                         self.categoryNames.contains($0.service_name)
                     }
+                    
+                    print("categoryList.count:- \(self.categoryList.count)")
                     for category in self.categoryList {
+                        var services: [ServiceItem] = []
+                     
+                        for service in self.serviceList.filter({ $0.category_id == category.id }) {
+                            // Build the parent service
+                            var parent = ServiceItem(
+                                id: service.id,
+                                category_id: service.category_id,
+                                has_sub_service: service.has_sub_service,
+                                name: service.service,
+                                price: service.price,
+                                sales_price: service.sale_price,
+                                count: 0
+                            )
+                     
+                            if parent.has_sub_service == 1 {
+                                // Find child services (sub-services)
+                                let subList = self.serviceList
+                                    .filter { $0.is_sub_service == 1 && $0.category_id == parent.id }
+                                    .map {
+                                        ServiceItem(
+                                            id: $0.id,
+                                            category_id: $0.category_id,
+                                            has_sub_service: $0.has_sub_service,
+                                            name: $0.service,
+                                            price: $0.price,
+                                            sales_price: $0.sale_price,
+                                            count: 0
+                                        )
+                                    }
+                     
+                                if !subList.isEmpty {
+                                    parent.sub_service = subList
+                                    services.append(parent) // ✅ only add if children exist
+                                }
+                            } else {
+                                // Not a parent → just add directly
+                                services.append(parent)
+                            }
+                        }
+                     
+                        // Create and add category
+                        if !services.isEmpty {
+                            let serviceCategory = ServiceCategory(
+                                categoryName: category.service_name,
+                                icon: category.icon,
+                                services: services,
+                                totalCount: 0
+                            )
+                            self.serviceCategoryList.append(serviceCategory)
+                        }
+                    }
+                    /*for category in self.categoryList {
                         let services: [ServiceItem] = self.serviceList
                         .filter { $0.category == category.service_name }
                         .map {
@@ -612,14 +669,18 @@ class WalkingVC: UIViewController, WalkingDelegate, WalkingDelegate_ONE {
                                     }
                             }
                         }
-                        let serviceCategory = ServiceCategory(
-                            categoryName: category.service_name,
-                            icon: category.icon,
-                            services: services,
-                            totalCount: 0
-                        )
-                        self.serviceCategoryList.append(serviceCategory)
-                    }
+                        if services.count > 0{
+                            let serviceCategory = ServiceCategory(
+                                categoryName: category.service_name,
+                                icon: category.icon,
+                                services: services,
+                                totalCount: 0
+                            )
+                            self.serviceCategoryList.append(serviceCategory)
+                        }
+                        
+                    }*/
+                    
                     print("Filtered Category List: \(self.categoryList)")
                     print("Service Category List: \(self.serviceCategoryList)")
                     DispatchQueue.main.async {
@@ -883,7 +944,7 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
             
             let availableWidth = collectionViewWidth - totalSpacing
             let itemWidth = floor(availableWidth / itemsPerRow)
-            let itemHeight = 150.0 // Adjust as needed
+            let itemHeight = 160.0 // Adjust as needed
             
             return CGSize(width: itemWidth, height: itemHeight)
         } else if collectionView == collect_service {
@@ -915,7 +976,9 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
 
             
         }else if collectionView == collect_SubService {
-            let service = ServiceCategoryList[indexPath.item]
+//            let service = ServiceCategoryList[indexPath.item]
+            guard let index = selectedServiceIndexForSubService else { return CGSize(width: 0.0, height: 0.0) }
+            let service = self.ServiceCategoryList[index].sub_service[indexPath.row] // Get the category data
             let text = service.name
             let count = service.count
             let font = UIFont(name: "Lato-Medium", size: 17.0) ?? UIFont.systemFont(ofSize: 17.0)

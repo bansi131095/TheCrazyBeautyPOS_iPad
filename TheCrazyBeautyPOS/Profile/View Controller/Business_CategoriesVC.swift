@@ -16,10 +16,8 @@ class Business_CategoriesVC: UIViewController {
     @IBOutlet weak var btn_Save: GradientButton!
     //MARK: - Global Variable
     var categoryList: [ServiceDatas] = []
-    var categoryListSecond: [ServiceDatas] = []
-    var categoryNames: [String] = []
     
-    var ServiceCategoryList: [ServiceItem] = []
+    var categoryNames: [String] = []
     
     var selectedIndexes: Set<Int> = []
     var alredaySelected: Set<Int> = []
@@ -27,7 +25,6 @@ class Business_CategoriesVC: UIViewController {
     var selectedIDs: Set<Int> = []
     var mergedUniqueIDs: [Int] = []
 
-    var selectedCategoryName = ""
     var apiPreselectedIDs: Set<Int> = []
     
     //MARK: - View Life Cycle
@@ -62,8 +59,6 @@ class Business_CategoriesVC: UIViewController {
         let finalIDs = apiPreselectedIDs.union(selectedIDs)
         let joinedString1 = finalIDs.map { String($0) }.joined(separator: ",")
         
-        print("JOINEDSTRING:- \(joinedString)")
-        print("JOINEDSTRING111:- \(joinedString1)")
         update_CategoryList(service_id: joinedString1)
     }
     
@@ -253,45 +248,21 @@ extension Business_CategoriesVC: UICollectionViewDataSource, UICollectionViewDel
         cell.lbl_name.text = category.service_name
         let isSelected = selectedIDs.contains(category.id)
         if isSelected {
-               // ✅ Selected appearance
-               if category.color.isEmpty {
-                   cell.img_back.image = UIImage(named: "sel_cat")
-                   cell.lbl_name.textColor = UIColor(red: 0.77, green: 0.4, blue: 0.89, alpha: 1)
-               } else {
-                   cell.img_back.image = UIImage(named: "Tint_cat_back")
-                   cell.img_back.tintColor = UIColor(hexString: category.color)
-                   cell.lbl_name.textColor = .black
-               }
+           // ✅ Selected appearance
+           if category.color.isEmpty {
+               cell.img_back.image = UIImage(named: "sel_cat")// PINK
+               cell.img_back.tintColor = nil
+               cell.lbl_name.textColor = UIColor(red: 0.77, green: 0.4, blue: 0.89, alpha: 1)// PINK
            } else {
-               // ✅ Normal appearance
-               if category.color.isEmpty {
-                   cell.img_back.image = UIImage(named: "cat_back")
-                   cell.lbl_name.textColor = .black
-               } else {
-                   /*cell.img_back.image = UIImage(named: "Tint_cat_back")
-                   cell.img_back.tintColor = UIColor(hexString: category.color)
-                   cell.lbl_name.textColor = .green*/
-                   
-                   cell.img_back.image = UIImage(named: "sel_cat")
-                   cell.lbl_name.textColor = UIColor(red: 0.77, green: 0.4, blue: 0.89, alpha: 1)
-               }
+               cell.img_back.image = UIImage(named: "Tint_cat_back")//
+               cell.img_back.tintColor = UIColor(hexString: category.color)
+               cell.lbl_name.textColor = .black
            }
-        /*if selectedIndexes.contains(category.id) {
-            cell.img_back.image = #imageLiteral(resourceName: "sel_cat")
-        } else {
-            if category.color != ""{
-                cell.img_back.image = UIImage(named: "Tint_cat_back")
-                cell.img_back.tintColor = UIColor(hexString: category.color)
-            }else{
-                cell.img_back.image = UIImage(named: "cat_back")
-                cell.lbl_name.textColor = .black
-            }
-        }*/
-        
-        /*if category.color != ""{
-            selectedIndexes.insert(category.id)
-        }*/
-        
+       } else {
+           // ✅ Normal appearance
+           cell.img_back.image = UIImage(named: "cat_back")//BLACK
+           cell.lbl_name.textColor = .black
+       }
         let icon = category.icon
         let isSvg = icon.lowercased().hasSuffix(".svg")
         if isSvg {
@@ -342,7 +313,7 @@ extension Business_CategoriesVC: UICollectionViewDataSource, UICollectionViewDel
         
         let availableWidth = collectionViewWidth - totalSpacing
         let itemWidth = floor(availableWidth / itemsPerRow)
-        let itemHeight = 150.0 // Adjust as needed
+        let itemHeight = 160.0 // Adjust as needed
         
         return CGSize(width: itemWidth, height: itemHeight)
     }
@@ -362,12 +333,6 @@ extension Business_CategoriesVC: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedCategory = categoryList[indexPath.row]
         let categoryId = selectedCategory.id
-        /*if selectedIndexes.contains(categoryId) {
-            selectedIndexes.remove(categoryId)
-        } else {
-            selectedIndexes.insert(categoryId)
-        }*/
-        
         if selectedIDs.contains(categoryId) {
             selectedIDs.remove(categoryId)
         } else {
@@ -376,16 +341,4 @@ extension Business_CategoriesVC: UICollectionViewDataSource, UICollectionViewDel
         
         cv_BusinessCategories.reloadData()
     }
-    
-    /*func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let id = categoryList[indexPath.row].id
-        if selectedIDs.contains(id) {
-            selectedIDs.remove(id)
-        } else {
-            selectedIDs.insert(id)
-        }
-        cv_BusinessCategories.reloadItems(at: [indexPath])
-    }*/
-
-    
 }
