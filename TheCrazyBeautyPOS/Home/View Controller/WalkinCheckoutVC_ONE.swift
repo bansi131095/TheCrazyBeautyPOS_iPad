@@ -388,6 +388,27 @@ class WalkinCheckoutVC_ONE: UIViewController {
                 guard let model = result else { return }
                 if model.error == "" || model.error == nil {
                     DispatchQueue.main.async {
+                        PrinterManager.shared.onConnect = {
+                            print("Printer Connected ✅")
+                            self.showAlertToast(message: "Printer Connected ✅")
+                            self.performPrint(serviceName: "Hair Cut",
+                                         giftCard: "GC123",
+                                         miscNote: "N/A",
+                                         miscPrice: "10",
+                                         tip: "5",
+                                         paymentType: "Cash",
+                                         total: "100",
+                                         discount: "10",
+                                         grandTotal: "90",
+                                         couponCode: "WELCOME",
+                                         isCashDrawerOpen: true)
+                        }
+
+                        PrinterManager.shared.onFail = {
+                            print("Failed to connect ❌")
+                        }
+
+                        PrinterManager.shared.startScan()
                         self.delegate?.didClearData()
                         self.dismiss(animated: true)
                     }
@@ -499,8 +520,29 @@ class WalkinCheckoutVC_ONE: UIViewController {
                     // safe UI code here
                     self.showToast(message: model.data?.message ?? "")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        self.delegate?.didClearData()
-                        self.dismiss(animated: true)
+                        PrinterManager.shared.onConnect = {
+                            print("Printer Connected ✅")
+                            self.performPrint(serviceName: "Hair Cut",
+                                         giftCard: "GC123",
+                                         miscNote: "N/A",
+                                         miscPrice: "10",
+                                         tip: "5",
+                                         paymentType: "Cash",
+                                         total: "100",
+                                         discount: "10",
+                                         grandTotal: "90",
+                                         couponCode: "WELCOME",
+                                         isCashDrawerOpen: true)
+                        }
+
+                        PrinterManager.shared.onFail = {
+                            print("Failed to connect ❌")
+                        }
+
+                        PrinterManager.shared.startScan()
+
+//                        self.delegate?.didClearData()
+//                        self.dismiss(animated: true)
                     }
                 }
                 
@@ -511,6 +553,42 @@ class WalkinCheckoutVC_ONE: UIViewController {
     }
 
 
+    func performPrint(serviceName: String,
+                      giftCard: String,
+                      miscNote: String,
+                      miscPrice: String,
+                      tip: String,
+                      paymentType: String,
+                      total: String,
+                      discount: String,
+                      grandTotal: String,
+                      couponCode: String,
+                      isCashDrawerOpen: Bool) {
+        
+        var receipt = ""
+        receipt += "----- The Crazy Beauty -----\n\n"
+        receipt += "Date: \(Date())\n"
+        receipt += "Service: \(serviceName.isEmpty ? "N/A" : serviceName)\n"
+        receipt += "GiftCard: \(giftCard.isEmpty ? "N/A" : giftCard)\n"
+        receipt += "Misc Note: \(miscNote.isEmpty ? "N/A" : miscNote)\n"
+        receipt += "Misc Price: \(miscPrice)\n"
+        receipt += "Tip: \(tip)\n"
+        receipt += "Coupon: \(couponCode.isEmpty ? "N/A" : couponCode)\n"
+        receipt += "Payment: \(paymentType.capitalized)\n"
+        receipt += "Total: \(total)\n"
+        receipt += "Discount: \(discount)\n"
+        receipt += "Grand Total: \(grandTotal)\n"
+        receipt += "-----------------------------\n"
+        receipt += "Thank you for visiting!\n\n\n"
+        
+        PrinterManager.shared.printText(receipt)
+        
+        if isCashDrawerOpen {
+            PrinterManager.shared.openCashDrawer()
+        }
+    }
+
+    
     
     func convertDateString(_ date: Date) -> String {
         let formatter = DateFormatter()
