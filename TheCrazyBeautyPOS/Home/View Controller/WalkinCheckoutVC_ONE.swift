@@ -90,6 +90,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    var paymentTypeSelectedFirst = ""
     
     //MARK: Dropdown
     func setupDropdowns() {
@@ -106,8 +107,12 @@ class WalkinCheckoutVC_ONE: UIViewController {
         ) { [weak self] selected in
             guard let self = self else { return }
             self.txt_paymentType.setText(selected)
+            paymentTypeSelectedFirst = selected
             if totalGiftCard == 0 {
                 if txt_paymentType.text == paymentOptions.last {
+                    
+                    
+                    
                     self.vw_coupon.isHidden = false
                     self.isButtonDisabled = true
                     self.txt_couponCode.text = ""
@@ -116,11 +121,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                     self.txt_couponCode.backgroundColor = UIColor.white
                     self.txt_couponCode.textColor = .black
                     self.btn_apply.setTitle("Apply", for: .normal)
-                    /*self.discountVal = 0
-                    self.discountType = ""
-                    self.upto = 0
-                    recalcTotals()
-                    vw_payment1.isHidden = true*/
+                    
                 } else {
                     self.vw_coupon.isHidden = true
                     self.isButtonDisabled = false
@@ -130,13 +131,13 @@ class WalkinCheckoutVC_ONE: UIViewController {
                     vw_total.isHidden     = price == 0.0
                     vw_discount.isHidden  = true
                     vw_grandTotal.isHidden = true
-                    vw_payment1.isHidden  = true
+                    
                     self.txt_couponCode.text = ""
                     self.discountVal = 0
                     self.discountType = ""
                     self.upto = 0
                     recalcTotals()
-                    vw_payment1.isHidden = true
+                    
                 }
             } else {
                 self.vw_coupon.isHidden = true
@@ -182,11 +183,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
             }
         } else {
             // Apply
-            /*self.txt_couponCode.text = ""
-            self.btn_apply.setTitle("Apply", for: .normal)
-            self.vw_grandTotal.isHidden = true
-            self.vw_discount.isHidden = true
-            self.vw_payment1.isHidden = true*/
+            
             self.txt_couponCode.text = ""
             self.txt_couponCode.isUserInteractionEnabled = true
             self.txt_couponCode.isEnabled = true
@@ -197,7 +194,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
             self.discountType = ""
             self.upto = 0
             recalcTotals()
-            vw_payment1.isHidden = true
+           
         }
         
     }
@@ -222,16 +219,15 @@ class WalkinCheckoutVC_ONE: UIViewController {
            guard let value = textField.text, !value.isEmpty else {
                tips = "0"
                recalcTotals()
-               self.vw_payment1.isHidden = true
+               
                return
            }
-           if let tipValue = Double(value) {
+           if Double(value) != nil {
                tips = value
-               self.vw_payment1.isHidden = tipValue == 0
+               
                recalcTotals()
            } else {
                textField.text = ""
-               self.vw_payment1.isHidden = true
            }
        }
 
@@ -251,7 +247,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                discountAmount = (upto != 0 && calc > upto) ? upto : calc
            }
            
-           if (discountVal > 0) {
+           if (discountVal > 0 && discountType == "Flat" && isGiftCard == 1) {
                remainDiscountAmount = discountVal - discountAmount
            }
 
@@ -273,6 +269,13 @@ class WalkinCheckoutVC_ONE: UIViewController {
 //               hide
            }
            
+           
+           if (grandTotal > 0 && paymentTypeSelectedFirst == "Giftcard / Voucher") {
+               self.vw_payment1.isHidden = false
+           } else {
+               self.vw_payment1.isHidden = true
+           }
+           
            vw_discount.isHidden   = discount == 0
            vw_grandTotal.isHidden = false
        }
@@ -284,6 +287,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
         lbl_grandTotal.text = "\(LocalData.symbol)\(String(format: "%.2f", grandTotal))"
     }
 
+    var isGiftCard = 0;
     
     //MARK: Api Call
     func checkCouponCode() {
@@ -301,6 +305,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                         let data = model.data
                         if model.error == "" || model.error == nil {
                             if let coupon = data?.results.first {
+                                self.isGiftCard = 0;
                                 self.show_alert(msg: model.data?.message ?? "", title: "")
                                 let amount = Double(coupon.amount)
                                 let type   = coupon.discount_type
@@ -327,6 +332,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                         guard let model = result else { return }
                         if model.error == "" || model.error == nil {
                             if let giftCard = model.data?.results.first {
+                                self.isGiftCard = 1;
                                 self.discountType = "Flat"
                                 self.discountVal  = Double(giftCard.price)
                                 self.btn_apply.setTitle("Remove", for: .normal)
