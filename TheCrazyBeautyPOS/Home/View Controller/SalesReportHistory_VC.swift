@@ -72,14 +72,15 @@ class SalesReportHistory_VC: UIViewController {
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        searchWorkItem?.cancel()
+        /*searchWorkItem?.cancel()
 
         let newWorkItem = DispatchWorkItem { [weak self] in
             self?.salesHistoryData(Search: textField.text ?? "")
         }
 
         searchWorkItem = newWorkItem
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newWorkItem)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newWorkItem)*/
+        self.salesHistoryData(Search: textField.text ?? "")
     }
     
     func setTableView(){
@@ -177,7 +178,7 @@ class SalesReportHistory_VC: UIViewController {
             self.currentPage = 1
             self.salesHistoryList.removeAll()
             self.hasMoreData = true
-            showLoader()
+//            showLoader()
         }
 
         APIService.shared.SalesPaymentHistory(vendor_id: LocalData.userId,start_date: formattedFrom,end_date: formattedTo,limit: "10",page: "\(currentPage)",customer_type: "",search: Search,staff_id: "") { result in

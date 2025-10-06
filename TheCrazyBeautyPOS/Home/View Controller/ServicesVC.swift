@@ -65,14 +65,15 @@ class ServicesVC: UIViewController {
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        searchWorkItem?.cancel()
+        /*searchWorkItem?.cancel()
 
         let newWorkItem = DispatchWorkItem { [weak self] in
             self?.loadData(Search: textField.text ?? "")
         }
 
         searchWorkItem = newWorkItem
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newWorkItem)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newWorkItem)*/
+        self.loadData(Search: textField.text ?? "")
     }
     
     
@@ -84,7 +85,7 @@ class ServicesVC: UIViewController {
             self.currentPage = 1
             self.serviceList.removeAll()
             self.hasMoreData = true
-            showLoader()
+//            showLoader()
         }
 
         APIService.shared.getServiceDetails(page: "\(currentPage)", limit: "100000", vendorId: LocalData.userId, search: Search, booking: "", categoryId: "", isGroup: true) { staffResult in

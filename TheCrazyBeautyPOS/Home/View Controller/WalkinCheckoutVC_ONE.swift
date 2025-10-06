@@ -36,6 +36,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
     var loaderAlert: UIAlertController?
     @IBOutlet weak var btn_apply: GradientButton!
     
+    @IBOutlet weak var btn_Save: GradientButton!
     @IBOutlet weak var vw_Remaining: UIView!
     @IBOutlet weak var lbl_Remaining: UILabel!
     var delegate: WalkingDelegate_ONE?
@@ -125,6 +126,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                 } else {
                     self.vw_coupon.isHidden = true
                     self.isButtonDisabled = false
+                    btn_Save.alpha = 1.0
                     vw_coupon.isHidden    = true
                     vw_service.isHidden   = totalServices == 0
                     vw_giftcard.isHidden  = totalGiftCard == 0
@@ -142,6 +144,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
             } else {
                 self.vw_coupon.isHidden = true
                 self.isButtonDisabled = false
+                btn_Save.alpha = 0.5
             }
         }
 
@@ -154,6 +157,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
             guard let self = self else { return }
             self.txt_payment1.setText(selected)
             self.isButtonDisabled = false
+            btn_Save.alpha = 0.5
         }
     }
     
@@ -166,6 +170,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
     @IBAction func act_save(_ sender: GradientButton) {
         if !isButtonDisabled {
             sender.isEnabled = false
+            btn_Save.alpha = 1.0
             print("Tapped!")
             self.AddServiceData()
         }
@@ -453,12 +458,14 @@ class WalkinCheckoutVC_ONE: UIViewController {
                         // handle confirm
                         print("✅ Payment Confirmed")
                         self.verifyTransactionStatus(transactionId: tranId, price: price, miscPrice: miscPrice, notes: notes, paymentType: paymentType)
+                        self.dismiss(animated: true)
                         // proceed to check payment status or update UI
                     }
                     self.present(popup, animated: true)
                 }
             } else {
                 self.showToast(message: transactionModel?.error ?? "Error")
+                
             }
 
         }
@@ -526,7 +533,8 @@ class WalkinCheckoutVC_ONE: UIViewController {
                     // safe UI code here
                     self.showToast(message: model.data?.message ?? "")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        PrinterManager.shared.onConnect = {
+                        // Printer Code
+                        /*PrinterManager.shared.onConnect = {
                             print("Printer Connected ✅")
                             self.performPrint(serviceName: "Hair Cut",
                                          giftCard: "GC123",
@@ -545,10 +553,10 @@ class WalkinCheckoutVC_ONE: UIViewController {
                             print("Failed to connect ❌")
                         }
 
-                        PrinterManager.shared.startScan()
+                        PrinterManager.shared.startScan()*/
 
-//                        self.delegate?.didClearData()
-//                        self.dismiss(animated: true)
+                        self.delegate?.didClearData()
+                        self.dismiss(animated: true)
                     }
                 }
                 

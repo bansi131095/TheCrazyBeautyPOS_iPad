@@ -148,8 +148,12 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     }
     
     @IBAction func btn_Staff(_ sender: Any) {
-        self.tbl_Rebook.isHidden = false
-        self.tbl_Rebook.reloadData()
+        if staffList.count == 0 {
+            self.showToast(message: "No Staff List")
+        }else{
+            self.tbl_Rebook.isHidden = false
+            self.tbl_Rebook.reloadData()
+        }
 //        openStaff()
     }
     
@@ -243,24 +247,19 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        searchWorkItem?.cancel()
-        
-        let searchText = textField.text ?? ""
-        
+        /*searchWorkItem?.cancel()
         let newWorkItem = DispatchWorkItem { [weak self] in
             guard let self = self else { return }
-            
-            if self.lbl_Title.text == "Client Past Bookings" {
-                // 🔎 Search past bookings
-                self.apiPastBookingList(is_past: "1", search: searchText)
-            } else if self.lbl_Title.text == "Client Future Bookings" {
-                // 🔎 Search future bookings
-                self.apifutureBookingsList(is_past: "0", search: searchText)
-            }
         }
-        
         searchWorkItem = newWorkItem
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newWorkItem) // debounce
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newWorkItem) */
+        
+        let searchText = textField.text ?? ""
+        if self.lbl_Title.text == "Client Past Bookings" {
+            self.apiPastBookingList(is_past: "1", search: searchText)
+        } else if self.lbl_Title.text == "Client Future Bookings" {
+            self.apifutureBookingsList(is_past: "0", search: searchText)
+        }
     }
 
     
@@ -280,7 +279,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     
     //MARK: - Web Api Calling
     func apiPastBookingList(is_past:String,search:String){
-        showLoader()
+//        showLoader()
         APIService.shared.Past_Client_Booking(customer_id: bookingId, is_past: is_past,search: search) { result in
             self.hideLoader()
             guard let model = result else {
@@ -302,7 +301,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     }
     
     func apifutureBookingsList(is_past:String,search:String){
-        self.showLoader()
+//        self.showLoader()
         APIService.shared.Past_Client_Booking(customer_id: bookingId, is_past: is_past,search: search) { result in
             self.hideLoader()
             guard let model = result else {

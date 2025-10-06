@@ -75,14 +75,15 @@ class OfflineGiftCardVC: UIViewController {
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        searchWorkItem?.cancel()
+        /*searchWorkItem?.cancel()
 
         let newWorkItem = DispatchWorkItem { [weak self] in
             self?.loadData(Search: textField.text ?? "", filter: self?.txt_Filter.text?.lowercased() ?? "")
         }
 
         searchWorkItem = newWorkItem
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newWorkItem)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newWorkItem)*/
+        self.loadData(Search: textField.text ?? "", filter: self.txt_Filter.text?.lowercased() ?? "")
     }
     
     
@@ -94,7 +95,7 @@ class OfflineGiftCardVC: UIViewController {
             self.currentPage = 1
             self.OfflineGiftCardList.removeAll()
             self.hasMoreData = true
-            showLoader()
+//            showLoader()
         }
 
         APIService.shared.getofflineGiftCardDetails(page: "\(currentPage)", limit: "10", vendorId: LocalData.userId, search: Search, filter: filter){ staffResult in

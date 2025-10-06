@@ -57,14 +57,15 @@ class ClientsVC: UIViewController {
     }
 
     @objc func textFieldDidChange(_ textField: UITextField) {
-        searchWorkItem?.cancel()
+        /*searchWorkItem?.cancel()
 
         let newWorkItem = DispatchWorkItem { [weak self] in
             self?.loadData(Search: textField.text ?? "")
         }
 
         searchWorkItem = newWorkItem
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newWorkItem)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newWorkItem)*/
+        self.loadData(Search: textField.text ?? "")
     }
     
     //MARK: Load Api
@@ -75,7 +76,7 @@ class ClientsVC: UIViewController {
             self.currentPage = 1
             self.clientList.removeAll()
             self.hasMoreData = true
-            showLoader()
+//            showLoader()
         }
 
         APIService.shared.getclientDetails(page: "\(currentPage)", limit: "10", sort: sort, vendorId: LocalData.userId, search: Search) { staffResult in

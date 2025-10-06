@@ -55,14 +55,15 @@ class TeamVC: UIViewController {
     
 
     @objc func textFieldDidChange(_ textField: UITextField) {
-        searchWorkItem?.cancel()
+        /*searchWorkItem?.cancel()
 
         let newWorkItem = DispatchWorkItem { [weak self] in
             self?.loadData(Search: textField.text ?? "")
         }
 
         searchWorkItem = newWorkItem
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newWorkItem)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newWorkItem)*/
+        self.loadData(Search: textField.text ?? "")
     }
     
 
@@ -74,7 +75,7 @@ class TeamVC: UIViewController {
             self.currentPage = 1
             self.staffList.removeAll()
             self.hasMoreData = true
-            showLoader()
+//            showLoader()
         }
 
         APIService.shared.getteamDetails(page: "\(currentPage)", limit: "10", vendorId: LocalData.userId, search: Search, isTeamDetails: 1) { staffResult in

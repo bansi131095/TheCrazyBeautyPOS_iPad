@@ -100,7 +100,7 @@ class Business_CategoriesVC: UIViewController {
                                            collectionViewWidth > 600 ? 5 :
                                            collectionViewWidth > 500 ? 4 : 3
 
-                let cellHeight: CGFloat = 150
+                let cellHeight: CGFloat = 160
                 let verticalSpacing: CGFloat = 10
                 let sectionInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
 
