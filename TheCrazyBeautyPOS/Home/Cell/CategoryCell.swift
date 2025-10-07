@@ -18,7 +18,13 @@ class CategoryCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        setCustomFont()
+    }
+    
+    func setCustomFont() {
+        if let customFont = UIFont(name: "Lato-Medium", size: 16.0) {
+            lbl_name.font = customFont
+        }
     }
 
 }

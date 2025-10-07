@@ -221,6 +221,11 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
         
     }
     
+    @IBAction func btn_Calender(_ sender: Any) {
+        showCalendarPopup(sourceView: txt_DateOfBirth)
+    }
+    
+    
     //MARK: - Function
     func setTableView(){
         tbl_vw.register(UINib(nibName: "ClientPastBookingsCell", bundle: nil), forCellReuseIdentifier: "ClientPastBookingsCell")
@@ -289,7 +294,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             if newItems.isEmpty{
                 self.tbl_vw.isHidden = true
                 self.tbl_vw2.isHidden = true
-                self.showNoDataMessage("No more data found", in: self.view)
+                self.showNoDataMessage("No Bookings Found!", in: self.view)
             }else{
                 self.pastBookingsArray = newItems
                 self.tbl_vw.isHidden = false
@@ -311,7 +316,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             if newItems.isEmpty{
                 self.tbl_vw.isHidden = true
                 self.tbl_vw2.isHidden = true
-                self.showNoDataMessage("No more data found", in: self.view)
+                self.showNoDataMessage("No Bookings Found!", in: self.view)
             }else{
                 self.futureBookingsArray = newItems
                 self.tbl_vw.isHidden = true
@@ -703,6 +708,7 @@ extension BookingList_VC : UITableViewDelegate,UITableViewDataSource{
         if tableView == tbl_Rebook{
             let data = self.staffList[indexPath.row]
             self.txt_Staff.text = data.fullname
+            staff_id = "\(data.id ?? 0)"
             self.tbl_Rebook.isHidden = true
             self.vw_Date.isHidden = false
             self.vw_AvailableTime.isHidden = false
@@ -715,7 +721,7 @@ extension BookingList_VC : UITableViewDelegate,UITableViewDataSource{
                 formatter.dateFormat = "dd-MM-yyyy"
              txt_DateOfBirth.text = formatter.string(from: Date())
              txt_DateOfBirth.showLabel()
-            getTimeSlots(duration: duration, full_date: self.txt_DateOfBirth.text ?? "", staff_id: staff_id)
+            getTimeSlots(duration: duration, full_date: self.txt_DateOfBirth.text ?? "", staff_id: "\(data.id ?? 0)")
             cv_Height.constant = 180
         }
     }

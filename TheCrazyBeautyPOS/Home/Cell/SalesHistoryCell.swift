@@ -29,7 +29,7 @@ class SalesHistoryCell: UITableViewCell {
     }
 
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Regular", size: 18.0) {
+        if let customFont = UIFont(name: "Lato-Regular", size: 16.0) {
             lbl_ID.font = customFont
             lbl_Name.font = customFont
             lbl_Date.font = customFont

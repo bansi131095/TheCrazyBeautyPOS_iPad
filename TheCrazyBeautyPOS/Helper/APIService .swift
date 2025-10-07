@@ -4817,6 +4817,7 @@ class APIService {
     
     func TimeSlot(duration: String, full_date: String,staff_id: String, completion: @escaping (TimeSlotResponse?) -> Void) {
         let url = global.shared.URL_SELECT_SLOT + "/v1"
+//        let url = global.shared.URL_SELECT_SLOT
 
         // Prepare parameters
         let params: [String: Any] = [

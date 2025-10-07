@@ -133,7 +133,7 @@ class HomeVC: UIViewController {
         self.tbl_vw.rowHeight = 100
     }
     
-    /*override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
 
             guard let touch = touches.first else { return }
@@ -151,7 +151,7 @@ class HomeVC: UIViewController {
             // Also dismiss dropdown manually if using a custom dropdown manager
             DropdownManager.shared.hideDropdown()
             vwPopup.isHidden = true
-    }*/
+    }
 
     func loadEmbeddedViewController(for index: Int) {
             // Optionally switch based on index if you have multiple VCs
@@ -260,6 +260,9 @@ class HomeVC: UIViewController {
         self.vwMainPasscode.isHidden = true
     }
     
+    @IBAction func btn_PopupClose(_ sender: Any) {
+        self.vwPopup.isHidden = true
+    }
     
     @IBAction func btn_Continue(_ sender: Any) {
         if txt_1.text != "" && txt_2.text != "" && txt_3.text != "" && txt_4.text != "" && txt_5.text != "" && txt_6.text != "" {
@@ -321,7 +324,11 @@ class HomeVC: UIViewController {
             if !newItems.isEmpty {
                 let CategoryList = newItems
                 for cate in CategoryList {
-                    self.salonList.append(cate.salonName)
+                    if cate.salonName != ""{
+                        self.salonList.append(cate.salonName)
+                    }else{
+                        print("AS")
+                    }
                 }
                 DropdownManager.shared.setupDropdown(
                     for: self.txt_salon,

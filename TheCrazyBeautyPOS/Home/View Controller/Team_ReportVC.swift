@@ -30,7 +30,7 @@ class Team_ReportVC: UIViewController {
     var datesRange: [Date] = []
     var selectingDateFor: UITextField?
     var calendar: FSCalendar!
-    
+    var years: [Int] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         contentViewWidthConstraint.constant = 50
@@ -174,6 +174,51 @@ class Team_ReportVC: UIViewController {
         }
         self.present(calendarVC!, animated: true, completion: nil)
     }
+    
+    @objc func headerTapped() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
+            guard let self = self else { return }
+
+            let alert = UIAlertController(title: "Select Month & Year", message: "\n\n\n\n\n\n\n\n", preferredStyle: .alert)
+
+            let picker = UIPickerView(frame: CGRect(x: 5, y: 20, width: 250, height: 160))
+            picker.dataSource = self
+            picker.delegate = self
+            alert.view.addSubview(picker)
+
+            // Get current month/year
+            let currentPage = self.calendar.currentPage
+            let currentMonth = Calendar.current.component(.month, from: currentPage)
+            let currentYear = Calendar.current.component(.year, from: currentPage)
+
+            if let yearIndex = self.years.firstIndex(of: currentYear) {
+                picker.selectRow(currentMonth - 1, inComponent: 0, animated: false)
+                picker.selectRow(yearIndex, inComponent: 1, animated: false)
+            }
+
+            alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
+                let selectedMonthIndex = picker.selectedRow(inComponent: 0)
+                let selectedYearIndex = picker.selectedRow(inComponent: 1)
+
+                let selectedMonth = selectedMonthIndex + 1
+                let selectedYear = self.years[selectedYearIndex]
+
+                var components = DateComponents()
+                components.year = selectedYear
+                components.month = selectedMonth
+                components.day = 1
+
+                if let newDate = Calendar.current.date(from: components) {
+                    self.calendar.setCurrentPage(newDate, animated: true)
+                }
+            }))
+
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+            self.calendarVC?.present(alert, animated: true)
+        }
+    }
+
 }
 
 extension Team_ReportVC: FSCalendarDelegate, FSCalendarDataSource {
@@ -305,4 +350,29 @@ extension Team_ReportVC: UIDocumentInteractionControllerDelegate {
         return self
     }
 }
+
+
+extension Team_ReportVC: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    var months: [String] {
+        return [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ]
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2 // Month + Year
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return component == 0 ? months.count : years.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return component == 0 ? months[row] : "\(years[row])"
+    }
+}
+
+
 

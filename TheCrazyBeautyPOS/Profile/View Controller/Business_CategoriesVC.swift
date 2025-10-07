@@ -100,7 +100,7 @@ class Business_CategoriesVC: UIViewController {
                                            collectionViewWidth > 600 ? 5 :
                                            collectionViewWidth > 500 ? 4 : 3
 
-                let cellHeight: CGFloat = 160
+                let cellHeight: CGFloat = 155
                 let verticalSpacing: CGFloat = 10
                 let sectionInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
 
@@ -313,7 +313,7 @@ extension Business_CategoriesVC: UICollectionViewDataSource, UICollectionViewDel
         
         let availableWidth = collectionViewWidth - totalSpacing
         let itemWidth = floor(availableWidth / itemsPerRow)
-        let itemHeight = 160.0 // Adjust as needed
+        let itemHeight = 155.0 // Adjust as needed
         
         return CGSize(width: itemWidth, height: itemHeight)
     }

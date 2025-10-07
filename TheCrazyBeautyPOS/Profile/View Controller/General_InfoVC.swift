@@ -100,7 +100,7 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             ]
         )
         btn_Save.setAttributedTitle(attributedTitle, for: .normal)
-        txt_Aboutus.applyLatoBoldFont(size: 20)
+        txt_Aboutus.applyLatoBoldFont(size: 18)
         setCustomFont()
         get_fetchSalon()
         if let iso = CountryUtils.getISOCode(from: selectedCountrycode),
@@ -352,7 +352,7 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Medium", size: 20.0) {
+        if let customFont = UIFont(name: "Lato-Medium", size: 18.0) {
             txt_BusinessName.font = customFont
             txt_SalonType.font = customFont
             txt_MobileNumber.font = customFont
