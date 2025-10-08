@@ -264,6 +264,11 @@ class HomeVC: UIViewController {
         self.vwPopup.isHidden = true
     }
     
+    
+    @IBAction func btn_SalonType(_ sender: Any) {
+        getAllSalonData()
+    }
+    
     @IBAction func btn_Continue(_ sender: Any) {
         if txt_1.text != "" && txt_2.text != "" && txt_3.text != "" && txt_4.text != "" && txt_5.text != "" && txt_6.text != "" {
             var otpStr = txt_1.text! + txt_2.text!

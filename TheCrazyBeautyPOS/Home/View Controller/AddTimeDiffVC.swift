@@ -29,6 +29,7 @@ class AddTimeDiffVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        lbl_title.text = "Time Off For \(TeamName)"
         txt_from.delegate = self
         txt_to.delegate = self
         self.setTableView()

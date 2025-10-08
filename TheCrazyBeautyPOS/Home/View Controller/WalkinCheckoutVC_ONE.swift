@@ -126,7 +126,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                 } else {
                     self.vw_coupon.isHidden = true
                     self.isButtonDisabled = false
-                    btn_Save.alpha = 1.0
+//                    btn_Save.alpha = 1.0
                     vw_coupon.isHidden    = true
                     vw_service.isHidden   = totalServices == 0
                     vw_giftcard.isHidden  = totalGiftCard == 0
@@ -144,7 +144,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
             } else {
                 self.vw_coupon.isHidden = true
                 self.isButtonDisabled = false
-                btn_Save.alpha = 0.5
+//                btn_Save.alpha = 0.5
             }
         }
 
@@ -157,7 +157,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
             guard let self = self else { return }
             self.txt_payment1.setText(selected)
             self.isButtonDisabled = false
-            btn_Save.alpha = 0.5
+//            btn_Save.alpha = 0.5
         }
     }
     
@@ -170,7 +170,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
     @IBAction func act_save(_ sender: GradientButton) {
         if !isButtonDisabled {
             sender.isEnabled = false
-            btn_Save.alpha = 1.0
+//            btn_Save.alpha = 1.0
             print("Tapped!")
             self.AddServiceData()
         }

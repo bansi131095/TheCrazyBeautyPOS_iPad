@@ -10,7 +10,7 @@ import DropDown
 import FSCalendar
 
 
-class Team_ReportVC: UIViewController {
+class Team_ReportVC: UIViewController, UIPopoverPresentationControllerDelegate {
 
     @IBOutlet weak var txt_SelectStaff: UITextField!
     @IBOutlet weak var txt_FromDate: UITextField!
@@ -33,6 +33,8 @@ class Team_ReportVC: UIViewController {
     var years: [Int] = []
     override func viewDidLoad() {
         super.viewDidLoad()
+        let currentYear = Calendar.current.component(.year, from: Date())
+        years = Array(1900...currentYear)
         contentViewWidthConstraint.constant = 50
         get_TeamDetails()
         setDefaultDateRangeAndFetch()
@@ -165,18 +167,50 @@ class Team_ReportVC: UIViewController {
                 calendar.select(date)
             }
         }
-        calendarVC?.view.addSubview(calendar)
+        guard let calendarVC = calendarVC else { return }
+        calendarVC.view.addSubview(calendar)
+
+        // ✅ Year tap area over calendar header
+        let headerTapButton = UIButton()
+        headerTapButton.backgroundColor = .clear
+        headerTapButton.translatesAutoresizingMaskIntoConstraints = false
+        headerTapButton.addTarget(self, action: #selector(headerTapped), for: .touchUpInside)
+        calendarVC.view.addSubview(headerTapButton)
+
+        // 📌 Constraints
+        NSLayoutConstraint.activate([
+            calendar.topAnchor.constraint(equalTo: calendarVC.view.topAnchor),
+            calendar.leadingAnchor.constraint(equalTo: calendarVC.view.leadingAnchor),
+            calendar.trailingAnchor.constraint(equalTo: calendarVC.view.trailingAnchor),
+            calendar.bottomAnchor.constraint(equalTo: calendarVC.view.bottomAnchor),
+
+            headerTapButton.topAnchor.constraint(equalTo: calendar.topAnchor, constant: 20),
+            headerTapButton.leadingAnchor.constraint(equalTo: calendar.leadingAnchor),
+            headerTapButton.trailingAnchor.constraint(equalTo: calendar.trailingAnchor),
+            headerTapButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+
+        if let popover = calendarVC.popoverPresentationController {
+            popover.sourceView = sourceView
+            popover.sourceRect = sourceView.bounds
+            popover.permittedArrowDirections = .any
+            popover.delegate = self
+        }
+
+        self.present(calendarVC, animated: true)
+        
+        /*calendarVC?.view.addSubview(calendar)
 
         if let popover = calendarVC?.popoverPresentationController {
             popover.sourceView = sourceView
             popover.sourceRect = sourceView.bounds
             popover.permittedArrowDirections = .up
         }
-        self.present(calendarVC!, animated: true, completion: nil)
+        self.present(calendarVC!, animated: true, completion: nil)*/
     }
     
     @objc func headerTapped() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let self = self else { return }
 
             let alert = UIAlertController(title: "Select Month & Year", message: "\n\n\n\n\n\n\n\n", preferredStyle: .alert)
@@ -186,22 +220,21 @@ class Team_ReportVC: UIViewController {
             picker.delegate = self
             alert.view.addSubview(picker)
 
-            // Get current month/year
-            let currentPage = self.calendar.currentPage
-            let currentMonth = Calendar.current.component(.month, from: currentPage)
-            let currentYear = Calendar.current.component(.year, from: currentPage)
+            // ✅ Get current month and year from calendar
+            let currentDate = self.calendar.currentPage
+            let currentMonth = Calendar.current.component(.month, from: currentDate)
+            let currentYear = Calendar.current.component(.year, from: currentDate)
 
+            // ✅ Set picker default position
             if let yearIndex = self.years.firstIndex(of: currentYear) {
                 picker.selectRow(currentMonth - 1, inComponent: 0, animated: false)
                 picker.selectRow(yearIndex, inComponent: 1, animated: false)
             }
 
-            alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
-                let selectedMonthIndex = picker.selectedRow(inComponent: 0)
-                let selectedYearIndex = picker.selectedRow(inComponent: 1)
-
-                let selectedMonth = selectedMonthIndex + 1
-                let selectedYear = self.years[selectedYearIndex]
+            // ✅ Add Done & Cancel buttons
+            let doneAction = UIAlertAction(title: "Done", style: .default) { _ in
+                let selectedMonth = picker.selectedRow(inComponent: 0) + 1
+                let selectedYear = self.years[picker.selectedRow(inComponent: 1)]
 
                 var components = DateComponents()
                 components.year = selectedYear
@@ -211,10 +244,12 @@ class Team_ReportVC: UIViewController {
                 if let newDate = Calendar.current.date(from: components) {
                     self.calendar.setCurrentPage(newDate, animated: true)
                 }
-            }))
+            }
 
+            alert.addAction(doneAction)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
+            // ✅ Present the alert safely from calendarVC
             self.calendarVC?.present(alert, animated: true)
         }
     }
@@ -352,7 +387,7 @@ extension Team_ReportVC: UIDocumentInteractionControllerDelegate {
 }
 
 
-extension Team_ReportVC: UIPickerViewDelegate, UIPickerViewDataSource {
+/*extension Team_ReportVC: UIPickerViewDelegate, UIPickerViewDataSource {
     
     var months: [String] {
         return [
@@ -372,7 +407,58 @@ extension Team_ReportVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return component == 0 ? months[row] : "\(years[row])"
     }
+}*/
+
+
+
+/*extension Team_ReportVC: UIPickerViewDelegate, UIPickerViewDataSource {
+
+    var months: [String] {
+        return [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ]
+    }
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2 // Month + Year
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return component == 0 ? months.count : years.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return component == 0 ? months[row] : "\(years[row])"
+    }
+
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        return component == 0 ? 140 : 80
+    }
+}*/
+
+extension Team_ReportVC: UIPickerViewDelegate, UIPickerViewDataSource {
+
+    var months: [String] {
+        return [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ]
+    }
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2 // Month + Year
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return component == 0 ? months.count : years.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return component == 0 ? months[row] : "\(years[row])"
+    }
+
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        return component == 0 ? 140 : 80
+    }
 }
-
-
-

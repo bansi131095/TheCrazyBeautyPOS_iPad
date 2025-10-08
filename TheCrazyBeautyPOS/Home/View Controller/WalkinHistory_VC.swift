@@ -9,7 +9,7 @@ import UIKit
 import FSCalendar
 
 
-class WalkinHistory_VC: UIViewController {
+class WalkinHistory_VC: UIViewController, UIPopoverPresentationControllerDelegate {
     
     @IBOutlet weak var txt_FromDate: UITextField!
     @IBOutlet weak var txt_ToDate: UITextField!
@@ -29,9 +29,12 @@ class WalkinHistory_VC: UIViewController {
     
     var WalkingList: [WalkinHistoryDateModel] = []
     var deleteShownSales = false
+    var years: [Int] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let currentYear = Calendar.current.component(.year, from: Date())
+        years = Array(1900...currentYear)
         contentViewWidthConstraint.constant = 880
         self.setTableView()
         setDefaultDateRangeAndFetch()
@@ -96,14 +99,83 @@ class WalkinHistory_VC: UIViewController {
                 calendar.select(date)
             }
         }
-        calendarVC?.view.addSubview(calendar)
+        guard let calendarVC = calendarVC else { return }
+        calendarVC.view.addSubview(calendar)
 
-        if let popover = calendarVC?.popoverPresentationController {
+        // ✅ Year tap area over calendar header
+        let headerTapButton = UIButton()
+        headerTapButton.backgroundColor = .clear
+        headerTapButton.translatesAutoresizingMaskIntoConstraints = false
+        headerTapButton.addTarget(self, action: #selector(headerTapped), for: .touchUpInside)
+        calendarVC.view.addSubview(headerTapButton)
+
+        // 📌 Constraints
+        NSLayoutConstraint.activate([
+            calendar.topAnchor.constraint(equalTo: calendarVC.view.topAnchor),
+            calendar.leadingAnchor.constraint(equalTo: calendarVC.view.leadingAnchor),
+            calendar.trailingAnchor.constraint(equalTo: calendarVC.view.trailingAnchor),
+            calendar.bottomAnchor.constraint(equalTo: calendarVC.view.bottomAnchor),
+
+            headerTapButton.topAnchor.constraint(equalTo: calendar.topAnchor, constant: 20),
+            headerTapButton.leadingAnchor.constraint(equalTo: calendar.leadingAnchor),
+            headerTapButton.trailingAnchor.constraint(equalTo: calendar.trailingAnchor),
+            headerTapButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+
+        if let popover = calendarVC.popoverPresentationController {
             popover.sourceView = sourceView
             popover.sourceRect = sourceView.bounds
-            popover.permittedArrowDirections = .up
+            popover.permittedArrowDirections = .any
+            popover.delegate = self
         }
-        self.present(calendarVC!, animated: true, completion: nil)
+
+        self.present(calendarVC, animated: true)
+        
+    }
+    
+    @objc func headerTapped() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            guard let self = self else { return }
+
+            let alert = UIAlertController(title: "Select Month & Year", message: "\n\n\n\n\n\n\n\n", preferredStyle: .alert)
+
+            let picker = UIPickerView(frame: CGRect(x: 5, y: 20, width: 250, height: 160))
+            picker.dataSource = self
+            picker.delegate = self
+            alert.view.addSubview(picker)
+
+            // ✅ Get current month and year from calendar
+            let currentDate = self.calendar.currentPage
+            let currentMonth = Calendar.current.component(.month, from: currentDate)
+            let currentYear = Calendar.current.component(.year, from: currentDate)
+
+            // ✅ Set picker default position
+            if let yearIndex = self.years.firstIndex(of: currentYear) {
+                picker.selectRow(currentMonth - 1, inComponent: 0, animated: false)
+                picker.selectRow(yearIndex, inComponent: 1, animated: false)
+            }
+
+            // ✅ Add Done & Cancel buttons
+            let doneAction = UIAlertAction(title: "Done", style: .default) { _ in
+                let selectedMonth = picker.selectedRow(inComponent: 0) + 1
+                let selectedYear = self.years[picker.selectedRow(inComponent: 1)]
+
+                var components = DateComponents()
+                components.year = selectedYear
+                components.month = selectedMonth
+                components.day = 1
+
+                if let newDate = Calendar.current.date(from: components) {
+                    self.calendar.setCurrentPage(newDate, animated: true)
+                }
+            }
+
+            alert.addAction(doneAction)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+            // ✅ Present the alert safely from calendarVC
+            self.calendarVC?.present(alert, animated: true)
+        }
     }
     
     func WalkinHistory() {
@@ -342,5 +414,31 @@ extension WalkinHistory_VC: WalkinHistoryDownloadable {
             let urlPath = "\(global.reportUrl)\(filename)"
             self.downloadAndSaveFile(urlString: urlPath, in: self)
         }
+    }
+}
+
+extension WalkinHistory_VC: UIPickerViewDelegate, UIPickerViewDataSource {
+
+    var months: [String] {
+        return [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ]
+    }
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2 // Month + Year
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return component == 0 ? months.count : years.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return component == 0 ? months[row] : "\(years[row])"
+    }
+
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        return component == 0 ? 140 : 80
     }
 }

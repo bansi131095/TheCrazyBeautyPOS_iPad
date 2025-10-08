@@ -272,6 +272,9 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         }
     }
     
+    @IBAction func btn_Calender(_ sender: Any) {
+        showCalendarPopup(sourceView: dobTextField)
+    }
     
     @IBAction func act_uploadImage(_ sender: UIButton) {
         showImagePickerActionSheet(sourceView: sender)
@@ -568,7 +571,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         self.present(calendarVC, animated: true)
     }
 
-    @objc func headerTapped() {
+    /*@objc func headerTapped() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
             guard let self = self else { return }
 
@@ -590,8 +593,52 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
             // ✅ Present from calendarVC (not self), safely
             self.calendarVC?.present(alert, animated: true)
         }
-    }
+    }*/
 
+    @objc func headerTapped() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            guard let self = self else { return }
+
+            let alert = UIAlertController(title: "Select Month & Year", message: "\n\n\n\n\n\n\n\n", preferredStyle: .alert)
+
+            let picker = UIPickerView(frame: CGRect(x: 5, y: 20, width: 250, height: 160))
+            picker.dataSource = self
+            picker.delegate = self
+            alert.view.addSubview(picker)
+
+            // ✅ Get current month and year from calendar
+            let currentDate = self.calendar.currentPage
+            let currentMonth = Calendar.current.component(.month, from: currentDate)
+            let currentYear = Calendar.current.component(.year, from: currentDate)
+
+            // ✅ Set picker default position
+            if let yearIndex = self.years.firstIndex(of: currentYear) {
+                picker.selectRow(currentMonth - 1, inComponent: 0, animated: false)
+                picker.selectRow(yearIndex, inComponent: 1, animated: false)
+            }
+
+            // ✅ Add Done & Cancel buttons
+            let doneAction = UIAlertAction(title: "Done", style: .default) { _ in
+                let selectedMonth = picker.selectedRow(inComponent: 0) + 1
+                let selectedYear = self.years[picker.selectedRow(inComponent: 1)]
+
+                var components = DateComponents()
+                components.year = selectedYear
+                components.month = selectedMonth
+                components.day = 1
+
+                if let newDate = Calendar.current.date(from: components) {
+                    self.calendar.setCurrentPage(newDate, animated: true)
+                }
+            }
+
+            alert.addAction(doneAction)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+            // ✅ Present the alert safely from calendarVC
+            self.calendarVC?.present(alert, animated: true)
+        }
+    }
     
     /*
     // MARK: - Navigation
@@ -692,7 +739,7 @@ extension AddTeamVC: UIImagePickerControllerDelegate, UINavigationControllerDele
 }
 
 
-extension AddTeamVC: UIPickerViewDelegate, UIPickerViewDataSource {
+/*extension AddTeamVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -714,5 +761,31 @@ extension AddTeamVC: UIPickerViewDelegate, UIPickerViewDataSource {
             self.calendar.setCurrentPage(date, animated: true)
         }
         self.calendarVC?.dismiss(animated: true)
+    }
+}*/
+
+extension AddTeamVC: UIPickerViewDelegate, UIPickerViewDataSource {
+
+    var months: [String] {
+        return [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ]
+    }
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2 // Month + Year
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return component == 0 ? months.count : years.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return component == 0 ? months[row] : "\(years[row])"
+    }
+
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        return component == 0 ? 140 : 80
     }
 }

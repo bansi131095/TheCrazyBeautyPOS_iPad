@@ -82,6 +82,13 @@ class AddCoupon_VC: UIViewController {
     }
     
     
+    @IBAction func btn_StartDate(_ sender: Any) {
+        showCalendarPopup(sourceView: txt_StartDate)
+    }
+    
+    @IBAction func btn_EndDate(_ sender: Any) {
+        showCalendarPopup(sourceView: txt_EndDate)
+    }
     
     @IBAction func btn_AddCoupon(_ sender: Any) {
     guard let couponName = txt_CouponName.text, !couponName.isEmpty else {

@@ -36,6 +36,9 @@ class AddOfflineGiftCard_VC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func btn_DateOfBirth(_ sender: Any) {
+        showCalendarPopup(sourceView: txt_ExpiryDate)
+    }
     
     @IBAction func btn_AddGiftCard(_ sender: Any) {
         if txt_GiftName.text == ""{
