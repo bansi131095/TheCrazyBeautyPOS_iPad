@@ -15,6 +15,18 @@ class UpcomingAppointmentsVC: UIViewController {
     @IBOutlet weak var lbl_total: UILabel!
     
     @IBOutlet weak var width_tbl: NSLayoutConstraint!
+    
+    
+    
+    @IBOutlet weak var txt_Date: UITextField!
+    @IBOutlet weak var lbl_TotalBookings: UILabel!
+    @IBOutlet weak var lbl_CalendarTotal: UILabel!
+    @IBOutlet weak var lbl_CalendarTotalAmount: UILabel!
+    @IBOutlet weak var lbl_WalkinTotal: UILabel!
+    @IBOutlet weak var lbl_WalkinTotalAmount: UILabel!
+    @IBOutlet weak var lbl_TotalCard: UILabel!
+    @IBOutlet weak var lbl_TotalCash: UILabel!
+    
     var upcomingList: [BookingData] = []
     var currentPage = 1
     var totalCount = 0
@@ -26,6 +38,8 @@ class UpcomingAppointmentsVC: UIViewController {
     var selectedDays: Int = 7
     var isDropdownVisible = false
 
+    let formatter = DateFormatter()
+    var selectedDate = Date()
     
     //MARK: View life cycle
     override func viewDidLoad() {
@@ -34,6 +48,7 @@ class UpcomingAppointmentsVC: UIViewController {
         self.loadData(Search: "", days: "\(selectedDays)")
         setupDaysTextField()
         setupDropdownTable()
+        updateDateLabel()
         // Do any additional setup after loading the view.
     }
     
@@ -166,15 +181,30 @@ class UpcomingAppointmentsVC: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func btn_Date(_ sender: UIButton) {
     }
-    */
+    
+    @IBAction func btn_PerviousDate(_ sender: UIButton) {
+        selectedDate = Calendar.current.date(byAdding: .day, value: -1, to: selectedDate)!
+        updateDateLabel()
+    }
+    
+    @IBAction func btn_NextDate(_ sender: UIButton) {
+        selectedDate = Calendar.current.date(byAdding: .day, value: 1, to: selectedDate)!
+        updateDateLabel()
+    }
+    
+    func updateDateLabel() {
+        txt_Date.text = formattedDate(selectedDate)
+    }
+
+    func formattedDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone.current
+        formatter.dateFormat = "EEE MMMM dd, yyyy"
+        return formatter.string(from: date)
+    }
 
 }
 
