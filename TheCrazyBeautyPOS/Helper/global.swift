@@ -19,7 +19,7 @@ class global: NSObject
     
 //    GOOGLE_MAP_KEY_RUSH_MALL=AIzaSyDNE-nH7aaKw21nG3yVaDtPZQm-6yaqHh8
     
-//    static let base_url = "https://staging.thecrazybeauty.com/" staging
+//    static let base_url = "https://staging.thecrazybeauty.com/" //staging
     
     static let base_url = "https://api.thecrazybeauty.com/" // LIVE
     static let server_url = global.base_url + "api/"
@@ -257,6 +257,7 @@ class global: NSObject
     var URL_DELETE_RESOURCE = global.server_url + "delete_resource/"
     
     var URL_LOGIN_SUBVENDOR = global.server_url + "login_subvendor"
+    var URL_TODAY_BOOKINGS = global.server_url + "today_bookings"
     
     var noDataLabel: UILabel?
     var hasUnreadNotification: Bool = false

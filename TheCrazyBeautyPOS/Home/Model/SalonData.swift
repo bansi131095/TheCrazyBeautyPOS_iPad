@@ -194,12 +194,14 @@ class WorkingHours: Codable { // ✅ Codable = Decodable + Encodable
 
 class ClientBooking: Mappable {
     var data: [ClientBookingModelData] = []
+    var past_bookings: TodayBookingModelData?
     var error: String?
 
     required init?(map: Map) {}
 
     func mapping(map: Map) {
         data        <- map["data"]
+        past_bookings        <- map["past_bookings"]
         error       <- map["error"]
     }
 }
@@ -245,5 +247,55 @@ class ClientBookingModelData: Mappable {
         payment_type     <- map["payment_type"]
         c_id     <- map["c_id"]
         service_name     <- map["service_name"]
+    }
+}
+
+
+class TodayBookingModel: Mappable {
+    var data: TodayBookingModelData?
+    var error: String = ""
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data  <- map["data"]
+        error <- map["error"]
+    }
+}
+
+
+class TodayBookingModelData: Mappable {
+    var total_bookings: Int = 0
+    var calendar_total: Int = 0
+    var calendar_total_amount: Double = 0.0
+    var cancel_total: Int = 0
+    var cancel_total_amount: Int = 0
+    var noshow_total: Int = 0
+    var noshow_total_amount: Int = 0
+    var walkin_total: Int = 0
+    var walkin_total_amount: Double = 0.0
+    var total_cash: Double = 0.0
+    var total_card: Double = 0.0
+    
+    var complte_total: Int = 0
+    var complete_total_amount: Double = 0.0
+    
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        total_bookings               <- map["total_bookings"]
+        calendar_total          <- map["calendar_total"]
+        cancel_total        <- map["cancel_total"]
+        calendar_total_amount        <- map["calendar_total_amount"]
+        cancel_total_amount        <- map["cancel_total_amount"]
+        noshow_total        <- map["noshow_total"]
+        noshow_total_amount         <- map["noshow_total_amount"]
+        walkin_total            <- map["walkin_total"]
+        walkin_total_amount       <- map["walkin_total_amount"]
+        total_cash            <- map["total_cash"]
+        total_card       <- map["total_card"]
+        
+        complte_total       <- map["complte_total"]
+        complete_total_amount       <- map["complete_total_amount"]
     }
 }

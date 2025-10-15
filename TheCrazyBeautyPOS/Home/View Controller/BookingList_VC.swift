@@ -21,6 +21,12 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     @IBOutlet weak var vw_PastBooking: UIView!
     @IBOutlet weak var vw_FutureBooking: UIView!
     
+    
+    @IBOutlet weak var Firstheight: NSLayoutConstraint!
+    
+    @IBOutlet weak var Secondheight: NSLayoutConstraint!
+    
+    
     @IBOutlet weak var tbl_vw: UITableView!
     @IBOutlet weak var vw_Client: NSLayoutConstraint!
     
@@ -53,6 +59,19 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     @IBOutlet weak var tbl_Rebook: UITableView!
     @IBOutlet weak var tbl_RebookHeight: NSLayoutConstraint!
     @IBOutlet weak var txt_Search: UITextField!
+    
+    
+    @IBOutlet weak var lbl_TotalBookings: UILabel!
+    @IBOutlet weak var lbl_CalendarTotal: UILabel!
+    @IBOutlet weak var lbl_CalendarTotalAmount: UILabel!
+    @IBOutlet weak var lbl_NoShowBooking: UILabel!
+    @IBOutlet weak var lbl_NoShowTotalAmount: UILabel!
+    @IBOutlet weak var lbl_CancelTotal: UILabel!
+    @IBOutlet weak var lbl_CancelTotalAmount: UILabel!
+    
+    
+    
+    
     //MARK: - Global Variable
     
     var bookingId = String()
@@ -96,6 +115,8 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         setRegularFont()
+//        Firstheight.constant = 110
+//        Secondheight.constant = 110
         vw_TitleRebook.isHidden = true
         vw_MainPopup.isHidden = true
         vw_Rebook.isHidden = true
@@ -112,6 +133,8 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     
     //MARK: -  Button Action
     @IBAction func btn_PastBooking(_ sender: UIButton) {
+//        Firstheight.constant = 110
+//        Secondheight.constant = 110
         vw_Client.constant = 950
         apiPastBookingList(is_past: "1", search: "")
         lbl_Title.text = "Client Past Bookings"
@@ -124,6 +147,8 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     }
     
     @IBAction func btn_FutureBooking(_ sender: UIButton) {
+//        Firstheight.constant = 0
+//        Secondheight.constant = 0
         vw_Client.constant = 750
         apifutureBookingsList(is_past: "0", search: "")
         lbl_Title.text = "Client Future Bookings"
@@ -294,9 +319,18 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             if newItems.isEmpty{
                 self.tbl_vw.isHidden = true
                 self.tbl_vw2.isHidden = true
-                self.showNoDataMessage("No Bookings Found!", in: self.view)
+                self.showNoDataMessage("No Bookings Found!", in: self.tbl_vw)
             }else{
                 self.pastBookingsArray = newItems
+                self.lbl_TotalBookings.text = "Bookings : " + String(model.past_bookings?.total_bookings ?? Int(0.0))
+                self.lbl_CalendarTotal.text = "Bookings : " + String(model.past_bookings?.complte_total ?? 0)
+                self.lbl_CalendarTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(model.past_bookings?.complete_total_amount ?? 0.0)
+                
+                self.lbl_NoShowBooking.text = "Bookings : " + String(model.past_bookings?.noshow_total ?? Int(0.0))
+                self.lbl_NoShowTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(model.past_bookings?.noshow_total_amount ?? Int(0.0))
+                self.lbl_CancelTotal.text = "Total : " + "\(SharedPrefs.getSymbol())" + String(model.past_bookings?.cancel_total ?? Int(0.0))
+                self.lbl_CancelTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(model.past_bookings?.cancel_total_amount ?? Int(0.0))
+                
                 self.tbl_vw.isHidden = false
                 self.tbl_vw.reloadData()
                 self.tbl_vw2.isHidden = true
@@ -316,7 +350,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             if newItems.isEmpty{
                 self.tbl_vw.isHidden = true
                 self.tbl_vw2.isHidden = true
-                self.showNoDataMessage("No Bookings Found!", in: self.view)
+                self.showNoDataMessage("No Bookings Found!", in: self.tbl_vw2)
             }else{
                 self.futureBookingsArray = newItems
                 self.tbl_vw.isHidden = true

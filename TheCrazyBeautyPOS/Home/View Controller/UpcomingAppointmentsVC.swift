@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FSCalendar
 
 class UpcomingAppointmentsVC: UIViewController {
 
@@ -41,6 +42,10 @@ class UpcomingAppointmentsVC: UIViewController {
     let formatter = DateFormatter()
     var selectedDate = Date()
     
+    var calendarView: FSCalendar!
+    var isCalendarVisible = false
+    var calendarVC: UIViewController?
+    
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +54,7 @@ class UpcomingAppointmentsVC: UIViewController {
         setupDaysTextField()
         setupDropdownTable()
         updateDateLabel()
+        todayBookings()
         // Do any additional setup after loading the view.
     }
     
@@ -180,18 +186,51 @@ class UpcomingAppointmentsVC: UIViewController {
         
     }
     
+    
+
+        @objc func toggleCalendar() {
+            isCalendarVisible.toggle()
+            calendarView.isHidden = !isCalendarVisible
+        }
+    
+    
+    func todayBookings() {
+        let dateStr = formattedDateDDMMYYYY(selectedDate) // make sure your date is formatted as dd-MM-yyyy
+        APIService.shared.TodayBookings(vendorId: LocalData.userId, date: dateStr) { (result: TodayBookingModel?) in
+            
+            // Safely unwrap the data
+            guard let data = result?.data else {
+                print("No data found in TodayBookings API")
+                self.showToast(message: result?.error ?? "")
+                return
+            }
+
+            // ✅ Assign values properly (assuming all are strings)
+            self.lbl_TotalBookings.text = "Bookings : " + String(data.total_bookings)
+            self.lbl_CalendarTotal.text = "Bookings : " + String(data.calendar_total)
+            self.lbl_CalendarTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(data.calendar_total_amount)
+            self.lbl_WalkinTotal.text = "Bookings : " + String(data.walkin_total)
+            self.lbl_WalkinTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(data.walkin_total_amount)
+            self.lbl_TotalCard.text = "Card : " + "\(SharedPrefs.getSymbol())" + String(data.total_card)
+            self.lbl_TotalCash.text = "Cash : " + "\(SharedPrefs.getSymbol())" + String(Double(data.total_cash))
+        }
+    }
+
 
     @IBAction func btn_Date(_ sender: UIButton) {
+        showCalendarPopup(sourceView: txt_Date)
     }
     
     @IBAction func btn_PerviousDate(_ sender: UIButton) {
         selectedDate = Calendar.current.date(byAdding: .day, value: -1, to: selectedDate)!
         updateDateLabel()
+        todayBookings()
     }
     
     @IBAction func btn_NextDate(_ sender: UIButton) {
         selectedDate = Calendar.current.date(byAdding: .day, value: 1, to: selectedDate)!
         updateDateLabel()
+        todayBookings()
     }
     
     func updateDateLabel() {
@@ -206,7 +245,50 @@ class UpcomingAppointmentsVC: UIViewController {
         return formatter.string(from: date)
     }
 
+    func formattedDateDDMMYYYY(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone.current
+        formatter.dateFormat = "dd-MM-yyyy"
+        return formatter.string(from: date)
+    }
+
+    func showCalendarPopup(sourceView: UIView) {
+        // Create the popup view controller
+        calendarVC = UIViewController()
+        calendarVC?.modalPresentationStyle = .popover
+        calendarVC?.preferredContentSize = CGSize(width: 500, height: 400)
+
+        // Create the FSCalendar
+        let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 500, height: 400))
+        
+        // ✅ Fix for Swift 6 (use `any` explicitly)
+        calendar.delegate = (self as any FSCalendarDelegate)
+        calendar.dataSource = (self as any FSCalendarDataSource)
+        
+        // Calendar appearance
+        calendar.appearance.titleDefaultColor = .black
+        calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
+        calendar.appearance.todayColor = #colorLiteral(red: 0.7529411765, green: 0.7529411765, blue: 0.7529411765, alpha: 1)
+        
+        // Add calendar inside the popup view
+        calendarVC?.view.addSubview(calendar)
+
+        // Configure popover presentation
+        if let popover = calendarVC?.popoverPresentationController {
+            popover.sourceView = sourceView
+            popover.sourceRect = sourceView.bounds
+            popover.permittedArrowDirections = .any
+            popover.delegate = self // Optional if you want popover adaptive behavior
+        }
+
+        // Present the popup
+        self.present(calendarVC!, animated: true, completion: nil)
+    }
+
+
 }
+
 
 
 extension UpcomingAppointmentsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate{
@@ -306,4 +388,16 @@ extension UpcomingAppointmentsVC: UITableViewDelegate, UITableViewDataSource, UI
     
 }
 
+
+
+extension UpcomingAppointmentsVC: FSCalendarDelegate, FSCalendarDataSource, UIPopoverPresentationControllerDelegate {
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        selectedDate = date
+        txt_Date.text = formattedDate(date)
+        calendarVC?.dismiss(animated: true, completion: nil)
+        print("Selected Date:", formattedDateDDMMYYYY(date))
+        print("Selected Date:", formattedDateDDMMYYYY(selectedDate))
+    }
+}
 
