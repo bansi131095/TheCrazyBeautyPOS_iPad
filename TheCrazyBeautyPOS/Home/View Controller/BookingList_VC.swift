@@ -126,6 +126,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
         vw_Client.constant = 950
         apiPastBookingList(is_past: "1", search: "")
         setTableView()
+        apiClientBookingData()
         setCollectCategory()
         self.txt_DateOfBirth.delegate = self
         self.txt_Search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -319,23 +320,32 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             if newItems.isEmpty{
                 self.tbl_vw.isHidden = true
                 self.tbl_vw2.isHidden = true
-                self.showNoDataMessage("No Bookings Found!", in: self.tbl_vw)
+                self.showNoDataMessage("No Bookings Found!", in: self.view)
             }else{
                 self.pastBookingsArray = newItems
-                self.lbl_TotalBookings.text = "Bookings : " + String(model.past_bookings?.total_bookings ?? Int(0.0))
-                self.lbl_CalendarTotal.text = "Bookings : " + String(model.past_bookings?.complte_total ?? 0)
-                self.lbl_CalendarTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(model.past_bookings?.complete_total_amount ?? 0.0)
-                
-                self.lbl_NoShowBooking.text = "Bookings : " + String(model.past_bookings?.noshow_total ?? Int(0.0))
-                self.lbl_NoShowTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(model.past_bookings?.noshow_total_amount ?? Int(0.0))
-                self.lbl_CancelTotal.text = "Total : " + "\(SharedPrefs.getSymbol())" + String(model.past_bookings?.cancel_total ?? Int(0.0))
-                self.lbl_CancelTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(model.past_bookings?.cancel_total_amount ?? Int(0.0))
-                
                 self.tbl_vw.isHidden = false
                 self.tbl_vw.reloadData()
                 self.tbl_vw2.isHidden = true
                 self.hideNoDataMessage()
             }
+        }
+    }
+    
+    func apiClientBookingData(){
+        APIService.shared.ClientBookingData(customer_id: bookingId) { result in
+            self.hideLoader()
+            guard let model = result else {
+                return
+            }
+            
+            self.lbl_TotalBookings.text = "Bookings : " + String(model.data?.total_bookings ?? Int(0.0))
+            self.lbl_CalendarTotal.text = "Bookings : " + String(model.data?.complete_total ?? 0)
+            self.lbl_CalendarTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(Double(model.data?.complete_total_amount ?? 0.0))
+            
+            self.lbl_NoShowBooking.text = "Bookings : " + String(model.data?.noshow_total ?? Int(0.0))
+            self.lbl_NoShowTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(Double(model.data?.noshow_total_amount ?? Int(0.0)))
+            self.lbl_CancelTotal.text = "Bookings : " + String(model.data?.cancel_total ?? Int(0.0))
+            self.lbl_CancelTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(Double(model.data?.cancel_total_amount ?? Int(0.0)))
         }
     }
     
@@ -350,7 +360,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             if newItems.isEmpty{
                 self.tbl_vw.isHidden = true
                 self.tbl_vw2.isHidden = true
-                self.showNoDataMessage("No Bookings Found!", in: self.tbl_vw2)
+                self.showNoDataMessage("No Bookings Found!", in: self.view)
             }else{
                 self.futureBookingsArray = newItems
                 self.tbl_vw.isHidden = true
@@ -825,7 +835,7 @@ extension UIViewController{
             // Center label in parent view
             NSLayoutConstraint.activate([
                 label.centerXAnchor.constraint(equalTo: parentView.centerXAnchor),
-                label.centerYAnchor.constraint(equalTo: parentView.centerYAnchor),
+                label.centerYAnchor.constraint(equalTo: parentView.centerYAnchor, constant: 50),
                 label.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: 20),
                 label.trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant: -20)
             ])

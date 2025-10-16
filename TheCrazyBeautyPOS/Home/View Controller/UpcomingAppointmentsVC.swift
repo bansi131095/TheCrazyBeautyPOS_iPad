@@ -208,10 +208,10 @@ class UpcomingAppointmentsVC: UIViewController {
             // ✅ Assign values properly (assuming all are strings)
             self.lbl_TotalBookings.text = "Bookings : " + String(data.total_bookings)
             self.lbl_CalendarTotal.text = "Bookings : " + String(data.calendar_total)
-            self.lbl_CalendarTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(data.calendar_total_amount)
+            self.lbl_CalendarTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(Double(data.calendar_total_amount))
             self.lbl_WalkinTotal.text = "Bookings : " + String(data.walkin_total)
-            self.lbl_WalkinTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(data.walkin_total_amount)
-            self.lbl_TotalCard.text = "Card : " + "\(SharedPrefs.getSymbol())" + String(data.total_card)
+            self.lbl_WalkinTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(Double(data.walkin_total_amount))
+            self.lbl_TotalCard.text = "Card : " + "\(SharedPrefs.getSymbol())" + String(Double(data.total_card))
             self.lbl_TotalCash.text = "Cash : " + "\(SharedPrefs.getSymbol())" + String(Double(data.total_cash))
         }
     }

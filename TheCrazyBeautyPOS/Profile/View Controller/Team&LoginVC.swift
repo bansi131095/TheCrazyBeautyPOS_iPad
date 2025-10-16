@@ -29,14 +29,14 @@ class Team_LoginVC: UIViewController {
         let attributedTitle = NSAttributedString(
             string: "Submit",
             attributes: [
-                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
             ]
         )
         let LogattributedTitle = NSAttributedString(
             string: "Login as Staff",
             attributes: [
-                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
             ]
         )
@@ -87,7 +87,7 @@ class Team_LoginVC: UIViewController {
     
     //MARK: - Function
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+        if let customFont = UIFont(name: "Lato-Medium", size: 18.0) {
             txt_Name.font = customFont
             txt_Email.font = customFont
             txt_Password.font = customFont

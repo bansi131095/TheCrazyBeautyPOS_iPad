@@ -44,7 +44,7 @@ class BusinessFirst_InformationVC: UIViewController {
         let attributedTitle = NSAttributedString(
             string: "Continue",
             attributes: [
-                .font: UIFont(name: "Lato-Bold", size: 20)!,
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
             ]
         )
@@ -56,7 +56,7 @@ class BusinessFirst_InformationVC: UIViewController {
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Medium", size: 20.0) {
+        if let customFont = UIFont(name: "Lato-Medium", size: 18.0) {
             txt_BusinessName.font = customFont
             txt_SalonType.font = customFont
             txt_Address.font = customFont

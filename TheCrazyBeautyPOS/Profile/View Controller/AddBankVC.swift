@@ -25,7 +25,7 @@ class AddBankVC: UIViewController {
         let attributedTitle = NSAttributedString(
             string: "Save",
             attributes: [
-                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
             ]
         )
@@ -47,7 +47,7 @@ class AddBankVC: UIViewController {
     
     //MARK: - Function
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Medium", size: 20.0) {
+        if let customFont = UIFont(name: "Lato-Medium", size: 18.0) {
             txt_AccountNumber.font = customFont
             txt_AccountHolderName.font = customFont
         }

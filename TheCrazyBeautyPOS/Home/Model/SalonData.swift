@@ -277,7 +277,7 @@ class TodayBookingModelData: Mappable {
     var total_cash: Double = 0.0
     var total_card: Double = 0.0
     
-    var complte_total: Int = 0
+    var complete_total: Int = 0
     var complete_total_amount: Double = 0.0
     
     required init?(map: Map) {}
@@ -295,7 +295,7 @@ class TodayBookingModelData: Mappable {
         total_cash            <- map["total_cash"]
         total_card       <- map["total_card"]
         
-        complte_total       <- map["complte_total"]
+        complete_total       <- map["complete_total"]
         complete_total_amount       <- map["complete_total_amount"]
     }
 }

@@ -44,15 +44,15 @@
                                 </constraints>
                                 <string key="text">HairHairHairHair
 HairHairHair</string>
-                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="22"/>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
                                 <color key="textColor" name="AppBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KUI-9D-o5i" userLabel="AccountNumber">
-                                <rect key="frame" x="376" y="10" width="774" height="70"/>
+                                <rect key="frame" x="376" y="15" width="774" height="60"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="il7-Ul-Xaj">
-                                        <rect key="frame" x="10" y="10" width="754" height="50"/>
+                                        <rect key="frame" x="10" y="10" width="754" height="40"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="26"/>
@@ -73,14 +73,14 @@ HairHairHair</string>
                                 <constraints>
                                     <constraint firstItem="il7-Ul-Xaj" firstAttribute="leading" secondItem="KUI-9D-o5i" secondAttribute="leading" constant="10" id="8aV-XL-eg1"/>
                                     <constraint firstItem="il7-Ul-Xaj" firstAttribute="top" secondItem="KUI-9D-o5i" secondAttribute="top" constant="10" id="Fc3-w4-g68"/>
-                                    <constraint firstAttribute="height" constant="70" id="IUs-mP-kfe"/>
+                                    <constraint firstAttribute="height" constant="60" id="IUs-mP-kfe"/>
                                     <constraint firstAttribute="trailing" secondItem="il7-Ul-Xaj" secondAttribute="trailing" constant="10" id="N0c-VK-G3v"/>
                                     <constraint firstAttribute="bottom" secondItem="il7-Ul-Xaj" secondAttribute="bottom" constant="10" id="ZCd-nA-Fq6"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Cancellation Policy"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="32"/>
+                                        <real key="value" value="30"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="1"/>
@@ -91,10 +91,10 @@ HairHairHair</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mcO-zr-ibk" userLabel="AccountNumber">
-                                <rect key="frame" x="241" y="10" width="125" height="70"/>
+                                <rect key="frame" x="241" y="15" width="125" height="60"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Sequence*" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lbq-kD-SNJ" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                        <rect key="frame" x="5" y="0.0" width="115" height="70"/>
+                                        <rect key="frame" x="5" y="0.0" width="115" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <userDefinedRuntimeAttributes>
@@ -125,13 +125,18 @@ HairHairHair</string>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="Ekp-hI-Goo"/>
+                                    <constraint firstAttribute="height" constant="60" id="Ekp-hI-Goo"/>
                                     <constraint firstItem="Lbq-kD-SNJ" firstAttribute="leading" secondItem="mcO-zr-ibk" secondAttribute="leading" constant="5" id="Ikz-S1-98q"/>
                                     <constraint firstAttribute="trailing" secondItem="Lbq-kD-SNJ" secondAttribute="trailing" constant="5" id="Me0-4s-xqu"/>
                                     <constraint firstAttribute="width" constant="125" id="OKf-hI-SWk"/>
                                     <constraint firstAttribute="bottom" secondItem="Lbq-kD-SNJ" secondAttribute="bottom" id="Y63-QJ-9bF"/>
                                     <constraint firstItem="Lbq-kD-SNJ" firstAttribute="top" secondItem="mcO-zr-ibk" secondAttribute="top" id="Yno-JT-HMp"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

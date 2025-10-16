@@ -70,7 +70,7 @@ class ProfileVC: UIViewController,SettingCellDelegate {
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Bold", size: 22.0) {
+        if let customFont = UIFont(name: "Lato-Bold", size: 20.0) {
             lblTitle.font = customFont
         }
     }

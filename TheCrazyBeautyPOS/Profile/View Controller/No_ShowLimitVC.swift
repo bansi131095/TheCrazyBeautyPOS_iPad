@@ -28,7 +28,7 @@ class No_ShowLimitVC: UIViewController {
         let attributedTitle = NSAttributedString(
             string: "Save",
             attributes: [
-                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
             ]
         )
@@ -62,7 +62,7 @@ class No_ShowLimitVC: UIViewController {
     
     //MARK: - Function
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+        if let customFont = UIFont(name: "Lato-Medium", size: 18.0) {
             txt_NoShowLimit.font = customFont
             btn_Save.titleLabel?.font = customFont
         }

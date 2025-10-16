@@ -21,7 +21,7 @@ class Salon_OpeningDateVC: UIViewController {
         let attributedTitle = NSAttributedString(
             string: "Save",
             attributes: [
-                .font: UIFont(name: "Lato-Bold", size: 20)!,
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
             ]
         )
@@ -40,7 +40,7 @@ class Salon_OpeningDateVC: UIViewController {
     }
 
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
+        if let customFont = UIFont(name: "Lato-Medium", size: 18.0) {
             txt_Date.font = customFont
         }
     }

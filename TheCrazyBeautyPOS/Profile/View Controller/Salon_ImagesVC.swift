@@ -44,7 +44,7 @@ class Salon_ImagesVC: UIViewController {
         let attributedTitle = NSAttributedString(
             string: "Save",
             attributes: [
-                .font: UIFont(name: "Lato-Bold", size: 22)!,
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
             ]
         )

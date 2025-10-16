@@ -19,13 +19,14 @@ class global: NSObject
     
 //    GOOGLE_MAP_KEY_RUSH_MALL=AIzaSyDNE-nH7aaKw21nG3yVaDtPZQm-6yaqHh8
     
-//    static let base_url = "https://staging.thecrazybeauty.com/" //staging
+    static let base_url = "https://staging.thecrazybeauty.com/" //staging
     
-    static let base_url = "https://api.thecrazybeauty.com/" // LIVE
+//    static let base_url = "https://api.thecrazybeauty.com/" // LIVE
     static let server_url = global.base_url + "api/"
     
-//    static let CAL_WEB_URL = "https://tcb-ten.vercel.app/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true" //TCB
-    static let CAL_WEB_URL = "https://thecrazybeauty.com/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true" //LIVE
+    static let CAL_WEB_URL = "https://tcb-ten.vercel.app/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true" //TCB
+    
+//    static let CAL_WEB_URL = "https://thecrazybeauty.com/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true" //LIVE
     
     //un use TEAM_ROASTER_WEB_URL
 //    static let TEAM_ROASTER_WEB_URL = "https://tcb-ten.vercel.app/vendor/team-roaster?id=%@&auth=%@&rand=%lld" //TCB
@@ -258,6 +259,7 @@ class global: NSObject
     
     var URL_LOGIN_SUBVENDOR = global.server_url + "login_subvendor"
     var URL_TODAY_BOOKINGS = global.server_url + "today_bookings"
+    var URL_CLIENT_BOOKINGS_DATA = global.server_url + "client_bookings_data"
     
     var noDataLabel: UILabel?
     var hasUnreadNotification: Bool = false

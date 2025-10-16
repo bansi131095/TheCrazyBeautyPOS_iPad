@@ -83,7 +83,7 @@ class BusinessSecond_InformationVC: UIViewController {
         let attributedTitle = NSAttributedString(
             string: "Continue",
             attributes: [
-                .font: UIFont(name: "Lato-Bold", size: 20)!,
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
             ]
         )

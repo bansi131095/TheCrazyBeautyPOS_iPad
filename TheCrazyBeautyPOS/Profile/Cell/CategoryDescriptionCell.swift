@@ -38,7 +38,7 @@ class CategoryDescriptionCell: UITableViewCell,UITextViewDelegate {
     
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Medium", size: 18.0) {
+        if let customFont = UIFont(name: "Lato-Medium", size: 16.0) {
             txt_Sequence.font = customFont
             txt_Description.font = customFont
         }

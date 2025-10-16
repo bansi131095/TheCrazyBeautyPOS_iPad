@@ -32,7 +32,7 @@ class BusinessThird_InformationVC: UIViewController {
         let attributedTitle = NSAttributedString(
             string: "Done",
             attributes: [
-                .font: UIFont(name: "Lato-Bold", size: 20)!,
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
             ]
         )
@@ -40,7 +40,7 @@ class BusinessThird_InformationVC: UIViewController {
         let attributedTitleSync = NSAttributedString(
             string: "Sync Team And Services As Well",
             attributes: [
-                .font: UIFont(name: "Lato-Bold", size: 20)!,
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
             ]
         )
