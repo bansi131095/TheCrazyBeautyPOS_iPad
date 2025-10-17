@@ -46,7 +46,7 @@ class DropdownManager: NSObject, UITableViewDelegate, UITableViewDataSource {
         selectionActionMap[textField] = selectionAction
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: -30),
+            tableView.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 0),
             tableView.centerXAnchor.constraint(equalTo: textField.centerXAnchor),
             width == 0 ? tableView.widthAnchor.constraint(equalTo: textField.widthAnchor) : tableView.widthAnchor.constraint(equalToConstant: width),
             tableView.heightAnchor.constraint(equalToConstant: data.count < 10 ? CGFloat(data.count * 45) : 450)
