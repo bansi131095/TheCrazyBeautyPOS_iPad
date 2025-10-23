@@ -340,12 +340,22 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             
             self.lbl_TotalBookings.text = "Bookings : " + String(model.data?.total_bookings ?? Int(0.0))
             self.lbl_CalendarTotal.text = "Bookings : " + String(model.data?.complete_total ?? 0)
-            self.lbl_CalendarTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(Double(model.data?.complete_total_amount ?? 0.0))
+//            self.lbl_CalendarTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(Double(model.data?.complete_total_amount ?? 0.0))
             
             self.lbl_NoShowBooking.text = "Bookings : " + String(model.data?.noshow_total ?? Int(0.0))
-            self.lbl_NoShowTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(Double(model.data?.noshow_total_amount ?? Int(0.0)))
+//            self.lbl_NoShowTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(Double(model.data?.noshow_total_amount ?? Int(0.0)))
             self.lbl_CancelTotal.text = "Bookings : " + String(model.data?.cancel_total ?? Int(0.0))
-            self.lbl_CancelTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(Double(model.data?.cancel_total_amount ?? Int(0.0)))
+//            self.lbl_CancelTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(Double(model.data?.cancel_total_amount ?? Int(0.0)))
+            
+            
+            
+            self.lbl_CalendarTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" +
+            String(format: "%.2f", model.data?.complete_total_amount ?? Int(0.0))
+            self.lbl_CancelTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" +
+            String(format: "%.2f", model.data?.cancel_total_amount ?? Int(0.0))
+            self.lbl_NoShowTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" +
+            String(format: "%.2f", model.data?.noshow_total_amount ?? Int(0.0))
+
         }
     }
     
