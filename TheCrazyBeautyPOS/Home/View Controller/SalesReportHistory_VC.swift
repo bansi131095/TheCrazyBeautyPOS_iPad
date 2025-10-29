@@ -453,7 +453,6 @@ extension SalesReportHistory_VC: UITableViewDelegate, UITableViewDataSource{
             popup.modalTransitionStyle = .crossDissolve
             popup.titleText = "Are you sure you want to delete this booking?"
             popup.onConfirm = {
-                print("Inventory confirmed delete")
                 // Call your delete logic here
                 self.deleteBookings(Booking_Id: String(data.id))
             }

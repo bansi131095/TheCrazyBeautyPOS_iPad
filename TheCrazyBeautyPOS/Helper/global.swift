@@ -19,14 +19,18 @@ class global: NSObject
     
 //    GOOGLE_MAP_KEY_RUSH_MALL=AIzaSyDNE-nH7aaKw21nG3yVaDtPZQm-6yaqHh8
     
-    //static let base_url = "https://staging.thecrazybeauty.com/" //staging
+    // Staging
+//    static let base_url = "https://staging.thecrazybeauty.com/"
     
-    static let base_url = "https://api.thecrazybeauty.com/" // LIVE
+    // LIVE
+    static let base_url = "https://api.thecrazybeauty.com/"
     static let server_url = global.base_url + "api/"
     
-//    static let CAL_WEB_URL = "https://tcb-ten.vercel.app/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true" //Staging
+    // Staging
+    //static let CAL_WEB_URL = "https://tcb-ten.vercel.app/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true"
     
-    static let CAL_WEB_URL = "https://thecrazybeauty.com/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true" //LIVE
+    //LIVE
+    static let CAL_WEB_URL = "https://thecrazybeauty.com/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true"
     
     //un use TEAM_ROASTER_WEB_URL
 //    static let TEAM_ROASTER_WEB_URL = "https://tcb-ten.vercel.app/vendor/team-roaster?id=%@&auth=%@&rand=%lld" //TCB

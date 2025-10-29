@@ -206,7 +206,7 @@ class SalesHistoryDateModel: Mappable {
     var miscellaneous_notes: String = ""
     var miscellaneous_price: String = ""
     var tip: Int = 0
-    var penalty_amount: String = ""
+    var penalty_amount: Int = 0
     var coupon_code: String = ""
     
 
