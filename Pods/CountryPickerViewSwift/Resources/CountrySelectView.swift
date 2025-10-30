@@ -21,7 +21,7 @@ open class CountrySelectView: UIView {
     fileprivate var searchBarView = UISearchBar()
     fileprivate var regex = ""
     
-    fileprivate var _searchBarPlaceholder: String = "Search"
+    fileprivate var _searchBarPlaceholder: String = "search"
     public var searchBarPlaceholder: String{
         get{
             return _searchBarPlaceholder
@@ -121,7 +121,6 @@ open class CountrySelectView: UIView {
         countryTableView.layer.cornerRadius = 5.0
         
     }
-    
     func setLayout() {
         
         
@@ -139,31 +138,15 @@ open class CountrySelectView: UIView {
         
         
     }
-    
     public func show() {
         
-     /*   if let window = UIApplication.shared.delegate!.window! {
+        if let window = UIApplication.shared.delegate!.window! {
             window.addSubview(self)
         }
         searchBarView.text = ""
         searchCountrys = CountryCodeJson
         self.countryTableView.reloadData()
-        self.setLayout() */
-        
-        if let windowScene = UIApplication.shared.connectedScenes
-                .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene,
-               let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
-
-                window.addSubview(self)
-            } else {
-                print("⚠️ Unable to find key window")
-                return
-            }
-
-            searchBarView.text = ""
-            searchCountrys = CountryCodeJson
-            self.countryTableView.reloadData()
-            self.setLayout()
+        self.setLayout()
     }
     @objc public func dismiss() {
         self.removeFromSuperview()
@@ -275,5 +258,4 @@ extension tableViewDataSource : UITableViewDataSource{
         return countryCell
     }
 }
-
 

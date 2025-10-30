@@ -66,7 +66,6 @@ class APIService {
             }
     }
     
-    
     //MARK: Service List Api
     func getServiceDetails(page: String, limit: String, vendorId: String, search: String, booking: String, categoryId: String, isGroup: Bool, completion: @escaping (ServiceDetailsModel?) -> Void) {
         let url = global.shared.URL_SERVICE_DETAILS
@@ -550,80 +549,7 @@ class APIService {
             }
         }
     }
-
     
-    /*
-    func updateTeamData(firstName: String, lastName: String, vendorId: String, email: String, jobTitle: String, gender: String, dob: String, phone: String, showCustomer: String, showInCalendar: String, serviceIds: String, workingHours: String, shiftTimings: String, image: UIImage?, imageKey: String = "file", teamId: String, completion: @escaping (CommonResponse?) -> Void) {
-        let urlString = "\(global.shared.URL_UPDATE_TEAM)\(teamId)"
-        guard let url = URL(string: urlString) else { return }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "PUT" // ✅ OR "PUT" if your backend expects it
-        request.headers = HTTPHeaders(headers)
-       
-        // ✅ JSON Body
-        let params: [String: Any] = [
-            "first_name": firstName,
-            "last_name": lastName,
-            "vendor_id": vendorId,
-            "email": email,
-            "job_title": jobTitle,
-            "gender": gender,
-            "dob": dob,
-            "phone": phone,
-            "show_customer": showCustomer,
-            "show_in_calandar": showInCalendar,
-            "service_ids": serviceIds,
-            "working_hours": workingHours,
-            "shift_timings": shiftTimings,
-        ]
-
-        
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: params, options: [])
-            request.httpBody = jsonData
-        } catch {
-            print("❌ Failed to encode JSON: \(error)")
-            completion(nil)
-            return
-        }
-        
-        // ✅ Execute Request
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("❌ Request error: \(error)")
-                completion(nil)
-                return
-            }
-            
-            guard let httpResponse = response as? HTTPURLResponse else {
-                print("❌ Invalid response")
-                completion(nil)
-                return
-            }
-            
-            print("📬 Status Code: \(httpResponse.statusCode)")
-            
-            guard let data = data else {
-                print("❌ No data returned")
-                completion(nil)
-                return
-            }
-            
-            do {
-                let decoded = try JSONDecoder().decode(CommonResponse.self, from: data)
-                print("✅ Decoded Response: \(decoded)")
-                completion(decoded)
-            } catch {
-                print("❌ JSON Decoding failed: \(error)")
-                if let rawString = String(data: data, encoding: .utf8) {
-                    print("📦 Raw Response: \(rawString)")
-                }
-                completion(nil)
-            }
-        }.resume()
-    }
-    */
     
     func deleteTeamData(teamId: Int, completion: @escaping (CommonResponse?) -> Void) {
         let urlString = "\(global.shared.URL_DELETE_TEAM)\(teamId)"
@@ -5297,5 +5223,766 @@ class APIService {
             }
         }
     }
+    
+    
+    // not use this code
+    /*
+    func updateTeamData(firstName: String, lastName: String, vendorId: String, email: String, jobTitle: String, gender: String, dob: String, phone: String, showCustomer: String, showInCalendar: String, serviceIds: String, workingHours: String, shiftTimings: String, image: UIImage?, imageKey: String = "file", teamId: String, completion: @escaping (CommonResponse?) -> Void) {
+        let urlString = "\(global.shared.URL_UPDATE_TEAM)\(teamId)"
+        guard let url = URL(string: urlString) else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT" // ✅ OR "PUT" if your backend expects it
+        request.headers = HTTPHeaders(headers)
+       
+        // ✅ JSON Body
+        let params: [String: Any] = [
+            "first_name": firstName,
+            "last_name": lastName,
+            "vendor_id": vendorId,
+            "email": email,
+            "job_title": jobTitle,
+            "gender": gender,
+            "dob": dob,
+            "phone": phone,
+            "show_customer": showCustomer,
+            "show_in_calandar": showInCalendar,
+            "service_ids": serviceIds,
+            "working_hours": workingHours,
+            "shift_timings": shiftTimings,
+        ]
+
+        
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: params, options: [])
+            request.httpBody = jsonData
+        } catch {
+            print("❌ Failed to encode JSON: \(error)")
+            completion(nil)
+            return
+        }
+        
+        // ✅ Execute Request
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("❌ Request error: \(error)")
+                completion(nil)
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("❌ Invalid response")
+                completion(nil)
+                return
+            }
+            
+            print("📬 Status Code: \(httpResponse.statusCode)")
+            
+            guard let data = data else {
+                print("❌ No data returned")
+                completion(nil)
+                return
+            }
+            
+            do {
+                let decoded = try JSONDecoder().decode(CommonResponse.self, from: data)
+                print("✅ Decoded Response: \(decoded)")
+                completion(decoded)
+            } catch {
+                print("❌ JSON Decoding failed: \(error)")
+                if let rawString = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(rawString)")
+                }
+                completion(nil)
+            }
+        }.resume()
+    }
+    */
+    
+    //MARK: After ObjectMapper Add Api Call Change Login Api
+/*
+    func login(email: String, password: String, completion: @escaping (LoginData?) -> Void) {
+        let url = global.shared.URL_LOGIN
+        let params: [String: Any] = ["email": email, "password": password]
+
+    AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+        .responseJSON { response in
+
+            print("🔵 Request: \(String(describing: response.request))")
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            if let data = response.data,
+               let rawJSON = String(data: data, encoding: .utf8) {
+                print("📥 Raw Response: \(rawJSON)")
+            }
+
+            switch response.result {
+            case .success(let value):
+                // 🔁 Map manually using ObjectMapper
+                if let json = value as? [String: Any],
+                   let result = Mapper<LoginResponse>().map(JSON: json) {
+                    print("✅ Parsed Response Object: \(result)")
+                    completion(result.data)
+                } else {
+                    print("⚠️ Failed to parse JSON into LoginResponse")
+                    completion(nil)
+                }
+
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+
+    func getServiceDetails(page: String, limit: String, vendorId: String, search: String, booking: String, categoryId: String, isGroup: Bool, completion: @escaping (ServiceDetailsModel?) -> Void) {
+    let url = global.shared.URL_SERVICE_DETAILS
+
+    var params: [String: Any] = [:]
+
+    if isGroup {
+        params = [
+            "page": page,
+            "limit": limit,
+            "vendor_id": vendorId,
+            "search": search
+        ]
+    } else {
+        if booking.isEmpty {
+            params = [
+                "page": page,
+                "limit": limit,
+                "vendor_id": vendorId,
+                "search": search,
+                "category_name": categoryId
+            ]
+        } else {
+            params = [
+                "booking": booking,
+                "vendor_id": vendorId
+            ]
+        }
+    }
+
+    AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+        // ⬇️ CHANGED: replaced `.responseObject` with `.responseJSON`
+        .responseJSON { response in    // ➡️ CHANGED
+
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headers: \(self.headers)")
+
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            switch response.result {
+            case .success(let value):   // ➡️ CHANGED
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+
+                // ⬇️ CHANGED: Manual ObjectMapper mapping
+                if let json = value as? [String: Any],
+                   let result = Mapper<ServiceDetailsModel>().map(JSON: json) {  // ➡️ CHANGED
+                    print("✅ Parsed Response Object: \(result)")
+                    completion(result)
+                } else {  // ➡️ CHANGED
+                    print("⚠️ Failed to parse JSON into ServiceDetailsModel") // ➡️ CHANGED
+                    completion(nil)
+                }
+
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    func addServiceData(serviceName: String, parentId: Int, vendorId: String, description: String, serviceFor: String, duration: Int, priceType: String, price: String, salePrice: String, vendorOnly: String, contactSalon: String, testRequired: String, staffId: String, has_sub_service: String, is_sub_service: String, resource_id: String, completion: @escaping (AddServiceModel?) -> Void) {
+        let url = global.shared.URL_ADD_SERVICE
+        
+        let params: [String: Any] = [
+            "vendor_id": vendorId,
+            "service_name": serviceName,
+            "parent_id": parentId,
+            "description": description,
+            "service_for": serviceFor,
+            "duration": duration,
+            "price_type": priceType,
+            "price": price,
+            "sale_price": salePrice,
+            "is_vendor_only": vendorOnly,
+            "contact_salon": contactSalon,
+            "test_required": testRequired,
+            "staff_id": staffId,
+            "has_sub_service": has_sub_service,
+            "is_sub_service": is_sub_service,
+            "resource_id": resource_id
+        ]
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            // ⬇️ CHANGED: replaced `.responseObject` with `.responseJSON`
+            .responseJSON { response in   // ➡️ CHANGED
+
+                print("🌐 URL: \(url)")
+                print("📤 Parameters: \(params)")
+                print("📤 Headers: \(self.headers)")
+
+                if let httpResponse = response.response {
+                    print("✅ Status Code: \(httpResponse.statusCode)")
+                }
+                
+                switch response.result {
+                case .success(let value):   // ➡️ CHANGED
+                    if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                        print("📦 Raw Response: \(responseStr)")
+                    }
+
+                    // ⬇️ CHANGED: Manual mapping using ObjectMapper
+                    if let json = value as? [String: Any],
+                       let result = Mapper<AddServiceModel>().map(JSON: json) {  // ➡️ CHANGED
+                        print("✅ Parsed Response Object: \(result)")
+                        completion(result)
+                    } else {  // ➡️ CHANGED
+                        print("⚠️ Failed to parse JSON into AddServiceModel") // ➡️ CHANGED
+                        completion(nil)
+                    }
+
+                case .failure(let error):
+                    print("❌ Error: \(error.localizedDescription)")
+                    completion(nil)
+                }
+            }
+    }
+
+    func updateServiceData(serviceName: String,parentId: Int,vendorId: String,description: String,serviceFor: String,duration: Int,priceType: String,price: String,salePrice: String,vendorOnly: String,contactSalon: String,testRequired: String,staffId: String,serviceId: String,has_sub_service: String,is_sub_service: String,resource_id: String,completion: @escaping (CommonResponse?) -> Void) {
+        
+        let urlString = "\(global.shared.URL_UPDATE_SERVICE)\(serviceId)"
+        let url = urlString
+
+        let params: [String: Any] = [
+            "vendor_id": vendorId,
+            "service_name": serviceName,
+            "parent_id": parentId,
+            "description": description,
+            "service_for": serviceFor,
+            "duration": duration,
+            "price_type": priceType,
+            "price": price,
+            "sale_price": salePrice,
+            "is_vendor_only": vendorOnly,
+            "contact_salon": contactSalon,
+            "test_required": testRequired,
+            "staff_id": staffId,
+            "has_sub_service": has_sub_service,
+            "is_sub_service": is_sub_service,
+            "resource_id": resource_id
+        ]
+
+        print("🌐 URL: \(url)")
+        print("📤 Parameters: \(params)")
+        print("📤 Headers: \(self.headers)")
+
+        // ✅ Using Alamofire with PUT request
+        AF.request(url,method: .put,parameters: params,encoding: JSONEncoding.default,headers: HTTPHeaders(headers))
+        .responseJSON { response in
+
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            switch response.result {
+            case .success(let value):
+                if let data = response.data,
+                   let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+
+                // ✅ Parse using ObjectMapper
+                if let json = value as? [String: Any],
+                   let result = Mapper<CommonResponse>().map(JSON: json) {
+                    print("✅ Parsed Response Object: \(result)")
+                    completion(result)
+                } else {
+                    print("⚠️ Failed to parse JSON into CommonResponse")
+                    completion(nil)
+                }
+
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    func deleteServiceData(serviceId: Int, completion: @escaping (CommonResponse?) -> Void) {
+        let urlString = "\(global.shared.URL_DELETE_SERVICE)\(serviceId)"
+        let url = urlString
+
+        let params: [String: Any] = [:] // No params needed for delete
+        
+        print("🌐 URL: \(url)")
+        print("📤 Parameters: \(params)")
+        print("📤 Headers: \(self.headers)")
+
+        // ⬇️ CHANGED: Using Alamofire instead of URLSession
+        AF.request(url, method: .delete, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers)) // ➡️ CHANGED
+            .responseJSON { response in // ➡️ CHANGED
+
+                if let httpResponse = response.response {
+                    print("✅ Status Code: \(httpResponse.statusCode)")
+                }
+
+                switch response.result {
+                case .success(let value): // ➡️ CHANGED
+                    if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                        print("📦 Raw Response: \(responseStr)")
+                    }
+
+                    // ⬇️ CHANGED: Manual ObjectMapper parsing
+                    if let json = value as? [String: Any],
+                       let result = Mapper<CommonResponse>().map(JSON: json) { // ➡️ CHANGED
+                        print("✅ Parsed Response Object: \(result)")
+                        completion(result)
+                    } else {
+                        print("⚠️ Failed to parse JSON into CommonResponse") // ➡️ CHANGED
+                        completion(nil)
+                    }
+
+                case .failure(let error):
+                    print("❌ Error: \(error.localizedDescription)")
+                    completion(nil)
+                }
+            }
+    }
+
+    func fetchBusinessServices(completion: @escaping (ServicesModel?) -> Void) {
+        let url = global.shared.URL_BUSINESS_SERVICES
+        
+        print("🌐 URL: \(url)")
+        print("📤 Headers: \(self.headers)")
+
+        AF.request(url,method: .get,parameters: nil,encoding: URLEncoding.default,headers: HTTPHeaders(headers))
+        .validate()
+        .responseData { response in  // ✅ Use responseData instead of responseJSON (no warning)
+            
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            switch response.result {
+            case .success(let data):
+                if let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+
+                // ✅ Convert Data → JSON → ObjectMapper
+                do {
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                       let model = Mapper<ServicesModel>().map(JSON: json) {
+                        print("✅ Parsed ServicesModel Successfully")
+                        completion(model)
+                    } else {
+                        print("⚠️ Failed to parse JSON into ServicesModel")
+                        completion(nil)
+                    }
+                } catch {
+                    print("❌ JSON Parsing Error: \(error.localizedDescription)")
+                    completion(nil)
+                }
+
+            case .failure(let error):
+                print("❌ API Call Failed: \(error.localizedDescription)")
+                if let data = response.data,
+                   let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                completion(nil)
+            }
+        }
+    }
+
+    func fetchMainServices(completion: @escaping (ServicesModel?) -> Void) {
+        let url = "\(global.shared.URL_SELECT_MAINSERVICES)\(LocalData.userId)"
+        
+        print("🌐 URL: \(url)")
+        print("📤 Headers: \(self.headers)")
+        
+        AF.request(url,method: .get,parameters: nil,encoding: URLEncoding.default,headers: HTTPHeaders(headers))
+        .validate()
+        .responseData { response in  // ✅ Updated to responseData
+            
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let data):
+                if let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                
+                // ✅ Manual JSON → ObjectMapper parsing
+                do {
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                       let model = Mapper<ServicesModel>().map(JSON: json) {
+                        print("✅ Parsed ServicesModel Successfully")
+                        completion(model)
+                    } else {
+                        print("⚠️ Failed to parse JSON into ServicesModel")
+                        completion(nil)
+                    }
+                } catch {
+                    print("❌ JSON Parsing Error: \(error.localizedDescription)")
+                    completion(nil)
+                }
+                
+            case .failure(let error):
+                print("❌ API Call Failed: \(error.localizedDescription)")
+                if let data = response.data,
+                   let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                completion(nil)
+            }
+        }
+    }
+    
+    func getteamDetails(page: String,limit: String,vendorId: String,search: String,date: String = "",staffId: String = "",isTeamDetails: Int = 0,completion: @escaping (StaffResponse?) -> Void) {
+        let url = global.shared.URL_TEAM_DETAILS
+        
+        let params: [String: Any] = [
+            "page": page,
+            "limit": limit,
+            "vendor_id": vendorId,
+            "search": search,
+            "date": date,
+            "is_teamdetails": isTeamDetails,
+            "staff_id": staffId
+        ]
+        
+        print("🌐 URL: \(url)")
+        print("📤 Parameters: \(params)")
+        print("📤 Headers: \(self.headers)")
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: params,
+            encoding: JSONEncoding.default,
+            headers: HTTPHeaders(headers)
+        )
+        .validate()
+        .responseData { response in  // ✅ replaced .responseObject → .responseData
+            
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let data):
+                if let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                
+                // ✅ Manual JSON → ObjectMapper conversion
+                do {
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                       let result = Mapper<StaffResponse>().map(JSON: json) {
+                        print("✅ Parsed Response Object: \(result)")
+                        completion(result)
+                    } else {
+                        print("⚠️ Failed to map JSON to StaffResponse")
+                        completion(nil)
+                    }
+                } catch {
+                    print("❌ JSON Parsing Error: \(error.localizedDescription)")
+                    completion(nil)
+                }
+                
+            case .failure(let error):
+                print("❌ API Call Failed: \(error.localizedDescription)")
+                if let data = response.data,
+                   let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                completion(nil)
+            }
+        }
+    }
+    
+    func addTeamData(firstName: String,lastName: String,vendorId: String,email: String,jobTitle: String,gender: String,dob: String,phone: String,showCustomer: String,showInCalendar: String,serviceIds: String,workingHours: String,shiftTimings: String,image: UIImage?,imageKey: String = "file",completion: @escaping (AddMemberModel?) -> Void) {
+        let url = global.shared.URL_ADD_TEAM
+
+        let params: [String: Any] = [
+            "first_name": firstName,
+            "last_name": lastName,
+            "vendor_id": vendorId,
+            "email": email,
+            "job_title": jobTitle,
+            "gender": gender,
+            "dob": dob,
+            "phone": phone,
+            "show_customer": showCustomer,
+            "show_in_calandar": showInCalendar,
+            "service_ids": serviceIds,
+            "working_hours": workingHours,
+            "shift_timings": shiftTimings,
+        ]
+
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                // Attach image if available
+                if let image = image, let imageData = image.jpegData(compressionQuality: 0.8) {
+                    multipartFormData.append(
+                        imageData,
+                        withName: imageKey,
+                        fileName: "profile.jpg",
+                        mimeType: "image/jpeg"
+                    )
+                }
+
+                // Add text parameters
+                for (key, value) in params {
+                    if let data = "\(value)".data(using: .utf8) {
+                        multipartFormData.append(data, withName: key)
+                    }
+                }
+            },
+            to: url,
+            method: .post,
+            headers: HTTPHeaders(headers)
+        )
+        .validate()
+        .responseData { response in
+            // 🌍 Log request info
+            print("🌍 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headers: \(self.headers)")
+
+            if let httpResponse = response.response {
+                print("📡 Status Code: \(httpResponse.statusCode)")
+            }
+
+            switch response.result {
+            case .success(let data):
+                if let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+
+                // 🟩 Try mapping manually using ObjectMapper
+                if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let model = AddMemberModel(JSON: json) {
+                    print("✅ Parsed Response Object Successfully")
+                    completion(model)
+                } else {
+                    print("⚠️ Failed to parse JSON to AddMemberModel")
+                    completion(nil)
+                }
+
+            case .failure(let error):
+                print("❌ Upload Failed: \(error.localizedDescription)")
+                if let data = response.data,
+                   let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Error Response: \(responseStr)")
+                }
+                completion(nil)
+            }
+        }
+    }
+
+    func updateTeamData(firstName: String,lastName: String,vendorId: String,email: String,jobTitle: String,gender: String,dob: String,phone: String,showCustomer: String,showInCalendar: String,serviceIds: String,workingHours: String,shiftTimings: String,image: UIImage?,imageKey: String = "file",teamId: String,
+        completion: @escaping (CommonResponse?) -> Void) {
+        
+        let urlString = "\(global.shared.URL_UPDATE_TEAM)\(teamId)"
+        guard let url = URL(string: urlString) else { return }
+
+        let params: [String: Any] = [
+            "first_name": firstName,
+            "last_name": lastName,
+            "vendor_id": vendorId,
+            "email": email,
+            "job_title": jobTitle,
+            "gender": gender,
+            "dob": dob,
+            "phone": phone,
+            "show_customer": showCustomer,
+            "show_in_calandar": showInCalendar,
+            "service_ids": serviceIds,
+            "working_hours": workingHours,
+            "shift_timings": shiftTimings
+        ]
+
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                // ✅ Attach image
+                if let image = image, let imageData = image.jpegData(compressionQuality: 0.8) {
+                    multipartFormData.append(
+                        imageData,
+                        withName: imageKey,
+                        fileName: "team.jpg",
+                        mimeType: "image/jpeg"
+                    )
+                }
+
+                // ✅ Attach other parameters
+                for (key, value) in params {
+                    if let stringValue = "\(value)".data(using: .utf8) {
+                        multipartFormData.append(stringValue, withName: key)
+                    }
+                }
+            },
+            to: url,
+            method: .put,
+            headers: HTTPHeaders(headers)
+        )
+        .validate()
+        .responseJSON { response in
+            print("🌐 URL: \(url)")
+            print("📤 Parameters: \(params)")
+            print("📤 Headers: \(self.headers)")
+
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            switch response.result {
+            case .success(let json):
+                print("📦 Raw Response: \(json)")
+
+                // ✅ Parse with ObjectMapper
+                if let dict = json as? [String: Any],
+                   let model = CommonResponse(JSON: dict) {
+                    print("✅ Parsed Response Object: \(model)")
+                    completion(model)
+                } else {
+                    print("⚠️ Failed to map response to CommonResponse")
+                    completion(nil)
+                }
+
+            case .failure(let error):
+                print("❌ Upload Failed: \(error.localizedDescription)")
+
+                if let data = response.data,
+                   let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Error Response: \(responseStr)")
+                }
+
+                completion(nil)
+            }
+        }
+    }
+
+    func deleteTeamData(teamId: Int, completion: @escaping (CommonResponse?) -> Void) {
+        let urlString = "\(global.shared.URL_DELETE_TEAM)\(teamId)"
+        guard let url = URL(string: urlString) else { return }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.headers = HTTPHeaders(headers)
+        
+        // ✅ Optional: JSON body (if API expects any parameters)
+        let params: [String: Any] = [:]
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: params, options: [])
+            request.httpBody = jsonData
+        } catch {
+            print("❌ Failed to encode JSON: \(error)")
+            completion(nil)
+            return
+        }
+
+        print("🌐 URL: \(urlString)")
+        print("📤 Headers: \(self.headers)")
+        print("📤 Params: \(params)")
+
+        // ✅ Execute Request
+        AF.request(request)
+            .validate()
+            .responseData { response in
+                if let httpResponse = response.response {
+                    print("✅ Status Code: \(httpResponse.statusCode)")
+                }
+
+                switch response.result {
+                case .success(let value):
+                    print("📦 Raw Response: \(value)")
+
+                    // ✅ Parse JSON to CommonResponse using ObjectMapper
+                    if let json = value as? [String: Any],
+                       let model = CommonResponse(JSON: json) {
+                        print("✅ Parsed Response Object: \(model)")
+                        completion(model)
+                    } else {
+                        print("⚠️ Failed to parse JSON into CommonResponse")
+                        completion(nil)
+                    }
+
+                case .failure(let error):
+                    print("❌ Request Failed: \(error.localizedDescription)")
+                    if let data = response.data,
+                       let responseStr = String(data: data, encoding: .utf8) {
+                        print("📦 Raw Error Response: \(responseStr)")
+                    }
+                    completion(nil)
+                }
+            }
+    }
+
+    func getClientDetails(page: String, limit: String,sort: String,vendorId: String,search: String,completion: @escaping (CustomerListResponse?) -> Void) {
+        
+        let url = global.shared.URL_CLIENT_DETAILS
+        
+        let params: [String: Any] = [
+            "page": page,
+            "limit": limit,
+            "vendor_id": vendorId,
+            "sort": sort,
+            "search": search
+        ]
+        
+        print("🌐 URL: \(url)")
+        print("📤 Parameters: \(params)")
+        print("📤 Headers: \(headers)")
+        
+        AF.request(url,
+                   method: .post,
+                   parameters: params,
+                   encoding: JSONEncoding.default,
+                   headers: HTTPHeaders(headers))
+        .responseJSON { response in
+            
+            // ✅ Print status code
+            if let httpResponse = response.response {
+                print("📬 Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let value):
+                print("📦 Raw Response: \(value)")
+                
+                if let json = value as? [String: Any],
+                   let result = CustomerListResponse(JSON: json) {
+                    print("✅ Parsed Response Object: \(result)")
+                    completion(result)
+                } else {
+                    print("❌ Failed to map JSON to CustomerListResponse")
+                    completion(nil)
+                }
+                
+            case .failure(let error):
+                print("❌ Alamofire Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }*/
+
+
 }
 

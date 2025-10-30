@@ -11,7 +11,6 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
 
-
 #import "GMSPlaceLocationOptions.h"
 #import "GMSPlaceProperty.h"
 
@@ -141,6 +140,19 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic, nullable) id<GMSPlaceLocationRestriction> locationRestriction;
 
+/**
+ * Whether pure service area businesses should be included in the results.
+ *
+ * A pure service area business is a business that visits or delivers to customers
+ * directly, but does not serve customers at their business address. For
+ * example, businesses like cleaning services or plumbers. Those businesses
+ * do not have a physical address or location on Google Maps. Places will not
+ * return fields including `location`, `plusCode`, and other location related
+ * fields for these businesses.
+ *
+ * Default value is false.
+ */
+@property(nonatomic) BOOL shouldIncludePureServiceAreaBusinesses;
 
 @end
 

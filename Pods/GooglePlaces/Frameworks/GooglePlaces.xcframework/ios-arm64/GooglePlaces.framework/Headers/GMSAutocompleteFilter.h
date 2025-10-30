@@ -134,6 +134,19 @@ typedef NS_ENUM(NSInteger, GMSPlacesAutocompleteTypeFilter) {
  * completions may start from. */
 @property(nonatomic) int32_t inputOffset;
 
+/**
+ * Whether pure service area businesses should be included in the results.
+ *
+ * A pure service area business is a business that visits or delivers to customers
+ * directly, but does not serve customers at their business address. For
+ * example, businesses like cleaning services or plumbers. Those businesses
+ * do not have a physical address or location on Google Maps. Places will not
+ * return fields including `location`, `plusCode`, and other location related
+ * fields for these businesses.
+ *
+ * Default value is false.
+ */
+@property(nonatomic) BOOL shouldIncludePureServiceAreaBusinesses;
 @end
 
 NS_ASSUME_NONNULL_END

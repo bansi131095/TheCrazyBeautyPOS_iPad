@@ -10,7 +10,6 @@
 
 #import <UIKit/UIKit.h>
 
-
 @class GMSPlaceAuthorAttribution;
 
 NS_ASSUME_NONNULL_BEGIN

@@ -8,7 +8,6 @@
 //  Service: https://cloud.google.com/maps-platform/terms
 //
 
-
 #import <Foundation/Foundation.h>
 
 @class GMSPlacePhotoMetadata;

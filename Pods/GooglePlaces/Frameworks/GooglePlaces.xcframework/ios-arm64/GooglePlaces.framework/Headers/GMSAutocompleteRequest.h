@@ -10,7 +10,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 @class GMSAutocompleteSessionToken;
 @class GMSAutocompleteFilter;
 

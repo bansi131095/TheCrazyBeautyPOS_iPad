@@ -9,6 +9,7 @@
 //
 #import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
+
 #import "GMSPlaceLocationOptions.h"
 #import "GMSPlaceProperty.h"
 
@@ -117,4 +118,3 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
-

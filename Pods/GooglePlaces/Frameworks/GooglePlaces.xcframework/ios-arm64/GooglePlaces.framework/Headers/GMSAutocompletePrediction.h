@@ -19,9 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @see `GMSAutocompletePrediction`
  */
+__GMS_AVAILABLE_BUT_DEPRECATED_MSG("Use <code>GMSAutocompleteSuggestion</code> instead.")
 extern NSAttributedStringKey const kGMSAutocompleteMatchAttribute;
 
 /** This class represents a prediction of a full query based on a partially typed string. */
+__GMS_AVAILABLE_BUT_DEPRECATED_MSG("Use <code>GMSAutocompleteSuggestion</code> instead.")
 @interface GMSAutocompletePrediction : NSObject
 
 /**
@@ -47,6 +49,7 @@ extern NSAttributedStringKey const kGMSAutocompleteMatchAttribute;
  * </pre>
  */
 @property(nonatomic, copy, readonly) NSAttributedString *attributedFullText
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG("Use <code>GMSAutocompleteSuggestion</code> instead.")
         ;
 
 /**
@@ -57,6 +60,7 @@ extern NSAttributedStringKey const kGMSAutocompleteMatchAttribute;
  * like `attributedFullText`.
  */
 @property(nonatomic, copy, readonly) NSAttributedString *attributedPrimaryText
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG("Use <code>GMSAutocompleteSuggestion</code> instead.")
         ;
 
 /**
@@ -69,6 +73,7 @@ extern NSAttributedStringKey const kGMSAutocompleteMatchAttribute;
  * May be nil.
  */
 @property(nonatomic, copy, readonly, nullable) NSAttributedString *attributedSecondaryText
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG("Use <code>GMSAutocompleteSuggestion</code> instead.")
         ;
 
 /**
@@ -76,6 +81,7 @@ extern NSAttributedStringKey const kGMSAutocompleteMatchAttribute;
  * request.
  */
 @property(nonatomic, copy, readonly) NSString *placeID
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG("Use <code>GMSAutocompleteSuggestion</code> instead.")
         ;
 
 /**
@@ -83,6 +89,7 @@ extern NSAttributedStringKey const kGMSAutocompleteMatchAttribute;
  * documented at <https://developers.google.com/places/ios-sdk/supported_types>.
  */
 @property(nonatomic, copy, readonly) NSArray<NSString *> *types
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG("Use <code>GMSAutocompleteSuggestion</code> instead.")
         ;
 
 /**
@@ -90,10 +97,12 @@ extern NSAttributedStringKey const kGMSAutocompleteMatchAttribute;
  * specified in the `GMSAutocompleteFilter` of the request.
  */
 @property(nonatomic, readonly, nullable) NSNumber *distanceMeters
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG("Use <code>GMSAutocompleteSuggestion</code> instead.")
         ;
 
 /** Initializer is not available. */
 - (instancetype)init NS_UNAVAILABLE
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG("Use <code>GMSAutocompleteSuggestion</code> instead.")
         ;
 
 @end

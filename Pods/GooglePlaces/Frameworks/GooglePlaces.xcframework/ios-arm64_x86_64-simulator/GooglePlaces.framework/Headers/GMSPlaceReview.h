@@ -8,7 +8,6 @@
 //  Service: https://cloud.google.com/maps-platform/terms
 //
 
-
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -39,6 +38,32 @@ NS_ASSUME_NONNULL_BEGIN
            originalTextLanguageCode:(nullable NSString *)originalTextLanguageCode
                              rating:(float)rating
                   authorAttribution:(nullable GMSPlaceAuthorAttribution *)authorAttribution;
+
+/**
+ * Instantiates a `GMSPlaceReview` with detail properties.
+ *
+ * @param publishDate The `NSDate` the review was published.
+ * @param relativePublishDateDescription The description of the publish date relative to the time of
+ * the request.
+ * @param text The localized text of the review.
+ * @param textLanguageCode The language code of the localized review text.
+ * @param originalText The review text in its original language.
+ * @param originalTextLanguageCode The language code the review was originally written in.
+ * @param rating The 0.0 - 5.0 rating associated with the review.
+ * @param authorAttribution The `GMSPlaceAuthorAttribution` of the review's author.
+ * @param visitYear The year the user visited the place.
+ * @param visitMonth The month the user visited the place.
+ */
+- (instancetype)initWithPublishDate:(NSDate *)publishDate
+     relativePublishDateDescription:(nullable NSString *)relativePublishDateDescription
+                               text:(nullable NSString *)text
+                   textLanguageCode:(nullable NSString *)textLanguageCode
+                       originalText:(nullable NSString *)originalText
+           originalTextLanguageCode:(nullable NSString *)originalTextLanguageCode
+                             rating:(float)rating
+                  authorAttribution:(nullable GMSPlaceAuthorAttribution *)authorAttribution
+                          visitYear:(NSUInteger)visitYear
+                         visitMonth:(NSUInteger)visitMonth;
 
 /** The `NSDate` the review was published. */
 @property(nonatomic, copy, readonly) NSDate *publishDate;
@@ -74,7 +99,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic, readonly, nullable) GMSPlaceAuthorAttribution *authorAttribution;
 
+/** The year when the user visited the place. 0 is unset. */
+@property(nonatomic, readonly, assign) NSUInteger visitYear;
+
+/**
+ * The month when the review author visited the place.
+ * This value is 1-based, so 1 is January and 12 is December. 0 is unset.
+ */
+@property(nonatomic, readonly, assign) NSUInteger visitMonth;
+
 @end
 
 NS_ASSUME_NONNULL_END
-

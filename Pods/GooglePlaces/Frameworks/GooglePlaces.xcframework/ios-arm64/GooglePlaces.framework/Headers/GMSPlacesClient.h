@@ -30,11 +30,11 @@
 @class GMSFetchPlaceRequest;
 @class GMSFetchPhotoRequest;
 @class GMSPlaceSearchNearbyRequest;
-
 @class GMSPlaceIsOpenRequest;
 @class GMSPlaceIsOpenResponse;
 
 @protocol GMSPlacesAppCheckTokenProvider;
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -56,7 +56,10 @@ typedef void (^GMSPlaceResultCallback)(GMSPlace *_Nullable result, NSError *_Nul
  * @see `GMSPlacesClient`
  */
 typedef void (^GMSPlaceLikelihoodListCallback)(GMSPlaceLikelihoodList *_Nullable likelihoodList,
-                                               NSError *_Nullable error);
+                                               NSError *_Nullable error)
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "This method is replaced by <code>GMSPlaceSearchNearbyResultCallback</code> "
+        "and will be removed in a future release.");
 
 /**
  * Callback type for receiving array of `GMSPlaceLikelihood`s. If an error occurred, the array will
@@ -65,7 +68,10 @@ typedef void (^GMSPlaceLikelihoodListCallback)(GMSPlaceLikelihoodList *_Nullable
  * @see `GMSPlacesClient`
  */
 typedef void (^GMSPlaceLikelihoodsCallback)(NSArray<GMSPlaceLikelihood *> *_Nullable likelihoods,
-                                            NSError *_Nullable error);
+                                            NSError *_Nullable error)
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "This method is replaced by <code>GMSPlaceSearchNearbyResultCallback</code> "
+        "and will be removed in a future release.");
 
 /**
  * Callback type for receiving autocompletion results. `results` is an array of
@@ -76,7 +82,10 @@ typedef void (^GMSPlaceLikelihoodsCallback)(NSArray<GMSPlaceLikelihood *> *_Null
  * @see `GMSPlacesClient`
  */
 typedef void (^GMSAutocompletePredictionsCallback)(
-    NSArray<GMSAutocompletePrediction *> *_Nullable results, NSError *_Nullable error);
+    NSArray<GMSAutocompletePrediction *> *_Nullable results, NSError *_Nullable error)
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "This method is replaced by <code>GMSAutocompleteSuggestionsCallback</code> "
+        "and will be removed in a future release.");
 
 /**
  * Callback type for receiving place photos results. If an error occurred, `photos` will be nil and
@@ -87,7 +96,10 @@ typedef void (^GMSAutocompletePredictionsCallback)(
  * @see `GMSPlacesClient`
  */
 typedef void (^GMSPlacePhotoMetadataResultCallback)(GMSPlacePhotoMetadataList *_Nullable photos,
-                                                    NSError *_Nullable error);
+                                                    NSError *_Nullable error)
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "This method is replaced by <code>GMSPlaceResultCallback</code> "
+        "and will be removed in a future release.");
 
 /**
  * Callback type for receiving `UIImage` objects from a `GMSPlacePhotoMetadata` object. If an error
@@ -97,8 +109,10 @@ typedef void (^GMSPlacePhotoMetadataResultCallback)(GMSPlacePhotoMetadataList *_
  *
  * @see `GMSPlacesClient`
  */
-typedef void (^GMSPlacePhotoImageResultCallback)(UIImage *_Nullable photo,
-                                                 NSError *_Nullable error);
+typedef void (^GMSPlacePhotoImageResultCallback)(UIImage *_Nullable photo, NSError *_Nullable error)
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "This method is replaced by <code>GMSFetchPhotoResultCallback</code> "
+        "and will be removed in a future release.");
 
 /**
  * Callback type for receiving the opening hours status for the Place. If an error occurred,
@@ -109,7 +123,10 @@ typedef void (^GMSPlacePhotoImageResultCallback)(UIImage *_Nullable photo,
  *
  * @see `GMSPlacesClient`
  */
-typedef void (^GMSPlaceOpenStatusCallback)(GMSPlaceOpenStatus result, NSError *_Nullable error);
+typedef void (^GMSPlaceOpenStatusCallback)(GMSPlaceOpenStatus result, NSError *_Nullable error)
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "This method is replaced by <code>GMSPlaceOpenStatusResponseCallback</code> "
+        "and will be removed in a future release.");
 
 /**
  * Callback type for receiving the open status response. If an error occurred, response will be
@@ -221,7 +238,7 @@ typedef void (^GMSPlaceSearchNearbyResultCallback)(NSArray<GMSPlace *> *_Nullabl
 
 /**
  * Get details for a place. This method is non-blocking.
- * @param placeID The place ID to lookup.
+ * @param placeID The place ID to look up.
  * @param callback The callback to invoke with the lookup result.
  */
 - (void)lookUpPlaceID:(NSString *)placeID
@@ -252,7 +269,10 @@ typedef void (^GMSPlaceSearchNearbyResultCallback)(NSArray<GMSPlace *> *_Nullabl
  * @param callback The callback to invoke with the loaded `UIImage`.
  */
 - (void)loadPlacePhoto:(GMSPlacePhotoMetadata *)photoMetadata
-              callback:(GMSPlacePhotoImageResultCallback)callback;
+              callback:(GMSPlacePhotoImageResultCallback)callback
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "This method is replaced by <code>fetchPhotoWithRequest:callback:</code> "
+        "and will be removed in a future release.");
 
 /**
  * Loads the image for a specific photo, scaled to fit the given maximum dimensions.
@@ -279,7 +299,10 @@ typedef void (^GMSPlaceSearchNearbyResultCallback)(NSArray<GMSPlace *> *_Nullabl
 - (void)loadPlacePhoto:(GMSPlacePhotoMetadata *)photoMetadata
      constrainedToSize:(CGSize)maxSize
                  scale:(CGFloat)scale
-              callback:(GMSPlacePhotoImageResultCallback)callback;
+              callback:(GMSPlacePhotoImageResultCallback)callback
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "This method is replaced by <code>fetchPhotoWithRequest:callback:</code> "
+        "and will be removed in a future release.");
 /**
  * Returns an estimate of the place where the device is currently known to be located.
  *
@@ -294,7 +317,10 @@ typedef void (^GMSPlaceSearchNearbyResultCallback)(NSArray<GMSPlace *> *_Nullabl
  *
  * @param callback The callback to invoke with the place likelihood list.
  */
-- (void)currentPlaceWithCallback:(GMSPlaceLikelihoodListCallback)callback;
+- (void)currentPlaceWithCallback:(GMSPlaceLikelihoodListCallback)callback
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "This method is replaced by <code>searchNearbyWithRequest:callback:</code> "
+        "and will be removed in a future release.");
 
 /**
  * Find place likelihoods using the user's current location. This method is non-blocking.
@@ -306,8 +332,10 @@ typedef void (^GMSPlaceSearchNearbyResultCallback)(NSArray<GMSPlace *> *_Nullabl
  * @param callback The callback to invoke with place likelihoods.
  */
 - (void)findPlaceLikelihoodsFromCurrentLocationWithPlaceFields:(GMSPlaceField)placeFields
-                                                      callback:
-                                                          (GMSPlaceLikelihoodsCallback)callback;
+                                                      callback:(GMSPlaceLikelihoodsCallback)callback
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "This method is replaced by <code>searchNearbyWithRequest:callback:</code> "
+        "and will be removed in a future release.");
 /**
  * Find Autocomplete predictions from text query. Results may optionally be biased towards a
  * certain location or restricted to an area. This method is non-blocking.
@@ -323,7 +351,10 @@ typedef void (^GMSPlaceSearchNearbyResultCallback)(NSArray<GMSPlace *> *_Nullabl
 - (void)findAutocompletePredictionsFromQuery:(NSString *)query
                                       filter:(nullable GMSAutocompleteFilter *)filter
                                 sessionToken:(nullable GMSAutocompleteSessionToken *)sessionToken
-                                    callback:(GMSAutocompletePredictionsCallback)callback;
+                                    callback:(GMSAutocompletePredictionsCallback)callback
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "This method is replaced by <code>fetchAutocompleteSuggestionsFromRequest:callback:</code> "
+        "and will be removed in a future release.");
 
 /**
  * Gets the metadata for up to 10 photos associated with a place.
@@ -340,57 +371,70 @@ typedef void (^GMSPlaceSearchNearbyResultCallback)(NSArray<GMSPlace *> *_Nullabl
  *
  * This method performs a network lookup.
  *
- * @param placeID The place ID for which to lookup photos.
+ * @param placeID The place ID for which to look up photos.
  * @param callback The callback to invoke with the lookup result.
  */
 - (void)lookUpPhotosForPlaceID:(NSString *)placeID
-                      callback:(GMSPlacePhotoMetadataResultCallback)callback;
+                      callback:(GMSPlacePhotoMetadataResultCallback)callback
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "This method is replaced by <code>fetchPlaceWithRequest:callback:</code> "
+        "and will be removed in a future release.");
 
 /**
  * Gets details for a place including all fields necessary to determine `GMSPlaceOpenStatus` at the
  * current time. This method is non-blocking.
- * @param placeID The place ID to lookup.
+ * @param placeID The place ID to look up.
  * @param callback The callback to invoke with the place result.
  */
-- (void)isOpenWithPlaceID:(NSString *)placeID callback:(GMSPlaceOpenStatusCallback)callback;
+- (void)isOpenWithPlaceID:(NSString *)placeID
+                 callback:(GMSPlaceOpenStatusCallback)callback __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+                              "This method is replaced by <code>isOpenWithRequest:callback:</code> "
+                              "and will be removed in a future release.");
 
 /**
  * Gets details for a place including all fields necessary to determine `GMSPlaceOpenStatus` at the
  * specified `NSDate`. This method is non-blocking.
- * @param placeID The place ID to lookup.
+ * @param placeID The place ID to look up.
  * @param date The `NSDate` to determine open status for.
  * @param callback The callback to invoke with the place result.
  */
 - (void)isOpenWithPlaceID:(NSString *)placeID
                      date:(NSDate *)date
-                 callback:(GMSPlaceOpenStatusCallback)callback;
+                 callback:(GMSPlaceOpenStatusCallback)callback __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+                              "This method is replaced by <code>isOpenWithRequest:callback:</code> "
+                              "and will be removed in a future release.");
 
 /**
  * Gets details for a place including all fields necessary to determine `GMSPlaceOpenStatus` at the
  * current time. Only requests additional fields if the `GMSPlace` does not have all necessary
  * fields, otherwise `GMSPlaceOpenStatus` will be returned in the callback immediately. This method
  * is non-blocking.
- * @param place The `GMSPlace` to lookup.
+ * @param place The `GMSPlace` to look up.
  * @param callback The callback to invoke with the place result.
  */
-- (void)isOpenWithPlace:(GMSPlace *)place callback:(GMSPlaceOpenStatusCallback)callback;
+- (void)isOpenWithPlace:(GMSPlace *)place
+               callback:(GMSPlaceOpenStatusCallback)callback __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+                            "This method is replaced by <code>isOpenWithRequest:callback:</code> "
+                            "and will be removed in a future release.");
 
 /**
  * Gets details for a place including all fields necessary to determine `GMSPlaceOpenStatus` at the
  * specified `NSDate`. Only requests additional fields if the `GMSPlace` does not have all necessary
  * fields, otherwise `GMSPlaceOpenStatus` will be returned in the callback immediately. This method
  * is non-blocking.
- * @param place The `GMSPlace` to lookup.
+ * @param place The `GMSPlace` to look up.
  * @param date The `NSDate` to determine open status for.
  * @param callback The callback to invoke with the place result.
  */
 - (void)isOpenWithPlace:(GMSPlace *)place
                    date:(NSDate *)date
-               callback:(GMSPlaceOpenStatusCallback)callback;
+               callback:(GMSPlaceOpenStatusCallback)callback __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+                            "This method is replaced by <code>isOpenWithRequest:callback:</code> "
+                            "and will be removed in a future release.");
 
 /**
  * Fetch details for a place. This method is non-blocking.
- * @param placeID The place ID to lookup.
+ * @param placeID The place ID to look up.
  * @param placeFields The individual place fields requested for the place objects in the list.
  * @param sessionToken The `GMSAutocompleteSessionToken` to associate request to a billing session.
  * @param callback The callback to invoke with the lookup result.
@@ -410,7 +454,6 @@ typedef void (^GMSPlaceSearchNearbyResultCallback)(NSArray<GMSPlace *> *_Nullabl
  */
 - (void)isOpenWithRequest:(GMSPlaceIsOpenRequest *)isOpenRequest
                  callback:(GMSPlaceOpenStatusResponseCallback)callback;
-
 
 /**
  * Search for places by text and restrictions. This method is non-blocking.
@@ -438,7 +481,6 @@ typedef void (^GMSPlaceSearchNearbyResultCallback)(NSArray<GMSPlace *> *_Nullabl
 
 - (void)fetchPhotoWithRequest:(GMSFetchPhotoRequest *)fetchPhotoRequest
                      callback:(GMSFetchPhotoResultCallback)callback;
-
 
 /**
  * Search for places near a location and restriction. This method is non-blocking.

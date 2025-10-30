@@ -19,6 +19,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /** Protocol for objects that can receive callbacks from GMSAutocompleteFetcher. */
+__GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+    "Use <code>GMSPlacesClient#fetchAutocompleteSuggestionsFromRequest:callback:</code> instead.")
 @protocol GMSAutocompleteFetcherDelegate <NSObject>
 
 @required
@@ -29,6 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
  * @param predictions an array of `GMSAutocompletePrediction` objects.
  */
 - (void)didAutocompleteWithPredictions:(NSArray<GMSAutocompletePrediction *> *)predictions
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use <code>GMSPlacesClient#fetchAutocompleteSuggestionsFromRequest:callback:</code> "
+        "instead.")
         ;
 
 /**
@@ -37,6 +42,9 @@ NS_ASSUME_NONNULL_BEGIN
  * @param error the error that was received.
  */
 - (void)didFailAutocompleteWithError:(NSError *)error
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use <code>GMSPlacesClient#fetchAutocompleteSuggestionsFromRequest:callback:</code> "
+        "instead.")
         ;
 
 @end
@@ -52,6 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
  * - The delegate will only be called with prediction results if those predictions are for the
  *   text supplied in the most recent call to sourceTextHasChanged.
  */
+__GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+    "Use <code>GMSPlacesClient#fetchAutocompleteSuggestionsFromRequest:callback:</code> instead.")
 @interface GMSAutocompleteFetcher : NSObject
 
 /**
@@ -60,18 +70,30 @@ NS_ASSUME_NONNULL_BEGIN
  * @param filter The filter to apply to the results. This parameter may be nil.
  */
 - (instancetype)initWithFilter:(nullable GMSAutocompleteFilter *)filter NS_DESIGNATED_INITIALIZER
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use <code>GMSPlacesClient#fetchAutocompleteSuggestionsFromRequest:callback:</code> "
+        "instead.")
         ;
 
 /** Delegate to be notified with autocomplete prediction results. */
 @property(nonatomic, weak, nullable) id<GMSAutocompleteFetcherDelegate> delegate
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use <code>GMSPlacesClient#fetchAutocompleteSuggestionsFromRequest:callback:</code> "
+        "instead.")
         ;
 
 /** Filter to apply to autocomplete suggestions (can be nil). */
 @property(nonatomic, strong, nullable) GMSAutocompleteFilter *autocompleteFilter
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use <code>GMSPlacesClient#fetchAutocompleteSuggestionsFromRequest:callback:</code> "
+        "instead.")
         ;
 
 /** Provide a `GMSAutocompleteSessionToken` for tracking the specific autocomplete query flow. */
 - (void)provideSessionToken:(nullable GMSAutocompleteSessionToken *)sessionToken
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use <code>GMSPlacesClient#fetchAutocompleteSuggestionsFromRequest:callback:</code> "
+        "instead.")
         ;
 
 /**
@@ -85,6 +107,9 @@ NS_ASSUME_NONNULL_BEGIN
  * @param text The partial text to autocomplete.
  */
 - (void)sourceTextHasChanged:(nullable NSString *)text
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use <code>GMSPlacesClient#fetchAutocompleteSuggestionsFromRequest:callback:</code> "
+        "instead.")
         ;
 
 @end

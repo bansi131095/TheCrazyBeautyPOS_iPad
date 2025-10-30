@@ -10,7 +10,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 /** This class represents a place suggestion of a full query based on a partially typed string. */

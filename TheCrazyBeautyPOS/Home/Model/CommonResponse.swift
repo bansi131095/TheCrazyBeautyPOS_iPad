@@ -26,3 +26,16 @@ struct CommonResponse: Codable {
     let data: String
     let error: String?
 }
+
+/*class CommonResponse: Mappable {
+    var data: String?
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data    <- map["data"]
+        error   <- map["error"]
+    }
+}
+*/

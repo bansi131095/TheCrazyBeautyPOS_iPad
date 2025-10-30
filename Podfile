@@ -9,6 +9,7 @@ target 'TheCrazyBeautyPOS' do
   # Pods for TheCrazyBeautyPOS
   
     pod 'Alamofire'
+    pod 'ObjectMapper'
     pod 'AlamofireObjectMapper'
     pod 'DeviceGuru'
     pod 'SFHFKeychainUtils'

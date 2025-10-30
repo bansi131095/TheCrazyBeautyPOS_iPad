@@ -20,6 +20,14 @@
 @class GMSPlusCode;
 @class GMSPlaceReview;
 
+@class GMSPlaceEVChargeOptions;
+@class GMSPlaceParkingOptions;
+@class GMSPlaceEVChargeAmenitySummary;
+@class GMSPlaceGenerativeSummary;
+@class GMSPlaceNeighborhoodSummary;
+@class GMSPlaceReviewSummary;
+@class GMSPlaceConsumerAlert;
+
 NS_ASSUME_NONNULL_BEGIN
 
 
@@ -138,7 +146,6 @@ typedef NS_ENUM(NSInteger, GMSBooleanPlaceAttribute) {
 /** An array of `GMSPlaceReview` objects representing the user reviews of the place. */
 @property(nonatomic, copy, readonly, nullable) NSArray<GMSPlaceReview *> *reviews;
 
-
 /**
  * Price level for this place, as integers from 0 to 4.
  *
@@ -235,6 +242,41 @@ typedef NS_ENUM(NSInteger, GMSBooleanPlaceAttribute) {
  */
 @property(nonatomic, copy, readonly, nullable) NSString *editorialSummary;
 
+/**
+ * Returns this place's EV charging options.
+ */
+@property(nonatomic, readonly, nullable) GMSPlaceEVChargeOptions *evChargeOptions;
+
+/**
+ * Returns this place's parking options.
+ */
+@property(nonatomic, readonly, nullable) GMSPlaceParkingOptions *parkingOptions;
+
+/**
+ * Returns this place's EV charge amenity summary.
+ */
+@property(nonatomic, readonly, nullable) GMSPlaceEVChargeAmenitySummary *evChargeAmenitySummary;
+
+/**
+ * Returns this place's generative summary.
+ */
+@property(nonatomic, readonly, nullable) GMSPlaceGenerativeSummary *generativeSummary;
+
+/**
+ * Returns this place's neighborhood summary.
+ */
+@property(nonatomic, readonly, nullable) GMSPlaceNeighborhoodSummary *neighborhoodSummary;
+
+/**
+ * Returns this place's review summary.
+ */
+@property(nonatomic, readonly, nullable) GMSPlaceReviewSummary *reviewSummary;
+
+/**
+ * Returns this place's consumer alert.
+ */
+@property(nonatomic, copy, readonly, nullable) GMSPlaceConsumerAlert *consumerAlert;
+
 /** Default init is not available. */
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -310,6 +352,17 @@ typedef NS_ENUM(NSInteger, GMSBooleanPlaceAttribute) {
 /** Place Attribute indicating place is wheelchair accessible at the entrance. */
 @property(nonatomic, readonly) GMSBooleanPlaceAttribute wheelchairAccessibleEntrance;
 
+/**
+ * Place Attribute indicating place is a pure service area business.
+ *
+ * A pure service area business is a business that visits or delivers to customers directly,
+ * but does not serve customers at their business address. For example,
+ * businesses like cleaning services or plumbers. Those businesses may not
+ * have a physical address or location on Google Maps. Places will not
+ * return fields including `location`, `plusCode`, and other location related
+ * fields for these businesses.
+ */
+@property(nonatomic, readonly) GMSBooleanPlaceAttribute pureServiceAreaBusiness;
 
 @end
 

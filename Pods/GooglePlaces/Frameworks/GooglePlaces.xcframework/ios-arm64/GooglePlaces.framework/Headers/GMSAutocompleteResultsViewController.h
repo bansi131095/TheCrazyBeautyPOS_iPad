@@ -25,6 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
  * Protocol used by `GMSAutocompleteResultsViewController`, to communicate the user's interaction
  * with the controller to the application.
  */
+__GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+    "Use the <code>placeAutocomplete</code> View extension in Places Swift SDK "
+    "(https://developers.google.com/maps/documentation/places/"
+    "ios-sdk/google-places-swift) instead.")
 @protocol GMSAutocompleteResultsViewControllerDelegate <NSObject>
 
 @required
@@ -36,6 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)resultsController:(GMSAutocompleteResultsViewController *)resultsController
     didAutocompleteWithPlace:(GMSPlace *)place
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use the <code>placeAutocomplete</code> View extension in Places Swift SDK "
+        "(https://developers.google.com/maps/documentation/places/"
+        "ios-sdk/google-places-swift) instead.")
         ;
 
 /**
@@ -55,6 +63,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)resultsController:(GMSAutocompleteResultsViewController *)resultsController
     didFailAutocompleteWithError:(NSError *)error
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use the <code>placeAutocomplete</code> View extension in Places Swift SDK "
+        "(https://developers.google.com/maps/documentation/places/"
+        "ios-sdk/google-places-swift) instead.")
         ;
 
 @optional
@@ -68,6 +80,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)resultsController:(GMSAutocompleteResultsViewController *)resultsController
       didSelectPrediction:(GMSAutocompletePrediction *)prediction
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use the <code>placeAutocomplete</code> View extension in Places Swift SDK "
+        "(https://developers.google.com/maps/documentation/places/"
+        "ios-sdk/google-places-swift) instead.")
         ;
 
 /**
@@ -76,6 +92,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)didUpdateAutocompletePredictionsForResultsController:
     (GMSAutocompleteResultsViewController *)resultsController
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use the <code>placeAutocomplete</code> View extension in Places Swift SDK "
+        "(https://developers.google.com/maps/documentation/places/"
+        "ios-sdk/google-places-swift) instead.")
         ;
 
 /**
@@ -84,6 +104,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)didRequestAutocompletePredictionsForResultsController:
     (GMSAutocompleteResultsViewController *)resultsController
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use the <code>placeAutocomplete</code> View extension in Places Swift SDK "
+        "(https://developers.google.com/maps/documentation/places/"
+        "ios-sdk/google-places-swift) instead.")
         ;
 
 @end
@@ -101,38 +125,74 @@ NS_ASSUME_NONNULL_BEGIN
  * Use the `GMSAutocompleteResultsViewControllerDelegate` delegate protocol to be notified when a
  * place is selected from the list.
  */
+__GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+    "Use the <code>placeAutocomplete</code> View extension in Places Swift SDK "
+    "(https://developers.google.com/maps/documentation/places/"
+    "ios-sdk/google-places-swift) instead.")
 @interface GMSAutocompleteResultsViewController : UIViewController <UISearchResultsUpdating>
 
 /** Delegate to be notified when a place is selected. */
 @property(nonatomic, weak, nullable) id<GMSAutocompleteResultsViewControllerDelegate> delegate
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use the <code>placeAutocomplete</code> View extension in Places Swift SDK "
+        "(https://developers.google.com/maps/documentation/places/"
+        "ios-sdk/google-places-swift) instead.")
         ;
 
 /** Filter to apply to autocomplete suggestions (can be nil). */
 @property(nonatomic, strong, nullable) GMSAutocompleteFilter *autocompleteFilter
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use the <code>placeAutocomplete</code> View extension in Places Swift SDK "
+        "(https://developers.google.com/maps/documentation/places/"
+        "ios-sdk/google-places-swift) instead.")
         ;
 
 /** The background color of table cells. */
 @property(nonatomic, strong) IBInspectable UIColor *tableCellBackgroundColor
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use the <code>placeAutocomplete</code> View extension in Places Swift SDK "
+        "(https://developers.google.com/maps/documentation/places/"
+        "ios-sdk/google-places-swift) instead.")
         ;
 
 /** The color of the separator line between table cells. */
 @property(nonatomic, strong) IBInspectable UIColor *tableCellSeparatorColor
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use the <code>placeAutocomplete</code> View extension in Places Swift SDK "
+        "(https://developers.google.com/maps/documentation/places/"
+        "ios-sdk/google-places-swift) instead.")
         ;
 
 /** The color of result name text in autocomplete results */
 @property(nonatomic, strong) IBInspectable UIColor *primaryTextColor
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use the <code>placeAutocomplete</code> View extension in Places Swift SDK "
+        "(https://developers.google.com/maps/documentation/places/"
+        "ios-sdk/google-places-swift) instead.")
         ;
 
 /** The color used to highlight matching text in autocomplete results */
 @property(nonatomic, strong) IBInspectable UIColor *primaryTextHighlightColor
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use the <code>placeAutocomplete</code> View extension in Places Swift SDK "
+        "(https://developers.google.com/maps/documentation/places/"
+        "ios-sdk/google-places-swift) instead.")
         ;
 
 /** The color of the second row of text in autocomplete results. */
 @property(nonatomic, strong) IBInspectable UIColor *secondaryTextColor
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use the <code>placeAutocomplete</code> View extension in Places Swift SDK "
+        "(https://developers.google.com/maps/documentation/places/"
+        "ios-sdk/google-places-swift) instead.")
         ;
 
 /** The tint color applied to controls in the Autocomplete view. */
 @property(nonatomic, strong, nullable) IBInspectable UIColor *tintColor
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use the <code>placeAutocomplete</code> View extension in Places Swift SDK "
+        "(https://developers.google.com/maps/documentation/places/"
+        "ios-sdk/google-places-swift) instead.")
         ;
 
 /**
@@ -140,6 +200,10 @@ NS_ASSUME_NONNULL_BEGIN
  * details if not overridden.
  */
 @property(nonatomic, strong) NSArray<GMSPlaceProperty> *placeProperties
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use the <code>placeAutocomplete</code> View extension in Places Swift SDK "
+        "(https://developers.google.com/maps/documentation/places/"
+        "ios-sdk/google-places-swift) instead.")
         ;
 
 /**
@@ -147,6 +211,10 @@ NS_ASSUME_NONNULL_BEGIN
  * details if not overridden.
  */
 @property(nonatomic, assign) GMSPlaceField placeFields
+    __GMS_AVAILABLE_BUT_DEPRECATED_MSG(
+        "Use the <code>placeAutocomplete</code> View extension in Places Swift SDK "
+        "(https://developers.google.com/maps/documentation/places/"
+        "ios-sdk/google-places-swift) instead.")
         ;
 
 @end
