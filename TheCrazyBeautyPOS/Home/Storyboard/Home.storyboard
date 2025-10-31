@@ -6759,7 +6759,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mmY-i0-yhR">
                                         <rect key="frame" x="0.0" y="0.0" width="1180" height="675"/>
                                         <subviews>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="k8c-V0-4EM">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="k8c-V0-4EM">
                                                 <rect key="frame" x="0.0" y="0.0" width="1180" height="675"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </tableView>
@@ -6777,7 +6777,7 @@
                                     <constraint firstAttribute="bottom" secondItem="mmY-i0-yhR" secondAttribute="bottom" id="4tf-zn-4mT"/>
                                     <constraint firstItem="mmY-i0-yhR" firstAttribute="width" secondItem="TwB-UH-djr" secondAttribute="width" priority="250" id="BdY-XC-XeG"/>
                                     <constraint firstItem="mmY-i0-yhR" firstAttribute="top" secondItem="TwB-UH-djr" secondAttribute="top" id="FA7-6s-VZ4"/>
-                                    <constraint firstItem="mmY-i0-yhR" firstAttribute="height" secondItem="TwB-UH-djr" secondAttribute="height" id="XGP-0A-oti"/>
+                                    <constraint firstItem="mmY-i0-yhR" firstAttribute="height" secondItem="TwB-UH-djr" secondAttribute="height" priority="251" id="XGP-0A-oti"/>
                                     <constraint firstItem="mmY-i0-yhR" firstAttribute="leading" secondItem="TwB-UH-djr" secondAttribute="leading" id="lCc-KU-5sm"/>
                                     <constraint firstAttribute="trailing" secondItem="mmY-i0-yhR" secondAttribute="trailing" id="pVd-Ae-LPS"/>
                                 </constraints>
@@ -17075,6 +17075,7 @@ Please Choose Diffrent Date</string>
                         <outlet property="lbl_WalkinTotal" destination="8d3-a5-fXd" id="tEc-7C-xoZ"/>
                         <outlet property="lbl_WalkinTotalAmount" destination="wtb-Dv-gRM" id="YOh-nJ-dyW"/>
                         <outlet property="lbl_total" destination="hM5-u4-3Zt" id="idQ-9J-DSp"/>
+                        <outlet property="tbl_Height" destination="78w-un-fNz" id="yFh-EK-K3N"/>
                         <outlet property="tbl_vw" destination="3WR-FO-0vc" id="iK8-9s-kXe"/>
                         <outlet property="txt_Date" destination="Chy-p8-NfZ" id="FKJ-44-8Ej"/>
                         <outlet property="txt_days" destination="FBi-s7-wgY" id="99h-5N-DYE"/>
@@ -18043,8 +18044,8 @@ Please Choose Diffrent Date</string>
         <image name="Search" width="24" height="24"/>
         <image name="arrow.down" catalog="system" width="118" height="128"/>
         <image name="back" width="78" height="79"/>
-        <image name="calendar" width="72" height="72"/>
         <image name="calendar" catalog="system" width="128" height="107"/>
+        <image name="calendar" width="72" height="72"/>
         <image name="cat_back" width="602" height="602"/>
         <image name="chevron.backward" catalog="system" width="97" height="128"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>

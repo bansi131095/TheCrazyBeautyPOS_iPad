@@ -16,7 +16,7 @@ class UpcomingAppointmentsVC: UIViewController {
     @IBOutlet weak var lbl_total: UILabel!
     
     @IBOutlet weak var width_tbl: NSLayoutConstraint!
-    
+    @IBOutlet weak var tbl_Height: NSLayoutConstraint!
     
     
     @IBOutlet weak var txt_Date: UITextField!
@@ -66,6 +66,8 @@ class UpcomingAppointmentsVC: UIViewController {
         tbl_vw.dataSource = self
         tbl_vw.rowHeight = UITableView.automaticDimension
         tbl_vw.estimatedRowHeight = 60
+        tbl_vw.reloadData()
+        self.tbl_Height.constant = self.tbl_vw.contentSize.height
     }
     
     //MARK: Setup Views
@@ -133,6 +135,7 @@ class UpcomingAppointmentsVC: UIViewController {
             self.isLoadingMore = false
             self.tbl_vw.backgroundView = self.upcomingList.isEmpty ? self.getNoDataLabel() : nil
             self.tbl_vw.reloadData()
+            self.tbl_Height.constant = self.tbl_vw.contentSize.height
         }
     }
     

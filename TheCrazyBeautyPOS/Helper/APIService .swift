@@ -607,6 +607,54 @@ class APIService {
         }.resume()
     }
     
+    /*func getClientDetails(page: String, limit: String,sort: String,vendorId: String,search: String,completion: @escaping (CustomerListResponse?) -> Void) {
+        
+        let url = global.shared.URL_CLIENT_DETAILS
+        
+        let params: [String: Any] = [
+            "page": page,
+            "limit": limit,
+            "vendor_id": vendorId,
+            "sort": sort,
+            "search": search
+        ]
+        
+        print("🌐 URL: \(url)")
+        print("📤 Parameters: \(params)")
+        print("📤 Headers: \(headers)")
+        
+        AF.request(url,
+                   method: .post,
+                   parameters: params,
+                   encoding: JSONEncoding.default,
+                   headers: HTTPHeaders(headers))
+        .responseJSON { response in
+            
+            // ✅ Print status code
+            if let httpResponse = response.response {
+                print("📬 Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let value):
+                print("📦 Raw Response: \(value)")
+                
+                if let json = value as? [String: Any],
+                   let result = CustomerListResponse(JSON: json) {
+                    print("✅ Parsed Response Object: \(result)")
+                    completion(result)
+                } else {
+                    print("❌ Failed to map JSON to CustomerListResponse")
+                    completion(nil)
+                }
+                
+            case .failure(let error):
+                print("❌ Alamofire Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }*/
+    
     //MARK: Clients Api
     func getclientDetails(page: String, limit: String,sort:String, vendorId: String, search: String, completion: @escaping (CustomerListResponse?) -> Void) {
         let url = global.shared.URL_CLIENT_DETAILS
@@ -5933,56 +5981,7 @@ class APIService {
                     completion(nil)
                 }
             }
-    }
-
-    func getClientDetails(page: String, limit: String,sort: String,vendorId: String,search: String,completion: @escaping (CustomerListResponse?) -> Void) {
-        
-        let url = global.shared.URL_CLIENT_DETAILS
-        
-        let params: [String: Any] = [
-            "page": page,
-            "limit": limit,
-            "vendor_id": vendorId,
-            "sort": sort,
-            "search": search
-        ]
-        
-        print("🌐 URL: \(url)")
-        print("📤 Parameters: \(params)")
-        print("📤 Headers: \(headers)")
-        
-        AF.request(url,
-                   method: .post,
-                   parameters: params,
-                   encoding: JSONEncoding.default,
-                   headers: HTTPHeaders(headers))
-        .responseJSON { response in
-            
-            // ✅ Print status code
-            if let httpResponse = response.response {
-                print("📬 Status Code: \(httpResponse.statusCode)")
-            }
-            
-            switch response.result {
-            case .success(let value):
-                print("📦 Raw Response: \(value)")
-                
-                if let json = value as? [String: Any],
-                   let result = CustomerListResponse(JSON: json) {
-                    print("✅ Parsed Response Object: \(result)")
-                    completion(result)
-                } else {
-                    print("❌ Failed to map JSON to CustomerListResponse")
-                    completion(nil)
-                }
-                
-            case .failure(let error):
-                print("❌ Alamofire Error: \(error.localizedDescription)")
-                completion(nil)
-            }
-        }
     }*/
-
 
 }
 

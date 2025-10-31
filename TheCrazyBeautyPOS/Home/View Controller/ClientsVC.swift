@@ -13,6 +13,7 @@ class ClientsVC: UIViewController {
     @IBOutlet weak var scroll_vw: UIScrollView!
     @IBOutlet weak var contentViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var tbl_vw: UITableView!
+    @IBOutlet weak var tbl_Height: NSLayoutConstraint!
     @IBOutlet weak var txt_search: UITextField!
     @IBOutlet weak var lbl_totalClient: UILabel!
     
@@ -280,7 +281,7 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
         let contentHeight = scrollView.contentSize.height
         let frameHeight = scrollView.frame.size.height
 
-        if offsetY > contentHeight - frameHeight - 100 {
+        if offsetY > contentHeight - frameHeight - 10 {
             if !isLoadingMore && hasMoreData {
                 self.loadData(Search: txt_search.text ?? "", isPagination: true)
             }
