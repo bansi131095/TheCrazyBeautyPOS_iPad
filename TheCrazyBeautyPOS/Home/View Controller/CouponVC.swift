@@ -81,7 +81,7 @@ class CouponVC: UIViewController {
 //            showLoader()
         }
 
-        APIService.shared.getcouponDetails(page: "\(currentPage)", limit: "15", vendorId: LocalData.userId, search: Search){ staffResult in
+        APIService.shared.getCouponDetails(page: "\(currentPage)", limit: "15", vendorId: LocalData.userId, search: Search){ staffResult in
             self.hideLoader()
             guard let model = staffResult else {
                 self.isLoadingMore = false

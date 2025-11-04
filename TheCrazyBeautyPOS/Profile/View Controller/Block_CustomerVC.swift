@@ -8,6 +8,7 @@
 import UIKit
 import CountryPickerViewSwift
 import Alamofire
+import ObjectMapper
 
 class Block_CustomerVC: UIViewController {
     
@@ -157,7 +158,7 @@ class Block_CustomerVC: UIViewController {
         }
     }
     
-    func fetchBlockedCustomers(completion: @escaping () -> Void) {
+    /*func fetchBlockedCustomers(completion: @escaping () -> Void) {
         let url = global.shared.URL_BLOCK_CUSTOMERS + "/\(LocalData.userId)"
         
         var headers: [String: String] {
@@ -217,6 +218,81 @@ class Block_CustomerVC: UIViewController {
                     
                 case .failure(let error):
                     print("❌ API Error: \(error)")
+                    completion()
+                }
+            }
+    }*/
+    
+    
+    func fetchBlockedCustomers(completion: @escaping () -> Void) {
+        let url = global.shared.URL_BLOCK_CUSTOMERS + "/\(LocalData.userId)"
+        var headers: [String: String] {
+            var baseHeaders = [
+                "Accept": "application/json",
+                "apikey": global.apikey,
+                "Content-Type": "application/json",
+            ]
+            if !LocalData.loginToken.isEmpty {
+                baseHeaders["Authorization"] = "Bearer \(LocalData.loginToken)"
+            }
+            return baseHeaders
+        }
+        AF.request(url, method: .get, headers: HTTPHeaders(headers))
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .success(let json):
+                    // 🧾 Log raw JSON
+                    if let data = response.data,
+                       let responseStr = String(data: data, encoding: .utf8) {
+                        print("📦 API Raw Response:\n\(responseStr)")
+                    }
+     
+                    // 🧠 Parse JSON manually using ObjectMapper
+                    if let model = Mapper<BlockCustomerResponse>().map(JSONObject: json) {
+                        if let customerString = model.data.first?.block_customers {
+                            let numberArray = customerString.components(separatedBy: ",")
+                            self.arr_Number = numberArray.map { entry in
+                                let components = entry.components(separatedBy: "-")
+                                if components.count == 2 {
+                                    return [
+                                        "countryCode": components[0],
+                                        "mobile": components[1],
+                                        "locale": "IE" // or infer dynamically
+                                    ]
+                                } else {
+                                    return [:]
+                                }
+                            }
+     
+                            if !self.arr_Number.isEmpty {
+                                self.vw_CountryHeight.constant = 0
+                                self.vw_CountryPicker.isHidden = true
+                            } else {
+                                self.arr_Number.append(["countryCode": "+353", "mobile": "", "locale": "IE"])
+                                self.vw_CountryHeight.constant = 65
+                                self.vw_CountryPicker.isHidden = false
+                            }
+                        } else {
+                            self.arr_Number = [["countryCode": "+353", "mobile": "", "locale": "IE"]]
+                            self.vw_CountryHeight.constant = 65
+                            self.vw_CountryPicker.isHidden = false
+                        }
+     
+                        self.tbl_vw.reloadData()
+                        self.tbl_Height.constant = CGFloat(self.arr_Number.count * 60)
+                        completion()
+                    } else {
+                        print("❌ Mapping failed — JSON structure may not match model")
+                        completion()
+                    }
+     
+                case .failure(let error):
+                    print("❌ API Error: \(error.localizedDescription)")
+                    if let data = response.data,
+                       let responseStr = String(data: data, encoding: .utf8) {
+                        print("📦 Raw Error Response:\n\(responseStr)")
+                    }
                     completion()
                 }
             }

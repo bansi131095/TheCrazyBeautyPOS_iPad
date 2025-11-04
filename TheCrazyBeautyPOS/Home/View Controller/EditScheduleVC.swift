@@ -406,9 +406,12 @@ class EditScheduleVC: UIViewController {
                     "off": off
                 ]
             }
+        
+//        print(workingHoursArray)
 
         if let data = try? JSONSerialization.data(withJSONObject: workingHoursArray, options: []),
            let jsonString = String(data: data, encoding: .utf8) {
+            print("jsonString:- \(jsonString)")
             return jsonString
         }
 
@@ -457,7 +460,7 @@ class EditScheduleVC: UIViewController {
     //MARK: API Call
     func api_getstaffShifts() {
         self.showLoader()
-        APIService.shared.getstaffShift(staffId: self.TeamId) { result in
+        APIService.shared.getStaffShift(staffId: self.TeamId) { result in
             self.hideLoader()
             if let data = result?.data, !data.isEmpty {
                 self.staffShiftlist = data
@@ -1083,6 +1086,9 @@ extension EditScheduleVC: UITableViewDelegate, UITableViewDataSource {
                         // Turn on
                         let start = self.startTime[day] ?? "00:00"
                         let end = self.endTime[day] ?? "23:00"
+                        schedule.workingHours.off = false
+                        schedule.workingHours.from = start
+                        schedule.workingHours.to = end
                         fromTimes[day] = [start]
                         toTimes[day] = [end]
                         let shift = ShiftTiming(map: Map(mappingType: .fromJSON, JSON: [:]))!
@@ -1095,6 +1101,7 @@ extension EditScheduleVC: UITableViewDelegate, UITableViewDataSource {
                     } else {
                         fromTimes[day] = []
                         toTimes[day] = []
+                        schedule.workingHours.off = true
                         schedule.shifts = []
                         schedule.isSwitched = !current
                     }

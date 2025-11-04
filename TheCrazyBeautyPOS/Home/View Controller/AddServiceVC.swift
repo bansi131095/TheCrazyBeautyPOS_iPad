@@ -627,7 +627,7 @@ class AddServiceVC: UIViewController {
     
     func loadCategoryData() {
         showLoader()
-        APIService.shared.getselectMainCategory() { staffResult in
+        APIService.shared.getSelectMainCategory() { staffResult in
             self.hideLoader()
             guard let model = staffResult else {
                 return

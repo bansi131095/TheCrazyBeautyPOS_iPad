@@ -118,7 +118,7 @@ class Category_DescriptionVC: UIViewController {
     
     func get_CategoryDescriptionNew() {
         showLoader()
-        APIService.shared.fetchcategory_description { result in
+        APIService.shared.fetchCategoryDescription { result in
             self.hideLoader()
             guard let result = result else {
                 print("❌ Failed to fetch category description")

@@ -132,7 +132,7 @@ class AddResources_VC: UIViewController,UITextFieldDelegate {
     
     func api_UpdateResource(){
         self.showLoader()
-        APIService.shared.UpdateResource(description: self.txt_Description.text, name: self.txt_Name.text ?? "", qty: self.txt_Qty.text ?? "", resource_id: String(resource_id), vendor_id: LocalData.userId) { result in
+        APIService.shared.updateResource(description: self.txt_Description.text, name: self.txt_Name.text ?? "", qty: self.txt_Qty.text ?? "", resource_id: String(resource_id), vendor_id: LocalData.userId) { result in
             if result != nil {
                 self.hideLoader()
                 print(self.resource_id)

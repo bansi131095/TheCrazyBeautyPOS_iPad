@@ -73,7 +73,7 @@ class ServiceSequenceVC: UIViewController {
     func loadCategoryData() {
     
         self.showLoader()
-        APIService.shared.getselectMainCategory() { staffResult in
+        APIService.shared.getSelectMainCategory() { staffResult in
             guard let model = staffResult else {
                 return
             }

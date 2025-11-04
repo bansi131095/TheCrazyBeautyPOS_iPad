@@ -98,7 +98,7 @@ class OfflineGiftCardVC: UIViewController {
 //            showLoader()
         }
 
-        APIService.shared.getofflineGiftCardDetails(page: "\(currentPage)", limit: "10", vendorId: LocalData.userId, search: Search, filter: filter){ staffResult in
+        APIService.shared.getOfflineGiftCardDetails(page: "\(currentPage)", limit: "10", vendorId: LocalData.userId, search: Search, filter: filter){ staffResult in
             self.hideLoader()
             guard let model = staffResult else {
                 self.isLoadingMore = false

@@ -9,7 +9,7 @@ import Foundation
 import ObjectMapper
 
 
-class CommonResponses: Mappable {
+class CommonResponse: Mappable {
     var data: String = ""
     var error: String?
 
@@ -22,10 +22,10 @@ class CommonResponses: Mappable {
 }
 
 
-struct CommonResponse: Codable {
+/*struct CommonResponse: Codable {
     let data: String
     let error: String?
-}
+}*/
 
 /*class CommonResponse: Mappable {
     var data: String?

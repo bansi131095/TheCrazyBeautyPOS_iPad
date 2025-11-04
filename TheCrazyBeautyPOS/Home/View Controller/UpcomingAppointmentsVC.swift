@@ -116,7 +116,7 @@ class UpcomingAppointmentsVC: UIViewController {
             showLoader()
         }
 
-        APIService.shared.getbookingHistory(page: "\(currentPage)", limit: "10", vendorId: LocalData.userId, search: Search, days: days) { staffResult in
+        APIService.shared.getBookingHistory(page: "\(currentPage)", limit: "10", vendorId: LocalData.userId, search: Search, days: days) { staffResult in
             self.hideLoader()
             guard let model = staffResult else {
                 self.isLoadingMore = false

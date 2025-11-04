@@ -293,7 +293,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
             editSchedule.shiftTiming = self.dictStaff!.shiftTimings ?? ""
         }
         editSchedule.onDataReturn = { value1, value2 in
-            print("Received values: \(value1), \(value2)")
+            print("\("workingHoursJson:- \(value1)"), \("shiftTimingJson:- \(value2)")")
             self.workingHoursJson = value1
             self.shiftTimingJson = value2
             // Do something with the two strings

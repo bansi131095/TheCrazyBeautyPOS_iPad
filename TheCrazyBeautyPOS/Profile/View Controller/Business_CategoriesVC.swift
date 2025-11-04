@@ -135,7 +135,7 @@ class Business_CategoriesVC: UIViewController {
             }
             
             // Second API
-            APIService.shared.getselectMainCategory { [weak self] categoryResult in
+            APIService.shared.getSelectMainCategory { [weak self] categoryResult in
                 guard let self = self else { return }
                 guard let categoryModel = categoryResult else { return }
                 

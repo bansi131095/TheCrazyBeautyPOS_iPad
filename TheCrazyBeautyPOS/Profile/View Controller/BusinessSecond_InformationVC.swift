@@ -315,7 +315,7 @@ class BusinessSecond_InformationVC: UIViewController {
         showLoader()
         APIService.shared.Add_BusinessHours(url: url,workingHours: workingHoursToSend) { result  in
             self.hideLoader()
-            if result {
+            if (result != nil) {
                 let storyboard = UIStoryboard(name: "Profile", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "BusinessThird_InformationVC") as! BusinessThird_InformationVC
                 vc.salon_Id = self.vendor_Id
