@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 class LoginScreen: UIViewController {
 
@@ -32,12 +33,18 @@ class LoginScreen: UIViewController {
     var staffLogin = String()
     var isPasswordVisible = false
     
+    
+    var googleId = ""
+    var googleName = ""
+    var googleEmail = ""
+    
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         loader.isHidden = true
         self.btn_eye.setImage(#imageLiteral(resourceName: "view"), for: .normal)
         self.txt_password.isSecureTextEntry = true
+        checkVendor()
         if staffLogin == "Staff"{
             self.btn_Login.isHidden = false
             self.btn_LoginasStaff.isHidden = true
@@ -96,6 +103,21 @@ class LoginScreen: UIViewController {
     }
     
     @IBAction func act_googleLogin(_ sender: UIButton) {
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
+            
+        guard error == nil else { return }
+
+          // If sign in succeeded, display the app's main content View.
+            guard let signInResult = signInResult else { return }
+            let user = signInResult.user
+
+            self.googleEmail = user.profile?.email ?? ""
+            self.googleName = user.profile?.name ?? ""
+            self.googleId = user.userID ?? ""
+            self.googlelogin(social_id: self.googleId, social_type: "google", email: self.googleEmail)
+//            self.call_SignUpAPI(socialId: self.googleId)
+             
+        }
     }
     
     @IBAction func act_passwordHideShow(_ sender: UIButton) {
@@ -171,6 +193,63 @@ class LoginScreen: UIViewController {
                 self.showToast(message: result?.error ?? "")
             }
             
+        }
+    }
+    
+    func checkVendor(){
+        APIService.shared.getCheckVendor { result in
+            if (result?.error != nil && result?.error != "") {
+                self.showToast(message: result?.error ?? "")
+                return
+            }
+            if result?.data == "0"{
+                self.btn_Login.isHidden = false
+                self.btn_LoginasStaff.isHidden = true
+                self.lbl_Or_Login.isHidden = true
+                self.btn_Google.isHidden = true
+                self.Constraint_Bottom.constant = 35
+            }else{
+                self.btn_Login.isHidden = false
+                self.btn_LoginasStaff.isHidden = false
+                self.lbl_Or_Login.isHidden = false
+                self.btn_Google.isHidden = false
+                self.Constraint_Bottom.constant = 246.5
+            }
+            
+        }
+    }
+    
+    
+    func googlelogin(social_id:String,social_type:String,email:String){
+        self.loader.hidesWhenStopped = false
+        self.loader.startAnimating()
+        APIService.shared.soicalLogin(social_id: social_id, social_type: social_type, email: email) { result in
+            self.loader.stopAnimating()
+            self.loader.hidesWhenStopped = true
+            if let data = result {
+                print("✅ Login successful!")
+                print("🔑 Token: \(data.token ?? "N/A")")
+            
+                SharedPrefs.setEmail(data.email ?? "")
+                SharedPrefs.setUserId(String(data.id ?? 0))
+                SharedPrefs.setUserName((data.first_name ?? "") + " " + (data.last_name ?? ""))
+                SharedPrefs.setSalonId(String(data.salon_id ?? 0))
+                SharedPrefs.setSalonName(data.salon_name ?? "")
+                SharedPrefs.setLoginToken(data.token ?? "")
+                SharedPrefs.setStaffLogin(false)
+                SharedPrefs.setSubvendor("Vendor")
+                let currentTimeMillis = Int(Date().timeIntervalSince1970 * 1000)
+                let timeString = String(currentTimeMillis)
+                SharedPrefs.setLoginTime(timeString)
+                LocalData.getUserData()
+                let sb = UIStoryboard(name: "Home", bundle:nil)
+                let navDashboard = sb.instantiateViewController(withIdentifier: "NavigateHome") as! UINavigationController
+                 navDashboard.modalPresentationStyle = .fullScreen
+                self.present(navDashboard, animated: true, completion: nil)
+            }else {
+                self.showToast(message: "You are not registered yet")
+            }
+
         }
     }
     /*func Subvendor(){

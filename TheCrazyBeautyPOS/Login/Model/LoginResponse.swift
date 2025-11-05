@@ -21,6 +21,7 @@ class LoginResponse: Mappable {
 
 class LoginData: Mappable {
     var message: String?
+    var error: String?
     var id: Int?
     var salon_id: Int?
     var service_id: String?
@@ -41,6 +42,7 @@ class LoginData: Mappable {
 
     func mapping(map: Map) {
         message             <- map["message"]
+        error             <- map["error"]
         id                  <- map["id"]
         salon_id            <- map["salon_id"]
         service_id          <- map["service_id"]

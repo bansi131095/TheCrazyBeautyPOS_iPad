@@ -6066,7 +6066,50 @@ class APIService {
                     }
                 }
         }
+    
+    func soicalLogin(social_id: String, social_type: String,email: String, completion: @escaping (LoginData?) -> Void) {
+        let url = global.shared.URL_SOCIAL_LOGIN
+        let params: [String: Any] = ["social_id": social_id, "social_type": social_type,"email":email]
 
+        AF.request(url,
+                   method: .post,
+                   parameters: params,
+                   encoding: JSONEncoding.default,
+                   headers: HTTPHeaders(headers))
+            .validate()
+            .responseJSON { response in
+
+                // 📦 Print request info
+                print("🔵 Request: \(String(describing: response.request))")
+                print("🌐 URL: \(url)")
+                print("📤 Parameters: \(params)")
+
+                // 📩 Print HTTP response status code
+                if let httpResponse = response.response {
+                    print("✅ Status Code: \(httpResponse.statusCode)")
+                }
+
+                // 🧾 Print raw response body
+                if let data = response.data,
+                   let rawJSON = String(data: data, encoding: .utf8) {
+                    print("📥 Raw Response: \(rawJSON)")
+                }
+
+                switch response.result {
+                case .success(let json):
+                    if let result: LoginResponse = self.mapResponseObject(json: json) {
+                        print("✅ Parsed Response Object: \(result)")
+                        completion(result.data)
+                    } else {
+                        print("❌ JSON structure does not match LoginResponse")
+                        completion(nil)
+                    }
+                case .failure(let error):
+                    print("❌ Error: \(error.localizedDescription)")
+                    completion(nil)
+                }
+            }
+    }
     
     // MARK: - Service List Api
         func getServiceDetails(
@@ -13455,6 +13498,50 @@ class APIService {
                     completion(nil)
                 }
             }
+    }
+    
+    func getCheckVendor(completion: @escaping (subVendor?) -> Void) {
+        let url = global.shared.URL_CHECK_VENDOR
+
+        // 🌐 Log Request Info
+        print("🌐 URL: \(url)")
+        print("📤 Headers: \(headers)")
+
+        AF.request(
+            url,
+            method: .get,
+            headers: HTTPHeaders(headers)
+        )
+        .validate()
+        .responseJSON { response in
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            // 🧾 Print raw response for debugging
+            if let data = response.data,
+               let raw = String(data: data, encoding: .utf8) {
+                print("📥 Raw Response: \(raw)")
+            }
+
+            // 🧠 Parse JSON → DurationResponse using ObjectMapper
+            switch response.result {
+            case .success(let json):
+                if let model: subVendor = Mapper<subVendor>().map(JSONObject: json) {
+                    print("✅ Parsed Response Object: \(model)")
+                    completion(model)
+                } else {
+                    print("❌ Mapping failed — unexpected JSON structure.")
+                    completion(nil)
+                }
+
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
     }
 }
 

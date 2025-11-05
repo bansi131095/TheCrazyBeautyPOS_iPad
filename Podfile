@@ -25,5 +25,6 @@ target 'TheCrazyBeautyPOS' do
     pod 'FSCalendar'
     pod 'GoogleMaps'
     pod 'GooglePlaces'
-    
+    pod 'FirebaseAuth'
+    pod 'GoogleSignIn'
 end

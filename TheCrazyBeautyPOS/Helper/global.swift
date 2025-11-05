@@ -61,6 +61,8 @@ class global: NSObject
         
     //MARK:- Login & register
     var URL_LOGIN = global.server_url + "login"
+    var URL_CHECK_VENDOR = global.server_url + "check_vendor"
+    var URL_SOCIAL_LOGIN = global.server_url + "social_login"
     // Accesskey, Email_Id, Password
    
     var URL_SERVICE_DETAILS = global.server_url + "service_details_v1"
@@ -264,6 +266,7 @@ class global: NSObject
     var URL_LOGIN_SUBVENDOR = global.server_url + "login_subvendor"
     var URL_TODAY_BOOKINGS = global.server_url + "today_bookings"
     var URL_CLIENT_BOOKINGS_DATA = global.server_url + "client_bookings_data"
+    
     
     var noDataLabel: UILabel?
     var hasUnreadNotification: Bool = false

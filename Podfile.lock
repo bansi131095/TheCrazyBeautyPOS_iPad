@@ -1,5 +1,15 @@
 PODS:
   - Alamofire (5.10.2)
+  - AppAuth (2.0.0):
+    - AppAuth/Core (= 2.0.0)
+    - AppAuth/ExternalUserAgent (= 2.0.0)
+  - AppAuth/Core (2.0.0)
+  - AppAuth/ExternalUserAgent (2.0.0):
+    - AppAuth/Core
+  - AppCheckCore (11.2.0):
+    - GoogleUtilities/Environment (~> 8.0)
+    - GoogleUtilities/UserDefaults (~> 8.0)
+    - PromisesObjC (~> 2.4)
   - BSImagePicker (3.3.3)
   - CountryPickerViewSwift (1.2.3)
   - DeviceGuru (10.0.11):
@@ -8,11 +18,63 @@ PODS:
     - DeviceGuru/Resources
   - DeviceGuru/Resources (10.0.11)
   - DropDown (2.3.13)
+  - FirebaseAppCheckInterop (12.5.0)
+  - FirebaseAuth (12.5.0):
+    - FirebaseAppCheckInterop (~> 12.5.0)
+    - FirebaseAuthInterop (~> 12.5.0)
+    - FirebaseCore (~> 12.5.0)
+    - FirebaseCoreExtension (~> 12.5.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 8.1)
+    - GoogleUtilities/Environment (~> 8.1)
+    - GTMSessionFetcher/Core (< 6.0, >= 3.4)
+    - RecaptchaInterop (~> 101.0)
+  - FirebaseAuthInterop (12.5.0)
+  - FirebaseCore (12.5.0):
+    - FirebaseCoreInternal (~> 12.5.0)
+    - GoogleUtilities/Environment (~> 8.1)
+    - GoogleUtilities/Logger (~> 8.1)
+  - FirebaseCoreExtension (12.5.0):
+    - FirebaseCore (~> 12.5.0)
+  - FirebaseCoreInternal (12.5.0):
+    - "GoogleUtilities/NSData+zlib (~> 8.1)"
   - FSCalendar (2.8.4)
   - GoogleMaps (10.4.0):
     - GoogleMaps/Maps (= 10.4.0)
   - GoogleMaps/Maps (10.4.0)
   - GooglePlaces (10.4.0)
+  - GoogleSignIn (9.0.0):
+    - AppAuth (~> 2.0)
+    - AppCheckCore (~> 11.0)
+    - GTMAppAuth (~> 5.0)
+    - GTMSessionFetcher/Core (~> 3.3)
+  - GoogleUtilities/AppDelegateSwizzler (8.1.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Environment (8.1.0):
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Logger (8.1.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Network (8.1.0):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Privacy
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (8.1.0)":
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Privacy (8.1.0)
+  - GoogleUtilities/Reachability (8.1.0):
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/UserDefaults (8.1.0):
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Privacy
+  - GTMAppAuth (5.0.0):
+    - AppAuth/Core (~> 2.0)
+    - GTMSessionFetcher/Core (< 4.0, >= 3.3)
+  - GTMSessionFetcher/Core (3.5.0)
   - IQKeyboardCore (1.0.8)
   - IQKeyboardManagerSwift (8.0.1):
     - IQKeyboardManagerSwift/Appearance (= 8.0.1)
@@ -704,6 +766,8 @@ PODS:
     - MotionInterchange (~> 3.0)
   - MotionInterchange (3.0.0)
   - ObjectMapper (4.4.2)
+  - PromisesObjC (2.4.0)
+  - RecaptchaInterop (101.0.0)
   - SDWebImage (5.21.3):
     - SDWebImage/Core (= 5.21.3)
   - SDWebImage/Core (5.21.3)
@@ -717,9 +781,11 @@ DEPENDENCIES:
   - CountryPickerViewSwift
   - DeviceGuru
   - DropDown
+  - FirebaseAuth
   - FSCalendar
   - GoogleMaps
   - GooglePlaces
+  - GoogleSignIn
   - IQKeyboardManagerSwift
   - Material
   - MaterialComponents
@@ -731,13 +797,25 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - AppAuth
+    - AppCheckCore
     - BSImagePicker
     - CountryPickerViewSwift
     - DeviceGuru
     - DropDown
+    - FirebaseAppCheckInterop
+    - FirebaseAuth
+    - FirebaseAuthInterop
+    - FirebaseCore
+    - FirebaseCoreExtension
+    - FirebaseCoreInternal
     - FSCalendar
     - GoogleMaps
     - GooglePlaces
+    - GoogleSignIn
+    - GoogleUtilities
+    - GTMAppAuth
+    - GTMSessionFetcher
     - IQKeyboardCore
     - IQKeyboardManagerSwift
     - IQKeyboardNotification
@@ -754,19 +832,33 @@ SPEC REPOS:
     - MotionAnimator
     - MotionInterchange
     - ObjectMapper
+    - PromisesObjC
+    - RecaptchaInterop
     - SDWebImage
     - SDWebImageSVGCoder
     - SFHFKeychainUtils
 
 SPEC CHECKSUMS:
   Alamofire: 7193b3b92c74a07f85569e1a6c4f4237291e7496
+  AppAuth: 1c1a8afa7e12f2ec3a294d9882dfa5ab7d3cb063
+  AppCheckCore: cc8fd0a3a230ddd401f326489c99990b013f0c4f
   BSImagePicker: 57900b323f951711608acaf97d52e9183530cb6d
   CountryPickerViewSwift: 8466da3480f57800963b6b409c7c0f48b0cf1626
   DeviceGuru: f0f2bd81953d82777689f22025bca418e0c51d64
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
+  FirebaseAppCheckInterop: 263b97ab0773bf4728dc1b346a953e1ade84f931
+  FirebaseAuth: f1ca4b4d56639af209fb5489d02e15734322b974
+  FirebaseAuthInterop: cc80feab9e032d38cb269c4c558002ce177c8c32
+  FirebaseCore: dcadd790e70df14d689525ee56657bf4a6305b54
+  FirebaseCoreExtension: e335e93725d552124eb2e0c1487e8445764ddcc2
+  FirebaseCoreInternal: 67715d38ba28c92c10750de9367f4f2120d763cf
   FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
   GoogleMaps: a40d3b1f511f0fa2036e7b08c920c33279b1d5fd
   GooglePlaces: de7f2e3024abd2ded98ae7b0206a45e3dae347b1
+  GoogleSignIn: c7f09cfbc85a1abf69187be091997c317cc33b77
+  GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
+  GTMAppAuth: 217a876b249c3c585a54fd6f73e6b58c4f5c4238
+  GTMSessionFetcher: 5aea5ba6bd522a239e236100971f10cb71b96ab6
   IQKeyboardCore: 8652977ec919cf5351aa2977fedd1a6546476fbc
   IQKeyboardManagerSwift: 835fc9c6e4732398113406d84900ad2e8f141218
   IQKeyboardNotification: eb4910401f5a0e68f97e71c62f8a0c5b7e9d535c
@@ -783,10 +875,12 @@ SPEC CHECKSUMS:
   MotionAnimator: 5f99d7c9592928c0f28a66283eda9c3b657dc480
   MotionInterchange: 13adae439b377e31d1674cc165539d50e1d1566a
   ObjectMapper: e6e4d91ff7f2861df7aecc536c92d8363f4c9677
+  PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
+  RecaptchaInterop: 11e0b637842dfb48308d242afc3f448062325aba
   SDWebImage: 16309af6d214ba3f77a7c6f6fdda888cb313a50a
   SDWebImageSVGCoder: 8e10c8f6cc879c7dfb317b284e13dd589379f01c
   SFHFKeychainUtils: a4e064aedb7a5ada3d5219152d45f53cebc16507
 
-PODFILE CHECKSUM: 1e2a184888a9b3c1a2a9573e5a2a980f4f34fc6c
+PODFILE CHECKSUM: 31a69dfbfaafc0f87378fa2cf66a65b8fb5a1cf4
 
 COCOAPODS: 1.16.2
