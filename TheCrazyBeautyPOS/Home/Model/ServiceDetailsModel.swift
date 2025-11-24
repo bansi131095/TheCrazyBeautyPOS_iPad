@@ -207,6 +207,9 @@ class SalesHistoryDateModel: Mappable {
     var miscellaneous_price: String = ""
     var tip: Int = 0
     var penalty_amount: Int = 0
+    var card_amount: Int = 0
+    var cash_amount: Int = 0
+    var paid_amount: Int = 0
     var coupon_code: String = ""
     
 
@@ -233,6 +236,9 @@ class SalesHistoryDateModel: Mappable {
         miscellaneous_price           <- map["miscellaneous_price"]
         tip           <- map["tip"]
         penalty_amount           <- map["penalty_amount"]
+        card_amount           <- map["card_amount"]
+        cash_amount           <- map["cash_amount"]
+        paid_amount           <- map["paid_amount"]
         coupon_code           <- map["coupon_code"]
         
     }

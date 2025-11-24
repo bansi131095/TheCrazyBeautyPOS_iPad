@@ -23,7 +23,8 @@ class ClientsVC: UIViewController {
     var totalCount = 0
     var isLoadingMore = false
     var hasMoreData = true
-    
+    var is_Block = String()
+    var is_Guest = String()
     
     //MARK: View life cycle
     override func viewDidLoad() {
@@ -156,15 +157,24 @@ class ClientsVC: UIViewController {
             self.downloadAndSaveFile(urlString: urlPath, in: self)
         }
     }
-    /*
-    // MARK: - Navigation
+    
+    func BlockNumber(id: String,is_block:String,is_guest:String) {
+        APIService.shared.BlockNumber(id: id, is_block: is_block, is_guest: is_guest) { staffResult in
+            guard let model = staffResult else {
+                return
+            }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+            if model.error == "" || model.error == nil {
+                DispatchQueue.main.async {
+                    // safe UI code here
+                    self.showToast(message: model.data)
+                }
+                self.loadData(Search: "")
+            } else {
+                self.show_alert(msg: model.error ?? "", title: "")
+            }
+        }
     }
-    */
 
 }
 
@@ -215,15 +225,20 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
         if client.gender != ""{
             cell.lbl_gender.text = client.gender.capitalized
         }else{
-            cell.lbl_gender.text = "--"
+            cell.lbl_gender.text = "-"
         }
         
         if client.kind != ""{
             cell.lbl_userType.text = client.kind.capitalized
         }else{
-            cell.lbl_userType.text = "--"
+            cell.lbl_userType.text = "-"
         }
         
+        if client.is_block == 0{
+            cell.btn_Block.setImage(UIImage(named: "ic_Block"), for: .normal)
+        }else{
+            cell.btn_Block.setImage(UIImage(named: "ic_UnBlock"), for: .normal)
+        }
         if client.kind.capitalized == "Customer"{
             cell.btn_Edit.isHidden = false
             cell.btn_Icon.isHidden = false
@@ -237,10 +252,10 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
             cell.btn_Delete.isHidden = true
             cell.btn_Calender.isHidden = true
             cell.lbl_Line.isHidden = false
-            cell.lbl_Line.text = "--"
+            cell.lbl_Line.text = ""
         }
         if client.client_type == ""{
-            cell.lbl_clientType.text = "--"
+            cell.lbl_clientType.text = "-"
         }else{
             cell.lbl_clientType.text = client.client_type
         }
@@ -260,6 +275,39 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
                 print("User confirmed delete")
                 // Call your delete logic here
                 self.deleteClientData(clientId: client.id)
+            }
+            self.present(popup, animated: true, completion: nil)
+        }
+        cell.Act_Block = {
+            let popup = ConfirmDeletePopupVC()
+            popup.modalPresentationStyle = .overFullScreen
+            popup.modalTransitionStyle = .crossDissolve
+            if client.is_block == 0 {
+                popup.titleText = "Are you sure you want to Block this client?"
+            }else{
+                popup.titleText = "Are you sure you want to Unblock this client?"
+            }
+            popup.onConfirm = {
+                print("id \(client.id)")
+                if client.is_block == 0 {
+                    self.is_Block = String(1)
+                    if client.kind.capitalized == "Customer"{
+                        self.is_Guest = String(0)
+                    }else{
+                        self.is_Guest = String(1)
+                    }
+                }else {
+                    self.is_Block = String(0)
+                    if client.kind.capitalized == "Customer"{
+                        self.is_Guest = String(0)
+                    }else{
+                        self.is_Guest = String(1)
+                    }
+                }
+                self.BlockNumber(id: String(client.id), is_block: self.is_Block, is_guest: self.is_Guest)
+                print("is_Block:- \(self.is_Block)")
+                print("is_Guest:- \(self.is_Guest)")
+                print("User confirmed delete")
             }
             self.present(popup, animated: true, completion: nil)
         }

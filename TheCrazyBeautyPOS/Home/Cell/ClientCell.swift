@@ -22,6 +22,9 @@ class ClientCell: UITableViewCell {
     @IBOutlet weak var btn_Delete: UIButton!
     @IBOutlet weak var btn_Icon: UIButton!
     @IBOutlet weak var btn_Calender: UIButton!
+    
+    @IBOutlet weak var btn_Block: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setCustomFont()
@@ -64,4 +67,8 @@ class ClientCell: UITableViewCell {
         self.Act_Calender?()
     }
     
+    var Act_Block:(()->Void)?
+    @IBAction func act_block(_ sender: Any) {
+        self.Act_Block?()
+    }
 }

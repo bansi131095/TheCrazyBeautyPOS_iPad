@@ -13543,5 +13543,52 @@ class APIService {
             }
         }
     }
+    
+    func BlockNumber(id: String,is_block:String,is_guest:String, completion: @escaping (CommonResponse?) -> Void) {
+        let url = global.shared.URL_BLOCK_NUMBER
+     
+        let params: [String: Any] = [
+            "id": id,
+            "is_block": is_block,
+            "is_guest": is_guest
+        ]
+     
+        print("🌐 URL: \(url)")
+        print("📤 Parameters: \(params)")
+        print("📤 Headers: \(self.headers)")
+     
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .validate()
+            .responseJSON { response in
+                // 📩 Print HTTP response status code
+                if let httpResponse = response.response {
+                    print("✅ Status Code: \(httpResponse.statusCode)")
+                }
+     
+                switch response.result {
+                case .success(let json):
+                    // 📦 Print full response
+                    if let data = response.data, let raw = String(data: data, encoding: .utf8) {
+                        print("📦 Raw Response: \(raw)")
+                    }
+     
+                    // 🧠 Map JSON manually using ObjectMapper
+                    if let model = Mapper<CommonResponse>().map(JSONObject: json) {
+                        print("✅ Parsed Response Object: \(model)")
+                        completion(model)
+                    } else {
+                        print("❌ Mapping failed — unexpected JSON structure.")
+                        completion(nil)
+                    }
+     
+                case .failure(let error):
+                    print("❌ API Error: \(error.localizedDescription)")
+                    if let data = response.data, let raw = String(data: data, encoding: .utf8) {
+                        print("📦 Raw Response: \(raw)")
+                    }
+                    completion(nil)
+                }
+            }
+    }
 }
 

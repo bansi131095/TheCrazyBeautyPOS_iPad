@@ -60,6 +60,7 @@ class CustomerData: Mappable {
     var type: String = ""
     var kind: String = ""
     var is_deleted: Int = 0
+    var is_block: Int = 0
     var last_booked_date: String?
     var created_at: String = ""
     var updated_at: String?
@@ -101,6 +102,7 @@ class CustomerData: Mappable {
         type                <- map["type"]
         kind                <- map["kind"]
         is_deleted          <- map["is_deleted"]
+        is_block          <- map["is_block"]
         last_booked_date    <- map["last_booked_date"]
         created_at          <- map["created_at"]
         updated_at          <- map["updated_at"]
