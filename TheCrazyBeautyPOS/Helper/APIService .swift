@@ -6968,6 +6968,46 @@ class APIService {
             }
     }
 
+    func getShiftV1_Details(vendorId: String,
+        completion: @escaping (StaffResponse?) -> Void) {
+        let url = global.shared.URL_GET_SHIFTS_V1
+
+        let params: [String: Any] = [
+            "vendor_id": vendorId,
+        ]
+
+        AF.request(url,method: .post,parameters: params,encoding: JSONEncoding.default,headers: HTTPHeaders(headers))
+            .validate()
+            .responseJSON { response in
+
+                // 📦 Print request info
+                print("🌐 URL: \(url)")
+                print("📤 Parameters: \(params)")
+                print("📤 Headers: \(self.headers)")
+
+                // 📩 Print HTTP response status code
+                if let httpResponse = response.response {
+                    print("✅ Status Code: \(httpResponse.statusCode)")
+                }
+
+                switch response.result {
+                case .success(let json):
+                    if let model: StaffResponse = self.mapResponseObject(json: json) {
+                        if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                            print("📦 Raw Response: \(responseStr)")
+                        }
+                        print("✅ Parsed Response Object: \(model)")
+                        completion(model)
+                    } else {
+                        print("❌ Mapping failed")
+                        completion(nil)
+                    }
+                case .failure(let error):
+                    print("❌ Error: \(error.localizedDescription)")
+                    completion(nil)
+                }
+            }
+    }
     
     // MARK: - Inventory API
     func getInventoryDetails(
@@ -13585,6 +13625,51 @@ class APIService {
                     print("❌ API Error: \(error.localizedDescription)")
                     if let data = response.data, let raw = String(data: data, encoding: .utf8) {
                         print("📦 Raw Response: \(raw)")
+                    }
+                    completion(nil)
+                }
+            }
+    }
+    
+    func getSalonTimings(completion: @escaping (SalonTimingResponse?) -> Void) {
+        let url = global.shared.URL_GET_SALONTIMINGS_V1 + "/\(LocalData.userId)"
+
+        // 🌐 Send GET Request
+        AF.request(url, method: .get, headers: HTTPHeaders(headers))
+            .validate()
+            .responseJSON { response in
+
+                // 🧾 Log Request Info
+                print("🌐 URL: \(url)")
+                print("📤 Headers: \(self.headers)")
+
+                // ✅ Log HTTP Status
+                if let httpResponse = response.response {
+                    print("✅ Status Code: \(httpResponse.statusCode)")
+                }
+
+                // 📥 Log Raw Response
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+
+                // 🎯 Handle Result
+                switch response.result {
+                case .success(let json):
+                    // ✅ Map JSON using ObjectMapper
+                    if let model = Mapper<SalonTimingResponse>().map(JSONObject: json) {
+                        print("✅ Parsed Response Object: \(model)")
+                        completion(model)
+                    } else {
+                        print("❌ Mapping Failed: Could not map JSON to ShowLimitModel")
+                        completion(nil)
+                    }
+
+                case .failure(let error):
+                    print("❌ API Call Failed: \(error.localizedDescription)")
+                    if let data = response.data,
+                       let responseStr = String(data: data, encoding: .utf8) {
+                        print("📦 Raw Response: \(responseStr)")
                     }
                     completion(nil)
                 }

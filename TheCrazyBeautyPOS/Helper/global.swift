@@ -267,6 +267,8 @@ class global: NSObject
     var URL_TODAY_BOOKINGS = global.server_url + "today_bookings"
     var URL_CLIENT_BOOKINGS_DATA = global.server_url + "client_bookings_data"
     var URL_BLOCK_NUMBER = global.server_url + "block_number"
+    var URL_GET_SHIFTS_V1 = global.server_url + "get_shifts_v1"
+    var URL_GET_SALONTIMINGS_V1 = global.server_url + "get_salontimings"
     
     
     var noDataLabel: UILabel?

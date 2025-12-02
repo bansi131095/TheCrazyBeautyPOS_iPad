@@ -9,6 +9,13 @@ import UIKit
 import ObjectMapper
 import FSCalendar
 
+class CopyStaffCell : UITableViewCell{
+    
+    @IBOutlet weak var img_Profile: UIImageView!
+    @IBOutlet weak var lbl_StaffName: UILabel!
+    
+}
+
 class EditScheduleVC: UIViewController {
 
     
@@ -23,6 +30,15 @@ class EditScheduleVC: UIViewController {
     @IBOutlet weak var txt_date: TextInputLayout!
     @IBOutlet weak var btn_continue: GradientButton!
     
+    @IBOutlet weak var btn_Shift: UIButton!
+    
+    
+    @IBOutlet weak var vw_CopyFromStaff: UIView!
+    @IBOutlet weak var vwCopyFromStaff_Height_Const: NSLayoutConstraint!
+    
+    @IBOutlet weak var img_Staff: UIImageView!
+    @IBOutlet weak var txt_StaffName: TextInputLayout!
+    @IBOutlet weak var tbl_Staff: UITableView!
     
     var isEdit: Bool = false
     var salonItems: [ScheduleModel] = []
@@ -54,6 +70,7 @@ class EditScheduleVC: UIViewController {
     var salonHolidaysList: [SalonHolidayData] = []
     var disabledWeekdays: [Int] = []
 
+    var staffList: [StaffData] = []
     
     //MARK: View life cycle
     override func viewDidLoad() {
@@ -63,7 +80,7 @@ class EditScheduleVC: UIViewController {
         self.updateSchedule()
         self.api_getHolidays()
         if !self.TeamId.isEmpty {
-            self.api_getstaffShifts()
+            self.api_getstaffShifts(StaffID: TeamId)
         }
         if isEdit {
             self.lbl_title.text = "Schedule For \(self.TeamName)"
@@ -71,6 +88,8 @@ class EditScheduleVC: UIViewController {
             self.vwSchedule_height_const.constant = 80.0
             self.vw_selectDate.isHidden = true
             self.vwselectDate_height_const.constant = 0.0
+            self.vw_CopyFromStaff.isHidden = true
+            self.vwCopyFromStaff_Height_Const.constant = 0.0
             self.lbl_schedule.text = "Regular Schedule"
             self.btn_schedule.setTitle("Add/Edit Custom Schedule", for: .normal)
             self.isCustomSchedule = false
@@ -115,6 +134,8 @@ class EditScheduleVC: UIViewController {
             self.btn_continue.setTitle("Save", for: .normal)
             self.vw_selectDate.isHidden = false
             self.vwselectDate_height_const.constant = 80.0
+            self.vw_CopyFromStaff.isHidden = false
+            self.vwCopyFromStaff_Height_Const.constant = 80.0
             self.isCustomSchedule = true
             self.setCustomTableView()
             self.updateCustomSchedule()
@@ -126,6 +147,8 @@ class EditScheduleVC: UIViewController {
             self.btn_continue.setTitle("Continue", for: .normal)
             self.vw_selectDate.isHidden = true
             self.vwselectDate_height_const.constant = 0.0
+            self.vw_CopyFromStaff.isHidden = true
+            self.vwCopyFromStaff_Height_Const.constant = 0.0
             self.setTableView()
             self.scheduleList = self.parseScheduleData()
             self.updateSchedule()
@@ -139,7 +162,7 @@ class EditScheduleVC: UIViewController {
 //        isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
 //        let isoString = isoFormatter.string(from: selectedDate)
 
-        let dateFormatter = DateFormatter()
+       /* let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"
         let weekdayName = dateFormatter.string(from: selectedDate)
         
@@ -152,11 +175,13 @@ class EditScheduleVC: UIViewController {
             return
         }
 
-        if let customSchedule = customSchedules.first(where: { $0.date == weekdate }) {
+      if let customSchedule = customSchedules.first(where: { $0.date == weekdate }) {
             let shift = ShiftTiming(map: Map(mappingType: .fromJSON, JSON: [:]))!
             shift.day = weekdayName
-            shift.from = salonSchedule.from
-            shift.to = salonSchedule.to
+//            shift.from = salonSchedule.from
+//            shift.to = salonSchedule.to
+            shift.from = "00:00"
+            shift.to = "23:00"
             shift.regular = 1
             
             customSchedule.shifts.append(shift)
@@ -186,9 +211,66 @@ class EditScheduleVC: UIViewController {
             customSchedules.append(schedule)
             print("Custom List: \(customSchedules)")
         }
-        updateCustomSchedule()
+        updateCustomSchedule()*/
+        
+        
+        let df = DateFormatter()
+           df.dateFormat = "EEEE"
+           let weekdayName = df.string(from: selectedDate)
+
+           let df2 = DateFormatter()
+           df2.dateFormat = "dd/MM/yyyy"
+           let weekdate = df2.string(from: selectedDate)
+
+           guard let salonSchedule = salonItems.first(where: { $0.day == weekdayName }) else { return }
+
+           if let customSchedule = customSchedules.first(where: { $0.date == weekdate }) {
+
+               if customSchedule.shifts.count >= 2 {
+                   print("⚠️ Only 2 shifts allowed.")
+                   return
+               }
+
+               let shift = ShiftTiming(map: Map(mappingType: .fromJSON, JSON: [:]))!
+               shift.day = weekdayName
+               shift.from = "00:00"
+               shift.to = "23:00"
+               shift.regular = 1
+               
+               customSchedule.shifts.append(shift)
+
+           } else {
+
+               let workingHour = WorkingHour(map: Map(mappingType: .fromJSON, JSON: [:]))!
+               workingHour.day = weekdayName
+               workingHour.from = salonSchedule.from
+               workingHour.to = salonSchedule.to
+               workingHour.off = false
+               
+               let shift = ShiftTiming(map: Map(mappingType: .fromJSON, JSON: [:]))!
+               shift.day = weekdayName
+               shift.from = salonSchedule.from
+               shift.to = salonSchedule.to
+               shift.regular = 1
+
+               let schedule = Schedule(map: Map(mappingType: .fromJSON, JSON: [:]))!
+               schedule.startTime = salonSchedule.from
+               schedule.endTime = salonSchedule.to
+               schedule.day = weekdayName
+               schedule.date = weekdate
+               schedule.workingHours = workingHour
+               schedule.shifts = [shift]
+               schedule.isSwitched = true
+               
+               customSchedules.append(schedule)
+           }
+
+           updateCustomSchedule()
     }
     
+    @IBAction func btn_DropDown(_ sender: Any) {
+        api_CallStaffList()
+    }
     
     //MARK: Setup Table view
     func setTableView(){
@@ -458,13 +540,28 @@ class EditScheduleVC: UIViewController {
     }
 
     //MARK: API Call
-    func api_getstaffShifts() {
+    func api_getstaffShifts(StaffID: String = "") {
         self.showLoader()
-        APIService.shared.getStaffShift(staffId: self.TeamId) { result in
+        APIService.shared.getStaffShift(staffId: StaffID) { result in
             self.hideLoader()
             if let data = result?.data, !data.isEmpty {
                 self.staffShiftlist = data
                 self.customSchedules = self.parseCustomScheduleData(from: self.staffShiftlist)
+            }else{
+                print("ELSE")
+            }
+        }
+    }
+    
+    func api_CallStaffList(){
+        APIService.shared.getShiftV1_Details(vendorId: LocalData.userId) { result in
+            self.hideLoader()
+            if let data = result?.data, !data.isEmpty {
+                self.staffList = data
+                self.tbl_Staff.isHidden = false
+                self.tbl_Staff.reloadData()
+            }else{
+                print("Else")
             }
         }
     }
@@ -485,6 +582,25 @@ class EditScheduleVC: UIViewController {
                 }
             }
         }
+    }
+    
+    func formattedDay(_ input: String?) -> String {
+        guard let input = input, !input.isEmpty else { return "" }
+        
+        // If it contains "/", treat as a date
+        if input.contains("/") {
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "en_US") // Ensure weekday in English
+            formatter.dateFormat = "dd/MM/yyyy"
+            
+            if let date = formatter.date(from: input) {
+                formatter.dateFormat = "EEEE"  // Convert to weekday name
+                return formatter.string(from: date)
+            }
+        }
+        
+        // if already weekday, return as is
+        return input
     }
     
     func api_updatestaffShifts() {
@@ -517,11 +633,13 @@ class EditScheduleVC: UIViewController {
             var shiftMap: [[String: Any]] = []
             for shift in selectedStaff.shifts {
                 let val: [String: Any] = [
-                    "day": shift.day ?? "",
+//                    "day": shift.day ?? "",
+                    "day": formattedDay(shift.day),
                     "from": shift.from ?? "",
                     "to": shift.to ?? ""
                 ]
                 shiftMap.append(val)
+                print("Val:- \(val)")
             }
 
             if let data = try? JSONSerialization.data(withJSONObject: shiftMap, options: []),
@@ -539,6 +657,7 @@ class EditScheduleVC: UIViewController {
                 "shift_timings": shiftTimingString
             ]
 
+            print("selectedStaff.day:- \(selectedStaff.day)")
             staffShiftMap.append(val)
         }
         let deleteShift = deleteShiftList.joined(separator: ",")
@@ -760,6 +879,24 @@ class EditScheduleVC: UIViewController {
 
         return filtered
     }
+    
+    
+    /*func generateFilteredTimeSlots(fullStart: String, fullEnd: String, from: String, to: String, interval: Int) -> [String] {
+        let fullSlots = generateTimeSlots(start: fullStart, end: fullEnd, interval: interval)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+
+        guard let fromTime = formatter.date(from: from),
+              let toTime = formatter.date(from: to) else {
+            return fullSlots
+        }
+
+        return fullSlots.filter { timeString in
+            guard let time = formatter.date(from: timeString) else { return true }
+            // remove inclusive range
+            return !(time >= fromTime && time <= toTime)
+        }
+    }*/
 
 
 
@@ -786,11 +923,25 @@ extension EditScheduleVC: UITableViewDelegate, UITableViewDataSource {
             cell.textLabel?.text = times[indexPath.row]
             cell.textLabel?.font = UIFont.systemFont(ofSize: 14)
             return cell
-        } else {
+        } else if tableView == tbl_Staff{
+            guard let cell = self.tbl_Staff.dequeueReusableCell(withIdentifier: "CopyStaffCell", for: indexPath) as? CopyStaffCell else {
+                return UITableViewCell()
+            }
+            let data = staffList[indexPath.row]
+            
+            let imgUrl = global.imageUrl_Profile + (data.photo ?? "")
+            if let url = URL(string: imgUrl) {
+                cell.img_Profile.sd_setImage(with: url, placeholderImage: UIImage(named: "user"))
+            }
+            
+            cell.lbl_StaffName.text = (data.firstName?.capitalized ?? "") + " " + (data.lastName?.capitalized ?? "")
+            return cell
+        }  else {
             if isCustomSchedule {
                 guard let cell = self.tbl_vw.dequeueReusableCell(withIdentifier: "customScheduleCell", for: indexPath) as? customScheduleCell else {
                     return UITableViewCell()
                 }
+                
                 
                 let schedule = customSchedules[indexPath.row]
                 let day = schedule.date
@@ -805,6 +956,44 @@ extension EditScheduleVC: UITableViewDelegate, UITableViewDataSource {
                 cell.txt_to.text = tos.first ?? ""
                 
                 cell.onTextFieldTap = { [weak self] textField in
+                    guard let self = self else { return }
+
+                    self.activeTextField = textField
+                    self.activeDay = day
+
+                    // Detect index
+                    if textField == cell.txt_from { self.activeIndex = 0; self.activeIsFrom = true }
+                    else if textField == cell.txt_to { self.activeIndex = 0; self.activeIsFrom = false }
+                    else if textField == cell.txt_from1 { self.activeIndex = 1; self.activeIsFrom = true }
+                    else if textField == cell.txt_to1 { self.activeIndex = 1; self.activeIsFrom = false }
+
+                    guard let fromList = self.fromTimes[day],
+                          let toList = self.toTimes[day] else { return }
+
+                    let fullStart = "00:00"
+                    let fullEnd = "23:00"
+
+                    // If tapping second fields → remove first selected gap
+                    /*if self.activeIndex == 1 {
+                        let slots = self.generateFilteredTimeSlots(
+                            fullStart: fullStart,
+                            fullEnd: fullEnd,
+                            from: blockFrom,
+                            to: blockTo,
+                            interval: 30
+                        )
+                        self.showDropdown(below: textField, timess: slots)
+                    } else {
+                        // First time selection → show normal full list
+                        let slots = self.generateTimeSlots(start: fullStart, end: fullEnd, interval: 30)
+                        self.showDropdown(below: textField, timess: slots)
+                    }*/
+                    
+                    let slots = self.generateTimeSlots(start: fullStart, end: fullEnd, interval: 30)
+                    self.showDropdown(below: textField, timess: slots)
+                }
+                
+                /*cell.onTextFieldTap = { [weak self] textField in
                     guard let self = self else { return }
                     self.activeTextField = textField
                     self.activeDay = day
@@ -830,13 +1019,22 @@ extension EditScheduleVC: UITableViewDelegate, UITableViewDataSource {
 
                     let currentFrom = fromList[0]
                     let currentTo = toList[0]
-                    let originalStart = self.startTime[day] ?? ""
-                    let originalEnd = self.endTime[day] ?? ""
-
+//                    let originalStart = self.startTime[day] ?? ""
+//                    let originalEnd = self.endTime[day] ?? ""
+                    
+                    let originalStart = "00:00"
+                    let originalEnd = "23:00"
+                                        
+                    
                     let fromChanged = currentFrom != originalStart
                     let toChanged = currentTo != originalEnd
                     
                     if fromChanged && toChanged {
+                        let start_ONE = (self.activeIndex == 1) ?  fromChanged ? (self.fromTimes[day]?[1] ?? "00:00") : (self.toTimes[day]?[0] ?? "00:00") : "00:00"
+                        let end_ONE = (self.activeIndex == 0 && (self.fromTimes[day]?.count ?? 0) > 1)
+                            ? (self.fromTimes[day]?[1] ?? "23:00")
+                            : "23:00"
+                        
                         let start = (self.activeIndex == 1) ?  fromChanged ? (self.fromTimes[day]?[1] ?? "00:00") : (self.toTimes[day]?[0] ?? "00:00") : (self.startTime[day] ?? "00:00")
                         let end = (self.activeIndex == 0 && (self.fromTimes[day]?.count ?? 0) > 1)
                             ? (self.fromTimes[day]?[1] ?? "23:00")
@@ -844,35 +1042,59 @@ extension EditScheduleVC: UITableViewDelegate, UITableViewDataSource {
                         if self.activeIndex == 1 {
                             self.activeTextField?.text = ""
                             
-                            let slots = self.generateFilteredTimeSlots(fullStart: start, fullEnd: end, from: currentFrom, to: currentTo, interval: 30)
+//                            let slots = self.generateFilteredTimeSlots(fullStart: start, fullEnd: end, from: currentFrom, to: currentTo, interval: 30)
+                            let slots = self.generateFilteredTimeSlots(fullStart: start_ONE, fullEnd: end_ONE, from: currentFrom, to: currentTo, interval: 30)
+//                            let slots = self.generateTimeSlots(start: start_ONE, end: end_ONE, interval: 30)
+                            self.showDropdown(below: textField, timess: slots)
+                            print("START_ONE:- \(start_ONE)")
+                            print("END_ONE:-   \(end_ONE)")
                             self.showDropdown(below: textField, timess: slots)
                         } else {
-                            let slots = self.generateTimeSlots(start: start, end: end, interval: 30)
+//                            let slots = self.generateTimeSlots(start: start, end: end, interval: 30)
+                            let slots = self.generateTimeSlots(start: start_ONE, end: end_ONE, interval: 30)
                             self.showDropdown(below: textField, timess: slots)
                         }
                     } else if fromChanged {
+                        let start_ONE = (self.activeIndex == 1) ?  fromChanged ? (self.fromTimes[day]?[1] ?? "00:00") : (self.toTimes[day]?[0] ?? "00:00") : "00:00"
+                        let end_ONE = (self.activeIndex == 0 && (self.fromTimes[day]?.count ?? 0) > 1)
+                            ? (self.fromTimes[day]?[1] ?? "23:00")
+                            : "23:00"
+                        
                         let start = (self.startTime[day] ?? "00:00")
                         let end = (self.activeIndex == 0 && (self.fromTimes[day]?.count ?? 0) > 1)
                             ? (self.fromTimes[day]?[1] ?? "23:00")
                         : self.activeIndex == 1 ? (self.toTimes[day]?[1] ?? "23:00") : (self.endTime[day] ?? "23:00")
-                        let slots = self.generateTimeSlots(start: start, end: end, interval: 30)
+//                        let slots = self.generateTimeSlots(start: start, end: end, interval: 30)
+                        let slots = self.generateTimeSlots(start: start_ONE, end: end_ONE, interval: 30)
                         self.showDropdown(below: textField, timess: slots)
                     } else if toChanged {
+                        let start_ONE = (self.activeIndex == 1) ?  fromChanged ? (self.fromTimes[day]?[1] ?? "00:00") : (self.toTimes[day]?[0] ?? "00:00") : "00:00"
+                        let end_ONE = (self.activeIndex == 0 && (self.fromTimes[day]?.count ?? 0) > 1)
+                            ? (self.fromTimes[day]?[1] ?? "23:00")
+                            : "23:00"
+                        
                         let start = (self.activeIndex == 1) ? (self.toTimes[day]?[0] ?? "00:00") : (self.startTime[day] ?? "00:00")
                         let end = (self.activeIndex == 0 && (self.fromTimes[day]?.count ?? 0) > 1)
                             ? (self.fromTimes[day]?[1] ?? "23:00")
                             : (self.endTime[day] ?? "23:00")
-                        let slots = self.generateTimeSlots(start: start, end: end, interval: 30)
+//                        let slots = self.generateTimeSlots(start: start, end: end, interval: 30)
+                        let slots = self.generateTimeSlots(start: start_ONE, end: end_ONE, interval: 30)
                         self.showDropdown(below: textField, timess: slots)
                     } else {
+                        let start_ONE = (self.activeIndex == 1) ?  fromChanged ? (self.fromTimes[day]?[1] ?? "00:00") : (self.toTimes[day]?[0] ?? "00:00") : "00:00"
+                        let end_ONE = (self.activeIndex == 0 && (self.fromTimes[day]?.count ?? 0) > 1)
+                            ? (self.fromTimes[day]?[1] ?? "23:00")
+                            : "23:00"
+                        
                         let start = (self.activeIndex == 1) ? (self.toTimes[day]?[0] ?? "00:00") : (self.startTime[day] ?? "00:00")
                         let end = (self.activeIndex == 0 && (self.fromTimes[day]?.count ?? 0) > 1)
                             ? (self.fromTimes[day]?[1] ?? "23:00")
                             : (self.endTime[day] ?? "23:00")
-                        let slots = self.generateTimeSlots(start: start, end: end, interval: 30)
+//                        let slots = self.generateTimeSlots(start: start, end: end, interval: 30)
+                        let slots = self.generateTimeSlots(start: start_ONE, end: end_ONE, interval: 30)
                         self.showDropdown(below: textField, timess: slots)
                     }
-                }
+                }*/
                 
                 if froms.count > 1 {
                     cell.vw_2.isHidden = false
@@ -907,16 +1129,22 @@ extension EditScheduleVC: UITableViewDelegate, UITableViewDataSource {
 
                     let currentFrom = fromList[0]
                     let currentTo = toList[0]
-                    let originalStart = self.startTime[day] ?? ""
-                    let originalEnd = self.endTime[day] ?? ""
-
+//                    let originalStart = self.startTime[day] ?? ""
+//                    let originalEnd = self.endTime[day] ?? ""
+                    
+                    let originalStart = "00:00"
+                    let originalEnd = "23:00"
+                    
                     let fromChanged = currentFrom != originalStart
                     let toChanged = currentTo != originalEnd
                     
                     if fromChanged && toChanged {
                         // ✅ Add second shift
-                        let secondFrom = self.startTime[day] ?? "00:00"
-                        let secondTo = self.endTime[day] ?? "23:00"
+//                        let secondFrom = self.startTime[day] ?? "00:00"
+//                        let secondTo = self.endTime[day] ?? "23:00"
+                        
+                        let secondFrom = "00:00"
+                        let secondTo = "23:00"
                         
                         self.fromTimes[day]?.insert(secondFrom, at: 1)
                         self.toTimes[day]?.append(secondTo)
@@ -1184,6 +1412,8 @@ extension EditScheduleVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == dropdownTableView {
             return times.count
+        } else if tableView == tbl_Staff{
+            return staffList.count
         } else {
             if isCustomSchedule {
                 return self.customSchedules.count
@@ -1248,13 +1478,29 @@ extension EditScheduleVC: UITableViewDelegate, UITableViewDataSource {
                 self.updateSchedule()
             }
             tbl_vw.reloadData()
+        }else if tableView == tbl_Staff{
+            let data = staffList[indexPath.row]
+            
+//            if isCustomSchedule{
+                self.tbl_Staff.isHidden = true
+                self.setCustomTableView()
+                self.api_getstaffShifts(StaffID: String(Int(data.id ?? 0)))
+                self.updateCustomSchedule()
+                self.tbl_vw.reloadData()
+//            }
+            
+            self.txt_StaffName.text = (data.firstName?.capitalized ?? "") + " " + (data.lastName?.capitalized ?? "")
+            let imgUrl = global.imageUrl_Profile + (data.photo ?? "")
+            if let url = URL(string: imgUrl) {
+                img_Staff.sd_setImage(with: url, placeholderImage: UIImage(named: "user"))
+            }
         }
     }
 
 
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    /*func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        removeDropdown()
-    }
+    }*/
     
         
 }

@@ -1114,3 +1114,36 @@ class TimeSlotModel: Mappable {
         startTime <- map["startTime"]
     }
 }
+
+class SalonTimingResponse: Mappable {
+    
+    var data: [SalonTiming] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data         <- map["data"]
+        error        <- map["error"]
+    }
+}
+
+class SalonTiming: Mappable {
+    
+    var working_hours: WorkingHour1?
+    var id: Int?
+    var date: String?
+    var day : String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        working_hours        <- map["working_hours"]
+        id                   <- map["id"]
+        date                 <- map["date"]
+        day                  <- map["day"]
+    }
+}
+
+
+

@@ -81,7 +81,7 @@ class ProfileVC: UIViewController,SettingCellDelegate {
                 SectionModel(title: "Notifications", items: ["Notifications", "Booking Reminder"]),
                 SectionModel(title: "Booking", items: ["Slot Duration", "Booking Preference", "Booking Policy","No Show Limit"]),
                 SectionModel(title: "Team", items: ["Team Login", "Team Sequence"]),
-                SectionModel(title: "Schedule", items: ["Opening Date", "Business Hours", "Salon Off Days/Hours", "Salon Holiday"]),
+                SectionModel(title: "Schedule", items: ["Opening Date", "Business Hours","Customer Hours", "Salon Off Days/Hours", "Salon Holiday"]),
                 SectionModel(title: "Payment", items: ["Bank Details", "Advance Amount & Cancellation Duration", "Currency"]),
                 SectionModel(title: "Kiosk & Customers", items: ["Kiosk Users", "Block Customers"]),
                 SectionModel(title: "Privacy & Security", items: ["Change Password"])
@@ -190,8 +190,10 @@ class ProfileVC: UIViewController,SettingCellDelegate {
             case 1:
                 vc = storyboard.instantiateViewController(withIdentifier: "Business_HoursVC")
             case 2:
-                vc = storyboard.instantiateViewController(withIdentifier: "SalonOff_DaysVC")
+                vc = storyboard.instantiateViewController(withIdentifier: "Custom_HoursVC")
             case 3:
+                vc = storyboard.instantiateViewController(withIdentifier: "SalonOff_DaysVC")
+            case 4:
                 vc = storyboard.instantiateViewController(withIdentifier: "Salon_HolidayVC")
             default: break
             }
