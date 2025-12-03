@@ -6341,23 +6341,23 @@ To Partner.</string>
                         <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customer Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cBo-qz-59O">
-                                <rect key="frame" x="30" y="44" width="1120" height="23.5"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom Schedule" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cBo-qz-59O">
+                                <rect key="frame" x="30" y="44" width="1120" height="24"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="AppBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Customer Hours for specific dates to display different working hours to your customers." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdb-IE-lUL">
-                                <rect key="frame" x="30" y="75.5" width="1120" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Custom Schedule for specific dates when your working hours differ from the regular schedule." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdb-IE-lUL">
+                                <rect key="frame" x="30" y="76" width="1120" height="22"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="18"/>
                                 <color key="textColor" name="Red"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nNx-99-6H4">
-                                <rect key="frame" x="0.0" y="101.5" width="1180" height="718.5"/>
+                                <rect key="frame" x="0.0" y="103" width="1180" height="717"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DwI-2g-Ogh">
-                                        <rect key="frame" x="0.0" y="0.0" width="1180" height="718.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1180" height="717"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="QDX-ZH-Fua">
                                                 <rect key="frame" x="30" y="15" width="1120" height="60"/>
@@ -6577,6 +6577,8 @@ To Partner.</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnAdd" destination="Iyj-q0-glX" id="dW4-xz-wEt"/>
+                        <outlet property="btnSave" destination="NAw-h9-I9W" id="0vb-se-51d"/>
                         <outlet property="cv_Height" destination="LcV-BL-yzg" id="qBS-o8-XuA"/>
                         <outlet property="cv_Time" destination="JOa-vc-uXG" id="LXq-I8-77g"/>
                         <outlet property="txt_Date" destination="AeP-UG-2Xy" id="7Oh-L2-nyd"/>

@@ -269,7 +269,12 @@ class EditScheduleVC: UIViewController {
     }
     
     @IBAction func btn_DropDown(_ sender: Any) {
-        api_CallStaffList()
+        if tbl_Staff.isHidden == false{
+            self.tbl_Staff.isHidden = true
+        }else{
+            api_CallStaffList()
+        }
+        
     }
     
     //MARK: Setup Table view
@@ -547,6 +552,10 @@ class EditScheduleVC: UIViewController {
             if let data = result?.data, !data.isEmpty {
                 self.staffShiftlist = data
                 self.customSchedules = self.parseCustomScheduleData(from: self.staffShiftlist)
+                if StaffID != ""{
+                    self.updateCustomSchedule()
+                    self.tbl_vw.reloadData()
+                }
             }else{
                 print("ELSE")
             }
@@ -1481,13 +1490,9 @@ extension EditScheduleVC: UITableViewDelegate, UITableViewDataSource {
         }else if tableView == tbl_Staff{
             let data = staffList[indexPath.row]
             
-//            if isCustomSchedule{
                 self.tbl_Staff.isHidden = true
                 self.setCustomTableView()
                 self.api_getstaffShifts(StaffID: String(Int(data.id ?? 0)))
-                self.updateCustomSchedule()
-                self.tbl_vw.reloadData()
-//            }
             
             self.txt_StaffName.text = (data.firstName?.capitalized ?? "") + " " + (data.lastName?.capitalized ?? "")
             let imgUrl = global.imageUrl_Profile + (data.photo ?? "")

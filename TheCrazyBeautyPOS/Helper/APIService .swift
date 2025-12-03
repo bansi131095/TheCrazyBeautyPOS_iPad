@@ -13675,5 +13675,52 @@ class APIService {
                 }
             }
     }
+    
+    func UpdateSalonTimings(salonTimingArray: String,delete_timing:String,completion: @escaping (CurrencyResponseA?) -> Void) {
+        let url = global.shared.URL_UPDATE_SALONTIMINGS_V1 + "/\(LocalData.userId)"
+
+        let jsonData = try? JSONSerialization.jsonObject(with: salonTimingArray.data(using: .utf8)!, options: [])
+        
+        // 📦 Parameters
+        let params: [String: Any] = [
+            "salon_timing": jsonData ?? [],
+            "delete_timing": delete_timing,
+        ]
+
+        // 🌐 API Request
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .validate()
+            .responseJSON { response in
+
+                // 📋 Log Request Info
+                print("🌐 URL: \(url)")
+                print("📤 Parameters: \(params)")
+                print("📤 Headers: \(self.headers)")
+
+                if let httpResponse = response.response {
+                    print("✅ Status Code: \(httpResponse.statusCode)")
+                }
+
+                // 🧾 Raw Response
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+
+                switch response.result {
+                case .success(let json):
+                    if let model = Mapper<CurrencyResponseA>().map(JSONObject: json) {
+                        print("✅ Parsed Response Object: \(model)")
+                        completion(model)
+                    } else {
+                        print("❌ Mapping Failed: Could not map JSON to CurrencyResponseA")
+                        completion(nil)
+                    }
+
+                case .failure(let error):
+                    print("❌ API Error: \(error.localizedDescription)")
+                    completion(nil)
+                }
+            }
+    }
 }
 

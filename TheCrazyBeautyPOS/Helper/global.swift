@@ -269,11 +269,12 @@ class global: NSObject
     var URL_BLOCK_NUMBER = global.server_url + "block_number"
     var URL_GET_SHIFTS_V1 = global.server_url + "get_shifts_v1"
     var URL_GET_SALONTIMINGS_V1 = global.server_url + "get_salontimings"
+    var URL_UPDATE_SALONTIMINGS_V1 = global.server_url + "update_salon_timingsv1"
     
     
     var noDataLabel: UILabel?
     var hasUnreadNotification: Bool = false
-    //MARK:-
+    //MARK: -
     override init()
     {
         

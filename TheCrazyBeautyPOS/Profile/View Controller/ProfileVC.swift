@@ -81,7 +81,7 @@ class ProfileVC: UIViewController,SettingCellDelegate {
                 SectionModel(title: "Notifications", items: ["Notifications", "Booking Reminder"]),
                 SectionModel(title: "Booking", items: ["Slot Duration", "Booking Preference", "Booking Policy","No Show Limit"]),
                 SectionModel(title: "Team", items: ["Team Login", "Team Sequence"]),
-                SectionModel(title: "Schedule", items: ["Opening Date", "Business Hours","Customer Hours", "Salon Off Days/Hours", "Salon Holiday"]),
+                SectionModel(title: "Schedule", items: ["Opening Date", "Business Hours","Custom Schedule", "Salon Off Days/Hours", "Salon Holiday"]),
                 SectionModel(title: "Payment", items: ["Bank Details", "Advance Amount & Cancellation Duration", "Currency"]),
                 SectionModel(title: "Kiosk & Customers", items: ["Kiosk Users", "Block Customers"]),
                 SectionModel(title: "Privacy & Security", items: ["Change Password"])
