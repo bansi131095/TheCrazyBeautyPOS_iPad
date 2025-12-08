@@ -22,6 +22,7 @@ class HomeVC: UIViewController {
     var selectedSalon: String = ""
     var OTP = String()
     var isPass = String()
+    var window: UIWindow?
     
 //    MARK: - Popup
     @IBOutlet weak var vwPopup: UIView!
@@ -44,6 +45,17 @@ class HomeVC: UIViewController {
     @IBOutlet weak var txt_6: UITextField!
     
     @IBOutlet weak var vw_SalonType: UIView!
+    
+    @IBOutlet weak var img_SelectedImage: UIImageView!
+    @IBOutlet weak var lbl_SelectedLanguage: UILabel!
+    
+    
+    @IBOutlet weak var vw_Language: UIView!
+    
+    
+    
+    
+    
     var imageArray: [UIImage] = [
         #imageLiteral(resourceName: "Dashboard.png"),
         #imageLiteral(resourceName: "Booking"),
@@ -105,6 +117,24 @@ class HomeVC: UIViewController {
         txt_6.tag = 6
         setCustomFont()
         self.vwMainPasscode.isHidden = true
+        
+        if let lang = UserDefaults.standard.object(forKey: global().kSaveLanguageDefaultKey) as? String {
+            if lang == "en"{
+                img_SelectedImage.image = UIImage(named: "ic_UK")
+                lbl_SelectedLanguage.text = "English"
+            }
+            if lang == "zh"{
+                img_SelectedImage.image = UIImage(named: "ic_Chian")
+                lbl_SelectedLanguage.text = "中文"
+            }
+            if lang == "vi"{
+                img_SelectedImage.image = UIImage(named: "ic_VI")
+                lbl_SelectedLanguage.text = "Tiếng Việt"
+            }
+        }else{
+            img_SelectedImage.image = UIImage(named: "ic_UK")
+            lbl_SelectedLanguage.text = "English"
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -264,9 +294,20 @@ class HomeVC: UIViewController {
         self.vwPopup.isHidden = true
     }
     
+    @IBAction func btn_Language(_ sender: Any) {
+        self.vw_Language.isHidden = true
+    }
     
     @IBAction func btn_SalonType(_ sender: Any) {
         getAllSalonData()
+        
+        if vw_Language.isHidden == false {
+            vw_Language.isHidden = true
+        }
+        
+        if vwPopup.isHidden == false {
+            vwPopup.isHidden = true
+        }
     }
     
     @IBAction func btn_Continue(_ sender: Any) {
@@ -279,6 +320,57 @@ class HomeVC: UIViewController {
                 verfiyPasscode1(passcode: OTP)
             }
         }
+    }
+    
+    @IBAction func btn_LanguageMain(_ sender: Any) {
+        if vw_Language.isHidden == false{
+            self.vw_Language.isHidden = true
+        }else{
+            self.vw_Language.isHidden = false
+        }
+        
+        if vwPopup.isHidden == false {
+            vwPopup.isHidden = true
+        }
+    }
+    
+    
+    @IBAction func btn_English(_ sender: Any) {
+        setUpLanguage(lanCode: "en")
+        vw_Language.isHidden = true
+        img_SelectedImage.image = UIImage(named: "ic_UK")
+        lbl_SelectedLanguage.text = "English"
+    }
+    
+    @IBAction func btn_Chain(_ sender: Any) {
+        setUpLanguage(lanCode: "zh")
+        vw_Language.isHidden = true
+        img_SelectedImage.image = UIImage(named: "ic_Chian")
+        lbl_SelectedLanguage.text = "中文"
+    }
+    
+    @IBAction func btn_vi(_ sender: Any) {
+        setUpLanguage(lanCode: "vi")
+        vw_Language.isHidden = true
+        img_SelectedImage.image = UIImage(named: "ic_VI")
+        lbl_SelectedLanguage.text = "Tiếng Việt"
+    }
+    
+    
+    // MARK: - Language
+    func setUpLanguage(lanCode: String){
+        let lan = lanCode
+        UserDefaults.standard.set(lan, forKey: global().kSaveLanguageDefaultKey)
+       
+        L102Language.setAppleLAnguageTo(lang: lanCode)
+        Localisator.init()
+        let sb = UIStoryboard(name: "Home", bundle:nil)
+        
+        let navDashboard = sb.instantiateViewController(withIdentifier: "NavigateHome") as! UINavigationController
+         navDashboard.modalPresentationStyle = .fullScreen
+        
+        window?.rootViewController = navDashboard
+        window?.makeKeyAndVisible()
     }
     
     func verfiyPasscode1(passcode: String){
@@ -415,6 +507,9 @@ class HomeVC: UIViewController {
             vwPopup.isHidden = false
         }
         
+        if vw_Language.isHidden == false{
+            vw_Language.isHidden = true
+        }
     }
     
     @IBAction func btn_MyProfile(_ sender: Any) {
@@ -582,3 +677,8 @@ extension HomeVC: UITextFieldDelegate {
     
 }
 
+extension String {
+    var localized: String {
+        return NSLocalizedString(self, comment: "")
+    }
+}

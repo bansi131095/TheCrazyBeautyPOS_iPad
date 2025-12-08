@@ -30,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enableAutoToolbar = true
         IQKeyboardManager.shared.isEnabled = true
         
+        L102Localizer.DoTheMagic()
+        
         GMSServices.provideAPIKey("AIzaSyBkJMsPty_y88X9z0Zy36Rmia1-ZR868c0")
         GMSPlacesClient.provideAPIKey("AIzaSyBkJMsPty_y88X9z0Zy36Rmia1-ZR868c0")
         return true

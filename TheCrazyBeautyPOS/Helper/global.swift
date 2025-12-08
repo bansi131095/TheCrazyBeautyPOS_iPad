@@ -274,6 +274,10 @@ class global: NSObject
     
     var noDataLabel: UILabel?
     var hasUnreadNotification: Bool = false
+    
+    //MARK: LanguageUserDefault
+    let kSaveLanguageDefaultKey         = "kSaveLanguageDefaultKey"
+    
     //MARK: -
     override init()
     {
