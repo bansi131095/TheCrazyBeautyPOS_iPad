@@ -13,14 +13,16 @@ class Slot_DurationVC: UIViewController {
     @IBOutlet weak var txt_SlotDuration: TextInputLayout!
     @IBOutlet weak var btn_Save: GradientButton!
     
-    var arr_SlotDuration: [String] = ["5 Minutes","10 Minutes","15 Minutes","20 Minutes","25 Minutes","30 Minutes"]
+    var arr_SlotDuration: [String] = [NSLocalizedString("5 Minutes", comment: ""),NSLocalizedString("10 Minutes",comment: ""),NSLocalizedString("15 Minutes",comment: ""),NSLocalizedString("20 Minutes",comment: ""),NSLocalizedString("25 Minutes", comment: ""),NSLocalizedString("30 Minutes", comment: "")]
+    
     var select_Slot: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setCustomFont()
+        let title = NSLocalizedString("Save", comment: "")
         let attributedTitle = NSAttributedString(
-            string: "Save",
+            string: title,
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white

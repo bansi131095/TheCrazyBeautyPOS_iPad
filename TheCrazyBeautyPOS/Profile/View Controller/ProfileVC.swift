@@ -33,8 +33,9 @@ class ProfileVC: UIViewController,SettingCellDelegate {
     //MARK: - View Lify Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        let title = NSLocalizedString("Add Salon", comment: "")
         let attributedTitle = NSAttributedString(
-            string: "Add Salon",
+            string: title,
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20)!,
                 .foregroundColor: UIColor.white
@@ -75,7 +76,7 @@ class ProfileVC: UIViewController,SettingCellDelegate {
         }
     }
     
-    func setupData() {
+    /*func setupData() {
             sections = [
                 SectionModel(title: "Salon Details", items: ["General Information", "Salon Images", "Categories", "Categories Description"]),
                 SectionModel(title: "Notifications", items: ["Notifications", "Booking Reminder"]),
@@ -86,7 +87,51 @@ class ProfileVC: UIViewController,SettingCellDelegate {
                 SectionModel(title: "Kiosk & Customers", items: ["Kiosk Users", "Block Customers"]),
                 SectionModel(title: "Privacy & Security", items: ["Change Password"])
             ]
-        }
+        }*/
+    
+    func setupData() {
+        sections = [
+            SectionModel(title: NSLocalizedString("Salon Details", comment: ""),
+                         items: [NSLocalizedString("General Information", comment: ""),
+                                 NSLocalizedString("Salon Images", comment: ""),
+                                 NSLocalizedString("Categories", comment: ""),
+                                 NSLocalizedString("Categories Description", comment: "")]),
+
+            SectionModel(title: NSLocalizedString("Notifications", comment: ""),
+                         items: [NSLocalizedString("Notifications", comment: ""),
+                                 NSLocalizedString("Booking Reminder", comment: "")]),
+
+            SectionModel(title: NSLocalizedString("Booking", comment: ""),
+                         items: [NSLocalizedString("Slot Duration", comment: ""),
+                                 NSLocalizedString("Booking Preference", comment: ""),
+                                 NSLocalizedString("Booking Policy", comment: ""),
+                                 NSLocalizedString("No Show Limit", comment: "")]),
+
+            SectionModel(title: NSLocalizedString("Team", comment: ""),
+                         items: [NSLocalizedString("Team Login", comment: ""),
+                                 NSLocalizedString("Team Sequence", comment: "")]),
+
+            SectionModel(title: NSLocalizedString("Schedule", comment: ""),
+                         items: [NSLocalizedString("Opening Date", comment: ""),
+                                 NSLocalizedString("Business Hours", comment: ""),
+                                 NSLocalizedString("Custom Schedule", comment: ""),
+                                 NSLocalizedString("Salon Off Days/Hours", comment: ""),
+                                 NSLocalizedString("Salon Holiday", comment: "")]),
+
+            SectionModel(title: NSLocalizedString("Payment", comment: ""),
+                         items: [NSLocalizedString("Bank Details", comment: ""),
+                                 NSLocalizedString("Advance Amount & Cancellation Duration", comment: ""),
+                                 NSLocalizedString("Currency", comment: "")]),
+
+            SectionModel(title: NSLocalizedString("Kiosk & Customers", comment: ""),
+                         items: [NSLocalizedString("Kiosk Users", comment: ""),
+                                 NSLocalizedString("Block Customers", comment: "")]),
+
+            SectionModel(title: NSLocalizedString("Privacy & Security", comment: ""),
+                         items: [NSLocalizedString("Change Password", comment: "")])
+        ]
+    }
+
     
     
     func loadEmbeddedViewController(for index: Int) {

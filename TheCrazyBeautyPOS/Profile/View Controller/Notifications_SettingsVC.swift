@@ -69,15 +69,16 @@ class Notifications_SettingsVC: UIViewController {
     //MARK: - Global Variable
     var isSMSExpanded = false
     var isEmailExpanded = false
-    var arr_TimeSlot = ["30 Minutes","3 Hours","6 Hours","9 Hours","12 Hours","24 Hours 30 Minutes"]
+    var arr_TimeSlot = [NSLocalizedString("30 Minutes", comment: ""),NSLocalizedString("3 Hours",comment: ""),NSLocalizedString("6 Hours",comment: ""),NSLocalizedString("9 Hours",comment: ""),NSLocalizedString("12 Hours", comment: ""),NSLocalizedString("24 Hours 30 Minutes", comment: "")]
     var select_Hours: String = ""
     
     //MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let title = NSLocalizedString("Save", comment: "")
         let attributedTitle = NSAttributedString(
-            string: "Save",
+            string: title,
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
@@ -88,8 +89,11 @@ class Notifications_SettingsVC: UIViewController {
         setInitialVisibility()
 //        self.lbl_Time.text = arr_TimeSlot[0]
         select_Hours = "1 Hours"
+        
+        updateCreditLabel(value: 10)
         get_NotificationSettings()
     }
+    
     
     //MARK: -  Button Action
     @IBAction func btn_Time(_ sender: Any) {
@@ -144,6 +148,11 @@ class Notifications_SettingsVC: UIViewController {
         if let customFont = UIFont(name: "Lato-Bold", size: 18.0) {
             lblTitle.font = customFont
         }
+    }
+    
+    func updateCreditLabel(value: Int) {
+        let localizedPattern = NSLocalizedString("Credit", comment: "")
+            lbl_Amount.text = String(format: localizedPattern, "\(value)")
     }
     
     func setInitialVisibility() {
@@ -231,6 +240,7 @@ class Notifications_SettingsVC: UIViewController {
             print("Selected item: \(item) at index: \(index)")
             self.lbl_Time.text = item
             self.select_Hours = item // Example: "5 Hours"
+            
             print("Selected Slot: \(self.select_Hours)")
         }
     }
@@ -294,7 +304,7 @@ class Notifications_SettingsVC: UIViewController {
         }
     }
     
-    func formatMinutesToSlot(_ minutes: Int) -> String {
+    /*func formatMinutesToSlot(_ minutes: Int) -> String {
         switch minutes {
         case 30: return "30 Minutes"
         case 180: return "3 Hours"
@@ -303,6 +313,31 @@ class Notifications_SettingsVC: UIViewController {
         case 720: return "12 Hours"
         case 1470: return "24 Hours 30 Minutes"
         default: return "\(minutes) Minutes" // fallback
+        }
+    }*/
+    
+    func formatMinutesToSlot(_ minutes: Int) -> String {
+        switch minutes {
+        case 30:
+            return String(format: NSLocalizedString("%d Minutes", comment: ""), 30)
+
+        case 180:
+            return String(format: NSLocalizedString("%d Hours", comment: ""), 3)
+
+        case 360:
+            return String(format: NSLocalizedString("%d Hours", comment: ""), 6)
+
+        case 540:
+            return String(format: NSLocalizedString("%d Hours", comment: ""), 9)
+
+        case 720:
+            return String(format: NSLocalizedString("%d Hours", comment: ""), 12)
+
+        case 1470:
+            return String(format: NSLocalizedString("%d Hours %d Minutes", comment: ""), 24, 30)
+
+        default:
+            return String(format: NSLocalizedString("%d Minutes", comment: ""), minutes)
         }
     }
 

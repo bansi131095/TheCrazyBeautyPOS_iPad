@@ -15,14 +15,20 @@ class Booking_ReminderVC: UIViewController {
     @IBOutlet weak var btn_Save: GradientButton!
     
     var select_Hours: String = ""
-    let hoursArray = (1...24).map { "\($0) Hours" }
+//    let hoursArray = (1...24).map { "\($0) Hours" }
     
+    lazy var hoursArray: [String] = {
+        let localizedHours = NSLocalizedString("Hours", comment: "")
+        return (1...24).map { "\($0) \(localizedHours)" }
+    }()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setCustomFont()
+        let title = NSLocalizedString("Save", comment: "")
         let attributedTitle = NSAttributedString(
-            string: "Save",
+            string: title,
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white

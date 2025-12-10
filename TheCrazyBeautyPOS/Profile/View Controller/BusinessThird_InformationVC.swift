@@ -30,7 +30,7 @@ class BusinessThird_InformationVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let attributedTitle = NSAttributedString(
-            string: "Done",
+            string: NSLocalizedString("Done", comment: ""),
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
@@ -38,7 +38,7 @@ class BusinessThird_InformationVC: UIViewController {
         )
         btn_Done.setAttributedTitle(attributedTitle, for: .normal)
         let attributedTitleSync = NSAttributedString(
-            string: "Sync Team And Services As Well",
+            string: NSLocalizedString("Sync Team And Services As Well",comment: ""),
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white

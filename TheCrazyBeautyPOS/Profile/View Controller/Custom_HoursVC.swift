@@ -33,8 +33,9 @@ class Custom_HoursVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        let title = NSLocalizedString("Save", comment: "")
         let attributedTitle = NSAttributedString(
-            string: "Save",
+            string: title,
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
@@ -42,7 +43,7 @@ class Custom_HoursVC: UIViewController {
         )
         btnSave.setAttributedTitle(attributedTitle, for: .normal)
         let attributedTitleAdd = NSAttributedString(
-            string: "Add",
+            string: NSLocalizedString("Add", comment: ""),
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white

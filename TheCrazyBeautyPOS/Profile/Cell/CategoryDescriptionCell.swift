@@ -20,8 +20,7 @@ class CategoryDescriptionCell: UITableViewCell,UITextViewDelegate {
         super.awakeFromNib()
         setCustomFont()
         txt_Description.delegate = self
-        
-        placeholderLabel.text = "Description"
+        placeholderLabel.text = NSLocalizedString("Description", comment: "")
         placeholderLabel.font = UIFont(name: "Lato-Medium", size: 18.0)
         placeholderLabel.textColor = UIColor.lightGray
         placeholderLabel.numberOfLines = 1

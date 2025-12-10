@@ -209,17 +209,18 @@ class UpcomingAppointmentsVC: UIViewController {
             }
 
             // ✅ Assign values properly (assuming all are strings)
-            self.lbl_TotalBookings.text = "Bookings : " + String(data.total_bookings)
-            self.lbl_CalendarTotal.text = "Bookings : " + String(data.calendar_total)
+            
+            self.lbl_TotalBookings.text = NSLocalizedString("Bookings", comment: "") + String(data.total_bookings)
+            self.lbl_CalendarTotal.text = NSLocalizedString("Bookings", comment: "") + String(data.calendar_total)
 //            self.lbl_CalendarTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(Double(data.calendar_total_amount))
-            self.lbl_WalkinTotal.text = "Bookings : " + String(data.walkin_total)
+            self.lbl_WalkinTotal.text = NSLocalizedString("Bookings", comment: "") + String(data.walkin_total)
 //            self.lbl_WalkinTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(Double(data.walkin_total_amount))
 //            self.lbl_TotalCard.text = "Card : " + "\(SharedPrefs.getSymbol())" + String(Double(data.total_card))
 //            self.lbl_TotalCash.text = "Cash : " + "\(SharedPrefs.getSymbol())" + String(Double(data.total_cash))
-            self.lbl_WalkinTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(format: "%.2f", data.walkin_total_amount)
-            self.lbl_CalendarTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(format: "%.2f", data.calendar_total_amount)
-            self.lbl_TotalCard.text = "Card : " + "\(SharedPrefs.getSymbol())" + String(format: "%.2f", data.total_card)
-            self.lbl_TotalCash.text = "Cash : " + "\(SharedPrefs.getSymbol())" + String(format: "%.2f", data.total_cash)
+            self.lbl_WalkinTotalAmount.text = NSLocalizedString("Amount", comment: "") + "\(SharedPrefs.getSymbol())" + String(format: "%.2f", data.walkin_total_amount)
+            self.lbl_CalendarTotalAmount.text = NSLocalizedString("Amount", comment: "") + "\(SharedPrefs.getSymbol())" + String(format: "%.2f", data.calendar_total_amount)
+            self.lbl_TotalCard.text = NSLocalizedString("Card", comment: "") + "\(SharedPrefs.getSymbol())" + String(format: "%.2f", data.total_card)
+            self.lbl_TotalCash.text = NSLocalizedString("Cash", comment: "") + "\(SharedPrefs.getSymbol())" + String(format: "%.2f", data.total_cash)
         }
     }
 

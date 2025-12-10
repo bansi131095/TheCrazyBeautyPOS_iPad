@@ -68,10 +68,7 @@
                                         <rect key="frame" x="240" y="0.0" width="465" height="60"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QkX-ps-hRp">
-                                                <rect key="frame" x="0.0" y="5" width="120" height="19.5"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="120" id="d5I-b6-xFG"/>
-                                                </constraints>
+                                                <rect key="frame" x="0.0" y="5" width="126.5" height="19.5"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="Customer Name: ">
                                                         <attributes>
@@ -84,7 +81,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iFc-5X-jPL">
-                                                <rect key="frame" x="120" y="5" width="340" height="19.5"/>
+                                                <rect key="frame" x="126.5" y="5" width="69.5" height="19.5"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="Liza Patel">
                                                         <attributes>
@@ -131,7 +128,7 @@
                                             <constraint firstItem="QkX-ps-hRp" firstAttribute="top" secondItem="mj7-aH-8D7" secondAttribute="top" constant="5" id="DP3-na-cK3"/>
                                             <constraint firstItem="iFc-5X-jPL" firstAttribute="centerY" secondItem="QkX-ps-hRp" secondAttribute="centerY" id="JCD-F6-TRe"/>
                                             <constraint firstItem="iFc-5X-jPL" firstAttribute="leading" secondItem="QkX-ps-hRp" secondAttribute="trailing" id="Z3e-J3-9gu"/>
-                                            <constraint firstAttribute="trailing" secondItem="iFc-5X-jPL" secondAttribute="trailing" constant="5" id="cJE-cm-6dA"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="iFc-5X-jPL" secondAttribute="trailing" constant="5" id="cJE-cm-6dA"/>
                                             <constraint firstItem="wcm-b8-LwP" firstAttribute="leading" secondItem="QkX-ps-hRp" secondAttribute="leading" id="dvA-tJ-oZc"/>
                                             <constraint firstItem="ddx-sy-Fcr" firstAttribute="leading" secondItem="wcm-b8-LwP" secondAttribute="trailing" id="fRt-oh-aYW"/>
                                             <constraint firstItem="iFc-5X-jPL" firstAttribute="top" secondItem="QkX-ps-hRp" secondAttribute="top" id="rHM-rV-pFE"/>

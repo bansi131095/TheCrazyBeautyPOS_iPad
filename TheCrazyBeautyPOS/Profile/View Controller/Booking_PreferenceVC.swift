@@ -22,8 +22,9 @@ class Booking_PreferenceVC: UIViewController {
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        let title = NSLocalizedString("Save", comment: "")
         let attributedTitle = NSAttributedString(
-            string: "Save",
+            string: title,
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white

@@ -23,7 +23,9 @@ class UpcomingAppointmentCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setCustomFont()
-        // Initialization code
+        lbl_titleAmount.text = NSLocalizedString("Amount_1", comment: "")
+        lbl_titleCustomerName.text = NSLocalizedString("Customer Name", comment: "")
+        lbl_BookingNo.text = NSLocalizedString("Booking No", comment: "")
     }
     
     func setCustomFont() {

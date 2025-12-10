@@ -26,15 +26,17 @@ class Team_LoginVC: UIViewController {
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        let Submit = NSLocalizedString("Submit", comment: "")
+        let Loginas  = NSLocalizedString("Login as Staff", comment: "")
         let attributedTitle = NSAttributedString(
-            string: "Submit",
+            string: Submit,
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
             ]
         )
         let LogattributedTitle = NSAttributedString(
-            string: "Login as Staff",
+            string: Loginas,
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white

@@ -80,8 +80,9 @@ class BusinessSecond_InformationVC: UIViewController {
         vw_SunClose.isHidden = false
         vw_SunTime.isHidden = true
         TimeSlots()
+        let title = NSLocalizedString("Continue", comment: "")
         let attributedTitle = NSAttributedString(
-            string: "Continue",
+            string: title,
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white

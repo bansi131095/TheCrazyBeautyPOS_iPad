@@ -25,7 +25,10 @@ class Payment_CancellationVC: UIViewController {
     @IBOutlet weak var btn_Save: GradientButton!
     
     //MARK: - Global Variable
-    var arr_CancellationDuration: [String] = ["No notice required","6 Hours Notice required","12 Hours Notice required","24 Hours Notice required","48 Hours Notice required"]
+    var arr_CancellationDuration: [String] = [NSLocalizedString("No notice required", comment: ""),NSLocalizedString("6 Hours Notice required",comment: ""),NSLocalizedString("12 Hours Notice required",comment: ""),NSLocalizedString("24 Hours Notice required",comment: ""),NSLocalizedString("48 Hours Notice required", comment: "")]
+    
+//    var arr_TimeSlot = [NSLocalizedString("No notice required", comment: ""),NSLocalizedString("6 Hours Notice required",comment: ""),NSLocalizedString("12 Hours Notice required",comment: ""),NSLocalizedString("24 Hours Notice required",comment: ""),NSLocalizedString("48 Hours Notice required", comment: "")]
+    
     var select_CancellationDuration: String = ""
     
     var GetAmountModel: [GetAmountModel] = []
@@ -33,8 +36,9 @@ class Payment_CancellationVC: UIViewController {
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        let title = NSLocalizedString("Save", comment: "")
         let attributedTitle = NSAttributedString(
-            string: "Save",
+            string: title,
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white

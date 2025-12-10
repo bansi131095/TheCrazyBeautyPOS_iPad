@@ -20,6 +20,8 @@ class ServicesVC: UIViewController {
     @IBOutlet weak var btnResources: GradientButton!
     
     @IBOutlet weak var vw_SubResource: UIView!
+    @IBOutlet weak var btn_AddNew: GradientButton!
+    @IBOutlet weak var btn_ServiceSequence: GradientButton!
     
     
     var serviceList: [ServiceData] = []
@@ -35,7 +37,29 @@ class ServicesVC: UIViewController {
         super.viewDidLoad()
         self.vw_SubResource.isHidden = true
         contentViewWidthConstraint.constant = 200 // or any dynamic value
+        
         btnResources.titleLabel?.font = UIFont(name: "Lato-Bold", size: 20.0)!
+        btn_AddNew.setTitle(NSLocalizedString("Add New", comment: ""), for: .normal)
+        btn_ServiceSequence.setTitle(NSLocalizedString("ServiceSequence", comment: ""), for: .normal)
+        
+        let attributedTitleSync = NSAttributedString(
+            string: NSLocalizedString("ServiceSequence",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_ServiceSequence.setAttributedTitle(attributedTitleSync, for: .normal)
+        
+        let attributedTitleSync_1 = NSAttributedString(
+            string: NSLocalizedString("Add New",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_AddNew.setAttributedTitle(attributedTitleSync_1, for: .normal)
+        
         self.setTableView()
         self.setCustomFont()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -61,6 +85,7 @@ class ServicesVC: UIViewController {
     func setCustomFont() {
         if let customFont = UIFont(name: "Lato-Bold", size: 22.0) {
             lbl_TitleServices.font = customFont
+            self.lbl_TitleServices.text = NSLocalizedString("Services", comment: "")
         }
     }
     
@@ -97,7 +122,7 @@ class ServicesVC: UIViewController {
 
             let newItems = model.data
             self.totalCount = model.total // Make sure this field exists in your response model
-            self.lbl_totalClient.text = "\(self.totalCount) Services"
+            self.lbl_totalClient.text = "\(self.totalCount) " + (NSLocalizedString("Services", comment: ""))
             if newItems.isEmpty || self.serviceList.count + newItems.count >= self.totalCount {
                 self.hasMoreData = false
             }

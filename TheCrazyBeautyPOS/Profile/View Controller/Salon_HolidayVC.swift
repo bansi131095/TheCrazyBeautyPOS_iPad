@@ -29,8 +29,9 @@ class Salon_HolidayVC: UIViewController {
         txt_from.delegate = self
         txt_to.delegate = self
         setTableView()
+        let title = NSLocalizedString("Save", comment: "")
         let attributedTitle = NSAttributedString(
-            string: "Save",
+            string: title,
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white

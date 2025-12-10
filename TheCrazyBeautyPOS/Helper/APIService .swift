@@ -10210,6 +10210,31 @@ class APIService {
             }
             
             // 📦
+            if let data = response.data,
+               let rawResponse = String(data: data, encoding: .utf8) {
+                print("📦 Raw Response: \(rawResponse)")
+            }
+            
+            switch response.result {
+            case .success(let json):
+                print("✅ API Success: \(json)")
+                
+                // Optional: Parse into CommonModel if backend returns a message
+                if let commonModel = Mapper<CommonModel>().map(JSONObject: json) {
+                    print("✅ Parsed CommonModel: \(commonModel)")
+                    completion(commonModel)
+                } else {
+                    completion(nil)
+                }
+
+            case .failure(let error):
+                print("❌ API Error: \(error.localizedDescription)")
+                if let data = response.data,
+                   let raw = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Error Response: \(raw)")
+                    completion(nil)
+                } 
+            }
             
         }
     }
