@@ -17,6 +17,8 @@ class InventoryVC: UIViewController {
     @IBOutlet weak var txt_search: UITextField!
     @IBOutlet weak var lbl_totalClient: UILabel!
     
+    @IBOutlet weak var btn_AddNew: GradientButton!
+    
     var inventoryList: [InventoryData] = []
     var searchWorkItem: DispatchWorkItem?
     var currentPage = 1
@@ -28,10 +30,19 @@ class InventoryVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.lbl_InventoryTitle.text = NSLocalizedString("Inventory", comment: "")
         contentViewWidthConstraint.constant = 0 // or any dynamic value
         self.setTableView()
         setCustomFont()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        let attributedTitleSync_1 = NSAttributedString(
+            string: NSLocalizedString("Add New",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_AddNew.setAttributedTitle(attributedTitleSync_1, for: .normal)
 //        self.loadData(Search: "")
         // Do any additional setup after loading the view.
     }
@@ -91,7 +102,7 @@ class InventoryVC: UIViewController {
 
             let newItems = model.data
             self.totalCount = model.total // Make sure this field exists in your response model
-            self.lbl_totalClient.text = "\(self.totalCount) Inventories"
+            self.lbl_totalClient.text = "\(self.totalCount) " + NSLocalizedString("Inventories", comment: "")
             if newItems.isEmpty || self.inventoryList.count + newItems.count >= self.totalCount {
                 self.hasMoreData = false
             }
@@ -106,7 +117,7 @@ class InventoryVC: UIViewController {
     
     func getNoDataLabel() -> UILabel {
         let noDataLabel = UILabel()
-        noDataLabel.text = "No Inventory Data Found"
+        noDataLabel.text = NSLocalizedString("No Inventory Data Found", comment: "")
         noDataLabel.textAlignment = .center
         noDataLabel.textColor = .gray
         noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)
@@ -190,8 +201,6 @@ extension InventoryVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewD
             popup.modalTransitionStyle = .crossDissolve
             popup.titleText = "Are you sure you want to delete this Inventory?"
             popup.onConfirm = {
-                print("Inventory confirmed delete")
-                // Call your delete logic here
                 self.deleteInventory(InventoryId: inventory.id)
             }
             self.present(popup, animated: true, completion: nil)

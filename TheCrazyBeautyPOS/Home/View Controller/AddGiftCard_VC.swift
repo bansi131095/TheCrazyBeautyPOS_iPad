@@ -18,6 +18,7 @@ class AddGiftCard_VC: UIViewController {
     @IBOutlet weak var txt_ExpiryDate: TextInputLayout!
     @IBOutlet weak var txt_Status: TextInputLayout!
     
+    @IBOutlet weak var lbl_AllField: UILabel!
     
     var arr_Status = ["Active","Inactive"]
     var isEdit = false
@@ -27,6 +28,7 @@ class AddGiftCard_VC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setCustomFont()
+        self.lbl_AllField.text = NSLocalizedString("All fields marked with an asterisk (*) are required.", comment: "")
         txt_Status.text = arr_Status.first
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if self.isEdit {

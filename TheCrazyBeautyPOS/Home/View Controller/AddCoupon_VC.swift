@@ -31,6 +31,8 @@ class AddCoupon_VC: UIViewController {
     @IBOutlet weak var txt_StartDate: TextInputLayout!
     @IBOutlet weak var txt_EndDate: TextInputLayout!
     
+    @IBOutlet weak var lbl_AllField: UILabel!
+    
     @IBOutlet weak var txt_Status: TextInputLayout!
     //MARK: - Global Variable
     var arr_Status = ["Active","Inactive"]
@@ -50,6 +52,7 @@ class AddCoupon_VC: UIViewController {
         setCustomFont()
         txt_DiscountType.text = arr_DiscountType.first
         txt_Status.text = arr_Status.first
+        self.lbl_AllField.text = NSLocalizedString("All fields marked with an asterisk (*) are required.", comment: "")
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if self.isEdit {
                 self.lbl_Title.text = "Edit Coupon"

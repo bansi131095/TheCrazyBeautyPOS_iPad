@@ -17,6 +17,11 @@ class TeamVC: UIViewController {
     @IBOutlet weak var txt_search: UITextField!
     @IBOutlet weak var lbl_totalStaff: UILabel!
     
+    @IBOutlet weak var btn_AddNew: GradientButton!
+    
+    @IBOutlet weak var btn_TeamRoster: GradientButton!
+    
+    
     var staffList: [StaffData] = []
     var searchWorkItem: DispatchWorkItem?
     var currentPage = 1
@@ -30,6 +35,26 @@ class TeamVC: UIViewController {
         self.setTableView()
         setCustomFont()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        self.lbl_TitleTeam.text = NSLocalizedString("Team", comment: "")
+        let attributedTitleSync_1 = NSAttributedString(
+            string: NSLocalizedString("Add New",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_AddNew.setAttributedTitle(attributedTitleSync_1, for: .normal)
+        
+        let TeamRoster = NSAttributedString(
+            string: NSLocalizedString("Team Roster",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_TeamRoster.setAttributedTitle(TeamRoster, for: .normal)
+        
+        
         // Do any additional setup after loading the view.
     }
     
@@ -87,7 +112,7 @@ class TeamVC: UIViewController {
 
             let newItems = model.data ?? []
             self.totalCount = model.total ?? 0 // Make sure this field exists in your response model
-            self.lbl_totalStaff.text = "\(self.totalCount) Team Members"
+            self.lbl_totalStaff.text = "\(self.totalCount) " + NSLocalizedString("Team Members", comment: "")
             if newItems.isEmpty || self.staffList.count + newItems.count >= self.totalCount {
                 self.hasMoreData = false
             }
@@ -102,7 +127,7 @@ class TeamVC: UIViewController {
 
     func getNoDataLabel() -> UILabel {
         let noDataLabel = UILabel()
-        noDataLabel.text = "No Team Data Found"
+        noDataLabel.text = NSLocalizedString("No Team Data Found", comment: "")
         noDataLabel.textAlignment = .center
         noDataLabel.textColor = .gray
         noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)

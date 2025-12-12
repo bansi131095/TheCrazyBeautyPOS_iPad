@@ -34,7 +34,15 @@ class UpcomingAppointmentsVC: UIViewController {
     var isLoadingMore = false
     var hasMoreData = true
     let dropdownView = UITableView()
-    let daysOptions = ["Next 7 Days", "Next 15 Days", "Next 30 Days"]
+//    let daysOptions = ["Next 7 Days", "Next 15 Days", "Next 30 Days"]
+    var daysOptions: [String] {
+        let numbers = [7, 15, 30]
+        let format = NSLocalizedString("Next", comment: "")
+
+        return numbers.map { num in
+            String(format: format, "\(num)")
+        }
+    }
     let daysValues = [7, 15, 30] // Corresponding values
     var selectedDays: Int = 7
     var isDropdownVisible = false
@@ -141,7 +149,7 @@ class UpcomingAppointmentsVC: UIViewController {
     
     func getNoDataLabel() -> UILabel {
         let noDataLabel = UILabel()
-        noDataLabel.text = "No Data Found"
+        noDataLabel.text = NSLocalizedString("No Data Found", comment: "")
         noDataLabel.textAlignment = .center
         noDataLabel.textColor = .gray
         noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)

@@ -16,6 +16,7 @@ class CouponVC: UIViewController {
     @IBOutlet weak var txt_search: UITextField!
     @IBOutlet weak var lbl_totalClient: UILabel!
     
+    @IBOutlet weak var btn_AddNew: GradientButton!
     var couponList: [CouponData] = []
     var searchWorkItem: DispatchWorkItem?
     var currentPage = 1
@@ -27,6 +28,15 @@ class CouponVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        lbl_Title.text = NSLocalizedString("Coupons", comment: "")
+        let attributedTitleSync_1 = NSAttributedString(
+            string: NSLocalizedString("Add New",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_AddNew.setAttributedTitle(attributedTitleSync_1, for: .normal)
         setCustomFont()
         contentViewWidthConstraint.constant = 250 // or any dynamic value
         self.setTableView()
@@ -90,7 +100,7 @@ class CouponVC: UIViewController {
 
             let newItems = model.data
             self.totalCount = model.total // Make sure this field exists in your response model
-            self.lbl_totalClient.text = "\(self.totalCount) Coupons"
+            self.lbl_totalClient.text = "\(self.totalCount) "  + NSLocalizedString("Coupons", comment: "")
             if newItems.isEmpty || self.couponList.count + newItems.count >= self.totalCount {
                 self.hasMoreData = false
             }
@@ -105,7 +115,7 @@ class CouponVC: UIViewController {
     
     func getNoDataLabel() -> UILabel {
         let noDataLabel = UILabel()
-        noDataLabel.text = "No Coupons Data Found"
+        noDataLabel.text = NSLocalizedString("No Coupons Data Found", comment: "")
         noDataLabel.textAlignment = .center
         noDataLabel.textColor = .gray
         noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)

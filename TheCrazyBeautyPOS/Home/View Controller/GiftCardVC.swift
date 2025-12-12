@@ -16,6 +16,8 @@ class GiftCardVC: UIViewController {
     @IBOutlet weak var txt_search: UITextField!
     @IBOutlet weak var lbl_totalClient: UILabel!
     
+    @IBOutlet weak var btn_AddNew: GradientButton!
+    
     var giftCardList: [GiftCardData] = []
     var searchWorkItem: DispatchWorkItem?
     var currentPage = 1
@@ -27,11 +29,19 @@ class GiftCardVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        lbl_TitleGiftCard.text = NSLocalizedString("Gift Card", comment: "")
         contentViewWidthConstraint.constant = 30 // or any dynamic value
         self.setTableView()
         setCustomFont()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        
+        let attributedTitleSync_1 = NSAttributedString(
+            string: NSLocalizedString("Add New",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_AddNew.setAttributedTitle(attributedTitleSync_1, for: .normal)
         // Do any additional setup after loading the view.
     }
     
@@ -85,7 +95,7 @@ class GiftCardVC: UIViewController {
 
             let newItems = model.data
             self.totalCount = model.total // Make sure this field exists in your response model
-            self.lbl_totalClient.text = "\(self.totalCount) Cards"
+            self.lbl_totalClient.text = "\(self.totalCount) " + NSLocalizedString("Cards", comment: "")
             
             
             if newItems.isEmpty || self.giftCardList.count + newItems.count >= self.totalCount {
@@ -102,7 +112,7 @@ class GiftCardVC: UIViewController {
     
     func getNoDataLabel() -> UILabel {
         let noDataLabel = UILabel()
-        noDataLabel.text = "No Gift Card Found"
+        noDataLabel.text = NSLocalizedString("No Gift Card Found", comment: "")
         noDataLabel.textAlignment = .center
         noDataLabel.textColor = .gray
         noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)

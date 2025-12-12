@@ -21,7 +21,10 @@ class AddClientVC: UIViewController {
     @IBOutlet weak var mobileTextField: TextInputLayout!
     @IBOutlet weak var flag_imgVw: UIImageView!
     @IBOutlet weak var btn_addEditTeam: GradientButton!
+    @IBOutlet weak var btn_Cancel: UIButton!
     
+    @IBOutlet weak var lbl_TAddClient: UILabel!
+    @IBOutlet weak var lbl_AllField: UILabel!
     
     var dictClient: CustomerData?
     
@@ -41,6 +44,8 @@ class AddClientVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.lbl_TAddClient.text = NSLocalizedString("Add Client", comment: "")
+        self.lbl_AllField.text = NSLocalizedString("All fields marked with an asterisk (*) are required.", comment: "")
         let currentYear = Calendar.current.component(.year, from: Date())
         years = Array(1900...currentYear)
         self.dobTextField.delegate = self
@@ -58,6 +63,15 @@ class AddClientVC: UIViewController {
                 flag_imgVw.image = flagImage
             }
         }
+        let attributedTitleSync_1 = NSAttributedString(
+            string: NSLocalizedString("Cancel",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Regular", size: 16.0)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Cancel.setAttributedTitle(attributedTitleSync_1, for: .normal)
+        
         self.setCustomFont()
         
         // Do any additional setup after loading the view.

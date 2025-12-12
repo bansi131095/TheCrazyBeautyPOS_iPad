@@ -51,6 +51,7 @@ class AddServiceVC: UIViewController {
     @IBOutlet weak var vw_ParentService: UIView!
     @IBOutlet weak var vw_Resourc: UIView!
     
+    @IBOutlet weak var lbl_AllField: UILabel!
     
     var dictService: ServiceData?
     var isEdit = false
@@ -94,7 +95,9 @@ class AddServiceVC: UIViewController {
             lbl_vendorOnly.font = customFont
             
         }*/
+        lbl_vendorOnly.text = NSLocalizedString("Vendor Only", comment: "")
         lbl_vendorOnly?.font = UIFont(name: "Lato-Bold", size: 24.0)!
+        self.lbl_AllField.text = NSLocalizedString("All fields marked with an asterisk (*) are required.", comment: "")
         self.loadDuationData()
         self.loadCategoryData()
         self.loadData()
@@ -121,14 +124,14 @@ class AddServiceVC: UIViewController {
         staffTextField.addGestureRecognizer(tapGesture)
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if self.isEdit {
-                self.lbl_title.text = "Edit Service"
-                self.btn_service.setTitle("Update Service", for: .normal)
+                self.lbl_title.text = NSLocalizedString("Edit Service", comment: "")
                 self.setData()
+                self.btn_service.setTitle(NSLocalizedString("Update Service",comment: ""), for: .normal)
             } else {
                 self.txt_TypeofService.text = self.arr_ServiceType[0]
                 self.txt_SecondaryType.text = self.arr_SecondaryType[0]
-                self.lbl_title.text = "Add Service"
-                self.btn_service.setTitle("Add Service", for: .normal)
+                self.lbl_title.text = NSLocalizedString("Add Service", comment: "")
+                self.btn_service.setTitle(NSLocalizedString("Add Service",comment: ""), for: .normal)
             }
         }
         

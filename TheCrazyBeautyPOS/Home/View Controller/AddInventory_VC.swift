@@ -16,12 +16,14 @@ class AddInventory_VC: UIViewController {
     @IBOutlet weak var txt_QTY: TextInputLayout!
     @IBOutlet weak var btn_AddInventory: GradientButton!
     
+    @IBOutlet weak var lbl_AllField: UILabel!
     var isEdit = false
     var InventoryService: InventoryData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setCustomFont()
+        self.lbl_AllField.text = NSLocalizedString("All fields marked with an asterisk (*) are required.", comment: "")
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if self.isEdit {
                 self.lbl_Title.text = "Edit Inventory"

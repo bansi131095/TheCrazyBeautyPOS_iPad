@@ -17,11 +17,13 @@ class AddOfflineGiftCard_VC: UIViewController {
     @IBOutlet weak var txt_ExpiryDate: TextInputLayout!
     
     
+    @IBOutlet weak var lbl_AllField: UILabel!
     var calendarVC: UIViewController?
     var selectedDate: Date = Date.now
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.lbl_AllField.text = NSLocalizedString("All fields marked with an asterisk (*) are required.", comment: "")
         self.txt_ExpiryDate.delegate = self
         setCustomFont()
     }

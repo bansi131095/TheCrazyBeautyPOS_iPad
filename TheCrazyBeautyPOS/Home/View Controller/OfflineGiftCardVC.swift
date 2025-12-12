@@ -18,9 +18,17 @@ class OfflineGiftCardVC: UIViewController {
     @IBOutlet weak var lbl_totalClient: UILabel!
     
     @IBOutlet weak var txt_Filter: UITextField!
+    @IBOutlet weak var btn_AddNew: GradientButton!
     
     
-    var arr_Filter = ["Active","Expired","Used"]
+//    var arr_Filter = ["Active","Expired","Used"]
+    var arr_Filter: [String] {
+        return [
+            NSLocalizedString("Active", comment: ""),
+            NSLocalizedString("Expired", comment: ""),
+            NSLocalizedString("Used", comment: "")
+        ]
+    }
     
     var OfflineGiftCardList: [OfflineGiftCardData] = []
     var searchWorkItem: DispatchWorkItem?
@@ -34,11 +42,20 @@ class OfflineGiftCardVC: UIViewController {
     //MARK:  View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        lbl_TitleOfflineGiftCard.text = NSLocalizedString("Offline Gift Card", comment: "")
         contentViewWidthConstraint.constant = 200
         txt_Filter.text = arr_Filter.first
         setTableView()
         setCustomFont()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        let attributedTitleSync_1 = NSAttributedString(
+            string: NSLocalizedString("Add New",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_AddNew.setAttributedTitle(attributedTitleSync_1, for: .normal)
 //        self.loadData(Search: "", filter: self.txt_Filter.text?.lowercased() ?? "active")
     }
     
@@ -107,7 +124,7 @@ class OfflineGiftCardVC: UIViewController {
             
             let newItems = model.data
             self.totalCount = model.total // Make sure this field exists in your response model
-            self.lbl_totalClient.text = "\(self.totalCount) Cards"
+            self.lbl_totalClient.text = "\(self.totalCount) "  +  NSLocalizedString("Cards", comment: "")
             if newItems.isEmpty || self.OfflineGiftCardList.count + newItems.count >= self.totalCount {
                 self.hasMoreData = false
             }
@@ -122,7 +139,7 @@ class OfflineGiftCardVC: UIViewController {
     
     func getNoDataLabel() -> UILabel {
         let noDataLabel = UILabel()
-        noDataLabel.text = "No Offline Gift Cards Found"
+        noDataLabel.text = NSLocalizedString("No Offline Gift Cards Found", comment: "")
         noDataLabel.textAlignment = .center
         noDataLabel.textColor = .gray
         noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)

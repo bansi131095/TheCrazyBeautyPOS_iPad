@@ -52,8 +52,18 @@ class WalkingVC: UIViewController, WalkingDelegate, WalkingDelegate_ONE {
     @IBOutlet weak var btn_payNow: GradientButton!
     
     
+    @IBOutlet weak var lbl_Cart: UILabel!
     @IBOutlet weak var lbl_30Text: UILabel!
     @IBOutlet weak var lbl_50Text: UILabel!
+    
+    
+    
+    @IBOutlet weak var lbl_Service: UILabel!
+    @IBOutlet weak var lbl_GiftCard: UILabel!
+    @IBOutlet weak var lbl_T_Total: UILabel!
+    
+    
+    
     var serviceList: [ServiceData] = []
     var categoryList: [ServiceDatas] = []
     var categoryNames: [String] = []
@@ -90,11 +100,36 @@ class WalkingVC: UIViewController, WalkingDelegate, WalkingDelegate_ONE {
         self.btn_clear.isHidden = true
         self.btn_payNow.isHidden = true
         self.setCustomFont()
+        
+        self.lbl_TitleCategory.text = NSLocalizedString("Select Category", comment: "")
+        self.lbl_TitleGiftCard.text = NSLocalizedString("Gift Card", comment: "")
+        self.lbl_Cart.text = NSLocalizedString("Cart", comment: "")
+        self.lbl_Service.text = NSLocalizedString("Services", comment: "")
+        self.lbl_GiftCard.text = NSLocalizedString("Gift Card", comment: "")
+        self.lbl_T_Total.text = NSLocalizedString("Total", comment: "")
         tbl_vw.tableFooterView = UIView()
             
             if #available(iOS 15.0, *) {
                 tbl_vw.sectionHeaderTopPadding = 0
             }
+        let clear = NSAttributedString(
+            string: NSLocalizedString("Clear",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Regular", size: 18.0)!,
+                .foregroundColor: UIColor.black
+            ]
+        )
+        btn_clear.setAttributedTitle(clear, for: .normal)
+        
+        let payNow = NSAttributedString(
+            string: NSLocalizedString("Pay Now",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Regular", size: 18.0)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_payNow.setAttributedTitle(payNow, for: .normal)
+        
         // Do any additional setup after loading the view.
     }
     
@@ -1032,7 +1067,7 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
                 let calculatedHeight = self.calculateCollectionServiceViewHeight(for: self.ServiceCategoryList, collectionViewWidth: collect_service.bounds.width)
                 self.collectServiceHeight.constant = calculatedHeight
                 self.lbl_serviceTop.constant = 15
-                self.lbl_service.text = "Select Service"
+                self.lbl_service.text = NSLocalizedString("Select Service", comment: "")
                 self.lbl_serviceLine.isHidden = false
                 self.collect_service.reloadData()
                 self.selectedServiceIndexForSubService = Int()
@@ -1060,7 +1095,7 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
                 self.selectedServiceIndexForSubService = indexPath.item
                 self.collect_SubService.isHidden = false
                 self.lbl_SubServiceTitle.isHidden = false
-                self.lbl_SubServiceTitle.text = "Select Sub Service"
+                self.lbl_SubServiceTitle.text = NSLocalizedString("Select Sub Service", comment: "")
                 self.lbl_SubServiceTop.constant = 10
                 self.height_SubService.constant = 30
                 let calculatedHeight = self.calculateCollectionServiceViewHeight(for: service.sub_service, collectionViewWidth: collect_SubService.bounds.width)

@@ -28,6 +28,8 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var btn_addTimeOff: UIButton!
     @IBOutlet weak var btn_addEditTeam: GradientButton!
     
+    @IBOutlet weak var btn_Cancel: UIButton!
+    @IBOutlet weak var lbl_AllField: UILabel!
     var selectedImage: UIImage? = nil
     
     var dictStaff: StaffData?
@@ -58,21 +60,22 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         years = Array(1900...currentYear)
         setCustomFont()
         setRegularFont()
+        self.lbl_AllField.text = NSLocalizedString("All fields marked with an asterisk (*) are required.", comment: "")
         self.api_getBusinessHours()
         self.dobTextField.delegate = self
         setupGenderTextField()
         setupDropdownTable()
         if isEdit {
-            self.btn_addEditTeam.setTitle("Update Team Member", for: .normal)
-            self.btn_editService.setTitle("Edit Services", for: .normal)
+            self.btn_addEditTeam.setTitle(NSLocalizedString("Update Team Member",comment: ""), for: .normal)
+            self.btn_editService.setTitle(NSLocalizedString("Edit Services",comment: ""), for: .normal)
             self.btn_addTimeOff.isHidden = false
-            self.lbl_title.text = "Edit Team Member"
+            self.lbl_title.text = NSLocalizedString("Edit Team Member", comment: "")
             self.setEditData()
         } else {
-            self.btn_addEditTeam.setTitle("Add Team Member", for: .normal)
-            self.btn_editService.setTitle("Assign Services", for: .normal)
+            self.btn_addEditTeam.setTitle(NSLocalizedString("Add Team Member",comment: ""), for: .normal)
+            self.btn_editService.setTitle(NSLocalizedString("Assign Services",comment: ""), for: .normal)
             self.btn_addTimeOff.isHidden = true
-            self.lbl_title.text = "Add Team Member"
+            self.lbl_title.text = NSLocalizedString("Add Team Member", comment: "")
             if let iso = CountryUtils.getISOCode(from: selectedCountrycode),
                let flagImage = CountryUtils.imageFromEmoji(flag: CountryUtils.flag(from: iso)) {
                 flag_imgVw.image = flagImage
@@ -142,9 +145,11 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
             self.jobTitleTextField.text = dict.jobTitle
             if dict.serviceIds != ""{
                 let count = dict.serviceIds!.split(separator: ",").count
-                self.btn_editService.setTitle("Edit service", for: .normal)
+//                self.btn_editService.setTitle("Edit service", for: .normal)
+                self.btn_editService.setTitle(NSLocalizedString("Edit Services",comment: ""), for: .normal)
             }else{
-                self.btn_editService.setTitle("Assign service", for: .normal)
+//                self.btn_editService.setTitle("Assign service", for: .normal)
+                self.btn_editService.setTitle(NSLocalizedString("Assign Services",comment: ""), for: .normal)
             }
             
             if let visibility = dict.showCustomer, visibility == 1 {
@@ -315,8 +320,13 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
             self?.serviceIds = returnedData
             
             let count = returnedData.split(separator: ",").filter { $0 != "0" }.count
-            self?.btn_editService.setTitle("Edit service (\(count))", for: .normal)
+//            self?.btn_editService.setTitle("Edit service (\(count))", for: .normal)
+//            self?.btn_editService.setTitle(NSLocalizedString("Edit Services",comment: ""), for: .normal)
             
+            let format = NSLocalizedString("edit_services_count", comment: "")
+            let finalTitle = String(format: format, "\(count)")
+            self?.btn_editService.setTitle(finalTitle, for: .normal)
+
             // self?.yourLabel.text = returnedData
         }
         self.present(editService, animated: true)
