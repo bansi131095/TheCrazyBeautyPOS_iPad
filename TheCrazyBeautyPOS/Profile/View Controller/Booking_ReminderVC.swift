@@ -14,6 +14,9 @@ class Booking_ReminderVC: UIViewController {
     
     @IBOutlet weak var btn_Save: GradientButton!
     
+    
+    var ReminderModel: [ReminderModel] = []
+    
     var select_Hours: String = ""
 //    let hoursArray = (1...24).map { "\($0) Hours" }
     
@@ -26,6 +29,7 @@ class Booking_ReminderVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setCustomFont()
+        get_ReminderMail()
         let title = NSLocalizedString("Save", comment: "")
         let attributedTitle = NSAttributedString(
             string: title,
@@ -91,7 +95,21 @@ class Booking_ReminderVC: UIViewController {
             } else {
                 self.alertWithMessageOnly(result?.error ?? "")
             }
-            
+        }
+    }
+    
+    
+    func get_ReminderMail() {
+        self.showLoader()
+        APIService.shared.getRemindermail { result in
+            self.hideLoader()
+            if result?.data != nil {
+                self.ReminderModel = (result?.data)!
+                self.txt_Reminder.text = String(self.ReminderModel[0].reminder_mail ?? 0) + " Hours"
+                self.select_Hours = String(self.ReminderModel[0].reminder_mail ?? 0) + " Hours"
+            }else{
+                self.alertWithMessageOnly(result?.error ?? "")
+            }
         }
     }
 }

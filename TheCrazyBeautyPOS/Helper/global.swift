@@ -21,16 +21,14 @@ class global: NSObject
     
     // Staging
     static let base_url = "https://staging.thecrazybeauty.com/"
+    static let CAL_WEB_URL = "https://tcb-ten.vercel.app/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true"
+     
     
     // LIVE
 //    static let base_url = "https://api.thecrazybeauty.com/"
-    static let server_url = global.base_url + "api/"
-    
-    // Staging
-    static let CAL_WEB_URL = "https://tcb-ten.vercel.app/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true"
-    
-    //LIVE
 //    static let CAL_WEB_URL = "https://thecrazybeauty.com/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true"
+    
+    static let server_url = global.base_url + "api/"
     
     //un use TEAM_ROASTER_WEB_URL
 //    static let TEAM_ROASTER_WEB_URL = "https://tcb-ten.vercel.app/vendor/team-roaster?id=%@&auth=%@&rand=%lld" //TCB
@@ -271,6 +269,10 @@ class global: NSObject
     var URL_GET_SALONTIMINGS_V1 = global.server_url + "get_salontimings"
     var URL_UPDATE_SALONTIMINGS_V1 = global.server_url + "update_salon_timingsv1"
     
+    
+    
+    var URL_GET_REMINDERMAIL = global.server_url + "get_remindermail/"
+    var URL_GET_TIMEGAP = global.server_url + "get_timegap/"
     
     var noDataLabel: UILabel?
     var hasUnreadNotification: Bool = false

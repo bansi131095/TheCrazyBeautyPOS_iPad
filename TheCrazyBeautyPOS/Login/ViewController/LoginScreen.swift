@@ -79,10 +79,6 @@ class LoginScreen: UIViewController {
             self.txt_password.showErrorMessage(message: "Please enter password")
         } else {
             if staffLogin == "Staff"{
-                print("Staff")
-                print("Staff")
-                print("Staff")
-                print("Staff")
                 subvendor()
             }else{
                 self.performLogin()
@@ -92,11 +88,11 @@ class LoginScreen: UIViewController {
     
     @IBAction func act_loginStaff(_ sender: UIButton) {
         if (self.txt_email.text == "") {
-            self.txt_email.showErrorMessage(message: "Please enter email")
+            self.txt_email.showErrorMessage(message: NSLocalizedString("Please enter email",comment: ""))
         } else if !self.txt_email.text!.isValidEmail() {
-            self.txt_email.showErrorMessage(message: "Please enter valid email")
+            self.txt_email.showErrorMessage(message: NSLocalizedString("Please enter valid email",comment: ""))
         } else if (self.txt_password.text == "") {
-            self.txt_password.showErrorMessage(message: "Please enter password")
+            self.txt_password.showErrorMessage(message: NSLocalizedString("Please enter password",comment: ""))
         }else{
             subvendor()
         }
@@ -159,7 +155,7 @@ class LoginScreen: UIViewController {
                      navDashboard.modalPresentationStyle = .fullScreen
                     self.present(navDashboard, animated: true, completion: nil)
                 } else {
-                    self.showToast(message: "You are not registered yet")
+                    self.showToast(message: NSLocalizedString("You are not registered yet",comment: ""))
                 }
             }
         }
@@ -247,7 +243,7 @@ class LoginScreen: UIViewController {
                  navDashboard.modalPresentationStyle = .fullScreen
                 self.present(navDashboard, animated: true, completion: nil)
             }else {
-                self.showToast(message: "You are not registered yet")
+                self.showToast(message: NSLocalizedString("You are not registered yet",comment: ""))
             }
 
         }

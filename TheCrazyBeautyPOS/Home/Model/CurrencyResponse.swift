@@ -40,3 +40,26 @@ class CurrencyData: Mappable {
 }
 
 
+class Reminder: Mappable {
+    var data: [ReminderModel]?
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data  <- map["data"]
+        error <- map["error"]
+    }
+}
+
+class ReminderModel: Mappable {
+    var reminder_mail: Int?
+    var time_gap: String?
+    
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        reminder_mail  <- map["reminder_mail"]
+        time_gap  <- map["time_gap"]
+    }
+}

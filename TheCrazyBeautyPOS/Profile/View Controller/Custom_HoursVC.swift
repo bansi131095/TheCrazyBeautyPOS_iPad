@@ -52,7 +52,7 @@ class Custom_HoursVC: UIViewController {
         btnAdd.setAttributedTitle(attributedTitleAdd, for: .normal)
         setCustomFont()
         setCollectCategory()
-        api_NoShowLimit()
+        api_getSalonTimings()
     }
     
     //MARK: Custom Function
@@ -253,7 +253,7 @@ class Custom_HoursVC: UIViewController {
     }
     
     //MARK: - Web Api Calling
-    func api_NoShowLimit() {
+    func api_getSalonTimings() {
         showLoader()
         APIService.shared.getSalonTimings { [weak self] result in
             self?.hideLoader()

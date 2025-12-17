@@ -44,6 +44,7 @@ class EditScheduleVC: UIViewController {
     var salonItems: [ScheduleModel] = []
     var scheduleList: [Schedule] = []
     var customSchedules: [Schedule] = []
+    var SalonTiming: [SalonTiming] = []
     var staffShiftlist: [StaffSchedule] = []
     var WorkingHours: String = ""
     var shiftTiming: String = ""
@@ -65,12 +66,17 @@ class EditScheduleVC: UIViewController {
     var startTime: [String: String] = [:]
     var endTime: [String: String] = [:]
     var deleteShiftList: [String] = []
+    var deleteShiftMyList: [String] = []
 
     var onDataReturn: ((String, String) -> Void)?
     var salonHolidaysList: [SalonHolidayData] = []
     var disabledWeekdays: [Int] = []
 
     var staffList: [StaffData] = []
+    var weekdayName = String()
+    var id = Int()
+    
+    var selectedCopyStaffId : Int = 0
     
     //MARK: View life cycle
     override func viewDidLoad() {
@@ -155,6 +161,7 @@ class EditScheduleVC: UIViewController {
             self.isCustomSchedule = false
             self.tbl_vw.reloadData()
         }
+        getSalonTimings()
     }
     
     @IBAction func act_addShift(_ sender: UIButton) {
@@ -278,6 +285,15 @@ class EditScheduleVC: UIViewController {
     }
     
     //MARK: Setup Table view
+    func getSalonTimings() {
+        showLoader()
+        APIService.shared.getSalonTimings { [weak self] result in
+            self?.hideLoader()
+            guard let self = self else { return }
+            SalonTiming = result?.data ?? []
+        }
+    }
+    
     func setTableView(){
         tbl_vw.register(UINib(nibName: "teamScheduleCell", bundle: nil), forCellReuseIdentifier: "teamScheduleCell")
         tbl_vw.delegate = self
@@ -622,15 +638,42 @@ class EditScheduleVC: UIViewController {
             var workingHoursString = ""
             var shiftTimingString = ""
 
-            // Prepare working hours map
-            var workingHoursMap: [[String: Any]] = []
+            // THIS OLD
+            
+            /*var workingHoursMap: [[String: Any]] = []
             let val1: [String: Any] = [
                 "day": selectedStaff.workingHours.day ?? "",
                 "from": selectedStaff.workingHours.from ?? "",
                 "to": selectedStaff.workingHours.to ?? "",
                 "off": selectedStaff.workingHours.off ?? false
             ]
-            workingHoursMap.append(val1)
+            workingHoursMap.append(val1)*/
+            
+            
+            // Prepare working hours map
+            var workingHoursMap: [[String: Any]] = []
+
+            for i in SalonTiming {
+                if selectedStaff.day == i.day {
+                    let workingHoursVal: [String: Any] = [
+                        "day": i.working_hours?.day ?? "",
+                        "from": i.working_hours?.from ?? "",
+                        "to": i.working_hours?.to ?? "",
+                    ]
+                    workingHoursMap.append(workingHoursVal)
+                }
+            }
+
+            if workingHoursMap.isEmpty {
+                let fallbackVal: [String: Any] = [
+                    "day": selectedStaff.workingHours.day ?? "",
+                    "from": selectedStaff.workingHours.from ?? "",
+                    "to": selectedStaff.workingHours.to ?? "",
+                    "off": selectedStaff.workingHours.off ?? false
+                ]
+                workingHoursMap.append(fallbackVal)
+            }
+
 
             if let data = try? JSONSerialization.data(withJSONObject: workingHoursMap, options: []),
                let jsonStr = String(data: data, encoding: .utf8) {
@@ -669,6 +712,11 @@ class EditScheduleVC: UIViewController {
             print("selectedStaff.day:- \(selectedStaff.day)")
             staffShiftMap.append(val)
         }
+        if (self.selectedCopyStaffId > 0) {
+            for i in deleteShiftMyList {
+                deleteShiftList.append(i)
+            }
+        }
         let deleteShift = deleteShiftList.joined(separator: ",")
         print("Staff Shift Delete: \(deleteShift)")
         // Encode full list
@@ -682,6 +730,9 @@ class EditScheduleVC: UIViewController {
                 self.hideLoader()
                 if model.error == "" || model.error == nil {
                     self.showToast(message: model.data)
+                    self.deleteShiftList.removeAll()
+                    self.selectedCopyStaffId = 0
+                    self.deleteShiftMyList.removeAll()
             
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         self.dismiss(animated: true)
@@ -1120,8 +1171,14 @@ extension EditScheduleVC: UITableViewDelegate, UITableViewDataSource {
                 cell.Act_Cancel = { [weak self] in
                     guard let self = self else { return }
                     if !schedule.shiftId.isEmpty {
-                        self.deleteShiftList.append(schedule.shiftId)
+                        if self.selectedCopyStaffId <= 0 {
+                            self.deleteShiftList.append(schedule.shiftId)
+                        }
                     }
+                    
+                    print("ID:- \(id)")
+                    print("TeamId:- \(TeamId)")
+                    
                     self.customSchedules.remove(at: indexPath.row)
                     self.tbl_vw.reloadData()
                 }
@@ -1489,6 +1546,14 @@ extension EditScheduleVC: UITableViewDelegate, UITableViewDataSource {
             tbl_vw.reloadData()
         }else if tableView == tbl_Staff{
             let data = staffList[indexPath.row]
+            
+            self.selectedCopyStaffId = data.id ?? 0
+            self.deleteShiftList.removeAll()
+            self.deleteShiftMyList.removeAll()
+            
+            for i in customSchedules {
+                self.deleteShiftMyList.append(i.shiftId)
+            }
             
                 self.tbl_Staff.isHidden = true
                 self.setCustomTableView()

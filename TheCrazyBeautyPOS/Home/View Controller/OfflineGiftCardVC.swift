@@ -30,6 +30,13 @@ class OfflineGiftCardVC: UIViewController {
         ]
     }
     
+    
+    let filterApiMap: [String: String] = [
+        NSLocalizedString("Active", comment: "")  : "active",
+        NSLocalizedString("Expired", comment: "") : "expired",
+        NSLocalizedString("Used", comment: "")    : "used"
+    ]
+
     var OfflineGiftCardList: [OfflineGiftCardData] = []
     var searchWorkItem: DispatchWorkItem?
     var currentPage = 1
@@ -61,7 +68,8 @@ class OfflineGiftCardVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.loadData(Search: "", filter: self.txt_Filter.text?.lowercased() ?? "active")
+        let apiFilter = filterApiMap[txt_Filter.text ?? ""] ?? "active"
+        self.loadData(Search: "", filter: apiFilter)
     }
     
     @IBAction func btn_AddNew(_ sender: Any) {
@@ -87,7 +95,9 @@ class OfflineGiftCardVC: UIViewController {
         Filter.selectionAction = {  [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
             self.txt_Filter.text = item
-            self.loadData(Search: "", filter: item.lowercased())
+            let apiFilter = self.filterApiMap[item] ?? "active"
+            
+            self.loadData(Search: "", filter: apiFilter)
         }
     }
     
@@ -100,7 +110,8 @@ class OfflineGiftCardVC: UIViewController {
 
         searchWorkItem = newWorkItem
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newWorkItem)*/
-        self.loadData(Search: textField.text ?? "", filter: self.txt_Filter.text?.lowercased() ?? "")
+        let apiFilter = filterApiMap[txt_Filter.text ?? ""] ?? "active"
+        self.loadData(Search: textField.text ?? "", filter: apiFilter)
     }
     
     
@@ -206,7 +217,8 @@ extension OfflineGiftCardVC: UITableViewDelegate, UITableViewDataSource{
 
         if offsetY > contentHeight - frameHeight - 400 {
             if !isLoadingMore && hasMoreData {
-                self.loadData(Search: txt_search.text ?? "", isPagination: true, filter: self.txt_Filter.text?.lowercased() ?? "")
+                let apiFilter = filterApiMap[txt_Filter.text ?? ""] ?? "active"
+                self.loadData(Search: txt_search.text ?? "", isPagination: true, filter: apiFilter)
             }
         }
     }

@@ -44,13 +44,13 @@ class AddOfflineGiftCard_VC: UIViewController {
     
     @IBAction func btn_AddGiftCard(_ sender: Any) {
         if txt_GiftName.text == ""{
-            self.showToast(message: "Gift Name is required.")
+            self.showToast(message: NSLocalizedString("Gift Name is required.",comment: ""))
         }else if txt_Price.text == ""{
-            self.showToast(message: "Price is required.")
+            self.showToast(message: NSLocalizedString("Price is required.",comment: ""))
         }else if txt_Description.text == ""{
-            self.showToast(message: "Description is required.")
+            self.showToast(message: NSLocalizedString("Description is required.",comment: ""))
         }else if txt_ExpiryDate.text == "" {
-            self.showToast(message: "Please select expiry date.")
+            self.showToast(message: NSLocalizedString("Please select expiry date.",comment: ""))
         }else{
             AddOfflineGiftCardApiCall()
         }
@@ -90,7 +90,7 @@ class AddOfflineGiftCard_VC: UIViewController {
     
     func getNoDataLabel() -> UILabel {
         let noDataLabel = UILabel()
-        noDataLabel.text = "No Data Found"
+        noDataLabel.text = NSLocalizedString("No Data Found", comment: "")
         noDataLabel.textAlignment = .center
         noDataLabel.textColor = .gray
         noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)

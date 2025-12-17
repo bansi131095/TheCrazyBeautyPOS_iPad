@@ -141,7 +141,7 @@ class Block_CustomerVC: UIViewController {
         }
     }
     
-    func openCountryPicker(completion: @escaping (_ code: String, _ image: UIImage?, _ locale: String) -> Void) {
+    /*func openCountryPicker(completion: @escaping (_ code: String, _ image: UIImage?, _ locale: String) -> Void) {
         let countryView = CountrySelectView.shared
         countryView.show()
         countryView.barTintColor = .gray
@@ -157,8 +157,39 @@ class Block_CustomerVC: UIViewController {
                 completion("+\(code)", image, locale)
             }
         }
-    }
+    }*/
     
+    
+    func openCountryPicker(
+        completion: @escaping (_ code: String, _ image: UIImage?, _ locale: String) -> Void
+    ) {
+        let countryView = CountrySelectView.shared
+        countryView.show()
+        countryView.barTintColor = .gray
+        countryView.searchBarPlaceholder = "Search"
+        countryView.displayLanguage = .english
+
+        countryView.selectedCountryCallBack = { countryDic in
+
+            guard
+                let locale = countryDic["locale"] as? String,
+                let code = countryDic["code"] as? Int
+            else { return }
+
+            // ✅ ISO Code (ex: "IN", "US")
+            let isoCode = locale.uppercased()
+
+            // ✅ ISO → Emoji
+            let flagEmoji = CountryUtils.flag(from: isoCode)
+
+            // ✅ Emoji → UIImage
+            let flagImage = CountryUtils.imageFromEmoji(flag: flagEmoji)
+
+            // ✅ Return values
+            completion("+\(code)", flagImage, locale)
+        }
+    }
+
     /*func fetchBlockedCustomers(completion: @escaping () -> Void) {
         let url = global.shared.URL_BLOCK_CUSTOMERS + "/\(LocalData.userId)"
         

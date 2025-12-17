@@ -53,7 +53,7 @@ class BookingHistoryVC: UIViewController {
     
     func getNoDataLabel() -> UILabel {
         let noDataLabel = UILabel()
-        noDataLabel.text = "No Data Found"
+        noDataLabel.text = NSLocalizedString("No Data Found", comment: "")
         noDataLabel.textAlignment = .center
         noDataLabel.textColor = .gray
         noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)

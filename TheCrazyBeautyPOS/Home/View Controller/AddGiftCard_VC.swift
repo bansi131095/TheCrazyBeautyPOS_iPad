@@ -21,6 +21,8 @@ class AddGiftCard_VC: UIViewController {
     @IBOutlet weak var lbl_AllField: UILabel!
     
     var arr_Status = ["Active","Inactive"]
+    var selectedStatusIndex = String()
+    
     var isEdit = false
     var GiftCardData: GiftCardData?
     var selectedImage: UIImage? = nil
@@ -156,6 +158,7 @@ class AddGiftCard_VC: UIViewController {
         slotDuration.selectionAction = {  [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
             self.txt_Status.text = item
+            selectedStatusIndex = item
         }
     }
     

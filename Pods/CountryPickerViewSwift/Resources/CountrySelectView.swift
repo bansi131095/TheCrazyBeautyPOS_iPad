@@ -138,7 +138,7 @@ open class CountrySelectView: UIView {
         
         
     }
-    public func show() {
+    /*public func show() {
         
         if let window = UIApplication.shared.delegate!.window {
             window?.addSubview(self)
@@ -147,7 +147,31 @@ open class CountrySelectView: UIView {
         searchCountrys = CountryCodeJson
         self.countryTableView.reloadData()
         self.setLayout()
-    }
+    }*/
+    
+    public func show() {
+           // Modern iOS 13+ approach
+           if #available(iOS 13.0, *) {
+               guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                     let window = windowScene.windows.first else {
+                   print("No window available to show CountrySelectView")
+                   return
+               }
+               window.addSubview(self)
+           } else {
+               // Fallback for earlier iOS versions
+               guard let window = UIApplication.shared.keyWindow else {
+                   print("No key window available to show CountrySelectView")
+                   return
+               }
+               window.addSubview(self)
+           }
+           
+           searchBarView.text = ""
+           searchCountrys = CountryCodeJson
+           self.countryTableView.reloadData()
+           self.setLayout()
+       }
     @objc public func dismiss() {
         self.removeFromSuperview()
     }

@@ -16,10 +16,12 @@ class Slot_DurationVC: UIViewController {
     var arr_SlotDuration: [String] = [NSLocalizedString("5 Minutes", comment: ""),NSLocalizedString("10 Minutes",comment: ""),NSLocalizedString("15 Minutes",comment: ""),NSLocalizedString("20 Minutes",comment: ""),NSLocalizedString("25 Minutes", comment: ""),NSLocalizedString("30 Minutes", comment: "")]
     
     var select_Slot: String = ""
+    var ReminderModel: [ReminderModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setCustomFont()
+        getTimeGap()
         let title = NSLocalizedString("Save", comment: "")
         let attributedTitle = NSAttributedString(
             string: title,
@@ -99,6 +101,19 @@ class Slot_DurationVC: UIViewController {
             if result?.data != nil {
                 self.alertWithMessageOnly(result?.data ?? "")
             } else {
+                self.alertWithMessageOnly(result?.error ?? "")
+            }
+        }
+    }
+    
+    func getTimeGap(){
+        self.showLoader()
+        APIService.shared.getTimeGap { result in
+            self.hideLoader()
+            if result?.data != nil {
+                self.ReminderModel = (result?.data)!
+                self.txt_SlotDuration.text = "\(self.ReminderModel[0].time_gap ?? "")" + " Minutes"
+            }else{
                 self.alertWithMessageOnly(result?.error ?? "")
             }
         }

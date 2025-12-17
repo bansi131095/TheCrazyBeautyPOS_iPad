@@ -30,8 +30,20 @@ class AddClientVC: UIViewController {
     
     let dropdownView = UITableView()
     let dropdownView1 = UITableView()
-    let genderOptions = ["Male", "Female", "Rather not to say"]
-    let ClientTypeOptions = ["VIP", "Non VIP"]
+//    let genderOptions = ["Male", "Female", "Rather not to say"]
+    var genderOptions: [String] {
+        return [
+            NSLocalizedString("Male", comment: ""),
+            NSLocalizedString("Female", comment: ""),
+            NSLocalizedString("Rather not to say", comment: "")
+        ]
+    }
+//    let ClientTypeOptions = ["VIP", "Non VIP"]
+    let ClientTypeOptions = [
+        NSLocalizedString("VIP", comment: ""),
+        NSLocalizedString("Non VIP", comment: "")
+    ]
+
     var isDropdownVisible = false
     var isDropdownVisible1 = false
     var selectedCountrycode = "+353"
@@ -54,10 +66,12 @@ class AddClientVC: UIViewController {
         setupClientTypeTextField()
         setupDropdownTable1()
         if isEdit {
-            self.btn_addEditTeam.setTitle("Update Client", for: .normal)
+//            self.btn_addEditTeam.setTitle("Update Client", for: .normal)
+            self.btn_addEditTeam.setTitle(NSLocalizedString("Update Client",comment: ""), for: .normal)
             self.setEditData()
         } else {
-            self.btn_addEditTeam.setTitle("Add Client", for: .normal)
+//            self.btn_addEditTeam.setTitle("Add Client", for: .normal)
+            self.btn_addEditTeam.setTitle(NSLocalizedString("Add Client",comment: ""), for: .normal)
             if let iso = CountryUtils.getISOCode(from: selectedCountrycode),
                let flagImage = CountryUtils.imageFromEmoji(flag: CountryUtils.flag(from: iso)) {
                 flag_imgVw.image = flagImage
@@ -67,7 +81,7 @@ class AddClientVC: UIViewController {
             string: NSLocalizedString("Cancel",comment: ""),
             attributes: [
                 .font: UIFont(name: "Lato-Regular", size: 16.0)!,
-                .foregroundColor: UIColor.white
+                .foregroundColor: UIColor.red
             ]
         )
         btn_Cancel.setAttributedTitle(attributedTitleSync_1, for: .normal)
@@ -155,9 +169,9 @@ class AddClientVC: UIViewController {
     
     @IBAction func act_addEditClient(_ sender: GradientButton) {
         if self.firstNameTextField.text!.isEmpty {
-            self.showToast(message: "Please enter first name")
+            self.showToast(message: NSLocalizedString("Please enter first name",comment: ""))
         } else if self.mobileTextField.text!.isEmpty {
-            self.showToast(message: "Please enter mobile number")
+            self.showToast(message: NSLocalizedString("Please enter mobile number",comment: ""))
         } else {
             self.view.endEditing(true)
             if isEdit {
@@ -448,7 +462,7 @@ class AddClientVC: UIViewController {
             if model.error == "" {
                 DispatchQueue.main.async {
                     // safe UI code here
-                    self.showToast(message: "Client added successfully")
+                    self.showToast(message: NSLocalizedString("Client added successfully",comment: ""))
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.navigationController?.popViewController(animated: true)

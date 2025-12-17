@@ -163,6 +163,23 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             } else {
                 print("⚠️ code not found in countryDic")
             }
+            
+            // ✅ Get ISO code and set flag image
+            if let locale = countryDic["locale"] as? String {
+                let isoCode = locale.uppercased()
+
+                // Convert ISO → Emoji flag
+                let flagEmoji = CountryUtils.flag(from: isoCode)
+
+                // Convert Emoji flag → UIImage
+                if let flagImage = CountryUtils.imageFromEmoji(flag: flagEmoji) {
+                    self.flag_imgVw.image = flagImage
+                } else {
+                    self.flag_imgVw.image = nil
+                    print("⚠️ Could not generate flag image")
+                }
+            }
+            
         }
         
     }

@@ -36,7 +36,15 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     
     let dropdownView = UITableView()
     let datePicker = UIDatePicker()
-    let genderOptions = ["Male", "Female", "Rather not to say"]
+//    let genderOptions = ["Male", "Female", "Rather not to say"]
+    var genderOptions: [String] {
+        return [
+            NSLocalizedString("Male", comment: ""),
+            NSLocalizedString("Female", comment: ""),
+            NSLocalizedString("Rather not to say", comment: "")
+        ]
+    }
+    var selected = ""
     var isDropdownVisible = false
     var selectedCountrycode = "+353"
     var calendar: FSCalendar!
@@ -65,6 +73,15 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         self.dobTextField.delegate = self
         setupGenderTextField()
         setupDropdownTable()
+        self.lbl_Visibility.text = (NSLocalizedString("Online Visibility",comment: ""))
+        let attributedTitleSync_1 = NSAttributedString(
+            string: NSLocalizedString("Cancel",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Regular", size: 16.0)!,
+                .foregroundColor: UIColor.red
+            ]
+        )
+        btn_Cancel.setAttributedTitle(attributedTitleSync_1, for: .normal)
         if isEdit {
             self.btn_addEditTeam.setTitle(NSLocalizedString("Update Team Member",comment: ""), for: .normal)
             self.btn_editService.setTitle(NSLocalizedString("Edit Services",comment: ""), for: .normal)
@@ -206,6 +223,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
             if let gender = dict.gender, !gender.isEmpty && gender != "null" {
                 self.genderTextField.setText(genderOptions[genderOptions.firstIndex(of: gender)!])
             }
+            print("checkGender:- \(dict.gender ?? "")")
             self.workingHoursJson = dict.workingHours ?? ""
             self.shiftTimingJson = dict.shiftTimings ?? ""
             self.serviceIds = dict.serviceIds ?? ""
@@ -349,11 +367,11 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     
     @IBAction func act_addEditTeam(_ sender: GradientButton) {
         if self.firstNameTextField.text!.isEmpty {
-            self.showToast(message: "Please enter first name")
+            self.showToast(message: NSLocalizedString("Please enter first name",comment: ""))
         } else if self.jobTitleTextField.text!.isEmpty {
-            self.showToast(message: "Please enter job title")
+            self.showToast(message: NSLocalizedString("Please enter job title",comment: ""))
         } else if self.genderTextField.text!.isEmpty {
-            self.showToast(message: "Please select gender")
+            self.showToast(message: NSLocalizedString("Please select gender",comment: ""))
         } else {
             if isEdit {
                 self.updateTeamApi()
@@ -385,7 +403,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
                  if response != nil {
                     DispatchQueue.main.async {
                         // safe UI code here
-                        self.showToast(message: "Team member added successfully")
+                        self.showToast(message: NSLocalizedString("Team member added successfully",comment: ""))
                     }
                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.navigationController?.popViewController(animated: true)
@@ -402,7 +420,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
                  if response != nil {
                     DispatchQueue.main.async {
                         // safe UI code here
-                        self.showToast(message: "Team member added successfully")
+                        self.showToast(message: NSLocalizedString("Team member added successfully",comment: ""))
                     }
                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.navigationController?.popViewController(animated: true)
@@ -650,6 +668,17 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         }
     }
     
+    func apiGender(from uiText: String) -> String {
+        if uiText == NSLocalizedString("Male", comment: "") {
+            return "Male"
+        } else if uiText == NSLocalizedString("Female", comment: "") {
+            return "Female"
+        } else {
+            return "Rather not to say"
+        }
+    }
+
+    
     /*
     // MARK: - Navigation
 
@@ -682,6 +711,7 @@ extension AddTeamVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         genderTextField.text = genderOptions[indexPath.row]
         genderTextField.showLabel()
+        selected = genderOptions[indexPath.row]
         dropdownView.isHidden = true
         isDropdownVisible = false
     }
@@ -745,34 +775,7 @@ extension AddTeamVC: UIImagePickerControllerDelegate, UINavigationControllerDele
         picker.dismiss(animated: true)
     }
 
-    
 }
-
-
-/*extension AddTeamVC: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return years.count
-    }
-
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "\(years[row])"
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let selectedYear = self.years[row]
-        var components = Calendar.current.dateComponents([.month], from: self.calendar.currentPage)
-        components.year = selectedYear
-        components.day = 1
-        if let date = Calendar.current.date(from: components) {
-            self.calendar.setCurrentPage(date, animated: true)
-        }
-        self.calendarVC?.dismiss(animated: true)
-    }
-}*/
 
 extension AddTeamVC: UIPickerViewDelegate, UIPickerViewDataSource {
 
