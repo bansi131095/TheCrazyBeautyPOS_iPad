@@ -16,6 +16,7 @@ class AddInventory_VC: UIViewController {
     @IBOutlet weak var txt_QTY: TextInputLayout!
     @IBOutlet weak var btn_AddInventory: GradientButton!
     
+    @IBOutlet weak var btn_Cancel: UIButton!
     @IBOutlet weak var lbl_AllField: UILabel!
     var isEdit = false
     var InventoryService: InventoryData?
@@ -26,14 +27,22 @@ class AddInventory_VC: UIViewController {
         self.lbl_AllField.text = NSLocalizedString("All fields marked with an asterisk (*) are required.", comment: "")
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if self.isEdit {
-                self.lbl_Title.text = "Edit Inventory"
-                self.btn_AddInventory.setTitle("Update Inventory", for: .normal)
+                self.lbl_Title.text = NSLocalizedString("Edit Inventory",comment: "")
+                self.btn_AddInventory.setTitle(NSLocalizedString("Update Inventory",comment: ""), for: .normal)
                 self.setData()
             } else {
-                self.lbl_Title.text = "Add Inventory"
-                self.btn_AddInventory.setTitle("Add Inventory", for: .normal)
+                self.lbl_Title.text = NSLocalizedString("Add Inventory",comment: "")
+                self.btn_AddInventory.setTitle(NSLocalizedString("Add Inventory",comment: ""), for: .normal)
             }
         }
+        let attributedTitleSync_1 = NSAttributedString(
+            string: NSLocalizedString("Cancel",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Regular", size: 16.0)!,
+                .foregroundColor: UIColor.red
+            ]
+        )
+        btn_Cancel.setAttributedTitle(attributedTitleSync_1, for: .normal)
     }
     
     func setCustomFont() {

@@ -22,7 +22,7 @@ class Booking_ReminderVC: UIViewController {
     
     lazy var hoursArray: [String] = {
         let localizedHours = NSLocalizedString("Hours", comment: "")
-        return (1...24).map { "\($0) \(localizedHours)" }
+        return (1...24).map { "\($0)" + " " + "\(localizedHours)" }
     }()
 
     
@@ -56,8 +56,12 @@ class Booking_ReminderVC: UIViewController {
     
     
     @IBAction func btn_Save(_ sender: Any) {
-        let numericHour = select_Hours.replacingOccurrences(of: " Hours", with: "")
-        update_BookingReminder(reminder_mail: numericHour)
+        /*let numericHour = select_Hours.replacingOccurrences(of: " Hours", with: "")
+        update_BookingReminder(reminder_mail: numericHour)*/
+        
+        let numericHour = Int(select_Hours.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) ?? 0
+        update_BookingReminder(reminder_mail: "\(numericHour)")
+
         
     }
     
@@ -105,8 +109,8 @@ class Booking_ReminderVC: UIViewController {
             self.hideLoader()
             if result?.data != nil {
                 self.ReminderModel = (result?.data)!
-                self.txt_Reminder.text = String(self.ReminderModel[0].reminder_mail ?? 0) + " Hours"
-                self.select_Hours = String(self.ReminderModel[0].reminder_mail ?? 0) + " Hours"
+                self.txt_Reminder.text = String(self.ReminderModel[0].reminder_mail ?? 0) + " " + NSLocalizedString("Hours", comment: "")
+                self.select_Hours = String(self.ReminderModel[0].reminder_mail ?? 0) + " " + NSLocalizedString("Hours", comment: "")
             }else{
                 self.alertWithMessageOnly(result?.error ?? "")
             }

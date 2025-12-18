@@ -59,7 +59,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     
     var salonItems: [ScheduleModel] = []
     
-    
+    var genderSelected: String = ""
     
     //MARK: View Life Cycle
     override func viewDidLoad() {

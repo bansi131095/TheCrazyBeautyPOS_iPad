@@ -170,14 +170,12 @@ class Salon_ImagesVC: UIViewController {
                     // ✅ Set profile image
                     self.img_Profile.image = image
                 self.isProfileImageRemoved = false
-                    print("✅ Profile image selected")
                 } else {
                     // ✅ Add to gallery images
                     self.allImages.append(DisplayImage(imageUrl: nil, image: image))
                     self.cv_Imgs.isHidden = false
                     self.cv_Imgs.reloadData()
                     self.cv_HeightConst.constant = 600
-                    print("✅ Gallery image added")
                 }
             self.isProfileImageSelection = false
             /*for imageData in assets  {

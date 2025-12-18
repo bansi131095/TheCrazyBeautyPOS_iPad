@@ -92,7 +92,7 @@ class Slot_DurationVC: UIViewController {
     }
     
     
-    func update_TimeGap(){
+    /*func update_TimeGap(){
         self.showLoader()
         let selectedTimeGap = getPenaltyDurationValue() // e.g. "6", "10", etc.
         
@@ -104,7 +104,31 @@ class Slot_DurationVC: UIViewController {
                 self.alertWithMessageOnly(result?.error ?? "")
             }
         }
+    }*/
+    
+    func update_TimeGap() {
+        self.showLoader()
+        
+        // Extract only numeric value (works for all languages)
+        let numericValue = select_Slot
+            .components(separatedBy: CharacterSet.decimalDigits.inverted)
+            .joined()
+        
+        let timeGap = numericValue.isEmpty ? "0" : numericValue
+        
+        APIService.shared.updateTimeGap(
+            vendorId: LocalData.userId,
+            time_gap: timeGap
+        ) { result in
+            self.hideLoader()
+            if result?.data != nil {
+                self.alertWithMessageOnly(result?.data ?? "")
+            } else {
+                self.alertWithMessageOnly(result?.error ?? "")
+            }
+        }
     }
+
     
     func getTimeGap(){
         self.showLoader()
@@ -112,7 +136,7 @@ class Slot_DurationVC: UIViewController {
             self.hideLoader()
             if result?.data != nil {
                 self.ReminderModel = (result?.data)!
-                self.txt_SlotDuration.text = "\(self.ReminderModel[0].time_gap ?? "")" + " Minutes"
+                self.txt_SlotDuration.text = "\(self.ReminderModel[0].time_gap ?? "")" + " " + NSLocalizedString("Minutes",comment: "")
             }else{
                 self.alertWithMessageOnly(result?.error ?? "")
             }

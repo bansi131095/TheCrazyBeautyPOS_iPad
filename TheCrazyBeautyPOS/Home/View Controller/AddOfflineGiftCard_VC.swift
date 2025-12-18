@@ -16,6 +16,7 @@ class AddOfflineGiftCard_VC: UIViewController {
     @IBOutlet weak var txt_Description: FloatingTextView!
     @IBOutlet weak var txt_ExpiryDate: TextInputLayout!
     
+    @IBOutlet weak var btn_Cancel: UIButton!
     
     @IBOutlet weak var lbl_AllField: UILabel!
     var calendarVC: UIViewController?
@@ -26,6 +27,14 @@ class AddOfflineGiftCard_VC: UIViewController {
         self.lbl_AllField.text = NSLocalizedString("All fields marked with an asterisk (*) are required.", comment: "")
         self.txt_ExpiryDate.delegate = self
         setCustomFont()
+        let attributedTitleSync_1 = NSAttributedString(
+            string: NSLocalizedString("Cancel",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Regular", size: 16.0)!,
+                .foregroundColor: UIColor.red
+            ]
+        )
+        btn_Cancel.setAttributedTitle(attributedTitleSync_1, for: .normal)
     }
     
 

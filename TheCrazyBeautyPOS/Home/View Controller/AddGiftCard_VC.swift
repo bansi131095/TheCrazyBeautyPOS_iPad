@@ -19,9 +19,18 @@ class AddGiftCard_VC: UIViewController {
     @IBOutlet weak var txt_Status: TextInputLayout!
     
     @IBOutlet weak var lbl_AllField: UILabel!
+    @IBOutlet weak var btn_Cancel: UIButton!
     
-    var arr_Status = ["Active","Inactive"]
-    var selectedStatusIndex = String()
+    // API values (DO NOT localize)
+    let statusKeys = ["Active", "Inactive"]
+    
+    var arr_Status: [String] {
+        return [
+            NSLocalizedString("Active", comment: ""),
+            NSLocalizedString("Inactive", comment: "")
+        ]
+    }
+    var selectedStatus = "Active"
     
     var isEdit = false
     var GiftCardData: GiftCardData?
@@ -32,17 +41,26 @@ class AddGiftCard_VC: UIViewController {
         setCustomFont()
         self.lbl_AllField.text = NSLocalizedString("All fields marked with an asterisk (*) are required.", comment: "")
         txt_Status.text = arr_Status.first
+        selectedStatus = statusKeys.first!
+
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if self.isEdit {
-                self.lbl_Title.text = "Edit Gift Card"
-                self.btn_AddGiftCard.setTitle("Update Gift Card", for: .normal)
+                self.lbl_Title.text = NSLocalizedString("Edit Gift Card",comment: "")
+                self.btn_AddGiftCard.setTitle(NSLocalizedString("Update Gift Card",comment: ""), for: .normal)
                 self.setData()
             } else {
-                self.lbl_Title.text = "Add Gift Card"
-                self.btn_AddGiftCard.setTitle("Add Gift Card", for: .normal)
+                self.lbl_Title.text = NSLocalizedString("Add Gift Card",comment: "")
+                self.btn_AddGiftCard.setTitle(NSLocalizedString("Add Gift Card",comment: ""), for: .normal)
             }
         }
-        
+        let attributedTitleSync_1 = NSAttributedString(
+            string: NSLocalizedString("Cancel",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Regular", size: 16.0)!,
+                .foregroundColor: UIColor.red
+            ]
+        )
+        btn_Cancel.setAttributedTitle(attributedTitleSync_1, for: .normal)
     }
     
     func setCustomFont() {
@@ -71,7 +89,14 @@ class AddGiftCard_VC: UIViewController {
         self.txt_CardName.text = GiftCardData?.card_name
         self.txt_Price.text = GiftCardData?.price
         self.txt_ExpiryDate.text = "\(GiftCardData?.expired_in ?? 0)"
-        self.txt_Status.text = GiftCardData?.status
+        if GiftCardData?.status == "Active"{
+            selectedStatus = "Active"
+            self.txt_Status.text = NSLocalizedString("Active",comment: "")
+        }else if GiftCardData?.status == "Inactive"{
+            selectedStatus = "Inactive"
+            self.txt_Status.text = NSLocalizedString("Inactive",comment: "")
+        }
+//        self.txt_Status.text = GiftCardData?.status
     }
     
     @IBAction func btn_Back(_ sender: Any) {
@@ -91,8 +116,11 @@ class AddGiftCard_VC: UIViewController {
     }
     
     @IBAction func btn_AddGiftCard(_ sender: Any) {
-        if selectedImage == nil || img_User.image == UIImage(named: "upload") {
+        /*if selectedImage == nil || img_User.image == UIImage(named: "upload") {
             self.showToast(message: "Please select a user image.")
+        }*/
+        if !isEdit && selectedImage == nil {
+            self.showToast(message: "Please select a GiftCard image.")
         }else if txt_CardName.text == ""{
             self.showToast(message: "Card Name is required.")
         }else if txt_Price.text == ""{
@@ -157,8 +185,9 @@ class AddGiftCard_VC: UIViewController {
         
         slotDuration.selectionAction = {  [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
-            self.txt_Status.text = item
-            selectedStatusIndex = item
+            selectedStatus = self.statusKeys[index]
+            self.txt_Status.text = NSLocalizedString(item, comment: "")
+            
         }
     }
     

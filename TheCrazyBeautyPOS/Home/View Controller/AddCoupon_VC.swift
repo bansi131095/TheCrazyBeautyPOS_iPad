@@ -34,6 +34,8 @@ class AddCoupon_VC: UIViewController {
     @IBOutlet weak var lbl_AllField: UILabel!
     
     @IBOutlet weak var txt_Status: TextInputLayout!
+    @IBOutlet weak var btn_Cancel: UIButton!
+    
     //MARK: - Global Variable
     var arr_Status = ["Active","Inactive"]
     var arr_DiscountType = ["Flat","Percentage"]
@@ -55,14 +57,22 @@ class AddCoupon_VC: UIViewController {
         self.lbl_AllField.text = NSLocalizedString("All fields marked with an asterisk (*) are required.", comment: "")
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if self.isEdit {
-                self.lbl_Title.text = "Edit Coupon"
-                self.btn_Coupon.setTitle("Update Coupon", for: .normal)
+                self.lbl_Title.text = NSLocalizedString("Edit Coupon",comment: "")
+                self.btn_Coupon.setTitle(NSLocalizedString("Update Coupon",comment: ""), for: .normal)
                 self.setData()
             } else {
-                self.lbl_Title.text = "Add Coupon"
-                self.btn_Coupon.setTitle("Add Coupon", for: .normal)
+                self.lbl_Title.text = NSLocalizedString("Add Coupon",comment: "")
+                self.btn_Coupon.setTitle(NSLocalizedString("Add Coupon",comment: ""), for: .normal)
             }
         }
+        let attributedTitleSync_1 = NSAttributedString(
+            string: NSLocalizedString("Cancel",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Regular", size: 16.0)!,
+                .foregroundColor: UIColor.red
+            ]
+        )
+        btn_Cancel.setAttributedTitle(attributedTitleSync_1, for: .normal)
     }
     
     //MARK: -  Button Action
@@ -95,12 +105,12 @@ class AddCoupon_VC: UIViewController {
     
     @IBAction func btn_AddCoupon(_ sender: Any) {
     guard let couponName = txt_CouponName.text, !couponName.isEmpty else {
-            self.showToast(message: "Coupon Name is required.")
+        self.showToast(message: NSLocalizedString("Coupon Name is required.",comment: ""))
             return
         }
         
         guard let couponCode = txt_CouponCode.text, !couponCode.isEmpty else {
-            self.showToast(message: "Coupon Code is required.")
+            self.showToast(message: NSLocalizedString("Coupon Code is required.",comment: ""))
             return
         }
         
@@ -108,39 +118,39 @@ class AddCoupon_VC: UIViewController {
         
         if discountType == "Flat" {
             guard let amount = txt_Amount.text, !amount.isEmpty else {
-                self.showToast(message: "Amount is required.")
+                self.showToast(message: NSLocalizedString("Amount is required.",comment: ""))
                 return
             }
         } else if discountType == "Percentage" {
             guard let percentage = txt_Percentage.text, !percentage.isEmpty else {
-                self.showToast(message: "Percentage is required.")
+                self.showToast(message: NSLocalizedString("Percentage is required.",comment: ""))
                 return
             }
             guard let maxAmount = txt_AmountPercentage.text, !maxAmount.isEmpty else {
-                self.showToast(message: "Amount is required.")
+                self.showToast(message: NSLocalizedString("Amount is required.",comment: ""))
                 return
             }
         }
         
         guard let startDate = txt_StartDate.text, !startDate.isEmpty else {
-            self.showToast(message: "Start Date is required.")
+            self.showToast(message: NSLocalizedString("Start Date is required.",comment: ""))
             return
         }
         
         guard let endDate = txt_EndDate.text, !endDate.isEmpty else {
-            self.showToast(message: "End Date is required.")
+            self.showToast(message: NSLocalizedString("End Date is required.",comment: ""))
             return
         }
         
         if isEdit {
             if self.CouponData?.discount_type == "Flat"{
-                UpdateCoupon(highest_amount: "", Amount: self.txt_Amount.text ?? "", Id: self.CouponData?.id ?? 0)
+                UpdateCoupon(highest_amount: "0", Amount: self.txt_Amount.text ?? "", Id: self.CouponData?.id ?? 0)
             }else{
                 UpdateCoupon(highest_amount: self.txt_AmountPercentage.text ?? "", Amount: self.txt_Percentage.text ?? "", Id: self.CouponData?.id ?? 0)
             }
         }else{
             if txt_DiscountType.text == "Flat"{
-                addFunctionApiCalling(highest_amount: "", Amount: self.txt_Amount.text ?? "")
+                addFunctionApiCalling(highest_amount: "0", Amount: self.txt_Amount.text ?? "")
             }else{
                 addFunctionApiCalling(highest_amount: self.txt_AmountPercentage.text ?? "", Amount: self.txt_Percentage.text ?? "")
             }
