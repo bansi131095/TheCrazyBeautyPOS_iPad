@@ -122,9 +122,9 @@ class Slot_DurationVC: UIViewController {
         ) { result in
             self.hideLoader()
             if result?.data != nil {
-                self.alertWithMessageOnly(result?.data ?? "")
+                self.alertWithMessageOnly(NSLocalizedString("Time gap updated successfully",comment: ""))
             } else {
-                self.alertWithMessageOnly(result?.error ?? "")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to update time gap",comment: ""))
             }
         }
     }
@@ -138,7 +138,7 @@ class Slot_DurationVC: UIViewController {
                 self.ReminderModel = (result?.data)!
                 self.txt_SlotDuration.text = "\(self.ReminderModel[0].time_gap ?? "")" + " " + NSLocalizedString("Minutes",comment: "")
             }else{
-                self.alertWithMessageOnly(result?.error ?? "")
+                self.alertWithMessageOnly(NSLocalizedString("Calendar sequence sequence is required",comment: ""))
             }
         }
     }

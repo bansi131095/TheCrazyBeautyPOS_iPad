@@ -149,9 +149,9 @@ class BusinessThird_InformationVC: UIViewController {
             if let message = result?.data {
                 self.btnSync.alpha = 0.5
                 self.btnSync.isUserInteractionEnabled = false
-                self.alertWithMessageOnly(message)
+                self.alertWithMessageOnly(NSLocalizedString("Team members and services synced successfully",comment: ""))
             }else{
-                self.alertWithMessageOnly("Something went wrong.")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to get team details",comment: ""))
             }
         }
     }
@@ -165,9 +165,9 @@ class BusinessThird_InformationVC: UIViewController {
                 let navDashboard = sb.instantiateViewController(withIdentifier: "NavigateHome") as! UINavigationController
                  navDashboard.modalPresentationStyle = .fullScreen
                 self.present(navDashboard, animated: true, completion: nil)
-                self.alertWithMessageOnly(message)
+                self.alertWithMessageOnly(NSLocalizedString("Business categories updated successfully",comment: ""))
             }else{
-                self.alertWithMessageOnly("Something went wrong.")
+                self.alertWithMessageOnly(NSLocalizedString("Something Want Wrong",comment: ""))
             }
         })
     }

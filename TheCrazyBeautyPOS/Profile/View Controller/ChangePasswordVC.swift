@@ -42,9 +42,9 @@ class ChangePasswordVC: UIViewController {
     //MARK: -  Button Action
     @IBAction func btn_Save(_ sender: Any) {
         if (self.txt_OldPassword.text == "") {
-            alertWithImage(title: "Change Password", Msg: "Old Password is required.")
+            alertWithImage(title: NSLocalizedString("Change Password",comment: ""), Msg: NSLocalizedString("Old Password is required.",comment: ""))
         }else if self.txt_NewPassword.text == "" {
-            alertWithImage(title: "Change Password", Msg: "New Password is required.")
+            alertWithImage(title: NSLocalizedString("Change Password",comment: ""), Msg: NSLocalizedString("New Password is required.",comment: ""))
         }else {
             changePassword()
         }
@@ -83,11 +83,11 @@ class ChangePasswordVC: UIViewController {
         APIService.shared.ChangePassword(vendorId: LocalData.userId, new_pass: self.txt_NewPassword.text ?? "", old_pass: self.txt_OldPassword.text ?? "") { result in
             self.hideLoader()
             if let message = result?.data{
-                self.alertWithMessageOnly(message)
+                self.alertWithMessageOnly(NSLocalizedString("New password updated successfully",comment: ""))
                 self.txt_NewPassword.text = ""
                 self.txt_OldPassword.text = ""
             }else{
-                self.alertWithMessageOnly("Something went wrong.")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to added new password",comment: ""))
             }
         }
     }

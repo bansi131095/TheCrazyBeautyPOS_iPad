@@ -14,6 +14,9 @@ class ServiceSequenceVC: UIViewController {
     @IBOutlet weak var txt_category: TextInputLayout!
     @IBOutlet weak var tbl_vw: UITableView!
     
+    
+    @IBOutlet weak var lbl_ChangesService: UILabel!
+    
     var serviceList: [ServiceData] = []
     var categoryList: [String] = []
     var selectedCategory: String = "Select Category"
@@ -26,6 +29,7 @@ class ServiceSequenceVC: UIViewController {
         contentViewWidthConstraint.constant = 100 // or any dynamic value
         self.setTableView()
         self.loadCategoryData()
+        self.lbl_ChangesService.text = NSLocalizedString("Change Service Sequence", comment: "")
         // Do any additional setup after loading the view.
     }
     
@@ -126,13 +130,12 @@ class ServiceSequenceVC: UIViewController {
                     }
                     self.hideLoader()
                     if model.error == "" || model.error == nil {
-                        self.showToast(message: model.data)
-                
+                        self.showToast(message: NSLocalizedString("Service sequence updated successfully", comment: ""))
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             self.dismiss(animated: true)
                         }
                     } else {
-                        self.show_alert(msg: model.error ?? "", title: "Update Staff Sequence")
+                        self.showToast(message: NSLocalizedString("Service sequence is required", comment: ""))
                     }
                 }
             }
@@ -183,8 +186,17 @@ extension ServiceSequenceVC: UITableViewDelegate, UITableViewDataSource, UIScrol
         let service = self.serviceList[indexPath.item]
         cell.lbl_no.text = "\(indexPath.item + 1)"
         cell.lbl_service.text = service.service
-        cell.lbl_time.text = "\(service.duration) Min"
-        cell.lbl_serviceFor.text = service.service_for
+        cell.lbl_time.text = "\(service.duration) " + NSLocalizedString("Minutes",comment: "")
+//        cell.lbl_serviceFor.text = service.service_for
+        
+        if service.service_for == "Male"{
+            cell.lbl_serviceFor.text = NSLocalizedString("Male",comment: "")
+        }else if service.service_for == "Female"{
+            cell.lbl_serviceFor.text = NSLocalizedString("Female",comment: "")
+        }else if service.service_for == "Unisex"{
+            cell.lbl_serviceFor.text = NSLocalizedString("Unisex",comment: "")
+        }
+        
         cell.lbl_price.text = "\(LocalData.symbol)\(service.price)"
         
         return cell

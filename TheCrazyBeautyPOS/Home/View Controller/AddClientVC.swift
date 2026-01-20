@@ -9,6 +9,17 @@ import UIKit
 import CountryPickerViewSwift
 import FSCalendar
 
+struct ClientTypeItem {
+    let apiValue: String
+    let displayValue: String
+}
+
+struct GenderItem {
+    let apiValue: String
+    let displayValue: String
+}
+
+
 
 class AddClientVC: UIViewController {
 
@@ -31,18 +42,41 @@ class AddClientVC: UIViewController {
     let dropdownView = UITableView()
     let dropdownView1 = UITableView()
 //    let genderOptions = ["Male", "Female", "Rather not to say"]
-    var genderOptions: [String] {
+//    let ClientTypeOptions = ["VIP", "Non VIP"]
+    
+    var genderOptions: [GenderItem] {
         return [
-            NSLocalizedString("Male", comment: ""),
-            NSLocalizedString("Female", comment: ""),
-            NSLocalizedString("Rather not to say", comment: "")
+            GenderItem(
+                apiValue: "Male",
+                displayValue: NSLocalizedString("Male", comment: "")
+            ),
+            GenderItem(
+                apiValue: "Female",
+                displayValue: NSLocalizedString("Female", comment: "")
+            ),
+            GenderItem(
+                apiValue: "Rather not to say",
+                displayValue: NSLocalizedString("Rather not to say", comment: "")
+            )
         ]
     }
-//    let ClientTypeOptions = ["VIP", "Non VIP"]
-    let ClientTypeOptions = [
-        NSLocalizedString("VIP", comment: ""),
-        NSLocalizedString("Non VIP", comment: "")
-    ]
+
+    
+    var ClientTypeOptions: [ClientTypeItem] {
+        return [
+            ClientTypeItem(
+                apiValue: "VIP",
+                displayValue: NSLocalizedString("VIP", comment: "")
+            ),
+            ClientTypeItem(
+                apiValue: "Non VIP",
+                displayValue: NSLocalizedString("Non VIP", comment: "")
+            )
+        ]
+    }
+
+    var selectedClientTypeAPIValue: String = ""
+    var selectedGenderAPIValue: String = ""
 
     var isDropdownVisible = false
     var isDropdownVisible1 = false
@@ -61,6 +95,9 @@ class AddClientVC: UIViewController {
         let currentYear = Calendar.current.component(.year, from: Date())
         years = Array(1900...currentYear)
         self.dobTextField.delegate = self
+        self.genderTextField.textColor = .black
+        self.clientTypeTextField.textColor = .black
+        
         setupGenderTextField()
         setupDropdownTable()
         setupClientTypeTextField()
@@ -76,6 +113,7 @@ class AddClientVC: UIViewController {
                let flagImage = CountryUtils.imageFromEmoji(flag: CountryUtils.flag(from: iso)) {
                 flag_imgVw.image = flagImage
             }
+            setDefaultDropdownValues()
         }
         let attributedTitleSync_1 = NSAttributedString(
             string: NSLocalizedString("Cancel",comment: ""),
@@ -90,6 +128,23 @@ class AddClientVC: UIViewController {
         
         // Do any additional setup after loading the view.
     }
+    
+    func setDefaultDropdownValues() {
+        // Gender → second value
+        if genderOptions.count > 1 {
+            let genderItem = genderOptions[1]
+            genderTextField.setText(genderItem.displayValue)
+            selectedGenderAPIValue = genderItem.apiValue
+        }
+
+        // Client Type → second value
+        if ClientTypeOptions.count > 1 {
+            let clientTypeItem = ClientTypeOptions[1]
+            clientTypeTextField.setText(clientTypeItem.displayValue)
+            selectedClientTypeAPIValue = clientTypeItem.apiValue
+        }
+    }
+
     
     //MARK: Setup Views
     func setupGenderTextField() {
@@ -403,12 +458,27 @@ class AddClientVC: UIViewController {
         } else {
             selectedDate = Date.now
         }
-        if let clientType = self.dictClient?.client_type, !clientType.isEmpty && clientType != "null" {
+        /*if let clientType = self.dictClient?.client_type, !clientType.isEmpty && clientType != "null" {
             self.clientTypeTextField.setText(ClientTypeOptions[ClientTypeOptions.firstIndex(of: clientType)!])
+        }*/
+        
+        if let clientType = dictClient?.client_type {
+            if let item = ClientTypeOptions.first(where: { $0.apiValue == clientType }) {
+                clientTypeTextField.setText(item.displayValue)
+                selectedClientTypeAPIValue = item.apiValue
+            }
         }
-        if let gender = self.dictClient?.gender, !gender.isEmpty && gender != "null" {
+
+        if let gender = dictClient?.gender {
+            if let item = genderOptions.first(where: { $0.apiValue == gender }) {
+                genderTextField.setText(item.displayValue)
+                selectedGenderAPIValue = item.apiValue
+            }
+        }
+
+        /*if let gender = self.dictClient?.gender, !gender.isEmpty && gender != "null" {
             self.genderTextField.setText(genderOptions[genderOptions.firstIndex(of: gender)!])
-        }
+        }*/
     }
     
     func flag(from countryCode: String) -> String {
@@ -453,7 +523,7 @@ class AddClientVC: UIViewController {
     func addClientData() {
         let mobileNo = "\(selectedCountrycode)-\(self.mobileTextField.text ?? "")"
         self.showLoader()
-        APIService.shared.addClientData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: LocalData.userId, email: self.emailTextField.text ?? "", clientType: self.clientTypeTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo) { staffResult in
+        APIService.shared.addClientData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: LocalData.userId, email: self.emailTextField.text ?? "", clientType: selectedClientTypeAPIValue, gender: selectedGenderAPIValue, dob: self.dobTextField.text ?? "", phone: mobileNo) { staffResult in
             self.hideLoader()
             guard let model = staffResult else {
                 return
@@ -468,7 +538,7 @@ class AddClientVC: UIViewController {
                     self.navigationController?.popViewController(animated: true)
                 }
             } else {
-                self.show_alert(msg: model.error, title: "Add Client")
+                self.show_alert(msg: NSLocalizedString("Failed to insert client", comment: ""), title: "Add Client")
             }
         }
     }
@@ -477,7 +547,7 @@ class AddClientVC: UIViewController {
         let mobileNo = "\(selectedCountrycode)-\(self.mobileTextField.text ?? "")"
         self.showLoader()
         
-        APIService.shared.updateClientData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: LocalData.userId, email: self.emailTextField.text ?? "", clientType: self.clientTypeTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, clientId: clientId) { staffResult in
+        APIService.shared.updateClientData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: LocalData.userId, email: self.emailTextField.text ?? "", clientType: selectedClientTypeAPIValue, gender: selectedGenderAPIValue, dob: self.dobTextField.text ?? "", phone: mobileNo, clientId: clientId) { staffResult in
             self.hideLoader()
             guard let model = staffResult else {
                 return
@@ -486,13 +556,13 @@ class AddClientVC: UIViewController {
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
                     // safe UI code here
-                    self.showToast(message: model.data)
+                    self.showToast(message: NSLocalizedString("Client details updated successfully",comment: ""))
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.navigationController?.popViewController(animated: true)
                 }
             } else {
-                self.show_alert(msg: model.error ?? "", title: "Update Client")
+                self.show_alert(msg: NSLocalizedString("Failed to insert client", comment: ""), title: "Update Client")
             }
         }
     }
@@ -529,12 +599,12 @@ extension AddClientVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == dropdownView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            cell.textLabel?.text = genderOptions[indexPath.row]
+            cell.textLabel?.text = genderOptions[indexPath.row].displayValue
             cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
             return cell
         } else if tableView == dropdownView1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            cell.textLabel?.text = ClientTypeOptions[indexPath.row]
+            cell.textLabel?.text = ClientTypeOptions[indexPath.row].displayValue
             cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
             return cell
         } else {
@@ -545,12 +615,16 @@ extension AddClientVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == dropdownView {
-            genderTextField.text = genderOptions[indexPath.row]
+            let item = genderOptions[indexPath.row]
+            genderTextField.text = item.displayValue
+            selectedGenderAPIValue = item.apiValue
             genderTextField.showLabel()
             dropdownView.isHidden = true
             isDropdownVisible = false
         } else if tableView == dropdownView1 {
-            clientTypeTextField.text = ClientTypeOptions[indexPath.row]
+            let item = ClientTypeOptions[indexPath.row]
+            clientTypeTextField.text = item.displayValue
+            selectedClientTypeAPIValue = item.apiValue
             clientTypeTextField.showLabel()
             dropdownView1.isHidden = true
             isDropdownVisible1 = false

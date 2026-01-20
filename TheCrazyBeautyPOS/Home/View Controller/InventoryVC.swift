@@ -139,11 +139,11 @@ class InventoryVC: UIViewController {
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
                     // safe UI code here
-                    self.showToast(message: model.data)
+                    self.showToast(message: NSLocalizedString("Inventory deleted successfully", comment: ""))
                 }
                 self.loadData(Search: "")
             } else {
-                self.show_alert(msg: model.error ?? "", title: "Delete Team")
+                self.showToast(message: NSLocalizedString("Failed to delete inventory", comment: ""))
             }
         }
     }
@@ -199,7 +199,7 @@ extension InventoryVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewD
             let popup = ConfirmDeletePopupVC()
             popup.modalPresentationStyle = .overFullScreen
             popup.modalTransitionStyle = .crossDissolve
-            popup.titleText = "Are you sure you want to delete this Inventory?"
+            popup.titleText = NSLocalizedString("Are you sure you want to delete this Inventory?", comment: "")
             popup.onConfirm = {
                 self.deleteInventory(InventoryId: inventory.id)
             }

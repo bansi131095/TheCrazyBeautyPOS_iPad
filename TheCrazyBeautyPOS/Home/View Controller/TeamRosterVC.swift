@@ -536,7 +536,8 @@ class TeamRosterVC: UIViewController {
                     }
                 }
             } else {
-                self.show_alert(msg: model.error!, title: "Team Roster")
+                self.showToast(message: NSLocalizedString("Failed to get staff shifts", comment: ""))
+//                self.show_alert(msg: model.error!, title: "Team Roster")
             }
         }
     }
@@ -547,9 +548,9 @@ class TeamRosterVC: UIViewController {
                 return
             }
             if model.error == "" || model.error == nil {
-                self.show_alert(msg: model.data, title: "Team Roster")
+                self.showToast(message: NSLocalizedString("Staff report sent successfully",comment: ""))
             }else{
-                self.show_alert(msg: model.error!, title: "Team Roster")
+                self.showToast(message: NSLocalizedString("Failed to send email",comment: ""))
             }
         }
     }
@@ -559,7 +560,7 @@ class TeamRosterVC: UIViewController {
         APIService.shared.staffReport(vendorId: LocalData.userId, endDate: lDate, send_email: "0", search: "", startDate: fDate) { result in
             self.hideLoader()
             guard let filename = result?.data else {
-                self.alertWithMessageOnly("Download failed")
+                self.alertWithMessageOnly(NSLocalizedString("Download failed",comment: ""))
                 return
             }
 

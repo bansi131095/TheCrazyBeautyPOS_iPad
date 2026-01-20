@@ -47,13 +47,13 @@ class KioskUsersVC: UIViewController {
     
     @IBAction func btn_Save(_ sender: Any) {
         if (self.txt_Email.text == "") {
-            alertWithImage(title: "Kiosk Users", Msg: "Please enter email")
+            alertWithImage(title: NSLocalizedString("Kiosk Users",comment: ""), Msg: NSLocalizedString("Please enter email",comment: ""))
         } else if !self.txt_Email.text!.isValidEmail() {
-            alertWithImage(title: "Kiosk Users", Msg: "Please enter valid email id.")
+            alertWithImage(title: NSLocalizedString("Kiosk Users",comment: ""), Msg: NSLocalizedString("Please enter valid email id.",comment: ""))
         } else if (self.txt_Password.text == "") {
-            alertWithImage(title: "Kiosk Users", Msg: "Please enter password.")
+            alertWithImage(title: NSLocalizedString("Kiosk Users",comment: ""), Msg: NSLocalizedString("Please enter password",comment: ""))
         }else if !self.txt_Password.text!.isValidPassword() {
-            alertWithImage(title: "Team Login", Msg: "Invalid Password.")
+            alertWithImage(title: NSLocalizedString("Team Login",comment: ""), Msg: NSLocalizedString("Invalid Password.",comment: ""))
         }else{
             update_KioskUsers()
         }
@@ -76,7 +76,7 @@ class KioskUsersVC: UIViewController {
             if result?.data != nil {
                 self.txt_Email.text = self.TeamLogin.first?.email
             }else{
-                self.alertWithMessageOnly("Something went wrong.")
+                self.alertWithMessageOnly(NSLocalizedString("Internal server error",comment: ""))
             }
         }
     }
@@ -88,9 +88,9 @@ class KioskUsersVC: UIViewController {
             if result?.data != nil {
                 self.txt_Email.text = ""
                 self.txt_Password.text = ""
-                self.alertWithMessageOnly(result?.data ?? "")
+                self.alertWithMessageOnly((NSLocalizedString("Kiosk user data added successfully",comment: "")))
             }else{
-                self.alertWithMessageOnly(result?.error ?? "")
+                self.alertWithMessageOnly((NSLocalizedString("Failed to update kiosk user",comment: "")))
             }
         }
     }

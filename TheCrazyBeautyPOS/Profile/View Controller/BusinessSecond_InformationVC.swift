@@ -321,9 +321,9 @@ class BusinessSecond_InformationVC: UIViewController {
                 let vc = storyboard.instantiateViewController(withIdentifier: "BusinessThird_InformationVC") as! BusinessThird_InformationVC
                 vc.salon_Id = self.vendor_Id
                 self.navigationController?.pushViewController(vc, animated: false)
-                self.alertWithMessageOnly("Business timing updated successfully")
+                self.alertWithMessageOnly(NSLocalizedString("Business timing updated successfully",comment: ""))
             } else {
-                self.alertWithMessageOnly("Something went wrong.")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to update vendor",comment: ""))
             }
         }
     }

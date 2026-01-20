@@ -37,9 +37,25 @@ class AddCoupon_VC: UIViewController {
     @IBOutlet weak var btn_Cancel: UIButton!
     
     //MARK: - Global Variable
-    var arr_Status = ["Active","Inactive"]
-    var arr_DiscountType = ["Flat","Percentage"]
+    var statusKeys = ["Active","Inactive"]
     
+    var arr_Status: [String] {
+        return [
+            NSLocalizedString("Active", comment: ""),
+            NSLocalizedString("Inactive", comment: "")
+        ]
+    }
+    
+    var selectedStatus = "Active"
+    var selectedDiscount = "Flat"
+    
+    var DiscountTypeKey = ["Flat","Percentage"]
+    var arr_DiscountType:  [String] {
+        return [
+            NSLocalizedString("Flat", comment: ""),
+            NSLocalizedString("Percentage", comment: "")
+        ]
+    }
     var calendarVC: UIViewController?
     var fromSelectedDate: Date?
     var toSelectedDate: Date?
@@ -53,7 +69,11 @@ class AddCoupon_VC: UIViewController {
         super.viewDidLoad()
         setCustomFont()
         txt_DiscountType.text = arr_DiscountType.first
+        selectedDiscount = DiscountTypeKey.first ?? ""
+        
         txt_Status.text = arr_Status.first
+        selectedStatus = statusKeys.first ?? ""
+        
         self.lbl_AllField.text = NSLocalizedString("All fields marked with an asterisk (*) are required.", comment: "")
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if self.isEdit {
@@ -105,7 +125,7 @@ class AddCoupon_VC: UIViewController {
     
     @IBAction func btn_AddCoupon(_ sender: Any) {
     guard let couponName = txt_CouponName.text, !couponName.isEmpty else {
-        self.showToast(message: NSLocalizedString("Coupon Name is required.",comment: ""))
+        self.showToast(message: NSLocalizedString("Coupon Name is required",comment: ""))
             return
         }
         
@@ -116,12 +136,12 @@ class AddCoupon_VC: UIViewController {
         
         guard let discountType = txt_DiscountType.text else { return }
         
-        if discountType == "Flat" {
+        if selectedDiscount == "Flat" {
             guard let amount = txt_Amount.text, !amount.isEmpty else {
                 self.showToast(message: NSLocalizedString("Amount is required.",comment: ""))
                 return
             }
-        } else if discountType == "Percentage" {
+        } else if selectedDiscount == "Percentage" {
             guard let percentage = txt_Percentage.text, !percentage.isEmpty else {
                 self.showToast(message: NSLocalizedString("Percentage is required.",comment: ""))
                 return
@@ -161,7 +181,14 @@ class AddCoupon_VC: UIViewController {
     func setData(){
         self.txt_CouponName.text = self.CouponData?.coupon_name ?? ""
         self.txt_CouponCode.text = self.CouponData?.coupon_code ?? ""
-        self.txt_DiscountType.text = self.CouponData?.discount_type ?? ""
+//        self.txt_DiscountType.text = self.CouponData?.discount_type ?? ""
+        if self.CouponData?.discount_type == "Flat"{
+            selectedDiscount = "Flat"
+            self.txt_DiscountType.text = NSLocalizedString("Flat", comment: "")
+        }else{
+            selectedDiscount = "Percentage"
+            self.txt_DiscountType.text = NSLocalizedString("Percentage", comment: "")
+        }
         if self.CouponData?.discount_type == "Flat"{
             self.vw_Amount.isHidden = false
             self.vw_AmountPercentage.isHidden = true
@@ -174,7 +201,17 @@ class AddCoupon_VC: UIViewController {
         }
         self.txt_StartDate.text = self.CouponData?.start_date
         self.txt_EndDate.text = self.CouponData?.end_date
-        self.txt_Status.text = self.CouponData?.status
+//        self.txt_Status.text = self.CouponData?.status
+        
+        
+        if self.CouponData?.status == "Active"{
+            selectedStatus = "Active"
+            self.txt_Status.text = NSLocalizedString("Active",comment: "")
+        }else{
+            selectedStatus = "Inactive"
+            self.txt_Status.text = NSLocalizedString("Inactive",comment: "")
+        }
+        
     }
     
     func openDiscountType() {
@@ -190,11 +227,12 @@ class AddCoupon_VC: UIViewController {
         
         slotDuration.selectionAction = {  [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
-            self.txt_DiscountType.text = item
-            if item == "Flat"{
+            selectedDiscount = self.DiscountTypeKey[index]
+            self.txt_DiscountType.text = NSLocalizedString(item, comment: "")
+            if self.selectedDiscount == "Flat"{
                 self.vw_Amount.isHidden = false
                 self.vw_AmountPercentage.isHidden = true
-            }else if item == "Percentage"{
+            }else if selectedDiscount == "Percentage"{
                 self.vw_Amount.isHidden = true
                 self.vw_AmountPercentage.isHidden = false
             }
@@ -214,7 +252,8 @@ class AddCoupon_VC: UIViewController {
         
         slotDuration.selectionAction = {  [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
-            self.txt_Status.text = item
+            selectedStatus = self.statusKeys[index]
+            self.txt_Status.text = NSLocalizedString(item, comment: "")
         }
     }
     
@@ -258,7 +297,7 @@ class AddCoupon_VC: UIViewController {
     //MARK: - Web Api Calling
     func addFunctionApiCalling(highest_amount: String,Amount:String) {
         showLoader()
-        APIService.shared.add_AddCoupon(vendorId: LocalData.userId, status: self.txt_Status.text ?? "", start_date: self.txt_StartDate.text ?? "", highest_amount: highest_amount, end_date: self.txt_EndDate.text ?? "", discount_type: self.txt_DiscountType.text ?? "", coupon_name: self.txt_CouponName.text ?? "", coupon_code: self.txt_CouponCode.text ?? "", amount: Amount) { result in
+        APIService.shared.add_AddCoupon(vendorId: LocalData.userId, status: selectedStatus, start_date: self.txt_StartDate.text ?? "", highest_amount: highest_amount, end_date: self.txt_EndDate.text ?? "", discount_type: selectedDiscount, coupon_name: self.txt_CouponName.text ?? "", coupon_code: self.txt_CouponCode.text ?? "", amount: Amount) { result in
             self.hideLoader()
             guard let model = result else {
                 return
@@ -281,7 +320,7 @@ class AddCoupon_VC: UIViewController {
     
     func UpdateCoupon(highest_amount: String,Amount:String,Id:Int){
         showLoader()
-        APIService.shared.updateGiftCoupon(Id: Id, amount: Amount, coupon_code: self.txt_CouponCode.text ?? "", discount_type: self.txt_DiscountType.text ?? "", vendor_id: LocalData.userId, coupon_name: self.txt_CouponName.text ?? "", end_date: self.txt_EndDate.text ?? "", highest_amount: highest_amount, start_date: self.txt_StartDate.text ?? "", status: self.txt_Status.text ?? "") { result in
+        APIService.shared.updateGiftCoupon(Id: Id, amount: Amount, coupon_code: self.txt_CouponCode.text ?? "", discount_type: selectedDiscount, vendor_id: LocalData.userId, coupon_name: self.txt_CouponName.text ?? "", end_date: self.txt_EndDate.text ?? "", highest_amount: highest_amount, start_date: self.txt_StartDate.text ?? "", status: selectedStatus) { result in
             self.hideLoader()
             guard let model = result else {
                 return
@@ -363,7 +402,7 @@ extension AddCoupon_VC: UITextFieldDelegate {
 
             if let intValue = Int(newText), intValue > 100 {
                 textField.text = "100"
-                self.showToast(message: "Percentage cannot exceed 100.")
+                self.showToast(message: NSLocalizedString("Percentage cannot exceed 100.",comment: ""))
                 return false
             }
         }

@@ -146,21 +146,40 @@ class ClientsVC: UIViewController {
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
                     // safe UI code here
-                    self.showToast(message: model.data)
+                    self.showToast(message: (NSLocalizedString("Client deleted successfully",comment: "")))
                 }
                 self.loadData(Search: "")
             } else {
-                self.show_alert(msg: model.error ?? "", title: "Delete Client")
+                self.showToast(message: (NSLocalizedString("Failed to delete client",comment: "")))
             }
         }
     }
+    
+    func deleteClientGuest(GuestID: Int) {
+        APIService.shared.deleteDeleteGuest(GuestID: GuestID) { staffResult in
+            guard let model = staffResult else {
+                return
+            }
+
+            if model.error == "" || model.error == nil {
+                DispatchQueue.main.async {
+                    // safe UI code here
+                    self.showToast(message: (NSLocalizedString("Guest deleted successfully",comment: "")))
+                }
+                self.loadData(Search: "")
+            } else {
+                self.showToast(message: (NSLocalizedString("Failed to delete guest",comment: "")))
+            }
+        }
+    }
+    
 
     func downloadClientReport() {
         showLoader()
         APIService.shared.downloadClientReport(vendor_id: LocalData.userId,search: self.txt_search.text ?? "") { model in
             self.hideLoader()
             guard let filename = model?.filename else {
-                self.alertWithMessageOnly("Download failed")
+                self.alertWithMessageOnly(NSLocalizedString("Download failed",comment: ""))
                 return
             }
 
@@ -177,12 +196,15 @@ class ClientsVC: UIViewController {
 
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    // safe UI code here
-                    self.showToast(message: model.data)
+                    if is_guest == "0"{
+                        self.showToast(message: (NSLocalizedString("Customer phone number blocked successfully",comment: "")))
+                    }else{
+                        self.showToast(message: (NSLocalizedString("Customer phone number unblocked successfully",comment: "")))
+                    }
                 }
                 self.loadData(Search: "")
             } else {
-                self.show_alert(msg: model.error ?? "", title: "")
+                self.showToast(message: (NSLocalizedString("Customer or guest not found",comment: "")))
             }
         }
     }
@@ -192,16 +214,10 @@ class ClientsVC: UIViewController {
 
 extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, ClientSortDelegate{
     func btnSort_Action(cell: ClientHeaderCell) {
-        print("SORT ACTION")
-
         if cell.img_AtoZ.image == UIImage(named: "a TO z") {
-            // Currently A → Z, change to Z → A
-            print("Switch to Descending")
             cell.img_AtoZ.image = UIImage(named: "az-up")
             loadData(Search: "", sort: "desc")
         } else {
-            // Currently Z → A, change to A → Z
-            print("Switch to Ascending")
             cell.img_AtoZ.image = UIImage(named: "a TO z")
             loadData(Search: "", sort: "asc")
         }
@@ -233,14 +249,24 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
         cell.lbl_name.text = (client.first_name).capitalized + " " + (client.last_name).capitalized
         cell.lbl_email.text = client.email
         cell.lbl_phone.text = client.phone
-        if client.gender != ""{
+        /*if client.gender != ""{
             cell.lbl_gender.text = client.gender.capitalized
+        }else{
+            cell.lbl_gender.text = "-"
+        }*/
+        
+        if client.gender == "Male"{
+            cell.lbl_gender.text = NSLocalizedString("Male", comment: "")
+        }else if client.gender == "Female"{
+            cell.lbl_gender.text = NSLocalizedString("Female", comment: "")
         }else{
             cell.lbl_gender.text = "-"
         }
         
-        if client.kind != ""{
-            cell.lbl_userType.text = client.kind.capitalized
+        if client.kind.capitalized == "Customer"{
+            cell.lbl_userType.text = NSLocalizedString("Customer", comment: "")
+        }else if client.kind.capitalized == "Guest"{
+            cell.lbl_userType.text = NSLocalizedString("Guest", comment: "")
         }else{
             cell.lbl_userType.text = "-"
         }
@@ -251,13 +277,16 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
             cell.btn_Block.setImage(UIImage(named: "ic_UnBlock"), for: .normal)
         }
         if client.kind.capitalized == "Customer"{
+            
             cell.btn_Edit.isHidden = false
             cell.btn_Icon.isHidden = false
             cell.btn_Delete.isHidden = false
             cell.btn_Calender.isHidden = false
+            cell.btn_SecondDelete.isHidden = true
             cell.lbl_Line.isHidden = true
             cell.lbl_Line.text = ""
         }else{
+            cell.btn_SecondDelete.isHidden = false
             cell.btn_Edit.isHidden = true
             cell.btn_Icon.isHidden = true
             cell.btn_Delete.isHidden = true
@@ -265,11 +294,20 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
             cell.lbl_Line.isHidden = false
             cell.lbl_Line.text = ""
         }
-        if client.client_type == ""{
+        
+        if client.client_type == "VIP"{
+            cell.lbl_clientType.text = NSLocalizedString("VIP", comment: "")
+        }else if client.client_type == "Non VIP"{
+            cell.lbl_clientType.text = NSLocalizedString("Non VIP", comment: "")
+        }else{
+            cell.lbl_clientType.text = "-"
+        }
+        
+        /*if client.client_type == ""{
             cell.lbl_clientType.text = "-"
         }else{
             cell.lbl_clientType.text = client.client_type
-        }
+        }*/
         
         cell.Act_Edit = {
             let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddClientVC") as! AddClientVC
@@ -281,11 +319,20 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
             let popup = ConfirmDeletePopupVC()
             popup.modalPresentationStyle = .overFullScreen
             popup.modalTransitionStyle = .crossDissolve
-            popup.titleText = "Are you sure you want to delete this client?"
+            popup.titleText = NSLocalizedString("Are you sure you want to delete this client?",comment:"")
             popup.onConfirm = {
-                print("User confirmed delete")
-                // Call your delete logic here
                 self.deleteClientData(clientId: client.id)
+            }
+            self.present(popup, animated: true, completion: nil)
+        }
+        
+        cell.Act_SecondDelete = {
+            let popup = ConfirmDeletePopupVC()
+            popup.modalPresentationStyle = .overFullScreen
+            popup.modalTransitionStyle = .crossDissolve
+            popup.titleText = NSLocalizedString("Are you sure you want to delete this guest?",comment:"")
+            popup.onConfirm = {
+                self.deleteClientGuest(GuestID: client.id)
             }
             self.present(popup, animated: true, completion: nil)
         }
@@ -294,9 +341,9 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
             popup.modalPresentationStyle = .overFullScreen
             popup.modalTransitionStyle = .crossDissolve
             if client.is_block == 0 {
-                popup.titleText = "Are you sure you want to Block this client?"
+                popup.titleText = NSLocalizedString("Are you sure you want to Block this client?",comment:"")
             }else{
-                popup.titleText = "Are you sure you want to Unblock this client?"
+                popup.titleText = NSLocalizedString("Are you sure you want to Unblock this client?",comment: "")
             }
             popup.onConfirm = {
                 print("id \(client.id)")
@@ -316,9 +363,6 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
                     }
                 }
                 self.BlockNumber(id: String(client.id), is_block: self.is_Block, is_guest: self.is_Guest)
-                print("is_Block:- \(self.is_Block)")
-                print("is_Guest:- \(self.is_Guest)")
-                print("User confirmed delete")
             }
             self.present(popup, animated: true, completion: nil)
         }

@@ -75,11 +75,50 @@ class AddServiceVC: UIViewController {
     var isSubService = "0"
     var categoryParId = "0"
     
-    var arr_ServiceType = ["Service Without Sub Type","Service With Sub Type"]
-    var arr_SecondaryType = ["Main Service","Sub Service"]
-    var arr_NailRemoval = ["Test Main Service","Nail Paint Removal"]
-    var arr_Options = ["Male","Female","Unisex"]
-    var arr_Options1 = ["Male","Female","Unisex"]
+//    var arr_ServiceType = ["Service Without Sub Type","Service With Sub Type"]
+    
+    var arr_ServiceType: [String] {
+        return [
+            NSLocalizedString("Service Without Sub Type", comment: ""),
+            NSLocalizedString("Service With Sub Type", comment: "")
+        ]
+    }
+    var serviceTypeKey = ["Service Without Sub Type","Service With Sub Type"]
+    var selectedService = "Service Without Sub Type"
+    
+    
+    
+//    var arr_SecondaryType = ["Main Service","Sub Service"]
+    var arr_SecondaryType: [String] {
+        return [
+            NSLocalizedString("Main Service", comment: ""),
+            NSLocalizedString("Sub Service", comment: "")
+        ]
+    }
+    var SecondaryType = ["Main Service","Sub Service"]
+    var selectedSecondary = "Main Service"
+    
+    
+//    var arr_Options = ["Male","Female","Unisex"]
+    var arr_Options: [String] {
+        return [
+            NSLocalizedString("Male", comment: ""),
+            NSLocalizedString("Female", comment: ""),
+            NSLocalizedString("Unisex", comment: "")
+        ]
+    }
+    var OptionsType = ["Male","Female","Unisex"]
+    var selectedOption = "Male"
+    
+    var arr_PriceType: [String] {
+        return [
+            NSLocalizedString("Starts From", comment: ""),
+            NSLocalizedString("Fixed", comment: "")
+        ]
+    }
+    
+    var PriceType = ["Starts From","Fixed"]
+    var selectedPriceType = "Starts From"
     
     var resourcList: [InventoryData] = []
     var mainServices: [ServiceDatas] = []
@@ -90,6 +129,7 @@ class AddServiceVC: UIViewController {
         get_CategoryList()
         get_CategoryList()
         loadResourceData()
+        call_MainCategory()
         setRegularFont()
         /*if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
             lbl_vendorOnly.font = customFont
@@ -101,24 +141,6 @@ class AddServiceVC: UIViewController {
         self.loadDuationData()
         self.loadCategoryData()
         self.loadData()
-        /*let options: [String] = ["Male", "Female", "Unisex"]
-        DropdownManager.shared.setupDropdown(
-            for: self.txt_serviceFor,
-            in: self.view,
-            with: options
-        ) { [weak self] selected in
-            guard let self = self else { return }
-            self.txt_serviceFor.setText(selected)
-        }*/
-        let options1: [String] = ["Starts From", "Fixed"]
-        DropdownManager.shared.setupDropdown(
-            for: self.txt_priceType,
-            in: self.view,
-            with: options1
-        ) { [weak self] selected in
-            guard let self = self else { return }
-            self.txt_priceType.setText(selected)
-        }
         staffTextField.delegate = self
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openStaffPopup))
         staffTextField.addGestureRecognizer(tapGesture)
@@ -129,7 +151,14 @@ class AddServiceVC: UIViewController {
                 self.btn_service.setTitle(NSLocalizedString("Update Service",comment: ""), for: .normal)
             } else {
                 self.txt_TypeofService.text = self.arr_ServiceType[0]
+                self.selectedService = self.serviceTypeKey.first ?? ""
+                
                 self.txt_SecondaryType.text = self.arr_SecondaryType[0]
+                self.selectedSecondary = self.SecondaryType.first ?? ""
+                
+                self.txt_serviceFor.text = self.arr_Options[0]
+                self.selectedOption = self.OptionsType.first ?? ""
+                
                 self.lbl_title.text = NSLocalizedString("Add Service", comment: "")
                 self.btn_service.setTitle(NSLocalizedString("Add Service",comment: ""), for: .normal)
             }
@@ -150,62 +179,61 @@ class AddServiceVC: UIViewController {
     
     @IBAction func act_addEditService(_ sender: GradientButton) {
         if isEdit {
-            if txt_TypeofService.text == "Service Without Sub Type"{
+            if txt_TypeofService.text == NSLocalizedString("Service Without Sub Type",comment: ""){
                 if self.txt_serviceName.text!.isEmpty {
-                    self.showToast(message: "Please enter service name")
+                    self.showToast(message: NSLocalizedString("Please enter service name",comment: ""))
                 } else if self.txt_mainCategory.text!.isEmpty {
-                    self.showToast(message: "Please select category")
+                    self.showToast(message: NSLocalizedString("Please select category",comment: ""))
                 } else if self.txt_serviceFor.text!.isEmpty {
-                    self.showToast(message: "Please select service for")
+                    self.showToast(message: NSLocalizedString("Please select service for",comment: ""))
                 } else if self.txt_serviceDuration.text!.isEmpty {
-                    self.showToast(message: "Please select service time")
+                    self.showToast(message: NSLocalizedString("Please select service time",comment: ""))
                 } else if self.txt_priceType.text!.isEmpty {
-                    self.showToast(message: "Please select price type")
+                    self.showToast(message: NSLocalizedString("Please select price type",comment: ""))
                 } else if self.txt_regulatPrice.text!.isEmpty {
-                    self.showToast(message: "Please enter price")
+                    self.showToast(message: NSLocalizedString("Please enter price",comment: ""))
                 }else{
                     self.updateServiceData(serviceId: "\(self.dictService?.id ?? 0)")
                 }
             }else{
                 if self.txt_serviceName.text!.isEmpty {
-                    self.showToast(message: "Please enter service name")
+                    self.showToast(message: NSLocalizedString("Please enter service name",comment: ""))
                 } else if self.txt_mainCategory.text!.isEmpty {
-                    self.showToast(message: "Please select category")
+                    self.showToast(message: NSLocalizedString("Please select category",comment: ""))
                 } else if self.txt_Resource.text!.isEmpty {
-                    self.showToast(message: "Please select Resource")
+                    self.showToast(message: NSLocalizedString("Please select Resource",comment: ""))
                 }else{
                     self.updateServiceData(serviceId: "\(self.dictService?.id ?? 0)")
                 }
             }
         }else{
-            if txt_TypeofService.text == "Service Without Sub Type"{
+            if txt_TypeofService.text == NSLocalizedString("Service Without Sub Type",comment: ""){
                 if self.txt_serviceName.text!.isEmpty {
-                    self.showToast(message: "Please enter service name")
+                    self.showToast(message: NSLocalizedString("Please enter service name",comment: ""))
                 } else if self.txt_mainCategory.text!.isEmpty {
-                    self.showToast(message: "Please select category")
+                    self.showToast(message: NSLocalizedString("Please select category",comment: ""))
                 } else if self.txt_serviceFor.text!.isEmpty {
-                    self.showToast(message: "Please select service for")
+                    self.showToast(message: NSLocalizedString("Please select service for",comment: ""))
                 } else if self.txt_serviceDuration.text!.isEmpty {
-                    self.showToast(message: "Please select service time")
+                    self.showToast(message: NSLocalizedString("Please select service time",comment: ""))
                 } else if self.txt_priceType.text!.isEmpty {
-                    self.showToast(message: "Please select price type")
+                    self.showToast(message: NSLocalizedString("Please select price type",comment: ""))
                 } else if self.txt_regulatPrice.text!.isEmpty {
-                    self.showToast(message: "Please enter price")
+                    self.showToast(message: NSLocalizedString("Please enter price",comment: ""))
                 }else{
                     self.addServiceData()
                 }
             }else{
                 if self.txt_serviceName.text!.isEmpty {
-                    self.showToast(message: "Please enter service name")
+                    self.showToast(message: NSLocalizedString("Please enter service name",comment: ""))
                 } else if self.txt_mainCategory.text!.isEmpty {
-                    self.showToast(message: "Please select category")
+                    self.showToast(message: NSLocalizedString("Please select category",comment: ""))
                 } else if self.txt_Resource.text!.isEmpty {
-                    self.showToast(message: "Please select Resource")
+                    self.showToast(message: NSLocalizedString("Please select Resource",comment: ""))
                 }else{
                     self.addServiceData()
                 }
             }
-            
         }
     }
     
@@ -269,8 +297,8 @@ class AddServiceVC: UIViewController {
     }
     
     @IBAction func btn_ResourceService(_ sender: Any) {
-//        openResourcList()
-        loadResourceData()
+        openResourcList()
+//        loadResourceData()
     }
     
     @IBAction func btn_ServiceFor(_ sender: Any) {
@@ -278,6 +306,12 @@ class AddServiceVC: UIViewController {
     }
     
     @IBAction func btn_MainCategory(_ sender: Any) {
+        openMainCategory()
+    }
+    
+    
+    @IBAction func btn_PriceType(_ sender: Any) {
+        openPriceType()
     }
     
     //MARK: Set Data
@@ -303,19 +337,36 @@ class AddServiceVC: UIViewController {
         self.txt_serviceName.setText(self.dictService?.service ?? "")
         self.txt_mainCategory.setText(self.dictService?.category ?? "")
         self.parentId = self.dictService?.category_id ?? 0
-        self.txt_serviceFor.setText(self.dictService?.service_for ?? "")
         self.txt_description.text = self.dictService?.description ?? ""
         self.selectedDuration = self.dictService?.duration ?? 0
-        self.txt_priceType.setText(self.dictService?.price_type ?? "")
         self.txt_regulatPrice.setText(self.dictService?.price ?? "")
         self.txt_regulatPrice.setText(self.dictService?.price ?? "")
         self.txt_salesPrice.setText(String(self.dictService?.sale_price ?? "0"))
         print("Resource :\(Int(self.dictService?.resource_id ?? "") ?? 0)")
         print("resoucreId :\(resoucreId)")
         self.resoucreId = Int(self.dictService?.resource_id ?? "") ?? 0
+        if dictService?.price_type == "Starts From"{
+            selectedPriceType = "Starts From"
+            self.txt_priceType.text = NSLocalizedString("Starts From", comment: "")
+        }else if dictService?.price_type == "Fixed"{
+            selectedPriceType = "Fixed"
+            self.txt_priceType.text = NSLocalizedString("Fixed", comment: "")
+        }
+        
+        if dictService?.service_for == "Male"{
+            selectedOption = "Male"
+            self.txt_serviceFor.text = NSLocalizedString("Male",comment: "")
+        }else if dictService?.service_for == "Female"{
+            selectedOption = "Female"
+            self.txt_serviceFor.text = NSLocalizedString("Female",comment: "")
+        }else if dictService?.service_for == "Unisex"{
+            selectedOption = "Unisex"
+            self.txt_serviceFor.text = NSLocalizedString("Unisex",comment: "")
+        }
         
         if dictService?.has_sub_service == 0 {
-            self.txt_TypeofService.text = "Service Without Sub Type"
+            self.selectedService = "Service Without Sub Type"
+            self.txt_TypeofService.text = NSLocalizedString("Service Without Sub Type",comment: "")
             self.vw_TypeOfService.isHidden = false
             self.vw_SecondaryType.isHidden = false
             self.vw_MainCategory.isHidden = false
@@ -331,7 +382,8 @@ class AddServiceVC: UIViewController {
             self.vw_PatchTest.isHidden = false
             self.vw_Cancel.isHidden = false
         }else{
-            self.txt_TypeofService.text = "Service With Sub Type"
+            self.selectedService = "Service With Sub Type"
+            self.txt_TypeofService.text = NSLocalizedString("Service With Sub Type",comment: "")
             self.vw_TypeOfService.isHidden = false
             self.vw_SecondaryType.isHidden = true
             self.vw_ParentService.isHidden = true
@@ -349,11 +401,13 @@ class AddServiceVC: UIViewController {
         }
         
         if dictService?.is_sub_service == 0 {
-            self.txt_SecondaryType.text = "Main Service"
+            selectedSecondary = "Main Service"
+            self.txt_SecondaryType.text = NSLocalizedString("Main Service", comment: "")
             vw_MainCategory.isHidden = false
             vw_ParentService.isHidden = true
         }else{
-            self.txt_SecondaryType.text = "Sub Service"
+            selectedSecondary = "Sub Service"
+            self.txt_SecondaryType.text = NSLocalizedString("Sub Service", comment: "")
             vw_ParentService.isHidden = false
             vw_MainCategory.isHidden = true
         }
@@ -388,7 +442,15 @@ class AddServiceVC: UIViewController {
         slotDuration.backgroundColor = .white
         slotDuration.selectionAction = {  [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
-            self.txt_serviceFor.text = item
+            selectedOption = self.OptionsType[index]
+            self.txt_serviceFor.text = NSLocalizedString(item, comment: "")
+            if selectedOption == "Male"{
+                selectedOption = "Male"
+            }else if selectedOption == "Female"{
+                selectedOption = "Female"
+            }else if selectedOption == "Unisex"{
+                selectedOption = "Unisex"
+            }
         }
     }
     
@@ -397,14 +459,20 @@ class AddServiceVC: UIViewController {
         slotDuration.anchorView = txt_priceType
         slotDuration.bottomOffset = CGPoint(x: 0, y:(slotDuration.anchorView?.plainView.bounds.height)!)
         slotDuration.direction = .bottom
-        slotDuration.dataSource = arr_Options1
+        slotDuration.dataSource = arr_PriceType
         slotDuration.cellHeight = 35
         slotDuration.show()
         slotDuration.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
         slotDuration.backgroundColor = .white
         slotDuration.selectionAction = {  [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
-            self.txt_priceType.text = item
+            selectedPriceType = self.PriceType[index]
+            self.txt_priceType.text = NSLocalizedString(item, comment: "")
+            if selectedPriceType == "Starts From"{
+                selectedPriceType = "Starts From"
+            }else if selectedPriceType == "Fixed"{
+                selectedPriceType = "Fixed"
+            }
         }
     }
     
@@ -422,8 +490,9 @@ class AddServiceVC: UIViewController {
         
         TypeofService.selectionAction = {  [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
-            self.txt_TypeofService.text = item
-            if item == "Service With Sub Type"{
+            selectedService = self.serviceTypeKey[index]
+            self.txt_TypeofService.text = NSLocalizedString(item, comment: "")
+            if selectedService == "Service With Sub Type"{
                 self.vw_TypeOfService.isHidden = false
                 self.vw_SecondaryType.isHidden = true
                 self.vw_ParentService.isHidden = true
@@ -624,8 +693,33 @@ class AddServiceVC: UIViewController {
                     }
                 }
             }
-            
         }
+    }
+    
+    
+    func openDuationData() {
+       var itemArray: [String] = []
+
+       for i in self.durationList {
+           itemArray.append("\(i.label)")
+       }
+
+       let slotDuration = DropDown()
+       slotDuration.anchorView = txt_serviceDuration
+       slotDuration.bottomOffset = CGPoint(x: 0, y: (slotDuration.anchorView?.plainView.bounds.height) ?? 0)
+       slotDuration.direction = .bottom
+       slotDuration.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+       slotDuration.backgroundColor = .white
+       slotDuration.dataSource = itemArray
+       slotDuration.cellHeight = 35
+       slotDuration.show()
+
+       slotDuration.selectionAction = { [unowned self] (index: Int, item: String) in
+        let selectedResource = self.durationList[index]
+            txt_serviceDuration.text = "\(selectedResource.label)"
+//            resoucreId = selectedResource.label
+       }
+        
     }
     
     func loadCategoryData() {
@@ -660,6 +754,52 @@ class AddServiceVC: UIViewController {
             }
             
         }
+    }
+    
+    func call_MainCategory() {
+        showLoader()
+        APIService.shared.getSelectMainCategory { result in
+            self.hideLoader()
+            if result?.data != nil {
+                self.categoryList = result!.data
+            }else{
+                self.alertWithMessageOnly(NSLocalizedString("Failed to get vendor currency",comment: ""))
+            }
+        }
+    }
+    
+    func openMainCategory() {
+       var itemArray: [String] = []
+
+       for i in self.categoryList {
+           itemArray.append(i.service_name)
+       }
+
+       let slotDuration = DropDown()
+        slotDuration.anchorView = txt_mainCategory
+        slotDuration.bottomOffset = CGPoint(x: 0, y: (slotDuration.anchorView?.plainView.bounds.height) ?? 0)
+        slotDuration.direction = .bottom
+        slotDuration.dataSource = itemArray
+        slotDuration.cellHeight = 35
+        slotDuration.show()
+        slotDuration.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+        slotDuration.backgroundColor = .white
+        slotDuration.selectionAction = { [unowned self] (index: Int, item: String) in
+           txt_mainCategory.text = item
+           for i in self.categoryList {
+               if i.service_name == item {
+                   txt_mainCategory.text = i.service_name
+                   parentId = i.id
+//                   LocalData.currency = i.currency
+//                   LocalData.selectedCurrencyCode = i.currency_code
+//                   selectedCurrencyCode = i.currency_code
+//                   symbol = i.symbol
+                   /*SharedPrefs.setCurrency(i.currency_code)
+                   SharedPrefs.setSymbol(i.symbol)*/
+                   break
+               }
+           }
+       }
     }
     
     func get_CategoryList() {
@@ -771,18 +911,18 @@ class AddServiceVC: UIViewController {
             }
         }
         
-        if (txt_TypeofService.text == "Service Without Sub Type"){
+        if (txt_TypeofService.text == NSLocalizedString("Service Without Sub Type",comment: "")){
             hasSubService = "0"
 
-            if (self.txt_SecondaryType.text == "Main Service"){
+            if (self.txt_SecondaryType.text == NSLocalizedString("Main Service",comment: "")){
                 isSubService = "0"
 //                categoryParId = servicesMainList[binding.spnCategory.selectedItemPosition].id.toString()
-            }else if (self.txt_SecondaryType.text == "Sub Service"){
+            }else if (self.txt_SecondaryType.text == NSLocalizedString("Sub Service",comment: "")){
                 isSubService = "1"
 //                categoryParId = subServiceMainList[binding.spnCategory.selectedItemPosition].id.toString()
             }
 
-        }else if (txt_TypeofService.text == "Service With Sub Type"){
+        }else if (txt_TypeofService.text == NSLocalizedString("Service With Sub Type",comment: "")){
             hasSubService = "1"
 //            categoryParId = servicesMainList[binding.spnCategory.selectedItemPosition].id.toString()
         }
@@ -799,7 +939,7 @@ class AddServiceVC: UIViewController {
         
         
         let staffIds = !self.selected.isEmpty ? self.selected.joined(separator: ",") : ""
-        APIService.shared.addServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: self.txt_serviceFor.text ?? "", duration: selectedDuration, priceType: self.txt_priceType.text ?? "", price: price ?? "0", salePrice: salePrice ?? "0", vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds,has_sub_service: hasSubService,is_sub_service: isSubService,resource_id: "\(resoucreId)") { staffResult in
+        APIService.shared.addServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: selectedOption, duration: selectedDuration, priceType: selectedPriceType, price: price ?? "0", salePrice: salePrice ?? "0", vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds,has_sub_service: hasSubService,is_sub_service: isSubService,resource_id: "\(resoucreId)") { staffResult in
             self.hideLoader()
             guard let model = staffResult else {
                 return
@@ -807,14 +947,13 @@ class AddServiceVC: UIViewController {
 
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    // safe UI code here
                     self.showToast(message: NSLocalizedString("Service added successfully",comment: ""))
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.navigationController?.popViewController(animated: true)
                 }
             } else {
-                self.show_alert(msg: model.error!, title: "Add Service")
+                self.showToast(message: NSLocalizedString("Failed to insert service",comment: ""))
             }
         }
     }
@@ -838,18 +977,18 @@ class AddServiceVC: UIViewController {
             }
         }
         
-        if (txt_TypeofService.text == "Service Without Sub Type"){
+        if (txt_TypeofService.text == NSLocalizedString("Service Without Sub Type",comment: "")){
             hasSubService = "0"
 
-            if (self.txt_SecondaryType.text == "Main Service"){
+            if (self.txt_SecondaryType.text == NSLocalizedString("Main Service", comment: "")){
                 isSubService = "0"
 //                categoryParId = servicesMainList[binding.spnCategory.selectedItemPosition].id.toString()
-            }else if (self.txt_SecondaryType.text == "Sub Service"){
+            }else if (self.txt_SecondaryType.text == NSLocalizedString("Sub Service", comment: "")){
                 isSubService = "1"
 //                categoryParId = subServiceMainList[binding.spnCategory.selectedItemPosition].id.toString()
             }
 
-        }else if (txt_TypeofService.text == "Service With Sub Type"){
+        }else if (txt_TypeofService.text == NSLocalizedString("Service With Sub Type",comment: "")){
             hasSubService = "1"
 //            categoryParId = servicesMainList[binding.spnCategory.selectedItemPosition].id.toString()
         }
@@ -867,7 +1006,7 @@ class AddServiceVC: UIViewController {
         }
         
         let staffIds = !self.selected.isEmpty ? self.selected.joined(separator: ",") : ""
-        APIService.shared.updateServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: self.txt_serviceFor.text ?? "", duration: selectedDuration, priceType: self.txt_priceType.text ?? "", price: price ?? "0", salePrice: salePrice ?? "0", vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds, serviceId: serviceId,has_sub_service: hasSubService,is_sub_service: isSubService,resource_id: "\(resoucreId)") { staffResult in
+        APIService.shared.updateServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: selectedOption, duration: selectedDuration, priceType: selectedPriceType, price: price ?? "0", salePrice: salePrice ?? "0", vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds, serviceId: serviceId,has_sub_service: hasSubService,is_sub_service: isSubService,resource_id: "\(resoucreId)") { staffResult in
             self.hideLoader()
             guard let model = staffResult else {
                 return
@@ -875,26 +1014,18 @@ class AddServiceVC: UIViewController {
 
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    // safe UI code here
-                    self.showToast(message: model.data)
+                    self.showToast(message: NSLocalizedString("Service updated successfully",comment: ""))
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.navigationController?.popViewController(animated: true)
                 }
             } else {
-                self.show_alert(msg: model.error!, title: "Update Service")
+                self.showToast(message: NSLocalizedString("Failed to edit service",comment: ""))
             }
         }
     }
-
-    
-    
-
 }
 
 
 extension AddServiceVC: UITextFieldDelegate {
-    
-    
-    
 }

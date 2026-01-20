@@ -120,13 +120,13 @@ class AddGiftCard_VC: UIViewController {
             self.showToast(message: "Please select a user image.")
         }*/
         if !isEdit && selectedImage == nil {
-            self.showToast(message: "Please select a GiftCard image.")
+            self.showToast(message: NSLocalizedString("Please select a GiftCard image",comment: ""))
         }else if txt_CardName.text == ""{
-            self.showToast(message: "Card Name is required.")
+            self.showToast(message: NSLocalizedString("Card Name is required",comment: ""))
         }else if txt_Price.text == ""{
-            self.showToast(message: "Price is required.")
+            self.showToast(message: NSLocalizedString("Price is required.",comment: ""))
         }else if txt_ExpiryDate.text == ""{
-            self.showToast(message: "Expiry In Days is required.")
+            self.showToast(message: NSLocalizedString("Expiry In Days is required",comment: ""))
         }else{
             if isEdit{
                 updateGiftCard(Id: GiftCardData?.id ?? 0)
@@ -194,29 +194,29 @@ class AddGiftCard_VC: UIViewController {
     func AddGiftCard(){
         showLoader()
         if self.selectedImage != nil{
-            APIService.shared.addGiftCard(card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: self.txt_Status.text ?? "", image: self.selectedImage, imageKey: "file") { result in
+            APIService.shared.addGiftCard(card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: selectedStatus, image: self.selectedImage, imageKey: "file") { result in
                 self.hideLoader()
                 if result != nil {
                     DispatchQueue.main.async {
                         // safe UI code here
-                        self.showToast(message: result?.data?.message ?? "")
+                        self.showToast(message: NSLocalizedString("Gift card added successfully",comment: ""))
                         self.navigationController?.popViewController(animated: true)
                     }
                 }else{
-                    self.showToast(message: "Something went wrong")
+                    self.showToast(message: NSLocalizedString("Failed to insert gift card details",comment: ""))
                 }
             }
         }else{
-            APIService.shared.addGiftCard(card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: self.txt_Status.text ?? "", image: nil, imageKey: "file") { result in
+            APIService.shared.addGiftCard(card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: selectedStatus, image: nil, imageKey: "file") { result in
                 self.hideLoader()
                 if result != nil {
                     DispatchQueue.main.async {
                         // safe UI code here
-                        self.showToast(message: result?.data?.message ?? "")
+                        self.showToast(message: NSLocalizedString("Gift card added successfully",comment: ""))
                         self.navigationController?.popViewController(animated: true)
                     }
                 }else{
-                    self.showToast(message: "Something went wrong")
+                    self.showToast(message: NSLocalizedString("Failed to insert gift card details",comment: ""))
                 }
             }
         }
@@ -226,29 +226,29 @@ class AddGiftCard_VC: UIViewController {
     func updateGiftCard(Id:Int){
         showLoader()
         if self.selectedImage != nil{
-            APIService.shared.UpdateGiftCard(Id: Id, card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: self.txt_Status.text ?? "", image: selectedImage, imageKey: "file") { result in
+            APIService.shared.UpdateGiftCard(Id: Id, card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: selectedStatus, image: selectedImage, imageKey: "file") { result in
                 self.hideLoader()
                 if result != nil {
                     DispatchQueue.main.async {
                         // safe UI code here
-                        self.showToast(message: result?.data?.message ?? "")
+                        self.showToast(message: NSLocalizedString("Gift card updated successfully",comment: ""))
                         self.navigationController?.popViewController(animated: true)
                     }
                 }else{
-                    self.showToast(message: "Something went wrong")
+                    self.showToast(message: NSLocalizedString("Failed to update gift card",comment: ""))
                 }
             }
         }else{
-            APIService.shared.UpdateGiftCard(Id: Id, card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: self.txt_Status.text ?? "", image: nil, imageKey: "file") { result in
+            APIService.shared.UpdateGiftCard(Id: Id, card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: selectedStatus, image: nil, imageKey: "file") { result in
                 self.hideLoader()
                 if result != nil {
                     DispatchQueue.main.async {
                         // safe UI code here
-                        self.showToast(message: result?.data?.message ?? "")
+                        self.showToast(message: NSLocalizedString("Gift card updated successfully",comment: ""))
                         self.navigationController?.popViewController(animated: true)
                     }
                 }else{
-                    self.showToast(message: "Something went wrong")
+                    self.showToast(message: NSLocalizedString("Failed to update gift card",comment: ""))
                 }
             }
         }

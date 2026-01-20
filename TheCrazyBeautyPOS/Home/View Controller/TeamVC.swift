@@ -157,11 +157,11 @@ class TeamVC: UIViewController {
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
                     // safe UI code here
-                    self.showToast(message: model.data)
+                    self.showToast(message: NSLocalizedString("Team member deleted successfully", comment: ""))
                 }
                 self.loadData(Search: "")
             } else {
-                self.show_alert(msg: model.error ?? "", title: "Delete Team")
+                self.showToast(message: NSLocalizedString("Failed to delete staff member", comment: ""))
             }
         }
     }
@@ -207,7 +207,13 @@ extension TeamVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelega
         cell.lbl_email.text = staff.email
         cell.lbl_phone.text = staff.phone
         cell.lbl_jobTitle.text = staff.jobTitle
-        cell.lbl_review.text = ""
+        
+        if staff.averageRating != nil{
+            cell.lbl_review.text = staff.jobTitle
+        }else{
+            cell.lbl_review.text = "-"
+        }
+        
         if staff.photo != "" {
             let imgUrl = global.imageUrl + (staff.photo ?? "")
             if let url = URL(string: imgUrl) {
@@ -231,7 +237,7 @@ extension TeamVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelega
             let popup = ConfirmDeletePopupVC()
             popup.modalPresentationStyle = .overFullScreen
             popup.modalTransitionStyle = .crossDissolve
-            popup.titleText = "Are you sure you want to delete this team member?"
+            popup.titleText = NSLocalizedString("Are you sure you want to delete this team member?",comment:"")
             popup.onConfirm = {
                 print("Team confirmed delete")
                 // Call your delete logic here

@@ -24,6 +24,9 @@ class ClientCell: UITableViewCell {
     @IBOutlet weak var btn_Calender: UIButton!
     
     @IBOutlet weak var btn_Block: UIButton!
+    @IBOutlet weak var widthEditConst: NSLayoutConstraint!
+    
+    @IBOutlet weak var btn_SecondDelete: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -71,4 +74,12 @@ class ClientCell: UITableViewCell {
     @IBAction func act_block(_ sender: Any) {
         self.Act_Block?()
     }
+    
+    
+    var Act_SecondDelete:(()->Void)?
+    @IBAction func act_Seconddelete(_ sender: UIButton) {
+        self.Act_SecondDelete?()
+    }
+    
+    
 }

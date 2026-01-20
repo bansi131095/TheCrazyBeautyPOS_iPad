@@ -80,9 +80,9 @@ class Booking_PolicyVC: UIViewController {
         APIService.shared.UpdateNotes(vendorId: LocalData.userId, notes: self.txtvw_Note.text ?? "") { result in
             self.hideLoader()
             if let message = result?.data{
-                self.alertWithMessageOnly(message)
+                self.alertWithMessageOnly(NSLocalizedString("Booking policy updated successfully",comment: ""))
             }else{
-                self.alertWithMessageOnly("Something went wrong.")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to update booking policy",comment: ""))
             }
         }
     }

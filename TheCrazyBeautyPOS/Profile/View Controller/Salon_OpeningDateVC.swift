@@ -92,9 +92,9 @@ class Salon_OpeningDateVC: UIViewController {
         APIService.shared.UpdateOpenDate(vendor_id: LocalData.userId, opening_date: self.txt_Date.text ?? "") { result in
             self.hideLoader()
             if result != nil {
-                self.alertWithMessageOnly(result?.data ?? "")
+                self.alertWithMessageOnly(NSLocalizedString("Salon opening date updated successfully",comment: ""))
             }else{
-                self.alertWithMessageOnly("Something Want Wrong")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to update salon opening date",comment: ""))
             }
         }
     }

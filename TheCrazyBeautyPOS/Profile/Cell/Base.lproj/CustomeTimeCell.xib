@@ -177,7 +177,33 @@
                                     <constraint firstItem="Wb6-l7-GuF" firstAttribute="centerY" secondItem="EKZ-8j-QtR" secondAttribute="centerY" id="kSj-0e-sIt"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9A-kK-Wck">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hap-XB-d6A">
+                                <rect key="frame" x="575" y="10" width="40" height="40"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="A1r-4I-uAj">
+                                        <rect key="frame" x="0.0" y="0.5" width="40" height="39"/>
+                                        <color key="tintColor" name="Red"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lgx-er-6Ir">
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="A1r-4I-uAj" secondAttribute="bottom" id="5hW-E9-iCb"/>
+                                    <constraint firstAttribute="width" constant="40" id="7QM-qB-Ix2"/>
+                                    <constraint firstItem="lgx-er-6Ir" firstAttribute="leading" secondItem="hap-XB-d6A" secondAttribute="leading" id="FeN-lA-5iC"/>
+                                    <constraint firstItem="lgx-er-6Ir" firstAttribute="top" secondItem="hap-XB-d6A" secondAttribute="top" id="MDh-FS-Zuq"/>
+                                    <constraint firstAttribute="trailing" secondItem="lgx-er-6Ir" secondAttribute="trailing" id="OcG-zE-Tqy"/>
+                                    <constraint firstItem="A1r-4I-uAj" firstAttribute="leading" secondItem="hap-XB-d6A" secondAttribute="leading" id="WVd-eO-98T"/>
+                                    <constraint firstItem="A1r-4I-uAj" firstAttribute="top" secondItem="hap-XB-d6A" secondAttribute="top" id="dCZ-rp-WDs"/>
+                                    <constraint firstAttribute="bottom" secondItem="lgx-er-6Ir" secondAttribute="bottom" id="dVd-Hu-YHf"/>
+                                    <constraint firstAttribute="trailing" secondItem="A1r-4I-uAj" secondAttribute="trailing" id="yoO-kG-5ex"/>
+                                    <constraint firstAttribute="height" constant="40" id="yrr-Jl-Tac"/>
+                                </constraints>
+                            </view>
+                            <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9A-kK-Wck">
                                 <rect key="frame" x="580" y="12.5" width="35" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="CHZ-CB-0Y9"/>
@@ -202,6 +228,9 @@
                             <constraint firstItem="J9A-kK-Wck" firstAttribute="centerY" secondItem="WhK-yy-NfG" secondAttribute="centerY" id="Fgj-dE-QBn"/>
                             <constraint firstItem="J9A-kK-Wck" firstAttribute="leading" secondItem="EKZ-8j-QtR" secondAttribute="trailing" constant="10" id="HB6-bZ-I9v"/>
                             <constraint firstItem="WhK-yy-NfG" firstAttribute="leading" secondItem="PsT-dU-5yJ" secondAttribute="leading" constant="10" id="Hcn-6d-KnI"/>
+                            <constraint firstItem="hap-XB-d6A" firstAttribute="centerY" secondItem="EKZ-8j-QtR" secondAttribute="centerY" id="MVM-ib-rGo"/>
+                            <constraint firstItem="hap-XB-d6A" firstAttribute="leading" secondItem="EKZ-8j-QtR" secondAttribute="trailing" constant="5" id="NSM-ja-e7F"/>
+                            <constraint firstAttribute="trailing" secondItem="hap-XB-d6A" secondAttribute="trailing" constant="10" id="bsm-sq-ASj"/>
                             <constraint firstAttribute="bottom" secondItem="BbI-KX-NQ3" secondAttribute="bottom" constant="5" id="jVy-tT-bJr"/>
                             <constraint firstItem="WhK-yy-NfG" firstAttribute="centerY" secondItem="PsT-dU-5yJ" secondAttribute="centerY" id="kSc-za-MwZ"/>
                             <constraint firstItem="BbI-KX-NQ3" firstAttribute="leading" secondItem="WhK-yy-NfG" secondAttribute="trailing" constant="10" id="xn5-mU-VUU"/>
@@ -231,7 +260,7 @@
             <connections>
                 <outlet property="btnFrom_Time" destination="hk5-B8-vM4" id="pta-TF-xNx"/>
                 <outlet property="btnTo_Time" destination="aeS-0I-F1O" id="swu-v1-dq9"/>
-                <outlet property="btn_Close" destination="J9A-kK-Wck" id="w7X-21-Wmg"/>
+                <outlet property="btn_Close" destination="lgx-er-6Ir" id="Rn1-C1-GdS"/>
                 <outlet property="lbl_Date" destination="WhK-yy-NfG" id="onR-fb-rrr"/>
                 <outlet property="lbl_FromTime" destination="khl-EH-ZVR" id="nfe-CD-baa"/>
                 <outlet property="lbl_ToTime" destination="4V2-ps-5yd" id="WRm-Gz-YcS"/>

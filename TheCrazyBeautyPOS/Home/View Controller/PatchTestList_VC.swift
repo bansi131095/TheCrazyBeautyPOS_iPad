@@ -21,6 +21,8 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
     @IBOutlet weak var txt_TestedBy: TextInputLayout!
     @IBOutlet weak var txt_Desc: FloatingTextView!
     
+    @IBOutlet weak var btn_AddTest: GradientButton!
+    @IBOutlet weak var btn_Cancel: UIButton!
     var id = String()
     var teamList: [TeamListResponseModel] = []
     var arr_Status = ["Pending","Passed","Failed"]
@@ -39,6 +41,24 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
         test(id:id)
         loadData()
         setCustomFont()
+        let attributedTitleSync_1 = NSAttributedString(
+            string: NSLocalizedString("Cancel",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Regular", size: 16.0)!,
+                .foregroundColor: UIColor.red
+            ]
+        )
+        btn_Cancel.setAttributedTitle(attributedTitleSync_1, for: .normal)
+        
+        let AddTest = NSAttributedString(
+            string: NSLocalizedString("Add Test",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Regular", size: 16.0)!,
+                .foregroundColor: UIColor.red
+            ]
+        )
+        btn_AddTest.setAttributedTitle(AddTest, for: .normal)
+        
         // Do any additional setup after loading the view.
     }
     
@@ -71,7 +91,7 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
             let newItems = model.data
             if newItems.isEmpty{
                 self.tbl_vw.isHidden = true
-                self.showNoDataMessage("No more data found", in: self.view)
+                self.showNoDataMessage(NSLocalizedString("No more data found", comment: ""), in: self.view)
             }else{
                 self.teamList = result?.data ?? []
                 self.tbl_vw.isHidden = false
@@ -163,7 +183,7 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
                 }
                 self.hideLoader()
                 if model.error == "" || model.error == nil {
-                    self.showToast(message: "Test details added successfully")
+                    self.showToast(message: NSLocalizedString("Test details added successfully",comment: ""))
                     self.txt_Title.text = ""
                     self.txt_DateOfBirth.text = ""
                     self.txt_Status.text = ""
@@ -171,7 +191,8 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
                     self.txt_Desc.text = ""
                     self.test(id:self.id)
                 }else{
-                    self.show_alert(msg: model.error ?? "", title: "Update Staff")
+                    self.showToast(message: NSLocalizedString("Failed to insert test details",comment: ""))
+//                    self.show_alert(msg: model.error ?? "", title: "Update Staff")
                 }
             }
         }
@@ -200,13 +221,13 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
     
     @IBAction func btn_AddTest(_ sender: Any) {
         if txt_Title.text == "" {
-            alertWithImage(title: "Add New Test", Msg: "Title is required.")
+            alertWithImage(title: NSLocalizedString("Add New Test",comment: ""), Msg: NSLocalizedString("Title is required",comment: ""))
         }else if self.txt_DateOfBirth.text == "" {
-            alertWithImage(title: "Add New Test", Msg: "Test Date is required.")
+            alertWithImage(title: NSLocalizedString("Add New Test",comment: ""), Msg: NSLocalizedString("Test Date is required",comment: ""))
         }else if self.txt_Status.text == ""{
-            alertWithImage(title: "Add New Test", Msg: "Status is required.")
+            alertWithImage(title: NSLocalizedString("Add New Test",comment: ""), Msg: NSLocalizedString("Status is required",comment: ""))
         }else if self.txt_TestedBy.text == ""{
-            alertWithImage(title: "Add New Test", Msg: "Tested By is required.")
+            alertWithImage(title: NSLocalizedString("Add New Test",comment: ""), Msg: NSLocalizedString("Tested By is required",comment: ""))
         }else{
             self.vw_MainPopup.isHidden = true
             self.vw_SubPopup.isHidden = true

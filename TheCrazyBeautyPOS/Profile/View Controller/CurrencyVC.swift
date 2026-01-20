@@ -92,7 +92,7 @@ class CurrencyVC: UIViewController {
                 self.CurrencyList = result!.data
                 self.call_GetCurrencyAPI()
             }else{
-                self.alertWithMessageOnly(result?.error ?? "")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to get vendor currency",comment: ""))
             }
         }
     }
@@ -124,12 +124,13 @@ class CurrencyVC: UIViewController {
     func call_UpdateCurrencyAPI() {
         APIService.shared.UpdateCurrency(currency: self.txt_Currency.text ?? "", symbol: symbol, vendorId: LocalData.userId, completion: { result in
             if result?.data != nil {
-                self.alertWithMessageOnly(result?.data ?? "")
+                self.alertWithMessageOnly(NSLocalizedString("Currency updated successfully",comment: ""))
                 SharedPrefs.setCurrency(self.txt_Currency.text ?? "")
                 SharedPrefs.setSymbol(self.symbol)
             } else {
-                self.alertWithMessageOnly(result?.error ?? "")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to Currency",comment: ""))
             }
         })
     }
 }
+

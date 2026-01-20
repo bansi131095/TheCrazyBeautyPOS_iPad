@@ -69,19 +69,19 @@ class Appointment_DetailsVC: UIViewController {
         self.lbl_Status.text = model?.booking_status.capitalized
         
         if model?.coupon_code == ""{
-            self.lbl_CouponCode.text = "N/A"
+            self.lbl_CouponCode.text = "-"
         }else{
             self.lbl_CouponCode.text = model?.coupon_code
         }
         
         if model?.miscellaneous_notes == ""{
-            self.lbl_MiscellaneousNote.text = "N/A"
+            self.lbl_MiscellaneousNote.text = "-"
         }else{
             self.lbl_MiscellaneousNote.text = model?.miscellaneous_notes
         }
         
         if model?.payment_type == ""{
-            self.lbl_Payment.text = "N/A"
+            self.lbl_Payment.text = "-"
         }else{
             self.lbl_Payment.text = model?.payment_type.capitalized
         }

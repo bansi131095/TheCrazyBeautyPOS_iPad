@@ -19,7 +19,8 @@ class Team_LoginVC: UIViewController {
     @IBOutlet weak var btn_Save: GradientButton!
     @IBOutlet weak var btn_LoginasStaff: GradientButton!
     
-    
+    @IBOutlet weak var lbl_AllField: UILabel!
+
     //MARK: - Global Variable
     var TeamLogin: [KioskDetailsModel] = []
     
@@ -44,6 +45,7 @@ class Team_LoginVC: UIViewController {
         )
         btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         btn_LoginasStaff.setAttributedTitle(LogattributedTitle, for: .normal)
+        self.lbl_AllField.text = NSLocalizedString("All fields marked with an asterisk (*) are required.", comment: "")
         setCustomFont()
         self.btn_eye.setImage(#imageLiteral(resourceName: "view"), for: .normal)
         self.txt_Password.isSecureTextEntry = true
@@ -65,15 +67,15 @@ class Team_LoginVC: UIViewController {
     
     @IBAction func btn_Save(_ sender: Any) {
         if (self.txt_Name.text == ""){
-            alertWithImage(title: "Team Login", Msg: "Name is Required.")
+            alertWithImage(title: NSLocalizedString("Team Login",comment: ""), Msg: NSLocalizedString("Name is Required.",comment: ""))
         }else if (self.txt_Email.text == "") {
-            alertWithImage(title: "Team Login", Msg: "Please enter email")
+            alertWithImage(title: NSLocalizedString("Team Login",comment: ""), Msg: NSLocalizedString("Please enter email",comment: ""))
         } else if !self.txt_Email.text!.isValidEmail() {
-            alertWithImage(title: "Team Login", Msg: "Please enter valid email id.")
+            alertWithImage(title: NSLocalizedString("Team Login",comment: ""), Msg: NSLocalizedString("Please enter valid email id.",comment: ""))
         } else if (self.txt_Password.text == "") {
-            alertWithImage(title: "Team Login", Msg: "Please enter password.")
+            alertWithImage(title: NSLocalizedString("Team Login",comment: ""), Msg: NSLocalizedString("Please enter password",comment: ""))
         }else if !self.txt_Password.text!.isValidPassword(){
-            alertWithImage(title: "Team Login", Msg: "Password must contain at least one uppercase letter, one lowercase letter, one special letter and one number, and be at least 8 characters long")
+            alertWithImage(title: NSLocalizedString("Team Login",comment: ""), Msg: NSLocalizedString("Password must contain at least one uppercase letter, one lowercase letter, one special letter and one number, and be at least 8 characters long",comment: ""))
         }else{
             update_Subvendor()
         }
@@ -106,7 +108,7 @@ class Team_LoginVC: UIViewController {
                 self.txt_Name.text = self.TeamLogin.first?.name
                 self.txt_Email.text = self.TeamLogin.first?.email
             }else{
-                self.alertWithMessageOnly(result?.error ?? "")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to get pos id",comment: ""))
             }
         }
     }
@@ -117,9 +119,9 @@ class Team_LoginVC: UIViewController {
             self.hideLoader()
             if result?.data != nil {
                 self.txt_Password.text = ""
-                self.alertWithMessageOnly(result?.data ?? "")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to insert sub vendor",comment: ""))
             }else{
-                self.alertWithMessageOnly(result?.error ?? "")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to update sub vendor data",comment: ""))
             }
         }
     }

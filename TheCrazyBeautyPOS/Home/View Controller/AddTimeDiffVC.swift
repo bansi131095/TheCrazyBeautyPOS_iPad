@@ -29,7 +29,7 @@ class AddTimeDiffVC: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        lbl_title.text = "Time Off For \(TeamName)"
+        lbl_title.text = NSLocalizedString("Time Off For",comment: "") +  " \(TeamName)"
         txt_from.delegate = self
         txt_to.delegate = self
         self.setTableView()
@@ -144,13 +144,15 @@ class AddTimeDiffVC: UIViewController {
                 }
                 self.hideLoader()
                 if model.error == "" || model.error == nil {
-                    self.showToast(message: model.data)
-            
+//                    self.showToast(message: model.data)
+                    self.showToast(message: NSLocalizedString("Staff holidays updated successfully",comment: ""))
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         self.dismiss(animated: true)
                     }
                 } else {
-                    self.show_alert(msg: model.error ?? "", title: "Update Staff")
+//                    self.show_alert(msg: model.error ?? "", title: "Update Staff")
+                    self.showToast(message: NSLocalizedString("Failed to update staff holidays",comment: ""))
+                    
                 }
             }
         }

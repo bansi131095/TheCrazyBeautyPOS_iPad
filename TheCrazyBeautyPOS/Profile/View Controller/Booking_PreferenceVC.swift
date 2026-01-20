@@ -64,9 +64,9 @@ class Booking_PreferenceVC: UIViewController {
         APIService.shared.UpdateBookingFlow(booking_flow: booking_Flow, vendorId: LocalData.userId, completion: { result in
             self.hideLoader()
             if let message = result?.data{
-                self.alertWithMessageOnly(message)
+                self.alertWithMessageOnly(NSLocalizedString("Booking flow updated successfully",comment: ""))
             }else{
-                self.alertWithMessageOnly("Something went wrong.")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to update booking flow",comment: ""))
             }
         })
     }

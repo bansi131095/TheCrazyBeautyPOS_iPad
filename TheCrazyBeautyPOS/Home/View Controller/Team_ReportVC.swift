@@ -370,7 +370,7 @@ extension Team_ReportVC: ReportDownloadable {
         staff_id: staff_id) { model in
             self.hideLoader()
             guard let filename = model?.filename else {
-                self.alertWithMessageOnly("Download failed")
+                self.alertWithMessageOnly(NSLocalizedString("Download failed",comment: ""))
                 return
             }
 

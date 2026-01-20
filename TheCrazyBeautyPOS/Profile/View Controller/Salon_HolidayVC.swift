@@ -43,12 +43,40 @@ class Salon_HolidayVC: UIViewController {
     }
     
     @IBAction func act_save(_ sender: GradientButton) {
-        guard let from = txt_from.text, !from.isEmpty,
+        /*guard let from = txt_from.text, !from.isEmpty,
               let to = txt_to.text, !to.isEmpty else {
             print("❌ From or To date is missing")
             return
         }
-        self.updateHolidaysDate()
+        self.updateHolidaysDate()*/
+        
+        if txt_from.text == nil || txt_from.text!.isEmpty {
+            alertWithMessageOnly(NSLocalizedString("Please select From date", comment: ""))
+            return
+        }
+
+        if txt_to.text == nil || txt_to.text!.isEmpty {
+            alertWithMessageOnly(NSLocalizedString("Please select To date", comment: ""))
+            return
+        }
+
+       let formatter = DateFormatter()
+       formatter.dateFormat = "dd-MM-yyyy"
+
+       let fromDate = formatter.date(from: txt_from.text!)
+       let toDate = formatter.date(from: txt_to.text!)
+
+       if fromDate == nil || toDate == nil {
+           alertWithMessageOnly(NSLocalizedString("Invalid date", comment: ""))
+           return
+       }
+
+       if fromDate! > toDate! {
+           alertWithMessageOnly(NSLocalizedString("From date should not be greater than To date", comment: ""))
+           return
+       }
+        
+       updateHolidaysDate()
     }
     
     func setCustomFont() {
@@ -134,12 +162,12 @@ class Salon_HolidayVC: UIViewController {
         APIService.shared.updateSalonHolidays(vendorID: LocalData.userId, holidays: allDates) { success in
             self.hideLoader()
             if success {
-                self.alertWithMessageOnly("Salon holidays updated successfully")
+                self.alertWithMessageOnly(NSLocalizedString("Salon holidays updated successfully",comment: ""))
                 self.txt_from.text = ""
                 self.txt_to.text = ""
                 self.fetchHolidays()
             } else {
-                self.alertWithMessageOnly("Something Want Wrong")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to update salon holidays",comment: ""))
             }
         }
     }

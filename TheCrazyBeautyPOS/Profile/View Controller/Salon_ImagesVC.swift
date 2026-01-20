@@ -142,9 +142,11 @@ class Salon_ImagesVC: UIViewController {
             self.present(myPickerController, animated: true, completion: nil)
         } else {
             if UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiom.pad {
-                self.showAlertToast(message: "You can not open camera in simulator.")
+//                self.showAlertToast(message: "You can not open camera in simulator")
+                self.showAlertToast(message: NSLocalizedString("You can not open camera in simulator", comment: ""))
             } else {
-                self.showAlertToast(message: "You can not open camera in simulator.")
+//                self.showAlertToast(message: "You can not open camera in simulator")
+                self.showAlertToast(message: NSLocalizedString("You can not open camera in simulator", comment: ""))
             }
         }
     }
@@ -287,7 +289,7 @@ class Salon_ImagesVC: UIViewController {
     func upload_Image() {
         // 1. Separate profile image (from imageView)
         guard let profileImage = img_Profile.image, !isProfileImageRemoved else {
-            self.alertWithMessageOnly("Profile image not set.")
+            self.alertWithMessageOnly(NSLocalizedString("Profile image not set",comment: ""))
             return
         }
 
@@ -306,10 +308,10 @@ class Salon_ImagesVC: UIViewController {
             self.hideLoader()
             if let result = response {
                 print("✅ Upload complete: \(result)")
-                self.alertWithMessageOnly("Images uploaded successfully.")
+                self.alertWithMessageOnly(NSLocalizedString("Images uploaded successfully",comment: ""))
             } else {
                 print("❌ Upload failed or response error")
-                self.alertWithMessageOnly("Upload failed. Try again.")
+                self.alertWithMessageOnly(NSLocalizedString("Upload failed. Try again.", comment: ""))
             }
         }
     }

@@ -135,7 +135,7 @@ class WalkinCheckoutVC: UIViewController {
         if self.btn_apply.currentTitle == "Apply" {
             if txt_couponCode.text!.isEmpty {
 //                self.showAlertToast(message: "Please enter coupon code")
-                self.show_alert(msg: "Please enter coupon code", title: "")
+                self.show_alert(msg: NSLocalizedString("Please enter coupon code", comment: ""), title: "")
             } else {
                 self.checkCouponCode()
             }
@@ -274,8 +274,8 @@ class WalkinCheckoutVC: UIViewController {
                                             self.grandTotal = 0*/
                                             
                                             DispatchQueue.main.async {        // ✅ make sure UI updates on main thread
-                                                    self.show_alert(msg: model.data?.message ?? "", title: "")
-
+//                                                    self.show_alert(msg: model.data?.message ?? "", title: "")
+                                                self.show_alert(msg: NSLocalizedString("Coupon applied successfully",comment: "",), title: "")
                                                     self.discount     = self.price
                                                     self.discountVal  = self.price
                                                     self.grandTotal   = 0    // 🔥 correct value
@@ -318,7 +318,8 @@ class WalkinCheckoutVC: UIViewController {
                                 self.vw_payment1.isHidden = self.discount == 0
                             }
                         } else {
-                            self.show_alert(msg: model.error ?? "", title: "")
+                            self.show_alert(msg: NSLocalizedString("Failed to apply coupon",comment: "",), title: "")
+//                            self.show_alert(msg: model.error ?? "", title: "")
                         }
                     }
                 } else if checkCouponData?.is_gift == 1 {
@@ -331,7 +332,8 @@ class WalkinCheckoutVC: UIViewController {
                             // Assume you already parsed this using ObjectMapper:
                             if let giftCard = model.data?.results.first,
                                Double(giftCard.price) < self.price {
-                                self.show_alert(msg: data?.message ?? "", title: "")
+//                                self.show_alert(msg: data?.message ?? "", title: "")
+                                self.show_alert(msg: NSLocalizedString("Gift card applied successfully",comment: "",), title: "")
                                 self.btn_apply.setTitle("Remove", for: .normal)
                                 self.discount = Double(giftCard.price)
                                 self.grandTotal = self.price - self.discount
@@ -346,11 +348,13 @@ class WalkinCheckoutVC: UIViewController {
 //                                self.vw_payment1.isHidden = self.discount == 0
                             }
                         } else {
-                            self.show_alert(msg: model.error ?? "", title: "")
+//                            self.show_alert(msg: model.error ?? "", title: "")
+                            self.show_alert(msg: NSLocalizedString("Invalid gift card code",comment: "",), title: "")
                         }
                     }
                 }else if checkCouponData?.is_gift == 0 || checkCouponData?.is_coupon == 0 {
-                    self.show_alert(msg: "Invaild Coupon Code", title: "")
+//                    self.show_alert(msg: "Invaild Coupon Code", title: "")
+                    self.show_alert(msg: NSLocalizedString("Invalid gift card code",comment: "",), title: "")
                 }
 //            } else {
                 
@@ -412,7 +416,8 @@ class WalkinCheckoutVC: UIViewController {
                         }
                     }
                 } else {
-                    self.show_alert(msg: model.error!, title: "Add Cart Details")
+                    self.show_alert(msg: NSLocalizedString("Failed to add cart details",comment: "",), title: "")
+//                    self.show_alert(msg: model.error!, title: "Add Cart Details")
                 }
             }
         }

@@ -118,13 +118,15 @@ class AddOfflineGiftCard_VC: UIViewController {
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
                     // safe UI code here
-                    self.showToast(message: model.data?.message ?? "")
+//                    self.showToast(message: model.data?.message ?? "")
+                    self.showToast(message: NSLocalizedString("Offline gift added successfully",comment: ""))
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 }
             } else {
-                self.show_alert(msg: model.error, title: "")
+                self.showToast(message: NSLocalizedString("Internal server error",comment: ""))
+//                self.show_alert(msg: model.error, title: "")
             }
             
         }

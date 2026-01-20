@@ -138,7 +138,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
 //        Secondheight.constant = 110
         vw_Client.constant = 950
         apiPastBookingList(is_past: "1", search: "")
-        lbl_Title.text = "Client Past Bookings"
+        lbl_Title.text = NSLocalizedString("Client Past Bookings",comment: "")
         lbl_PastBooking.textColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         lbl_FutureBooking.textColor = .black
         
@@ -152,7 +152,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
 //        Secondheight.constant = 0
         vw_Client.constant = 750
         apifutureBookingsList(is_past: "0", search: "")
-        lbl_Title.text = "Client Future Bookings"
+        lbl_Title.text = NSLocalizedString("Client Future Bookings",comment: "")
         lbl_FutureBooking.textColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         lbl_PastBooking.textColor = .black
         
@@ -175,7 +175,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     
     @IBAction func btn_Staff(_ sender: Any) {
         if staffList.count == 0 {
-            self.showToast(message: "No Staff List")
+            self.showToast(message: NSLocalizedString("No Staff List",comment: ""))
         }else{
             self.tbl_Rebook.isHidden = false
             self.tbl_Rebook.reloadData()
@@ -185,7 +185,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     
     @IBAction func btn_BookingAppointment(_ sender: Any) {
         if selectedTimeIndex == nil{
-            self.showToast(message: "Please select any Time")
+            self.showToast(message: NSLocalizedString("Please select any Time",comment: ""))
         }else{
             let staffBookingArray: [[String: Any]] = [
                 [
@@ -233,14 +233,14 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             .responseJSON { response in
                 switch response.result {
                 case .success(let value):
-                    self.alertWithMessageOnly("Appointment rebooked successfully")
+                    self.alertWithMessageOnly(NSLocalizedString("Appointment rebooked successfully",comment:""))
                     self.vw_TitleRebook.isHidden = true
                     self.vw_MainPopup.isHidden = true
                     self.txt_Staff.text = ""
                     self.selectedTimeIndex = nil
                     self.vw_HeightRebook.constant = 160
                 case .failure(let error):
-                    self.alertWithMessageOnly("Something went wrong")
+                    self.alertWithMessageOnly(NSLocalizedString("Something Want Wrong",comment: ""))
                 }
             }
         }
@@ -286,9 +286,9 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newWorkItem) */
         
         let searchText = textField.text ?? ""
-        if self.lbl_Title.text == "Client Past Bookings" {
+        if self.lbl_Title.text == NSLocalizedString("Client Past Bookings",comment:"") {
             self.apiPastBookingList(is_past: "1", search: searchText)
-        } else if self.lbl_Title.text == "Client Future Bookings" {
+        } else if self.lbl_Title.text == NSLocalizedString("Client Future Bookings",comment:"") {
             self.apifutureBookingsList(is_past: "0", search: searchText)
         }
     }
@@ -320,7 +320,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             if newItems.isEmpty{
                 self.tbl_vw.isHidden = true
                 self.tbl_vw2.isHidden = true
-                self.showNoDataMessage("No Bookings Found!", in: self.view)
+                self.showNoDataMessage(NSLocalizedString("No Bookings Found!",comment: ""), in: self.view)
             }else{
                 self.pastBookingsArray = newItems
                 self.tbl_vw.isHidden = false
@@ -338,22 +338,22 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
                 return
             }
             
-            self.lbl_TotalBookings.text = "Bookings : " + String(model.data?.total_bookings ?? Int(0.0))
-            self.lbl_CalendarTotal.text = "Bookings : " + String(model.data?.complete_total ?? 0)
+            self.lbl_TotalBookings.text = NSLocalizedString("Bookings : ", comment: "") + String(model.data?.total_bookings ?? Int(0.0))
+            self.lbl_CalendarTotal.text = NSLocalizedString("Bookings : ", comment: "") + String(model.data?.complete_total ?? 0)
 //            self.lbl_CalendarTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(Double(model.data?.complete_total_amount ?? 0.0))
             
-            self.lbl_NoShowBooking.text = "Bookings : " + String(model.data?.noshow_total ?? Int(0.0))
+            self.lbl_NoShowBooking.text = NSLocalizedString("Bookings : ", comment: "") + String(model.data?.noshow_total ?? Int(0.0))
 //            self.lbl_NoShowTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(Double(model.data?.noshow_total_amount ?? Int(0.0)))
-            self.lbl_CancelTotal.text = "Bookings : " + String(model.data?.cancel_total ?? Int(0.0))
+            self.lbl_CancelTotal.text = NSLocalizedString("Bookings : ", comment: "") + String(model.data?.cancel_total ?? Int(0.0))
 //            self.lbl_CancelTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(Double(model.data?.cancel_total_amount ?? Int(0.0)))
             
             
             
-            self.lbl_CalendarTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" +
+            self.lbl_CalendarTotalAmount.text = NSLocalizedString("Amount", comment: "") + "\(SharedPrefs.getSymbol())" +
             String(format: "%.2f", model.data?.complete_total_amount ?? Int(0.0))
-            self.lbl_CancelTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" +
+            self.lbl_CancelTotalAmount.text = NSLocalizedString("Amount", comment: "") + "\(SharedPrefs.getSymbol())" +
             String(format: "%.2f", model.data?.cancel_total_amount ?? Int(0.0))
-            self.lbl_NoShowTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" +
+            self.lbl_NoShowTotalAmount.text = NSLocalizedString("Amount", comment: "") + "\(SharedPrefs.getSymbol())" +
             String(format: "%.2f", model.data?.noshow_total_amount ?? Int(0.0))
 
         }
@@ -370,7 +370,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             if newItems.isEmpty{
                 self.tbl_vw.isHidden = true
                 self.tbl_vw2.isHidden = true
-                self.showNoDataMessage("No Bookings Found!", in: self.view)
+                self.showNoDataMessage(NSLocalizedString("No Bookings Found!",comment: ""), in: self.view)
             }else{
                 self.futureBookingsArray = newItems
                 self.tbl_vw.isHidden = true
@@ -658,30 +658,30 @@ extension BookingList_VC : UITableViewDelegate,UITableViewDataSource{
             cell.lbl_ServiceName.text = data.service_name?.capitalized ?? ""
             cell.lbl_SubTotal.text = "\(LocalData.symbol)\(Double(data.sub_total))"
             if data.discount_amount == "0.00"{
-                cell.lbl_Discount.text = "N/A"
+                cell.lbl_Discount.text = "-"
             }else{
                 cell.lbl_Discount.text = data.discount_amount ?? ""
             }
             
             if data.miscellaneous_notes == ""{
-                cell.lbl_MiscNotes.text = "N/A"
+                cell.lbl_MiscNotes.text = "-"
             }else{
                 cell.lbl_MiscNotes.text = data.miscellaneous_notes ?? ""
             }
             
             if data.miscellaneous_price == "0.00"{
-                cell.lbl_MiscPrice.text = "N/A"
+                cell.lbl_MiscPrice.text = "-"
             }else{
                 cell.lbl_MiscPrice.text = data.miscellaneous_price ?? ""
             }
             
             if data.tip == "0.00"{
-                cell.lbl_Tip.text = "N/A"
+                cell.lbl_Tip.text = "-"
             }else{
                 cell.lbl_Tip.text = data.tip ?? ""
             }
             if data.payment_type == ""{
-                cell.lbl_PaymentType.text = "N/A"
+                cell.lbl_PaymentType.text = "-"
             }else{
                 cell.lbl_PaymentType.text = data.payment_type?.capitalized ?? ""
             }
@@ -713,30 +713,30 @@ extension BookingList_VC : UITableViewDelegate,UITableViewDataSource{
             cell.lbl_ServiceName.text = data.service_name?.capitalized ?? ""
             cell.lbl_SubTotal.text = "\(LocalData.symbol)\(Double(data.sub_total))"
             if data.discount_amount == "0.00"{
-                cell.lbl_Discount.text = "N/A"
+                cell.lbl_Discount.text = "-"
             }else{
                 cell.lbl_Discount.text = data.discount_amount ?? ""
             }
             
             if data.miscellaneous_notes == ""{
-                cell.lbl_MiscNotes.text = "N/A"
+                cell.lbl_MiscNotes.text = "-"
             }else{
                 cell.lbl_MiscNotes.text = data.miscellaneous_notes ?? ""
             }
             
             if data.miscellaneous_price == "0.00"{
-                cell.lbl_MiscPrice.text = "N/A"
+                cell.lbl_MiscPrice.text = "-"
             }else{
                 cell.lbl_MiscPrice.text = data.miscellaneous_price ?? ""
             }
             
             if data.tip == "0.00"{
-                cell.lbl_Tip.text = "N/A"
+                cell.lbl_Tip.text = "-"
             }else{
                 cell.lbl_Tip.text = data.tip ?? ""
             }
             if data.payment_type == ""{
-                cell.lbl_PaymentType.text = "N/A"
+                cell.lbl_PaymentType.text = "-"
             }else{
                 cell.lbl_PaymentType.text = data.payment_type?.capitalized ?? ""
             }

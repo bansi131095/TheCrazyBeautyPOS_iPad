@@ -132,12 +132,12 @@ class Custom_HoursVC: UIViewController {
     //MARK: -  Button Action
     @IBAction func btn_Add(_ sender: Any) {
         guard let selectedDate = txt_Date.text, !selectedDate.isEmpty else {
-            self.alertWithMessageOnly("Please Select Date.")
+            self.alertWithMessageOnly(NSLocalizedString("Please Select Date.",comment: ""))
             return
         }
 
         if SalonTiming.contains(where: { $0.date == selectedDate }) {
-            self.alertWithMessageOnly("This date already exists.")
+            self.alertWithMessageOnly(NSLocalizedString("This date already exists.",comment: ""))
             return
         }
         
@@ -204,9 +204,9 @@ class Custom_HoursVC: UIViewController {
                 delete_timing: deleteString) { result in
                 
                 if let success = result?.data {
-                    self.alertWithMessageOnly(success)
+                    self.alertWithMessageOnly(NSLocalizedString("Salon timings updated successfully",comment: ""))
                 } else {
-                    self.alertWithMessageOnly(result?.error ?? "Something went wrong")
+                    self.alertWithMessageOnly(NSLocalizedString("Failed to add salon timing",comment: ""))
                 }
             }
         

@@ -84,6 +84,8 @@ class UpcomingAppointmentsVC: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleDropdown))
         txt_days.addGestureRecognizer(tapGesture)
         txt_days.isUserInteractionEnabled = true
+        txt_days.text = daysOptions[0]   // Next 7 Days
+        selectedDays = daysValues[0]
     }
     
     func setupDropdownTable() {
@@ -134,6 +136,7 @@ class UpcomingAppointmentsVC: UIViewController {
             let newItems = model.data ?? []
             self.totalCount = model.total ?? 0 // Make sure this field exists in your response model
             self.lbl_total.text = "\(self.totalCount)"
+            
             if newItems.isEmpty || self.upcomingList.count + newItems.count >= self.totalCount {
                 self.hasMoreData = false
             }
@@ -218,10 +221,10 @@ class UpcomingAppointmentsVC: UIViewController {
 
             // ✅ Assign values properly (assuming all are strings)
             
-            self.lbl_TotalBookings.text = NSLocalizedString("Bookings", comment: "") + String(data.total_bookings)
-            self.lbl_CalendarTotal.text = NSLocalizedString("Bookings", comment: "") + String(data.calendar_total)
+            self.lbl_TotalBookings.text = NSLocalizedString("Bookings : ", comment: "") + String(data.total_bookings)
+            self.lbl_CalendarTotal.text = NSLocalizedString("Bookings : ", comment: "") + String(data.calendar_total)
 //            self.lbl_CalendarTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(Double(data.calendar_total_amount))
-            self.lbl_WalkinTotal.text = NSLocalizedString("Bookings", comment: "") + String(data.walkin_total)
+            self.lbl_WalkinTotal.text = NSLocalizedString("Bookings : ", comment: "") + String(data.walkin_total)
 //            self.lbl_WalkinTotalAmount.text = "Amount : " + "\(SharedPrefs.getSymbol())" + String(Double(data.walkin_total_amount))
 //            self.lbl_TotalCard.text = "Card : " + "\(SharedPrefs.getSymbol())" + String(Double(data.total_card))
 //            self.lbl_TotalCash.text = "Cash : " + "\(SharedPrefs.getSymbol())" + String(Double(data.total_cash))
@@ -285,7 +288,7 @@ class UpcomingAppointmentsVC: UIViewController {
         // Calendar appearance
         calendar.appearance.titleDefaultColor = .black
         calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
-        calendar.appearance.todayColor = #colorLiteral(red: 0.7529411765, green: 0.7529411765, blue: 0.7529411765, alpha: 1)
+        calendar.appearance.todayColor = #colorLiteral(red: 1, green: 0.2941176471, blue: 0.3333333333, alpha: 1)
         
         // Add calendar inside the popup view
         calendarVC?.view.addSubview(calendar)
@@ -346,9 +349,16 @@ extension UpcomingAppointmentsVC: UITableViewDelegate, UITableViewDataSource, UI
             if let price = upcoming.grandTotal, price != "" {
                 cell.lbl_amount.text = "\(LocalData.symbol)\(price)"
             }
-            if let type = upcoming.customerType, type != "" {
+            /*if let type = upcoming.customerType, type != "" {
                 cell.lbl_Type.text = type.capitalized
+            }*/
+            
+            if upcoming.customerType?.capitalized == "Guest"{
+                cell.lbl_Type.text = NSLocalizedString("Guest", comment: "")
+            }else if upcoming.customerType?.capitalized == "Customer"{
+                cell.lbl_Type.text = NSLocalizedString("Customer", comment: "")
             }
+            
             cell.Act_Info = {
                 let popup = self.storyboard?.instantiateViewController(withIdentifier: "BookingDetailsPopupVC") as! BookingDetailsPopupVC
                 popup.modalPresentationStyle = .overCurrentContext
@@ -411,6 +421,7 @@ extension UpcomingAppointmentsVC: FSCalendarDelegate, FSCalendarDataSource, UIPo
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         selectedDate = date
         txt_Date.text = formattedDate(date)
+        todayBookings()
         calendarVC?.dismiss(animated: true, completion: nil)
         print("Selected Date:", formattedDateDDMMYYYY(date))
         print("Selected Date:", formattedDateDDMMYYYY(selectedDate))

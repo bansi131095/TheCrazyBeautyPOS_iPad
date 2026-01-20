@@ -15,6 +15,8 @@ protocol WalkingDelegate_ONE {
 class WalkinCheckoutVC_ONE: UIViewController {
 
     @IBOutlet weak var vw_Main: UIView!
+    @IBOutlet weak var lbl_MakePayment: UILabel!
+    
     @IBOutlet weak var txt_paymentType: TextInputLayout!
     @IBOutlet weak var txt_couponCode: TextInputLayout!
     @IBOutlet weak var txt_miscServiPrice: TextInputLayout!
@@ -39,6 +41,15 @@ class WalkinCheckoutVC_ONE: UIViewController {
     @IBOutlet weak var btn_Save: GradientButton!
     @IBOutlet weak var vw_Remaining: UIView!
     @IBOutlet weak var lbl_Remaining: UILabel!
+    
+    
+    @IBOutlet weak var lbl_Service: UILabel!
+    @IBOutlet weak var lblL_GiftCard: UILabel!
+    @IBOutlet weak var lblL_Total: UILabel!
+    @IBOutlet weak var lbl_LDiscount: UILabel!
+    @IBOutlet weak var lbl_LGrandTotal: UILabel!
+    
+    
     var delegate: WalkingDelegate_ONE?
     
     var isButtonDisabled: Bool = true
@@ -68,6 +79,12 @@ class WalkinCheckoutVC_ONE: UIViewController {
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.lbl_MakePayment.text = NSLocalizedString("Make Payment", comment: "")
+        self.lbl_Service.text = NSLocalizedString("Services", comment: "")
+        self.lblL_GiftCard.text = NSLocalizedString("Gift Card", comment: "")
+        self.lblL_Total.text = NSLocalizedString("Total", comment: "")
+        self.lbl_LDiscount.text = NSLocalizedString("Discount", comment: "")
+        self.lbl_LGrandTotal.text = NSLocalizedString("Grand Total", comment: "")
         self.widgetPrice = self.price
         self.grandTotal  = self.price
 
@@ -94,7 +111,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
     var paymentTypeSelectedFirst = ""
     
     //MARK: Dropdown
-    func setupDropdowns() {
+    /*func setupDropdowns() {
         var paymentOptions: [String] = []
         if totalGiftCard == 0 {
             paymentOptions = ["Cash", "Card", "Giftcard / Voucher"]
@@ -159,7 +176,80 @@ class WalkinCheckoutVC_ONE: UIViewController {
             self.isButtonDisabled = false
 //            btn_Save.alpha = 0.5
         }
+    }*/
+    
+    func setupDropdowns() {
+
+        // 🔹 API values (example)
+        var apiPaymentTypes: [String] = []
+
+        if totalGiftCard == 0 {
+            apiPaymentTypes = ["cash", "card", "giftcard"]
+        } else {
+            apiPaymentTypes = ["cash", "card"]
+        }
+
+        // 🔹 Convert API → Localized titles
+        let paymentOptions = apiPaymentTypes.map {
+            paymentTitle(from: $0)
+        }
+
+        DropdownManager.shared.setupDropdown(
+            for: self.txt_paymentType,
+            in: self.view,
+            with: paymentOptions
+        ) { [weak self] selected in
+            guard let self = self else { return }
+
+            self.txt_paymentType.setText(selected)
+            paymentTypeSelectedFirst = selected
+
+            let giftcardText = paymentTitle(from: "giftcard")
+
+            if totalGiftCard == 0 && selected == giftcardText {
+
+                self.vw_coupon.isHidden = false
+                self.isButtonDisabled = true
+                self.txt_couponCode.text = ""
+                self.txt_couponCode.isEnabled = true
+                self.txt_couponCode.backgroundColor = .white
+                self.txt_couponCode.textColor = .black
+                self.btn_apply.setTitle("Apply".localized, for: .normal)
+
+            } else {
+
+                self.vw_coupon.isHidden = true
+                self.isButtonDisabled = false
+                self.vw_service.isHidden = totalServices == 0
+                self.vw_giftcard.isHidden = totalGiftCard == 0
+                self.vw_total.isHidden = price == 0
+                self.vw_discount.isHidden = true
+                self.vw_grandTotal.isHidden = true
+
+                self.txt_couponCode.text = ""
+                self.discountVal = 0
+                self.discountType = ""
+                self.upto = 0
+                self.recalcTotals()
+            }
+        }
+
+        // 🔹 Second dropdown (Cash / Card only)
+        let apiPaymentOptions1 = ["cash", "card"]
+        let paymentOptions1 = apiPaymentOptions1.map {
+            paymentTitle(from: $0)
+        }
+
+        DropdownManager.shared.setupDropdown(
+            for: self.txt_payment1,
+            in: self.view,
+            with: paymentOptions1
+        ) { [weak self] selected in
+            self?.txt_payment1.setText(selected)
+            self?.isButtonDisabled = false
+        }
     }
+
     
     //MARK: Button Action
     @IBAction func act_close(_ sender: UIButton) {
@@ -182,7 +272,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
             
             if txt_couponCode.text!.isEmpty {
 //                self.showAlertToast(message: "Please enter coupon code")
-                self.show_alert(msg: "Please enter coupon code", title: "")
+                self.show_alert(msg: NSLocalizedString("Please enter coupon code", comment: ""), title: "")
             } else {
                 self.checkCouponCode()
             }
@@ -311,7 +401,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                         if model.error == "" || model.error == nil {
                             if let coupon = data?.results.first {
                                 self.isGiftCard = 0;
-                                self.show_alert(msg: model.data?.message ?? "", title: "")
+                                self.show_alert(msg: NSLocalizedString("Coupon applied successfully", comment: ""), title: "")
                                 let amount = Double(coupon.amount)
                                 let type   = coupon.discount_type
                                 let upto   = Double(coupon.highest_amount)
@@ -350,11 +440,13 @@ class WalkinCheckoutVC_ONE: UIViewController {
                                 DispatchQueue.main.async { self.recalcTotals() }
                             }
                         } else {
-                            self.show_alert(msg: model.error ?? "", title: "")
+//                            self.show_alert(msg: model.error ?? "", title: "")
+                            self.show_alert(msg: NSLocalizedString("Invalid gift card code",comment: "",), title: "")
                         }
                     }
                 } else {
-                    self.show_alert(msg: "Invalid Coupon Code", title: "")
+//                    self.show_alert(msg: "Invalid Coupon Code", title: "")
+                    self.show_alert(msg: NSLocalizedString("Invalid gift card code",comment: "",), title: "")
                 }
             }
         }
@@ -762,3 +854,22 @@ class WalkinCheckoutVC_ONE: UIViewController {
 
 }
 
+
+enum PaymentType: String {
+    case cash = "cash"
+    case card = "card"
+    case giftcard = "giftcard"
+}
+
+func paymentTitle(from apiValue: String) -> String {
+    switch apiValue {
+    case PaymentType.cash.rawValue:
+        return "Cash1".localized
+    case PaymentType.card.rawValue:
+        return "Card1".localized
+    case PaymentType.giftcard.rawValue:
+        return "Gift Card / Voucher".localized
+    default:
+        return apiValue
+    }
+}

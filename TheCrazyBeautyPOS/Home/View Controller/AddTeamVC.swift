@@ -8,6 +8,7 @@
 import UIKit
 import CountryPickerViewSwift
 import FSCalendar
+import DropDown
 
 class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     
@@ -36,7 +37,16 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     
     let dropdownView = UITableView()
     let datePicker = UIDatePicker()
-//    let genderOptions = ["Male", "Female", "Rather not to say"]
+    /*let genderOptions = ["Male", "Female", "Rather not to say"]
+    var genderOptions: [String] {
+        return [
+            NSLocalizedString("Male", comment: ""),
+            NSLocalizedString("Female", comment: ""),
+            NSLocalizedString("Rather not to say", comment: "")
+        ]
+    }*/
+    
+    
     var genderOptions: [String] {
         return [
             NSLocalizedString("Male", comment: ""),
@@ -44,6 +54,9 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
             NSLocalizedString("Rather not to say", comment: "")
         ]
     }
+    var OptionsType = ["Male","Female","Rather not to say"]
+    var selectedOption = "Male"
+    
     var selected = ""
     var isDropdownVisible = false
     var selectedCountrycode = "+353"
@@ -220,8 +233,21 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
             } else {
                 selectedDate = Date.now
             }
-            if let gender = dict.gender, !gender.isEmpty && gender != "null" {
+            /*if let gender = dict.gender, !gender.isEmpty && gender != "null" {
                 self.genderTextField.setText(genderOptions[genderOptions.firstIndex(of: gender)!])
+            }*/
+            
+            if dict.gender == "Male"{
+                selectedOption = "Male"
+                self.genderTextField.text = NSLocalizedString("Male", comment: "")
+            }else if dict.gender == "Female"{
+                selectedOption = "Female"
+                self.genderTextField.text = NSLocalizedString("Female", comment: "")
+            }else if dict.gender == "Rather not to say"{
+                selectedOption = "Rather not to say"
+                self.genderTextField.text = NSLocalizedString("Rather not to say", comment: "")
+            }else{
+                self.genderTextField.text = ""
             }
             print("checkGender:- \(dict.gender ?? "")")
             self.workingHoursJson = dict.workingHours ?? ""
@@ -301,6 +327,11 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     
     @IBAction func act_uploadImage(_ sender: UIButton) {
         showImagePickerActionSheet(sourceView: sender)
+    }
+    
+    
+    @IBAction func btn_GenderText(_ sender: Any) {
+        openSalonType()
     }
     
     @IBAction func act_editSchedule(_ sender: UIButton) {
@@ -398,7 +429,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         let mobileNo = "\(selectedCountrycode)-\(self.mobileTextField.text ?? "")"
         self.showLoader()
         if self.selectedImage != nil {
-            APIService.shared.addTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: self.btn_visibility.currentImage == UIImage(named: "rdCheck") ? "1" : "0", showInCalendar: "1", serviceIds: self.serviceIds, workingHours: self.workingHoursJson, shiftTimings: self.shiftTimingJson, image: self.selectedImage, imageKey: "file") { response in
+            APIService.shared.addTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: selectedOption, dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: self.btn_visibility.currentImage == UIImage(named: "rdCheck") ? "1" : "0", showInCalendar: "1", serviceIds: self.serviceIds, workingHours: self.workingHoursJson, shiftTimings: self.shiftTimingJson, image: self.selectedImage, imageKey: "file") { response in
                  self.hideLoader()
                  if response != nil {
                     DispatchQueue.main.async {
@@ -409,13 +440,12 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
                         self.navigationController?.popViewController(animated: true)
                     }
                 } else {
-                    let errorMessage = response?.error ?? "Something went wrong"
-                    self.show_alert(msg: errorMessage, title: "Add Team")
+                    self.showToast(message: NSLocalizedString("Failed to team member",comment: ""))
                 }
             }
          } else {
              showLoader()
-             APIService.shared.addTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: self.btn_visibility.currentImage == UIImage(named: "rdCheck") ? "1" : "0", showInCalendar: "1", serviceIds: self.serviceIds, workingHours: self.workingHoursJson, shiftTimings: self.shiftTimingJson, image: nil, imageKey: "file") { response in
+             APIService.shared.addTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: selectedOption, dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: self.btn_visibility.currentImage == UIImage(named: "rdCheck") ? "1" : "0", showInCalendar: "1", serviceIds: self.serviceIds, workingHours: self.workingHoursJson, shiftTimings: self.shiftTimingJson, image: nil, imageKey: "file") { response in
                  self.hideLoader()
                  if response != nil {
                     DispatchQueue.main.async {
@@ -426,8 +456,9 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
                         self.navigationController?.popViewController(animated: true)
                     }
                 } else {
-                    let errorMessage = response?.error ?? "Something went wrong"
-                    self.show_alert(msg: errorMessage, title: "Add Team")
+//                    let errorMessage = response?.error ?? NSLocalizedString("Failed to update team member",comment: "")
+//                    self.show_alert(msg: errorMessage, title: "Add Team")
+                    self.showToast(message: NSLocalizedString("Failed to team member",comment: ""))
                 }
             }
          }
@@ -437,37 +468,36 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         let mobileNo = "\(selectedCountrycode)-\(self.mobileTextField.text ?? "")"
         self.showLoader()
         if self.selectedImage != nil {
-            APIService.shared.updateTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: self.btn_visibility.currentImage == UIImage(named: "rdCheck") ? "1" : "0", showInCalendar: "1", serviceIds: self.serviceIds, workingHours: self.workingHoursJson, shiftTimings: self.shiftTimingJson, image: self.selectedImage, imageKey: "file", teamId: "\(self.dictStaff!.id ?? 0)") { response in
+            APIService.shared.updateTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: selectedOption, dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: self.btn_visibility.currentImage == UIImage(named: "rdCheck") ? "1" : "0", showInCalendar: "1", serviceIds: self.serviceIds, workingHours: self.workingHoursJson, shiftTimings: self.shiftTimingJson, image: self.selectedImage, imageKey: "file", teamId: "\(self.dictStaff!.id ?? 0)") { response in
                  self.hideLoader()
 
                  if response != nil {
                     DispatchQueue.main.async {
                         // safe UI code here
-                        self.showToast(message: response?.data ?? "")
+                        self.showToast(message: NSLocalizedString("Team member updated successfully",comment: ""))
                     }
                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 } else {
-                    let errorMessage = response?.error ?? "Something went wrong"
-                    self.show_alert(msg: errorMessage, title: "Update Team")
+                    self.showToast(message: NSLocalizedString("Failed to update team member",comment: ""))
                 }
             }
          } else {
              showLoader()
-             APIService.shared.updateTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: self.genderTextField.text ?? "", dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: self.btn_visibility.currentImage == UIImage(named: "rdCheck") ? "1" : "0", showInCalendar: "1", serviceIds: self.serviceIds, workingHours: self.workingHoursJson, shiftTimings: self.shiftTimingJson, image: nil, imageKey: "file", teamId: "\(self.dictStaff!.id ?? 0)") { response in
+             APIService.shared.updateTeamData(firstName: self.firstNameTextField.text ?? "", lastName: self.lastNameTextField.text ?? "", vendorId: "\(LocalData.userId)", email: self.emailTextField.text ?? "", jobTitle: self.jobTitleTextField.text ?? "", gender: selectedOption, dob: self.dobTextField.text ?? "", phone: mobileNo, showCustomer: self.btn_visibility.currentImage == UIImage(named: "rdCheck") ? "1" : "0", showInCalendar: "1", serviceIds: self.serviceIds, workingHours: self.workingHoursJson, shiftTimings: self.shiftTimingJson, image: nil, imageKey: "file", teamId: "\(self.dictStaff!.id ?? 0)") { response in
                  self.hideLoader()
                  if response != nil {
                     DispatchQueue.main.async {
                         // safe UI code here
-                        self.showToast(message: response?.data ?? "")
+//                        self.showToast(message: response?.data ?? "")
+                        self.showToast(message: NSLocalizedString("Team member updated successfully",comment: ""))
                     }
                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 } else {
-                    let errorMessage = response?.error ?? "Something went wrong"
-                    self.show_alert(msg: errorMessage, title: "Update Team")
+                    self.showToast(message: NSLocalizedString("Failed to update team member",comment: ""))
                 }
             }
          }
@@ -492,6 +522,30 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     }
     
     //MARK: Function
+    func openSalonType() {
+        let slotDuration = DropDown()
+        slotDuration.anchorView = genderTextField
+        slotDuration.bottomOffset = CGPoint(x: 0, y:(slotDuration.anchorView?.plainView.bounds.height)!)
+        slotDuration.direction = .bottom
+        slotDuration.dataSource = genderOptions
+        slotDuration.cellHeight = 35
+        slotDuration.show()
+        slotDuration.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
+        slotDuration.backgroundColor = .white
+        slotDuration.selectionAction = {  [unowned self] (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+            selectedOption = self.OptionsType[index]
+            self.genderTextField.text = NSLocalizedString(item, comment: "")
+            if selectedOption == "Male"{
+                selectedOption = "Male"
+            }else if selectedOption == "Female"{
+                selectedOption = "Female"
+            }else if selectedOption == "Rather not to say"{
+                selectedOption = "Rather not to say"
+            }
+        }
+    }
+    
     func showImagePickerActionSheet(sourceView: UIView) {
         let actionSheet = UIAlertController(title: "Select Image", message: nil, preferredStyle: .actionSheet)
 
@@ -667,28 +721,6 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
             self.calendarVC?.present(alert, animated: true)
         }
     }
-    
-    func apiGender(from uiText: String) -> String {
-        if uiText == NSLocalizedString("Male", comment: "") {
-            return "Male"
-        } else if uiText == NSLocalizedString("Female", comment: "") {
-            return "Female"
-        } else {
-            return "Rather not to say"
-        }
-    }
-
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension AddTeamVC: UITableViewDelegate, UITableViewDataSource {

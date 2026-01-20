@@ -78,13 +78,13 @@ class Block_CustomerVC: UIViewController {
         tbl_vw.delegate = self
         tbl_vw.dataSource = self
         tbl_vw.rowHeight = UITableView.automaticDimension
-        tbl_vw.estimatedRowHeight = 60
+        tbl_vw.estimatedRowHeight = 70
     }
     
     func AddMoreField() {
 //        self.arr_Number.append("")
         arr_Number.append(["countryCode": "+353", "mobile": "", "locale": "IE"])
-        self.tbl_Height.constant = CGFloat(self.arr_Number.count * 60)
+        self.tbl_Height.constant = CGFloat(self.arr_Number.count * 70)
         self.tbl_vw.performBatchUpdates({
             self.tbl_vw.insertRows(at: [IndexPath(row: self.arr_Number.count - 1, section: 0)], with: .automatic)
         }, completion: nil)
@@ -134,9 +134,9 @@ class Block_CustomerVC: UIViewController {
         APIService.shared.uploadBlockCustomers(vendorId: LocalData.userId, blockCustomers: joinedNumbers) { success, errorMessage in
             self.hideLoader()
             if success {
-                self.alertWithMessageOnly("Customer blocked successfully")
+                self.alertWithMessageOnly(NSLocalizedString("Customer blocked successfully", comment: ""))
             } else {
-                self.alertWithMessageOnly("Something Want Wrong")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to block customer",comment: ""))
             }
         }
     }
@@ -312,7 +312,7 @@ class Block_CustomerVC: UIViewController {
                         }
      
                         self.tbl_vw.reloadData()
-                        self.tbl_Height.constant = CGFloat(self.arr_Number.count * 60)
+                        self.tbl_Height.constant = CGFloat(self.arr_Number.count * 70)
                         completion()
                     } else {
                         print("❌ Mapping failed — JSON structure may not match model")
@@ -376,7 +376,7 @@ extension Block_CustomerVC : UITableViewDataSource, UITableViewDelegate{
                         self.vw_CountryPicker.isHidden = false
                         self.tbl_vw.reloadData() // Refresh properly
                     }
-                    self.tbl_Height.constant = CGFloat(self.arr_Number.count * 60)
+                    self.tbl_Height.constant = CGFloat(self.arr_Number.count * 70)
                 })
             }
         }

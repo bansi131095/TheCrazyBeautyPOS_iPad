@@ -39,7 +39,7 @@ class AddResources_VC: UIViewController,UITextFieldDelegate {
         if AddResources == "AddResources"{
             vw_AddResources.isHidden = false
             vw_AllResources.isHidden = true
-            self.lbl_AddResources.text = "Add Resources"
+            self.lbl_AddResources.text = NSLocalizedString("Add Resources",comment: "")
         }else{
             api_ResourceDetails()
             vw_AddResources.isHidden = true
@@ -67,9 +67,9 @@ class AddResources_VC: UIViewController,UITextFieldDelegate {
     
     @IBAction func btn_Save(_ sender: Any) {
         if txt_Name.text == ""{
-            self.showToast(message: "Name is required.")
+            self.showToast(message: NSLocalizedString("Name is required.",comment: ""))
         }else if txt_Qty.text == ""{
-            self.showToast(message: "Quantity is required.")
+            self.showToast(message: NSLocalizedString("Quantity is required.",comment: ""))
         }else{
             if AddResources == "AddResources"{
                 api_AddResources()
@@ -109,14 +109,15 @@ class AddResources_VC: UIViewController,UITextFieldDelegate {
             if (result != nil) {
                 DispatchQueue.main.async {
                     // safe UI code here
-                    self.showToast(message: result?.data?.message ?? "")
+//                    self.showToast(message: result?.data?.message ?? "")
+                    self.showToast(message: NSLocalizedString("Resource added successfully",comment: ""))
                     self.resource_id = result?.data?.insertId ?? 0
                     self.txt_Qty.text = ""
                     self.txt_Name.text = ""
                     self.txt_Description.text = ""
                 }
             }else{
-                self.showToast(message: result?.error ?? "")
+                self.showToast(message: NSLocalizedString("Failed to add resource",comment: ""))
             }
         }
     }
@@ -136,16 +137,15 @@ class AddResources_VC: UIViewController,UITextFieldDelegate {
             if result != nil {
                 self.hideLoader()
                 print(self.resource_id)
-                self.showToast(message: result?.data ?? "")
+                self.showToast(message: NSLocalizedString("Resource details updated successfully",comment: ""))
                 self.vw_AddResources.isHidden = true
                 self.vw_AllResources.isHidden = false
                 self.api_ResourceDetails()
                 self.txt_Qty.text = ""
                 self.txt_Name.text = ""
                 self.txt_Description.text = ""
-                
             }else{
-                self.showToast(message: result?.error ?? "")
+                self.showToast(message: NSLocalizedString("Failed to update resource",comment: ""))
             }
             
         }
@@ -160,12 +160,11 @@ class AddResources_VC: UIViewController,UITextFieldDelegate {
             self.hideLoader()
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    // safe UI code here
-                    self.showToast(message: model.data)
+                    self.showToast(message: NSLocalizedString("Resource deleted successfully",comment: ""))
                 }
                 self.api_ResourceDetails()
             } else {
-                self.show_alert(msg: model.error ?? "", title: "Delete Team")
+                self.showToast(message: NSLocalizedString("Failed to delete resource",comment: ""))
             }
         }
     }
@@ -202,7 +201,7 @@ extension AddResources_VC: UITableViewDelegate,UITableViewDataSource {
             if self.isOpen {
                 self.vw_AddResources.isHidden = false
                 self.vw_AllResources.isHidden = true
-                self.lbl_AddResources.text = "Update Resources"
+                self.lbl_AddResources.text = NSLocalizedString("Update Resources",comment: "")
                 self.resourcListClient = data
                 self.resource_id = self.resourcListClient?.id ?? 0
                 self.txt_Name.text = self.resourcListClient?.name
@@ -216,7 +215,7 @@ extension AddResources_VC: UITableViewDelegate,UITableViewDataSource {
             let popup = ConfirmDeletePopupVC()
             popup.modalPresentationStyle = .overFullScreen
             popup.modalTransitionStyle = .crossDissolve
-            popup.titleText = "Are you sure you want to delete this service?"
+            popup.titleText = NSLocalizedString("Are you sure you want to delete this service?",comment: "")
             popup.onConfirm = {
                 print("User confirmed delete")
                 // Call your delete logic here

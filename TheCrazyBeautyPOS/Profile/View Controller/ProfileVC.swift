@@ -121,7 +121,8 @@ class ProfileVC: UIViewController,SettingCellDelegate {
             SectionModel(title: NSLocalizedString("Payment", comment: ""),
                          items: [NSLocalizedString("Bank Details", comment: ""),
                                  NSLocalizedString("Advance Amount & Cancellation Duration", comment: ""),
-                                 NSLocalizedString("Currency", comment: "")]),
+                                 NSLocalizedString("Currency", comment: ""),
+                                 NSLocalizedString("Extra Charges", comment: "")]),
 
             SectionModel(title: NSLocalizedString("Kiosk & Customers", comment: ""),
                          items: [NSLocalizedString("Kiosk Users", comment: ""),
@@ -251,6 +252,8 @@ class ProfileVC: UIViewController,SettingCellDelegate {
                 vc = storyboard.instantiateViewController(withIdentifier: "Payment_CancellationVC")
             case 2:
                 vc = storyboard.instantiateViewController(withIdentifier: "CurrencyVC")
+            case 3:
+                vc = storyboard.instantiateViewController(withIdentifier: "Extra_ChargesVC")
             default: break
             }
         } else if sectionIndex == 6 {

@@ -26,7 +26,7 @@ class LoginScreen: UIViewController {
     @IBOutlet weak var lbl_Or_Login: UILabel!
     @IBOutlet weak var btn_Google: UIButton!
     
-    @IBOutlet weak var Constraint_Bottom: NSLayoutConstraint!
+    
     
     var vendorData: VendorDataItem?
     
@@ -44,20 +44,26 @@ class LoginScreen: UIViewController {
         loader.isHidden = true
         self.btn_eye.setImage(#imageLiteral(resourceName: "view"), for: .normal)
         self.txt_password.isSecureTextEntry = true
+        self.btn_Login.isHidden = true
+        self.btn_LoginasStaff.isHidden = true
+        self.lbl_Or_Login.isHidden = true
+        self.btn_Google.isHidden = true
         checkVendor()
+        
         if staffLogin == "Staff"{
             self.btn_Login.isHidden = false
             self.btn_LoginasStaff.isHidden = true
             self.lbl_Or_Login.isHidden = true
             self.btn_Google.isHidden = true
-            self.Constraint_Bottom.constant = 35
-        }else{
+//            self.Constraint_Bottom.constant = 35
+        }
+        /*else{
             self.btn_Login.isHidden = false
             self.btn_LoginasStaff.isHidden = false
             self.lbl_Or_Login.isHidden = false
             self.btn_Google.isHidden = false
-            self.Constraint_Bottom.constant = 246.5
-        }
+//            self.Constraint_Bottom.constant = 246.5
+        }*/
         /*if staffLogin != "Staff"{
             self.btn_Login.isHidden = false
             self.btn_LoginasStaff.isHidden = false
@@ -72,11 +78,11 @@ class LoginScreen: UIViewController {
     //MARK: Button Action
     @IBAction func act_login(_ sender: GradientButton) {
         if (self.txt_email.text == "") {
-            self.txt_email.showErrorMessage(message: "Please enter email")
+            self.txt_email.showErrorMessage(message: NSLocalizedString("Please enter email",comment: ""))
         } else if !self.txt_email.text!.isValidEmail() {
-            self.txt_email.showErrorMessage(message: "Please enter valid email")
+            self.txt_email.showErrorMessage(message: NSLocalizedString("Please enter valid email",comment: ""))
         } else if (self.txt_password.text == "") {
-            self.txt_password.showErrorMessage(message: "Please enter password")
+            self.txt_password.showErrorMessage(message: NSLocalizedString("Please enter password",comment: ""))
         } else {
             if staffLogin == "Staff"{
                 subvendor()
@@ -169,11 +175,14 @@ class LoginScreen: UIViewController {
             self.loader.stopAnimating()
             self.loader.hidesWhenStopped = true
             if (result?.error != nil && result?.error != "") {
-                self.showToast(message: result?.error ?? "")
+//                self.showToast(message: result?.error ?? "")
+                self.showToast(message: NSLocalizedString("You are not registered yet",comment: ""))
                 return
             }
             if let data = result {
-                self.showToast(message: result?.data ?? "")
+//                self.showToast(message: result?.data ?? "")
+                self.showToast(message: NSLocalizedString("Logged in successfully",comment: ""))
+                
                 SharedPrefs.setEmail(result?.vendorData.first?.email ?? "")
                 SharedPrefs.setUserId(String(result?.vendorData.first?.id ?? 0))
                 SharedPrefs.setUserName((result?.vendorData.first?.firstName ?? "") + " " + (result?.vendorData.first?.lastName ?? ""))
@@ -186,7 +195,8 @@ class LoginScreen: UIViewController {
                  navDashboard.modalPresentationStyle = .fullScreen
                 self.present(navDashboard, animated: true, completion: nil)
             }else{
-                self.showToast(message: result?.error ?? "")
+//                self.showToast(message: result?.error ?? "")
+                self.showToast(message: NSLocalizedString("You are not registered yet",comment: ""))
             }
             
         }
@@ -195,7 +205,8 @@ class LoginScreen: UIViewController {
     func checkVendor(){
         APIService.shared.getCheckVendor { result in
             if (result?.error != nil && result?.error != "") {
-                self.showToast(message: result?.error ?? "")
+//                self.showToast(message: result?.error ?? "")
+                self.showToast(message: NSLocalizedString("Failed to check vendor",comment: ""))
                 return
             }
             if result?.data == "0"{
@@ -203,13 +214,13 @@ class LoginScreen: UIViewController {
                 self.btn_LoginasStaff.isHidden = true
                 self.lbl_Or_Login.isHidden = true
                 self.btn_Google.isHidden = true
-                self.Constraint_Bottom.constant = 35
+//                self.Constraint_Bottom.constant = 35
             }else{
                 self.btn_Login.isHidden = false
                 self.btn_LoginasStaff.isHidden = false
                 self.lbl_Or_Login.isHidden = false
                 self.btn_Google.isHidden = false
-                self.Constraint_Bottom.constant = 246.5
+//                self.Constraint_Bottom.constant = 246.5
             }
             
         }

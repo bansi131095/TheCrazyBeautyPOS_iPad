@@ -75,9 +75,6 @@
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ey-GP-Pdh">
                                                 <rect key="frame" x="0.0" y="20" width="140" height="21.5"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="140" id="RPJ-87-i1X"/>
-                                                </constraints>
                                                 <attributedString key="attributedText">
                                                     <fragment content="Customer Name: ">
                                                         <attributes>
@@ -287,6 +284,9 @@
             <connections>
                 <outlet property="img_leading" destination="osv-Cz-CLA" id="eM9-no-WSZ"/>
                 <outlet property="img_width" destination="Hbw-HH-zUs" id="6f0-Pm-Ehp"/>
+                <outlet property="lblLAmount" destination="a0M-yN-ff1" id="Q5z-Kv-zVF"/>
+                <outlet property="lblLBookingNo" destination="QVf-HB-rR8" id="dwV-Bf-gyL"/>
+                <outlet property="lblLCustomerName" destination="6Ey-GP-Pdh" id="0Q6-3n-smH"/>
                 <outlet property="lbl_amount" destination="KN8-IC-gpD" id="AAC-Jm-CjK"/>
                 <outlet property="lbl_bookingDate" destination="7re-BQ-QOT" id="K9y-SL-Urf"/>
                 <outlet property="lbl_bookingId" destination="neX-BB-9Xd" id="5fr-T6-ZBs"/>

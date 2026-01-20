@@ -95,9 +95,10 @@ class Booking_ReminderVC: UIViewController {
         APIService.shared.UpdateReminderMail(reminder_mail: reminder_mail, vendorId: LocalData.userId) { result in
             self.hideLoader()
             if result?.data != nil {
-                self.alertWithMessageOnly(result?.data ?? "")
+//                self.alertWithMessageOnly(result?.data ?? "")
+                self.alertWithMessageOnly(NSLocalizedString("Mail reminder updated successfully", comment: ""))
             } else {
-                self.alertWithMessageOnly(result?.error ?? "")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to update reminder mail", comment: ""))
             }
         }
     }
@@ -112,7 +113,7 @@ class Booking_ReminderVC: UIViewController {
                 self.txt_Reminder.text = String(self.ReminderModel[0].reminder_mail ?? 0) + " " + NSLocalizedString("Hours", comment: "")
                 self.select_Hours = String(self.ReminderModel[0].reminder_mail ?? 0) + " " + NSLocalizedString("Hours", comment: "")
             }else{
-                self.alertWithMessageOnly(result?.error ?? "")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to get reminder mail",comment: ""))
             }
         }
     }

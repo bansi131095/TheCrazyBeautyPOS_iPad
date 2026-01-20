@@ -2668,9 +2668,9 @@ class FloatingTextView: UIView, UITextViewDelegate {
     private let textView = UITextView()
 
     // MARK: - Inspectable Placeholder
-    @IBInspectable var placeholder: String = "Description" {
+    @IBInspectable var placeholder: String = NSLocalizedString("Description",comment: "") {
         didSet {
-            placeholderLabel.text = placeholder
+            placeholderLabel.text = NSLocalizedString("Description", comment: "")
         }
     }
 
@@ -2700,7 +2700,7 @@ class FloatingTextView: UIView, UITextViewDelegate {
         addSubview(textView)
 
         // Configure Placeholder Label
-        placeholderLabel.text = placeholder
+        placeholderLabel.text = NSLocalizedString("Description", comment: "")
         placeholderLabel.font = UIFont(name: "Lato-Regular", size: 20.0)
         placeholderLabel.textColor = .gray
         placeholderLabel.translatesAutoresizingMaskIntoConstraints = false

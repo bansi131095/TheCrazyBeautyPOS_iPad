@@ -13840,6 +13840,44 @@ class APIService {
         }
     }
     
+    func deleteDeleteGuest(GuestID: Int, completion: @escaping (CommonResponse?) -> Void) {
+        let url = "\(global.shared.URL_DELETE_GUEST)\(GuestID)"
+        let params: [String: Any] = [:] // Usually not needed for DELETE but included if your backend requires it
+
+        print("🌐 URL: \(url)")
+        print("📤 Headers: \(headers)")
+
+        AF.request(url,method: .delete,parameters: params,encoding: JSONEncoding.default,headers: HTTPHeaders(headers))
+            .validate()
+            .responseJSON { response in
+
+                // 📩 Print HTTP response status code
+                if let httpResponse = response.response {
+                    print("✅ Status Code: \(httpResponse.statusCode)")
+                }
+
+                // 🧾 Print raw response body
+                if let data = response.data,
+                   let rawJSON = String(data: data, encoding: .utf8) {
+                    print("📥 Raw Response: \(rawJSON)")
+                }
+
+                switch response.result {
+                case .success(let json):
+                    if let model: CommonResponse = Mapper<CommonResponse>().map(JSONObject: json) {
+                        print("✅ Parsed Response Object: \(model)")
+                        completion(model)
+                    } else {
+                        print("❌ Mapping failed — unexpected JSON structure.")
+                        completion(nil)
+                    }
+
+                case .failure(let error):
+                    print("❌ Error: \(error.localizedDescription)")
+                    completion(nil)
+                }
+            }
+    }
     
 }
 

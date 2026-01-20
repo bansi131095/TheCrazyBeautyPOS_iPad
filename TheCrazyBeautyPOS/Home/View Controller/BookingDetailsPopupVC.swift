@@ -44,6 +44,7 @@ class BookingDetailsPopupVC: UIViewController {
     @IBOutlet weak var lbl_remaining: UILabel!
     @IBOutlet weak var popupView: UIView!
     
+    @IBOutlet weak var lbl_Email: UILabel!
     
     var dictBookingDetails: BookingData?
     
@@ -55,7 +56,7 @@ class BookingDetailsPopupVC: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleOutsideTap(_:)))
         tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
-        // Do any additional setup after loading the view.
+        
     }
     
     
@@ -66,7 +67,9 @@ class BookingDetailsPopupVC: UIViewController {
             var BookedBy = ""
             if bookedBy == "vendor" {
                 BookedBy = "Salon"
-            }else{
+            }else if bookedBy == "guest"{
+                BookedBy = "Guest"
+            } else{
                 BookedBy = "Customer"
             }
             
@@ -76,28 +79,33 @@ class BookingDetailsPopupVC: UIViewController {
             amountPayable = grandTotal - paidAmount
             self.vw_status.backgroundColor = getStatusColor(status: dict.bookingStatus?.lowercased() ?? "")
             self.lbl_status.text = dict.bookingStatus?.capitalized
-            self.lbl_name.text = dict.name
-            self.lbl_phone.text = dict.phone
+            self.lbl_name.text = dict.name?.capitalized
+            /*if dict.phone == nil{
+                self.lbl_phone.text = (NSLocalizedString("Phone",comment: "")) + " : -" + " - "
+            }else{
+                self.lbl_phone.text = (NSLocalizedString("Phone",comment: "")) + " : - " + (dict.phone ?? "")
+            }*/
+            self.lbl_phone.text = (NSLocalizedString("Phone",comment: "")) + " : - " + (dict.phone ?? "")
+            self.lbl_Email.text = (NSLocalizedString("Email",comment: "")) + " : - " + (dict.email ?? "")
             self.lbl_type.text = dict.customerType?.capitalized
             self.lbl_bookingId.text = dict.bookingNumber
             self.lbl_bookedBy.text = BookedBy
-            self.lbl_bookedOn.text = dict.bookingDate
+            self.lbl_bookedOn.text = dict.created_At
             self.lbl_duration.text = "\(dict.duration ?? "") min"
-            self.lbl_service.text = dict.services
+            self.lbl_service.text = "\(dict.main_Services ?? "") " + "\(dict.services ?? "")"
             self.lbl_firstVisit.text = dict.isVisit == "true" ? "Yes" : "No"
-            
             if dict.subTotal != "0.00", dict.subTotal != "0"  {
                 self.vw_originalAmount.isHidden = false
                 if let value = Double(dict.subTotal ?? "") {
                     let formattedString = String(format: "%.2f", value)
-                    self.lbl_originalAmount.text = "\(LocalData.symbol) \(formattedString)"
+                    self.lbl_originalAmount.text = "\(LocalData.symbol)\(formattedString)"
                 }
             } else {
                 self.vw_originalAmount.isHidden = true
             }
             if dict.discountAmount != "0.00", dict.discountAmount != "0" {
                 self.vw_discount.isHidden = false
-                self.lbl_discount.text = "\(LocalData.symbol) \(dict.discountAmount ?? "").00"
+                self.lbl_discount.text = "\(LocalData.symbol)\(dict.discountAmount ?? "").00"
             } else {
                 self.vw_discount.isHidden = true
             }
@@ -110,7 +118,7 @@ class BookingDetailsPopupVC: UIViewController {
             if dict.miscellaneousPrice != "" {
                 if dict.miscellaneousPrice != "0.00", dict.miscellaneousPrice != "0" {
                     self.vw_MiscPrice.isHidden = false
-                    self.lbl_MiscPrice.text = "\(LocalData.symbol) \(dict.miscellaneousPrice ?? "")"
+                    self.lbl_MiscPrice.text = "\(LocalData.symbol)\(dict.miscellaneousPrice ?? "")"
                 } else {
                     self.vw_MiscPrice.isHidden = true
                 }
@@ -120,23 +128,23 @@ class BookingDetailsPopupVC: UIViewController {
             if dict.bookingStatus == "booked" {
                 if dict.paidAmount != "0.00", dict.paidAmount != "0" {
                     self.vw_paidAmount.isHidden = false
-                    self.lbl_paidAmount.text = "\(LocalData.symbol) \((dict.paidAmount ?? "")).00"
+                    self.lbl_paidAmount.text = "\(LocalData.symbol)\((dict.paidAmount ?? "")).00"
                 } else {
                     self.vw_paidAmount.isHidden = true
                 }
                 if dict.grandTotal != "0.00", dict.grandTotal != "0" {
-                    self.lbl_total.text = "\(LocalData.symbol) \(dict.grandTotal ?? "")"
+                    self.lbl_total.text = "\(LocalData.symbol)\(dict.grandTotal ?? "")"
                 }
                 if (dict.paidAmount != "0.00" && dict.paidAmount != "0") || amountPayable > 0 {
                     self.vw_remaining.isHidden = false
-                    self.lbl_remaining.text = "\(LocalData.symbol) \(String(format: "%.2f", amountPayable))"
+                    self.lbl_remaining.text = "\(LocalData.symbol)\(String(format: "%.2f", amountPayable))"
                 } else {
                     self.vw_remaining.isHidden = true
                 }
                 if BookedBy == "Salon" {
                     if (dict.paidAmount != "0.00" && dict.paidAmount != "0") || amountPayable > 0 {
                         self.vw_remaining.isHidden = false
-                        self.lbl_remaining.text = "\(LocalData.symbol) \(String(format: "%.2f", amountPayable))"
+                        self.lbl_remaining.text = "\(LocalData.symbol)\(String(format: "%.2f", amountPayable))"
                     } else {
                         self.vw_remaining.isHidden = true
                     }

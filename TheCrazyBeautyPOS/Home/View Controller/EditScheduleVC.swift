@@ -89,18 +89,18 @@ class EditScheduleVC: UIViewController {
             self.api_getstaffShifts(StaffID: TeamId)
         }
         if isEdit {
-            self.lbl_title.text = "Schedule For \(self.TeamName)"
+            self.lbl_title.text = NSLocalizedString("Schedule For", comment: "") + " \(self.TeamName)"
             self.vw_schedule.isHidden = false
             self.vwSchedule_height_const.constant = 80.0
             self.vw_selectDate.isHidden = true
             self.vwselectDate_height_const.constant = 0.0
             self.vw_CopyFromStaff.isHidden = true
             self.vwCopyFromStaff_Height_Const.constant = 0.0
-            self.lbl_schedule.text = "Regular Schedule"
-            self.btn_schedule.setTitle("Add/Edit Custom Schedule", for: .normal)
+            self.lbl_schedule.text = NSLocalizedString("Regular Schedule", comment: "")
+            self.btn_schedule.setTitle(NSLocalizedString("Add/Edit Custom Schedule", comment: ""), for: .normal)
             self.isCustomSchedule = false
         } else {
-            self.lbl_title.text = "Assign Timing to New Team Member"
+            self.lbl_title.text = NSLocalizedString("Assign Timing to New Team Member", comment: "")
             self.vw_schedule.isHidden = true
             self.vwSchedule_height_const.constant = 0.0
         }
@@ -134,10 +134,10 @@ class EditScheduleVC: UIViewController {
     }
     
     @IBAction func act_schedule(_ sender: GradientButton) {
-        if self.lbl_schedule.text == "Regular Schedule" {
-            self.lbl_schedule.text = "Custom Schedule"
-            self.btn_schedule.setTitle("Edit Regular Schedule", for: .normal)
-            self.btn_continue.setTitle("Save", for: .normal)
+        if self.lbl_schedule.text == NSLocalizedString("Regular Schedule", comment: "") {
+            self.lbl_schedule.text = NSLocalizedString("Custom Schedule", comment: "")
+            self.btn_schedule.setTitle(NSLocalizedString("Edit Regular Schedule", comment: ""), for: .normal)
+            self.btn_continue.setTitle(NSLocalizedString("Save", comment: ""), for: .normal)
             self.vw_selectDate.isHidden = false
             self.vwselectDate_height_const.constant = 80.0
             self.vw_CopyFromStaff.isHidden = false
@@ -148,9 +148,9 @@ class EditScheduleVC: UIViewController {
 //            self.api_getstaffShifts()
             self.tbl_vw.reloadData()
         } else {
-            self.lbl_schedule.text = "Regular Schedule"
-            self.btn_schedule.setTitle("Add/Edit Custom Schedule", for: .normal)
-            self.btn_continue.setTitle("Continue", for: .normal)
+            self.lbl_schedule.text = NSLocalizedString("Regular Schedule", comment: "")
+            self.btn_schedule.setTitle(NSLocalizedString("Add/Edit Custom Schedule", comment: ""), for: .normal)
+            self.btn_continue.setTitle(NSLocalizedString("Continue",comment: "") , for: .normal)
             self.vw_selectDate.isHidden = true
             self.vwselectDate_height_const.constant = 0.0
             self.vw_CopyFromStaff.isHidden = true
@@ -729,7 +729,7 @@ class EditScheduleVC: UIViewController {
                 }
                 self.hideLoader()
                 if model.error == "" || model.error == nil {
-                    self.showToast(message: model.data)
+                    self.showToast(message: NSLocalizedString("Custom schedule updated successfully", comment: ""))
                     self.deleteShiftList.removeAll()
                     self.selectedCopyStaffId = 0
                     self.deleteShiftMyList.removeAll()
@@ -738,7 +738,7 @@ class EditScheduleVC: UIViewController {
                         self.dismiss(animated: true)
                     }
                 } else {
-                    self.show_alert(msg: model.error ?? "", title: "Delete Client")
+                    self.showToast(message: NSLocalizedString("Failed to update custom schedule", comment: ""))
                 }
             }
         }

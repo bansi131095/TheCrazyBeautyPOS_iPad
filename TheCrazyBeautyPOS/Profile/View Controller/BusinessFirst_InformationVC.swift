@@ -15,8 +15,17 @@ class BusinessFirst_InformationVC: UIViewController {
 
     
     var colorApplyMode: ColorApplyMode = .text
-    var arr_SalonType = ["Male","Female","Unisex"]
+    var SalonType = ["Male","Female","Unisex"]
     
+    var arr_SalonType: [String] {
+        return [
+            NSLocalizedString("Male", comment: ""),
+            NSLocalizedString("Female", comment: ""),
+            NSLocalizedString("Unisex", comment: "")
+        ]
+    }
+//    var OptionsType = ["Male","Female","Unisex"]
+    var selectedOptions = "Male"
     
     
     //MARK: - Outlet
@@ -52,6 +61,7 @@ class BusinessFirst_InformationVC: UIViewController {
         btn_Continue.setAttributedTitle(attributedTitle, for: .normal)
         setCustomFont()
         txt_SalonType.text = arr_SalonType.first
+        selectedOptions = self.SalonType.first ?? ""
         self.determineMyCurrentLocation()
         apicall()
     }
@@ -76,10 +86,9 @@ class BusinessFirst_InformationVC: UIViewController {
     
     @IBAction func btn_Continue(_ sender: Any) {
         if txt_BusinessName.text == ""{
-            alertWithImage(title: "Business Informatin", Msg: "Business Name is required.")
+            alertWithImage(title: NSLocalizedString("Business Information", comment: ""), Msg: NSLocalizedString("Business Name is required.",comment: ""))
         }else{
             AddBusiness()
-            
         }
     }
     
@@ -247,7 +256,15 @@ class BusinessFirst_InformationVC: UIViewController {
         slotDuration.backgroundColor = .white
         slotDuration.selectionAction = {  [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
-            self.txt_SalonType.text = item
+            selectedOptions = self.SalonType[index]
+            self.txt_SalonType.text = NSLocalizedString(item, comment: "")
+            if selectedOptions == "Male"{
+                selectedOptions = "Male"
+            }else if selectedOptions == "Female"{
+                selectedOptions = "Female"
+            }else if selectedOptions == "Unisex"{
+                selectedOptions = "Unisex"
+            }
         }
     }
     
@@ -260,11 +277,11 @@ class BusinessFirst_InformationVC: UIViewController {
                 print("Authorization status is not determined.")
                 
             case .restricted, .denied:
-                let alert = UIAlertController(title: "Allow Location Access",
-                                              message: "GC Shop needs access to your location. Turn on Location Services in your device settings.",
+                let alert = UIAlertController(title: NSLocalizedString("Allow Location Access",comment: ""),
+                                              message: NSLocalizedString("Needs access to your location. Turn on Location Services in your device settings.",comment: ""),
                                               preferredStyle: .alert)
                 
-                alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { (_) in
+                alert.addAction(UIAlertAction(title: NSLocalizedString("Settings",comment: ""), style: .default, handler: { (_) in
                     guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
                     if UIApplication.shared.canOpenURL(settingsUrl) {
                         UIApplication.shared.open(settingsUrl, completionHandler: { success in
@@ -272,7 +289,7 @@ class BusinessFirst_InformationVC: UIViewController {
                         })
                     }
                 }))
-                alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+                alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel",comment: ""), style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 print("Location access is denied!")
                 
@@ -316,21 +333,21 @@ class BusinessFirst_InformationVC: UIViewController {
         APIService.shared.BusinessInformation(url: url, address: self.txt_Address.text ?? "", latitude: "\(userLatitude ?? 0.0)", longitude: "\(userLongitude ?? 0.0)", postcode: "", salon_name: self.txt_BusinessName.text ?? "", salon_type: self.txt_SalonType.text ?? "", web_status: "\(web_status ?? 0)") { result in
             self.hideLoader()
             if let data = result?.data {
-                        DispatchQueue.main.async {
-                            let storyboard = UIStoryboard(name: "Profile", bundle: nil)
-                            let vc = storyboard.instantiateViewController(withIdentifier: "BusinessSecond_InformationVC") as! BusinessSecond_InformationVC
-                            vc.vendor_Id = self.vendor_ID
-                            self.navigationController?.pushViewController(vc, animated: true)
-                            
-                            // Safely unwrap message string
-                            if let messageString = data as? String {
-                                self.alertWithMessageOnly(messageString)
-                            } else {
-                                self.alertWithMessageOnly("Business information updated successfully.")
-                            }
-                        }
-                    }else{
-                self.alertWithMessageOnly("Something went wrong.")
+                DispatchQueue.main.async {
+                    let storyboard = UIStoryboard(name: "Profile", bundle: nil)
+                    let vc = storyboard.instantiateViewController(withIdentifier: "BusinessSecond_InformationVC") as! BusinessSecond_InformationVC
+                    vc.vendor_Id = self.vendor_ID
+                    self.navigationController?.pushViewController(vc, animated: true)
+                    
+                    // Safely unwrap message string
+                    if let messageString = data as? String {
+                        self.alertWithMessageOnly(NSLocalizedString("Business information updated successfully.",comment: ""))
+                    } else {
+                        self.alertWithMessageOnly(NSLocalizedString("Business information updated successfully.",comment: ""))
+                    }
+                }
+            }else{
+                self.alertWithMessageOnly(NSLocalizedString("Failed to update vendor",comment: ""))
             }
         }
     }

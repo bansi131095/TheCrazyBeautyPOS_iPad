@@ -91,11 +91,10 @@ class AccountActivityVC: UIViewController {
 
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    // safe UI code here
-//                    self.showToast(message: model.data)
+                    self.showToast(message: NSLocalizedString("Activities updated successfully",comment: ""))
                 }
-            } else {
-                self.show_alert(msg: model.error ?? "", title: "Delete Client")
+            }else{
+                self.showToast(message: NSLocalizedString("Failed to update activities",comment: ""))
             }
         }
     }

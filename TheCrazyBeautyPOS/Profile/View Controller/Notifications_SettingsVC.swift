@@ -90,7 +90,10 @@ class Notifications_SettingsVC: UIViewController {
 //        self.lbl_Time.text = arr_TimeSlot[0]
         select_Hours = "1 Hours"
         
-        updateCreditLabel(value: 10)
+        
+        let format = NSLocalizedString("Credit", comment: "")
+        let amount = String(format: format, "\(100)")
+        self.lbl_Amount.text = amount
         get_NotificationSettings()
     }
     
@@ -135,9 +138,9 @@ class Notifications_SettingsVC: UIViewController {
             self.hideLoader()
             DispatchQueue.main.async {
                 if success {
-                    self.alertWithMessageOnly("SMS/Emails settings saved successfully")
+                    self.alertWithMessageOnly(NSLocalizedString("SMS/Emails settings saved successfully",comment: ""))
                 } else {
-                    self.alertWithMessageOnly("Something went wrong.")
+                    self.alertWithMessageOnly(NSLocalizedString("Failed to update sms details",comment: ""))
                 }
             }
         }
@@ -148,11 +151,6 @@ class Notifications_SettingsVC: UIViewController {
         if let customFont = UIFont(name: "Lato-Bold", size: 18.0) {
             lblTitle.font = customFont
         }
-    }
-    
-    func updateCreditLabel(value: Int) {
-        let localizedPattern = NSLocalizedString("Credit", comment: "")
-            lbl_Amount.text = String(format: localizedPattern, "\(value)")
     }
     
     func setInitialVisibility() {
@@ -283,6 +281,10 @@ class Notifications_SettingsVC: UIViewController {
 //                self.lbl_Time.text = "\(details.reminder_time ?? 0) Minutes"
                 let reminderMinutes = details.reminder_time ?? 0
                 self.lbl_Time.text = self.formatMinutesToSlot(reminderMinutes)
+                
+                let format = NSLocalizedString("Credit", comment: "")
+                let amount = String(format: format, "\(details.sms_credit ?? 0)")
+                self.lbl_Amount.text = amount
                 
                 // Parse and update SMS settings
                 if let smsSettingsJSON = details.sms_settings,

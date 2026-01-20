@@ -46,7 +46,7 @@ class Passcode_VC: UIViewController {
     }
     
     @IBAction func btn_Continue(_ sender: Any) {
-        if txt_1.text != "" && txt_2.text != "" && txt_3.text != "" && txt_4.text != "" && txt_5.text != "" && txt_6.text != "" {
+        /*if txt_1.text != "" && txt_2.text != "" && txt_3.text != "" && txt_4.text != "" && txt_5.text != "" && txt_6.text != "" {
             var otpStr = txt_1.text! + txt_2.text!
             otpStr.append(txt_3.text! + txt_4.text!)
             otpStr.append(txt_5.text! + txt_6.text!)
@@ -54,7 +54,27 @@ class Passcode_VC: UIViewController {
                 self.OTP = otpStr;
                 verfiyPasscode(passcode: OTP)
             }
+        }*/
+        
+        let fields = [txt_1, txt_2, txt_3, txt_4, txt_5, txt_6]
+
+        // Blank check
+        for field in fields {
+            if field?.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == true {
+                self.showToast(message: NSLocalizedString("Passcode is required",comment: ""))
+                field?.becomeFirstResponder()
+                return
+            }
         }
+
+        // Build OTP safely
+        var otpStr = ""
+        for field in fields {
+            otpStr.append(field?.text ?? "")
+        }
+
+        self.OTP = otpStr
+        verfiyPasscode(passcode: OTP)
     }
     
     
@@ -65,10 +85,11 @@ class Passcode_VC: UIViewController {
             if result?.data?.status == 1{
                 DispatchQueue.main.async {
                     self.dismiss(animated: true)
-                    self.showToast(message: result?.data?.error ?? "")
+//                    self.showToast(message: result?.data?.error ?? "")
+                    self.showToast(message: NSLocalizedString("Passcode verified successfully",comment: ""))
                 }
             }else{
-                self.showToast(message: result?.error ?? "Please enter correct passcode")
+                self.showToast(message: NSLocalizedString("Please enter correct passcode",comment: ""))
             }
             
         }

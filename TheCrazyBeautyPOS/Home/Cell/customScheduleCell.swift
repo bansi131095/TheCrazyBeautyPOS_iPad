@@ -22,11 +22,25 @@ class customScheduleCell: UITableViewCell {
     @IBOutlet weak var img_remove: UIImageView!
     @IBOutlet weak var img_add: UIImageView!
     
+    
+    
+    @IBOutlet weak var lbl_From: UILabel!
+    @IBOutlet weak var lbl_TO: UILabel!
+    
+    
+    @IBOutlet weak var lbl_From1: UILabel!
+    @IBOutlet weak var lbl_To1: UILabel!
+    
     var onTextFieldTap: ((UITextField) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        lbl_From.text = NSLocalizedString("From", comment: "")
+        lbl_TO.text = NSLocalizedString("To", comment: "")
+        
+        lbl_From1.text = NSLocalizedString("From", comment: "")
+        lbl_To1.text = NSLocalizedString("To", comment: "")
+        
         [txt_from, txt_to, txt_from1, txt_to1].forEach {
             $0?.addTarget(self, action: #selector(textFieldTapped(_:)), for: .editingDidBegin)
         }

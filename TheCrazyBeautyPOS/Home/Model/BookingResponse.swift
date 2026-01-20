@@ -47,8 +47,11 @@ class BookingData: Mappable {
     var customerType: String?
     var phone: String?
     var services: String?
+    var main_Services: String?
     var grandTotal: String?
     var bookingStatus: String?
+    var created_At: String?
+    var email: String?
 
     required init?(map: Map) {}
 
@@ -73,6 +76,9 @@ class BookingData: Mappable {
         services             <- map["services"]
         grandTotal           <- map["grand_total"]
         bookingStatus        <- map["booking_status"]
+        created_At        <- map["created_at"]
+        email        <- map["email"]
+        main_Services        <- map["main_services"]
     }
 }
 

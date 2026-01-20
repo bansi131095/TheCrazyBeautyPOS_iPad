@@ -191,7 +191,6 @@ class Giftcard_HistoryVC: UIViewController, UIPopoverPresentationControllerDeleg
         APIService.shared.GiftCardGet(vendor_id: LocalData.userId, limt: "10", page: "1", start_date: formattedFrom, end_date: formattedTo) { result in
             self.hideLoader()
             guard let model = result else {
-                print("API failed or empty response")
                 self.giftList = []
                 self.tbl_vw.reloadData()
                 self.lbl_NoDataFound.isHidden = false
@@ -296,25 +295,25 @@ extension Giftcard_HistoryVC: UITableViewDelegate, UITableViewDataSource{
         if data.gift_name != "" {
             cell.lbl_Name.text = data.gift_name
         }else{
-            cell.lbl_Name.text = "N/A"
+            cell.lbl_Name.text = "-"
         }
         
         if data.gift_code != "" {
             cell.lbl_GiftCard.text = data.gift_code
         }else{
-            cell.lbl_GiftCard.text = "N/A"
+            cell.lbl_GiftCard.text = "-"
         }
         
         if data.used_date != "" {
             cell.lbl_UsedDate.text = data.used_date
         }else{
-            cell.lbl_UsedDate.text = "N/A"
+            cell.lbl_UsedDate.text = "-"
         }
         
         if data.expiry_date != "" {
             cell.lbl_ExpiryDate.text = data.expiry_date
         }else{
-            cell.lbl_ExpiryDate.text = "N/A"
+            cell.lbl_ExpiryDate.text = "-"
         }
         
 //        cell.lbl_Amount.text = "\(SharedPrefs.getSymbol())" +  String(data.amount)
@@ -348,7 +347,7 @@ extension Giftcard_HistoryVC: GiftcardDownloadable {
         APIService.shared.downloadGiftReport(vendor_id: vendorID,start_date: startDate,end_date: endDate) { model in
             self.hideLoader()
             guard let filename = model?.filename else {
-                self.alertWithMessageOnly("Download failed")
+                self.alertWithMessageOnly(NSLocalizedString("Download failed",comment: ""))
                 return
             }
 

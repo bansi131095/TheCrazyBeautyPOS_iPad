@@ -40,7 +40,16 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     }
     
     var colorApplyMode: ColorApplyMode = .text
-    var arr_SalonType = ["Male","Female","Unisex"]
+    var OptionsType = ["Male","Female","Unisex"]
+    
+    var arr_Options: [String] {
+        return [
+            NSLocalizedString("Male", comment: ""),
+            NSLocalizedString("Female", comment: ""),
+            NSLocalizedString("Unisex", comment: "")
+        ]
+    }
+    var selectedOption = "Male"
     
     @IBOutlet weak var txt_BusinessName: TextInputLayout!
     
@@ -298,6 +307,19 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             self.txt_City.text = self.SalonDetails.first?.city ?? ""
             self.txt_PostalCode.text = self.SalonDetails.first?.postcode ?? ""
             self.txt_SalonType.text = self.SalonDetails.first?.salon_type
+            
+            if self.SalonDetails.first?.salon_type == "Male"{
+                self.selectedOption = "Male"
+                self.txt_SalonType.text = NSLocalizedString("Male",comment: "")
+            }else if self.SalonDetails.first?.salon_type == "Female"{
+                self.selectedOption = "Female"
+                self.txt_SalonType.text = NSLocalizedString("Female",comment: "")
+            }else if self.SalonDetails.first?.salon_type == "Unisex"{
+                self.selectedOption = "Unisex"
+                self.txt_SalonType.text = NSLocalizedString("Unisex",comment: "")
+            }
+            
+            
             self.txt_BusinessName.text = self.SalonDetails.first?.salon_name
 
 //            self.txt_MobileNumber.text =
@@ -361,11 +383,10 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         APIService.shared.UpdateBusinessInformation(id: LocalData.userId, salon_name: txt_BusinessName.text ?? "", salon_type: txt_SalonType.text ?? "", phone: phone, salon_phone: "\(selectedCountrycode)-\(txt_MobileNumber.text ?? "")", postcode: txt_PostalCode.text ?? "", address: self.txt_Address.text ?? "", city: txt_City.text ?? "", country: countryOne, latitude: "\(safeLatitude)", longitude: "\(safeLongitude)", web_status: "\(web_status ?? 0)", allow_search: "\(allow_search ?? 0)", time_gap: "\(time_gap)", reminder_mail: "\(reminder_mail)", about_us: self.txt_Aboutus.text ?? "", booking_guest: "\(booking_guest ?? 0)") { result in
             self.hideLoader()
             if let message = result?.data{
-                self.alertWithMessageOnly(message)
+                self.alertWithMessageOnly(NSLocalizedString("Business information updated successfully.",comment: ""))
             }else{
-                self.alertWithMessageOnly("Something went wrong.")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to update vendor",comment: ""))
             }
-            
         }
     }
     
@@ -383,15 +404,15 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     //MARK: - Map function
     func showLocationPermissionAlert() {
-        let alert = UIAlertController(title: "Location Permission Required",
-                                      message: "Please enable location access in Settings to use this feature.",
+        let alert = UIAlertController(title: NSLocalizedString("Location Permission Required",comment: ""),
+                                      message: NSLocalizedString("Please enable location access in Settings to use this feature.",comment: ""),
                                       preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel",comment: ""), style: .cancel, handler: { _ in
                 // Pop the current view controller
                 self.navigationController?.popViewController(animated: true)
             }))
-        alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Settings",comment: ""), style: .default, handler: { _ in
             
             if let appSettings = URL(string: UIApplication.openSettingsURLString),
                UIApplication.shared.canOpenURL(appSettings) {
@@ -541,14 +562,22 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         slotDuration.anchorView = txt_SalonType
         slotDuration.bottomOffset = CGPoint(x: 0, y:(slotDuration.anchorView?.plainView.bounds.height)!)
         slotDuration.direction = .bottom
-        slotDuration.dataSource = arr_SalonType
+        slotDuration.dataSource = arr_Options
         slotDuration.cellHeight = 35
         slotDuration.show()
         slotDuration.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
         slotDuration.backgroundColor = .white
         slotDuration.selectionAction = {  [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
-            self.txt_SalonType.text = item
+            selectedOption = self.OptionsType[index]
+            self.txt_SalonType.text = NSLocalizedString(item, comment: "")
+            if selectedOption == "Male"{
+                selectedOption = "Male"
+            }else if selectedOption == "Female"{
+                selectedOption = "Female"
+            }else if selectedOption == "Unisex"{
+                selectedOption = "Unisex"
+            }
         }
     }
     

@@ -141,11 +141,11 @@ class GiftCardVC: UIViewController {
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
                     // safe UI code here
-                    self.showToast(message: model.data)
+                    self.showToast(message: NSLocalizedString("Gift card deleted successfully", comment: ""))
                 }
                 self.loadData(Search: "")
             } else {
-                self.show_alert(msg: model.error ?? "", title: "Delete Team")
+                self.showToast(message: NSLocalizedString("Failed to delete gift card", comment: ""))
             }
         }
     }
@@ -190,7 +190,15 @@ extension GiftCardVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
         cell.lbl_name.text = giftCard.card_name
         cell.lbl_price.text = "\(LocalData.symbol)\(giftCard.price)"
         cell.lbl_ExpiryDate.text = "\(giftCard.expired_in)"
-        cell.lbl_status.text = giftCard.status
+        
+//        cell.lbl_status.text = giftCard.status
+        
+        if giftCard.status == "Active"{
+            cell.lbl_status.text = NSLocalizedString("Active", comment: "")
+        }else if giftCard.status == "Inactive"{
+            cell.lbl_status.text = NSLocalizedString("Inactive", comment: "")
+        }
+        
         if giftCard.image != "" {
             let imgUrl = global.imageUrl + giftCard.image
             if let url = URL(string: imgUrl) {
@@ -214,10 +222,8 @@ extension GiftCardVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
             let popup = ConfirmDeletePopupVC()
             popup.modalPresentationStyle = .overFullScreen
             popup.modalTransitionStyle = .crossDissolve
-            popup.titleText = "Are you sure you want to delete this Gift Card?"
+            popup.titleText = NSLocalizedString("Are you sure you want to delete this Gift Card?", comment: "")
             popup.onConfirm = {
-                print("Gift Card confirmed delete")
-                // Call your delete logic here
                 self.deleteGiftCard(Id: giftCard.id)
             }
         }

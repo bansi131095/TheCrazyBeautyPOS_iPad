@@ -26,10 +26,21 @@ class teamScheduleCell: UITableViewCell {
     
     var onTextFieldTap: ((UITextField) -> Void)?
 
+    @IBOutlet weak var lbl_From: UILabel!
+    @IBOutlet weak var lbl_TO: UILabel!
+    
+    
+    @IBOutlet weak var lbl_From1: UILabel!
+    @IBOutlet weak var lbl_To1: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        lbl_From.text = NSLocalizedString("From", comment: "")
+        lbl_TO.text = NSLocalizedString("To", comment: "")
+        
+        lbl_From1.text = NSLocalizedString("From", comment: "")
+        lbl_To1.text = NSLocalizedString("To", comment: "")
+        
         [txt_from, txt_to, txt_from1, txt_to1].forEach {
             $0?.addTarget(self, action: #selector(textFieldTapped(_:)), for: .editingDidBegin)
         }

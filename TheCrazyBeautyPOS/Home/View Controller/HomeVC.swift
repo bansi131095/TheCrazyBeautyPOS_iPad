@@ -125,11 +125,11 @@ class HomeVC: UIViewController {
             }
             if lang == "zh"{
                 img_SelectedImage.image = UIImage(named: "ic_Chian")
-                lbl_SelectedLanguage.text = "中文"
+                lbl_SelectedLanguage.text = "Chinese"
             }
             if lang == "vi"{
                 img_SelectedImage.image = UIImage(named: "ic_VI")
-                lbl_SelectedLanguage.text = "Tiếng Việt"
+                lbl_SelectedLanguage.text = "Vietnamese"
             }
         }else{
             img_SelectedImage.image = UIImage(named: "ic_UK")
@@ -346,31 +346,39 @@ class HomeVC: UIViewController {
         setUpLanguage(lanCode: "zh")
         vw_Language.isHidden = true
         img_SelectedImage.image = UIImage(named: "ic_Chian")
-        lbl_SelectedLanguage.text = "中文"
+        lbl_SelectedLanguage.text = "Chinese"
     }
     
     @IBAction func btn_vi(_ sender: Any) {
         setUpLanguage(lanCode: "vi")
         vw_Language.isHidden = true
         img_SelectedImage.image = UIImage(named: "ic_VI")
-        lbl_SelectedLanguage.text = "Tiếng Việt"
+        lbl_SelectedLanguage.text = "Vietnamese"
     }
     
     
     // MARK: - Language
     func setUpLanguage(lanCode: String){
         let lan = lanCode
+        let window1 = UIWindow(frame: UIScreen.main.bounds)
+        
         UserDefaults.standard.set(lan, forKey: global().kSaveLanguageDefaultKey)
-       
+        UserDefaults.standard.synchronize()
         L102Language.setAppleLAnguageTo(lang: lanCode)
         Localisator.init()
+        
         let sb = UIStoryboard(name: "Home", bundle:nil)
         
         let navDashboard = sb.instantiateViewController(withIdentifier: "NavigateHome") as! UINavigationController
          navDashboard.modalPresentationStyle = .fullScreen
         
-        window?.rootViewController = navDashboard
-        window?.makeKeyAndVisible()
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let sceneDelegate = scene.delegate as? SceneDelegate,
+           let window = sceneDelegate.window {
+
+            window.rootViewController = navDashboard
+            window.makeKeyAndVisible()
+        }
     }
     
     func verfiyPasscode1(passcode: String){
@@ -399,11 +407,9 @@ class HomeVC: UIViewController {
             if let firstUnviewed = self.notificationList.first(where: { $0.viewed == 0 }) {
                 global.shared.hasUnreadNotification = true
                 self.vw_pending.isHidden = false
-                print("Found unviewed notification with id:")
             } else {
                 global.shared.hasUnreadNotification = false
                 self.vw_pending.isHidden = true
-                print("All notifications are viewed")
             }
         }
     }

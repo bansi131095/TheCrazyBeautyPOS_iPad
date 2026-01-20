@@ -364,9 +364,9 @@ class Business_HoursVC: UIViewController {
         APIService.shared.UpdateBusinessHours(workingHours: workingHoursToSend) { result  in
             self.hideLoader()
         if result {
-            self.alertWithMessageOnly("Business timing updated successfully")
+            self.alertWithMessageOnly(NSLocalizedString("Business timing updated successfully",comment: ""))
         } else {
-            self.alertWithMessageOnly("Something went wrong.")
+            self.alertWithMessageOnly(NSLocalizedString("Failed to add salon timing",comment: ""))
         }
     }
 }

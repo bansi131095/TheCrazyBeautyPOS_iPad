@@ -55,7 +55,7 @@ class No_ShowLimitVC: UIViewController {
     
     @IBAction func btn_Save(_ sender: Any) {
         if txt_NoShowLimit.text == ""{
-            alertWithImage(title: "No Show Limit", Msg: "No.Show Limit is required.")
+            alertWithImage(title: NSLocalizedString("No Show Limit",comment: "") , Msg: NSLocalizedString("No.Show Limit is required.", comment: ""))
         }else{
             api_UpdateNoShowLimit()
         }
@@ -100,9 +100,9 @@ class No_ShowLimitVC: UIViewController {
         APIService.shared.UpdateNoShowlimit(vendorId: LocalData.userId,allow_noshow: String(allow_noshow), noshow_limit: self.txt_NoShowLimit.text ?? "", completion: { result in
             self.hideLoader()
             if let message = result?.data {
-                self.alertWithMessageOnly(message)
+                self.alertWithMessageOnly(NSLocalizedString("Noshow limit updated successfully",comment: ""))
             }else{
-                self.alertWithMessageOnly("Something went wrong.")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to update noshow limit",comment: ""))
             }
         })
     }

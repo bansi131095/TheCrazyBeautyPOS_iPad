@@ -20,13 +20,14 @@ class global: NSObject
 //    GOOGLE_MAP_KEY_RUSH_MALL=AIzaSyDNE-nH7aaKw21nG3yVaDtPZQm-6yaqHh8
     
     // Staging
-    static let base_url = "https://staging.thecrazybeauty.com/"
-    static let CAL_WEB_URL = "https://tcb-ten.vercel.app/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true"
+//    static let base_url = "https://staging.thecrazybeauty.com/"
+//    static let CAL_WEB_URL = "https://tcb-ten.vercel.app/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true"
      
     
     // LIVE
-//    static let base_url = "https://api.thecrazybeauty.com/"
+    static let base_url = "https://api.thecrazybeauty.com/"
 //    static let CAL_WEB_URL = "https://thecrazybeauty.com/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true"
+    static let CAL_WEB_URL = "https://thecrazybeauty.com/vendor/booking_touch?id=%@&auth=%@&rand=%lld"
     
     static let server_url = global.base_url + "api/"
     
@@ -58,14 +59,14 @@ class global: NSObject
     //Common Parameter
         
     //MARK:- Login & register
-    var URL_LOGIN = global.server_url + "login"
-    var URL_CHECK_VENDOR = global.server_url + "check_vendor"
-    var URL_SOCIAL_LOGIN = global.server_url + "social_login"
+    var URL_LOGIN = global.server_url + "login" //message Done
+    var URL_CHECK_VENDOR = global.server_url + "check_vendor" //message Done
+    var URL_SOCIAL_LOGIN = global.server_url + "social_login" //message Done
     // Accesskey, Email_Id, Password
    
-    var URL_SERVICE_DETAILS = global.server_url + "service_details_v1"
+    var URL_SERVICE_DETAILS = global.server_url + "service_details_v1" //non-use
     
-    var URL_BUSINESS_SERVICES = global.server_url + "business_services"
+    var URL_BUSINESS_SERVICES = global.server_url + "business_services" //non-use
     var URL_SELECT_MAINSERVICES = global.server_url + "select_mainservices/"
     
     var URL_TEAM_DETAILS = global.server_url + "team_details"
@@ -108,7 +109,7 @@ class global: NSObject
     
     var URL_SELECT_MAINCATEGORY = global.server_url + "select_maincategory/"
     
-    var URL_SERVICE_DETAILS_V1 = global.server_url + "service_details_v1"
+//    var URL_SERVICE_DETAILS_V1 = global.server_url + "service_details_v1"
     
     var URL_GET_TIMING = global.server_url + "get_timing"
     
@@ -273,6 +274,7 @@ class global: NSObject
     
     var URL_GET_REMINDERMAIL = global.server_url + "get_remindermail/"
     var URL_GET_TIMEGAP = global.server_url + "get_timegap/"
+    var URL_DELETE_GUEST = global.server_url + "delete_guest/"
     
     var noDataLabel: UILabel?
     var hasUnreadNotification: Bool = false
@@ -320,3 +322,19 @@ class global: NSObject
 
 
 
+/*aa screen baki che api na message
+ 
+ 
+ 
+ 
+ TeamVC
+ WalkinCheckoutVC
+ 
+ 
+ profile
+ 
+ 
+ Booking_PreferenceVC
+ Custom_HoursVC
+ 
+*/

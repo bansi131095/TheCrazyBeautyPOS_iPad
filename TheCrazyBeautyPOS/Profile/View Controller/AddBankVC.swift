@@ -12,10 +12,9 @@ class AddBankVC: UIViewController {
     
     //MARK: - Outlet
     @IBOutlet weak var txt_AccountNumber: TextInputLayout!
-    
     @IBOutlet weak var txt_AccountHolderName: TextInputLayout!
-    
     @IBOutlet weak var btn_Save: GradientButton!
+    
     //MARK: - Global Variable
     
     
@@ -39,9 +38,11 @@ class AddBankVC: UIViewController {
     //MARK: -  Button Action
     @IBAction func btn_Save(_ sender: Any) {
         if txt_AccountNumber.text == "" {
-            alertWithImage(title: "Add Bank Details", Msg: "Account Number is required.")
+//            alertWithImage(title: "Add Bank Details", Msg: "Account Number is required.")
+            alertWithImage(title: NSLocalizedString("Add Bank Details", comment: ""), Msg: NSLocalizedString("Account Number is required.", comment: ""))
         }else if txt_AccountHolderName.text == "" {
-            alertWithImage(title: "Add Bank Details", Msg: "Account Holder Name is required.")
+//            alertWithImage(title: "Add Bank Details", Msg: "Account Holder Name is required.")
+            alertWithImage(title: NSLocalizedString("Add Bank Details", comment: ""), Msg: NSLocalizedString("Account Holder Name is required.", comment: ""))
         }else{
             AddBankDetails()
         }
@@ -56,12 +57,11 @@ class AddBankVC: UIViewController {
     }
     
     //MARK: - Web Api Calling
-    
     func AddBankDetails(){
         showLoader()
         APIService.shared.UpdateBankDetails(accountNumber: self.txt_AccountNumber.text ?? "", accountHolderName: self.txt_AccountHolderName.text ?? "", completion: { result in
             self.hideLoader()
-            self.alertWithMessageOnly(result?.data ?? "")
+            self.alertWithMessageOnly(NSLocalizedString("Bank details updated successfully", comment: ""))
         })
     }
     

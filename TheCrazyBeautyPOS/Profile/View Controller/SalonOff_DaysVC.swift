@@ -292,10 +292,10 @@ class SalonOff_DaysVC: UIViewController {
             self.hideLoader()
                 DispatchQueue.main.async {
                     if success {
-                        self.alertWithMessageOnly("Break time updated successfully")
+                        self.alertWithMessageOnly(NSLocalizedString("Break time updated successfully",comment: ""))
                         // Optionally show success toast or pop VC
                     } else {
-                        self.alertWithMessageOnly("Something went wrong.")
+                        self.alertWithMessageOnly(NSLocalizedString("Failed to update vendor",comment: ""))
                     }
                 }
             }
@@ -351,7 +351,7 @@ class SalonOff_DaysVC: UIViewController {
     
     func openTimeDropdown(for label: UILabel, isFromTime: Bool, fromLabel: UILabel? = nil, dayKey: String) {
         guard let (minTime, maxTime) = businessHoursMap[dayKey.lowercased()] else {
-            self.alertWithMessageOnly("Business hours not available.")
+            self.alertWithMessageOnly(NSLocalizedString("Business hours not available.",comment: ""))
             return
         }
 

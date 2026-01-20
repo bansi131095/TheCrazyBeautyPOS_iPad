@@ -137,7 +137,7 @@ class ServicesVC: UIViewController {
     
     func getNoDataLabel() -> UILabel {
         let noDataLabel = UILabel()
-        noDataLabel.text = "No Services Data Found"
+        noDataLabel.text = NSLocalizedString("No Services Data Found", comment: "")
         noDataLabel.textAlignment = .center
         noDataLabel.textColor = .gray
         noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)
@@ -196,15 +196,13 @@ class ServicesVC: UIViewController {
             guard let model = staffResult else {
                 return
             }
-
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    // safe UI code here
-                    self.showToast(message: model.data)
+                    self.showToast(message: NSLocalizedString("Service deleted successfully",comment: ""))
                 }
                 self.loadData(Search: "")
             } else {
-                self.show_alert(msg: model.error ?? "", title: "Delete Service")
+                self.showToast(message: NSLocalizedString("Failed to delete service",comment: ""))
             }
         }
     }
@@ -254,14 +252,21 @@ extension ServicesVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
             cell.lbl_time.text! = "-"
             cell.lbl_serviceFor.text = "-"
         }else{
-            cell.lbl_serviceFor.text = service.service_for
-            cell.lbl_time.text = "\(service.duration) Min"
+            if service.service_for == "Unisex"{
+                cell.lbl_serviceFor.text = NSLocalizedString("Unisex", comment: "")
+            }else if service.service_for == "Female"{
+                cell.lbl_serviceFor.text = NSLocalizedString("Female", comment: "")
+            }else if service.service_for == "Male"{
+                cell.lbl_serviceFor.text = NSLocalizedString("Male", comment: "")
+            }
+//            cell.lbl_serviceFor.text = service.service_for
+            cell.lbl_time.text = "\(service.duration) " + NSLocalizedString("Min", comment: "")
         }
         
         if service.is_sub_service == 0{
-            cell.lbl_type.text = "Main"
+            cell.lbl_type.text = NSLocalizedString("Main", comment: "")
         }else{
-            cell.lbl_type.text = "Sub"
+            cell.lbl_type.text = NSLocalizedString("Sub", comment: "")
         }
         /*if service.price_type != "Fixed" && !(service.sale_price != nil && service.sale_price! > 0) {
             cell.lbl_price.text = service.price_type + " \(LocalData.symbol)\(service.price)"
@@ -288,7 +293,11 @@ extension ServicesVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
 
         // Price Label
         if service.price_type != "Fixed" && !(Double(service.sale_price) ?? 0.0 > 0) {
-            cell.lbl_price.text = "\(service.price_type) \(LocalData.symbol)\(String(format: "%.2f", price))"
+            if service.price_type == "Starts From"{
+                cell.lbl_price.text = "\(NSLocalizedString("Starts From", comment: "")) \(LocalData.symbol)\(String(format: "%.2f", price))"
+            }else if service.price_type == "Fixed"{
+                cell.lbl_price.text = "\(NSLocalizedString("Fixed", comment: "")) \(LocalData.symbol)\(String(format: "%.2f", price))"
+            }
         } else {
             cell.lbl_price.text = "\(LocalData.symbol)\(String(format: "%.2f", price))"
         }
@@ -296,7 +305,11 @@ extension ServicesVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
         // Sale Price Label
         if salePrice > 0 {
             if priceType != "Fixed" {
-                cell.lbl_SalePrice.text = "\(service.price_type) \(LocalData.symbol)\(String(format: "%.2f", salePrice))"
+                if service.price_type == "Starts From"{
+                    cell.lbl_SalePrice.text = "\(NSLocalizedString("Starts From", comment: "")) \(LocalData.symbol)\(String(format: "%.2f", salePrice))"
+                }else if service.price_type == "Fixed"{
+                    cell.lbl_SalePrice.text = "\(NSLocalizedString("Fixed", comment: "")) \(LocalData.symbol)\(String(format: "%.2f", salePrice))"
+                }
             } else {
                 cell.lbl_SalePrice.text = "\(LocalData.symbol)\(String(format: "%.2f", salePrice))"
             }
@@ -320,7 +333,7 @@ extension ServicesVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
             let popup = ConfirmDeletePopupVC()
             popup.modalPresentationStyle = .overFullScreen
             popup.modalTransitionStyle = .crossDissolve
-            popup.titleText = "Are you sure you want to delete this service?"
+            popup.titleText = NSLocalizedString("Are you sure you want to delete this service?",comment: "")
             popup.onConfirm = {
                 print("User confirmed delete")
                 // Call your delete logic here

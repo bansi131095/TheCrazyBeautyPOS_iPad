@@ -27,9 +27,9 @@ class Email_InvoiceVC: UIViewController {
     
     @IBAction func btn_Continue(_ sender: Any) {
         if (self.txt_Email.text == "") {
-            self.txt_Email.showErrorMessage(message: "Please enter email")
+            self.txt_Email.showErrorMessage(message: NSLocalizedString("Please enter email",comment: ""))
         } else if !self.txt_Email.text!.isValidEmail() {
-            self.txt_Email.showErrorMessage(message: "Please enter valid email")
+            self.txt_Email.showErrorMessage(message: NSLocalizedString("Please enter valid email",comment: ""))
         }else{
             api_SendInvoiceEmail()
         }
@@ -45,13 +45,13 @@ class Email_InvoiceVC: UIViewController {
             }
             self.hideLoader()
             if model.error == "" || model.error == nil {
-                self.showToast(message: model.data)
-        
+                self.showToast(message: NSLocalizedString("Email sent successfully", comment: ""))
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     self.dismiss(animated: true)
                 }
             } else {
-                self.show_alert(msg: model.error ?? "", title: "Update Staff")
+                self.showToast(message: NSLocalizedString("Failed to get booking data", comment: ""))
+//                self.show_alert(msg: model.error ?? "", title: "Update Staff")
             }
         }
     }

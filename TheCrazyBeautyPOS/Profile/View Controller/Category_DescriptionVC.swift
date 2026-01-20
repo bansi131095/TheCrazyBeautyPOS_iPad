@@ -52,7 +52,7 @@ class Category_DescriptionVC: UIViewController {
                     let descriptionText = cell.txt_Description.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
                     
                     if sequenceText.isEmpty {
-                        alertWithImage(title: "Validation", Msg: "Sequence cannot be empty!")
+                        alertWithImage(title: NSLocalizedString("Validation",comment: ""), Msg: NSLocalizedString("Sequence cannot be empty!",comment: ""))
                         return
                     }
 
@@ -186,9 +186,9 @@ class Category_DescriptionVC: UIViewController {
         ) { response in
             self.hideLoader()   
             if let message = response?.data {
-                self.alertWithMessageOnly(message)
+                self.alertWithMessageOnly(NSLocalizedString("Category description updated successfully",comment: ""))
             } else {
-                self.alertWithMessageOnly("Something went wrong, please try again.")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to update category description",comment: ""))
             }
         }
     }

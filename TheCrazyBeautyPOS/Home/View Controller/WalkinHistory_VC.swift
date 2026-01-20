@@ -227,11 +227,12 @@ class WalkinHistory_VC: UIViewController, UIPopoverPresentationControllerDelegat
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
                     // safe UI code here
-                    self.showToast(message: model.data)
+//                    self.showToast(message: model.data)
+                    self.showToast(message: NSLocalizedString("Walkin appointment deleted successfully",comment: ""))
                 }
                 self.WalkinHistory()
             } else {
-                self.show_alert(msg: model.error ?? "", title: "Delete Team")
+                self.showToast(message: NSLocalizedString("Failed to delete walkin appointment",comment: ""))
             }
         }
     }
@@ -320,26 +321,26 @@ extension WalkinHistory_VC: UITableViewDelegate, UITableViewDataSource{
         cell.lbl_Date.text = data.created_at
         
         if data.service_names == ""{
-            cell.lbl_ServiceName.text = "N/A"
+            cell.lbl_ServiceName.text = "-"
         }else{
             cell.lbl_ServiceName.text = data.service_names
         }
         
         if data.payment_type == ""{
-            cell.lbl_PaymentType.text = "N/A"
+            cell.lbl_PaymentType.text = "-"
         }else{
             cell.lbl_PaymentType.text = data.payment_type.capitalized
         }
         
         
         if data.coupon_code == ""{
-            cell.lbl_CouponCode.text = "N/A"
+            cell.lbl_CouponCode.text = "-"
         }else{
             cell.lbl_CouponCode.text = data.coupon_code
         }
         
         if data.tip == 0{
-            cell.lbl_Tip.text = "N/A"
+            cell.lbl_Tip.text = "-"
         }else{
 //            cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + "\(Double(data.tip))"
             cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", data.tip)
@@ -347,7 +348,7 @@ extension WalkinHistory_VC: UITableViewDelegate, UITableViewDataSource{
         
         cell.lbl_Discount.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", Double(data.discount_amount))
         if data.giftCardDisplayString == ""{
-            cell.lbl_GiftCard?.text = "N/A"
+            cell.lbl_GiftCard?.text = "-"
         }else{
             cell.lbl_GiftCard?.text = data.giftCardDisplayString
         }
@@ -362,10 +363,8 @@ extension WalkinHistory_VC: UITableViewDelegate, UITableViewDataSource{
             let popup = ConfirmDeletePopupVC()
             popup.modalPresentationStyle = .overFullScreen
             popup.modalTransitionStyle = .crossDissolve
-            popup.titleText = "Are you sure you want to delete this booking?"
+            popup.titleText = NSLocalizedString("Are you sure you want to delete this booking?", comment: "")
             popup.onConfirm = {
-                print("Inventory confirmed delete")
-                // Call your delete logic here
                 self.deleteWalkingHistory(walkinId: data.id)
             }
             self.present(popup, animated: true, completion: nil)
@@ -407,7 +406,7 @@ extension WalkinHistory_VC: WalkinHistoryDownloadable {
         
         APIService.shared.downloadWalkinHistoryReport(vendor_id: vendorID,start_date: startDate,end_date: endDate) { model in
             guard let filename = model?.filename else {
-                self.alertWithMessageOnly("Download failed")
+                self.alertWithMessageOnly(NSLocalizedString("Download failed",comment: ""))
                 return
             }
 

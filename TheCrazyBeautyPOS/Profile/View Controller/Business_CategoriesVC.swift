@@ -168,9 +168,9 @@ class Business_CategoriesVC: UIViewController {
         APIService.shared.UpdateSelectServices(service_id: service_id, vendorId: LocalData.userId, completion: { result in
             self.hideLoader()
             if let message = result?.data?.message {
-                self.alertWithMessageOnly(message)
+                self.alertWithMessageOnly(NSLocalizedString("Business categories updated successfully",comment: ""))
             }else{
-                self.alertWithMessageOnly("Something went wrong.")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to select services",comment: ""))
             }
         })
     }

@@ -52,10 +52,10 @@ class Payment_CancellationVC: UIViewController {
 
     //MARK: -  Button Action
     @IBAction func btn_Save(_ sender: Any) {
-        if select_CancellationDuration != "No notice required"{
+        if select_CancellationDuration != NSLocalizedString("No notice required", comment: ""){
             let penaltyAmount = txt_CancellationAmount.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "0"
             if penaltyAmount.isEmpty || penaltyAmount == "0" {
-                alertWithImage(title: "Cancellation", Msg: "Please enter Cancellation amount percent.")
+                alertWithImage(title: NSLocalizedString("Cancellation",comment: "") , Msg: NSLocalizedString("Please enter Cancellation amount percent", comment: ""))
                 return
             }
         }
@@ -91,7 +91,7 @@ class Payment_CancellationVC: UIViewController {
             print("Selected item: \(item) at index: \(index)")
             self.txt_CancellationDuration.text = item
             if index == 0{
-                select_CancellationDuration = "No notice required"
+                select_CancellationDuration = NSLocalizedString("No notice required", comment: "")
                 vw_CancellationDuration.isHidden = true
                 vw_Specify.isHidden = true
                 vw_TextView.isHidden = false
@@ -168,9 +168,10 @@ class Payment_CancellationVC: UIViewController {
         APIService.shared.UpdateAmount(vendorId: LocalData.userId, amount: txt_PaymentPercent.text ?? "0", penaltyFees: txt_CancellationAmount.text ?? "0", penaltyDuration: getPenaltyDurationValue(), cancellationPolicy: txt_CancellationPolicy.text ?? "") { result in
             self.hideLoader()
             if let message = result?.data{
-                self.alertWithMessageOnly(message)
+//                self.alertWithMessageOnly(message)
+                self.alertWithMessageOnly(NSLocalizedString("Amount updated successfully",comment: ""))
             }else{
-                self.alertWithMessageOnly("Something went wrong.")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to update amount",comment: ""))
             }
         }
     }

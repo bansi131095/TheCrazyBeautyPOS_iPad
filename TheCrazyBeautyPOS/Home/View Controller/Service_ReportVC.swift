@@ -348,7 +348,7 @@ extension Service_ReportVC: ServiceDownloadable {
         
         APIService.shared.downloadServiceReport(vendor_id: vendorID,start_date: startDate,end_date: endDate) { model in
             guard let filename = model?.filename else {
-                self.alertWithMessageOnly("Download failed")
+                self.alertWithMessageOnly(NSLocalizedString("Download failed",comment: ""))
                 return
             }
 

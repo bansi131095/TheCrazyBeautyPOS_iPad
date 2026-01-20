@@ -287,11 +287,13 @@ class SalesReportHistory_VC: UIViewController, UIPopoverPresentationControllerDe
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
                     // safe UI code here
-                    self.showToast(message: model.data)
+//                    self.showToast(message: model.data)
+                    self.showToast(message: NSLocalizedString("Booking deleted successfully",comment: ""))
                 }
                 self.salesHistoryData(Search: "")
             } else {
-                self.show_alert(msg: model.error ?? "", title: "Delete Team")
+                self.showToast(message: NSLocalizedString("Failed to delete booking",comment: ""))
+//                self.show_alert(msg: model.error ?? "", title: "Delete Team")
             }
         }
     }
@@ -417,13 +419,13 @@ extension SalesReportHistory_VC: UITableViewDelegate, UITableViewDataSource{
         cell.lbl_Status.text = data.booking_status.capitalized
         
         if data.payment_type == ""{
-            cell.lbl_Payment.text = "N/A"
+            cell.lbl_Payment.text = "-"
         }else{
             cell.lbl_Payment.text = data.payment_type.capitalized
         }
         
         if data.tip == 0 {
-            cell.lbl_Tip.text = "N/A"
+            cell.lbl_Tip.text = "-"
         }else{
 //            cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + String(Double(data.tip))
             cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", Double(data.tip))
@@ -451,7 +453,7 @@ extension SalesReportHistory_VC: UITableViewDelegate, UITableViewDataSource{
             let popup = ConfirmDeletePopupVC()
             popup.modalPresentationStyle = .overFullScreen
             popup.modalTransitionStyle = .crossDissolve
-            popup.titleText = "Are you sure you want to delete this booking?"
+            popup.titleText = NSLocalizedString("Are you sure you want to delete this booking?", comment: "")
             popup.onConfirm = {
                 // Call your delete logic here
                 self.deleteBookings(Booking_Id: String(data.id))
@@ -522,7 +524,7 @@ extension SalesReportHistory_VC: SalesReportDownloadable {
         
         APIService.shared.downloadBookingHistoryReport(vendor_id: vendorID,start_date: startDate,end_date: endDate,customer_type: "") { model in
             guard let filename = model?.filename else {
-                self.alertWithMessageOnly("Download failed")
+                self.alertWithMessageOnly(NSLocalizedString("Download failed",comment: ""))
                 return
             }
 

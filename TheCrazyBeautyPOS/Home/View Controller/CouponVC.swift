@@ -136,12 +136,11 @@ class CouponVC: UIViewController {
             self.hideLoader()
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    // safe UI code here
-                    self.showToast(message: model.data)
+                    self.showToast(message: NSLocalizedString("Coupon deleted successfully", comment: ""))
                 }
                 self.loadData(Search: "")
             } else {
-                self.show_alert(msg: model.error ?? "", title: "Delete Team")
+                self.showToast(message: NSLocalizedString("Failed to delete coupon", comment: ""))
             }
         }
     }
@@ -197,7 +196,14 @@ extension CouponVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDele
         cell.lbl_code.text = coupon.coupon_code
         cell.lbl_startDate.text = "\(coupon.start_date)"
         cell.lbl_endDate.text = "\(coupon.end_date)"
-        cell.lbl_status.text = coupon.status
+//        cell.lbl_status.text = coupon.status
+        
+        
+        if coupon.status == "Active"{
+            cell.lbl_status.text = NSLocalizedString("Active", comment: "")
+        }else if coupon.status == "Inactive"{
+            cell.lbl_status.text = NSLocalizedString("Inactive", comment: "")
+        }
         cell.Act_Edit = {
             let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddCoupon_VC") as! AddCoupon_VC
             addNew.isEdit = true
@@ -208,10 +214,8 @@ extension CouponVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDele
             let popup = ConfirmDeletePopupVC()
             popup.modalPresentationStyle = .overFullScreen
             popup.modalTransitionStyle = .crossDissolve
-            popup.titleText = "Are you sure you want to delete this Coupon?"
+            popup.titleText = NSLocalizedString("Are you sure you want to delete this Coupon?", comment: "")
             popup.onConfirm = {
-                print("Coupon confirmed delete")
-                // Call your delete logic here
                 self.deleteCoupon(Id: coupon.id)
             }
             self.present(popup, animated: true, completion: nil)

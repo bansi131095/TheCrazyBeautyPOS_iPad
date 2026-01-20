@@ -50,7 +50,7 @@ class Team_SequenceVC: UIViewController {
                 let sequenceText = cell.txt_Sequence.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
                 
                 if sequenceText.isEmpty {
-                    alertWithImage(title: "Team Sequence", Msg: "Please fill in field.")
+                    alertWithImage(title: NSLocalizedString("Team Sequence", comment: ""), Msg: NSLocalizedString("Please fill in field.",comment: ""))
                     return
                 }
                 
@@ -77,9 +77,11 @@ class Team_SequenceVC: UIViewController {
         APIService.shared.updateStaffSequence(staffSequenceList: sequenceArray, calendar_sequence: calendarSequenceArray, vendorid: LocalData.userId) { result in
             self.hideLoader()
             if result?.data != nil {
-                self.alertWithMessageOnly(result?.data ?? "")
+//                self.alertWithMessageOnly(result?.data ?? "")
+                self.alertWithMessageOnly(NSLocalizedString("Staff sequence updated successfully",comment: ""))
             } else {
-                self.alertWithMessageOnly(result?.error ?? "")
+//                self.alertWithMessageOnly(result?.error ?? "")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to update staff sequence",comment: ""))
             }
         }
     }

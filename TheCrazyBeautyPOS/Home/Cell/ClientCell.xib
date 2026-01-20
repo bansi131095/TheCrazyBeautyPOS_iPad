@@ -99,6 +99,18 @@
                                     <action selector="act_edit:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="8w8-XJ-1by"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LVY-bB-y00">
+                                <rect key="frame" x="1344" y="36" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="XiR-kv-mKK"/>
+                                    <constraint firstAttribute="width" constant="28" id="j5f-YM-Yo5"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="delete"/>
+                                <connections>
+                                    <action selector="act_Seconddelete:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Tuj-hF-Bbw"/>
+                                </connections>
+                            </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vfe-2y-UQa">
                                 <rect key="frame" x="1344" y="39.5" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -150,13 +162,16 @@
                             <constraint firstItem="OGm-XW-9zN" firstAttribute="leading" secondItem="vhq-M1-Kpf" secondAttribute="leading" constant="30" id="3OB-KB-Mw5"/>
                             <constraint firstItem="8Is-WU-eNc" firstAttribute="top" secondItem="qkg-wL-a01" secondAttribute="bottom" constant="5" id="8ys-wi-bxH"/>
                             <constraint firstItem="2Cs-Bg-G4Q" firstAttribute="centerY" secondItem="vhq-M1-Kpf" secondAttribute="centerY" id="Ect-4D-Nf6"/>
+                            <constraint firstItem="LVY-bB-y00" firstAttribute="top" secondItem="2Cs-Bg-G4Q" secondAttribute="top" id="FIB-z3-GkE"/>
                             <constraint firstItem="Vfe-2y-UQa" firstAttribute="centerY" secondItem="OeB-wd-wDg" secondAttribute="centerY" id="Iw4-yb-jsB"/>
+                            <constraint firstItem="LVY-bB-y00" firstAttribute="trailing" secondItem="2Cs-Bg-G4Q" secondAttribute="trailing" id="JnM-kF-L7E"/>
                             <constraint firstItem="OeB-wd-wDg" firstAttribute="leading" secondItem="0Q0-K2-KVE" secondAttribute="trailing" constant="15" id="Mf7-cB-2Yl"/>
                             <constraint firstItem="et6-Kp-TAP" firstAttribute="leading" secondItem="OeB-wd-wDg" secondAttribute="trailing" constant="15" id="Of4-ET-gbe"/>
                             <constraint firstItem="58P-44-UKd" firstAttribute="centerY" secondItem="vhq-M1-Kpf" secondAttribute="centerY" id="T0p-L3-QDK"/>
                             <constraint firstItem="iXe-rf-9A2" firstAttribute="centerY" secondItem="et6-Kp-TAP" secondAttribute="centerY" id="TF7-Wb-Eux"/>
                             <constraint firstItem="et6-Kp-TAP" firstAttribute="centerY" secondItem="OeB-wd-wDg" secondAttribute="centerY" id="Udq-08-S2H"/>
                             <constraint firstItem="58P-44-UKd" firstAttribute="leading" secondItem="2Cs-Bg-G4Q" secondAttribute="trailing" constant="10" id="WcR-eI-xsl"/>
+                            <constraint firstItem="LVY-bB-y00" firstAttribute="leading" secondItem="2Cs-Bg-G4Q" secondAttribute="leading" id="aCw-TR-OnC"/>
                             <constraint firstItem="2Cs-Bg-G4Q" firstAttribute="leading" secondItem="iXe-rf-9A2" secondAttribute="trailing" constant="10" id="ajw-BU-OE3"/>
                             <constraint firstItem="Gux-LR-LBw" firstAttribute="centerY" secondItem="vhq-M1-Kpf" secondAttribute="centerY" id="cAy-ZG-KqY"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="8Is-WU-eNc" secondAttribute="bottom" constant="15" id="dBT-Ux-LPm"/>
@@ -172,6 +187,7 @@
                             <constraint firstItem="0Q0-K2-KVE" firstAttribute="centerY" secondItem="vhq-M1-Kpf" secondAttribute="centerY" id="pYS-ZI-d6l"/>
                             <constraint firstItem="qkg-wL-a01" firstAttribute="leading" secondItem="OGm-XW-9zN" secondAttribute="trailing" constant="15" id="piS-Bh-SYK"/>
                             <constraint firstItem="0Q0-K2-KVE" firstAttribute="leading" secondItem="8Is-WU-eNc" secondAttribute="trailing" constant="48" id="sS5-Vb-FSE"/>
+                            <constraint firstItem="LVY-bB-y00" firstAttribute="bottom" secondItem="2Cs-Bg-G4Q" secondAttribute="bottom" id="tYa-jw-zrq"/>
                             <constraint firstItem="0Q0-K2-KVE" firstAttribute="leading" secondItem="qkg-wL-a01" secondAttribute="trailing" constant="48" id="uND-OJ-wua"/>
                             <constraint firstItem="Vfe-2y-UQa" firstAttribute="leading" secondItem="2Cs-Bg-G4Q" secondAttribute="leading" id="w2u-bK-C8i"/>
                         </constraints>
@@ -191,6 +207,7 @@
                 <outlet property="btn_Delete" destination="58P-44-UKd" id="j2v-Pv-Tac"/>
                 <outlet property="btn_Edit" destination="2Cs-Bg-G4Q" id="yjX-fr-07A"/>
                 <outlet property="btn_Icon" destination="Gux-LR-LBw" id="IIc-yp-S9d"/>
+                <outlet property="btn_SecondDelete" destination="LVY-bB-y00" id="nbn-Jb-G4E"/>
                 <outlet property="lbl_Line" destination="Vfe-2y-UQa" id="XQT-zP-BjH"/>
                 <outlet property="lbl_clientType" destination="0Q0-K2-KVE" id="3VN-GW-4i9"/>
                 <outlet property="lbl_email" destination="qkg-wL-a01" id="Nx2-VT-dDF"/>
@@ -198,6 +215,7 @@
                 <outlet property="lbl_name" destination="OGm-XW-9zN" id="0sZ-8n-s0J"/>
                 <outlet property="lbl_phone" destination="8Is-WU-eNc" id="HWG-mW-s0U"/>
                 <outlet property="lbl_userType" destination="OeB-wd-wDg" id="aX1-wN-N3L"/>
+                <outlet property="widthEditConst" destination="Pyf-SZ-ywy" id="sy5-ZW-6RY"/>
             </connections>
             <point key="canvasLocation" x="61" y="20"/>
         </tableViewCell>

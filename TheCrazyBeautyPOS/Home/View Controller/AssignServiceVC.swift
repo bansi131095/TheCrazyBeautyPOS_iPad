@@ -28,11 +28,11 @@ class AssignServiceVC: UIViewController {
         super.viewDidLoad()
         contentViewWidthConstraint.constant = 300 // or any dynamic value
         if isEdit {
-            self.lbl_title.text = "Services For " + "\(teamName)"
+            self.lbl_title.text = (NSLocalizedString("Services For ",comment: "")) + "\(teamName)"
             let list = serviceIds.components(separatedBy: ",")
             self.selectedServiceId = list
         } else {
-            self.lbl_title.text = "Assign Services to New Team Member"
+            self.lbl_title.text = (NSLocalizedString("Assign Services to New Team Member",comment: ""))
             serviceIds = ""
             selectedServiceId = []
         }
@@ -144,8 +144,18 @@ extension AssignServiceVC: UITableViewDelegate, UITableViewDataSource {
         let service = serviceList[indexPath.row]
         cell.lbl_category.text = service.category
         cell.lbl_service.text = service.service
-        cell.lbl_time.text = "\(service.duration) Min"
-        cell.lbl_serviceFor.text = service.service_for
+        cell.lbl_time.text = "\(service.duration) " + NSLocalizedString("Minutes",comment: "")
+//        cell.lbl_serviceFor.text = service.service_for
+        
+        if service.service_for == "Male"{
+            cell.lbl_serviceFor.text = NSLocalizedString("Male",comment: "")
+        }else if service.service_for == "Female"{
+            cell.lbl_serviceFor.text = NSLocalizedString("Female",comment: "")
+        }else if service.service_for == "Unisex"{
+            cell.lbl_serviceFor.text = NSLocalizedString("Unisex",comment: "")
+        }
+        
+        
         cell.lbl_price.text = "\(LocalData.symbol)\(service.price)"
         
         let isSelected = selectedServiceId.contains("\(service.id)")
