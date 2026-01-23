@@ -108,7 +108,7 @@ class AddTimeDiffVC: UIViewController {
         // Format dates to "dd-MM-yyyy"
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
-
+        dateFormatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         let fromDate = fromSelectedDate != nil ? dateFormatter.string(from: fromSelectedDate!) : ""
         let toDate = toSelectedDate != nil ? dateFormatter.string(from: toSelectedDate!) : ""
 
@@ -173,6 +173,7 @@ class AddTimeDiffVC: UIViewController {
         calendar.appearance.titleDefaultColor = .black
         calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         calendar.appearance.todayColor = #colorLiteral(red: 0.7529411765, green: 0.7529411765, blue: 0.7529411765, alpha: 1)
+        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
         calendarVC?.view.addSubview(calendar)
 
         if let popover = calendarVC?.popoverPresentationController {
@@ -244,6 +245,7 @@ extension AddTimeDiffVC: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDel
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
+        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         let formattedDate = formatter.string(from: date)
 
         if isSelectingFromDate {

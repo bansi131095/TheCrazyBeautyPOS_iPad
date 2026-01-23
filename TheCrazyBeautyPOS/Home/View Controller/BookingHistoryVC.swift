@@ -128,7 +128,7 @@ extension BookingHistoryVC: UITableViewDelegate, UITableViewDataSource, UIScroll
         guard let cell = tbl_vw.dequeueReusableCell(withIdentifier: "BookingHistoryCell", for: indexPath) as? BookingHistoryCell else {
             return UITableViewCell()
         }
-        cell.lblLCustomerName.text = NSLocalizedString("Customer Name", comment: "")
+//        cell.lblLCustomerName.text = NSLocalizedString("Customer Name", comment: "")
         cell.lblLAmount.text = NSLocalizedString("Amount_1", comment: "")
         cell.lblLBookingNo.text = NSLocalizedString("Booking No", comment: "")
         
@@ -140,7 +140,7 @@ extension BookingHistoryVC: UITableViewDelegate, UITableViewDataSource, UIScroll
             cell.lbl_bookingTime.text = formatBookingTime(bookingTime)
         }
         if let name = upcoming.name, name != "" {
-            cell.lbl_customerName.text = name
+            cell.lbl_customerName.text = name.capitalized
         }
         if let bookingId = upcoming.bookingNumber, bookingId != "" {
             cell.lbl_bookingId.text = "#\(bookingId)"
@@ -154,8 +154,10 @@ extension BookingHistoryVC: UITableViewDelegate, UITableViewDataSource, UIScroll
         
         if upcoming.customerType?.capitalized == "Guest"{
             cell.lbl_type.setTitle(NSLocalizedString("Guest", comment: ""), for: .normal)
+            cell.lblLCustomerName.text = NSLocalizedString("Guest Name : ", comment: "")
         }else if upcoming.customerType?.capitalized == "Customer"{
             cell.lbl_type.setTitle(NSLocalizedString("Customer", comment: ""), for: .normal)
+            cell.lblLCustomerName.text = NSLocalizedString("Customer Name", comment: "")
         }
         
         cell.Act_Info = {

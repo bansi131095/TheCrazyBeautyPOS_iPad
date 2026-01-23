@@ -358,7 +358,7 @@ class HomeVC: UIViewController {
     
     
     // MARK: - Language
-    func setUpLanguage(lanCode: String){
+    /*func setUpLanguage(lanCode: String){
         let lan = lanCode
         let window1 = UIWindow(frame: UIScreen.main.bounds)
         
@@ -379,7 +379,36 @@ class HomeVC: UIViewController {
             window.rootViewController = navDashboard
             window.makeKeyAndVisible()
         }
+    }*/
+    
+    func setUpLanguage(lanCode: String) {
+
+        UserDefaults.standard.set(lanCode, forKey: global().kSaveLanguageDefaultKey)
+        UserDefaults.standard.synchronize()
+
+        L102Language.setAppleLAnguageTo(lang: lanCode)
+        Localisator.init()
+
+        let sb = UIStoryboard(name: "Home", bundle: nil)
+        let navDashboard = sb.instantiateViewController(withIdentifier: "NavigateHome") as! UINavigationController
+        navDashboard.modalPresentationStyle = .fullScreen
+
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let sceneDelegate = scene.delegate as? SceneDelegate,
+           let window = sceneDelegate.window {
+
+            UIView.transition(
+                with: window,
+                duration: 0.35,
+                options: .transitionCrossDissolve,
+                animations: {
+                    window.rootViewController = navDashboard
+                },
+                completion: nil
+            )
+        }
     }
+
     
     func verfiyPasscode1(passcode: String){
         showLoader()
@@ -389,9 +418,11 @@ class HomeVC: UIViewController {
                 self.vwMainPasscode.isHidden = true
                 self.imageArray.append(#imageLiteral(resourceName: "Report"))
                 self.tbl_vw.reloadData()
-                self.showToast(message: result?.data?.message ?? "Passcode verified successfully")
+//                self.showToast(message: result?.data?.message ?? "Passcode verified successfully")
+                self.showToast(message: NSLocalizedString("Passcode verified successfully", comment: ""))
             }else{
-                self.showToast(message: result?.data?.error ?? "Please enter correct passcode")
+//                self.showToast(message: result?.data?.error ?? "Please enter correct passcode")
+                self.showToast(message: NSLocalizedString("Please enter correct passcode", comment: ""))
             }
         }
     }
@@ -472,6 +503,8 @@ class HomeVC: UIViewController {
                     }
                     SharedPrefs.setSalonName(salonData.salonName)
                     SharedPrefs.setLoginToken(salonData.token)
+                    SharedPrefs.setPosId(salonData.posId)
+                    print("salonData.posId:- \(salonData.posId)")
                     SharedPrefs.setStaffLogin(false)
                     SharedPrefs.setVerified(true)
                     let currentTimeMillis = Int(Date().timeIntervalSince1970 * 1000)

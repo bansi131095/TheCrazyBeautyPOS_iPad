@@ -129,7 +129,6 @@ class WalkingVC: UIViewController, WalkingDelegate, WalkingDelegate_ONE {
             ]
         )
         btn_payNow.setAttributedTitle(payNow, for: .normal)
-        
         // Do any additional setup after loading the view.
     }
     

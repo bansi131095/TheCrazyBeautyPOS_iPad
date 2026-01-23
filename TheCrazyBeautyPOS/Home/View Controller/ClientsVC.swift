@@ -283,10 +283,12 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
             cell.btn_Delete.isHidden = false
             cell.btn_Calender.isHidden = false
             cell.btn_SecondDelete.isHidden = true
+            cell.btn_SecondEdit.isHidden = true
             cell.lbl_Line.isHidden = true
             cell.lbl_Line.text = ""
         }else{
             cell.btn_SecondDelete.isHidden = false
+            cell.btn_SecondEdit.isHidden = false
             cell.btn_Edit.isHidden = true
             cell.btn_Icon.isHidden = true
             cell.btn_Delete.isHidden = true
@@ -312,9 +314,19 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
         cell.Act_Edit = {
             let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddClientVC") as! AddClientVC
             addNew.isEdit = true
+            addNew.isGuest = "false"
             addNew.dictClient = client
             self.navigationController?.pushViewController(addNew, animated: true)
         }
+        
+        cell.Act_SecondEdit = {
+            let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddClientVC") as! AddClientVC
+            addNew.isEdit = true
+            addNew.isGuest = "true"
+            addNew.dictClient = client
+            self.navigationController?.pushViewController(addNew, animated: true)
+        }
+        
         cell.Act_Delete = {
             let popup = ConfirmDeletePopupVC()
             popup.modalPresentationStyle = .overFullScreen

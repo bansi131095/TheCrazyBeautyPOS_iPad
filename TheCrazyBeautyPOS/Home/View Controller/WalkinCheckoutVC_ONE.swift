@@ -55,7 +55,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
     var isButtonDisabled: Bool = true
     let dropdownView = UITableView()
     var isDropdownVisible = false
-
+    let posId = SharedPrefs.getPosId()
     // --- price related
     var tips: String = "0"
     var miscPrice: String = "0"
@@ -361,11 +361,18 @@ class WalkinCheckoutVC_ONE: UIViewController {
                
            }else{
                vw_Remaining.isHidden = true
-//               hide
            }
            
            
-           if (grandTotal > 0 && paymentTypeSelectedFirst == "Giftcard / Voucher") {
+//           if (grandTotal > 0 && paymentTypeSelectedFirst == "Giftcard / Voucher") {
+           /*if (grandTotal > 0 && paymentTypeSelectedFirst == "Gift Card / Voucher") {
+               self.vw_payment1.isHidden = false
+           } else {
+               self.vw_payment1.isHidden = true
+           }*/
+           
+           print("paymentTypeSelectedFirst:- \(paymentTypeSelectedFirst)")
+           if paymentTypeSelectedFirst == "Gift Card / Voucher" {
                self.vw_payment1.isHidden = false
            } else {
                self.vw_payment1.isHidden = true
@@ -417,7 +424,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                                 DispatchQueue.main.async { self.recalcTotals() }
                             }
                         } else {
-                            self.show_alert(msg: model.error ?? "", title: "")
+                            self.show_alert(msg: NSLocalizedString("Invalid Coupon Code", comment: ""), title: "")
                         }
                     }
                 } else if checkCouponData?.is_gift == 1 {
@@ -440,12 +447,10 @@ class WalkinCheckoutVC_ONE: UIViewController {
                                 DispatchQueue.main.async { self.recalcTotals() }
                             }
                         } else {
-//                            self.show_alert(msg: model.error ?? "", title: "")
                             self.show_alert(msg: NSLocalizedString("Invalid gift card code",comment: "",), title: "")
                         }
                     }
                 } else {
-//                    self.show_alert(msg: "Invalid Coupon Code", title: "")
                     self.show_alert(msg: NSLocalizedString("Invalid gift card code",comment: "",), title: "")
                 }
             }
@@ -469,7 +474,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                     payment += ",card"
                 }
             }
-        if payment == "card" || payment == "giftcard,card" {
+        if (payment == "card" || payment == "giftcard,card") && posId != "" {
             self.startTerminalTransaction(price: self.widgetPrice, miscPrice: miscPrice, notes: self.txt_miscServiNotes.text ?? "", paymentType: payment)
         }else{
             APIService.shared.addCartDetails(
@@ -492,7 +497,6 @@ class WalkinCheckoutVC_ONE: UIViewController {
                 if model.error == "" || model.error == nil {
                     DispatchQueue.main.async {
                         PrinterManager.shared.onConnect = {
-                            print("Printer Connected ✅")
                             self.showAlertToast(message: "Printer Connected ✅")
                             self.performPrint(serviceName: "Hair Cut",
                                          giftCard: "GC123",
@@ -516,7 +520,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                         self.dismiss(animated: true)
                     }
                 } else {
-                    self.show_alert(msg: model.error!, title: "Add Cart Details")
+                    self.show_alert(msg: NSLocalizedString("Failed to add cart details",comment: "",), title: "")
                 }
             }
         }
@@ -547,19 +551,14 @@ class WalkinCheckoutVC_ONE: UIViewController {
                     popup.modalPresentationStyle = .overFullScreen
                     popup.modalTransitionStyle = .crossDissolve
                     popup.onConfirm = {
-                        // handle confirm
-                        print("✅ Payment Confirmed")
                         self.verifyTransactionStatus(transactionId: tranId, price: price, miscPrice: miscPrice, notes: notes, paymentType: paymentType)
                         self.dismiss(animated: true)
-                        // proceed to check payment status or update UI
                     }
                     self.present(popup, animated: true)
                 }
             } else {
                 self.showToast(message: transactionModel?.error ?? "Error")
-                
             }
-
         }
     }
     
@@ -567,8 +566,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
         showLoaderDialog(on: self, title: "Updating")
 
         APIService.shared.WalkinPayment(vendorId: LocalData.userId,
-                                        transactionId: transactionId
-        ) { posPaymentStatus in
+                                        transactionId: transactionId) { posPaymentStatus in
             
 
             guard let data = posPaymentStatus?.data else { return }
@@ -592,7 +590,6 @@ class WalkinCheckoutVC_ONE: UIViewController {
                 
             default:
                 self.showToast(message: "Unknown status")
-                
             }
         }
     }
@@ -623,7 +620,8 @@ class WalkinCheckoutVC_ONE: UIViewController {
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
                     // safe UI code here
-                    self.showToast(message: model.data?.message ?? "")
+//                    self.showToast(message: model.data?.message ?? "")
+                    self.show_alert(msg: NSLocalizedString("Booking completed successfully",comment: "",), title: "")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         // Printer Code
                         /*PrinterManager.shared.onConnect = {
@@ -653,7 +651,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                 }
                 
             } else {
-                self.show_alert(msg: model.error!, title: "Add Cart Details")
+                self.show_alert(msg: NSLocalizedString("Failed to add cart details",comment: "",), title: "")
             }
         }
     }

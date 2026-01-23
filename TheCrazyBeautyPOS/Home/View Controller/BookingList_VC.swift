@@ -544,6 +544,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
                    self.vw_HeightRebook.constant = 560
                    let formatter = DateFormatter()
                        formatter.dateFormat = "dd-MM-yyyy"
+                   formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
                     txt_DateOfBirth.text = formatter.string(from: Date())
                     txt_DateOfBirth.showLabel()
                    getTimeSlots(duration: duration, full_date: self.txt_DateOfBirth.text ?? "", staff_id: staff_id)
@@ -563,6 +564,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
         let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 500, height: 400))
         calendar.delegate = self
         calendar.dataSource = self
+        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
 //        calendar.select(selectedDate)
         let today = Date()
         calendar.select(today)
@@ -773,6 +775,7 @@ extension BookingList_VC : UITableViewDelegate,UITableViewDataSource{
             self.vw_HeightRebook.constant = 560
             let formatter = DateFormatter()
                 formatter.dateFormat = "dd-MM-yyyy"
+            formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
              txt_DateOfBirth.text = formatter.string(from: Date())
              txt_DateOfBirth.showLabel()
             getTimeSlots(duration: duration, full_date: self.txt_DateOfBirth.text ?? "", staff_id: "\(data.id ?? 0)")
@@ -787,6 +790,7 @@ extension BookingList_VC: FSCalendarDelegate, FSCalendarDataSource {
         selectedDate = date
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
+        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         self.txt_DateOfBirth.text = formatter.string(from: selectedDate)
         self.txt_DateOfBirth.showLabel()
         getTimeSlots(duration: duration, full_date: self.txt_DateOfBirth.text ?? "", staff_id: staff_id)
@@ -899,7 +903,7 @@ extension BookingList_VC : UICollectionViewDelegate, UICollectionViewDataSource 
         // Date formatter to parse and format times
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
-
+        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         if let startDate = formatter.date(from: startTimeStr) {
             let endDate = Calendar.current.date(byAdding: .minute, value: Int(duration) ?? 0, to: startDate)!
             

@@ -20,7 +20,7 @@ class Extra_ChargesVC: UIViewController {
     
     @IBOutlet weak var btn_Save: GradientButton!
     
-    
+    //MARK: - view Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,8 +30,10 @@ class Extra_ChargesVC: UIViewController {
         
         self.lbl_CardPayment.text = NSLocalizedString("Card Payment", comment: "")
         self.lbl_AddExtra.text = NSLocalizedString("Add a Extra Charges for customers who pay with Card.", comment: "")
-        
- 
+        txt_CashPayment.addTarget(self, action: #selector(cashChanged), for: .editingChanged)
+        txt_CardPayment.addTarget(self, action: #selector(cardChanged), for: .editingChanged)
+        setCustomFont()
+        Get_CardDetails()
         let title = NSLocalizedString("Save", comment: "")
         let attributedTitle = NSAttributedString(
             string: title,
@@ -43,7 +45,7 @@ class Extra_ChargesVC: UIViewController {
         btn_Save.setAttributedTitle(attributedTitle, for: .normal)
     }
     
-    
+    //MARK: - Funcation
     func setCustomFont() {
         if let customFont = UIFont(name: "Lato-Medium", size: 18.0) {
             txt_CashPayment.font = customFont
@@ -58,8 +60,65 @@ class Extra_ChargesVC: UIViewController {
         }
     }
 
+    @objc func cashChanged() {
+        let value = Int(txt_CashPayment.text ?? "") ?? 0
+
+        if value > 100 {
+            txt_CashPayment.text = "0"
+        }
+        /*else {
+            txt_CardPayment.text = "0"
+        }*/
+    }
+
+    @objc func cardChanged() {
+        let value = Int(txt_CardPayment.text ?? "") ?? 0
+
+        if value > 100 {
+            txt_CardPayment.text = "0"
+        }
+        /*else {
+            txt_CashPayment.text = "0"
+        }*/
+    }
+
     
+    //MARK: - Button Click
     @IBAction func btn_Save(_ sender: Any) {
+        updateExtraChanges()
     }
     
+    //MARK: - API Call
+    func Get_CardDetails(){
+        showLoader()
+        APIService.shared.getExtraChanges { result in
+            self.hideLoader()
+            if let payment = result?.data{
+                if payment.cashback != 0{
+                    self.txt_CardPayment.text = String(payment.cashback ?? 0)
+                }else{
+                    self.txt_CardPayment.text = ""
+                }
+                
+                if payment.card_charge != 0{
+                    self.txt_CashPayment.text = String(payment.card_charge ?? 0)
+                }else{
+                    self.txt_CashPayment.text = ""
+                }
+                
+            }
+        }
+    }
+    
+    func updateExtraChanges(){
+        showLoader()
+        APIService.shared.updateExtraChanges(card_charge: self.txt_CardPayment.text ?? "", cashback: self.txt_CashPayment.text ?? "", vendor_id: LocalData.userId) { result in
+            self.hideLoader()
+            if let message = result?.data{
+                self.alertWithMessageOnly(NSLocalizedString("Extra charges updated successfully",comment: ""))
+            }else{
+                self.alertWithMessageOnly(NSLocalizedString("Failed to update extra charges",comment: ""))
+            }
+        }
+    }
 }

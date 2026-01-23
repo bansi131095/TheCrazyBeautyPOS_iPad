@@ -163,6 +163,7 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
         calendar.delegate = self
         calendar.dataSource = self
         calendar.select(selectedDate)
+        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
         calendarVC?.view.addSubview(calendar)
 
         if let popover = calendarVC?.popoverPresentationController {
@@ -296,6 +297,7 @@ extension PatchTestList_VC: FSCalendarDelegate, FSCalendarDataSource {
         selectedDate = date
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
+        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         self.txt_DateOfBirth.text = formatter.string(from: selectedDate)
         self.txt_DateOfBirth.showLabel()
         calendarVC?.dismiss(animated: true)

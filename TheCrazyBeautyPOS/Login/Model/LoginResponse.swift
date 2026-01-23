@@ -31,6 +31,7 @@ class LoginData: Mappable {
     var email: String?
     var phone: String?
     var token: String?
+    var pos_id: String?
     var working_hours: [WorkingHour]?
     var break_time: [BreakTime]?
     var staff_sequence: [StaffSequence]?
@@ -52,6 +53,7 @@ class LoginData: Mappable {
         email               <- map["email"]
         phone               <- map["phone"]
         token               <- map["token"]
+        pos_id               <- map["pos_id"]
         working_hours       <- map["working_hours"]
         break_time          <- map["break_time"]
         staff_sequence      <- map["staff_sequence"]

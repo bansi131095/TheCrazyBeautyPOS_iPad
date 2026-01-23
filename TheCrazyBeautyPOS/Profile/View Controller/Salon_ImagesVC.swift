@@ -143,10 +143,10 @@ class Salon_ImagesVC: UIViewController {
         } else {
             if UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiom.pad {
 //                self.showAlertToast(message: "You can not open camera in simulator")
-                self.showAlertToast(message: NSLocalizedString("You can not open camera in simulator", comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("You can not open camera in simulator", comment: ""))
             } else {
 //                self.showAlertToast(message: "You can not open camera in simulator")
-                self.showAlertToast(message: NSLocalizedString("You can not open camera in simulator", comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("You can not open camera in simulator", comment: ""))
             }
         }
     }

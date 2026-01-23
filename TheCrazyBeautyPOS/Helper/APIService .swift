@@ -10152,6 +10152,9 @@ class APIService {
         salon_type: String,
         phone: String,
         salon_phone: String,
+        additional_salon_phone: String,
+        facebook_link: String,
+        instagram_link: String,
         postcode: String,
         address: String,
         city: String,
@@ -10174,6 +10177,9 @@ class APIService {
             "salon_type": salon_type,
             "phone": phone,
             "salon_phone": salon_phone,
+            "additional_salon_phone": additional_salon_phone,
+            "facebook_link": facebook_link,
+            "instagram_link": instagram_link,
             "postcode": postcode,
             "address": address,
             "city": city,
@@ -13878,6 +13884,159 @@ class APIService {
                 }
             }
     }
+ 
+    func getExtraChanges(completion: @escaping (cashbackModelData?) -> Void) {
+        let url = global.shared.URL_GET_Extra_Changes + "/\(LocalData.userId)"
+        
+        print("🌐 URL: \(url)")
+        print("📤 Headers: \(headers)")
+        
+        AF.request(url, method: .get, headers: HTTPHeaders(headers))
+            .validate()
+            .responseJSON { response in
+                
+                // 📩 Status code log
+                if let httpResponse = response.response {
+                    print("✅ Status Code: \(httpResponse.statusCode)")
+                }
+                
+                // 🧾 Raw JSON response
+                if let data = response.data,
+                   let rawResponse = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(rawResponse)")
+                }
+                
+                switch response.result {
+                case .success(let json):
+                    if let model = Mapper<cashbackModelData>().map(JSONObject: json) {
+                        print("✅ Parsed Response Object: \(model)")
+                        completion(model)
+                    } else {
+                        print("❌ Failed to map JSON → CurrencyModel")
+                        completion(nil)
+                    }
+                    
+                case .failure(let error):
+                    print("❌ API Call Failed: \(error.localizedDescription)")
+                    if let data = response.data,
+                       let errMsg = String(data: data, encoding: .utf8) {
+                        print("📦 Error Response: \(errMsg)")
+                    }
+                    completion(nil)
+                }
+            }
+    }
     
+    // MARK: - Update Extra Changes
+    func updateExtraChanges(card_charge: String,cashback: String,vendor_id: String,completion: @escaping (CommonResponse?) -> Void) {
+        let url = "\(global.shared.URL_UPDATE_Extra_Changes)"
+        
+        let params: [String: Any] = [
+            "card_charge": card_charge,
+            "cashback": cashback,
+            "vendor_id": vendor_id
+        ]
+        
+        print("🌐 URL: \(url)")
+        print("📤 Method: POST")
+        print("📤 Headers: \(self.headers)")
+        print("📤 Parameters: \(params)")
+
+        AF.request(
+            url,
+            method: .post,
+            parameters: params,
+            encoding: JSONEncoding.default,
+            headers: HTTPHeaders(headers)
+        )
+        .validate()
+        .responseJSON { response in
+            
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let value):
+                if let data = response.data,
+                   let rawJSON = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(rawJSON)")
+                }
+                
+                if let json = value as? [String: Any],
+                   let mapped = Mapper<CommonResponse>().map(JSON: json) {
+                    print("✅ Parsed Response Object: \(mapped)")
+                    completion(mapped)
+                } else {
+                    print("⚠️ Failed to map JSON to CommonResponse")
+                    completion(nil)
+                }
+                
+            case .failure(let error):
+                print("❌ API Error: \(error.localizedDescription)")
+                if let data = response.data,
+                   let rawJSON = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(rawJSON)")
+                }
+                completion(nil)
+            }
+        }
+    }
+    
+    func updateGuest(client_type: String,dob: String,email: String,first_name: String,last_name: String,gender: String,phone: String,guestId: Int,completion: @escaping (CommonResponse?) -> Void) {
+        let urlString = "\(global.shared.URL_UPDATE_GUEST)\(guestId)"
+        let url = urlString
+
+        let params: [String: Any] = [
+            "client_type": client_type,
+            "dob": dob,
+            "email": email,
+            "first_name": first_name,
+            "last_name": last_name,
+            "gender": gender,
+            "phone": phone,
+            "guestId": guestId
+        ]
+
+        // 📦 Log Request
+        print("🌐 URL: \(url)")
+        print("📤 Parameters: \(params)")
+        print("📤 Headers: \(headers)")
+
+        AF.request(url,
+                   method: .put,
+                   parameters: params,
+                   encoding: JSONEncoding.default,
+                   headers: HTTPHeaders(headers))
+            .validate()
+            .responseJSON { response in
+
+                // 📩 Print HTTP response status code
+                if let httpResponse = response.response {
+                    print("✅ Status Code: \(httpResponse.statusCode)")
+                }
+
+                // 🧾 Print raw response body
+                if let data = response.data,
+                   let raw = String(data: data, encoding: .utf8) {
+                    print("📥 Raw Response: \(raw)")
+                }
+
+                switch response.result {
+                case .success(let json):
+                    if let model: CommonResponse = Mapper<CommonResponse>().map(JSONObject: json) {
+                        print("✅ Parsed Response Object: \(model)")
+                        completion(model)
+                    } else {
+                        print("❌ Mapping failed — unexpected JSON structure.")
+                        completion(nil)
+                    }
+
+                case .failure(let error):
+                    print("❌ Error: \(error.localizedDescription)")
+                    completion(nil)
+                }
+            }
+    }
 }
 

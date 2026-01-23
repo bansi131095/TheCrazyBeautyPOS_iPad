@@ -269,6 +269,7 @@ class AddCoupon_VC: UIViewController {
         calendar.appearance.titleDefaultColor = .black
         calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         calendar.appearance.todayColor = #colorLiteral(red: 0.7529411765, green: 0.7529411765, blue: 0.7529411765, alpha: 1)
+        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
         calendarVC?.view.addSubview(calendar)
 
         if let popover = calendarVC?.popoverPresentationController {
@@ -306,15 +307,14 @@ class AddCoupon_VC: UIViewController {
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
                     // safe UI code here
-                    self.showToast(message: model.data?.message ?? "")
+                    self.alertWithMessageOnly(NSLocalizedString("Coupon added successfully",comment: ""))
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 }
             } else {
-                self.show_alert(msg: model.error, title: "")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to insert coupon details",comment: ""))
             }
-            
         }
     }
     
@@ -329,15 +329,14 @@ class AddCoupon_VC: UIViewController {
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
                     // safe UI code here
-                    self.showToast(message: model.data)
+                    self.alertWithMessageOnly(NSLocalizedString("Coupon updated successfully",comment: ""))
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 }
             } else {
-                self.show_alert(msg: model.error ?? "", title: "")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to edit coupon details",comment: ""))
             }
-            
         }
     }
 }
@@ -347,6 +346,7 @@ extension AddCoupon_VC: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDele
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
+        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         let formattedDate = formatter.string(from: date)
 
         if isSelectingFromDate {

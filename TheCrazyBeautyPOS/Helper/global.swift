@@ -18,16 +18,16 @@ class global: NSObject
     
     
 //    GOOGLE_MAP_KEY_RUSH_MALL=AIzaSyDNE-nH7aaKw21nG3yVaDtPZQm-6yaqHh8
+//    static let CAL_WEB_URL = "https://thecrazybeauty.com/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true"
     
     // Staging
-//    static let base_url = "https://staging.thecrazybeauty.com/"
-//    static let CAL_WEB_URL = "https://tcb-ten.vercel.app/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true"
+    static let base_url = "https://staging.thecrazybeauty.com/"
+    static let CAL_WEB_URL = "https://tcb-ten.vercel.app/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true"
      
     
     // LIVE
-    static let base_url = "https://api.thecrazybeauty.com/"
-//    static let CAL_WEB_URL = "https://thecrazybeauty.com/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true"
-    static let CAL_WEB_URL = "https://thecrazybeauty.com/vendor/booking_touch?id=%@&auth=%@&rand=%lld"
+//    static let base_url = "https://api.thecrazybeauty.com/"
+//    static let CAL_WEB_URL = "https://thecrazybeauty.com/vendor/booking_touch?id=%@&auth=%@&rand=%lld"
     
     static let server_url = global.base_url + "api/"
     
@@ -275,6 +275,9 @@ class global: NSObject
     var URL_GET_REMINDERMAIL = global.server_url + "get_remindermail/"
     var URL_GET_TIMEGAP = global.server_url + "get_timegap/"
     var URL_DELETE_GUEST = global.server_url + "delete_guest/"
+    var URL_GET_Extra_Changes = global.server_url + "get_extra_changes/"
+    var URL_UPDATE_GUEST = global.server_url + "update_guest/"
+    var URL_UPDATE_Extra_Changes = global.server_url + "update_extra_charges"
     
     var noDataLabel: UILabel?
     var hasUnreadNotification: Bool = false

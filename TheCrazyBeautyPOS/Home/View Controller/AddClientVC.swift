@@ -86,11 +86,13 @@ class AddClientVC: UIViewController {
     var selectedDate: Date = Date.now
     var years: [Int] = []
     var calendar: FSCalendar!
+    var isGuest = "true"
+    
     
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.lbl_TAddClient.text = NSLocalizedString("Add Client", comment: "")
+        
         self.lbl_AllField.text = NSLocalizedString("All fields marked with an asterisk (*) are required.", comment: "")
         let currentYear = Calendar.current.component(.year, from: Date())
         years = Array(1900...currentYear)
@@ -103,11 +105,17 @@ class AddClientVC: UIViewController {
         setupClientTypeTextField()
         setupDropdownTable1()
         if isEdit {
-//            self.btn_addEditTeam.setTitle("Update Client", for: .normal)
-            self.btn_addEditTeam.setTitle(NSLocalizedString("Update Client",comment: ""), for: .normal)
-            self.setEditData()
+            if isGuest == "true"{
+                self.lbl_TAddClient.text = NSLocalizedString("Edit Guest", comment: "")
+                self.btn_addEditTeam.setTitle(NSLocalizedString("Update Guest",comment: ""), for: .normal)
+                self.setEditData()
+            }else{
+                self.lbl_TAddClient.text = NSLocalizedString("Edit Client", comment: "")
+                self.btn_addEditTeam.setTitle(NSLocalizedString("Update Client",comment: ""), for: .normal)
+                self.setEditData()
+            }
         } else {
-//            self.btn_addEditTeam.setTitle("Add Client", for: .normal)
+            self.lbl_TAddClient.text = NSLocalizedString("Add Client", comment: "")
             self.btn_addEditTeam.setTitle(NSLocalizedString("Add Client",comment: ""), for: .normal)
             if let iso = CountryUtils.getISOCode(from: selectedCountrycode),
                let flagImage = CountryUtils.imageFromEmoji(flag: CountryUtils.flag(from: iso)) {
@@ -230,7 +238,11 @@ class AddClientVC: UIViewController {
         } else {
             self.view.endEditing(true)
             if isEdit {
-                self.updateClientData(clientId: self.dictClient?.id ?? 0)
+                if isGuest == "true"{
+                    self.updateGuest(guestId: self.dictClient?.id ?? 0)
+                }else{
+                    self.updateClientData(clientId: self.dictClient?.id ?? 0)
+                }
             } else {
                 self.addClientData()
             }
@@ -240,6 +252,7 @@ class AddClientVC: UIViewController {
     @IBAction func btn_DateOfBirth(_ sender: Any) {
         showCalendarPopup(sourceView: dobTextField)
     }
+    
     @IBAction func act_country(_ sender: UIButton) {
         let countryView = CountrySelectView.shared
         countryView.show()
@@ -301,7 +314,7 @@ class AddClientVC: UIViewController {
         calendar.scope = .month
         calendar.scrollDirection = .horizontal   // default
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0
-        
+        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
         guard let calendarVC = calendarVC else { return }
         calendarVC.view.addSubview(calendar)
 
@@ -447,6 +460,7 @@ class AddClientVC: UIViewController {
                         selectedDate = date
                         let formatter = DateFormatter()
                         formatter.dateFormat = "dd-MM-yyyy"
+                        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
                         self.dobTextField.setText(formatter.string(from: selectedDate))
                     }
                 } else {
@@ -466,6 +480,12 @@ class AddClientVC: UIViewController {
             if let item = ClientTypeOptions.first(where: { $0.apiValue == clientType }) {
                 clientTypeTextField.setText(item.displayValue)
                 selectedClientTypeAPIValue = item.apiValue
+            }else{
+                if ClientTypeOptions.count > 1 {
+                    let clientTypeItem = ClientTypeOptions[1]
+                    clientTypeTextField.setText(clientTypeItem.displayValue)
+                    selectedClientTypeAPIValue = clientTypeItem.apiValue
+                }
             }
         }
 
@@ -473,6 +493,12 @@ class AddClientVC: UIViewController {
             if let item = genderOptions.first(where: { $0.apiValue == gender }) {
                 genderTextField.setText(item.displayValue)
                 selectedGenderAPIValue = item.apiValue
+            }else{
+                if genderOptions.count > 1 {
+                    let genderItem = genderOptions[1]
+                    genderTextField.setText(genderItem.displayValue)
+                    selectedGenderAPIValue = genderItem.apiValue
+                }
             }
         }
 
@@ -538,7 +564,7 @@ class AddClientVC: UIViewController {
                     self.navigationController?.popViewController(animated: true)
                 }
             } else {
-                self.show_alert(msg: NSLocalizedString("Failed to insert client", comment: ""), title: "Add Client")
+                self.showToast(message: NSLocalizedString("Failed to insert client", comment: ""))
             }
         }
     }
@@ -562,7 +588,31 @@ class AddClientVC: UIViewController {
                     self.navigationController?.popViewController(animated: true)
                 }
             } else {
-                self.show_alert(msg: NSLocalizedString("Failed to insert client", comment: ""), title: "Update Client")
+                self.showToast(message: NSLocalizedString("Failed to insert client", comment: ""))
+            }
+        }
+    }
+    
+    func updateGuest(guestId: Int) {
+        let mobileNo = "\(selectedCountrycode)-\(self.mobileTextField.text ?? "")"
+        self.showLoader()
+        
+        APIService.shared.updateGuest(client_type: selectedClientTypeAPIValue, dob: self.dobTextField.text ?? "", email: self.emailTextField.text ?? "", first_name: self.firstNameTextField.text ?? "", last_name: self.lastNameTextField.text ?? "", gender: selectedGenderAPIValue, phone: mobileNo, guestId: guestId) { staffResult in
+            self.hideLoader()
+            guard let model = staffResult else {
+                return
+            }
+            self.hideLoader()
+            if model.error == "" || model.error == nil {
+                DispatchQueue.main.async {
+                    // safe UI code here
+                    self.showToast(message: NSLocalizedString("Guest details updated successfully",comment: ""))
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            } else {
+                self.showToast(message: NSLocalizedString("Failed to insert guest", comment: ""))
             }
         }
     }
@@ -654,6 +704,7 @@ extension AddClientVC: FSCalendarDelegate, FSCalendarDataSource {
         selectedDate = date
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
+        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         self.dobTextField.text = formatter.string(from: selectedDate)
         self.dobTextField.showLabel()
         calendarVC?.dismiss(animated: true)

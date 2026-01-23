@@ -59,7 +59,7 @@ class WalkinHistory_VC: UIViewController, UIPopoverPresentationControllerDelegat
 
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM d, yyyy" // Match your existing format
-
+        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         txt_FromDate.text = formatter.string(from: oneMonthAgo)
         txt_ToDate.text = formatter.string(from: currentDate)
 
@@ -91,7 +91,7 @@ class WalkinHistory_VC: UIViewController, UIPopoverPresentationControllerDelegat
         calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         calendar.appearance.todayColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         calendar.today = nil
-
+        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
         calendar.reloadData()
         if let from = firstDate, let to = lastDate {
             let selectedDates = getDateRange(from: from, to: to)
@@ -261,6 +261,7 @@ extension WalkinHistory_VC: FSCalendarDelegate, FSCalendarDataSource {
             // 👇 Update here: Format as "MMM d, yyyy"
             let formatter = DateFormatter()
             formatter.dateFormat = "MMM d, yyyy"
+            formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
             txt_FromDate.text = formatter.string(from: firstDate!)
             txt_ToDate.text = formatter.string(from: lastDate!)
 
@@ -342,11 +343,11 @@ extension WalkinHistory_VC: UITableViewDelegate, UITableViewDataSource{
         if data.tip == 0{
             cell.lbl_Tip.text = "-"
         }else{
-//            cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + "\(Double(data.tip))"
             cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", data.tip)
         }
         
         cell.lbl_Discount.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", Double(data.discount_amount))
+        
         if data.giftCardDisplayString == ""{
             cell.lbl_GiftCard?.text = "-"
         }else{

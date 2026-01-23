@@ -78,6 +78,7 @@ class AddOfflineGiftCard_VC: UIViewController {
         calendar.appearance.titleDefaultColor = .black
         calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         calendar.appearance.todayColor = #colorLiteral(red: 0.7529411765, green: 0.7529411765, blue: 0.7529411765, alpha: 1)
+        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
         calendarVC?.view.addSubview(calendar)
 
         if let popover = calendarVC?.popoverPresentationController {
@@ -140,6 +141,7 @@ extension AddOfflineGiftCard_VC: FSCalendarDelegate, FSCalendarDataSource, FSCal
         selectedDate = date
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
+        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         txt_ExpiryDate.text = formatter.string(from: date)
         txt_ExpiryDate.showLabel()
         calendarVC?.dismiss(animated: true)

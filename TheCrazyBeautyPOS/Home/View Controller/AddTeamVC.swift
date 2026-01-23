@@ -222,6 +222,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
                             selectedDate = date
                             let formatter = DateFormatter()
                             formatter.dateFormat = "dd-MM-yyyy"
+                            formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
                             self.dobTextField.setText(formatter.string(from: selectedDate))
                         }
                     } else {
@@ -615,7 +616,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         calendar.appearance.headerDateFormat = "MMMM yyyy"
 //        calendar.appearance.todayColor = #colorLiteral(red: 0.7529411765, green: 0.7529411765, blue: 0.7529411765, alpha: 1)
         calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
-        
+        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
         calendar.scope = .month
         calendar.scrollDirection = .horizontal   // default
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0
@@ -770,6 +771,7 @@ extension AddTeamVC: FSCalendarDelegate, FSCalendarDataSource {
         selectedDate = date
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
+        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         self.dobTextField.text = formatter.string(from: selectedDate)
         self.dobTextField.showLabel()
         calendarVC?.dismiss(animated: true)

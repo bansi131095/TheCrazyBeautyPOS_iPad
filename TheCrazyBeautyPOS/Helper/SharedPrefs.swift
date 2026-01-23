@@ -117,6 +117,16 @@ class SharedPrefs {
         return UserDefaults.standard.string(forKey: "subvendor") ?? ""
     }
     
+    
+    // MARK: - SalonId
+    static func setPosId(_ salonId: String) {
+        UserDefaults.standard.set(salonId, forKey: "Pos_Id")
+    }
+    
+    static func getPosId() -> String {
+        return UserDefaults.standard.string(forKey: "Pos_Id") ?? ""
+    }
+    
     // MARK: - Clear User Data
     static func clearUserData() {
         setUserId("")

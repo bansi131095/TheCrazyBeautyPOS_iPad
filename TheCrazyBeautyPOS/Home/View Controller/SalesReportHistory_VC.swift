@@ -64,7 +64,7 @@ class SalesReportHistory_VC: UIViewController, UIPopoverPresentationControllerDe
 
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM d, yyyy" // Match your existing format
-
+        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         txt_FromDate.text = formatter.string(from: oneMonthAgo)
         txt_ToDate.text = formatter.string(from: currentDate)
 
@@ -108,7 +108,7 @@ class SalesReportHistory_VC: UIViewController, UIPopoverPresentationControllerDe
         calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         calendar.appearance.todayColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         calendar.today = nil
-
+        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
         calendar.reloadData()
         if let from = firstDate, let to = lastDate {
             let selectedDates = getDateRange(from: from, to: to)
@@ -286,14 +286,11 @@ class SalesReportHistory_VC: UIViewController, UIPopoverPresentationControllerDe
             self.hideLoader()
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    // safe UI code here
-//                    self.showToast(message: model.data)
                     self.showToast(message: NSLocalizedString("Booking deleted successfully",comment: ""))
                 }
                 self.salesHistoryData(Search: "")
             } else {
                 self.showToast(message: NSLocalizedString("Failed to delete booking",comment: ""))
-//                self.show_alert(msg: model.error ?? "", title: "Delete Team")
             }
         }
     }
@@ -322,6 +319,7 @@ extension SalesReportHistory_VC: FSCalendarDelegate, FSCalendarDataSource {
             // 👇 Update here: Format as "MMM d, yyyy"
             let formatter = DateFormatter()
             formatter.dateFormat = "MMM d, yyyy"
+            formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
             txt_FromDate.text = formatter.string(from: firstDate!)
             txt_ToDate.text = formatter.string(from: lastDate!)
 

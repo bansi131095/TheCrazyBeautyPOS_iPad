@@ -29,7 +29,7 @@ class PaymentConfirmationPopupVC: UIViewController {
         confirmButton.setTitle("Confirm Payment Status", for: .normal)
         confirmButton.setTitleColor(.white, for: .normal)
         confirmButton.titleLabel?.font = UIFont(name: "Lato-Bold", size: 18)
-        confirmButton.layer.cornerRadius = 36
+        confirmButton.layer.cornerRadius = 12
         confirmButton.translatesAutoresizingMaskIntoConstraints = false
 
         let gradient = CAGradientLayer()
@@ -40,11 +40,11 @@ class PaymentConfirmationPopupVC: UIViewController {
         gradient.startPoint = CGPoint(x: 0.5, y: 0)
         gradient.endPoint = CGPoint(x: 0.5, y: 1)
         gradient.frame = CGRect(x: 0, y: 0, width: 240, height: 50)
-        gradient.cornerRadius = 36
+        gradient.cornerRadius = 12
 
         let gradientContainer = UIView()
         gradientContainer.layer.insertSublayer(gradient, at: 0)
-        gradientContainer.layer.cornerRadius = 36
+        gradientContainer.layer.cornerRadius = 12
         gradientContainer.translatesAutoresizingMaskIntoConstraints = false
         gradientContainer.addSubview(confirmButton)
 

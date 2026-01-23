@@ -289,7 +289,7 @@ class UpcomingAppointmentsVC: UIViewController {
         calendar.appearance.titleDefaultColor = .black
         calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         calendar.appearance.todayColor = #colorLiteral(red: 1, green: 0.2941176471, blue: 0.3333333333, alpha: 1)
-        
+        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
         // Add calendar inside the popup view
         calendarVC?.view.addSubview(calendar)
 
@@ -355,8 +355,10 @@ extension UpcomingAppointmentsVC: UITableViewDelegate, UITableViewDataSource, UI
             
             if upcoming.customerType?.capitalized == "Guest"{
                 cell.lbl_Type.text = NSLocalizedString("Guest", comment: "")
+                cell.lbl_titleCustomerName.text = NSLocalizedString("Guest Name : ", comment: "")
             }else if upcoming.customerType?.capitalized == "Customer"{
                 cell.lbl_Type.text = NSLocalizedString("Customer", comment: "")
+                cell.lbl_titleCustomerName.text = NSLocalizedString("Customer Name", comment: "")
             }
             
             cell.Act_Info = {

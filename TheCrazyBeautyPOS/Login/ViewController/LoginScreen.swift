@@ -152,6 +152,7 @@ class LoginScreen: UIViewController {
                     SharedPrefs.setLoginToken(data.token ?? "")
                     SharedPrefs.setStaffLogin(false)
                     SharedPrefs.setSubvendor("Vendor")
+                    SharedPrefs.setPosId(data.pos_id ?? "")
                     let currentTimeMillis = Int(Date().timeIntervalSince1970 * 1000)
                     let timeString = String(currentTimeMillis)
                     SharedPrefs.setLoginTime(timeString)
@@ -189,6 +190,7 @@ class LoginScreen: UIViewController {
                 SharedPrefs.setSalonId(String(result?.vendorData.first?.salonId ?? 0))
                 SharedPrefs.setSalonName(result?.vendorData.first?.salonName ?? "")
                 SharedPrefs.setLoginToken(data.token ?? "")
+                SharedPrefs.setPosId(result?.vendorData.first?.posId ?? "")
                 SharedPrefs.setSubvendor("Subvendor")
                 let sb = UIStoryboard(name: "Home", bundle:nil)
                 let navDashboard = sb.instantiateViewController(withIdentifier: "NavigateHome") as! UINavigationController
@@ -243,6 +245,10 @@ class LoginScreen: UIViewController {
                 SharedPrefs.setSalonId(String(data.salon_id ?? 0))
                 SharedPrefs.setSalonName(data.salon_name ?? "")
                 SharedPrefs.setLoginToken(data.token ?? "")
+                SharedPrefs.setPosId(data.pos_id ?? "")
+                
+                
+                print("ASDASD:- \(data.pos_id ?? "")")
                 SharedPrefs.setStaffLogin(false)
                 SharedPrefs.setSubvendor("Vendor")
                 let currentTimeMillis = Int(Date().timeIntervalSince1970 * 1000)

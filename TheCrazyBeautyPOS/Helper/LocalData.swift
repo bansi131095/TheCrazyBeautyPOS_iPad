@@ -23,6 +23,7 @@ class LocalData {
 
     static var setUserId: String = ""
     static var userId: String = ""
+    static var pos_Id: String = ""
     static var userName: String = ""
     static var email: String = ""
     static var salonName: String = ""
@@ -48,6 +49,7 @@ class LocalData {
     // MARK: - Load User Data from SharedPrefs / UserDefaults
     static func getUserData() {
         userId = SharedPrefs.getUserId()
+        pos_Id = SharedPrefs.getPosId()
         userName = SharedPrefs.getUserName()
         email = SharedPrefs.getEmail()
         salonName = SharedPrefs.getSalonName()

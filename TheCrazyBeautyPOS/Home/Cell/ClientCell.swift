@@ -27,6 +27,7 @@ class ClientCell: UITableViewCell {
     @IBOutlet weak var widthEditConst: NSLayoutConstraint!
     
     @IBOutlet weak var btn_SecondDelete: UIButton!
+    @IBOutlet weak var btn_SecondEdit: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -81,5 +82,9 @@ class ClientCell: UITableViewCell {
         self.Act_SecondDelete?()
     }
     
+    var Act_SecondEdit:(()->Void)?
+    @IBAction func act_SecondEdit(_ sender: UIButton) {
+        self.Act_SecondEdit?()
+    }
     
 }

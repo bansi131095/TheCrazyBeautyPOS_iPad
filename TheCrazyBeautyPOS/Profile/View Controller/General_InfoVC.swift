@@ -73,6 +73,13 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     @IBOutlet weak var txt_PostalCode: TextInputLayout!
     
+    
+    @IBOutlet weak var img_FlagSecond: UIImageView!
+    @IBOutlet weak var txt_AdditionalPhone: TextInputLayout!
+   
+    @IBOutlet weak var txt_FacebookURL: TextInputLayout!
+    @IBOutlet weak var txt_InstagramURL: TextInputLayout!
+    
     var locationManager = CLLocationManager()
     var userLatitude:CLLocationDegrees! = 0
     var userLongitude:CLLocationDegrees! = 0
@@ -97,6 +104,7 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     var time_gap = Int()
     var reminder_mail = Int()
     var selectedCountrycode = "+353"
+    var selected_SecondCountrycode = "+353"
     var SalonDetails: [SalonDetailsModel] = []
     
     override func viewDidLoad() {
@@ -116,6 +124,11 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         if let iso = CountryUtils.getISOCode(from: selectedCountrycode),
            let flagImage = CountryUtils.imageFromEmoji(flag: CountryUtils.flag(from: iso)) {
             flag_imgVw.image = flagImage
+        }
+        
+        if let iso = CountryUtils.getISOCode(from: selected_SecondCountrycode),
+           let flagImage = CountryUtils.imageFromEmoji(flag: CountryUtils.flag(from: iso)) {
+            img_FlagSecond.image = flagImage
         }
     }
     
@@ -185,6 +198,49 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                     self.flag_imgVw.image = flagImage
                 } else {
                     self.flag_imgVw.image = nil
+                    print("⚠️ Could not generate flag image")
+                }
+            }
+            
+        }
+        
+    }
+    
+    
+    @IBAction func btn_SecondCountryPicker(_ sender: Any) {
+        let countryView = CountrySelectView.shared
+        countryView.show()
+//        countryView.dismiss() //dismiss the picker view
+        countryView.barTintColor = .gray //default is green
+        countryView.searchBarPlaceholder = "Search" //default is "search"
+        countryView.displayLanguage = .english //default is english
+        countryView.selectedCountryCallBack = { countryDic in
+            print(countryDic)
+            if let locale = countryDic["locale"] as? String {
+                let path = Bundle(for: CountrySelectView.self).resourcePath! + "/CountryPicker.bundle"
+                let CABundle = Bundle(path: path)!
+                self.img_FlagSecond.image = UIImage(named: locale, in:  CABundle, compatibleWith: nil)
+            }
+            if let countryCode = countryDic["code"] as? Int {
+                let phoneCode = "+\(countryCode)"
+                print("Phone Code: \(phoneCode)")
+                self.selected_SecondCountrycode = phoneCode
+            } else {
+                print("⚠️ code not found in countryDic")
+            }
+            
+            // ✅ Get ISO code and set flag image
+            if let locale = countryDic["locale"] as? String {
+                let isoCode = locale.uppercased()
+
+                // Convert ISO → Emoji flag
+                let flagEmoji = CountryUtils.flag(from: isoCode)
+
+                // Convert Emoji flag → UIImage
+                if let flagImage = CountryUtils.imageFromEmoji(flag: flagEmoji) {
+                    self.img_FlagSecond.image = flagImage
+                } else {
+                    self.img_FlagSecond.image = nil
                     print("⚠️ Could not generate flag image")
                 }
             }
@@ -307,6 +363,8 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             self.txt_City.text = self.SalonDetails.first?.city ?? ""
             self.txt_PostalCode.text = self.SalonDetails.first?.postcode ?? ""
             self.txt_SalonType.text = self.SalonDetails.first?.salon_type
+            self.txt_FacebookURL.text = self.SalonDetails.first?.facebook_link ?? ""
+            self.txt_InstagramURL.text = self.SalonDetails.first?.instagram_link ?? ""
             
             if self.SalonDetails.first?.salon_type == "Male"{
                 self.selectedOption = "Male"
@@ -322,9 +380,6 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             
             self.txt_BusinessName.text = self.SalonDetails.first?.salon_name
 
-//            self.txt_MobileNumber.text =
-
-//            self.txt_MobileNumber.text = self.SalonDetails.first?.salon_phone
             if var phoneno = self.SalonDetails.first?.salon_phone {
                 if !phoneno.isEmpty && phoneno.count >= 3 {
                     if phoneno.contains("--") {
@@ -354,6 +409,33 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                     }
                 }
             }
+            
+            if var additional_salon_phone = self.SalonDetails.first?.additional_salon_phone {
+                if !additional_salon_phone.isEmpty && additional_salon_phone.count >= 3 {
+                    if additional_salon_phone.contains("--") {
+                        additional_salon_phone = additional_salon_phone.replacingOccurrences(of: "--", with: "-")
+                    }
+
+                    print("Mobile No: \(additional_salon_phone)")
+
+                    let split = additional_salon_phone.components(separatedBy: "-")
+
+                    if split.count >= 2 {
+                        let countryCode = split[0]
+                        let mobileNo = split[1]
+                        self.selected_SecondCountrycode = countryCode
+                        self.txt_AdditionalPhone.text = mobileNo // Assuming this is your UITextField
+                        if let iso = CountryUtils.getISOCode(from: countryCode) {
+                            let emojiFlag = CountryUtils.flag(from: iso)
+                            if let flagImage = CountryUtils.imageFromEmoji(flag: emojiFlag) {
+                                self.img_FlagSecond.image = flagImage
+                            }
+                        }
+
+                    }
+                }
+            }
+            
             self.userLatitude = self.SalonDetails.first?.latitude
             self.userLongitude = self.SalonDetails.first?.longitude
             self.txt_Aboutus.attributedText = self.SalonDetails.first?.about_us?.htmlToAttributedString
@@ -380,7 +462,7 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         let safeLatitude = userLatitude ?? 0.0
         let safeLongitude = userLongitude ?? 0.0
         showLoader()
-        APIService.shared.UpdateBusinessInformation(id: LocalData.userId, salon_name: txt_BusinessName.text ?? "", salon_type: txt_SalonType.text ?? "", phone: phone, salon_phone: "\(selectedCountrycode)-\(txt_MobileNumber.text ?? "")", postcode: txt_PostalCode.text ?? "", address: self.txt_Address.text ?? "", city: txt_City.text ?? "", country: countryOne, latitude: "\(safeLatitude)", longitude: "\(safeLongitude)", web_status: "\(web_status ?? 0)", allow_search: "\(allow_search ?? 0)", time_gap: "\(time_gap)", reminder_mail: "\(reminder_mail)", about_us: self.txt_Aboutus.text ?? "", booking_guest: "\(booking_guest ?? 0)") { result in
+        APIService.shared.UpdateBusinessInformation(id: LocalData.userId, salon_name: txt_BusinessName.text ?? "", salon_type: txt_SalonType.text ?? "", phone: phone, salon_phone: "\(selectedCountrycode)-\(txt_MobileNumber.text ?? "")", additional_salon_phone: "\(selected_SecondCountrycode)-\(txt_AdditionalPhone.text ?? "")",facebook_link: self.txt_FacebookURL.text ?? "" ,instagram_link: self.txt_InstagramURL.text ?? "", postcode: txt_PostalCode.text ?? "", address: self.txt_Address.text ?? "", city: txt_City.text ?? "", country: countryOne, latitude: "\(safeLatitude)", longitude: "\(safeLongitude)", web_status: "\(web_status ?? 0)", allow_search: "\(allow_search ?? 0)", time_gap: "\(time_gap)", reminder_mail: "\(reminder_mail)", about_us: self.txt_Aboutus.text ?? "", booking_guest: "\(booking_guest ?? 0)") { result in
             self.hideLoader()
             if let message = result?.data{
                 self.alertWithMessageOnly(NSLocalizedString("Business information updated successfully.",comment: ""))
@@ -395,6 +477,9 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             txt_BusinessName.font = customFont
             txt_SalonType.font = customFont
             txt_MobileNumber.font = customFont
+            txt_AdditionalPhone.font = customFont
+            txt_FacebookURL.font = customFont
+            txt_InstagramURL.font = customFont
             txt_Address.font = customFont
             txt_Aboutus.font = customFont
             txt_PostalCode.font = customFont

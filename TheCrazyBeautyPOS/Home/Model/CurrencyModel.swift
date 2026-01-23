@@ -693,6 +693,9 @@ class SalonDetailsModel: Mappable {
     var salon_type: String?
     var phone: String?
     var salon_phone: String?
+    var additional_salon_phone: String?
+    var facebook_link: String?
+    var instagram_link: String?
     var postcode: String?
     var address: String?
     var city: String?
@@ -715,6 +718,9 @@ class SalonDetailsModel: Mappable {
         salon_type       <- map["salon_type"]
         phone <- map["phone"]
         salon_phone      <- map["salon_phone"]
+        additional_salon_phone      <- map["additional_salon_phone"]
+        facebook_link      <- map["facebook_link"]
+        instagram_link      <- map["instagram_link"]
         postcode      <- map["postcode"]
         address      <- map["address"]
         city      <- map["city"]
@@ -1147,3 +1153,29 @@ class SalonTiming: Mappable {
 
 
 
+//Booking FLOW
+class cashbackModelData : Mappable {
+    
+    var data: cashbackData?
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data    <- map["data"]
+        error   <- map["error"]
+    }
+    
+}
+
+class cashbackData : Mappable{
+    var cashback: Double?
+    var card_charge: Double?
+    
+    required init?(map: Map) {}
+    
+    func mapping(map: ObjectMapper.Map) {
+        cashback  <- map["cashback"]
+        card_charge  <- map["card_charge"]
+    }
+}
