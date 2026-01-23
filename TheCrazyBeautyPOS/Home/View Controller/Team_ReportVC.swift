@@ -47,7 +47,8 @@ class Team_ReportVC: UIViewController, UIPopoverPresentationControllerDelegate {
             self.hideLoader()
             self.TeamDetails = result?.data ?? []
             var names = self.TeamDetails.map { $0.first_name }
-            names.insert("Select Staff", at: 0)
+//            names.insert("Select Staff", at: 0)
+            names.insert(NSLocalizedString("Select Staff", comment: ""), at: 0)
             self.dropDown.dataSource = names
             self.dropDown.textFont = UIFont(name: "Lato-Regular", size: 18.0)!
             self.dropDown.backgroundColor = .white

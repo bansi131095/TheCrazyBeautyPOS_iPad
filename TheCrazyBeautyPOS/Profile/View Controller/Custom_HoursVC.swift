@@ -144,7 +144,7 @@ class Custom_HoursVC: UIViewController {
         
         let formatter = DateFormatter()
             formatter.dateFormat = "dd-MM-yyyy"
-            
+        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         let dayFormatter = DateFormatter()
             dayFormatter.dateFormat = "EEEE"
         
@@ -355,6 +355,7 @@ extension Custom_HoursVC: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDe
         SelectedDate = date
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
+        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         txt_Date.text = formatter.string(from: date)
         txt_Date.showLabel()
         calendarVC?.dismiss(animated: true)

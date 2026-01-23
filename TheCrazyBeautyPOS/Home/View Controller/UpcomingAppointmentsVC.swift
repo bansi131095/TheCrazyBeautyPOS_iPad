@@ -162,12 +162,12 @@ class UpcomingAppointmentsVC: UIViewController {
     func formatBookingDate(_ inputDate: String) -> String {
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "dd-MM-yyyy"
-        inputFormatter.locale = Locale(identifier: "en_US_POSIX") // ensures consistent parsing
-
+//        inputFormatter.locale = Locale(identifier: "en_US_POSIX") // ensures consistent parsing
+        inputFormatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         let outputFormatter = DateFormatter()
         outputFormatter.dateFormat = "EEEE, MMM dd, yyyy" // "Wednesday, Jul 02, 2025"
-        outputFormatter.locale = Locale(identifier: "en_US")
-
+//        outputFormatter.locale = Locale(identifier: "en_US")
+        inputFormatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         if let date = inputFormatter.date(from: inputDate) {
             return outputFormatter.string(from: date)
         } else {

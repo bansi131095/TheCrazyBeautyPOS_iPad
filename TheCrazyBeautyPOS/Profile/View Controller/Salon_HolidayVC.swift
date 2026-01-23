@@ -62,7 +62,7 @@ class Salon_HolidayVC: UIViewController {
 
        let formatter = DateFormatter()
        formatter.dateFormat = "dd-MM-yyyy"
-
+        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
        let fromDate = formatter.date(from: txt_from.text!)
        let toDate = formatter.date(from: txt_to.text!)
 
@@ -207,6 +207,7 @@ extension Salon_HolidayVC: FSCalendarDelegate, FSCalendarDataSource, FSCalendarD
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
+        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         let formattedDate = formatter.string(from: date)
 
         if isSelectingFromDate {

@@ -334,7 +334,7 @@ class TeamRosterVC: UIViewController {
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
-
+        dateFormatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         var current = start
 
         while current <= end {
@@ -597,7 +597,7 @@ extension TeamRosterVC: FSCalendarDelegate, FSCalendarDataSource {
         // 🔹 Format for labels
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMM"
-
+        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
         txt_FromDate.text = formatter.string(from: weekStart)
         txt_ToDate.text = formatter.string(from: weekEnd)
 
@@ -607,7 +607,7 @@ extension TeamRosterVC: FSCalendarDelegate, FSCalendarDataSource {
         
         let date = DateFormatter()
         date.dateFormat = "dd-MM-yyyy"
-        
+        date.locale = Locale(identifier: L102Language.currentAppleLanguage())
         fDate = date.string(from: weekStart)
         lDate = date.string(from: weekEnd)
         

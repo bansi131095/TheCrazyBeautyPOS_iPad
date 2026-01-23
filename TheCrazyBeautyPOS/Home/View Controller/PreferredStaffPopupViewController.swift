@@ -84,7 +84,8 @@ class PreferredStaffPopupViewController: UIViewController {
         containerView.addSubview(collectionView)
 
         // Continue Button
-        continueButton.setTitle("Continue", for: .normal)
+//        continueButton.setTitle("Continue", for: .normal)
+        continueButton.setTitle(NSLocalizedString("Continue",comment: ""), for: .normal)
         continueButton.titleLabel?.font = UIFont.systemFont(ofSize: 22)
         continueButton.setTitleColor(.white, for: .normal)
         continueButton.layer.cornerRadius = 30

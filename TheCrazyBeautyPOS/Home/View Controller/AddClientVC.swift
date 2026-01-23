@@ -306,6 +306,7 @@ class AddClientVC: UIViewController {
         calendar.dataSource = self
         calendar.translatesAutoresizingMaskIntoConstraints = false
         calendar.appearance.headerDateFormat = "MMMM yyyy"
+        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
         calendar.select(selectedDate)
 //        calendarVC?.view.addSubview(calendar)
 
