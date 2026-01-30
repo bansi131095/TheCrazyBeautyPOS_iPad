@@ -306,7 +306,7 @@ class AddClientVC: UIViewController {
         calendar.dataSource = self
         calendar.translatesAutoresizingMaskIntoConstraints = false
         calendar.appearance.headerDateFormat = "MMMM yyyy"
-        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        calendar.locale = Locale(identifier: "en_US_POSIX")
         calendar.select(selectedDate)
 //        calendarVC?.view.addSubview(calendar)
 
@@ -315,7 +315,6 @@ class AddClientVC: UIViewController {
         calendar.scope = .month
         calendar.scrollDirection = .horizontal   // default
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0
-        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
         guard let calendarVC = calendarVC else { return }
         calendarVC.view.addSubview(calendar)
 
@@ -461,7 +460,7 @@ class AddClientVC: UIViewController {
                         selectedDate = date
                         let formatter = DateFormatter()
                         formatter.dateFormat = "dd-MM-yyyy"
-                        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
+                        formatter.locale = Locale(identifier: "en_US_POSIX")
                         self.dobTextField.setText(formatter.string(from: selectedDate))
                     }
                 } else {
@@ -705,7 +704,7 @@ extension AddClientVC: FSCalendarDelegate, FSCalendarDataSource {
         selectedDate = date
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
-        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         self.dobTextField.text = formatter.string(from: selectedDate)
         self.dobTextField.showLabel()
         calendarVC?.dismiss(animated: true)

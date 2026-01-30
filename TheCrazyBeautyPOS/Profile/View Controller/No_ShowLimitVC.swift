@@ -79,6 +79,7 @@ class No_ShowLimitVC: UIViewController {
 //            DispatchQueue.main.async {
                 let data = result?.data.first
                 self.txt_NoShowLimit.text = "\(data?.noshow_limit ?? 0)"
+                self.txt_NoShowLimit.showLabel()
                 if data?.allow_noshow == 0{
                     self.img_Check.image = UIImage(named: "check")
                     self.vw_NoLimit.isHidden = false

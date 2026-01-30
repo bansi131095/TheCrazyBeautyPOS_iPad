@@ -46,7 +46,7 @@ class ConfirmDeletePopupVC: UIViewController {
 
         // Buttons
         let noButton = UIButton(type: .system)
-        noButton.setTitle("No", for: .normal)
+        noButton.setTitle(NSLocalizedString("No", comment: ""), for: .normal)
         noButton.backgroundColor = .red
         noButton.setTitleColor(.white, for: .normal)
         noButton.layer.cornerRadius = 0
@@ -54,7 +54,7 @@ class ConfirmDeletePopupVC: UIViewController {
         noButton.addTarget(self, action: #selector(dismissPopup), for: .touchUpInside)
 
         let yesButton = UIButton(type: .system)
-        yesButton.setTitle("Yes", for: .normal)
+        yesButton.setTitle(NSLocalizedString("Yes", comment: ""), for: .normal)
         yesButton.backgroundColor = #colorLiteral(red: 0.1098039216, green: 0.3803921569, blue: 0.1058823529, alpha: 1)
         yesButton.setTitleColor(.white, for: .normal)
         yesButton.layer.cornerRadius = 0

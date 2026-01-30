@@ -14038,5 +14038,97 @@ class APIService {
                 }
             }
     }
+    
+    
+    // MARK: - Top_services
+    func getTopTeamMember(completion: @escaping (TopServices?) -> Void) {
+        let url = "\(global.shared.URL_GET_Top_Services)\(LocalData.userId)"
+
+        // 🌐 Log Request Info
+        print("🌐 URL: \(url)")
+        print("📤 Headers: \(headers)")
+
+        AF.request(
+            url,
+            method: .get,
+            headers: HTTPHeaders(headers)
+        )
+        .validate()
+        .responseJSON { response in
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            // 🧾 Print raw response
+            if let data = response.data,
+               let raw = String(data: data, encoding: .utf8) {
+                print("📥 Raw Response: \(raw)")
+            }
+
+            // 🧠 Parse JSON → CurrencyResponse using ObjectMapper
+            switch response.result {
+            case .success(let json):
+                if let model: TopServices = Mapper<TopServices>().map(JSONObject: json) {
+                    print("✅ Parsed Response Object: \(model)")
+                    completion(model)
+                } else {
+                    print("❌ Mapping failed — unexpected JSON structure.")
+                    completion(nil)
+                }
+
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
+    
+    
+    // MARK: - getTopServices API
+    func getTopServices(completion: @escaping (TopServices?) -> Void) {
+        let url = "\(global.shared.URL_GET_Top_Services)\(LocalData.userId)"
+
+        // 🌐 Log Request Info
+        print("🌐 URL: \(url)")
+        print("📤 Headers: \(headers)")
+
+        AF.request(
+            url,
+            method: .get,
+            headers: HTTPHeaders(headers)
+        )
+        .validate()
+        .responseJSON { response in
+
+            // 📩 Print HTTP response status code
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            // 🧾 Print raw response
+            if let data = response.data,
+               let raw = String(data: data, encoding: .utf8) {
+                print("📥 Raw Response: \(raw)")
+            }
+
+            // 🧠 Parse JSON → CurrencyResponse using ObjectMapper
+            switch response.result {
+            case .success(let json):
+                if let model: TopServices = Mapper<TopServices>().map(JSONObject: json) {
+                    print("✅ Parsed Response Object: \(model)")
+                    completion(model)
+                } else {
+                    print("❌ Mapping failed — unexpected JSON structure.")
+                    completion(nil)
+                }
+
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }
+    }
 }
 

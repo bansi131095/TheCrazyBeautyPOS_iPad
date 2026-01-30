@@ -119,6 +119,16 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         )
         btn_Save.setAttributedTitle(attributedTitle, for: .normal)
         txt_Aboutus.applyLatoBoldFont(size: 18)
+        
+        self.txt_MobileNumber.showLabel()
+        self.txt_SalonType.showLabel()
+        self.txt_City.showLabel()
+        self.txt_Address.showLabel()
+        self.txt_PostalCode.showLabel()
+        self.txt_AdditionalPhone.showLabel()
+        self.txt_FacebookURL.showLabel()
+        self.txt_InstagramURL.showLabel()
+        
         setCustomFont()
         get_fetchSalon()
         if let iso = CountryUtils.getISOCode(from: selectedCountrycode),
@@ -377,9 +387,17 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                 self.txt_SalonType.text = NSLocalizedString("Unisex",comment: "")
             }
             
+            self.txt_SalonType.showLabel()
+            self.txt_MobileNumber.showLabel()
+            self.txt_City.showLabel()
+            self.txt_Address.showLabel()
+            self.txt_PostalCode.showLabel()
+            self.txt_AdditionalPhone.showLabel()
+            self.txt_FacebookURL.showLabel()
+            self.txt_InstagramURL.showLabel()
             
             self.txt_BusinessName.text = self.SalonDetails.first?.salon_name
-
+            self.txt_BusinessName.showLabel()
             if var phoneno = self.SalonDetails.first?.salon_phone {
                 if !phoneno.isEmpty && phoneno.count >= 3 {
                     if phoneno.contains("--") {
@@ -1172,3 +1190,4 @@ extension UITextView {
         self.font = UIFont(name: "Lato-Bold", size: size)
     }
 }
+

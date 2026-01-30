@@ -22,6 +22,8 @@ class ChangePasswordVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.txt_NewPassword.showLabel()
+        self.txt_OldPassword.showLabel()
         setCustomFont()
         let title = NSLocalizedString("Save", comment: "")
         let attributedTitle = NSAttributedString(

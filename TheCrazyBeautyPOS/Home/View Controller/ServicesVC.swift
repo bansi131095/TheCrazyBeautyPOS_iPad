@@ -264,9 +264,9 @@ extension ServicesVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
         }
         
         if service.is_sub_service == 0{
-            cell.lbl_type.text = NSLocalizedString("Main", comment: "")
+            cell.lbl_type.text = "Main"
         }else{
-            cell.lbl_type.text = NSLocalizedString("Sub", comment: "")
+            cell.lbl_type.text = "Sub"
         }
         /*if service.price_type != "Fixed" && !(service.sale_price != nil && service.sale_price! > 0) {
             cell.lbl_price.text = service.price_type + " \(LocalData.symbol)\(service.price)"

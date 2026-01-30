@@ -36,6 +36,7 @@ class Team_ReportVC: UIViewController, UIPopoverPresentationControllerDelegate {
         let currentYear = Calendar.current.component(.year, from: Date())
         years = Array(1900...currentYear)
         contentViewWidthConstraint.constant = 50
+        txt_SelectStaff.text = NSLocalizedString("Select Staff", comment: "")
         get_TeamDetails()
         setDefaultDateRangeAndFetch()
         setTableView()
@@ -127,7 +128,8 @@ class Team_ReportVC: UIViewController, UIPopoverPresentationControllerDelegate {
 
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM d, yyyy" // Match your existing format
-        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+//        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         txt_FromDate.text = formatter.string(from: oneMonthAgo)
         txt_ToDate.text = formatter.string(from: currentDate)
 
@@ -160,7 +162,8 @@ class Team_ReportVC: UIViewController, UIPopoverPresentationControllerDelegate {
         calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         calendar.appearance.todayColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         calendar.today = nil
-        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        calendar.locale = Locale(identifier: "en_US_POSIX")
+//        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
         calendar.reloadData()
         if let from = firstDate, let to = lastDate {
             let selectedDates = getDateRange(from: from, to: to)
@@ -280,7 +283,7 @@ extension Team_ReportVC: FSCalendarDelegate, FSCalendarDataSource {
             // 👇 Update here: Format as "MMM d, yyyy"
             let formatter = DateFormatter()
             formatter.dateFormat = "MMM d, yyyy"
-            formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
+            formatter.locale = Locale(identifier: "en_US_POSIX")
             txt_FromDate.text = formatter.string(from: firstDate!)
             txt_ToDate.text = formatter.string(from: lastDate!)
 

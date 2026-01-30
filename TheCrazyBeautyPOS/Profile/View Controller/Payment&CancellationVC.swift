@@ -133,6 +133,9 @@ class Payment_CancellationVC: UIViewController {
             self.txt_CancellationAmount.text = "\(model.penalty_fees)"
             self.txt_CancellationPolicy.text = model.cancellation_policy ?? ""
 
+            
+            self.txt_PaymentPercent.showLabel()
+            self.txt_CancellationAmount.showLabel()
             // Use penalty_duration directly
             switch model.penalty_duration {
             case 6:

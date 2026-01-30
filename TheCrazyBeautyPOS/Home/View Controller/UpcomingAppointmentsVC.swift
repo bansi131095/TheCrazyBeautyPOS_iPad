@@ -28,7 +28,15 @@ class UpcomingAppointmentsVC: UIViewController {
     @IBOutlet weak var lbl_TotalCard: UILabel!
     @IBOutlet weak var lbl_TotalCash: UILabel!
     
+    @IBOutlet weak var txt_TopTeamCount: UILabel!
+    @IBOutlet weak var tbl_TopTeam: UITableView!
+    
+    @IBOutlet weak var txt_TopServicesCount: UILabel!
+    @IBOutlet weak var tbl_TopServices: UITableView!
+    
     var upcomingList: [BookingData] = []
+    var topService: [Service_ModelData] = []
+    var teamMember: [Service_ModelData] = []
     var currentPage = 1
     var totalCount = 0
     var isLoadingMore = false
@@ -59,10 +67,27 @@ class UpcomingAppointmentsVC: UIViewController {
         super.viewDidLoad()
         self.setTableView()
         self.loadData(Search: "", days: "\(selectedDays)")
+        tbl_vw.isScrollEnabled = false
+        tbl_vw.estimatedRowHeight = 70
+        tbl_vw.estimatedSectionHeaderHeight = 0
+        tbl_vw.estimatedSectionFooterHeight = 0
+        
+//        tbl_TopTeam.isScrollEnabled = false
+        tbl_TopTeam.estimatedRowHeight = 70
+        tbl_TopTeam.estimatedSectionHeaderHeight = 0
+        tbl_TopTeam.estimatedSectionFooterHeight = 0
+        
+//        tbl_TopServices.isScrollEnabled = false
+        tbl_TopServices.estimatedRowHeight = 70
+        tbl_TopServices.estimatedSectionHeaderHeight = 0
+        tbl_TopServices.estimatedSectionFooterHeight = 0
+        
         setupDaysTextField()
         setupDropdownTable()
         updateDateLabel()
         todayBookings()
+        Apicall_TopserviceReport()
+        Apicall_TopTeamMember()
         // Do any additional setup after loading the view.
     }
     
@@ -75,7 +100,21 @@ class UpcomingAppointmentsVC: UIViewController {
         tbl_vw.rowHeight = UITableView.automaticDimension
         tbl_vw.estimatedRowHeight = 60
         tbl_vw.reloadData()
-        self.tbl_Height.constant = self.tbl_vw.contentSize.height
+        updateTableHeight()
+        
+        tbl_TopTeam.register(UINib(nibName: "TeamMemberCell", bundle: nil), forCellReuseIdentifier: "TeamMemberCell")
+        tbl_TopTeam.delegate = self
+        tbl_TopTeam.dataSource = self
+        tbl_TopTeam.rowHeight = UITableView.automaticDimension
+        tbl_TopTeam.estimatedRowHeight = 60
+        tbl_TopTeam.reloadData()
+        
+        tbl_TopServices.register(UINib(nibName: "TopServicesCell", bundle: nil), forCellReuseIdentifier: "TopServicesCell")
+        tbl_TopServices.delegate = self
+        tbl_TopServices.dataSource = self
+        tbl_TopServices.rowHeight = UITableView.automaticDimension
+        tbl_TopServices.estimatedRowHeight = 60
+        tbl_TopServices.reloadData()
     }
     
     //MARK: Setup Views
@@ -146,7 +185,7 @@ class UpcomingAppointmentsVC: UIViewController {
             self.isLoadingMore = false
             self.tbl_vw.backgroundView = self.upcomingList.isEmpty ? self.getNoDataLabel() : nil
             self.tbl_vw.reloadData()
-            self.tbl_Height.constant = self.tbl_vw.contentSize.height
+            self.updateTableHeight()
         }
     }
     
@@ -162,12 +201,10 @@ class UpcomingAppointmentsVC: UIViewController {
     func formatBookingDate(_ inputDate: String) -> String {
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "dd-MM-yyyy"
-//        inputFormatter.locale = Locale(identifier: "en_US_POSIX") // ensures consistent parsing
-        inputFormatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        inputFormatter.locale = Locale(identifier: "en_US_POSIX") // ensures consistent parsing
         let outputFormatter = DateFormatter()
         outputFormatter.dateFormat = "EEEE, MMM dd, yyyy" // "Wednesday, Jul 02, 2025"
-//        outputFormatter.locale = Locale(identifier: "en_US")
-        inputFormatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        outputFormatter.locale = Locale(identifier: "en_US")
         if let date = inputFormatter.date(from: inputDate) {
             return outputFormatter.string(from: date)
         } else {
@@ -289,7 +326,7 @@ class UpcomingAppointmentsVC: UIViewController {
         calendar.appearance.titleDefaultColor = .black
         calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         calendar.appearance.todayColor = #colorLiteral(red: 1, green: 0.2941176471, blue: 0.3333333333, alpha: 1)
-        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        calendar.locale = Locale(identifier: "en_US_POSIX")
         // Add calendar inside the popup view
         calendarVC?.view.addSubview(calendar)
 
@@ -305,7 +342,59 @@ class UpcomingAppointmentsVC: UIViewController {
         self.present(calendarVC!, animated: true, completion: nil)
     }
 
+    func updateTableHeight() {
+        DispatchQueue.main.async {
+            self.tbl_vw.layoutIfNeeded()
+            self.tbl_Height.constant = self.tbl_vw.contentSize.height
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    
+    
+    func Apicall_TopserviceReport() {
+        showLoader()
+        APIService.shared.getTopServices { result in
+            self.hideLoader()
+            guard let model = result else {
+                print("API failed or empty response")
+                self.topService = []
+                return
+            }
 
+            self.topService = model.data ?? []
+//            // Show/Hide No Data Label
+//            if self.serviceList.isEmpty {
+//                self.lbl_NoDataFound.isHidden = false
+//            } else {
+//                self.lbl_NoDataFound.isHidden = true
+//            }
+            self.tbl_TopServices.reloadData()
+        }
+    }
+    
+    
+    func Apicall_TopTeamMember() {
+        showLoader()
+        APIService.shared.getTopTeamMember { result in
+            self.hideLoader()
+            guard let model = result else {
+                print("API failed or empty response")
+                self.teamMember = []
+                return
+            }
+
+            self.teamMember = model.data ?? []
+//            // Show/Hide No Data Label
+//            if self.serviceList.isEmpty {
+//                self.lbl_NoDataFound.isHidden = false
+//            } else {
+//                self.lbl_NoDataFound.isHidden = true
+//            }
+            self.tbl_TopTeam.reloadData()
+        }
+    }
+    
 }
 
 
@@ -319,6 +408,10 @@ extension UpcomingAppointmentsVC: UITableViewDelegate, UITableViewDataSource, UI
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == tbl_vw {
             return self.upcomingList.count
+        }else if tableView == tbl_TopServices{
+            return self.topService.count
+        } else if tableView == tbl_TopTeam{
+            return self.teamMember.count
         } else {
             return daysOptions.count
         }
@@ -369,6 +462,23 @@ extension UpcomingAppointmentsVC: UITableViewDelegate, UITableViewDataSource, UI
                 self.present(popup, animated: true , completion: nil)
             }
             return cell
+        }else if tableView == tbl_TopServices {
+            guard let cell = tbl_TopServices.dequeueReusableCell(withIdentifier: "TopServicesCell", for: indexPath) as? TopServicesCell else {
+                return UITableViewCell()
+            }
+            let service = self.topService[indexPath.row]
+            cell.lbl_Name.text = service.service_name
+            cell.lbl_Booked.text = String(service.booking_count ?? 0)
+            cell.lbl_Generated.text = "\(LocalData.symbol)\(String(describing: service.total_price ?? 0))"
+            return cell
+        }else if tableView == tbl_TopTeam{
+            guard let cell = tbl_TopTeam.dequeueReusableCell(withIdentifier: "TeamMemberCell", for: indexPath) as? TeamMemberCell else {
+                return UITableViewCell()
+            }
+            let team = self.teamMember[indexPath.row]
+            cell.lbl_Name.text = team.fullname ?? ""
+            cell.lbl_Appointments.text = String(team.booking_count ?? 0)
+            return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             cell.textLabel?.text = daysOptions[indexPath.row]
@@ -411,6 +521,7 @@ extension UpcomingAppointmentsVC: UITableViewDelegate, UITableViewDataSource, UI
             isDropdownVisible = false
             selectedDays = daysValues[indexPath.row]
             self.loadData(Search: "", days: "\(selectedDays)")
+            updateTableHeight()
         }
     }
     

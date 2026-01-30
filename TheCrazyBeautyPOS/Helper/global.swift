@@ -279,6 +279,9 @@ class global: NSObject
     var URL_UPDATE_GUEST = global.server_url + "update_guest/"
     var URL_UPDATE_Extra_Changes = global.server_url + "update_extra_charges"
     
+    var URL_GET_Top_Services = global.server_url + "top_services/"
+    var URL_GET_Top_Staff = global.server_url + "top_staff/"
+    
     var noDataLabel: UILabel?
     var hasUnreadNotification: Bool = false
     

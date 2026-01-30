@@ -226,6 +226,7 @@ extension GiftCardVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
             popup.onConfirm = {
                 self.deleteGiftCard(Id: giftCard.id)
             }
+            self.present(popup, animated: true, completion: nil)
         }
         return cell
     }

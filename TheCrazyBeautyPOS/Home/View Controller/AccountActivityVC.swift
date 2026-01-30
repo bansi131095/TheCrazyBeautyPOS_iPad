@@ -184,18 +184,49 @@ extension AccountActivityVC: UITableViewDelegate, UITableViewDataSource, UIScrol
             return UITableViewCell()
         }
         let activity = self.notificationList[indexPath.row]
-        cell.lbl_activity.text = activity.message
-//        let formattedDate = convertUTCToLocalFormatted(dateString: activity.updatedAt)
-//        print("CURRENT TIME : \(activity.updatedAt) :: \(formattedDate)")
-//        cell.lbl_time.text = formattedDate
-        let updatedAt = activity.updatedAt  // Assuming updatedAt is a String like "2025-07-14T13:19:26.000Z"
-
-      /*  let converted = convertDate(
-            oriFormat: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-            newFormat: "EEEE, MMM dd, yyyy 'at' hh:mm a",
-            date: updatedAt
-        ) */
         
+//        cell.lbl_activity.text = activity.message
+        if activity.message == "Salon services updated"{
+            cell.lbl_activity.text = NSLocalizedString("Salon services updated",comment: "")
+        }else if activity.message == "Salon details updated"{
+            cell.lbl_activity.text = NSLocalizedString("Salon details updated",comment: "")
+        }else if activity.message == "Working hours updated"{
+            cell.lbl_activity.text = NSLocalizedString("Working hours updated",comment: "")
+        }else if activity.message == "Salon images updated"{
+            cell.lbl_activity.text = NSLocalizedString("Salon images updated",comment: "")
+        }else if activity.message == "Bank details updated"{
+            cell.lbl_activity.text = NSLocalizedString("Bank details updated",comment: "")
+        }else if activity.message == "Change Password updated"{
+            cell.lbl_activity.text = NSLocalizedString("Change Password updated",comment: "")
+        }else if activity.message == "Salon categories updated"{
+            cell.lbl_activity.text = NSLocalizedString("Salon categories updated",comment: "")
+        }else if activity.message == "Staff sequence updated"{
+            cell.lbl_activity.text = NSLocalizedString("Staff sequence updated",comment: "")
+        }else if activity.message == "New appointment added"{
+            cell.lbl_activity.text = NSLocalizedString("New appointment added",comment: "")
+        }else if activity.message == "Service details updated"{
+            cell.lbl_activity.text = NSLocalizedString("Service details updated",comment: "")
+        }else if activity.message == "Break time updated"{
+            cell.lbl_activity.text = NSLocalizedString("Break time updated",comment: "")
+        }else if activity.message == "New special appointment added"{
+            cell.lbl_activity.text = NSLocalizedString("New special appointment added",comment: "")
+        }else if activity.message == "Appointment updated"{
+            cell.lbl_activity.text = NSLocalizedString("Appointment updated",comment: "")
+        }else if activity.message == "Staff holidays updated"{
+            cell.lbl_activity.text = NSLocalizedString("Staff holidays updated",comment: "")
+        }else if activity.message == "Staff details updated"{
+            cell.lbl_activity.text = NSLocalizedString("Staff details updated",comment: "")
+        }else if activity.message == "Service details added"{
+            cell.lbl_activity.text = NSLocalizedString("Service details added",comment: "")
+        }else if activity.message == "Appointment cancelled"{
+            cell.lbl_activity.text = NSLocalizedString("Appointment cancelled",comment: "")
+        }else if activity.message == "Appointment completed"{
+            cell.lbl_activity.text = NSLocalizedString("Appointment completed",comment: "")
+        }else if activity.message == "Appointment no show"{
+            cell.lbl_activity.text = NSLocalizedString("Appointment no show",comment: "")
+        }
+        
+        let updatedAt = activity.updatedAt
         let converted = ConvertDateFormat(date: updatedAt, inputdate: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", outputdateformat: "EEEE, MMM dd, yyyy 'at' hh:mm a")
 
         cell.lbl_time.text = converted
@@ -237,3 +268,22 @@ extension AccountActivityVC: UITableViewDelegate, UITableViewDataSource, UIScrol
     
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

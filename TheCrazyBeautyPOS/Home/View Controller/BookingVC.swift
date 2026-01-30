@@ -25,6 +25,8 @@ class BookingVC: UIViewController {
 //        self.showProgressBar()
         // Format page link
         let link = global.CAL_WEB_URL
+         
+//        let pageLink = String(format: link, userId, token, loginTime) + "&lang=" + UserDefaults.standard.object(forKey: global().kSaveLanguageDefaultKey) as! String as! String as? String
         let pageLink = String(format: link, userId, token, loginTime)
 
         print("pageLink == \(pageLink)")

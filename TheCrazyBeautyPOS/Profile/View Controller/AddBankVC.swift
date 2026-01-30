@@ -68,10 +68,14 @@ class AddBankVC: UIViewController {
     func Get_BankDetails(){
         showLoader()
         APIService.shared.fetchBankDetails { result in
-            self.hideLoader()
-            if let bank = result?.data?.first?.bankDetails{
-                self.txt_AccountNumber.text = bank.accountNumber ?? ""
-                self.txt_AccountHolderName.text = bank.accountHolderName ?? ""
+            DispatchQueue.main.async {
+                self.hideLoader()
+                if let bank = result?.data?.first?.bankDetails{
+                    self.txt_AccountNumber.text = bank.accountNumber ?? ""
+                    self.txt_AccountHolderName.text = bank.accountHolderName ?? ""
+                    self.txt_AccountHolderName.showLabel()
+                    self.txt_AccountNumber.showLabel()
+                }
             }
         }
     }

@@ -352,6 +352,7 @@ extension Block_CustomerVC : UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tbl_vw.dequeueReusableCell(withIdentifier: "BlockCustomerCell", for: indexPath) as! BlockCustomerCell
         let item = arr_Number[indexPath.row]
+        cell.txt_MobileNumber.showLabel()
         cell.txt_MobileNumber.text = item["mobile"] ?? ""
         cell.txt_MobileNumber.tag = indexPath.row
         cell.txt_MobileNumber.addTarget(self, action: #selector(mobileTextChanged(_:)), for: .editingChanged)

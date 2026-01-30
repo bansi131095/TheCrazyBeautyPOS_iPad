@@ -51,8 +51,7 @@ class HomeVC: UIViewController {
     
     
     @IBOutlet weak var vw_Language: UIView!
-    
-    
+    @IBOutlet weak var btn_Width: NSLayoutConstraint!
     
     
     
@@ -68,7 +67,7 @@ class HomeVC: UIViewController {
 //        #imageLiteral(resourceName: "Report"),
     ]
     
-    var imageArrayN : [UIImage] = [#imageLiteral(resourceName: "Booking"),#imageLiteral(resourceName: "Team"),#imageLiteral(resourceName: "Clients"),#imageLiteral(resourceName: "Promotion"),#imageLiteral(resourceName: "Inventory")]
+    var imageArrayN : [UIImage] = [#imageLiteral(resourceName: "Dashboard.png"),#imageLiteral(resourceName: "Booking"),#imageLiteral(resourceName: "Walkin"),#imageLiteral(resourceName: "Services"),#imageLiteral(resourceName: "Clients")]
     var notificationList: [MessageData] = []
     
     var selectedIndex: Int = 1
@@ -91,6 +90,7 @@ class HomeVC: UIViewController {
             lbl_salonName.isHidden = false
             vw_MyProfile.isHidden = true
             btn_TopClick.isHidden = true
+            btn_Width.constant = 10
         }else{
             loadEmbeddedViewController(for: 1)
             vw_SalonType.isHidden = false
@@ -98,6 +98,7 @@ class HomeVC: UIViewController {
             lbl_salonName.isHidden = false
             vw_MyProfile.isHidden = false
             btn_TopClick.isHidden = false
+            btn_Width.constant = 228
         }
         self.setUpTableView()
 //        loadEmbeddedViewController(for: 1)
@@ -161,6 +162,14 @@ class HomeVC: UIViewController {
         self.tbl_vw.delegate = self
         self.tbl_vw.dataSource = self
         self.tbl_vw.rowHeight = 100
+        
+        var passcode = UserDefaults.standard.string(forKey: "Passcode")
+        
+        if (passcode == "1") {
+            
+            self.imageArray.append(#imageLiteral(resourceName: "Report"))
+            self.tbl_vw.reloadData()
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -234,15 +243,15 @@ class HomeVC: UIViewController {
 
         switch index {
         case 0:
-            selectedVC = storyboard.instantiateViewController(withIdentifier: "BookingVC") as? BookingVC
+            selectedVC = storyboard.instantiateViewController(withIdentifier: "UpcomingAppointmentsVC") as? UpcomingAppointmentsVC
         case 1:
-            selectedVC = storyboard.instantiateViewController(withIdentifier: "TeamVC") as? TeamVC
+            selectedVC = storyboard.instantiateViewController(withIdentifier: "BookingVC") as? BookingVC
         case 2:
-            selectedVC = storyboard.instantiateViewController(withIdentifier: "ClientsVC") as? ClientsVC
+            selectedVC = storyboard.instantiateViewController(withIdentifier: "WalkingVC") as? WalkingVC
         case 3:
-            selectedVC = storyboard.instantiateViewController(withIdentifier: "PromotionVC") as? PromotionVC
+            selectedVC = storyboard.instantiateViewController(withIdentifier: "ServicesVC") as? ServicesVC
         case 4:
-            selectedVC = storyboard.instantiateViewController(withIdentifier: "InventoryVC") as? InventoryVC
+            selectedVC = storyboard.instantiateViewController(withIdentifier: "ClientsVC") as? ClientsVC
         default:
             print("Invalid index")
             return
@@ -420,6 +429,10 @@ class HomeVC: UIViewController {
                 self.tbl_vw.reloadData()
 //                self.showToast(message: result?.data?.message ?? "Passcode verified successfully")
                 self.showToast(message: NSLocalizedString("Passcode verified successfully", comment: ""))
+                
+                UserDefaults.standard.set("1", forKey: "Passcode")
+                UserDefaults.standard.synchronize()
+                
             }else{
 //                self.showToast(message: result?.data?.error ?? "Please enter correct passcode")
                 self.showToast(message: NSLocalizedString("Please enter correct passcode", comment: ""))

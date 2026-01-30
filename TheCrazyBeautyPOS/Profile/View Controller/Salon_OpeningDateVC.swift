@@ -59,7 +59,7 @@ class Salon_OpeningDateVC: UIViewController {
         calendar.appearance.titleDefaultColor = .black
         calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         calendar.appearance.todayColor = #colorLiteral(red: 0.7529411765, green: 0.7529411765, blue: 0.7529411765, alpha: 1)
-        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        calendar.locale = Locale(identifier: "en_US_POSIX")
         calendarVC?.view.addSubview(calendar)
 
         if let popover = calendarVC?.popoverPresentationController {
@@ -82,6 +82,7 @@ class Salon_OpeningDateVC: UIViewController {
             
             if let openingDate = result.data.first?.opening_date {
                 self.txt_Date.text = openingDate
+                self.txt_Date.showLabel()
             } else {
                 print("⚠️ No opening date available")
             }
@@ -107,7 +108,7 @@ extension Salon_OpeningDateVC: FSCalendarDelegate, FSCalendarDataSource, FSCalen
         SelectedDate = date
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
-        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         txt_Date.text = formatter.string(from: date)
         txt_Date.showLabel()
         calendarVC?.dismiss(animated: true)

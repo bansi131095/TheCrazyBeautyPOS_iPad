@@ -17,6 +17,7 @@ class TeamRosterVC: UIViewController {
     @IBOutlet weak var txt_ToDate: UITextField!
     @IBOutlet weak var txt_search: UITextField!
 
+    @IBOutlet weak var btnDownload: GradientButton!
     var workingHoursJson: String = ""
     var shiftTimingJson: String = ""
     var salonItems: [ScheduleModel] = []
@@ -46,6 +47,16 @@ class TeamRosterVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        let title = NSLocalizedString("Download", comment: "")
+        
+        let attributedTitle = NSAttributedString(
+            string: title,
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btnDownload.setAttributedTitle(attributedTitle, for: .normal)
         self.api_getBusinessHours()
         setDefaultDateRangeAndFetch()
         self.setupTable()
@@ -170,11 +181,11 @@ class TeamRosterVC: UIViewController {
     func buildHeaderLabels() -> [UIView] {
         var views: [UIView] = []
         
-        views.append(makeHeaderLabel(title: "Team"))
+        views.append(makeHeaderLabel(title: NSLocalizedString("Team", comment: "")))
         for date in dates {
             views.append(makeHeaderLabel(title: date))
         }
-        views.append(makeHeaderLabel(title: "Total Hours"))
+        views.append(makeHeaderLabel(title: NSLocalizedString("Total Hours", comment: "")))
         
         return views
     }
@@ -266,7 +277,7 @@ class TeamRosterVC: UIViewController {
         // 🔹 Format for UI
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMM"
-
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         txt_FromDate.text = formatter.string(from: weekStart)
         txt_ToDate.text = formatter.string(from: weekEnd)
 
@@ -277,7 +288,7 @@ class TeamRosterVC: UIViewController {
         
         let date = DateFormatter()
         date.dateFormat = "dd-MM-yyyy"
-        
+        date.locale = Locale(identifier: "en_US_POSIX")
         fDate = date.string(from: weekStart)
         lDate = date.string(from: weekEnd)
         
@@ -304,7 +315,7 @@ class TeamRosterVC: UIViewController {
         calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         calendar.appearance.todayColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         calendar.today = nil
-        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        calendar.locale = Locale(identifier: "en_US_POSIX")
         calendar.reloadData()
         if let from = firstDate, let to = lastDate {
             let selectedDates = getDateRange(from: from, to: to)
@@ -334,7 +345,6 @@ class TeamRosterVC: UIViewController {
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
-        dateFormatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         var current = start
 
         while current <= end {
@@ -462,6 +472,7 @@ class TeamRosterVC: UIViewController {
     func getWeekdayString(from date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter.string(from: date) // e.g., "Monday"
     }
 
@@ -597,7 +608,7 @@ extension TeamRosterVC: FSCalendarDelegate, FSCalendarDataSource {
         // 🔹 Format for labels
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMM"
-        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         txt_FromDate.text = formatter.string(from: weekStart)
         txt_ToDate.text = formatter.string(from: weekEnd)
 
@@ -607,7 +618,7 @@ extension TeamRosterVC: FSCalendarDelegate, FSCalendarDataSource {
         
         let date = DateFormatter()
         date.dateFormat = "dd-MM-yyyy"
-        date.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        calendar.locale = Locale(identifier: "en_US_POSIX")
         fDate = date.string(from: weekStart)
         lDate = date.string(from: weekEnd)
         

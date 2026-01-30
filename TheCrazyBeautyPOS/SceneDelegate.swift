@@ -21,6 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             LocalData.userId = SharedPrefs.getUserId()
             if LocalData.userId != "" {
+                UserDefaults.standard.set("0", forKey: "Passcode")
+                UserDefaults.standard.synchronize()
                 LocalData.getUserData()
                 movenextScreen(windows: window)
             } else {

@@ -107,6 +107,9 @@ class Team_LoginVC: UIViewController {
             if result?.data != nil {
                 self.txt_Name.text = self.TeamLogin.first?.name
                 self.txt_Email.text = self.TeamLogin.first?.email
+                self.txt_Name.showLabel()
+                self.txt_Email.showLabel()
+                self.txt_Password.showLabel()
             }else{
                 self.alertWithMessageOnly(NSLocalizedString("Failed to get pos id",comment: ""))
             }

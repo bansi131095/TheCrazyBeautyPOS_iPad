@@ -107,7 +107,7 @@ class EditScheduleVC: UIViewController {
         selectedDate = Date.now
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
-        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         self.txt_date.text = formatter.string(from: selectedDate)
         // Do any additional setup after loading the view.
     }
@@ -229,7 +229,7 @@ class EditScheduleVC: UIViewController {
 
            let df2 = DateFormatter()
            df2.dateFormat = "dd/MM/yyyy"
-            df2.locale = Locale(identifier: L102Language.currentAppleLanguage())
+            df2.locale = Locale(identifier: "en_US_POSIX")
            let weekdate = df2.string(from: selectedDate)
 
            guard let salonSchedule = salonItems.first(where: { $0.day == weekdayName }) else { return }
@@ -620,7 +620,7 @@ class EditScheduleVC: UIViewController {
             let formatter = DateFormatter()
             formatter.locale = Locale(identifier: "en_US") // Ensure weekday in English
             formatter.dateFormat = "dd/MM/yyyy"
-            formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
+            formatter.locale = Locale(identifier: "en_US_POSIX")
             if let date = formatter.date(from: input) {
                 formatter.dateFormat = "EEEE"  // Convert to weekday name
                 return formatter.string(from: date)
@@ -878,7 +878,7 @@ class EditScheduleVC: UIViewController {
         calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         calendar.appearance.todayColor = #colorLiteral(red: 0.7529411765, green: 0.7529411765, blue: 0.7529411765, alpha: 1)
         calendar.select(selectedDate)
-        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        calendar.locale = Locale(identifier: "en_US_POSIX")
         calendarVC?.view.addSubview(calendar)
 
         if let popover = calendarVC?.popoverPresentationController {

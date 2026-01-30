@@ -103,7 +103,7 @@ class BankDetailData: Mappable {
 
     required init?(map: Map) {}
 
-    func mapping(map: Map) {
+    /*func mapping(map: Map) {
         id <- map["id"]
 
         // Parse the stringified JSON
@@ -115,7 +115,30 @@ class BankDetailData: Mappable {
            let parsed = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
             bankDetails = BankDetailsOne(JSON: parsed)
         }
+    }*/
+    
+    func mapping(map: Map) {
+        id <- map["id"]
+
+        var bankDetailsString: String?
+        bankDetailsString <- map["bank_details"]
+
+        guard var jsonStr = bankDetailsString else { return }
+
+        // 🚨 FIX: Convert invalid JSON to valid JSON
+        jsonStr = jsonStr.replacingOccurrences(of: "'", with: "\"")
+
+        guard
+            let jsonData = jsonStr.data(using: .utf8),
+            let jsonDict = try? JSONSerialization.jsonObject(with: jsonData) as? [String: Any]
+        else {
+            print("❌ Bank details JSON parsing failed")
+            return
+        }
+
+        bankDetails = BankDetailsOne(JSON: jsonDict)
     }
+
 }
 
 // Model for actual bank detail fields

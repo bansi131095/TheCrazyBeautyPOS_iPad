@@ -28,6 +28,8 @@ class Salon_HolidayVC: UIViewController {
         super.viewDidLoad()
         txt_from.delegate = self
         txt_to.delegate = self
+        self.txt_from.showLabel()
+        self.txt_to.showLabel()
         setTableView()
         let title = NSLocalizedString("Save", comment: "")
         let attributedTitle = NSAttributedString(
@@ -62,7 +64,7 @@ class Salon_HolidayVC: UIViewController {
 
        let formatter = DateFormatter()
        formatter.dateFormat = "dd-MM-yyyy"
-        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
+       formatter.locale = Locale(identifier: "en_US_POSIX")
        let fromDate = formatter.date(from: txt_from.text!)
        let toDate = formatter.date(from: txt_to.text!)
 
@@ -107,7 +109,7 @@ class Salon_HolidayVC: UIViewController {
         calendar.appearance.titleDefaultColor = .black
         calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         calendar.appearance.todayColor = #colorLiteral(red: 0.7529411765, green: 0.7529411765, blue: 0.7529411765, alpha: 1)
-        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        calendar.locale = Locale(identifier: "en_US_POSIX")
         calendarVC?.view.addSubview(calendar)
 
         if let popover = calendarVC?.popoverPresentationController {
@@ -126,17 +128,20 @@ class Salon_HolidayVC: UIViewController {
             self.hideLoader()
             if let holidayWrapper = result?.data.first {
                 self.salonHolidaysList = holidayWrapper.holiday_dates
+                if self.salonHolidaysList.count == 0{
+                    self.vwHoliday.isHidden = true
+                    self.vwHolidayHeight.constant = 0
+                }else{
+                    self.vwHoliday.isHidden = false
+                    self.vwHolidayHeight.constant = 30
+                }
                 DispatchQueue.main.async {
                     self.tbl_vw.isHidden = self.salonHolidaysList.isEmpty
                     self.tbl_vw.reloadData()
-                    self.vwHoliday.isHidden = false
-                    self.vwHolidayHeight.constant = 30
                 }
             } else {
                 DispatchQueue.main.async {
                     self.tbl_vw.isHidden = true
-                    self.vwHoliday.isHidden = true
-                    self.vwHolidayHeight.constant = 0
                 }
             }
         }
@@ -207,7 +212,7 @@ extension Salon_HolidayVC: FSCalendarDelegate, FSCalendarDataSource, FSCalendarD
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
-        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         let formattedDate = formatter.string(from: date)
 
         if isSelectingFromDate {

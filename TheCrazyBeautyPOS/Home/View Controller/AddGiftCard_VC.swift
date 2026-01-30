@@ -89,6 +89,12 @@ class AddGiftCard_VC: UIViewController {
         self.txt_CardName.text = GiftCardData?.card_name
         self.txt_Price.text = GiftCardData?.price
         self.txt_ExpiryDate.text = "\(GiftCardData?.expired_in ?? 0)"
+        
+        
+        self.txt_CardName.showLabel()
+        self.txt_Price.showLabel()
+        self.txt_ExpiryDate.showLabel()
+        self.txt_Status.showLabel()
         if GiftCardData?.status == "Active"{
             selectedStatus = "Active"
             self.txt_Status.text = NSLocalizedString("Active",comment: "")
@@ -197,7 +203,7 @@ class AddGiftCard_VC: UIViewController {
             APIService.shared.addGiftCard(card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: selectedStatus, image: self.selectedImage, imageKey: "file") { result in
                 self.hideLoader()
                 if result != nil {
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         // safe UI code here
                         self.showToast(message: NSLocalizedString("Gift card added successfully",comment: ""))
                         self.navigationController?.popViewController(animated: true)
@@ -210,7 +216,7 @@ class AddGiftCard_VC: UIViewController {
             APIService.shared.addGiftCard(card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: selectedStatus, image: nil, imageKey: "file") { result in
                 self.hideLoader()
                 if result != nil {
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         // safe UI code here
                         self.showToast(message: NSLocalizedString("Gift card added successfully",comment: ""))
                         self.navigationController?.popViewController(animated: true)
@@ -229,9 +235,8 @@ class AddGiftCard_VC: UIViewController {
             APIService.shared.UpdateGiftCard(Id: Id, card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: selectedStatus, image: selectedImage, imageKey: "file") { result in
                 self.hideLoader()
                 if result != nil {
-                    DispatchQueue.main.async {
-                        // safe UI code here
-                        self.showToast(message: NSLocalizedString("Gift card updated successfully",comment: ""))
+                    self.showToast(message: NSLocalizedString("Gift card updated successfully",comment: ""))
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 }else{
@@ -242,9 +247,8 @@ class AddGiftCard_VC: UIViewController {
             APIService.shared.UpdateGiftCard(Id: Id, card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: selectedStatus, image: nil, imageKey: "file") { result in
                 self.hideLoader()
                 if result != nil {
-                    DispatchQueue.main.async {
-                        // safe UI code here
-                        self.showToast(message: NSLocalizedString("Gift card updated successfully",comment: ""))
+                    self.showToast(message: NSLocalizedString("Gift card updated successfully",comment: ""))
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 }else{

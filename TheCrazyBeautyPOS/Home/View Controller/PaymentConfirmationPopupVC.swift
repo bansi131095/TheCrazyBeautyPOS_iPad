@@ -38,7 +38,7 @@ class PaymentConfirmationPopupVC: UIViewController {
             UIColor(red: 146/255, green: 93/255, blue: 249/255, alpha: 1).cgColor
         ]
         gradient.startPoint = CGPoint(x: 0.5, y: 0)
-        gradient.endPoint = CGPoint(x: 0.5, y: 1)
+        gradient.endPoint = CGPoint(x: 0.5, y: 0)
         gradient.frame = CGRect(x: 0, y: 0, width: 240, height: 50)
         gradient.cornerRadius = 12
 
@@ -66,7 +66,7 @@ class PaymentConfirmationPopupVC: UIViewController {
             gradientContainer.trailingAnchor.constraint(equalTo: dialogView.trailingAnchor, constant: -20),
             gradientContainer.heightAnchor.constraint(equalToConstant: 50),
 
-            confirmButton.leadingAnchor.constraint(equalTo: gradientContainer.leadingAnchor),
+            confirmButton.leadingAnchor.constraint(equalTo: gradientContainer.leadingAnchor,constant: -20),
             confirmButton.trailingAnchor.constraint(equalTo: gradientContainer.trailingAnchor),
             confirmButton.topAnchor.constraint(equalTo: gradientContainer.topAnchor),
             confirmButton.bottomAnchor.constraint(equalTo: gradientContainer.bottomAnchor),

@@ -116,10 +116,12 @@ class AddCoupon_VC: UIViewController {
     
     
     @IBAction func btn_StartDate(_ sender: Any) {
+        isSelectingFromDate = true
         showCalendarPopup(sourceView: txt_StartDate)
     }
     
     @IBAction func btn_EndDate(_ sender: Any) {
+        isSelectingFromDate = false
         showCalendarPopup(sourceView: txt_EndDate)
     }
     
@@ -269,7 +271,7 @@ class AddCoupon_VC: UIViewController {
         calendar.appearance.titleDefaultColor = .black
         calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         calendar.appearance.todayColor = #colorLiteral(red: 0.7529411765, green: 0.7529411765, blue: 0.7529411765, alpha: 1)
-        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        calendar.locale = Locale(identifier: "en_US_POSIX")
         calendarVC?.view.addSubview(calendar)
 
         if let popover = calendarVC?.popoverPresentationController {
@@ -346,7 +348,7 @@ extension AddCoupon_VC: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDele
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
-        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         let formattedDate = formatter.string(from: date)
 
         if isSelectingFromDate {

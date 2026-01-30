@@ -187,7 +187,7 @@ extension InventoryVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewD
         let inventory = self.inventoryList[indexPath.item]
         cell.lbl_no.text = "\(indexPath.item + 1)"
         cell.lbl_productName.text = inventory.product_name
-        cell.lbl_price.text = "\(LocalData.symbol) \(inventory.price)"
+        cell.lbl_price.text = "\(LocalData.symbol)\(inventory.price)"
         cell.lbl_qty.text = "\(inventory.qty)"
         cell.Act_Edit = {
             let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddInventory_VC") as! AddInventory_VC

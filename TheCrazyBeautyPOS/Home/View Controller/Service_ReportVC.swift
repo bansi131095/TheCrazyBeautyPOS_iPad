@@ -19,11 +19,13 @@ class Service_ReportVC: UIViewController, UIPopoverPresentationControllerDelegat
     @IBOutlet weak var tbl_vw: UITableView!
     
     var calendarVC: UIViewController?
+    var calendar: FSCalendar!
+    
     var firstDate: Date?
     var lastDate: Date?
-    var datesRange: [Date] = []
+    
     var selectingDateFor: UITextField?
-    var calendar: FSCalendar!
+    
     
     var serviceList: [ServiceData] = []
     var years: [Int] = []
@@ -52,7 +54,7 @@ class Service_ReportVC: UIViewController, UIPopoverPresentationControllerDelegat
     
     //MARK: -  Function
     
-    func setDefaultDateRangeAndFetch() {
+    /*func setDefaultDateRangeAndFetch() {
         let currentDate = Date()
         let calendar = Calendar.current
         
@@ -60,13 +62,34 @@ class Service_ReportVC: UIViewController, UIPopoverPresentationControllerDelegat
 
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM d, yyyy" // Match your existing format
-        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+//        formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
         txt_FromDate.text = formatter.string(from: oneMonthAgo)
         txt_ToDate.text = formatter.string(from: currentDate)
 
         firstDate = oneMonthAgo
         lastDate = currentDate
 
+        self.serviceReport()
+    }*/
+    
+    func setDefaultDateRangeAndFetch() {
+        let currentDate = Date()
+        var calendar = Calendar(identifier: .gregorian)
+        
+        guard let oneMonthAgo = calendar.date(byAdding: .month, value: -1, to: currentDate) else { return }
+     
+        let formatter = DateFormatter()
+        formatter.calendar = calendar
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "MMM d, yyyy" // Always English
+     
+        txt_FromDate.text = formatter.string(from: oneMonthAgo)
+        txt_ToDate.text = formatter.string(from: currentDate)
+     
+        firstDate = oneMonthAgo
+        lastDate = currentDate
+     
         self.serviceReport()
     }
     
@@ -92,7 +115,7 @@ class Service_ReportVC: UIViewController, UIPopoverPresentationControllerDelegat
         calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         calendar.appearance.todayColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
         calendar.today = nil
-        calendar.locale = Locale(identifier: L102Language.currentAppleLanguage())
+        calendar.locale = Locale(identifier: "en_US_POSIX")
         calendar.reloadData()
         if let from = firstDate, let to = lastDate {
             let selectedDates = getDateRange(from: from, to: to)
@@ -259,7 +282,8 @@ extension Service_ReportVC: FSCalendarDelegate, FSCalendarDataSource {
             // 👇 Update here: Format as "MMM d, yyyy"
             let formatter = DateFormatter()
             formatter.dateFormat = "MMM d, yyyy"
-            formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
+            formatter.locale = Locale(identifier: "en_US_POSIX")
+//            formatter.locale = Locale(identifier: L102Language.currentAppleLanguage())
             txt_FromDate.text = formatter.string(from: firstDate!)
             txt_ToDate.text = formatter.string(from: lastDate!)
 
@@ -318,7 +342,6 @@ extension Service_ReportVC: UITableViewDelegate, UITableViewDataSource{
         let data = self.serviceList[indexPath.item]
         cell.lbl_no.text = "\(indexPath.row+1)"
         cell.lbl_name.text = data.service_name
-//        cell.lbl_Amount.text = "\(SharedPrefs.getSymbol())" +  String(data.amount)
         cell.lbl_Amount.text = "\(SharedPrefs.getSymbol())" +  String(format: "%.2f", Double(data.amount))
         return cell
     }

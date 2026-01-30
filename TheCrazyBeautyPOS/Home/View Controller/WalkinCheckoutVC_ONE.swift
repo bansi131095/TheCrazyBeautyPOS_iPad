@@ -268,7 +268,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
     
     
     @IBAction func act_Apply(_ sender: GradientButton) {
-        if self.btn_apply.currentTitle == "Apply" {
+        if self.btn_apply.currentTitle == "Apply".localized {
             
             if txt_couponCode.text!.isEmpty {
 //                self.showAlertToast(message: "Please enter coupon code")
@@ -284,7 +284,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
             self.txt_couponCode.isEnabled = true
             self.txt_couponCode.backgroundColor = UIColor.white
             self.txt_couponCode.textColor = .black
-            self.btn_apply.setTitle("Apply", for: .normal)
+            self.btn_apply.setTitle("Apply".localized, for: .normal)
             self.discountVal = 0
             self.discountType = ""
             self.upto = 0
@@ -372,14 +372,17 @@ class WalkinCheckoutVC_ONE: UIViewController {
            }*/
            
            print("paymentTypeSelectedFirst:- \(paymentTypeSelectedFirst)")
-           if paymentTypeSelectedFirst == "Gift Card / Voucher" {
+//           if paymentTypeSelectedFirst == "Gift Card / Voucher" {
+           if paymentTypeSelectedFirst == NSLocalizedString("Gift Card / Voucher", comment: "") {
                self.vw_payment1.isHidden = false
+               vw_grandTotal.isHidden = false
            } else {
                self.vw_payment1.isHidden = true
+               vw_grandTotal.isHidden = true
            }
            
            vw_discount.isHidden   = discount == 0
-           vw_grandTotal.isHidden = false
+//           vw_grandTotal.isHidden = false
        }
 
 
@@ -415,7 +418,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                                 self.discountType = type
                                 self.discountVal  = amount
                                 self.upto         = upto
-                                self.btn_apply.setTitle("Remove", for: .normal)
+                                self.btn_apply.setTitle("Remove".localized, for: .normal)
                                 self.txt_couponCode.isUserInteractionEnabled = false
                                 self.txt_couponCode.isEnabled = false
                                 self.txt_couponCode.isUserInteractionEnabled = false
@@ -437,7 +440,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                                 self.isGiftCard = 1;
                                 self.discountType = "Flat"
                                 self.discountVal  = Double(giftCard.price)
-                                self.btn_apply.setTitle("Remove", for: .normal)
+                                self.btn_apply.setTitle("Remove".localized, for: .normal)
                                 self.txt_couponCode.isUserInteractionEnabled = false
                                 self.txt_couponCode.isEnabled = false
                                 self.txt_couponCode.isUserInteractionEnabled = false
@@ -789,9 +792,9 @@ class WalkinCheckoutVC_ONE: UIViewController {
         let alert = UIAlertController(title: nil, message: " ", preferredStyle: .alert)
 
         // Create loading spinner
-        let spinner = UIActivityIndicatorView(style: .medium)
+        /*let spinner = UIActivityIndicatorView(style: .medium)
         spinner.translatesAutoresizingMaskIntoConstraints = false
-        spinner.startAnimating()
+        spinner.startAnimating()*/
 
         // Create message label
         let messageLabel = UILabel()
@@ -801,22 +804,32 @@ class WalkinCheckoutVC_ONE: UIViewController {
         messageLabel.textAlignment = .left
         messageLabel.lineBreakMode = .byTruncatingTail
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        alert.view.addSubview(messageLabel)
+        
+        NSLayoutConstraint.activate([
+            messageLabel.centerXAnchor.constraint(equalTo: alert.view.centerXAnchor),
+            messageLabel.centerYAnchor.constraint(equalTo: alert.view.centerYAnchor),
 
+            // Padding so text doesn't touch edges
+            messageLabel.leadingAnchor.constraint(greaterThanOrEqualTo: alert.view.leadingAnchor, constant: 20),
+            messageLabel.trailingAnchor.constraint(lessThanOrEqualTo: alert.view.trailingAnchor, constant: -20)
+        ])
+        
         // Create container view
-        let container = UIStackView(arrangedSubviews: [spinner, messageLabel])
+        /*let container = UIStackView(arrangedSubviews: [spinner, messageLabel])
         container.axis = .horizontal
         container.spacing = 20
         container.alignment = .center
-        container.translatesAutoresizingMaskIntoConstraints = false
+        container.translatesAutoresizingMaskIntoConstraints = false*/
 
-        alert.view.addSubview(container)
+        /*alert.view.addSubview(container)
 
         NSLayoutConstraint.activate([
             container.topAnchor.constraint(equalTo: alert.view.topAnchor, constant: 20),
             container.bottomAnchor.constraint(equalTo: alert.view.bottomAnchor, constant: 20),
             container.leadingAnchor.constraint(equalTo: alert.view.leadingAnchor, constant: 20),
             container.trailingAnchor.constraint(equalTo: alert.view.trailingAnchor, constant: 20),
-        ])
+        ])*/
 
         // 📱 iPad-safe presentation
         if let popover = alert.popoverPresentationController {

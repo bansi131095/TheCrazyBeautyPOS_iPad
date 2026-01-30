@@ -109,6 +109,7 @@ class CurrencyVC: UIViewController {
             for i in self.CurrencyList {
                 if self.CurrencyGet.currency == i.currency_code{
                     self.txt_Currency.text = i.currency_code
+                    self.txt_Currency.showLabel()
 //                    LocalData.currency = i.currency
 //                    LocalData.selectedCurrencyCode = i.currency_code
 //                    self.selectedCurrencyCode = i.currency_code

@@ -50,6 +50,31 @@ class LoginScreen: UIViewController {
         self.btn_Google.isHidden = true
         checkVendor()
         
+        self.lbl_Login.text = NSLocalizedString("Log in to manage your business.",comment: "")
+        self.lbl_AllField.text = NSLocalizedString("All fields marked with an asterisk (*) are required.", comment: "")
+        let title = NSLocalizedString("Login", comment: "")
+        
+        let attributedTitle = NSAttributedString(
+            string: title,
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Login.setAttributedTitle(attributedTitle, for: .normal)
+        
+        
+        let LoginasStaff = NSLocalizedString("Login as Staff", comment: "")
+        
+        let LoginasStaff1 = NSAttributedString(
+            string: LoginasStaff,
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .foregroundColor: UIColor.black
+            ]
+        )
+        btn_LoginasStaff.setAttributedTitle(LoginasStaff1, for: .normal)
+        
         if staffLogin == "Staff"{
             self.btn_Login.isHidden = false
             self.btn_LoginasStaff.isHidden = true
@@ -78,11 +103,11 @@ class LoginScreen: UIViewController {
     //MARK: Button Action
     @IBAction func act_login(_ sender: GradientButton) {
         if (self.txt_email.text == "") {
-            self.txt_email.showErrorMessage(message: NSLocalizedString("Please enter email",comment: ""))
+            self.txt_email.showErrorMessage(message: NSLocalizedString("Email ID is required.",comment: ""))
         } else if !self.txt_email.text!.isValidEmail() {
-            self.txt_email.showErrorMessage(message: NSLocalizedString("Please enter valid email",comment: ""))
+            self.txt_email.showErrorMessage(message: NSLocalizedString("Please provide valid email id.",comment: ""))
         } else if (self.txt_password.text == "") {
-            self.txt_password.showErrorMessage(message: NSLocalizedString("Please enter password",comment: ""))
+            self.txt_password.showErrorMessage(message: NSLocalizedString("Password is required.",comment: ""))
         } else {
             if staffLogin == "Staff"{
                 subvendor()
@@ -94,11 +119,11 @@ class LoginScreen: UIViewController {
     
     @IBAction func act_loginStaff(_ sender: UIButton) {
         if (self.txt_email.text == "") {
-            self.txt_email.showErrorMessage(message: NSLocalizedString("Please enter email",comment: ""))
+            self.txt_email.showErrorMessage(message: NSLocalizedString("Email ID is required.",comment: ""))
         } else if !self.txt_email.text!.isValidEmail() {
-            self.txt_email.showErrorMessage(message: NSLocalizedString("Please enter valid email",comment: ""))
+            self.txt_email.showErrorMessage(message: NSLocalizedString("Please provide valid email id.",comment: ""))
         } else if (self.txt_password.text == "") {
-            self.txt_password.showErrorMessage(message: NSLocalizedString("Please enter password",comment: ""))
+            self.txt_password.showErrorMessage(message: NSLocalizedString("Password is required.",comment: ""))
         }else{
             subvendor()
         }
@@ -143,6 +168,9 @@ class LoginScreen: UIViewController {
                 if let data = loginData {
                     print("✅ Login successful!")
                     print("🔑 Token: \(data.token ?? "N/A")")
+                    
+                    UserDefaults.standard.set("0", forKey: "Passcode")
+                    UserDefaults.standard.synchronize()
                 
                     SharedPrefs.setEmail(data.email ?? "")
                     SharedPrefs.setUserId(String(data.id ?? 0))
@@ -183,6 +211,9 @@ class LoginScreen: UIViewController {
             if let data = result {
 //                self.showToast(message: result?.data ?? "")
                 self.showToast(message: NSLocalizedString("Logged in successfully",comment: ""))
+                
+                UserDefaults.standard.set("0", forKey: "Passcode")
+                UserDefaults.standard.synchronize()
                 
                 SharedPrefs.setEmail(result?.vendorData.first?.email ?? "")
                 SharedPrefs.setUserId(String(result?.vendorData.first?.id ?? 0))
@@ -238,6 +269,9 @@ class LoginScreen: UIViewController {
             if let data = result {
                 print("✅ Login successful!")
                 print("🔑 Token: \(data.token ?? "N/A")")
+                
+                UserDefaults.standard.set("0", forKey: "Passcode")
+                UserDefaults.standard.synchronize()
             
                 SharedPrefs.setEmail(data.email ?? "")
                 SharedPrefs.setUserId(String(data.id ?? 0))

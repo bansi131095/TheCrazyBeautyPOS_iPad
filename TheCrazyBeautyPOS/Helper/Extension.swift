@@ -2608,6 +2608,7 @@ extension UIViewController {
         inputFormatter.dateFormat = inputdate
         let showDate = inputFormatter.date(from: date)
         inputFormatter.dateFormat = outputdateformat
+        inputFormatter.locale = Locale(identifier: "en_US_POSIX")
         let resultString = inputFormatter.string(from: showDate!)
         print(resultString)
         return resultString;
@@ -3178,7 +3179,7 @@ extension UIViewController {
                 try fileManager.copyItem(at: localURL, to: destinationURL)
 
                 DispatchQueue.main.async {
-                    self.alertWithMessageOnly("Download Completed, Please Check File Location at /File/TheCrazyBeauty/Downloads/")
+                    self.alertWithMessageOnly(NSLocalizedString("Download Completed, Please Check File Location at /File/TheCrazyBeauty/Downloads/",comment: ""))
                 }
             } catch {
                 print("File save error: \(error.localizedDescription)")

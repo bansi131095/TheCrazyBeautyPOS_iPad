@@ -75,6 +75,8 @@ class KioskUsersVC: UIViewController {
             self.TeamLogin = result!.data
             if result?.data != nil {
                 self.txt_Email.text = self.TeamLogin.first?.email
+                self.txt_Email.showLabel()
+                self.txt_Password.showLabel()
             }else{
                 self.alertWithMessageOnly(NSLocalizedString("Internal server error",comment: ""))
             }

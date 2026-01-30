@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad10_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -1182,9 +1181,6 @@
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Name *" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oAT-hT-hV9" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
                                         <rect key="frame" x="15" y="0.0" width="1140" height="60"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="VEI-yg-Mnl"/>
-                                        </constraints>
                                         <attributedString key="attributedText"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <userDefinedRuntimeAttributes>
@@ -1219,7 +1215,9 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="oAT-hT-hV9" firstAttribute="centerY" secondItem="I0a-0F-Ivx" secondAttribute="centerY" id="Cnr-t2-TsM"/>
+                                    <constraint firstItem="oAT-hT-hV9" firstAttribute="top" secondItem="I0a-0F-Ivx" secondAttribute="top" id="Jle-Ii-m9g"/>
                                     <constraint firstItem="oAT-hT-hV9" firstAttribute="leading" secondItem="I0a-0F-Ivx" secondAttribute="leading" constant="15" id="eXT-RK-FDa"/>
+                                    <constraint firstAttribute="bottom" secondItem="oAT-hT-hV9" secondAttribute="bottom" id="wTs-7C-aEH"/>
                                     <constraint firstAttribute="height" constant="60" id="wcf-kE-mai"/>
                                     <constraint firstAttribute="trailing" secondItem="oAT-hT-hV9" secondAttribute="trailing" id="yYV-eS-Jvh"/>
                                 </constraints>
@@ -1229,9 +1227,6 @@
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Email *" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gs6-9l-jNz" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
                                         <rect key="frame" x="15" y="0.0" width="1140" height="60"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="yHb-Vd-IVn"/>
-                                        </constraints>
                                         <attributedString key="attributedText"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                         <userDefinedRuntimeAttributes>
@@ -1277,9 +1272,6 @@
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Password *" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ejk-I4-YcY" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
                                         <rect key="frame" x="15" y="0.0" width="1140" height="60"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="bFf-A3-J05"/>
-                                        </constraints>
                                         <attributedString key="attributedText"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                         <userDefinedRuntimeAttributes>
@@ -1329,7 +1321,9 @@
                                 <constraints>
                                     <constraint firstItem="lye-8U-9Lr" firstAttribute="centerY" secondItem="dUk-n9-LLj" secondAttribute="centerY" id="0mL-FL-Zyx"/>
                                     <constraint firstAttribute="trailing" secondItem="Ejk-I4-YcY" secondAttribute="trailing" id="4KL-l6-i4A"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ejk-I4-YcY" secondAttribute="bottom" id="8wa-2Y-5Ww"/>
                                     <constraint firstAttribute="trailing" secondItem="lye-8U-9Lr" secondAttribute="trailing" constant="20" id="BzR-Ct-SPS"/>
+                                    <constraint firstItem="Ejk-I4-YcY" firstAttribute="top" secondItem="dUk-n9-LLj" secondAttribute="top" id="KIS-i2-cAQ"/>
                                     <constraint firstItem="Ejk-I4-YcY" firstAttribute="leading" secondItem="dUk-n9-LLj" secondAttribute="leading" constant="15" id="iNH-Jb-WyD"/>
                                     <constraint firstAttribute="height" constant="60" id="sDZ-UC-51T"/>
                                     <constraint firstItem="Ejk-I4-YcY" firstAttribute="centerY" secondItem="dUk-n9-LLj" secondAttribute="centerY" id="wvg-5X-3eH"/>
@@ -2489,7 +2483,7 @@
                                                         <subviews>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SMS Settings" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7F-rf-ucl" userLabel="Configure Notifications Settings">
                                                                 <rect key="frame" x="0.0" y="0.0" width="1120" height="50"/>
-                                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
+                                                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                                                 <color key="textColor" name="AppBlack"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -2572,7 +2566,7 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="552.5" height="21"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Booking" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RlZ-m9-t6R" userLabel="Configure Notifications Settings">
-                                                                                <rect key="frame" x="0.0" y="5" width="473.5" height="0.0"/>
+                                                                                <rect key="frame" x="0.0" y="5" width="461.5" height="0.0"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="18"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
@@ -2586,7 +2580,7 @@ new booking)</string>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BTL-H0-luv">
-                                                                                <rect key="frame" x="483.5" y="-7" width="51" height="35"/>
+                                                                                <rect key="frame" x="471.5" y="-7" width="63" height="35"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="35" id="Mx1-Wc-bmM"/>
                                                                                 </constraints>
@@ -2616,13 +2610,13 @@ new booking)</string>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Get Notification for booking completion)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZUz-TK-s4q">
-                                                                                <rect key="frame" x="0.0" y="13" width="473.5" height="0.0"/>
+                                                                                <rect key="frame" x="0.0" y="13" width="461.5" height="0.0"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
                                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FEK-yx-cig">
-                                                                                <rect key="frame" x="483.5" y="-7" width="51" height="35"/>
+                                                                                <rect key="frame" x="471.5" y="-7" width="63" height="35"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="35" id="U1J-0f-m93"/>
                                                                                 </constraints>
@@ -2663,19 +2657,19 @@ new booking)</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="1120" height="21"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking Cancel" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lWy-dN-r7S" userLabel="Configure Notifications Settings">
-                                                                                <rect key="frame" x="0.0" y="5" width="473.5" height="0.0"/>
+                                                                                <rect key="frame" x="0.0" y="5" width="461.5" height="0.0"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="18"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Get Notification for booking cancel)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="leg-xL-pyo">
-                                                                                <rect key="frame" x="0.0" y="13" width="473.5" height="0.0"/>
+                                                                                <rect key="frame" x="0.0" y="13" width="461.5" height="0.0"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
                                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vlW-ZY-fUu">
-                                                                                <rect key="frame" x="483.5" y="-7" width="51" height="35"/>
+                                                                                <rect key="frame" x="471.5" y="-7" width="63" height="35"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="35" id="tMe-xA-wSG"/>
                                                                                 </constraints>
@@ -2749,7 +2743,7 @@ new booking)</string>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tc1-5k-2uv">
-                                                                                <rect key="frame" x="0.0" y="13" width="473.5" height="0.0"/>
+                                                                                <rect key="frame" x="0.0" y="13" width="461.5" height="0.0"/>
                                                                                 <string key="text">(Get Notification for
 new booking)</string>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
@@ -2757,7 +2751,7 @@ new booking)</string>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="din-IZ-T52">
-                                                                                <rect key="frame" x="483.5" y="-7" width="51" height="35"/>
+                                                                                <rect key="frame" x="471.5" y="-7" width="63" height="35"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="35" id="DoC-tb-fkY"/>
                                                                                 </constraints>
@@ -2787,13 +2781,13 @@ new booking)</string>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Get Notification for booking completion)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYd-7p-lbR">
-                                                                                <rect key="frame" x="0.0" y="13" width="473.5" height="0.0"/>
+                                                                                <rect key="frame" x="0.0" y="13" width="461.5" height="0.0"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
                                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qk3-JO-clF">
-                                                                                <rect key="frame" x="483.5" y="-7" width="51" height="35"/>
+                                                                                <rect key="frame" x="471.5" y="-7" width="63" height="35"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="35" id="dd1-OZ-hvy"/>
                                                                                 </constraints>
@@ -2834,19 +2828,19 @@ new booking)</string>
                                                                         <rect key="frame" x="0.0" y="0.0" width="552.5" height="67"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking Cancel" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTu-uL-fQy" userLabel="Configure Notifications Settings">
-                                                                                <rect key="frame" x="0.0" y="5" width="473.5" height="22"/>
+                                                                                <rect key="frame" x="0.0" y="5" width="461.5" height="22"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="18"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Get Notification for booking cancel)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3lS-zW-2nb">
-                                                                                <rect key="frame" x="0.0" y="35" width="473.5" height="19.5"/>
+                                                                                <rect key="frame" x="0.0" y="35" width="461.5" height="19.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e72-Lc-7wy">
-                                                                                <rect key="frame" x="483.5" y="16" width="51" height="35"/>
+                                                                                <rect key="frame" x="471.5" y="16" width="63" height="35"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="35" id="eRE-zE-lkT"/>
                                                                                 </constraints>
@@ -2876,13 +2870,13 @@ new booking)</string>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Send Booking Reminder to Customer)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yGj-Hg-d5X">
-                                                                                <rect key="frame" x="0.0" y="37" width="473.5" height="22"/>
+                                                                                <rect key="frame" x="0.0" y="37" width="461.5" height="22"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="18"/>
                                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0cI-bS-Km0">
-                                                                                <rect key="frame" x="483.5" y="16" width="51" height="35"/>
+                                                                                <rect key="frame" x="471.5" y="16" width="63" height="35"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="35" id="byM-YO-hfR"/>
                                                                                 </constraints>
@@ -2917,7 +2911,7 @@ new booking)</string>
                                                         <subviews>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Settings" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d1R-Hd-ST9" userLabel="Configure Notifications Settings">
                                                                 <rect key="frame" x="0.0" y="0.0" width="1120" height="50"/>
-                                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
+                                                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                                                 <color key="textColor" name="AppBlack"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -2977,7 +2971,7 @@ new booking)</string>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBX-33-1xP">
-                                                                                <rect key="frame" x="0.0" y="32" width="473.5" height="41"/>
+                                                                                <rect key="frame" x="0.0" y="32" width="461.5" height="41"/>
                                                                                 <string key="text">Turn On/Off Email Notification Sent
 To Partner.</string>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
@@ -2985,7 +2979,7 @@ To Partner.</string>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vNU-Sv-0Z0">
-                                                                                <rect key="frame" x="483.5" y="42.5" width="51" height="35"/>
+                                                                                <rect key="frame" x="471.5" y="42.5" width="63" height="35"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="35" id="fSg-1X-8Th"/>
                                                                                 </constraints>
@@ -3060,7 +3054,7 @@ To Partner.</string>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCB-sT-gAu">
-                                                                                <rect key="frame" x="0.0" y="35" width="473.5" height="41"/>
+                                                                                <rect key="frame" x="0.0" y="35" width="461.5" height="41"/>
                                                                                 <string key="text">(Get Notification for
  new booking)</string>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
@@ -3068,7 +3062,7 @@ To Partner.</string>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xjd-8e-WqF">
-                                                                                <rect key="frame" x="483.5" y="24.5" width="51" height="35"/>
+                                                                                <rect key="frame" x="471.5" y="24.5" width="63" height="35"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="35" id="vdr-fd-1Td"/>
                                                                                 </constraints>
@@ -3098,13 +3092,13 @@ To Partner.</string>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Get Notification for booking completion)" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lp9-Xl-pmc">
-                                                                                <rect key="frame" x="0.0" y="35" width="473.5" height="20.5"/>
+                                                                                <rect key="frame" x="0.0" y="35" width="461.5" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
                                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yXn-qD-Ity">
-                                                                                <rect key="frame" x="483.5" y="24.5" width="51" height="35"/>
+                                                                                <rect key="frame" x="471.5" y="24.5" width="63" height="35"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="35" id="6E4-Ez-htc"/>
                                                                                 </constraints>
@@ -3151,13 +3145,13 @@ To Partner.</string>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Get Notification for cancel booking)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lEa-DL-mSA">
-                                                                                <rect key="frame" x="0.0" y="35" width="473.5" height="20.5"/>
+                                                                                <rect key="frame" x="0.0" y="35" width="461.5" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
                                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cXl-Dd-kLH">
-                                                                                <rect key="frame" x="483.5" y="22.5" width="51" height="35"/>
+                                                                                <rect key="frame" x="471.5" y="22.5" width="63" height="35"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="35" id="q6A-j8-NrK"/>
                                                                                 </constraints>
@@ -3187,13 +3181,13 @@ To Partner.</string>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Get Notification for edit booking)" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RyJ-9d-dJx">
-                                                                                <rect key="frame" x="0.0" y="35" width="473.5" height="20.5"/>
+                                                                                <rect key="frame" x="0.0" y="35" width="461.5" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
                                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZRr-Zr-o56">
-                                                                                <rect key="frame" x="483.5" y="22.5" width="51" height="35"/>
+                                                                                <rect key="frame" x="471.5" y="22.5" width="63" height="35"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="35" id="OWb-hx-eFV"/>
                                                                                 </constraints>
@@ -3240,13 +3234,13 @@ To Partner.</string>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Get Notification for Not Shown Bookings)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dg8-bJ-eck">
-                                                                                <rect key="frame" x="0.0" y="35" width="473.5" height="20.5"/>
+                                                                                <rect key="frame" x="0.0" y="35" width="461.5" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
                                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tUW-nQ-Gif">
-                                                                                <rect key="frame" x="483.5" y="32.5" width="51" height="35"/>
+                                                                                <rect key="frame" x="471.5" y="32.5" width="63" height="35"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="35" id="xKz-A8-WUO"/>
                                                                                 </constraints>
@@ -4523,7 +4517,7 @@ To Partner.</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m7Q-Wk-DzN">
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m7Q-Wk-DzN">
                                                 <rect key="frame" x="30" y="169" width="1120" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Holiday Dates" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAs-mg-SmW">
@@ -4652,10 +4646,7 @@ To Partner.</string>
                                                         <rect key="frame" x="0.0" y="0.0" width="570" height="60"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Business Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nhw-Ri-Zt6" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                                                <rect key="frame" x="15" y="-2" width="555" height="64"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="64" id="Ob2-WK-dy9"/>
-                                                                </constraints>
+                                                                <rect key="frame" x="15" y="0.0" width="555" height="60"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -4682,16 +4673,15 @@ To Partner.</string>
                                                                         <real key="value" value="18"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
-                                                                <connections>
-                                                                    <outlet property="delegate" destination="ePO-p8-VAc" id="q75-A9-70e"/>
-                                                                </connections>
                                                             </textField>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
+                                                            <constraint firstItem="Nhw-Ri-Zt6" firstAttribute="top" secondItem="97V-Ml-rAe" secondAttribute="top" id="2RI-O4-5Il"/>
                                                             <constraint firstItem="Nhw-Ri-Zt6" firstAttribute="centerY" secondItem="97V-Ml-rAe" secondAttribute="centerY" id="33J-aP-BAU"/>
                                                             <constraint firstAttribute="height" constant="60" id="75a-1w-DSt"/>
                                                             <constraint firstItem="Nhw-Ri-Zt6" firstAttribute="leading" secondItem="97V-Ml-rAe" secondAttribute="leading" constant="15" id="feR-TD-Qal"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Nhw-Ri-Zt6" secondAttribute="bottom" id="jS5-qj-XLd"/>
                                                             <constraint firstAttribute="trailing" secondItem="Nhw-Ri-Zt6" secondAttribute="trailing" id="wgx-ae-Wxd"/>
                                                         </constraints>
                                                     </view>
@@ -5860,7 +5850,7 @@ To Partner.</string>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2RY-Ql-4ry" userLabel="FacebookURL">
                                                         <rect key="frame" x="0.0" y="0.0" width="570" height="60"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="FaceBook URL" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kJs-sB-3c6" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+                                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Facebook URL" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kJs-sB-3c6" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
                                                                 <rect key="frame" x="15" y="-2" width="555" height="64"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="64" id="dBe-TA-SYK"/>
@@ -5975,7 +5965,7 @@ To Partner.</string>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8hB-Ey-mgU">
-                                                                        <rect key="frame" x="0.0" y="69" width="51" height="35"/>
+                                                                        <rect key="frame" x="0.0" y="69" width="63" height="35"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="35" id="FiS-0B-5X7"/>
                                                                         </constraints>
@@ -6013,7 +6003,7 @@ To Partner.</string>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oOX-4S-cVM">
-                                                                        <rect key="frame" x="0.0" y="69" width="51" height="35"/>
+                                                                        <rect key="frame" x="0.0" y="69" width="63" height="35"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="35" id="ePv-kd-fqW"/>
                                                                         </constraints>
@@ -6066,7 +6056,7 @@ To Partner.</string>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Oo-4P-tie">
-                                                                <rect key="frame" x="0.0" y="64" width="51" height="35"/>
+                                                                <rect key="frame" x="0.0" y="64" width="63" height="35"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="35" id="qwP-rq-ZaA"/>
                                                                 </constraints>
@@ -6409,9 +6399,6 @@ To Partner.</string>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Opening Date" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UZf-ir-FYq" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="1120" height="60"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="60" id="O2w-S6-qGc"/>
-                                                                </constraints>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -7418,7 +7405,7 @@ To Partner.</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BJ3-z2-E1Z">
-                                                        <rect key="frame" x="0.0" y="71" width="51" height="35"/>
+                                                        <rect key="frame" x="0.0" y="71" width="63" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="UvO-W3-VF1"/>
                                                         </constraints>
@@ -8826,7 +8813,7 @@ To Partner.</string>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eO6-xo-Uqn">
-                                                                                <rect key="frame" x="140" y="17.5" width="51" height="35"/>
+                                                                                <rect key="frame" x="140" y="17.5" width="63" height="35"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="35" id="M87-7S-qcA"/>
                                                                                 </constraints>
@@ -9223,7 +9210,7 @@ To Partner.</string>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Icl-uN-I5G">
-                                                                                <rect key="frame" x="140" y="17.5" width="51" height="35"/>
+                                                                                <rect key="frame" x="140" y="17.5" width="63" height="35"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="35" id="wW8-Zb-GVa"/>
                                                                                 </constraints>
@@ -13535,7 +13522,7 @@ To Partner.</string>
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
