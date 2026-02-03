@@ -19,7 +19,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="TeamMemberCell" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="TeamMemberCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="TeamMemberCell" id="KGk-i7-Jjw" customClass="TeamMemberCell" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="545" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -29,11 +29,11 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vb4-CQ-jtB">
                         <rect key="frame" x="0.0" y="0.0" width="545" height="44"/>
                         <subviews>
-                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v6f-4b-uFc">
-                                <rect key="frame" x="10" y="11" width="465" height="22"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v6f-4b-uFc">
+                                <rect key="frame" x="10" y="11" width="42.5" height="22"/>
                                 <fontDescription key="fontDescription" name="Lato-Medium" family="Lato" pointSize="18"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
+                                <color key="highlightedColor" name="AppBlack"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Mz-jU-IBK">
                                 <rect key="frame" x="485" y="11" width="50" height="22"/>
@@ -60,10 +60,11 @@
                             <constraint firstAttribute="bottom" secondItem="O0v-5B-hzh" secondAttribute="bottom" id="G2e-Gh-8IH"/>
                             <constraint firstAttribute="trailing" secondItem="O0v-5B-hzh" secondAttribute="trailing" id="IXY-La-qgx"/>
                             <constraint firstItem="v6f-4b-uFc" firstAttribute="leading" secondItem="Vb4-CQ-jtB" secondAttribute="leading" constant="10" id="OuI-UO-1ba"/>
+                            <constraint firstItem="O0v-5B-hzh" firstAttribute="top" secondItem="v6f-4b-uFc" secondAttribute="bottom" constant="10" id="anH-at-XEW"/>
                             <constraint firstItem="9Mz-jU-IBK" firstAttribute="centerY" secondItem="Vb4-CQ-jtB" secondAttribute="centerY" id="cdk-AB-1EF"/>
                             <constraint firstItem="v6f-4b-uFc" firstAttribute="centerY" secondItem="Vb4-CQ-jtB" secondAttribute="centerY" id="ef1-va-4i5"/>
                             <constraint firstAttribute="trailing" secondItem="9Mz-jU-IBK" secondAttribute="trailing" constant="10" id="pwv-v2-9gj"/>
-                            <constraint firstItem="9Mz-jU-IBK" firstAttribute="leading" secondItem="v6f-4b-uFc" secondAttribute="trailing" constant="10" id="vDE-9y-Ufp"/>
+                            <constraint firstItem="9Mz-jU-IBK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="v6f-4b-uFc" secondAttribute="trailing" constant="10" id="vDE-9y-Ufp"/>
                             <constraint firstItem="O0v-5B-hzh" firstAttribute="leading" secondItem="Vb4-CQ-jtB" secondAttribute="leading" id="vdy-3A-Hcl"/>
                         </constraints>
                     </view>
@@ -84,6 +85,9 @@
         </tableViewCell>
     </objects>
     <resources>
+        <namedColor name="AppBlack">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="txtGray">
             <color red="0.63137254901960782" green="0.63137254901960782" blue="0.63137254901960782" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

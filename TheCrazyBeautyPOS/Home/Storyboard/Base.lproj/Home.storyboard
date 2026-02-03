@@ -9083,6 +9083,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="lbl_NoData" destination="xEu-A4-Dxr" id="03Y-9P-0sF"/>
                         <outlet property="lbl_title" destination="EdQ-jh-K5e" id="dzP-3y-tLN"/>
                         <outlet property="tbl_vw" destination="Fdi-ak-FR5" id="L4G-CM-Rb8"/>
                         <outlet property="txt_from" destination="xqq-cJ-7V5" id="Xaw-fQ-uZt"/>
@@ -9582,16 +9583,16 @@
                                                                 <rect key="frame" x="0.0" y="70" width="504" height="55"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YUp-07-vwA">
-                                                                        <rect key="frame" x="10" y="10" width="135" height="35"/>
+                                                                        <rect key="frame" x="10" y="10" width="135.5" height="35"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sales" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mmo-Zi-IRZ">
-                                                                                <rect key="frame" x="40" y="3" width="55" height="29"/>
+                                                                                <rect key="frame" x="40" y="3" width="55.5" height="29"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="24"/>
                                                                                 <color key="textColor" name="AccentColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ldr-3K-fEK">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="135" height="35"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="135.5" height="35"/>
                                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                 <connections>
                                                                                     <action selector="btn_Sales_Second:" destination="llV-lq-vxG" eventType="touchUpInside" id="KOV-JC-o5f"/>
@@ -9615,16 +9616,16 @@
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="atO-em-ISB">
-                                                                        <rect key="frame" x="165" y="10" width="155" height="35"/>
+                                                                        <rect key="frame" x="165.5" y="10" width="154.5" height="35"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Walkin" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWe-5a-SUr">
-                                                                                <rect key="frame" x="40" y="3" width="75" height="29"/>
+                                                                                <rect key="frame" x="40" y="3" width="74.5" height="29"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="24"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plT-Nt-5fM">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="155" height="35"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="154.5" height="35"/>
                                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                 <connections>
                                                                                     <action selector="btn_Walkin:" destination="llV-lq-vxG" eventType="touchUpInside" id="egl-59-d8W"/>
@@ -11719,7 +11720,7 @@
                                                                             <outlet property="delegate" destination="Lb2-8L-2dk" id="9z6-Z4-VZ3"/>
                                                                         </connections>
                                                                     </textField>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Amount Into($)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lv8-Y5-aid" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="Amount Into" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lv8-Y5-aid" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
                                                                         <rect key="frame" x="462.5" y="0.0" width="437.5" height="65"/>
                                                                         <color key="textColor" name="AppBlack"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
@@ -16401,7 +16402,7 @@ Please Choose Diffrent Date</string>
                                 <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9tb-8y-r7j">
-                                        <rect key="frame" x="20" y="10" width="1140" height="1198"/>
+                                        <rect key="frame" x="20" y="10" width="1140" height="1175"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8IJ-Z6-hpG">
                                                 <rect key="frame" x="15" y="20" width="40" height="40"/>
@@ -16918,20 +16919,20 @@ Please Choose Diffrent Date</string>
                                                     <outlet property="delegate" destination="8gi-Wl-Mlx" id="hgZ-7L-uWV"/>
                                                 </connections>
                                             </tableView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="10k-EC-svi">
-                                                <rect key="frame" x="20" y="827.5" width="1110" height="350.5"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J3L-iN-p30">
+                                                <rect key="frame" x="5" y="832.5" width="1130" height="327.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t1t-wy-ucH">
-                                                        <rect key="frame" x="0.0" y="0.0" width="545" height="350.5"/>
+                                                        <rect key="frame" x="10" y="10" width="545" height="297.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Top Team Member" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EBD-Lo-LRq">
-                                                                <rect key="frame" x="10" y="10" width="149.5" height="21"/>
+                                                                <rect key="frame" x="10" y="18" width="149.5" height="20"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eDa-Hs-Fzc">
-                                                                <rect key="frame" x="495" y="0.5" width="40" height="40"/>
+                                                                <rect key="frame" x="495" y="8" width="40" height="40"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bZ7-tt-ffd">
                                                                         <rect key="frame" x="2" y="2" width="36" height="36"/>
@@ -16956,7 +16957,7 @@ Please Choose Diffrent Date</string>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ec9-LB-LKz">
-                                                                <rect key="frame" x="0.0" y="48.5" width="545" height="0.5"/>
+                                                                <rect key="frame" x="0.0" y="56" width="545" height="0.5"/>
                                                                 <color key="backgroundColor" name="Lightgray"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="0.5" id="d13-2m-YMc"/>
@@ -16966,7 +16967,7 @@ Please Choose Diffrent Date</string>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iOw-li-g4x">
-                                                                <rect key="frame" x="0.0" y="49" width="545" height="40"/>
+                                                                <rect key="frame" x="0.0" y="56.5" width="545" height="40"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lze-Rj-uCu">
                                                                         <rect key="frame" x="10" y="10.5" width="42.5" height="19"/>
@@ -16990,9 +16991,22 @@ Please Choose Diffrent Date</string>
                                                                     <constraint firstItem="lze-Rj-uCu" firstAttribute="leading" secondItem="iOw-li-g4x" secondAttribute="leading" constant="10" id="xOu-Mv-DE3"/>
                                                                 </constraints>
                                                             </view>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L5e-bU-2bq">
+                                                                <rect key="frame" x="0.0" y="97" width="545" height="0.5"/>
+                                                                <color key="backgroundColor" name="Lightgray"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="0.5" id="EF2-Km-Twg"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="TeamMemberCell" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="o68-Fq-arm">
-                                                                <rect key="frame" x="0.0" y="89" width="545" height="261.5"/>
+                                                                <rect key="frame" x="0.0" y="97.5" width="545" height="200"/>
                                                                 <color key="backgroundColor" name="AppWhite"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="200" id="HTz-fR-ZRW"/>
+                                                                </constraints>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="motionIdentifier" value="TeamMemberCell"/>
                                                                 </userDefinedRuntimeAttributes>
@@ -17006,31 +17020,47 @@ Please Choose Diffrent Date</string>
                                                         <constraints>
                                                             <constraint firstItem="ec9-LB-LKz" firstAttribute="leading" secondItem="t1t-wy-ucH" secondAttribute="leading" id="1h9-fG-zGs"/>
                                                             <constraint firstItem="EBD-Lo-LRq" firstAttribute="leading" secondItem="t1t-wy-ucH" secondAttribute="leading" constant="10" id="5AV-We-GLr"/>
+                                                            <constraint firstAttribute="trailing" secondItem="L5e-bU-2bq" secondAttribute="trailing" id="BRA-18-evY"/>
                                                             <constraint firstItem="o68-Fq-arm" firstAttribute="leading" secondItem="t1t-wy-ucH" secondAttribute="leading" id="Bkf-Si-gr1"/>
                                                             <constraint firstAttribute="bottom" secondItem="o68-Fq-arm" secondAttribute="bottom" id="EA6-A0-FbU"/>
                                                             <constraint firstAttribute="trailing" secondItem="iOw-li-g4x" secondAttribute="trailing" id="F02-96-ZR3"/>
                                                             <constraint firstAttribute="trailing" secondItem="o68-Fq-arm" secondAttribute="trailing" id="KIp-U3-e8y"/>
                                                             <constraint firstItem="ec9-LB-LKz" firstAttribute="top" secondItem="bZ7-tt-ffd" secondAttribute="bottom" constant="10" id="Si7-sZ-llT"/>
+                                                            <constraint firstItem="ec9-LB-LKz" firstAttribute="top" secondItem="EBD-Lo-LRq" secondAttribute="bottom" constant="18" id="YO5-Lg-aaW"/>
                                                             <constraint firstItem="iOw-li-g4x" firstAttribute="leading" secondItem="t1t-wy-ucH" secondAttribute="leading" id="ZUC-a6-dDC"/>
                                                             <constraint firstAttribute="trailing" secondItem="eDa-Hs-Fzc" secondAttribute="trailing" constant="10" id="b0N-WW-6g3"/>
                                                             <constraint firstItem="eDa-Hs-Fzc" firstAttribute="centerY" secondItem="EBD-Lo-LRq" secondAttribute="centerY" id="e1F-eJ-omk"/>
                                                             <constraint firstAttribute="trailing" secondItem="ec9-LB-LKz" secondAttribute="trailing" id="eW0-27-ndd"/>
-                                                            <constraint firstItem="o68-Fq-arm" firstAttribute="top" secondItem="iOw-li-g4x" secondAttribute="bottom" id="jOn-Ex-f1y"/>
+                                                            <constraint firstItem="L5e-bU-2bq" firstAttribute="top" secondItem="iOw-li-g4x" secondAttribute="bottom" constant="0.5" id="kiz-zv-dza"/>
+                                                            <constraint firstItem="o68-Fq-arm" firstAttribute="top" secondItem="L5e-bU-2bq" secondAttribute="bottom" id="lrQ-ag-d7Z"/>
                                                             <constraint firstItem="iOw-li-g4x" firstAttribute="top" secondItem="ec9-LB-LKz" secondAttribute="bottom" id="q36-i7-ig1"/>
-                                                            <constraint firstItem="EBD-Lo-LRq" firstAttribute="top" secondItem="t1t-wy-ucH" secondAttribute="top" constant="10" id="szI-k7-649"/>
+                                                            <constraint firstAttribute="bottom" secondItem="o68-Fq-arm" secondAttribute="bottom" id="qvp-1n-iaW"/>
+                                                            <constraint firstItem="L5e-bU-2bq" firstAttribute="leading" secondItem="t1t-wy-ucH" secondAttribute="leading" id="riM-Ku-FgY"/>
+                                                            <constraint firstItem="EBD-Lo-LRq" firstAttribute="top" secondItem="t1t-wy-ucH" secondAttribute="top" constant="18" id="szI-k7-649"/>
                                                         </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" name="Lightgray"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hwd-Z4-b8y">
-                                                        <rect key="frame" x="555" y="0.0" width="555" height="350.5"/>
+                                                        <rect key="frame" x="565" y="10" width="555" height="297.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Top Services" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqr-BR-697">
-                                                                <rect key="frame" x="10" y="10" width="103" height="21"/>
+                                                                <rect key="frame" x="10" y="18" width="103" height="20"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Zi-UB-Ddj">
-                                                                <rect key="frame" x="505" y="0.5" width="40" height="40"/>
+                                                                <rect key="frame" x="505" y="8" width="40" height="40"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySh-cJ-ymA">
                                                                         <rect key="frame" x="2" y="2" width="36" height="36"/>
@@ -17055,7 +17085,7 @@ Please Choose Diffrent Date</string>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mre-IS-ykB">
-                                                                <rect key="frame" x="0.0" y="48.5" width="555" height="0.5"/>
+                                                                <rect key="frame" x="0.0" y="56" width="555" height="0.5"/>
                                                                 <color key="backgroundColor" name="Lightgray"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="0.5" id="ZoW-mf-I6t"/>
@@ -17065,7 +17095,7 @@ Please Choose Diffrent Date</string>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X14-KJ-dPP">
-                                                                <rect key="frame" x="0.0" y="49" width="555" height="40"/>
+                                                                <rect key="frame" x="0.0" y="56.5" width="555" height="40"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booked" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qX4-ij-3P8">
                                                                         <rect key="frame" x="10" y="10.5" width="100" height="19"/>
@@ -17085,8 +17115,8 @@ Please Choose Diffrent Date</string>
                                                                         <color key="textColor" name="txtGray"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Appointments" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nk7-JK-XAJ">
-                                                                        <rect key="frame" x="444.5" y="10.5" width="100.5" height="19"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Generated" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nk7-JK-XAJ">
+                                                                        <rect key="frame" x="469.5" y="10.5" width="75.5" height="19"/>
                                                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                         <color key="textColor" name="txtGray"/>
                                                                         <nil key="highlightedColor"/>
@@ -17104,9 +17134,22 @@ Please Choose Diffrent Date</string>
                                                                     <constraint firstItem="Qi1-GL-EC5" firstAttribute="centerY" secondItem="qX4-ij-3P8" secondAttribute="centerY" id="lVo-mP-uMz"/>
                                                                 </constraints>
                                                             </view>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j0b-C7-JVQ">
+                                                                <rect key="frame" x="0.0" y="97" width="555" height="0.5"/>
+                                                                <color key="backgroundColor" name="Lightgray"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="0.5" id="loB-Db-l4p"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="TopServicesCell" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="cpY-2M-yjF">
-                                                                <rect key="frame" x="0.0" y="89" width="555" height="261.5"/>
+                                                                <rect key="frame" x="0.0" y="97.5" width="555" height="200"/>
                                                                 <color key="backgroundColor" name="AppWhite"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="200" id="QDk-dy-Hbp"/>
+                                                                </constraints>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="motionIdentifier" value="TopServicesCell"/>
                                                                 </userDefinedRuntimeAttributes>
@@ -17120,40 +17163,60 @@ Please Choose Diffrent Date</string>
                                                         <constraints>
                                                             <constraint firstItem="mre-IS-ykB" firstAttribute="top" secondItem="ySh-cJ-ymA" secondAttribute="bottom" constant="10" id="1ru-zg-nR2"/>
                                                             <constraint firstAttribute="trailing" secondItem="mre-IS-ykB" secondAttribute="trailing" id="3xC-1q-2cB"/>
+                                                            <constraint firstItem="j0b-C7-JVQ" firstAttribute="leading" secondItem="Hwd-Z4-b8y" secondAttribute="leading" id="4Cb-BV-3e0"/>
+                                                            <constraint firstItem="mre-IS-ykB" firstAttribute="top" secondItem="mqr-BR-697" secondAttribute="bottom" constant="18" id="737-Ep-DVZ"/>
                                                             <constraint firstAttribute="bottom" secondItem="cpY-2M-yjF" secondAttribute="bottom" id="9Rw-Dn-kKC"/>
                                                             <constraint firstItem="cpY-2M-yjF" firstAttribute="leading" secondItem="Hwd-Z4-b8y" secondAttribute="leading" id="I9I-0n-qV6"/>
                                                             <constraint firstAttribute="trailing" secondItem="cpY-2M-yjF" secondAttribute="trailing" id="KbA-cw-C1S"/>
+                                                            <constraint firstItem="cpY-2M-yjF" firstAttribute="top" secondItem="j0b-C7-JVQ" secondAttribute="bottom" id="Kds-NK-hpb"/>
+                                                            <constraint firstAttribute="trailing" secondItem="j0b-C7-JVQ" secondAttribute="trailing" id="Ldm-mB-SRv"/>
                                                             <constraint firstItem="X14-KJ-dPP" firstAttribute="top" secondItem="mre-IS-ykB" secondAttribute="bottom" id="OEc-oA-Ivc"/>
-                                                            <constraint firstItem="cpY-2M-yjF" firstAttribute="top" secondItem="X14-KJ-dPP" secondAttribute="bottom" id="XS9-Xk-Ef6"/>
+                                                            <constraint firstItem="j0b-C7-JVQ" firstAttribute="top" secondItem="X14-KJ-dPP" secondAttribute="bottom" constant="0.5" id="R11-lq-Gft"/>
                                                             <constraint firstAttribute="trailing" secondItem="2Zi-UB-Ddj" secondAttribute="trailing" constant="10" id="aWO-cu-EpX"/>
                                                             <constraint firstItem="2Zi-UB-Ddj" firstAttribute="centerY" secondItem="mqr-BR-697" secondAttribute="centerY" id="k1c-un-ixn"/>
                                                             <constraint firstItem="mqr-BR-697" firstAttribute="leading" secondItem="Hwd-Z4-b8y" secondAttribute="leading" constant="10" id="kzU-u4-gae"/>
                                                             <constraint firstItem="X14-KJ-dPP" firstAttribute="leading" secondItem="Hwd-Z4-b8y" secondAttribute="leading" id="nGD-kk-SEH"/>
-                                                            <constraint firstItem="mqr-BR-697" firstAttribute="top" secondItem="Hwd-Z4-b8y" secondAttribute="top" constant="10" id="p54-D4-81g"/>
+                                                            <constraint firstItem="mqr-BR-697" firstAttribute="top" secondItem="Hwd-Z4-b8y" secondAttribute="top" constant="18" id="p54-D4-81g"/>
                                                             <constraint firstItem="mre-IS-ykB" firstAttribute="leading" secondItem="Hwd-Z4-b8y" secondAttribute="leading" id="p7u-Tp-FNg"/>
                                                             <constraint firstAttribute="trailing" secondItem="X14-KJ-dPP" secondAttribute="trailing" id="rnK-Lh-SrA"/>
                                                         </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" name="Lightgray"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstItem="t1t-wy-ucH" firstAttribute="width" secondItem="Hwd-Z4-b8y" secondAttribute="width" multiplier="0.981982" id="3Gt-9K-3fO"/>
-                                                    <constraint firstAttribute="height" constant="350.5" id="5XD-hJ-g5X"/>
-                                                    <constraint firstItem="Hwd-Z4-b8y" firstAttribute="leading" secondItem="t1t-wy-ucH" secondAttribute="trailing" constant="10" id="7LU-3v-oLy"/>
-                                                    <constraint firstItem="Hwd-Z4-b8y" firstAttribute="width" secondItem="t1t-wy-ucH" secondAttribute="width" multiplier="1.01835" id="XuW-dg-Bc5"/>
+                                                    <constraint firstItem="Hwd-Z4-b8y" firstAttribute="top" secondItem="J3L-iN-p30" secondAttribute="top" constant="10" id="FJb-he-dGi"/>
+                                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Hwd-Z4-b8y" secondAttribute="bottom" constant="20" id="Mvd-dT-QON"/>
+                                                    <constraint firstItem="t1t-wy-ucH" firstAttribute="leading" secondItem="J3L-iN-p30" secondAttribute="leading" constant="10" id="TgI-Sz-inh"/>
+                                                    <constraint firstItem="t1t-wy-ucH" firstAttribute="width" secondItem="Hwd-Z4-b8y" secondAttribute="width" multiplier="0.981982" id="f6V-tL-4v8"/>
+                                                    <constraint firstItem="Hwd-Z4-b8y" firstAttribute="leading" secondItem="t1t-wy-ucH" secondAttribute="trailing" constant="10" id="hYx-GC-MZH"/>
+                                                    <constraint firstItem="Hwd-Z4-b8y" firstAttribute="width" secondItem="t1t-wy-ucH" secondAttribute="width" multiplier="1.01835" id="is0-5Z-Jfg"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Hwd-Z4-b8y" secondAttribute="trailing" constant="10" id="t01-ZX-IXe"/>
+                                                    <constraint firstItem="t1t-wy-ucH" firstAttribute="top" secondItem="J3L-iN-p30" secondAttribute="top" constant="10" id="y24-UP-f6b"/>
                                                 </constraints>
-                                            </stackView>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="dGJ-DE-0JQ" firstAttribute="top" secondItem="yTu-Si-xMB" secondAttribute="bottom" constant="20" id="1mT-oz-3OI"/>
                                             <constraint firstItem="3WR-FO-0vc" firstAttribute="top" secondItem="CkA-4A-GGJ" secondAttribute="bottom" constant="33.5" id="45h-hW-OVh"/>
+                                            <constraint firstAttribute="trailing" secondItem="J3L-iN-p30" secondAttribute="trailing" constant="5" id="4Pv-aC-IwV"/>
                                             <constraint firstItem="aaX-oQ-1kr" firstAttribute="leading" secondItem="9tb-8y-r7j" secondAttribute="leading" constant="10" id="5Dv-IA-wFW"/>
                                             <constraint firstItem="2qn-TY-yqD" firstAttribute="leading" secondItem="EeM-P2-s4V" secondAttribute="trailing" constant="20" id="5Mf-AB-mJT"/>
                                             <constraint firstItem="3WR-FO-0vc" firstAttribute="leading" secondItem="9tb-8y-r7j" secondAttribute="leading" id="9Ri-A0-rxG"/>
                                             <constraint firstAttribute="trailing" secondItem="3WR-FO-0vc" secondAttribute="trailing" id="AQs-nx-tuS"/>
                                             <constraint firstItem="Wwo-Y8-vUA" firstAttribute="leading" secondItem="yTu-Si-xMB" secondAttribute="trailing" constant="10" id="BZL-T1-nhv"/>
-                                            <constraint firstItem="10k-EC-svi" firstAttribute="top" secondItem="3WR-FO-0vc" secondAttribute="bottom" constant="15" id="GNm-JS-eQT"/>
-                                            <constraint firstAttribute="trailing" secondItem="10k-EC-svi" secondAttribute="trailing" constant="10" id="Gfa-Fg-gFe"/>
+                                            <constraint firstItem="J3L-iN-p30" firstAttribute="top" secondItem="3WR-FO-0vc" secondAttribute="bottom" constant="20" id="EWc-Uh-OlM"/>
                                             <constraint firstItem="aaX-oQ-1kr" firstAttribute="top" secondItem="dGJ-DE-0JQ" secondAttribute="bottom" constant="8" id="GnY-J4-QXR"/>
                                             <constraint firstAttribute="trailing" secondItem="aaX-oQ-1kr" secondAttribute="trailing" constant="10" id="Ilv-md-iqL"/>
                                             <constraint firstItem="CkA-4A-GGJ" firstAttribute="top" secondItem="aaX-oQ-1kr" secondAttribute="bottom" constant="25" id="Ki3-vH-RHC"/>
@@ -17162,13 +17225,13 @@ Please Choose Diffrent Date</string>
                                             <constraint firstItem="2qn-TY-yqD" firstAttribute="centerY" secondItem="EeM-P2-s4V" secondAttribute="centerY" id="MkP-QT-63j"/>
                                             <constraint firstItem="dGJ-DE-0JQ" firstAttribute="leading" secondItem="9tb-8y-r7j" secondAttribute="leading" constant="10" id="Opi-q2-rb2"/>
                                             <constraint firstItem="yTu-Si-xMB" firstAttribute="top" secondItem="9tb-8y-r7j" secondAttribute="top" constant="20" id="PeT-Gb-65b"/>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="10k-EC-svi" secondAttribute="bottom" constant="20" id="QfE-GA-l7r"/>
                                             <constraint firstItem="2qn-TY-yqD" firstAttribute="leading" secondItem="EeM-P2-s4V" secondAttribute="trailing" constant="20" id="RFZ-fT-o84"/>
                                             <constraint firstAttribute="trailing" secondItem="dGJ-DE-0JQ" secondAttribute="trailing" constant="10" id="aLS-FV-WNX"/>
-                                            <constraint firstItem="10k-EC-svi" firstAttribute="leading" secondItem="9tb-8y-r7j" secondAttribute="leading" constant="20" id="bT9-RQ-iHX"/>
+                                            <constraint firstAttribute="bottom" secondItem="J3L-iN-p30" secondAttribute="bottom" constant="15" id="djh-V9-c2t"/>
                                             <constraint firstItem="Wwo-Y8-vUA" firstAttribute="top" secondItem="9tb-8y-r7j" secondAttribute="top" constant="20" id="mNG-C5-y37"/>
                                             <constraint firstItem="EeM-P2-s4V" firstAttribute="centerY" secondItem="CkA-4A-GGJ" secondAttribute="centerY" id="q2K-Gn-D8D"/>
                                             <constraint firstAttribute="trailing" secondItem="2qn-TY-yqD" secondAttribute="trailing" constant="20" id="rZo-Uz-Nbi"/>
+                                            <constraint firstItem="J3L-iN-p30" firstAttribute="leading" secondItem="9tb-8y-r7j" secondAttribute="leading" constant="5" id="weh-qa-eZb"/>
                                             <constraint firstItem="CkA-4A-GGJ" firstAttribute="leading" secondItem="9tb-8y-r7j" secondAttribute="leading" constant="15" id="xCY-6F-Ly0"/>
                                             <constraint firstItem="yTu-Si-xMB" firstAttribute="leading" secondItem="8IJ-Z6-hpG" secondAttribute="trailing" constant="10" id="zSA-8v-HpT"/>
                                         </constraints>
@@ -17213,6 +17276,8 @@ Please Choose Diffrent Date</string>
                         <outlet property="lbl_WalkinTotalAmount" destination="wtb-Dv-gRM" id="YOh-nJ-dyW"/>
                         <outlet property="lbl_total" destination="hM5-u4-3Zt" id="idQ-9J-DSp"/>
                         <outlet property="tbl_Height" destination="78w-un-fNz" id="yFh-EK-K3N"/>
+                        <outlet property="tbl_ServiceHeight" destination="QDk-dy-Hbp" id="VUI-sj-cLH"/>
+                        <outlet property="tbl_TeamHeight" destination="HTz-fR-ZRW" id="arI-cS-Khx"/>
                         <outlet property="tbl_TopServices" destination="cpY-2M-yjF" id="FHJ-Ah-3wz"/>
                         <outlet property="tbl_TopTeam" destination="o68-Fq-arm" id="3cH-wr-iYc"/>
                         <outlet property="tbl_vw" destination="3WR-FO-0vc" id="iK8-9s-kXe"/>

@@ -232,9 +232,9 @@ class AddClientVC: UIViewController {
     
     @IBAction func act_addEditClient(_ sender: GradientButton) {
         if self.firstNameTextField.text!.isEmpty {
-            self.showToast(message: NSLocalizedString("Please enter first name",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Please enter first name",comment: ""))
         } else if self.mobileTextField.text!.isEmpty {
-            self.showToast(message: NSLocalizedString("Please enter mobile number",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Please enter mobile number",comment: ""))
         } else {
             self.view.endEditing(true)
             if isEdit {
@@ -375,9 +375,9 @@ class AddClientVC: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let self = self else { return }
 
-            let alert = UIAlertController(title: "Select Month & Year", message: "\n\n\n\n\n\n\n\n", preferredStyle: .alert)
+            let alert = UIAlertController(title: NSLocalizedString("Select Month & Year", comment: ""), message: "\n\n\n\n\n\n\n\n", preferredStyle: .alert)
 
-            let picker = UIPickerView(frame: CGRect(x: 5, y: 20, width: 250, height: 160))
+            let picker = UIPickerView(frame: CGRect(x: 5, y: 20, width: 250, height: 100))
             picker.dataSource = self
             picker.delegate = self
             alert.view.addSubview(picker)
@@ -394,7 +394,7 @@ class AddClientVC: UIViewController {
             }
 
             // ✅ Add Done & Cancel buttons
-            let doneAction = UIAlertAction(title: "Done", style: .default) { _ in
+            let doneAction = UIAlertAction(title: NSLocalizedString("Done",comment: ""), style: .default) { _ in
                 let selectedMonth = picker.selectedRow(inComponent: 0) + 1
                 let selectedYear = self.years[picker.selectedRow(inComponent: 1)]
 
@@ -409,7 +409,7 @@ class AddClientVC: UIViewController {
             }
 
             alert.addAction(doneAction)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel",comment: ""), style: .cancel, handler: nil))
 
             // ✅ Present the alert safely from calendarVC
             self.calendarVC?.present(alert, animated: true)
@@ -558,13 +558,13 @@ class AddClientVC: UIViewController {
             if model.error == "" {
                 DispatchQueue.main.async {
                     // safe UI code here
-                    self.showToast(message: NSLocalizedString("Client added successfully",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Client added successfully",comment: ""))
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     self.navigationController?.popViewController(animated: true)
                 }
             } else {
-                self.showToast(message: NSLocalizedString("Failed to insert client", comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to insert client",comment: ""))
             }
         }
     }
@@ -582,13 +582,13 @@ class AddClientVC: UIViewController {
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
                     // safe UI code here
-                    self.showToast(message: NSLocalizedString("Client details updated successfully",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Client details updated successfully",comment: ""))
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.navigationController?.popViewController(animated: true)
                 }
             } else {
-                self.showToast(message: NSLocalizedString("Failed to insert client", comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to insert client",comment: ""))
             }
         }
     }
@@ -606,13 +606,13 @@ class AddClientVC: UIViewController {
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
                     // safe UI code here
-                    self.showToast(message: NSLocalizedString("Guest details updated successfully",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Guest details updated successfully",comment: ""))
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.navigationController?.popViewController(animated: true)
                 }
             } else {
-                self.showToast(message: NSLocalizedString("Failed to insert guest", comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to insert guest",comment: ""))
             }
         }
     }

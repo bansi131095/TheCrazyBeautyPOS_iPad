@@ -51,6 +51,20 @@ class AddGiftCard_VC: UIViewController {
             } else {
                 self.lbl_Title.text = NSLocalizedString("Add Gift Card",comment: "")
                 self.btn_AddGiftCard.setTitle(NSLocalizedString("Add Gift Card",comment: ""), for: .normal)
+                
+                if let lang = UserDefaults.standard.object(forKey: global().kSaveLanguageDefaultKey) as? String {
+                    if lang == "en"{
+                        self.img_User.image = UIImage(named: "img_Upload")
+                    }
+                    if lang == "zh"{
+                        self.img_User.image = UIImage(named: "img_Upload_Chinese")
+                    }
+                    if lang == "vi"{
+                        self.img_User.image = UIImage(named: "img_Upload_VI")
+                    }
+                }else{
+                    self.img_User.image = UIImage(named: "img_Upload")
+                }
             }
         }
         let attributedTitleSync_1 = NSAttributedString(
@@ -122,17 +136,14 @@ class AddGiftCard_VC: UIViewController {
     }
     
     @IBAction func btn_AddGiftCard(_ sender: Any) {
-        /*if selectedImage == nil || img_User.image == UIImage(named: "upload") {
-            self.showToast(message: "Please select a user image.")
-        }*/
         if !isEdit && selectedImage == nil {
-            self.showToast(message: NSLocalizedString("Please select a GiftCard image",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Please select a GiftCard image",comment: ""))
         }else if txt_CardName.text == ""{
-            self.showToast(message: NSLocalizedString("Card Name is required",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Card Name is required",comment: ""))
         }else if txt_Price.text == ""{
-            self.showToast(message: NSLocalizedString("Price is required.",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Price is required.",comment: ""))
         }else if txt_ExpiryDate.text == ""{
-            self.showToast(message: NSLocalizedString("Expiry In Days is required",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Expiry In Days is required",comment: ""))
         }else{
             if isEdit{
                 updateGiftCard(Id: GiftCardData?.id ?? 0)
@@ -205,11 +216,11 @@ class AddGiftCard_VC: UIViewController {
                 if result != nil {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         // safe UI code here
-                        self.showToast(message: NSLocalizedString("Gift card added successfully",comment: ""))
+                        self.alertWithMessageOnly(NSLocalizedString("Gift card added successfully",comment: ""))
                         self.navigationController?.popViewController(animated: true)
                     }
                 }else{
-                    self.showToast(message: NSLocalizedString("Failed to insert gift card details",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Failed to insert gift card details",comment: ""))
                 }
             }
         }else{
@@ -218,11 +229,11 @@ class AddGiftCard_VC: UIViewController {
                 if result != nil {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         // safe UI code here
-                        self.showToast(message: NSLocalizedString("Gift card added successfully",comment: ""))
+                        self.alertWithMessageOnly(NSLocalizedString("Gift card added successfully",comment: ""))
                         self.navigationController?.popViewController(animated: true)
                     }
                 }else{
-                    self.showToast(message: NSLocalizedString("Failed to insert gift card details",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Failed to insert gift card details",comment: ""))
                 }
             }
         }
@@ -235,24 +246,24 @@ class AddGiftCard_VC: UIViewController {
             APIService.shared.UpdateGiftCard(Id: Id, card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: selectedStatus, image: selectedImage, imageKey: "file") { result in
                 self.hideLoader()
                 if result != nil {
-                    self.showToast(message: NSLocalizedString("Gift card updated successfully",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Gift card updated successfully",comment: ""))
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 }else{
-                    self.showToast(message: NSLocalizedString("Failed to update gift card",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Failed to update gift card",comment: ""))
                 }
             }
         }else{
             APIService.shared.UpdateGiftCard(Id: Id, card_name: self.txt_CardName.text ?? "", price: self.txt_Price.text ?? "", expired_in: self.txt_ExpiryDate.text ?? "", vendor_id: LocalData.userId, status: selectedStatus, image: nil, imageKey: "file") { result in
                 self.hideLoader()
                 if result != nil {
-                    self.showToast(message: NSLocalizedString("Gift card updated successfully",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Gift card updated successfully",comment: ""))
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 }else{
-                    self.showToast(message: NSLocalizedString("Failed to update gift card",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Failed to update gift card",comment: ""))
                 }
             }
         }

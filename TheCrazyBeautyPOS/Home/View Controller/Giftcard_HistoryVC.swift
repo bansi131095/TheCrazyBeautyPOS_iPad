@@ -53,15 +53,19 @@ class Giftcard_HistoryVC: UIViewController, UIPopoverPresentationControllerDeleg
         let currentDate = Date()
         let calendar = Calendar.current
         
-        guard let oneMonthAgo = calendar.date(byAdding: .month, value: -1, to: currentDate) else { return }
-
+//        guard let oneMonthAgo = calendar.date(byAdding: .month, value: -1, to: currentDate) else { return }
+        
+        guard let oneMonthAgo = calendar.date(byAdding: .month, value: -1, to: currentDate),
+              let fromDate = calendar.date(byAdding: .day, value: 1, to: oneMonthAgo)
+        else { return }
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM d, yyyy" // Match your existing format
         formatter.locale = Locale(identifier: "en_US_POSIX")
-        txt_FromDate.text = formatter.string(from: oneMonthAgo)
+        txt_FromDate.text = formatter.string(from: fromDate)
         txt_ToDate.text = formatter.string(from: currentDate)
 
-        firstDate = oneMonthAgo
+        firstDate = fromDate
         lastDate = currentDate
 
         setGiftcardHistoryData()
@@ -135,7 +139,7 @@ class Giftcard_HistoryVC: UIViewController, UIPopoverPresentationControllerDeleg
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let self = self else { return }
 
-            let alert = UIAlertController(title: "Select Month & Year", message: "\n\n\n\n\n\n\n\n", preferredStyle: .alert)
+            let alert = UIAlertController(title: NSLocalizedString("Select Month & Year", comment: ""), message: "\n\n\n\n\n\n\n\n", preferredStyle: .alert)
 
             let picker = UIPickerView(frame: CGRect(x: 5, y: 20, width: 250, height: 160))
             picker.dataSource = self
@@ -154,7 +158,7 @@ class Giftcard_HistoryVC: UIViewController, UIPopoverPresentationControllerDeleg
             }
 
             // ✅ Add Done & Cancel buttons
-            let doneAction = UIAlertAction(title: "Done", style: .default) { _ in
+            let doneAction = UIAlertAction(title: NSLocalizedString("Done",comment: ""), style: .default) { _ in
                 let selectedMonth = picker.selectedRow(inComponent: 0) + 1
                 let selectedYear = self.years[picker.selectedRow(inComponent: 1)]
 
@@ -169,7 +173,7 @@ class Giftcard_HistoryVC: UIViewController, UIPopoverPresentationControllerDeleg
             }
 
             alert.addAction(doneAction)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel",comment: ""), style: .cancel, handler: nil))
 
             // ✅ Present the alert safely from calendarVC
             self.calendarVC?.present(alert, animated: true)

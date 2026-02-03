@@ -107,12 +107,12 @@ class TextInputLayout: UITextField {
                 self.lblPlaceHolder.textColor = #colorLiteral(red: 0.631372549, green: 0.631372549, blue: 0.631372549, alpha: 1)
                 let fontSize =  self.font!.pointSize;
 //                self.lblPlaceHolder.font = UIFont.init(name: (self.font?.fontName)!, size: fontSize)
-                self.lblPlaceHolder.font = UIFont(name: "Lato-Regular", size: 20.0)
+                self.lblPlaceHolder.font = UIFont(name: "Lato-Regular", size: 18.0)
             }
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {() -> Void in
                 if (self.text == nil) || (self.text?.count)! <= 0 {
 //                    self.lblPlaceHolder.font = self.defaultFont
-                    self.lblPlaceHolder.font = UIFont(name: "Lato-Regular", size: 20.0)
+                    self.lblPlaceHolder.font = UIFont(name: "Lato-Regular", size: 18.0)
                     self.lblPlaceHolder.frame = CGRect(x: self.lblPlaceHolder.frame.origin.x, y : 0, width :self.frame.size.width, height : self.frame.size.height)
                 }
                 else {

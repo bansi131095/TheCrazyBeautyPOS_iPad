@@ -67,9 +67,9 @@ class AddResources_VC: UIViewController,UITextFieldDelegate {
     
     @IBAction func btn_Save(_ sender: Any) {
         if txt_Name.text == ""{
-            self.showToast(message: NSLocalizedString("Name is required.",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Name is required.",comment: ""))
         }else if txt_Qty.text == ""{
-            self.showToast(message: NSLocalizedString("Quantity is required.",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Quantity is required.",comment: ""))
         }else{
             if AddResources == "AddResources"{
                 api_AddResources()
@@ -108,16 +108,14 @@ class AddResources_VC: UIViewController,UITextFieldDelegate {
         APIService.shared.addResource(description: self.txt_Description.text, name: self.txt_Name.text ?? "", qty: self.txt_Qty.text ?? "",vendor_id: LocalData.userId) { result  in
             if (result != nil) {
                 DispatchQueue.main.async {
-                    // safe UI code here
-//                    self.showToast(message: result?.data?.message ?? "")
-                    self.showToast(message: NSLocalizedString("Resource added successfully",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Resource added successfully",comment: ""))
                     self.resource_id = result?.data?.insertId ?? 0
                     self.txt_Qty.text = ""
                     self.txt_Name.text = ""
                     self.txt_Description.text = ""
                 }
             }else{
-                self.showToast(message: NSLocalizedString("Failed to add resource",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to add resource",comment: ""))
             }
         }
     }
@@ -136,8 +134,7 @@ class AddResources_VC: UIViewController,UITextFieldDelegate {
         APIService.shared.updateResource(description: self.txt_Description.text, name: self.txt_Name.text ?? "", qty: self.txt_Qty.text ?? "", resource_id: String(resource_id), vendor_id: LocalData.userId) { result in
             if result != nil {
                 self.hideLoader()
-                print(self.resource_id)
-                self.showToast(message: NSLocalizedString("Resource details updated successfully",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Resource details updated successfully",comment: ""))
                 self.vw_AddResources.isHidden = true
                 self.vw_AllResources.isHidden = false
                 self.api_ResourceDetails()
@@ -145,7 +142,7 @@ class AddResources_VC: UIViewController,UITextFieldDelegate {
                 self.txt_Name.text = ""
                 self.txt_Description.text = ""
             }else{
-                self.showToast(message: NSLocalizedString("Failed to update resource",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to update resource",comment: ""))
             }
             
         }
@@ -160,11 +157,11 @@ class AddResources_VC: UIViewController,UITextFieldDelegate {
             self.hideLoader()
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    self.showToast(message: NSLocalizedString("Resource deleted successfully",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Resource deleted successfully",comment: ""))
                 }
                 self.api_ResourceDetails()
             } else {
-                self.showToast(message: NSLocalizedString("Failed to delete resource",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to delete resource",comment: ""))
             }
         }
     }

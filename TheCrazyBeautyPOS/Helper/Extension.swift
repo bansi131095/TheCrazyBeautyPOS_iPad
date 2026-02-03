@@ -1184,12 +1184,12 @@ extension UIViewController
     }
      */
     
-    func show_alert(msg: String, title: String, sourceView: UIView? = nil) {
+    /*func show_alert(msg: String, title: String, sourceView: UIView? = nil) {
         let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
         let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(OKAction)
         self.present(alertController, animated: true, completion: nil)
-    }
+    }*/
     
     
     func showAlertToast(message:String){
@@ -1241,7 +1241,7 @@ extension UIViewController
     }
     
     //Alert method
-    func showToast(message: String, duration: Double = 2.0) {
+    /*func showToast(message: String, duration: Double = 2.0) {
         let toastLabel = UILabel(frame: CGRect(x: (self.view.frame.size.width/2)-200, y: self.view.frame.size.height - 100, width: 400, height: 60))
         toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         toastLabel.textColor = .white
@@ -1262,7 +1262,7 @@ extension UIViewController
                 toastLabel.removeFromSuperview()
             }
         }
-    }
+    }*/
 
     
     func alertWithImage(title: String, Msg: String)

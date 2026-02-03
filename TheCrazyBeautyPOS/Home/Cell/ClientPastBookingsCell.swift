@@ -23,9 +23,11 @@ class ClientPastBookingsCell: UITableViewCell {
     @IBOutlet weak var lbl_PaymentType: UILabel!
     
     
+    @IBOutlet weak var lbl_Rebook: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         setCustomFont()
+        self.lbl_Rebook.text = NSLocalizedString("Rebook", comment: "")
     }
 
     

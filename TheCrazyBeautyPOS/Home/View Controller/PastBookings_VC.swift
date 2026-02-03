@@ -19,6 +19,11 @@ class PastBookings_VC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTableView()
+        if pastBookingsArray.count == 0{
+            print("00000")
+        }else {
+            print("DATA DATA DATA DATA")
+        }
     }
     
     func setTableView(){

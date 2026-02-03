@@ -181,27 +181,27 @@ class AddServiceVC: UIViewController {
         if isEdit {
             if txt_TypeofService.text == NSLocalizedString("Service Without Sub Type",comment: ""){
                 if self.txt_serviceName.text!.isEmpty {
-                    self.showToast(message: NSLocalizedString("Please enter service name",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please enter service name",comment: ""))
                 } else if self.txt_mainCategory.text!.isEmpty {
-                    self.showToast(message: NSLocalizedString("Please select category",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please select category",comment: ""))
                 } else if self.txt_serviceFor.text!.isEmpty {
-                    self.showToast(message: NSLocalizedString("Please select service for",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please select service for",comment: ""))
                 } else if self.txt_serviceDuration.text!.isEmpty {
-                    self.showToast(message: NSLocalizedString("Please select service time",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please select service time",comment: ""))
                 } else if self.txt_priceType.text!.isEmpty {
-                    self.showToast(message: NSLocalizedString("Please select price type",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please select price type",comment: ""))
                 } else if self.txt_regulatPrice.text!.isEmpty {
-                    self.showToast(message: NSLocalizedString("Please enter price",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please enter price",comment: ""))
                 }else{
                     self.updateServiceData(serviceId: "\(self.dictService?.id ?? 0)")
                 }
             }else{
                 if self.txt_serviceName.text!.isEmpty {
-                    self.showToast(message: NSLocalizedString("Please enter service name",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please enter service name",comment: ""))
                 } else if self.txt_mainCategory.text!.isEmpty {
-                    self.showToast(message: NSLocalizedString("Please select category",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please select category",comment: ""))
                 } else if self.txt_Resource.text!.isEmpty {
-                    self.showToast(message: NSLocalizedString("Please select Resource",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please select Resource",comment: ""))
                 }else{
                     self.updateServiceData(serviceId: "\(self.dictService?.id ?? 0)")
                 }
@@ -209,27 +209,27 @@ class AddServiceVC: UIViewController {
         }else{
             if txt_TypeofService.text == NSLocalizedString("Service Without Sub Type",comment: ""){
                 if self.txt_serviceName.text!.isEmpty {
-                    self.showToast(message: NSLocalizedString("Please enter service name",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please enter service name",comment: ""))
                 } else if self.txt_mainCategory.text!.isEmpty {
-                    self.showToast(message: NSLocalizedString("Please select category",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please select category",comment: ""))
                 } else if self.txt_serviceFor.text!.isEmpty {
-                    self.showToast(message: NSLocalizedString("Please select service for",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please select service for",comment: ""))
                 } else if self.txt_serviceDuration.text!.isEmpty {
-                    self.showToast(message: NSLocalizedString("Please select service time",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please select service time",comment: ""))
                 } else if self.txt_priceType.text!.isEmpty {
-                    self.showToast(message: NSLocalizedString("Please select price type",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please select price type",comment: ""))
                 } else if self.txt_regulatPrice.text!.isEmpty {
-                    self.showToast(message: NSLocalizedString("Please enter price",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please enter price",comment: ""))
                 }else{
                     self.addServiceData()
                 }
             }else{
                 if self.txt_serviceName.text!.isEmpty {
-                    self.showToast(message: NSLocalizedString("Please enter service name",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please enter service name",comment: ""))
                 } else if self.txt_mainCategory.text!.isEmpty {
-                    self.showToast(message: NSLocalizedString("Please select category",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please select category",comment: ""))
                 } else if self.txt_Resource.text!.isEmpty {
-                    self.showToast(message: NSLocalizedString("Please select Resource",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please select Resource",comment: ""))
                 }else{
                     self.addServiceData()
                 }
@@ -947,13 +947,13 @@ class AddServiceVC: UIViewController {
 
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    self.showToast(message: NSLocalizedString("Service added successfully",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Service added successfully",comment: ""))
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.navigationController?.popViewController(animated: true)
                 }
             } else {
-                self.showToast(message: NSLocalizedString("Failed to insert service",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to insert service",comment: ""))
             }
         }
     }
@@ -1014,13 +1014,13 @@ class AddServiceVC: UIViewController {
 
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    self.showToast(message: NSLocalizedString("Service updated successfully",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Service updated successfully",comment: ""))
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.navigationController?.popViewController(animated: true)
                 }
             } else {
-                self.showToast(message: NSLocalizedString("Failed to edit service",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to edit service",comment: ""))
             }
         }
     }

@@ -156,12 +156,11 @@ class TeamVC: UIViewController {
             self.hideLoader()
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    // safe UI code here
-                    self.showToast(message: NSLocalizedString("Team member deleted successfully", comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Team member deleted successfully",comment: ""))
                 }
                 self.loadData(Search: "")
             } else {
-                self.showToast(message: NSLocalizedString("Failed to delete staff member", comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to delete staff member",comment: ""))
             }
         }
     }

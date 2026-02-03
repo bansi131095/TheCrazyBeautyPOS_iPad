@@ -57,6 +57,11 @@ class AddInventory_VC: UIViewController {
         self.txt_ProductName.text = self.InventoryService?.product_name
         self.txt_Price.text = "\(self.InventoryService?.price ?? 0)"
         self.txt_QTY.text = "\(self.InventoryService?.qty ?? 0)"
+        
+        
+        self.txt_ProductName.showLabel()
+        self.txt_Price.showLabel()
+        self.txt_QTY.showLabel()
     }
     
     @IBAction func btn_Back(_ sender: Any) {
@@ -70,11 +75,11 @@ class AddInventory_VC: UIViewController {
     
     @IBAction func btn_AddInventory(_ sender: Any) {
         if txt_ProductName.text == ""{
-            self.showToast(message: NSLocalizedString("Product Name is required",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Product Name is required",comment: ""))
         }else if txt_Price.text == ""{
-            self.showToast(message: NSLocalizedString("Price is required.",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Price is required.",comment: ""))
         }else if txt_QTY.text == ""{
-            self.showToast(message: NSLocalizedString("QTY is required",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("QTY is required",comment: ""))
         }else{
             if isEdit {
                 updateInventory(clientId: self.InventoryService?.id ?? 0)
@@ -91,14 +96,13 @@ class AddInventory_VC: UIViewController {
             self.hideLoader()
             if result != nil {
                 DispatchQueue.main.async {
-//                    self.showToast(message: result?.data?.message ?? "")
-                    self.showToast(message: NSLocalizedString("Inventory added successfully",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Inventory added successfully",comment: ""))
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.navigationController?.popViewController(animated: true)
                 }
             }else{
-                self.showToast(message: NSLocalizedString("Failed to insert inventory",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to insert inventory",comment: ""))
             }
         }
     }
@@ -113,14 +117,13 @@ class AddInventory_VC: UIViewController {
 
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    // safe UI code here
-                    self.showToast(message: NSLocalizedString("Inventory updated successfully",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Inventory updated successfully",comment: ""))
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.navigationController?.popViewController(animated: true)
                 }
             } else {
-                self.showToast(message: NSLocalizedString("Failed to edit inventories",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to edit inventories",comment: ""))
             }
             
         }

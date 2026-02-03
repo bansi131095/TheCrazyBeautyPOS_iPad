@@ -140,12 +140,11 @@ class GiftCardVC: UIViewController {
             self.hideLoader()
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    // safe UI code here
-                    self.showToast(message: NSLocalizedString("Gift card deleted successfully", comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Gift card deleted successfully",comment: ""))
                 }
                 self.loadData(Search: "")
             } else {
-                self.showToast(message: NSLocalizedString("Failed to delete gift card", comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to delete gift card",comment: ""))
             }
         }
     }

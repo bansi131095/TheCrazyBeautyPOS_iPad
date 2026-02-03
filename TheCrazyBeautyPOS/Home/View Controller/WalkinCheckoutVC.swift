@@ -134,8 +134,7 @@ class WalkinCheckoutVC: UIViewController {
     @IBAction func act_Apply(_ sender: GradientButton) {
         if self.btn_apply.currentTitle == "Apply" {
             if txt_couponCode.text!.isEmpty {
-//                self.showAlertToast(message: "Please enter coupon code")
-                self.show_alert(msg: NSLocalizedString("Please enter coupon code", comment: ""), title: "")
+                self.alertWithMessageOnly(NSLocalizedString("Please enter coupon code",comment: ""))
             } else {
                 self.checkCouponCode()
             }
@@ -267,15 +266,15 @@ class WalkinCheckoutVC: UIViewController {
                                             price -= self.discount
                                             self.grandTotal = price
                                         } else {
-                                            /*self.show_alert(msg: model.data?.message ?? "", title: "")
+                                            /*
                                             self.discount = self.price
                                             self.discountVal = self.price
 //                                            self.grandTotal = self.price
                                             self.grandTotal = 0*/
                                             
                                             DispatchQueue.main.async {        // ✅ make sure UI updates on main thread
-//                                                    self.show_alert(msg: model.data?.message ?? "", title: "")
-                                                self.show_alert(msg: NSLocalizedString("Coupon applied successfully",comment: "",), title: "")
+                                                self.alertWithMessageOnly(NSLocalizedString("Coupon applied successfully",comment: ""))
+                                                 
                                                     self.discount     = self.price
                                                     self.discountVal  = self.price
                                                     self.grandTotal   = 0    // 🔥 correct value
@@ -318,8 +317,7 @@ class WalkinCheckoutVC: UIViewController {
                                 self.vw_payment1.isHidden = self.discount == 0
                             }
                         } else {
-                            self.show_alert(msg: NSLocalizedString("Failed to apply coupon",comment: "",), title: "")
-//                            self.show_alert(msg: model.error ?? "", title: "")
+                            self.alertWithMessageOnly(NSLocalizedString("Failed to apply coupon",comment: ""))
                         }
                     }
                 } else if checkCouponData?.is_gift == 1 {
@@ -332,8 +330,7 @@ class WalkinCheckoutVC: UIViewController {
                             // Assume you already parsed this using ObjectMapper:
                             if let giftCard = model.data?.results.first,
                                Double(giftCard.price) < self.price {
-//                                self.show_alert(msg: data?.message ?? "", title: "")
-                                self.show_alert(msg: NSLocalizedString("Gift card applied successfully",comment: "",), title: "")
+                                self.alertWithMessageOnly(NSLocalizedString("Gift card applied successfully",comment: ""))
                                 self.btn_apply.setTitle("Remove", for: .normal)
                                 self.discount = Double(giftCard.price)
                                 self.grandTotal = self.price - self.discount
@@ -348,13 +345,11 @@ class WalkinCheckoutVC: UIViewController {
 //                                self.vw_payment1.isHidden = self.discount == 0
                             }
                         } else {
-//                            self.show_alert(msg: model.error ?? "", title: "")
-                            self.show_alert(msg: NSLocalizedString("Invalid gift card code",comment: "",), title: "")
+                            self.alertWithMessageOnly(NSLocalizedString("Invalid gift card code",comment: ""))
                         }
                     }
                 }else if checkCouponData?.is_gift == 0 || checkCouponData?.is_coupon == 0 {
-//                    self.show_alert(msg: "Invaild Coupon Code", title: "")
-                    self.show_alert(msg: NSLocalizedString("Invalid gift card code",comment: "",), title: "")
+                    self.alertWithMessageOnly(NSLocalizedString("Invalid gift card code",comment: ""))
                 }
 //            } else {
                 
@@ -407,17 +402,13 @@ class WalkinCheckoutVC: UIViewController {
 
                 if model.error == "" || model.error == nil {
                     DispatchQueue.main.async {
-                        // safe UI code here
-//                        self.showToast(message: model.data?.message ?? "")
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         DispatchQueue.main.asyncAfter(deadline: .now()) {
                             self.delegate?.didClearData()
                             self.dismiss(animated: true)
                         }
                     }
                 } else {
-                    self.show_alert(msg: NSLocalizedString("Failed to add cart details",comment: "",), title: "")
-//                    self.show_alert(msg: model.error!, title: "Add Cart Details")
+                   self.alertWithMessageOnly(NSLocalizedString("Failed to add cart details",comment: ""))
                 }
             }
         }
@@ -437,7 +428,7 @@ class WalkinCheckoutVC: UIViewController {
                                             miscNotes: notes) { transactionModel in
             self.dismissLoaderDialog()
             guard let model = transactionModel else {
-                self.showToast(message: transactionModel?.error ?? "Error")
+                self.alertWithMessageOnly(transactionModel?.error ?? "Error")
                 return
             }
 
@@ -456,7 +447,7 @@ class WalkinCheckoutVC: UIViewController {
                     self.present(popup, animated: true)
                 }
             } else {
-                self.showToast(message: transactionModel?.error ?? "Error")
+                self.alertWithMessageOnly(transactionModel?.error ?? "Error")
             }
 
         }
@@ -474,9 +465,9 @@ class WalkinCheckoutVC: UIViewController {
 
             switch data.transactionStatus {
             case "NOSTATUS":
-                self.showToast(message: "Still pending...")
+                self.alertWithMessageOnly(NSLocalizedString("Still pending...",comment: ""))
             case "CANCELED", "REFUSED":
-                self.showToast(message: "Payment cancelled")
+                self.alertWithMessageOnly(NSLocalizedString("Payment cancelled",comment: ""))
             case "ACCEPTED":
                 self.dismiss(animated: true) {
                     self.dismissLoaderDialog()
@@ -490,8 +481,7 @@ class WalkinCheckoutVC: UIViewController {
                 }
                 
             default:
-                self.showToast(message: "Unknown status")
-                
+                self.alertWithMessageOnly(NSLocalizedString("Unknown status",comment: ""))
             }
         }
     }
@@ -522,7 +512,7 @@ class WalkinCheckoutVC: UIViewController {
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
                     // safe UI code here
-                    self.showToast(message: model.data?.message ?? "")
+                    self.alertWithMessageOnly(model.data?.message ?? "")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         self.delegate?.didClearData()
                         self.dismiss(animated: true)
@@ -530,7 +520,7 @@ class WalkinCheckoutVC: UIViewController {
                 }
                 
             } else {
-                self.show_alert(msg: model.error!, title: "Add Cart Details")
+                self.alertWithMessageOnly(model.error!)
             }
         }
     }

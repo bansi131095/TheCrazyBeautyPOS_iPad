@@ -91,10 +91,10 @@ class AccountActivityVC: UIViewController {
 
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    self.showToast(message: NSLocalizedString("Activities updated successfully",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Activities updated successfully",comment: ""))
                 }
             }else{
-                self.showToast(message: NSLocalizedString("Failed to update activities",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to update activities",comment: ""))
             }
         }
     }

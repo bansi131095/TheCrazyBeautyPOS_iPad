@@ -136,11 +136,11 @@ class CouponVC: UIViewController {
             self.hideLoader()
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    self.showToast(message: NSLocalizedString("Coupon deleted successfully", comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Coupon deleted successfully",comment: ""))
                 }
                 self.loadData(Search: "")
             } else {
-                self.showToast(message: NSLocalizedString("Failed to delete coupon", comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to delete coupon",comment: ""))
             }
         }
     }

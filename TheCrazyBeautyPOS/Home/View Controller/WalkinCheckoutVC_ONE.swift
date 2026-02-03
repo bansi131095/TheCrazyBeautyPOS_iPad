@@ -271,8 +271,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
         if self.btn_apply.currentTitle == "Apply".localized {
             
             if txt_couponCode.text!.isEmpty {
-//                self.showAlertToast(message: "Please enter coupon code")
-                self.show_alert(msg: NSLocalizedString("Please enter coupon code", comment: ""), title: "")
+                self.alertWithMessageOnly(NSLocalizedString("Please enter coupon code",comment: ""))
             } else {
                 self.checkCouponCode()
             }
@@ -411,7 +410,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                         if model.error == "" || model.error == nil {
                             if let coupon = data?.results.first {
                                 self.isGiftCard = 0;
-                                self.show_alert(msg: NSLocalizedString("Coupon applied successfully", comment: ""), title: "")
+                                self.alertWithMessageOnly(NSLocalizedString("Coupon applied successfully",comment: ""))
                                 let amount = Double(coupon.amount)
                                 let type   = coupon.discount_type
                                 let upto   = Double(coupon.highest_amount)
@@ -427,7 +426,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                                 DispatchQueue.main.async { self.recalcTotals() }
                             }
                         } else {
-                            self.show_alert(msg: NSLocalizedString("Invalid Coupon Code", comment: ""), title: "")
+                            self.alertWithMessageOnly(NSLocalizedString("Invalid Coupon Code",comment: ""))
                         }
                     }
                 } else if checkCouponData?.is_gift == 1 {
@@ -450,11 +449,11 @@ class WalkinCheckoutVC_ONE: UIViewController {
                                 DispatchQueue.main.async { self.recalcTotals() }
                             }
                         } else {
-                            self.show_alert(msg: NSLocalizedString("Invalid gift card code",comment: "",), title: "")
+                            self.alertWithMessageOnly(NSLocalizedString("Invalid gift card code",comment: ""))
                         }
                     }
                 } else {
-                    self.show_alert(msg: NSLocalizedString("Invalid gift card code",comment: "",), title: "")
+                    self.alertWithMessageOnly(NSLocalizedString("Invalid gift card code",comment: ""))
                 }
             }
         }
@@ -523,7 +522,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                         self.dismiss(animated: true)
                     }
                 } else {
-                    self.show_alert(msg: NSLocalizedString("Failed to add cart details",comment: "",), title: "")
+                    self.alertWithMessageOnly(NSLocalizedString("Failed to add cart details",comment: ""))
                 }
             }
         }
@@ -543,7 +542,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                                             miscNotes: notes) { transactionModel in
             self.dismissLoaderDialog()
             guard let model = transactionModel else {
-                self.showToast(message: transactionModel?.error ?? "Error")
+                self.alertWithMessageOnly(transactionModel?.error ?? "Error")
                 return
             }
 
@@ -560,7 +559,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                     self.present(popup, animated: true)
                 }
             } else {
-                self.showToast(message: transactionModel?.error ?? "Error")
+                self.alertWithMessageOnly(transactionModel?.error ?? "Error")
             }
         }
     }
@@ -576,9 +575,9 @@ class WalkinCheckoutVC_ONE: UIViewController {
 
             switch data.transactionStatus {
             case "NOSTATUS":
-                self.showToast(message: "Still pending...")
+                self.alertWithMessageOnly(NSLocalizedString("Still pending...",comment: ""))
             case "CANCELED", "REFUSED":
-                self.showToast(message: "Payment cancelled")
+                self.alertWithMessageOnly(NSLocalizedString("Payment cancelled",comment: ""))
             case "ACCEPTED":
                 self.dismiss(animated: true) {
                     self.dismissLoaderDialog()
@@ -592,7 +591,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                 }
                 
             default:
-                self.showToast(message: "Unknown status")
+                self.alertWithMessageOnly(NSLocalizedString("Unknown status",comment: ""))
             }
         }
     }
@@ -622,9 +621,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
 
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    // safe UI code here
-//                    self.showToast(message: model.data?.message ?? "")
-                    self.show_alert(msg: NSLocalizedString("Booking completed successfully",comment: "",), title: "")
+                    self.alertWithMessageOnly(NSLocalizedString("Booking completed successfully",comment: ""))
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         // Printer Code
                         /*PrinterManager.shared.onConnect = {
@@ -654,7 +651,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                 }
                 
             } else {
-                self.show_alert(msg: NSLocalizedString("Failed to add cart details",comment: "",), title: "")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to add cart details",comment: ""))
             }
         }
     }

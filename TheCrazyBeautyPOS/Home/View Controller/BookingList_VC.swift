@@ -175,7 +175,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     
     @IBAction func btn_Staff(_ sender: Any) {
         if staffList.count == 0 {
-            self.showToast(message: NSLocalizedString("No Staff List",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("No Staff List",comment: ""))
         }else{
             self.tbl_Rebook.isHidden = false
             self.tbl_Rebook.reloadData()
@@ -185,7 +185,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     
     @IBAction func btn_BookingAppointment(_ sender: Any) {
         if selectedTimeIndex == nil{
-            self.showToast(message: NSLocalizedString("Please select any Time",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Please select any Time",comment: ""))
         }else{
             let staffBookingArray: [[String: Any]] = [
                 [
@@ -817,24 +817,7 @@ extension BookingList_VC: UITextFieldDelegate {
 }
 
 extension UIViewController{
-    /*func showNoDataMessage(_ message: String) {
-        let label = UILabel()
-        label.text = message
-        label.textAlignment = .center
-        label.textColor = .gray
-        label.font = UIFont(name: "Lato-Medium", size: 18.0)
-        label.frame = self.view.bounds
-        self.view.addSubview(label)
-        
-        // Remove after few seconds if you want
-        /*DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            label.removeFromSuperview()
-        }*/
-    }*/
     
-    
-    
-
     func showNoDataMessage(_ message: String, in parentView: UIView) {
         // If already exists, don’t add again
         if global.shared.noDataLabel == nil {
@@ -859,6 +842,8 @@ extension UIViewController{
         
         global.shared.noDataLabel?.text = message
         global.shared.noDataLabel?.isHidden = false
+        
+        global.shared.noDataLabel?.text = NSLocalizedString(message, comment: "")
     }
 
     func hideNoDataMessage() {

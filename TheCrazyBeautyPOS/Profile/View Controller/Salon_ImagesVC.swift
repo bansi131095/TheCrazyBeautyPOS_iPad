@@ -142,10 +142,8 @@ class Salon_ImagesVC: UIViewController {
             self.present(myPickerController, animated: true, completion: nil)
         } else {
             if UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiom.pad {
-//                self.showAlertToast(message: "You can not open camera in simulator")
                 self.alertWithMessageOnly(NSLocalizedString("You can not open camera in simulator", comment: ""))
             } else {
-//                self.showAlertToast(message: "You can not open camera in simulator")
                 self.alertWithMessageOnly(NSLocalizedString("You can not open camera in simulator", comment: ""))
             }
         }

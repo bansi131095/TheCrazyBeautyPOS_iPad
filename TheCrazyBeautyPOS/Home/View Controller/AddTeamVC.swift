@@ -110,6 +110,21 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
                let flagImage = CountryUtils.imageFromEmoji(flag: CountryUtils.flag(from: iso)) {
                 flag_imgVw.image = flagImage
             }
+            
+            if let lang = UserDefaults.standard.object(forKey: global().kSaveLanguageDefaultKey) as? String {
+                if lang == "en"{
+                    self.img_teamMember.image = UIImage(named: "img_Upload")
+                }
+                if lang == "zh"{
+                    self.img_teamMember.image = UIImage(named: "img_Upload_Chinese")
+                }
+                if lang == "vi"{
+                    self.img_teamMember.image = UIImage(named: "img_Upload_VI")
+                }
+            }else{
+                self.img_teamMember.image = UIImage(named: "img_Upload")
+            }
+            
         }
         // Do any additional setup after loading the view.
     }
@@ -268,6 +283,14 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
                 }
             }
         }
+        
+        self.firstNameTextField.showLabel()
+        self.lastNameTextField.showLabel()
+        self.jobTitleTextField.showLabel()
+        self.genderTextField.showLabel()
+        self.emailTextField.showLabel()
+        self.dobTextField.showLabel()
+        self.mobileTextField.showLabel()
     }
     
     // MARK: Button Action
@@ -399,11 +422,11 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     
     @IBAction func act_addEditTeam(_ sender: GradientButton) {
         if self.firstNameTextField.text!.isEmpty {
-            self.showToast(message: NSLocalizedString("Please enter first name",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Please enter first name",comment: ""))
         } else if self.jobTitleTextField.text!.isEmpty {
-            self.showToast(message: NSLocalizedString("Please enter job title",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Please enter job title",comment: ""))
         } else if self.genderTextField.text!.isEmpty {
-            self.showToast(message: NSLocalizedString("Please select gender",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Please select gender",comment: ""))
         } else {
             if isEdit {
                 self.updateTeamApi()
@@ -434,14 +457,13 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
                  self.hideLoader()
                  if response != nil {
                     DispatchQueue.main.async {
-                        // safe UI code here
-                        self.showToast(message: NSLocalizedString("Team member added successfully",comment: ""))
+                        self.alertWithMessageOnly(NSLocalizedString("Team member added successfully",comment: ""))
                     }
                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 } else {
-                    self.showToast(message: NSLocalizedString("Failed to team member",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Failed to team member",comment: ""))
                 }
             }
          } else {
@@ -450,16 +472,13 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
                  self.hideLoader()
                  if response != nil {
                     DispatchQueue.main.async {
-                        // safe UI code here
-                        self.showToast(message: NSLocalizedString("Team member added successfully",comment: ""))
+                        self.alertWithMessageOnly(NSLocalizedString("Team member added successfully",comment: ""))
                     }
                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 } else {
-//                    let errorMessage = response?.error ?? NSLocalizedString("Failed to update team member",comment: "")
-//                    self.show_alert(msg: errorMessage, title: "Add Team")
-                    self.showToast(message: NSLocalizedString("Failed to team member",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Failed to team member",comment: ""))
                 }
             }
          }
@@ -474,14 +493,13 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
 
                  if response != nil {
                     DispatchQueue.main.async {
-                        // safe UI code here
-                        self.showToast(message: NSLocalizedString("Team member updated successfully",comment: ""))
+                        self.alertWithMessageOnly(NSLocalizedString("Team member updated successfully",comment: ""))
                     }
                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 } else {
-                    self.showToast(message: NSLocalizedString("Failed to update team member",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Failed to update team member",comment: ""))
                 }
             }
          } else {
@@ -490,15 +508,13 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
                  self.hideLoader()
                  if response != nil {
                     DispatchQueue.main.async {
-                        // safe UI code here
-//                        self.showToast(message: response?.data ?? "")
-                        self.showToast(message: NSLocalizedString("Team member updated successfully",comment: ""))
+                        self.alertWithMessageOnly(NSLocalizedString("Team member updated successfully",comment: ""))
                     }
                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 } else {
-                    self.showToast(message: NSLocalizedString("Failed to update team member",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Failed to update team member",comment: ""))
                 }
             }
          }
@@ -682,7 +698,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let self = self else { return }
 
-            let alert = UIAlertController(title: "Select Month & Year", message: "\n\n\n\n\n\n\n\n", preferredStyle: .alert)
+            let alert = UIAlertController(title: NSLocalizedString("Select Month & Year", comment: ""), message: "\n\n\n\n\n\n\n\n", preferredStyle: .alert)
 
             let picker = UIPickerView(frame: CGRect(x: 5, y: 20, width: 250, height: 160))
             picker.dataSource = self
@@ -701,7 +717,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
             }
 
             // ✅ Add Done & Cancel buttons
-            let doneAction = UIAlertAction(title: "Done", style: .default) { _ in
+            let doneAction = UIAlertAction(title: NSLocalizedString("Done",comment: ""), style: .default) { _ in
                 let selectedMonth = picker.selectedRow(inComponent: 0) + 1
                 let selectedYear = self.years[picker.selectedRow(inComponent: 1)]
 
@@ -716,7 +732,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
             }
 
             alert.addAction(doneAction)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel",comment: ""), style: .cancel, handler: nil))
 
             // ✅ Present the alert safely from calendarVC
             self.calendarVC?.present(alert, animated: true)

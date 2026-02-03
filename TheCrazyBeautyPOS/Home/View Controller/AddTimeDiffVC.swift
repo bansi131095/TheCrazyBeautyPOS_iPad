@@ -16,6 +16,7 @@ class AddTimeDiffVC: UIViewController {
     @IBOutlet weak var txt_to: TextInputLayout!
     @IBOutlet weak var tbl_vw: UITableView!
     
+    @IBOutlet weak var lbl_NoData: UILabel!
     var TeamName: String = ""
     var TeamId: String = ""
     var salonHolidaysList: [SalonHolidayData] = []
@@ -94,6 +95,7 @@ class AddTimeDiffVC: UIViewController {
         }
         if salonHolidaysList.count == 0 {
             self.tbl_vw.isHidden = true
+            self.lbl_NoData.text = NSLocalizedString("Time Off For",comment: "")
         } else {
             print("Selected Description: \(salonHolidaysList)")
             self.tbl_vw.isHidden = false
@@ -144,15 +146,13 @@ class AddTimeDiffVC: UIViewController {
                 }
                 self.hideLoader()
                 if model.error == "" || model.error == nil {
-//                    self.showToast(message: model.data)
-                    self.showToast(message: NSLocalizedString("Staff holidays updated successfully",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Staff holidays updated successfully",comment: ""))
+                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         self.dismiss(animated: true)
                     }
                 } else {
-//                    self.show_alert(msg: model.error ?? "", title: "Update Staff")
-                    self.showToast(message: NSLocalizedString("Failed to update staff holidays",comment: ""))
-                    
+                    self.alertWithMessageOnly(NSLocalizedString("Failed to update staff holidays",comment: ""))
                 }
             }
         }

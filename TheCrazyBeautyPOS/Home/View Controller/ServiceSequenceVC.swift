@@ -130,12 +130,12 @@ class ServiceSequenceVC: UIViewController {
                     }
                     self.hideLoader()
                     if model.error == "" || model.error == nil {
-                        self.showToast(message: NSLocalizedString("Service sequence updated successfully", comment: ""))
+                        self.alertWithMessageOnly(NSLocalizedString("Service sequence updated successfully",comment: ""))
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             self.dismiss(animated: true)
                         }
                     } else {
-                        self.showToast(message: NSLocalizedString("Service sequence is required", comment: ""))
+                        self.alertWithMessageOnly(NSLocalizedString("Service sequence is required",comment: ""))
                     }
                 }
             }

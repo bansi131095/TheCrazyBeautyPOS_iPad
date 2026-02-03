@@ -61,7 +61,7 @@ class Passcode_VC: UIViewController {
         // Blank check
         for field in fields {
             if field?.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == true {
-                self.showToast(message: NSLocalizedString("Passcode is required",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Passcode is required",comment: ""))
                 field?.becomeFirstResponder()
                 return
             }
@@ -85,11 +85,10 @@ class Passcode_VC: UIViewController {
             if result?.data?.status == 1{
                 DispatchQueue.main.async {
                     self.dismiss(animated: true)
-//                    self.showToast(message: result?.data?.error ?? "")
-                    self.showToast(message: NSLocalizedString("Passcode verified successfully",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Passcode verified successfully",comment: ""))
                 }
             }else{
-                self.showToast(message: NSLocalizedString("Please enter correct passcode",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Please enter correct passcode",comment: ""))
             }
             
         }

@@ -25,7 +25,16 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
     @IBOutlet weak var btn_Cancel: UIButton!
     var id = String()
     var teamList: [TeamListResponseModel] = []
-    var arr_Status = ["Pending","Passed","Failed"]
+    var statusKeys = ["Pending","Passed","Failed"]
+    
+    var arr_Status: [String] {
+        return [
+            NSLocalizedString("Pending", comment: ""),
+            NSLocalizedString("Passed", comment: ""),
+            NSLocalizedString("Failed", comment: "")
+        ]
+    }
+    var selectedStatus = String()
     var staffList: [StaffData] = []
     
     
@@ -150,7 +159,11 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
         
         Status.selectionAction = {  [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
-            self.txt_Status.text = item
+//            self.txt_Status.text = item
+            
+            selectedStatus = self.statusKeys[index]
+            self.txt_Status.text = NSLocalizedString(item, comment: "")
+            
         }
     }
     
@@ -184,7 +197,7 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
                 }
                 self.hideLoader()
                 if model.error == "" || model.error == nil {
-                    self.showToast(message: NSLocalizedString("Test details added successfully",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Test details added successfully",comment: ""))
                     self.txt_Title.text = ""
                     self.txt_DateOfBirth.text = ""
                     self.txt_Status.text = ""
@@ -192,8 +205,7 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
                     self.txt_Desc.text = ""
                     self.test(id:self.id)
                 }else{
-                    self.showToast(message: NSLocalizedString("Failed to insert test details",comment: ""))
-//                    self.show_alert(msg: model.error ?? "", title: "Update Staff")
+                    self.alertWithMessageOnly(NSLocalizedString("Failed to insert test details",comment: ""))
                 }
             }
         }
@@ -232,7 +244,7 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
         }else{
             self.vw_MainPopup.isHidden = true
             self.vw_SubPopup.isHidden = true
-            Apiservice(customer_id: self.id, description: self.txt_Desc.text, status: self.txt_Status.text ?? "", tested_by: self.txt_TestedBy.text ?? "", tested_date: self.txt_DateOfBirth.text ?? "", title: self.txt_Title.text ?? "")
+            Apiservice(customer_id: self.id, description: self.txt_Desc.text, status: selectedStatus, tested_by: self.txt_TestedBy.text ?? "", tested_date: self.txt_DateOfBirth.text ?? "", title: self.txt_Title.text ?? "")
         }
     }
     

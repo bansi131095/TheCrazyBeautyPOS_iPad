@@ -127,12 +127,12 @@ class AddCoupon_VC: UIViewController {
     
     @IBAction func btn_AddCoupon(_ sender: Any) {
     guard let couponName = txt_CouponName.text, !couponName.isEmpty else {
-        self.showToast(message: NSLocalizedString("Coupon Name is required",comment: ""))
+        self.alertWithMessageOnly(NSLocalizedString("Coupon Name is required",comment: ""))
             return
         }
         
         guard let couponCode = txt_CouponCode.text, !couponCode.isEmpty else {
-            self.showToast(message: NSLocalizedString("Coupon Code is required.",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Coupon Code is required.",comment: ""))
             return
         }
         
@@ -140,27 +140,27 @@ class AddCoupon_VC: UIViewController {
         
         if selectedDiscount == "Flat" {
             guard let amount = txt_Amount.text, !amount.isEmpty else {
-                self.showToast(message: NSLocalizedString("Amount is required.",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Amount is required.",comment: ""))
                 return
             }
         } else if selectedDiscount == "Percentage" {
             guard let percentage = txt_Percentage.text, !percentage.isEmpty else {
-                self.showToast(message: NSLocalizedString("Percentage is required.",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Percentage is required.",comment: ""))
                 return
             }
             guard let maxAmount = txt_AmountPercentage.text, !maxAmount.isEmpty else {
-                self.showToast(message: NSLocalizedString("Amount is required.",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Amount is required.",comment: ""))
                 return
             }
         }
         
         guard let startDate = txt_StartDate.text, !startDate.isEmpty else {
-            self.showToast(message: NSLocalizedString("Start Date is required.",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Start Date is required.",comment: ""))
             return
         }
         
         guard let endDate = txt_EndDate.text, !endDate.isEmpty else {
-            self.showToast(message: NSLocalizedString("End Date is required.",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("End Date is required.",comment: ""))
             return
         }
         
@@ -213,6 +213,15 @@ class AddCoupon_VC: UIViewController {
             selectedStatus = "Inactive"
             self.txt_Status.text = NSLocalizedString("Inactive",comment: "")
         }
+        self.txt_CouponName.showLabel()
+        self.txt_Amount.showLabel()
+        self.txt_CouponCode.showLabel()
+        self.txt_Percentage.showLabel()
+        self.txt_DiscountType.showLabel()
+        self.txt_AmountPercentage.showLabel()
+        self.txt_StartDate.showLabel()
+        self.txt_EndDate.showLabel()
+        self.txt_Status.showLabel()
         
     }
     
@@ -310,7 +319,7 @@ class AddCoupon_VC: UIViewController {
                 DispatchQueue.main.async {
                     // safe UI code here
                     self.alertWithMessageOnly(NSLocalizedString("Coupon added successfully",comment: ""))
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 }
@@ -332,7 +341,7 @@ class AddCoupon_VC: UIViewController {
                 DispatchQueue.main.async {
                     // safe UI code here
                     self.alertWithMessageOnly(NSLocalizedString("Coupon updated successfully",comment: ""))
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 }
@@ -404,7 +413,7 @@ extension AddCoupon_VC: UITextFieldDelegate {
 
             if let intValue = Int(newText), intValue > 100 {
                 textField.text = "100"
-                self.showToast(message: NSLocalizedString("Percentage cannot exceed 100.",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Percentage cannot exceed 100.",comment: ""))
                 return false
             }
         }

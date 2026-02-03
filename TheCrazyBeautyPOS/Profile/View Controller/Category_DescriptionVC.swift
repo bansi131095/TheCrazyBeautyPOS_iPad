@@ -234,7 +234,7 @@ extension Category_DescriptionVC: UITableViewDelegate,UITableViewDataSource{
         }else{
             cell.txt_Sequence.text = ""
         }
-        
+//        cell.txt_Sequence.showLabel()
         return cell
     }
 }

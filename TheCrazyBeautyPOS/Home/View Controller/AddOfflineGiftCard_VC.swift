@@ -53,13 +53,13 @@ class AddOfflineGiftCard_VC: UIViewController {
     
     @IBAction func btn_AddGiftCard(_ sender: Any) {
         if txt_GiftName.text == ""{
-            self.showToast(message: NSLocalizedString("Gift Name is required.",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Gift Name is required.",comment: ""))
         }else if txt_Price.text == ""{
-            self.showToast(message: NSLocalizedString("Price is required.",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Price is required.",comment: ""))
         }else if txt_Description.text == ""{
-            self.showToast(message: NSLocalizedString("Description is required.",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Description is required.",comment: ""))
         }else if txt_ExpiryDate.text == "" {
-            self.showToast(message: NSLocalizedString("Please select expiry date.",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Please select expiry date.",comment: ""))
         }else{
             AddOfflineGiftCardApiCall()
         }
@@ -118,16 +118,13 @@ class AddOfflineGiftCard_VC: UIViewController {
             
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    // safe UI code here
-//                    self.showToast(message: model.data?.message ?? "")
-                    self.showToast(message: NSLocalizedString("Offline gift added successfully",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Offline gift added successfully",comment: ""))
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.navigationController?.popViewController(animated: true)
                     }
                 }
             } else {
-                self.showToast(message: NSLocalizedString("Internal server error",comment: ""))
-//                self.show_alert(msg: model.error, title: "")
+                self.alertWithMessageOnly(NSLocalizedString("Internal server error",comment: ""))
             }
             
         }

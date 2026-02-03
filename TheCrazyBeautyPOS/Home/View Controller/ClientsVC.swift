@@ -145,12 +145,11 @@ class ClientsVC: UIViewController {
 
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    // safe UI code here
-                    self.showToast(message: (NSLocalizedString("Client deleted successfully",comment: "")))
+                    self.alertWithMessageOnly(NSLocalizedString("Client deleted successfully",comment: ""))
                 }
                 self.loadData(Search: "")
             } else {
-                self.showToast(message: (NSLocalizedString("Failed to delete client",comment: "")))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to delete client",comment: ""))
             }
         }
     }
@@ -163,12 +162,11 @@ class ClientsVC: UIViewController {
 
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    // safe UI code here
-                    self.showToast(message: (NSLocalizedString("Guest deleted successfully",comment: "")))
+                    self.alertWithMessageOnly(NSLocalizedString("Guest deleted successfully",comment: ""))
                 }
                 self.loadData(Search: "")
             } else {
-                self.showToast(message: (NSLocalizedString("Failed to delete guest",comment: "")))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to delete guest",comment: ""))
             }
         }
     }
@@ -197,14 +195,14 @@ class ClientsVC: UIViewController {
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
                     if is_guest == "0"{
-                        self.showToast(message: (NSLocalizedString("Customer phone number blocked successfully",comment: "")))
+                        self.alertWithMessageOnly(NSLocalizedString("Customer phone number blocked successfully",comment: ""))
                     }else{
-                        self.showToast(message: (NSLocalizedString("Customer phone number unblocked successfully",comment: "")))
+                        self.alertWithMessageOnly(NSLocalizedString("Customer phone number unblocked successfully",comment: ""))
                     }
                 }
                 self.loadData(Search: "")
             } else {
-                self.showToast(message: (NSLocalizedString("Customer or guest not found",comment: "")))
+                self.alertWithMessageOnly(NSLocalizedString("Customer or guest not found",comment: ""))
             }
         }
     }
@@ -245,7 +243,7 @@ extension ClientsVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDel
         guard let cell = tbl_vw.dequeueReusableCell(withIdentifier: "ClientCell", for: indexPath) as? ClientCell else {
             return UITableViewCell()
         }
-        let client = self.clientList[indexPath.item]
+        let client = self.clientList[indexPath.row]
         cell.lbl_name.text = (client.first_name).capitalized + " " + (client.last_name).capitalized
         cell.lbl_email.text = client.email
         cell.lbl_phone.text = client.phone

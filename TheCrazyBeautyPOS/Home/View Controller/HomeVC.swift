@@ -427,15 +427,12 @@ class HomeVC: UIViewController {
                 self.vwMainPasscode.isHidden = true
                 self.imageArray.append(#imageLiteral(resourceName: "Report"))
                 self.tbl_vw.reloadData()
-//                self.showToast(message: result?.data?.message ?? "Passcode verified successfully")
-                self.showToast(message: NSLocalizedString("Passcode verified successfully", comment: ""))
-                
+                self.alertWithMessageOnly(NSLocalizedString("Passcode verified successfully",comment: ""))
                 UserDefaults.standard.set("1", forKey: "Passcode")
                 UserDefaults.standard.synchronize()
                 
             }else{
-//                self.showToast(message: result?.data?.error ?? "Please enter correct passcode")
-                self.showToast(message: NSLocalizedString("Please enter correct passcode", comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Please enter correct passcode",comment: ""))
             }
         }
     }

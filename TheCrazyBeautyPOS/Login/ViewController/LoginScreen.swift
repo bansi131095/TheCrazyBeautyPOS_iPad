@@ -190,7 +190,7 @@ class LoginScreen: UIViewController {
                      navDashboard.modalPresentationStyle = .fullScreen
                     self.present(navDashboard, animated: true, completion: nil)
                 } else {
-                    self.showToast(message: NSLocalizedString("You are not registered yet",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("You are not registered yet",comment: ""))
                 }
             }
         }
@@ -204,13 +204,11 @@ class LoginScreen: UIViewController {
             self.loader.stopAnimating()
             self.loader.hidesWhenStopped = true
             if (result?.error != nil && result?.error != "") {
-//                self.showToast(message: result?.error ?? "")
-                self.showToast(message: NSLocalizedString("You are not registered yet",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("You are not registered yet",comment: ""))
                 return
             }
             if let data = result {
-//                self.showToast(message: result?.data ?? "")
-                self.showToast(message: NSLocalizedString("Logged in successfully",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Logged in successfully",comment: ""))
                 
                 UserDefaults.standard.set("0", forKey: "Passcode")
                 UserDefaults.standard.synchronize()
@@ -228,8 +226,7 @@ class LoginScreen: UIViewController {
                  navDashboard.modalPresentationStyle = .fullScreen
                 self.present(navDashboard, animated: true, completion: nil)
             }else{
-//                self.showToast(message: result?.error ?? "")
-                self.showToast(message: NSLocalizedString("You are not registered yet",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("You are not registered yet",comment: ""))
             }
             
         }
@@ -238,8 +235,7 @@ class LoginScreen: UIViewController {
     func checkVendor(){
         APIService.shared.getCheckVendor { result in
             if (result?.error != nil && result?.error != "") {
-//                self.showToast(message: result?.error ?? "")
-                self.showToast(message: NSLocalizedString("Failed to check vendor",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to check vendor",comment: ""))
                 return
             }
             if result?.data == "0"{
@@ -294,7 +290,7 @@ class LoginScreen: UIViewController {
                  navDashboard.modalPresentationStyle = .fullScreen
                 self.present(navDashboard, animated: true, completion: nil)
             }else {
-                self.showToast(message: NSLocalizedString("You are not registered yet",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("You are not registered yet",comment: ""))
             }
 
         }

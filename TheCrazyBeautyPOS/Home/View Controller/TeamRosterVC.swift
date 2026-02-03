@@ -547,8 +547,7 @@ class TeamRosterVC: UIViewController {
                     }
                 }
             } else {
-                self.showToast(message: NSLocalizedString("Failed to get staff shifts", comment: ""))
-//                self.show_alert(msg: model.error!, title: "Team Roster")
+                self.alertWithMessageOnly(NSLocalizedString("Failed to get staff shifts",comment: ""))
             }
         }
     }
@@ -559,9 +558,9 @@ class TeamRosterVC: UIViewController {
                 return
             }
             if model.error == "" || model.error == nil {
-                self.showToast(message: NSLocalizedString("Staff report sent successfully",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Staff report sent successfully",comment: ""))
             }else{
-                self.showToast(message: NSLocalizedString("Failed to send email",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to send email",comment: ""))
             }
         }
     }

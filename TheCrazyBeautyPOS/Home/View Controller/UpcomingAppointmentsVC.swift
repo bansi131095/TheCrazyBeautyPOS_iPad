@@ -34,6 +34,11 @@ class UpcomingAppointmentsVC: UIViewController {
     @IBOutlet weak var txt_TopServicesCount: UILabel!
     @IBOutlet weak var tbl_TopServices: UITableView!
     
+    
+    
+    @IBOutlet weak var tbl_TeamHeight: NSLayoutConstraint!
+    @IBOutlet weak var tbl_ServiceHeight: NSLayoutConstraint!
+    
     var upcomingList: [BookingData] = []
     var topService: [Service_ModelData] = []
     var teamMember: [Service_ModelData] = []
@@ -72,13 +77,13 @@ class UpcomingAppointmentsVC: UIViewController {
         tbl_vw.estimatedSectionHeaderHeight = 0
         tbl_vw.estimatedSectionFooterHeight = 0
         
-//        tbl_TopTeam.isScrollEnabled = false
-        tbl_TopTeam.estimatedRowHeight = 70
+        tbl_TopTeam.isScrollEnabled = false
+        tbl_TopTeam.estimatedRowHeight = 44
         tbl_TopTeam.estimatedSectionHeaderHeight = 0
         tbl_TopTeam.estimatedSectionFooterHeight = 0
         
-//        tbl_TopServices.isScrollEnabled = false
-        tbl_TopServices.estimatedRowHeight = 70
+        tbl_TopServices.isScrollEnabled = false
+        tbl_TopServices.estimatedRowHeight = 44
         tbl_TopServices.estimatedSectionHeaderHeight = 0
         tbl_TopServices.estimatedSectionFooterHeight = 0
         
@@ -88,7 +93,6 @@ class UpcomingAppointmentsVC: UIViewController {
         todayBookings()
         Apicall_TopserviceReport()
         Apicall_TopTeamMember()
-        // Do any additional setup after loading the view.
     }
     
     
@@ -106,15 +110,17 @@ class UpcomingAppointmentsVC: UIViewController {
         tbl_TopTeam.delegate = self
         tbl_TopTeam.dataSource = self
         tbl_TopTeam.rowHeight = UITableView.automaticDimension
-        tbl_TopTeam.estimatedRowHeight = 60
+        tbl_TopTeam.estimatedRowHeight = 44
         tbl_TopTeam.reloadData()
+        updateTopTeamHeight()
         
         tbl_TopServices.register(UINib(nibName: "TopServicesCell", bundle: nil), forCellReuseIdentifier: "TopServicesCell")
         tbl_TopServices.delegate = self
         tbl_TopServices.dataSource = self
         tbl_TopServices.rowHeight = UITableView.automaticDimension
-        tbl_TopServices.estimatedRowHeight = 60
+        tbl_TopServices.estimatedRowHeight = 44
         tbl_TopServices.reloadData()
+        updateServiceHeight()
     }
     
     //MARK: Setup Views
@@ -252,7 +258,7 @@ class UpcomingAppointmentsVC: UIViewController {
             // Safely unwrap the data
             guard let data = result?.data else {
                 print("No data found in TodayBookings API")
-                self.showToast(message: result?.error ?? "")
+                self.alertWithMessageOnly(result?.error ?? "")
                 return
             }
 
@@ -325,7 +331,8 @@ class UpcomingAppointmentsVC: UIViewController {
         // Calendar appearance
         calendar.appearance.titleDefaultColor = .black
         calendar.appearance.selectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
-        calendar.appearance.todayColor = #colorLiteral(red: 1, green: 0.2941176471, blue: 0.3333333333, alpha: 1)
+        calendar.appearance.todaySelectionColor = #colorLiteral(red: 0.768627451, green: 0.4, blue: 0.8901960784, alpha: 1)
+//        calendar.appearance.todayColor = #colorLiteral(red: 1, green: 0.2941176471, blue: 0.3333333333, alpha: 1)
         calendar.locale = Locale(identifier: "en_US_POSIX")
         // Add calendar inside the popup view
         calendarVC?.view.addSubview(calendar)
@@ -351,6 +358,22 @@ class UpcomingAppointmentsVC: UIViewController {
     }
     
     
+    func updateServiceHeight() {
+        DispatchQueue.main.async {
+            self.tbl_TopServices.layoutIfNeeded()
+            self.tbl_ServiceHeight.constant = self.tbl_TopServices.contentSize.height
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func updateTopTeamHeight() {
+        DispatchQueue.main.async {
+            self.tbl_TopTeam.layoutIfNeeded()
+            self.tbl_TeamHeight.constant = self.tbl_TopTeam.contentSize.height
+            self.view.layoutIfNeeded()
+        }
+    }
+    
     
     func Apicall_TopserviceReport() {
         showLoader()
@@ -370,6 +393,9 @@ class UpcomingAppointmentsVC: UIViewController {
 //                self.lbl_NoDataFound.isHidden = true
 //            }
             self.tbl_TopServices.reloadData()
+            
+            self.txt_TopServicesCount.text = String(self.topService.count)
+            self.updateServiceHeight()
         }
     }
     
@@ -392,6 +418,8 @@ class UpcomingAppointmentsVC: UIViewController {
 //                self.lbl_NoDataFound.isHidden = true
 //            }
             self.tbl_TopTeam.reloadData()
+            self.txt_TopTeamCount.text = String(self.teamMember.count)
+            self.updateTopTeamHeight()
         }
     }
     

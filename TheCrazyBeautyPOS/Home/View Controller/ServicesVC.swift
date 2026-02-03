@@ -198,11 +198,11 @@ class ServicesVC: UIViewController {
             }
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    self.showToast(message: NSLocalizedString("Service deleted successfully",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Service deleted successfully",comment: ""))
                 }
                 self.loadData(Search: "")
             } else {
-                self.showToast(message: NSLocalizedString("Failed to delete service",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to delete service",comment: ""))
             }
         }
     }

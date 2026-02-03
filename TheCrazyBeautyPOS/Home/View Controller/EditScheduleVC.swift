@@ -732,7 +732,7 @@ class EditScheduleVC: UIViewController {
                 }
                 self.hideLoader()
                 if model.error == "" || model.error == nil {
-                    self.showToast(message: NSLocalizedString("Custom schedule updated successfully", comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Custom schedule updated successfully",comment: ""))
                     self.deleteShiftList.removeAll()
                     self.selectedCopyStaffId = 0
                     self.deleteShiftMyList.removeAll()
@@ -741,7 +741,7 @@ class EditScheduleVC: UIViewController {
                         self.dismiss(animated: true)
                     }
                 } else {
-                    self.showToast(message: NSLocalizedString("Failed to update custom schedule", comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Failed to update custom schedule",comment: ""))
                 }
             }
         }
@@ -1372,7 +1372,7 @@ extension EditScheduleVC: UITableViewDelegate, UITableViewDataSource {
                     cell.vw2_height_const.constant = 0.0
                     cell.vw_2.isHidden = true
                     cell.lbl_salonOff.isHidden = false
-                    cell.lbl_salonOff.text = "Salon Off"
+                    cell.lbl_salonOff.text = NSLocalizedString("Salon Off", comment: "")
                 }
 
                 cell.Act_Switch = { [weak self] in
