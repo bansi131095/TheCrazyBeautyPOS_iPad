@@ -47,13 +47,13 @@ class KioskUsersVC: UIViewController {
     
     @IBAction func btn_Save(_ sender: Any) {
         if (self.txt_Email.text == "") {
-            alertWithImage(title: NSLocalizedString("Kiosk Users",comment: ""), Msg: NSLocalizedString("Please enter email",comment: ""))
+            alertWithMessageOnly(NSLocalizedString("Email ID is required.",comment: ""))
         } else if !self.txt_Email.text!.isValidEmail() {
-            alertWithImage(title: NSLocalizedString("Kiosk Users",comment: ""), Msg: NSLocalizedString("Please enter valid email id.",comment: ""))
+            alertWithMessageOnly(NSLocalizedString("Please provide valid email id.",comment: ""))
         } else if (self.txt_Password.text == "") {
-            alertWithImage(title: NSLocalizedString("Kiosk Users",comment: ""), Msg: NSLocalizedString("Please enter password",comment: ""))
+            alertWithMessageOnly(NSLocalizedString("Password is required.",comment: ""))
         }else if !self.txt_Password.text!.isValidPassword() {
-            alertWithImage(title: NSLocalizedString("Team Login",comment: ""), Msg: NSLocalizedString("Invalid Password.",comment: ""))
+            alertWithMessageOnly(NSLocalizedString("Password must contain at least one uppercase letter, one lowercase letter, one special letter and one number, and be at least 8 characters long",comment: ""))
         }else{
             update_KioskUsers()
         }

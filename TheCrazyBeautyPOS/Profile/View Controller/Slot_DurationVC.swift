@@ -138,7 +138,7 @@ class Slot_DurationVC: UIViewController {
                 self.ReminderModel = (result?.data)!
                 self.txt_SlotDuration.text = "\(self.ReminderModel[0].time_gap ?? "")" + " " + NSLocalizedString("Minutes",comment: "")
             }else{
-                self.alertWithMessageOnly(NSLocalizedString("Calendar sequence sequence is required",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to get time gap",comment: ""))
             }
         }
     }

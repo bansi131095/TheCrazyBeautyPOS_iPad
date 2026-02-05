@@ -271,7 +271,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
         if self.btn_apply.currentTitle == "Apply".localized {
             
             if txt_couponCode.text!.isEmpty {
-                self.alertWithMessageOnly(NSLocalizedString("Please enter coupon code",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Please enter code",comment: ""))
             } else {
                 self.checkCouponCode()
             }
@@ -426,7 +426,7 @@ class WalkinCheckoutVC_ONE: UIViewController {
                                 DispatchQueue.main.async { self.recalcTotals() }
                             }
                         } else {
-                            self.alertWithMessageOnly(NSLocalizedString("Invalid Coupon Code",comment: ""))
+                            self.alertWithMessageOnly(NSLocalizedString("Invalid or expired code",comment: ""))
                         }
                     }
                 } else if checkCouponData?.is_gift == 1 {

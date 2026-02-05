@@ -422,11 +422,11 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     
     @IBAction func act_addEditTeam(_ sender: GradientButton) {
         if self.firstNameTextField.text!.isEmpty {
-            self.alertWithMessageOnly(NSLocalizedString("Please enter first name",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("First Name is required.",comment: ""))
         } else if self.jobTitleTextField.text!.isEmpty {
-            self.alertWithMessageOnly(NSLocalizedString("Please enter job title",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Job Title is required.",comment: ""))
         } else if self.genderTextField.text!.isEmpty {
-            self.alertWithMessageOnly(NSLocalizedString("Please select gender",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Gender is required.",comment: ""))
         } else {
             if isEdit {
                 self.updateTeamApi()

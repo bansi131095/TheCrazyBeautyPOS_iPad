@@ -234,13 +234,13 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
     
     @IBAction func btn_AddTest(_ sender: Any) {
         if txt_Title.text == "" {
-            alertWithImage(title: NSLocalizedString("Add New Test",comment: ""), Msg: NSLocalizedString("Title is required",comment: ""))
+            alertWithMessageOnly(NSLocalizedString("Title is required",comment: ""))
         }else if self.txt_DateOfBirth.text == "" {
-            alertWithImage(title: NSLocalizedString("Add New Test",comment: ""), Msg: NSLocalizedString("Test Date is required",comment: ""))
+            alertWithMessageOnly(NSLocalizedString("Test Date is required",comment: ""))
         }else if self.txt_Status.text == ""{
-            alertWithImage(title: NSLocalizedString("Add New Test",comment: ""), Msg: NSLocalizedString("Status is required",comment: ""))
+            alertWithMessageOnly(NSLocalizedString("Status is required",comment: ""))
         }else if self.txt_TestedBy.text == ""{
-            alertWithImage(title: NSLocalizedString("Add New Test",comment: ""), Msg: NSLocalizedString("Tested By is required",comment: ""))
+            alertWithMessageOnly(NSLocalizedString("Tested By is required",comment: ""))
         }else{
             self.vw_MainPopup.isHidden = true
             self.vw_SubPopup.isHidden = true
@@ -294,7 +294,16 @@ extension PatchTestList_VC: UITableViewDelegate, UITableViewDataSource{
         cell.lbl_Name.text = data.title?.capitalized ?? ""
         cell.lbl_Test_Date.text = data.tested_date?.capitalized ?? ""
         cell.lbl_TestBy.text = data.tested_by?.capitalized ?? ""
-        cell.lbl_TestStatus.text = data.status?.capitalized ?? ""
+        
+        if data.status?.capitalized == "Pending"{
+            cell.lbl_TestStatus.text = NSLocalizedString("Pending", comment: "")
+        }else if data.status?.capitalized == "Passed"{
+            cell.lbl_TestStatus.text = NSLocalizedString("Passed", comment: "")
+        }else if data.status?.capitalized == "Failed"{
+            cell.lbl_TestStatus.text = NSLocalizedString("Failed", comment: "")
+        }
+        
+//        cell.lbl_TestStatus.text = data.status?.capitalized ?? ""
         return cell
     }
     

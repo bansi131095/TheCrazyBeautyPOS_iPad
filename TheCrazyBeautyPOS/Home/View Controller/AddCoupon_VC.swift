@@ -164,6 +164,23 @@ class AddCoupon_VC: UIViewController {
             return
         }
         
+        let df = DateFormatter()
+        df.dateFormat = "dd-MM-yyyy"
+        df.locale = Locale(identifier: "en_US_POSIX")
+        
+        let start = df.date(from: txt_StartDate.text ?? "") ?? Date()
+        let end = df.date(from: txt_EndDate.text ?? "") ?? Date()
+        
+        guard start <= end else {
+            self.alertWithMessageOnly(
+                NSLocalizedString(
+                    "Invalid date range. The start date should not be after the end date.",
+                    comment: ""
+                )
+            )
+            return
+        }
+        
         if isEdit {
             if self.CouponData?.discount_type == "Flat"{
                 UpdateCoupon(highest_amount: "0", Amount: self.txt_Amount.text ?? "", Id: self.CouponData?.id ?? 0)

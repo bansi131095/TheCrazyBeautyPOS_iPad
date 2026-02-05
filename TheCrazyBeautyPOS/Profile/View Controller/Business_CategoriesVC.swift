@@ -60,7 +60,11 @@ class Business_CategoriesVC: UIViewController {
         let finalIDs = apiPreselectedIDs.union(selectedIDs)
         let joinedString1 = finalIDs.map { String($0) }.joined(separator: ",")
         
-        update_CategoryList(service_id: joinedString1)
+        if selectedIDs.isEmpty {
+            self.alertWithMessageOnly(NSLocalizedString("Please select at least one category",comment: ""))
+        }else{
+            update_CategoryList(service_id: joinedString1)
+        }
     }
     
     //MARK: - Function
@@ -170,7 +174,7 @@ class Business_CategoriesVC: UIViewController {
             if let message = result?.data?.message {
                 self.alertWithMessageOnly(NSLocalizedString("Business categories updated successfully",comment: ""))
             }else{
-                self.alertWithMessageOnly(NSLocalizedString("Failed to select services",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to verify business",comment: ""))
             }
         })
     }

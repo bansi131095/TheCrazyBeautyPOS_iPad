@@ -1085,10 +1085,15 @@ extension WalkingVC: UICollectionViewDataSource, UICollectionViewDelegate, UICol
 
             if service.has_sub_service == 1 && service.sub_service.count > 0 {
                 // 👉 Show sub services
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ServiceCell", for: indexPath) as? ServiceCell else {
+                /*guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ServiceCell", for: indexPath) as? ServiceCell else {
                     fatalError("Unable to dequeue CategoryCell")
-                }
+                }*/
                 
+                
+                if let cell = collectionView.cellForItem(at: indexPath) as? ServiceCell {
+                        // Optional: update UI if needed
+                        // cell.vw_Main.backgroundColor = ...
+                    }
                 
                 
                 self.selectedServiceIndexForSubService = indexPath.item

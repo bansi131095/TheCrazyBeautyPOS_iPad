@@ -55,7 +55,7 @@ class Payment_CancellationVC: UIViewController {
         if select_CancellationDuration != NSLocalizedString("No notice required", comment: ""){
             let penaltyAmount = txt_CancellationAmount.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "0"
             if penaltyAmount.isEmpty || penaltyAmount == "0" {
-                alertWithImage(title: NSLocalizedString("Cancellation",comment: "") , Msg: NSLocalizedString("Please enter Cancellation amount percent", comment: ""))
+                alertWithMessageOnly(NSLocalizedString("Please enter Cancellation amount percent",comment: ""))
                 return
             }
         }

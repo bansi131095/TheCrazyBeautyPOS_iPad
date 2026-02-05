@@ -55,7 +55,7 @@ class No_ShowLimitVC: UIViewController {
     
     @IBAction func btn_Save(_ sender: Any) {
         if txt_NoShowLimit.text == ""{
-            alertWithImage(title: NSLocalizedString("No Show Limit",comment: "") , Msg: NSLocalizedString("No.Show Limit is required.", comment: ""))
+            alertWithMessageOnly(NSLocalizedString("No.Show Limit is required.",comment: ""))
         }else{
             api_UpdateNoShowLimit()
         }

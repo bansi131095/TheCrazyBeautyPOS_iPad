@@ -296,6 +296,23 @@ extension WalkinHistory_VC: FSCalendarDelegate, FSCalendarDataSource {
         }
         return dates
     }
+    
+    func localizedPaymentTypes(from paymentString: String) -> String {
+        let types = paymentString.split(separator: ",")
+        
+        let localizedTypes = types.map { type -> String in
+            let key = type
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+                .lowercased()   // giftcard, cash, card
+            
+            return NSLocalizedString(key, comment: "")
+        }
+        
+        return localizedTypes.joined(separator: ", ")
+    }
+
+
+
 }
 
 extension WalkinHistory_VC: UITableViewDelegate, UITableViewDataSource{
@@ -332,7 +349,7 @@ extension WalkinHistory_VC: UITableViewDelegate, UITableViewDataSource{
         if data.payment_type == ""{
             cell.lbl_PaymentType.text = "-"
         }else{
-            cell.lbl_PaymentType.text = data.payment_type.capitalized
+            cell.lbl_PaymentType.text = localizedPaymentTypes(from: data.payment_type)
         }
         
         

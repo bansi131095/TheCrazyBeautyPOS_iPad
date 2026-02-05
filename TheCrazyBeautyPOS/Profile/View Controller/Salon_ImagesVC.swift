@@ -287,7 +287,7 @@ class Salon_ImagesVC: UIViewController {
     func upload_Image() {
         // 1. Separate profile image (from imageView)
         guard let profileImage = img_Profile.image, !isProfileImageRemoved else {
-            self.alertWithMessageOnly(NSLocalizedString("Profile image not set",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Profile Image is required.",comment: ""))
             return
         }
 
@@ -305,11 +305,9 @@ class Salon_ImagesVC: UIViewController {
         ) { response in
             self.hideLoader()
             if let result = response {
-                print("✅ Upload complete: \(result)")
-                self.alertWithMessageOnly(NSLocalizedString("Images uploaded successfully",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Images updated successfully",comment: ""))
             } else {
-                print("❌ Upload failed or response error")
-                self.alertWithMessageOnly(NSLocalizedString("Upload failed. Try again.", comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to update images", comment: ""))
             }
         }
     }
@@ -328,7 +326,9 @@ class Salon_ImagesVC: UIViewController {
         if allImages.isEmpty {
             cv_Imgs.isHidden = true
             cv_HeightConst.constant = 0
+            self.lbl_Atleast1.isHidden = false
         } else {
+            self.lbl_Atleast1.isHidden = true
             updateCollectionViewHeight()
         }
     }
@@ -345,10 +345,8 @@ extension Salon_ImagesVC: UICollectionViewDelegate, UICollectionViewDataSource, 
 
         let item = allImages[indexPath.item]
         if let urlStr = item.imageUrl, let url = URL(string: urlStr) {
-            print("🌐 Loading gallery image from URL: \(urlStr)")
             cell.img_Upload.sd_setImage(with: url, placeholderImage: UIImage(named: "ProductDemo"))
         } else if let localImage = item.image {
-            print("📸 Displaying picked image")
             cell.img_Upload.image = localImage
         }
         cell.btn_Delete.addTarget(self, action: #selector(deleteGalleryImage(_:)), for: .touchUpInside)

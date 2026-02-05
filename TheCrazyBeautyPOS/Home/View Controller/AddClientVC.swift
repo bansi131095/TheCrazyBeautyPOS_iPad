@@ -232,9 +232,9 @@ class AddClientVC: UIViewController {
     
     @IBAction func act_addEditClient(_ sender: GradientButton) {
         if self.firstNameTextField.text!.isEmpty {
-            self.alertWithMessageOnly(NSLocalizedString("Please enter first name",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("First Name is required.",comment: ""))
         } else if self.mobileTextField.text!.isEmpty {
-            self.alertWithMessageOnly(NSLocalizedString("Please enter mobile number",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Mobile Number is required.",comment: ""))
         } else {
             self.view.endEditing(true)
             if isEdit {

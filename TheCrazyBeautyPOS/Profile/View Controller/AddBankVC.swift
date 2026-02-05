@@ -38,11 +38,9 @@ class AddBankVC: UIViewController {
     //MARK: -  Button Action
     @IBAction func btn_Save(_ sender: Any) {
         if txt_AccountNumber.text == "" {
-//            alertWithImage(title: "Add Bank Details", Msg: "Account Number is required.")
-            alertWithImage(title: NSLocalizedString("Add Bank Details", comment: ""), Msg: NSLocalizedString("Account Number is required.", comment: ""))
+            alertWithMessageOnly(NSLocalizedString("Account Number is required.",comment: ""))
         }else if txt_AccountHolderName.text == "" {
-//            alertWithImage(title: "Add Bank Details", Msg: "Account Holder Name is required.")
-            alertWithImage(title: NSLocalizedString("Add Bank Details", comment: ""), Msg: NSLocalizedString("Account Holder Name is required.", comment: ""))
+            alertWithMessageOnly(NSLocalizedString("Account Holder Name is required.",comment: ""))
         }else{
             AddBankDetails()
         }

@@ -342,7 +342,8 @@ class TeamRosterVC: UIViewController {
 
         let dayFormatter = DateFormatter()
         dayFormatter.dateFormat = "E" // Mon, Tue, etc.
-
+        dayFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
         var current = start

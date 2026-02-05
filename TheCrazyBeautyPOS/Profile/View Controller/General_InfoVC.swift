@@ -353,7 +353,17 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     }
     
     @IBAction func btn_Save(_ sender: Any) {
-        update_Salon()
+        if self.txt_BusinessName.text == ""{
+            alertWithMessageOnly(NSLocalizedString("Business Name is required.",comment: ""))
+        }else if self.txt_Address.text == ""{
+            alertWithMessageOnly(NSLocalizedString("Address is required.", comment: ""))
+        }else if self.txt_City.text == "" {
+            alertWithMessageOnly(NSLocalizedString("City is required.", comment: ""))
+        }else if self.txt_PostalCode.text == ""{
+            alertWithMessageOnly(NSLocalizedString("Postal Code is required.", comment: ""))
+        }else{
+            update_Salon()
+        }
     }
     
     //MARK: - Api Call
@@ -453,6 +463,8 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                     }
                 }
             }
+            self.txt_MobileNumber.showLabel()
+            self.txt_Address.showLabel()
             
             self.userLatitude = self.SalonDetails.first?.latitude
             self.userLongitude = self.SalonDetails.first?.longitude

@@ -181,9 +181,10 @@ class AddServiceVC: UIViewController {
         if isEdit {
             if txt_TypeofService.text == NSLocalizedString("Service Without Sub Type",comment: ""){
                 if self.txt_serviceName.text!.isEmpty {
-                    self.alertWithMessageOnly(NSLocalizedString("Please enter service name",comment: ""))
+                    
+                    self.alertWithMessageOnly(NSLocalizedString("Service Name is required.",comment: ""))
                 } else if self.txt_mainCategory.text!.isEmpty {
-                    self.alertWithMessageOnly(NSLocalizedString("Please select category",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please select Main Category.",comment: ""))
                 } else if self.txt_serviceFor.text!.isEmpty {
                     self.alertWithMessageOnly(NSLocalizedString("Please select service for",comment: ""))
                 } else if self.txt_serviceDuration.text!.isEmpty {
@@ -191,15 +192,15 @@ class AddServiceVC: UIViewController {
                 } else if self.txt_priceType.text!.isEmpty {
                     self.alertWithMessageOnly(NSLocalizedString("Please select price type",comment: ""))
                 } else if self.txt_regulatPrice.text!.isEmpty {
-                    self.alertWithMessageOnly(NSLocalizedString("Please enter price",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Regular Price is required.",comment: ""))
                 }else{
                     self.updateServiceData(serviceId: "\(self.dictService?.id ?? 0)")
                 }
             }else{
                 if self.txt_serviceName.text!.isEmpty {
-                    self.alertWithMessageOnly(NSLocalizedString("Please enter service name",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Service Name is required.",comment: ""))
                 } else if self.txt_mainCategory.text!.isEmpty {
-                    self.alertWithMessageOnly(NSLocalizedString("Please select category",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please select Main Category.",comment: ""))
                 } else if self.txt_Resource.text!.isEmpty {
                     self.alertWithMessageOnly(NSLocalizedString("Please select Resource",comment: ""))
                 }else{
@@ -209,9 +210,9 @@ class AddServiceVC: UIViewController {
         }else{
             if txt_TypeofService.text == NSLocalizedString("Service Without Sub Type",comment: ""){
                 if self.txt_serviceName.text!.isEmpty {
-                    self.alertWithMessageOnly(NSLocalizedString("Please enter service name",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Service Name is required.",comment: ""))
                 } else if self.txt_mainCategory.text!.isEmpty {
-                    self.alertWithMessageOnly(NSLocalizedString("Please select category",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please select Main Category.",comment: ""))
                 } else if self.txt_serviceFor.text!.isEmpty {
                     self.alertWithMessageOnly(NSLocalizedString("Please select service for",comment: ""))
                 } else if self.txt_serviceDuration.text!.isEmpty {
@@ -219,15 +220,15 @@ class AddServiceVC: UIViewController {
                 } else if self.txt_priceType.text!.isEmpty {
                     self.alertWithMessageOnly(NSLocalizedString("Please select price type",comment: ""))
                 } else if self.txt_regulatPrice.text!.isEmpty {
-                    self.alertWithMessageOnly(NSLocalizedString("Please enter price",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Regular Price is required.",comment: ""))
                 }else{
                     self.addServiceData()
                 }
             }else{
                 if self.txt_serviceName.text!.isEmpty {
-                    self.alertWithMessageOnly(NSLocalizedString("Please enter service name",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Service Name is required.",comment: ""))
                 } else if self.txt_mainCategory.text!.isEmpty {
-                    self.alertWithMessageOnly(NSLocalizedString("Please select category",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please select Main Category.",comment: ""))
                 } else if self.txt_Resource.text!.isEmpty {
                     self.alertWithMessageOnly(NSLocalizedString("Please select Resource",comment: ""))
                 }else{
@@ -763,7 +764,7 @@ class AddServiceVC: UIViewController {
             if result?.data != nil {
                 self.categoryList = result!.data
             }else{
-                self.alertWithMessageOnly(NSLocalizedString("Failed to get vendor currency",comment: ""))
+                self.alertWithMessageOnly(NSLocalizedString("Failed to select services",comment: ""))
             }
         }
     }

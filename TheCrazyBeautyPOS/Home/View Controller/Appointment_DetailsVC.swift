@@ -57,16 +57,28 @@ class Appointment_DetailsVC: UIViewController {
         self.lbl_Date.text = model?.booking_date
         self.lbl_Time.text = model?.booking_time
         self.lbl_ServiceName.text = model?.services.capitalized
-        self.lbl_Type.text = model?.customer_type.capitalized
+//        self.lbl_Type.text = model?.customer_type.capitalized
         self.lbl_Staff.text = model?.staff_names.capitalized
         
+        
+        if model?.customer_type.capitalized == "Guest"{
+            self.lbl_Type.text = NSLocalizedString("Guest", comment: "")
+        }else if model?.customer_type.capitalized == "Customer"{
+            self.lbl_Type.text = NSLocalizedString("Customer", comment: "")
+        }
+        
         if model?.booking_status.capitalized == "Completed"{
+            self.lbl_Status.text = NSLocalizedString("Completed", comment: "")
             self.lbl_Status.textColor = UIColor.green
-        }else{
+        }else if model?.booking_status.capitalized == "Cancelled"{
+            self.lbl_Status.text = NSLocalizedString("Cancelled", comment: "")
+            self.lbl_Status.textColor = #colorLiteral(red: 1, green: 0.2941176471, blue: 0.3333333333, alpha: 1)
+        }else if model?.booking_status.capitalized == "No Show"{
+            self.lbl_Status.text = NSLocalizedString("No Show", comment: "")
             self.lbl_Status.textColor = #colorLiteral(red: 1, green: 0.2941176471, blue: 0.3333333333, alpha: 1)
         }
         
-        self.lbl_Status.text = model?.booking_status.capitalized
+//        self.lbl_Status.text = model?.booking_status.capitalized
         
         if model?.coupon_code == ""{
             self.lbl_CouponCode.text = "-"
@@ -83,7 +95,9 @@ class Appointment_DetailsVC: UIViewController {
         if model?.payment_type == ""{
             self.lbl_Payment.text = "-"
         }else{
-            self.lbl_Payment.text = model?.payment_type.capitalized
+//            self.lbl_Payment.text = model?.payment_type.capitalized
+            
+            self.lbl_Payment.text = localizedPaymentTypes(from: model?.payment_type ?? "")
         }
         
         self.lbl_MiscellaneousPrice.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", Double(model?.miscellaneous_price ?? "") ?? 0.0)
@@ -146,5 +160,17 @@ class Appointment_DetailsVC: UIViewController {
     }
     
     
-
+    func localizedPaymentTypes(from paymentString: String) -> String {
+        let types = paymentString.split(separator: ",")
+        
+        let localizedTypes = types.map { type -> String in
+            let key = type
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+                .lowercased()   // giftcard, cash, card
+            
+            return NSLocalizedString(key, comment: "")
+        }
+        
+        return localizedTypes.joined(separator: ", ")
+    }
 }

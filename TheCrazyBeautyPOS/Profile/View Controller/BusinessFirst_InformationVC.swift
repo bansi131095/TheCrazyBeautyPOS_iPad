@@ -86,8 +86,11 @@ class BusinessFirst_InformationVC: UIViewController {
     
     @IBAction func btn_Continue(_ sender: Any) {
         if txt_BusinessName.text == ""{
-            alertWithImage(title: NSLocalizedString("Business Information", comment: ""), Msg: NSLocalizedString("Business Name is required.",comment: ""))
-        }else{
+            alertWithMessageOnly(NSLocalizedString("Business Name is required.",comment: ""))
+        }
+//        Addresses
+        
+        else{
             AddBusiness()
         }
     }

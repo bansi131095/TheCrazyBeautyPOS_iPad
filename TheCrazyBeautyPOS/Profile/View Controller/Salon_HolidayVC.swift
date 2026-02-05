@@ -74,7 +74,7 @@ class Salon_HolidayVC: UIViewController {
        }
 
        if fromDate! > toDate! {
-           alertWithMessageOnly(NSLocalizedString("From date should not be greater than To date", comment: ""))
+           alertWithMessageOnly(NSLocalizedString("Invalid date range", comment: ""))
            return
        }
         

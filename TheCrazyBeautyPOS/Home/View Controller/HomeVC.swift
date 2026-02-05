@@ -398,6 +398,11 @@ class HomeVC: UIViewController {
         L102Language.setAppleLAnguageTo(lang: lanCode)
         Localisator.init()
 
+        NotificationCenter.default.post(
+               name: Notification.Name("LanguageChanged"),
+               object: nil
+           )
+        
         let sb = UIStoryboard(name: "Home", bundle: nil)
         let navDashboard = sb.instantiateViewController(withIdentifier: "NavigateHome") as! UINavigationController
         navDashboard.modalPresentationStyle = .fullScreen

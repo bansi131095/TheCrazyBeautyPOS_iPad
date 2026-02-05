@@ -50,7 +50,7 @@ class Team_SequenceVC: UIViewController {
                 let sequenceText = cell.txt_Sequence.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
                 
                 if sequenceText.isEmpty {
-                    alertWithImage(title: NSLocalizedString("Team Sequence", comment: ""), Msg: NSLocalizedString("Please fill in field.",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Please fill in field.",comment: ""))
                     return
                 }
                 

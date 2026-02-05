@@ -115,7 +115,14 @@ class AddResources_VC: UIViewController,UITextFieldDelegate {
                     self.txt_Description.text = ""
                 }
             }else{
-                self.alertWithMessageOnly(NSLocalizedString("Failed to add resource",comment: ""))
+                if result?.error == "This name is already in use"{
+                    self.alertWithMessageOnly(NSLocalizedString("This name is already in use",comment: ""))
+                }else if result?.error == "Failed to add resource"{
+                    self.alertWithMessageOnly(NSLocalizedString("Failed to add resource",comment: ""))
+                }else if result?.error == "Failed to get resource"{
+                    self.alertWithMessageOnly(NSLocalizedString("Failed to get resource",comment: ""))
+                }
+                
             }
         }
     }

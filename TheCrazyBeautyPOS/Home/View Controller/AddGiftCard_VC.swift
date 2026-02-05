@@ -137,13 +137,13 @@ class AddGiftCard_VC: UIViewController {
     
     @IBAction func btn_AddGiftCard(_ sender: Any) {
         if !isEdit && selectedImage == nil {
-            self.alertWithMessageOnly(NSLocalizedString("Please select a GiftCard image",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Please upload image",comment: ""))
         }else if txt_CardName.text == ""{
             self.alertWithMessageOnly(NSLocalizedString("Card Name is required",comment: ""))
         }else if txt_Price.text == ""{
             self.alertWithMessageOnly(NSLocalizedString("Price is required.",comment: ""))
         }else if txt_ExpiryDate.text == ""{
-            self.alertWithMessageOnly(NSLocalizedString("Expiry In Days is required",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Expire date is required.",comment: ""))
         }else{
             if isEdit{
                 updateGiftCard(Id: GiftCardData?.id ?? 0)

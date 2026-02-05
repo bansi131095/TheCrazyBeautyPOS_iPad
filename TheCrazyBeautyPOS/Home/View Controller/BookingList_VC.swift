@@ -70,6 +70,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
     @IBOutlet weak var lbl_CancelTotalAmount: UILabel!
     
     
+    @IBOutlet weak var lbl_NoData: UILabel!
     
     
     //MARK: - Global Variable
@@ -240,7 +241,7 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
                     self.selectedTimeIndex = nil
                     self.vw_HeightRebook.constant = 160
                 case .failure(let error):
-                    self.alertWithMessageOnly(NSLocalizedString("Something Want Wrong",comment: ""))
+                    self.alertWithMessageOnly(NSLocalizedString("Booking id is required field",comment: ""))
                 }
             }
         }
@@ -320,12 +321,14 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             if newItems.isEmpty{
                 self.tbl_vw.isHidden = true
                 self.tbl_vw2.isHidden = true
-                self.showNoDataMessage(NSLocalizedString("No Bookings Found!",comment: ""), in: self.view)
+                self.lbl_NoData.isHidden = false
+                self.lbl_NoData.text = NSLocalizedString("No Bookings Found!",comment: "")
             }else{
                 self.pastBookingsArray = newItems
                 self.tbl_vw.isHidden = false
                 self.tbl_vw.reloadData()
                 self.tbl_vw2.isHidden = true
+                self.lbl_NoData.isHidden = true
                 self.hideNoDataMessage()
             }
         }
@@ -370,12 +373,14 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             if newItems.isEmpty{
                 self.tbl_vw.isHidden = true
                 self.tbl_vw2.isHidden = true
-                self.showNoDataMessage(NSLocalizedString("No Bookings Found!",comment: ""), in: self.view)
+                self.lbl_NoData.isHidden = false
+                self.lbl_NoData.text = NSLocalizedString("No Bookings Found!",comment: "")
             }else{
                 self.futureBookingsArray = newItems
                 self.tbl_vw.isHidden = true
                 self.tbl_vw2.reloadData()
                 self.tbl_vw2.isHidden = false
+                self.lbl_NoData.isHidden = true
                 self.hideNoDataMessage()
             }
         }
@@ -426,51 +431,6 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             }
         }
     }
-
-    
-    
-    /*func get_Staff(id: String) {
-        self.showLoader()
-        
-        APIService.shared.fetchStaffList(service_id: id) { result in
-            self.hideLoader()
-            
-            guard let model = result else { return }
-            
-            // Map response into StaffListResponseModel
-            let staffListMapped: [StaffListResponseModel] = model.data.map { dataItem in
-                // Check if the staff's ID is present in the "services" list
-                let isFavorite: Bool
-                if let services = dataItem.services {
-                    let serviceIds = services.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
-                    isFavorite = serviceIds.contains(id)   // 👈 compare with requested service_id
-                } else {
-                    isFavorite = false
-                }
-                
-                // Create and return StaffListResponseModel safely
-                return StaffListResponseModel(
-                    id: Int(dataItem.id ?? 0),
-                    fullname: dataItem.fullname ?? "Unknown",
-                    isFavorite: isFavorite,
-                )!
-            }
-            
-            self.staffList = staffListMapped
-        }
-    }*/
-
-
-    
-    /*func getTimeSlots(duration:String,full_date:String,staff_id:String) {
-        APIService.shared.TimeSlot(duration: duration, full_date: full_date, staff_id: staff_id) { result in
-            guard let model = result else {
-                return
-            }
-            self.timeSlotList = result?.data ?? []
-            self.cv_AvailableTime.reloadData()
-        }
-    }*/
     
     func getTimeSlots(duration: String, full_date: String, staff_id: String) {
         self.showLoader()
@@ -502,16 +462,6 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
             self.cv_AvailableTime.reloadData()
         }
     }
-    
-    /*func pastBooking(booking_date:String,booking_id:String,startTime:String,endTime:String,) {
-        APIService.shared.PastBooking(booking_date: booking_date, booking_id: booking_id, startTime: startTime, endTime: endTime, staffBookingArray: <#T##[[String : Any]]#>, staff_id: staff_id) { result in
-            if let res = result {
-                self.alertWithMessageOnly(result?.data ?? "")
-            } else {
-                self.alertWithMessageOnly(result?.error ?? "")
-            }
-        }
-    }*/
     
     func openStaff() {
        var itemArray: [String] = []
@@ -816,7 +766,7 @@ extension BookingList_VC: UITextFieldDelegate {
     }
 }
 
-extension UIViewController{
+/*extension UIViewController{
     
     func showNoDataMessage(_ message: String, in parentView: UIView) {
         // If already exists, don’t add again
@@ -840,7 +790,7 @@ extension UIViewController{
             global.shared.noDataLabel = label
         }
         
-        global.shared.noDataLabel?.text = message
+//        global.shared.noDataLabel?.text = message
         global.shared.noDataLabel?.isHidden = false
         
         global.shared.noDataLabel?.text = NSLocalizedString(message, comment: "")
@@ -851,7 +801,40 @@ extension UIViewController{
     }
 
     
+}*/
+
+extension UIViewController {
+
+    func showNoDataMessage(_ message: String, in parentView: UIView) {
+
+        if global.shared.noDataLabel == nil {
+            let label = UILabel()
+            label.textAlignment = .center
+            label.textColor = .gray
+            label.font = UIFont(name: "Lato-Medium", size: 18.0)
+            label.numberOfLines = 0
+            label.translatesAutoresizingMaskIntoConstraints = false
+            parentView.addSubview(label)
+
+            NSLayoutConstraint.activate([
+                label.centerXAnchor.constraint(equalTo: parentView.centerXAnchor),
+                label.centerYAnchor.constraint(equalTo: parentView.centerYAnchor, constant: 50),
+                label.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: 20),
+                label.trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant: -20)
+            ])
+
+            global.shared.noDataLabel = label
+        }
+
+        global.shared.noDataLabel?.text = NSLocalizedString(message, comment: "")
+        global.shared.noDataLabel?.isHidden = false
+    }
+
+    func hideNoDataMessage() {
+        global.shared.noDataLabel?.isHidden = true
+    }
 }
+
 
 extension BookingList_VC : UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

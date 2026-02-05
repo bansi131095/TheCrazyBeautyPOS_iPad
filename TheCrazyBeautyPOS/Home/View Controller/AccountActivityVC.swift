@@ -266,24 +266,4 @@ extension AccountActivityVC: UITableViewDelegate, UITableViewDataSource, UIScrol
         return isLoadingMore ? 50 : 0
     }
     
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

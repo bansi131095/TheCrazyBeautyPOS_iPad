@@ -25,7 +25,7 @@ class ChangePasswordVC: UIViewController {
         self.txt_NewPassword.showLabel()
         self.txt_OldPassword.showLabel()
         setCustomFont()
-        let title = NSLocalizedString("Save", comment: "")
+        let title = NSLocalizedString("Change Password", comment: "")
         let attributedTitle = NSAttributedString(
             string: title,
             attributes: [
@@ -44,9 +44,9 @@ class ChangePasswordVC: UIViewController {
     //MARK: -  Button Action
     @IBAction func btn_Save(_ sender: Any) {
         if (self.txt_OldPassword.text == "") {
-            alertWithImage(title: NSLocalizedString("Change Password",comment: ""), Msg: NSLocalizedString("Old Password is required.",comment: ""))
+            alertWithMessageOnly(NSLocalizedString("Old Password is required.",comment: ""))
         }else if self.txt_NewPassword.text == "" {
-            alertWithImage(title: NSLocalizedString("Change Password",comment: ""), Msg: NSLocalizedString("New Password is required.",comment: ""))
+            alertWithMessageOnly(NSLocalizedString("New Password is required.",comment: ""))
         }else {
             changePassword()
         }
@@ -89,8 +89,27 @@ class ChangePasswordVC: UIViewController {
                 self.txt_NewPassword.text = ""
                 self.txt_OldPassword.text = ""
             }else{
-                self.alertWithMessageOnly(NSLocalizedString("Failed to added new password",comment: ""))
+                if result?.error == "Error hashing password"{
+                    self.alertWithMessageOnly(NSLocalizedString("Error hashing password",comment: ""))
+                }else if result?.error == "Please enter correct password"{
+                    self.alertWithMessageOnly(NSLocalizedString("Please enter correct password",comment: ""))
+                }else if result?.error == "Password does not match"{
+                    self.alertWithMessageOnly(NSLocalizedString("Password does not match",comment: ""))
+                }else if result?.error == "Failed to added new password"{
+                    self.alertWithMessageOnly(NSLocalizedString("Failed to added new password",comment: ""))
+                }else if result?.error == "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number"{
+                    self.alertWithMessageOnly(NSLocalizedString("Password must contain at least one uppercase letter, one lowercase letter, one special letter and one number, and be at least 8 characters long",comment: ""))
+                }
+                
             }
         }
     }
 }
+
+
+
+
+
+
+
+

@@ -404,33 +404,43 @@ extension SalesReportHistory_VC: UITableViewDelegate, UITableViewDataSource{
         cell.lbl_Name.text = data.name.capitalized
         cell.lbl_Date.text = data.booking_date
         cell.lbl_Time.text = data.booking_time
-        cell.lbl_Type.text = data.customer_type.capitalized
         cell.lbl_Staff.text = data.staff_names.capitalized
         
+        if data.customer_type.capitalized == "Guest"{
+            cell.lbl_Type.text = NSLocalizedString("Guest", comment: "")
+        }else if data.customer_type.capitalized == "Customer"{
+            cell.lbl_Type.text = NSLocalizedString("Customer", comment: "")
+        }
+        
         if data.booking_status.capitalized == "Completed"{
+            cell.lbl_Status.text = NSLocalizedString("Completed", comment: "")
             cell.lbl_Status.textColor = UIColor.green
             cell.btn_Mail.isHidden = false
-//            cell.btn_Delete.isHidden = false
-        }else{
+        }else if data.booking_status.capitalized == "Cancelled"{
+            cell.lbl_Status.text = NSLocalizedString("Cancelled", comment: "")
             cell.lbl_Status.textColor = #colorLiteral(red: 1, green: 0.2941176471, blue: 0.3333333333, alpha: 1)
             cell.btn_Mail.isHidden = true
-//            cell.btn_Delete.isHidden = true
+        }else if data.booking_status.capitalized == "No Show"{
+            cell.lbl_Status.text = NSLocalizedString("No Show", comment: "")
+            cell.lbl_Status.textColor = #colorLiteral(red: 1, green: 0.2941176471, blue: 0.3333333333, alpha: 1)
+            cell.btn_Mail.isHidden = true
         }
-        cell.lbl_Status.text = data.booking_status.capitalized
         
         if data.payment_type == ""{
             cell.lbl_Payment.text = "-"
         }else{
-            cell.lbl_Payment.text = data.payment_type.capitalized
+//            cell.lbl_Payment.text = data.payment_type.capitalized
+            let paymentTypes = data.payment_type.split(separator: ",")
+            let localizedTypes = paymentTypes.map { NSLocalizedString($0.trimmingCharacters(in: .whitespacesAndNewlines).lowercased(), comment: "") }
+            cell.lbl_Payment.text = localizedTypes.joined(separator: ", ")
+            
         }
         
         if data.tip == 0 {
             cell.lbl_Tip.text = "-"
         }else{
-//            cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + String(Double(data.tip))
             cell.lbl_Tip.text = "\(SharedPrefs.getSymbol())" + String(format: "%.2f", Double(data.tip))
         }
-//        cell.lbl_Total.text = "\(SharedPrefs.getSymbol())" +  String(Double(data.grand_total)!)
         cell.lbl_Total.text = "\(SharedPrefs.getSymbol())" +  String(format: "%.2f", Double(data.grand_total) ?? 0.0)
         
         if deleteShownSales && data.booking_status.capitalized == "Completed" && data.payment_type.capitalized == "Cash"{

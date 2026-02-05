@@ -52,13 +52,13 @@ class Category_DescriptionVC: UIViewController {
                     let descriptionText = cell.txt_Description.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
                     
                     if sequenceText.isEmpty {
-                        alertWithImage(title: NSLocalizedString("Validation",comment: ""), Msg: NSLocalizedString("Sequence cannot be empty!",comment: ""))
+                        self.alertWithMessageOnly(NSLocalizedString("Sequence cannot be empty!",comment: ""))
                         return
                     }
 
                     // Optional: check for duplicate sequence
                     /*if sequenceArray.contains(where: { $0["sequence"] == sequenceText }) {
-                        alertWithImage(title: "Validation", Msg: "Duplicate sequence found!")
+                     alertWithMessageOnly(NSLocalizedString("Duplicate sequence found!",comment: ""))
                         return
                     }*/
 

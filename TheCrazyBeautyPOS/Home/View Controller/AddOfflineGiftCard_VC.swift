@@ -59,7 +59,7 @@ class AddOfflineGiftCard_VC: UIViewController {
         }else if txt_Description.text == ""{
             self.alertWithMessageOnly(NSLocalizedString("Description is required.",comment: ""))
         }else if txt_ExpiryDate.text == "" {
-            self.alertWithMessageOnly(NSLocalizedString("Please select expiry date.",comment: ""))
+            self.alertWithMessageOnly(NSLocalizedString("Expire date is required.",comment: ""))
         }else{
             AddOfflineGiftCardApiCall()
         }
