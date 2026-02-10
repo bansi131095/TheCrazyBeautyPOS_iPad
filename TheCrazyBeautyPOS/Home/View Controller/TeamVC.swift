@@ -36,14 +36,14 @@ class TeamVC: UIViewController {
         setCustomFont()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         self.lbl_TitleTeam.text = NSLocalizedString("Team", comment: "")
-        let attributedTitleSync_1 = NSAttributedString(
+        let AddNew = NSAttributedString(
             string: NSLocalizedString("Add New",comment: ""),
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
             ]
         )
-        btn_AddNew.setAttributedTitle(attributedTitleSync_1, for: .normal)
+        btn_AddNew.setAttributedTitle(AddNew, for: .normal)
         
         let TeamRoster = NSAttributedString(
             string: NSLocalizedString("Team Roster",comment: ""),

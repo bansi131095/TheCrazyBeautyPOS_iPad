@@ -81,6 +81,7 @@ class ReportVC: UIViewController {
                isReportImageAdded = true
                if let currentVC = children.first as? SalesReportHistory_VC {
                    currentVC.deleteShownSales = true
+                   currentVC.refundShownSales = true
                    currentVC.tbl_vw.reloadData()
                }else if let walkinVC = children.first as? WalkinHistory_VC {
                    walkinVC.deleteShownSales = true

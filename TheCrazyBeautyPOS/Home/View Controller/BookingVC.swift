@@ -27,7 +27,10 @@ class BookingVC: UIViewController {
         let link = global.CAL_WEB_URL
          
 //        let pageLink = String(format: link, userId, token, loginTime) + "&lang=" + UserDefaults.standard.object(forKey: global().kSaveLanguageDefaultKey) as! String as! String as? String
-        let pageLink = String(format: link, userId, token, loginTime)
+        
+        let selectedLang = UserDefaults.standard.string(forKey: global().kSaveLanguageDefaultKey) ?? "en"
+        
+        let pageLink = String(format: link, userId, token, loginTime) + selectedLang
 
         print("pageLink == \(pageLink)")
 
@@ -49,8 +52,6 @@ class BookingVC: UIViewController {
         showLoader()
         webView.load(request)
         self.hideLoader()
-        // Web view settings are handled by WKWebView automatically,
-        // unlike Android WebView which needs `settings`
     }
 
     
@@ -75,18 +76,7 @@ class BookingVC: UIViewController {
             }
         }
     }
-        
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 //        hideLoader() // stop loader when finished
     }

@@ -189,6 +189,7 @@ class SalesHistoryDateModel: Mappable {
     
     var id: Int = 0
     var booking_number: String = ""
+    var booking_id: Int = 0
     var booking_date: String = ""
     var booking_time: String = ""
     var name: String = ""
@@ -218,6 +219,7 @@ class SalesHistoryDateModel: Mappable {
     func mapping(map: Map) {
         id                   <- map["id"]
         booking_number       <- map["booking_number"]
+        booking_id           <- map["booking_id"]
         booking_date                 <- map["booking_date"]
         booking_time          <- map["booking_time"]
         name            <- map["name"]

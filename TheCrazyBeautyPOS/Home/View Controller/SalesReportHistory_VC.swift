@@ -31,13 +31,14 @@ class SalesReportHistory_VC: UIViewController, UIPopoverPresentationControllerDe
     var isLoadingMore = false
     var hasMoreData = true
     var deleteShownSales = false
+    var refundShownSales = false
     var years: [Int] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let currentYear = Calendar.current.component(.year, from: Date())
         years = Array(1900...currentYear)
-        contentViewWidthConstraint.constant = 600
+        contentViewWidthConstraint.constant = 610
         setTableView()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         setDefaultDateRangeAndFetch()
@@ -405,7 +406,8 @@ extension SalesReportHistory_VC: UITableViewDelegate, UITableViewDataSource{
         cell.lbl_Date.text = data.booking_date
         cell.lbl_Time.text = data.booking_time
         cell.lbl_Staff.text = data.staff_names.capitalized
-        
+        print("data.booking_id:- \(data.booking_id)")
+        print("data.booking_number:- \(data.booking_number)")
         if data.customer_type.capitalized == "Guest"{
             cell.lbl_Type.text = NSLocalizedString("Guest", comment: "")
         }else if data.customer_type.capitalized == "Customer"{
@@ -449,6 +451,23 @@ extension SalesReportHistory_VC: UITableViewDelegate, UITableViewDataSource{
             cell.btn_Delete.isHidden = true
         }
 
+        if refundShownSales && data.booking_status.capitalized == "Completed" &&
+            data.payment_type.capitalized == "Card"{
+            cell.vwRefund.isHidden = false
+        }else {
+            cell.vwRefund.isHidden = true
+        }
+        
+        cell.Act_Refund = {
+            let storyboard = UIStoryboard(name: "Home", bundle: nil)
+            if let vc = storyboard.instantiateViewController(withIdentifier: "RefundVC") as? RefundVC {
+                vc.bookingID = String(data.id)
+                vc.modalPresentationStyle = .overCurrentContext
+                vc.modalTransitionStyle = .crossDissolve
+                self.present(vc, animated: true)
+            }
+        }
+        
         cell.Act_Action = {
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
             if let vc = storyboard.instantiateViewController(withIdentifier: "Appointment_DetailsVC") as? Appointment_DetailsVC {

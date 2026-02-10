@@ -163,8 +163,6 @@ class AddServiceVC: UIViewController {
                 self.btn_service.setTitle(NSLocalizedString("Add Service",comment: ""), for: .normal)
             }
         }
-        
-        // Do any additional setup after loading the view.
     }
     
     
@@ -343,8 +341,6 @@ class AddServiceVC: UIViewController {
         self.txt_regulatPrice.setText(self.dictService?.price ?? "")
         self.txt_regulatPrice.setText(self.dictService?.price ?? "")
         self.txt_salesPrice.setText(String(self.dictService?.sale_price ?? "0"))
-        print("Resource :\(Int(self.dictService?.resource_id ?? "") ?? 0)")
-        print("resoucreId :\(resoucreId)")
         self.resoucreId = Int(self.dictService?.resource_id ?? "") ?? 0
         if dictService?.price_type == "Starts From"{
             selectedPriceType = "Starts From"

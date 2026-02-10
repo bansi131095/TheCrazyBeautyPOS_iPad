@@ -22,7 +22,7 @@ class global: NSObject
     
     // Staging
     static let base_url = "https://staging.thecrazybeauty.com/"
-    static let CAL_WEB_URL = "https://tcb-ten.vercel.app/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true"
+    static let CAL_WEB_URL = "https://tcb-ten.vercel.app/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true&lang="
      
     
     // LIVE
@@ -281,6 +281,8 @@ class global: NSObject
     
     var URL_GET_Top_Services = global.server_url + "top_services/"
     var URL_GET_Top_Staff = global.server_url + "top_staff/"
+    var URL_GET_POS_Return = global.server_url + "pos_return"
+    var URL_POS_REFUND = global.server_url + "pos_refund"
     
     var noDataLabel: UILabel?
     var hasUnreadNotification: Bool = false

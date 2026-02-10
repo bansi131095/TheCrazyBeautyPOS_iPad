@@ -88,7 +88,6 @@ class CouponVC: UIViewController {
             self.currentPage = 1
             self.couponList.removeAll()
             self.hasMoreData = true
-//            showLoader()
         }
 
         APIService.shared.getCouponDetails(page: "\(currentPage)", limit: "15", vendorId: LocalData.userId, search: Search){ staffResult in
@@ -144,18 +143,6 @@ class CouponVC: UIViewController {
             }
         }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension CouponVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {

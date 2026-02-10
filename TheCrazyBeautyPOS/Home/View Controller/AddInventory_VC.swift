@@ -35,14 +35,14 @@ class AddInventory_VC: UIViewController {
                 self.btn_AddInventory.setTitle(NSLocalizedString("Add Inventory",comment: ""), for: .normal)
             }
         }
-        let attributedTitleSync_1 = NSAttributedString(
+        let Cancel = NSAttributedString(
             string: NSLocalizedString("Cancel",comment: ""),
             attributes: [
                 .font: UIFont(name: "Lato-Regular", size: 16.0)!,
                 .foregroundColor: UIColor.red
             ]
         )
-        btn_Cancel.setAttributedTitle(attributedTitleSync_1, for: .normal)
+        btn_Cancel.setAttributedTitle(Cancel, for: .normal)
     }
     
     func setCustomFont() {

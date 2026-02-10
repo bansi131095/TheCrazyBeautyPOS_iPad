@@ -14130,5 +14130,128 @@ class APIService {
             }
         }
     }
+    
+    
+    
+    
+    
+    func posReturn(booking_id: String,completion: @escaping (RefundDataModel?) -> Void) {
+        let url = "\(global.shared.URL_GET_POS_Return)"
+        
+        let params: [String: Any] = [
+            "booking_id": booking_id,
+
+        ]
+        
+        print("🌐 URL: \(url)")
+        print("📤 Method: POST")
+        print("📤 Headers: \(self.headers)")
+        print("📤 Parameters: \(params)")
+
+        AF.request(
+            url,
+            method: .post,
+            parameters: params,
+            encoding: JSONEncoding.default,
+            headers: HTTPHeaders(headers)
+        )
+        .validate()
+        .responseJSON { response in
+            
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+            
+            switch response.result {
+            case .success(let value):
+                if let data = response.data,
+                   let rawJSON = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(rawJSON)")
+                }
+                
+                if let json = value as? [String: Any],
+                   let mapped = Mapper<RefundDataModel>().map(JSON: json) {
+                    print("✅ Parsed Response Object: \(mapped)")
+                    completion(mapped)
+                } else {
+                    print("⚠️ Failed to map JSON to CommonResponse")
+                    completion(nil)
+                }
+                
+            case .failure(let error):
+                print("❌ API Error: \(error.localizedDescription)")
+                if let data = response.data,
+                   let rawJSON = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(rawJSON)")
+                }
+                completion(nil)
+            }
+        }
+    }
+    
+    
+    
+    func posRefund(booking_id: String,transaction_id:String, completion: @escaping (CommonResponse?) -> Void) {
+
+        let url = global.shared.URL_POS_REFUND   // ✅ CHANGED HERE
+
+        let params: [String: Any] = [
+            "booking_id": booking_id,
+            "transaction_id": transaction_id
+        ]
+
+        print("🌐 URL: \(url)")
+        print("📤 Method: POST")
+        print("📤 Headers: \(self.headers)")
+        print("📤 Parameters: \(params)")
+
+        AF.request(
+            url,
+            method: .post,
+            parameters: params,
+            encoding: JSONEncoding.default,
+            headers: HTTPHeaders(headers)
+        )
+        .validate()
+        .responseJSON { response in
+
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            switch response.result {
+
+            case .success(let value):
+
+                if let data = response.data,
+                   let rawJSON = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(rawJSON)")
+                }
+
+                guard let json = value as? [String: Any],
+                      let mapped = Mapper<CommonResponse>().map(JSON: json) else {
+                    print("⚠️ Failed to map JSON to CommonResponse")
+                    completion(nil)
+                    return
+                }
+
+                print("✅ Parsed Response Object: \(mapped)")
+                completion(mapped)
+
+            case .failure(let error):
+
+                print("❌ API Error: \(error.localizedDescription)")
+
+                if let data = response.data,
+                   let rawJSON = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(rawJSON)")
+                }
+
+                completion(nil)
+            }
+        }
+    }
+
+    
 }
 

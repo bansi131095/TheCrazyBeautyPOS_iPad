@@ -49,14 +49,14 @@ class TeamRosterVC: UIViewController {
         view.backgroundColor = .white
         let title = NSLocalizedString("Download", comment: "")
         
-        let attributedTitle = NSAttributedString(
+        let Download = NSAttributedString(
             string: title,
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
             ]
         )
-        btnDownload.setAttributedTitle(attributedTitle, for: .normal)
+        btnDownload.setAttributedTitle(Download, for: .normal)
         self.api_getBusinessHours()
         setDefaultDateRangeAndFetch()
         self.setupTable()

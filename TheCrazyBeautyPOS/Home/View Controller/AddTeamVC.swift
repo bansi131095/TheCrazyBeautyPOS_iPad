@@ -87,14 +87,14 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         setupGenderTextField()
         setupDropdownTable()
         self.lbl_Visibility.text = (NSLocalizedString("Online Visibility",comment: ""))
-        let attributedTitleSync_1 = NSAttributedString(
+        let Cancel = NSAttributedString(
             string: NSLocalizedString("Cancel",comment: ""),
             attributes: [
                 .font: UIFont(name: "Lato-Regular", size: 16.0)!,
                 .foregroundColor: UIColor.red
             ]
         )
-        btn_Cancel.setAttributedTitle(attributedTitleSync_1, for: .normal)
+        btn_Cancel.setAttributedTitle(Cancel, for: .normal)
         if isEdit {
             self.btn_addEditTeam.setTitle(NSLocalizedString("Update Team Member",comment: ""), for: .normal)
             self.btn_editService.setTitle(NSLocalizedString("Edit Services",comment: ""), for: .normal)
@@ -265,7 +265,6 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
             }else{
                 self.genderTextField.text = ""
             }
-            print("checkGender:- \(dict.gender ?? "")")
             self.workingHoursJson = dict.workingHours ?? ""
             self.shiftTimingJson = dict.shiftTimings ?? ""
             self.serviceIds = dict.serviceIds ?? ""
@@ -393,14 +392,10 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
             self?.serviceIds = returnedData
             
             let count = returnedData.split(separator: ",").filter { $0 != "0" }.count
-//            self?.btn_editService.setTitle("Edit service (\(count))", for: .normal)
-//            self?.btn_editService.setTitle(NSLocalizedString("Edit Services",comment: ""), for: .normal)
             
             let format = NSLocalizedString("edit_services_count", comment: "")
             let finalTitle = String(format: format, "\(count)")
             self?.btn_editService.setTitle(finalTitle, for: .normal)
-
-            // self?.yourLabel.text = returnedData
         }
         self.present(editService, animated: true)
     }
@@ -597,28 +592,6 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
         self.present(imagePicker, animated: true)
     }
 
-    
-  /*  func showCalendarPopup(sourceView: UIView) {
-        calendarVC = UIViewController()
-        calendarVC?.modalPresentationStyle = .popover
-        calendarVC?.preferredContentSize = CGSize(width: 500, height: 400)
-
-        let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 500, height: 400))
-        calendar.delegate = self
-        calendar.dataSource = self
-
-        calendarVC?.view.addSubview(calendar)
-
-        if let popover = calendarVC?.popoverPresentationController {
-            popover.sourceView = sourceView
-            popover.sourceRect = sourceView.bounds
-            popover.permittedArrowDirections = .up
-        }
-
-        self.present(calendarVC!, animated: true, completion: nil)
-    } */
-    
-    
     func showCalendarPopup(sourceView: UIView) {
         calendarVC = UIViewController()
         calendarVC?.modalPresentationStyle = .popover
@@ -814,8 +787,6 @@ extension AddTeamVC: UIImagePickerControllerDelegate, UINavigationControllerDele
         picker.dismiss(animated: true)
 
         if let selectedImage = info[.originalImage] as? UIImage {
-            // Use selectedImage (e.g. assign to UIImageView)
-            print("Image selected")
             self.img_teamMember.image = selectedImage
             self.selectedImage = selectedImage
         }

@@ -582,7 +582,7 @@ class HomeVC: UIViewController {
         self.present(navigation, animated: true)
     }
     
-    //>>>>>>> ajay_work
+    
     /*
     // MARK: - Navigation
 

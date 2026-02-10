@@ -55,14 +55,14 @@ class OfflineGiftCardVC: UIViewController {
         setTableView()
         setCustomFont()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        let attributedTitleSync_1 = NSAttributedString(
+        let AddNew = NSAttributedString(
             string: NSLocalizedString("Add New",comment: ""),
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
             ]
         )
-        btn_AddNew.setAttributedTitle(attributedTitleSync_1, for: .normal)
+        btn_AddNew.setAttributedTitle(AddNew, for: .normal)
 //        self.loadData(Search: "", filter: self.txt_Filter.text?.lowercased() ?? "active")
     }
     

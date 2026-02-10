@@ -42,23 +42,32 @@ class ServicesVC: UIViewController {
         btn_AddNew.setTitle(NSLocalizedString("Add New", comment: ""), for: .normal)
         btn_ServiceSequence.setTitle(NSLocalizedString("ServiceSequence", comment: ""), for: .normal)
         
-        let attributedTitleSync = NSAttributedString(
+        let ServiceSequence = NSAttributedString(
             string: NSLocalizedString("ServiceSequence",comment: ""),
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
             ]
         )
-        btn_ServiceSequence.setAttributedTitle(attributedTitleSync, for: .normal)
+        btn_ServiceSequence.setAttributedTitle(ServiceSequence, for: .normal)
         
-        let attributedTitleSync_1 = NSAttributedString(
+        let AddNew = NSAttributedString(
             string: NSLocalizedString("Add New",comment: ""),
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
             ]
         )
-        btn_AddNew.setAttributedTitle(attributedTitleSync_1, for: .normal)
+        btn_AddNew.setAttributedTitle(AddNew, for: .normal)
+        
+        let Resources = NSAttributedString(
+            string: NSLocalizedString("Resources",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btnResources.setAttributedTitle(Resources, for: .normal)
         
         self.setTableView()
         self.setCustomFont()

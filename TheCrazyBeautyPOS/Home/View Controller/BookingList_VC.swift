@@ -386,18 +386,6 @@ class BookingList_VC: UIViewController, UIPopoverPresentationControllerDelegate 
         }
     }
     
-    /*func get_Staff(id:String){
-        self.showLoader()
-        APIService.shared.fetchStaffList(service_id: id) { result in
-            self.hideLoader()
-            guard let model = result else {
-                return
-            }
-            self.staffList = result?.data ?? []
-            
-        }
-    }*/
-    
     func get_Staff(id: String) {
         self.showLoader()
         APIService.shared.fetchStaffList(service_id: id) { result in
@@ -765,43 +753,6 @@ extension BookingList_VC: UITextFieldDelegate {
         }
     }
 }
-
-/*extension UIViewController{
-    
-    func showNoDataMessage(_ message: String, in parentView: UIView) {
-        // If already exists, don’t add again
-        if global.shared.noDataLabel == nil {
-            let label = UILabel()
-            label.textAlignment = .center
-            label.textColor = .gray
-            label.font = UIFont(name: "Lato-Medium", size: 18.0)
-            label.numberOfLines = 0
-            label.translatesAutoresizingMaskIntoConstraints = false
-            parentView.addSubview(label)
-            
-            // Center label in parent view
-            NSLayoutConstraint.activate([
-                label.centerXAnchor.constraint(equalTo: parentView.centerXAnchor),
-                label.centerYAnchor.constraint(equalTo: parentView.centerYAnchor, constant: 50),
-                label.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: 20),
-                label.trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant: -20)
-            ])
-            
-            global.shared.noDataLabel = label
-        }
-        
-//        global.shared.noDataLabel?.text = message
-        global.shared.noDataLabel?.isHidden = false
-        
-        global.shared.noDataLabel?.text = NSLocalizedString(message, comment: "")
-    }
-
-    func hideNoDataMessage() {
-        global.shared.noDataLabel?.isHidden = true
-    }
-
-    
-}*/
 
 extension UIViewController {
 

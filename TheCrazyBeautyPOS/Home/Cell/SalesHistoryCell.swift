@@ -23,9 +23,15 @@ class SalesHistoryCell: UITableViewCell {
     @IBOutlet weak var btn_Mail: UIButton!
     @IBOutlet weak var btn_Delete: UIButton!
     
+    @IBOutlet weak var vwRefund: UIView!
+    @IBOutlet weak var lbl_Refund: UILabel!
+    @IBOutlet weak var btn_Refund: UIButton!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setCustomFont()
+        self.lbl_Refund.text = NSLocalizedString("Refund",comment: "")
     }
 
     func setCustomFont() {
@@ -60,5 +66,10 @@ class SalesHistoryCell: UITableViewCell {
     var Act_Delete:(()->Void)?
     @IBAction func act_Delete(_ sender: Any) {
         self.Act_Delete?()
+    }
+    
+    var Act_Refund:(()->Void)?
+    @IBAction func act_Refund(_ sender: Any) {
+        self.Act_Refund?()
     }
 }

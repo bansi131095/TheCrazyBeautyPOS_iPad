@@ -17,8 +17,6 @@ class AddResources_VC: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var txt_Description: FloatingTextView!
     
     @IBOutlet weak var tbl_AllResources: UITableView!
-    
-    
     @IBOutlet weak var lbl_AddResources: UILabel!
     
     //MARK: - Global Variable
@@ -211,6 +209,9 @@ extension AddResources_VC: UITableViewDelegate,UITableViewDataSource {
                 self.txt_Name.text = self.resourcListClient?.name
                 self.txt_Description.text = self.resourcListClient?.description ?? ""
                 self.txt_Qty.text = String(self.resourcListClient?.qty ?? 0)
+                
+                self.txt_Name.showLabel()
+                self.txt_Qty.showLabel()
             }
             
         }

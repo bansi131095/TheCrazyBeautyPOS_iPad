@@ -50,14 +50,14 @@ class PatchTestList_VC: UIViewController,UIPopoverPresentationControllerDelegate
         test(id:id)
         loadData()
         setCustomFont()
-        let attributedTitleSync_1 = NSAttributedString(
+        let Cancel = NSAttributedString(
             string: NSLocalizedString("Cancel",comment: ""),
             attributes: [
                 .font: UIFont(name: "Lato-Regular", size: 16.0)!,
                 .foregroundColor: UIColor.black
             ]
         )
-        btn_Cancel.setAttributedTitle(attributedTitleSync_1, for: .normal)
+        btn_Cancel.setAttributedTitle(Cancel, for: .normal)
         
         let AddTest = NSAttributedString(
             string: NSLocalizedString("Add Test",comment: ""),
