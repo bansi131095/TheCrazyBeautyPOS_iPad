@@ -261,6 +261,7 @@ class global: NSObject
     var URL_UPDATE_RESOURCE = global.server_url + "update_resource"
     var URL_ADD_RESOURCE = global.server_url + "add_resource"
     var URL_DELETE_RESOURCE = global.server_url + "delete_resource/"
+    var URL_DELETE_ADDON = global.server_url + "delete_addon/"
     
     var URL_LOGIN_SUBVENDOR = global.server_url + "login_subvendor"
     var URL_TODAY_BOOKINGS = global.server_url + "today_bookings"
@@ -283,6 +284,12 @@ class global: NSObject
     var URL_GET_Top_Staff = global.server_url + "top_staff/"
     var URL_GET_POS_Return = global.server_url + "pos_return"
     var URL_POS_REFUND = global.server_url + "pos_refund"
+    
+    
+    
+    var URL_ADD_ADDON = global.server_url + "add_addon"
+    var URL_ADDON_DETAILS = global.server_url + "addon_details"
+    var URL_UPDATE_ADDON = global.server_url + "update_addon"
     
     var noDataLabel: UILabel?
     var hasUnreadNotification: Bool = false

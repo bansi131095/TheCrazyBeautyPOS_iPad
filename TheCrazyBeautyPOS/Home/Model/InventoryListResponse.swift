@@ -34,7 +34,16 @@ class InventoryData: Mappable {
     var description: String = ""
     var price: Int = 0
     var qty: Int = 0
-
+    
+    
+    
+    var addon_description: String = ""
+    var addon_name: String = ""
+    var addon_duration: Int = 0
+    var addon_price: Double = 0.0
+    var is_deleted: Int = 0
+    
+    
     required init?(map: Map) {}
 
     func mapping(map: Map) {
@@ -45,5 +54,11 @@ class InventoryData: Mappable {
         description  <- map["description"]
         price         <- map["price"]
         qty           <- map["qty"]
+        
+        addon_description           <- map["addon_description"]
+        addon_name           <- map["addon_name"]
+        addon_duration           <- map["addon_duration"]
+        addon_price           <- map["addon_price"]
+        is_deleted           <- map["is_deleted"]
     }
 }

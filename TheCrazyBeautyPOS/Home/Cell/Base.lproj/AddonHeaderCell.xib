@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad10_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato_bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="AddonHeaderCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddonHeaderCell" rowHeight="50" id="KGk-i7-Jjw" customClass="AddonHeaderCell" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="800" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="800" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f4d-oj-XVR">
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="50"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zzb-jL-840">
+                                <rect key="frame" x="10" y="14" width="30" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="dLf-lG-gC0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
+                                <color key="textColor" name="AppBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIT-OZ-HbI">
+                                <rect key="frame" x="50" y="14" width="200" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="yOK-AI-7tL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
+                                <color key="textColor" name="AppBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Prs-r4-0YR">
+                                <rect key="frame" x="265" y="14" width="100" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="v7l-de-dlc"/>
+                                </constraints>
+                                <string key="text">Duration	</string>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
+                                <color key="textColor" name="AppBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dk-Ev-Tlc">
+                                <rect key="frame" x="380" y="14" width="100" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="SW7-gc-EZa"/>
+                                </constraints>
+                                <string key="text">Price	</string>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
+                                <color key="textColor" name="AppBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08v-9m-GFB">
+                                <rect key="frame" x="495" y="14" width="220" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="cIr-ql-zWs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
+                                <color key="textColor" name="AppBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Action" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jwg-8A-hpf">
+                                <rect key="frame" x="725" y="14" width="65" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="65" id="KrL-Hw-FV8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
+                                <color key="textColor" name="AppBlack"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="08v-9m-GFB" firstAttribute="top" secondItem="zzb-jL-840" secondAttribute="top" id="1Ia-gf-Bfb"/>
+                            <constraint firstItem="jwg-8A-hpf" firstAttribute="top" secondItem="zzb-jL-840" secondAttribute="top" id="53U-gc-sAx"/>
+                            <constraint firstItem="Prs-r4-0YR" firstAttribute="leading" secondItem="uIT-OZ-HbI" secondAttribute="trailing" constant="15" id="EtW-hW-36c"/>
+                            <constraint firstItem="4dk-Ev-Tlc" firstAttribute="centerY" secondItem="Prs-r4-0YR" secondAttribute="centerY" id="F79-X2-5pU"/>
+                            <constraint firstItem="uIT-OZ-HbI" firstAttribute="top" secondItem="zzb-jL-840" secondAttribute="top" id="Gyb-bp-6LL"/>
+                            <constraint firstItem="jwg-8A-hpf" firstAttribute="leading" secondItem="08v-9m-GFB" secondAttribute="trailing" constant="10" id="MTr-9z-5yi"/>
+                            <constraint firstItem="Prs-r4-0YR" firstAttribute="top" secondItem="zzb-jL-840" secondAttribute="top" id="TLG-bn-xmP"/>
+                            <constraint firstItem="zzb-jL-840" firstAttribute="leading" secondItem="f4d-oj-XVR" secondAttribute="leading" constant="10" id="Ybx-i4-2Vb"/>
+                            <constraint firstItem="08v-9m-GFB" firstAttribute="leading" secondItem="4dk-Ev-Tlc" secondAttribute="trailing" constant="15" id="bt4-bG-6U4"/>
+                            <constraint firstItem="4dk-Ev-Tlc" firstAttribute="leading" secondItem="Prs-r4-0YR" secondAttribute="trailing" constant="15" id="ddv-5R-BTe"/>
+                            <constraint firstItem="uIT-OZ-HbI" firstAttribute="leading" secondItem="zzb-jL-840" secondAttribute="trailing" constant="10" id="kFM-Aj-yJf"/>
+                            <constraint firstAttribute="height" constant="50" id="vaB-41-p3J"/>
+                            <constraint firstAttribute="trailing" secondItem="jwg-8A-hpf" secondAttribute="trailing" constant="10" id="xAc-l6-nu1"/>
+                            <constraint firstItem="zzb-jL-840" firstAttribute="centerY" secondItem="f4d-oj-XVR" secondAttribute="centerY" id="zBP-bY-g43"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="f4d-oj-XVR" secondAttribute="bottom" id="7vC-gg-1Z5"/>
+                    <constraint firstItem="f4d-oj-XVR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="CC4-cH-wfR"/>
+                    <constraint firstAttribute="trailing" secondItem="f4d-oj-XVR" secondAttribute="trailing" id="b6h-JB-RyW"/>
+                    <constraint firstItem="f4d-oj-XVR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="gma-L9-A5d"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <point key="canvasLocation" x="792.07317073170725" y="39.152542372881356"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="AppBlack">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

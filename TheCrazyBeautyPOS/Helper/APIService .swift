@@ -13364,6 +13364,65 @@ class APIService {
         }.resume()
     }
 
+    func deleteAddon(id: Int, completion: @escaping (CommonResponse?) -> Void) {
+        let urlString = "\(global.shared.URL_DELETE_ADDON)\(id)"
+        guard let url = URL(string: urlString) else { return }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.headers = HTTPHeaders(headers)
+
+        let params: [String: Any] = [:]
+
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: params, options: [])
+            request.httpBody = jsonData
+        } catch {
+            print("❌ Failed to encode JSON: \(error)")
+            completion(nil)
+            return
+        }
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("❌ Request error: \(error)")
+                completion(nil)
+                return
+            }
+
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("❌ Invalid response")
+                completion(nil)
+                return
+            }
+
+            print("📬 Status Code: \(httpResponse.statusCode)")
+
+            guard let data = data else {
+                print("❌ No data returned")
+                completion(nil)
+                return
+            }
+
+            // 🧠 Parse JSON using ObjectMapper
+            do {
+                let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
+                if let model: CommonResponse = Mapper<CommonResponse>().map(JSONObject: jsonObject) {
+                    print("✅ Parsed Response: \(model)")
+                    completion(model)
+                } else {
+                    print("❌ Mapping failed — unexpected JSON structure.")
+                    completion(nil)
+                }
+            } catch {
+                print("❌ JSON Parsing failed: \(error)")
+                if let raw = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(raw)")
+                }
+                completion(nil)
+            }
+        }.resume()
+    }
     
     // MARK: - Subvendor Login
     func subvendorLogin(email: String, password: String, completion: @escaping (subVendor?) -> Void) {
@@ -14252,6 +14311,171 @@ class APIService {
         }
     }
 
+    func AddAddon(addon_description: String,addon_duration: String,addon_name: String,addon_price: String,
+        vendor_id: String,completion: @escaping (AddResource?) -> Void) {
+        let url = global.shared.URL_ADD_ADDON
+
+        let params: [String: Any] = [
+            "addon_description": addon_description,
+            "addon_duration": addon_duration,
+            "addon_name": addon_name,
+            "addon_price": addon_price,
+            "vendor_id": vendor_id
+        ]
+
+        // 🌐 Log Request Info
+        print("🌐 URL: \(url)")
+        print("📤 Parameters: \(params)")
+        print("📤 Headers: \(headers)")
+
+        AF.request(
+            url,
+            method: .post,
+            parameters: params,
+            encoding: JSONEncoding.default,
+            headers: HTTPHeaders(headers)
+        )
+        .validate()
+        .responseJSON { response in
+            // 📩 Log HTTP response status
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            // 🧾 Log raw response
+            if let data = response.data,
+               let rawResponse = String(data: data, encoding: .utf8) {
+                print("📥 Raw Response: \(rawResponse)")
+            }
+
+            // 🧠 Parse JSON → AddResource using ObjectMapper
+            switch response.result {
+            case .success(let json):
+                if let model: AddResource = Mapper<AddResource>().map(JSONObject: json) {
+                    print("✅ Parsed AddResource Model: \(model)")
+                    completion(model)
+                } else {
+                    print("❌ Mapping failed — unexpected JSON structure.")
+                    completion(nil)
+                }
+
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                if let data = response.data,
+                   let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                completion(nil)
+            }
+        }
+    }
     
+    func AddonDetails(vendorId: String, completion: @escaping (InventoryListResponse?) -> Void) {
+        let url = global.shared.URL_ADDON_DETAILS
+
+        let params: [String: Any] = [
+            "vendor_id": vendorId
+        ]
+
+        print("🌐 URL: \(url)")
+        print("📤 Parameters: \(params)")
+        print("📤 Headers: \(headers)")
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: HTTPHeaders(headers))
+            .validate()
+            .responseJSON { response in
+
+                // 📩 Print HTTP status
+                if let httpResponse = response.response {
+                    print("✅ Status Code: \(httpResponse.statusCode)")
+                }
+
+                // 📦 Print raw JSON for debugging
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+
+                switch response.result {
+                case .success(let json):
+                    if let model: InventoryListResponse = Mapper<InventoryListResponse>().map(JSONObject: json) {
+                        print("✅ Parsed Response Object: \(model)")
+                        completion(model)
+                    } else {
+                        print("❌ Mapping failed — unexpected JSON structure")
+                        completion(nil)
+                    }
+
+                case .failure(let error):
+                    print("❌ Error: \(error.localizedDescription)")
+                    if let data = response.data,
+                       let responseStr = String(data: data, encoding: .utf8) {
+                        print("📦 Raw Response: \(responseStr)")
+                    }
+                    completion(nil)
+                }
+            }
+    }
+    
+    
+    // MARK: - Update Addon
+    func updateAddon(addon_description: String,addon_duration: String,addon_id: String,addon_name: String,vendor_id:String,addon_price:String,
+        completion: @escaping (CommonResponse?) -> Void) {
+        let url = global.shared.URL_UPDATE_ADDON
+
+        let params: [String: Any] = [
+            "vendor_id": vendor_id,
+            "addon_description": addon_description,
+            "addon_duration": addon_duration,
+            "addon_id": addon_id,
+            "addon_name": addon_name,
+            "addon_price": addon_price
+        ]
+
+        // 🌐 Log Request Info
+        print("🌐 URL: \(url)")
+        print("📤 Parameters: \(params)")
+        print("📤 Headers: \(headers)")
+
+        AF.request(
+            url,
+            method: .post,
+            parameters: params,
+            encoding: JSONEncoding.default,
+            headers: HTTPHeaders(headers)
+        )
+        .validate()
+        .responseJSON { response in
+            // 📩 Log HTTP response status
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            // 🧾 Log raw JSON response
+            if let data = response.data,
+               let rawResponse = String(data: data, encoding: .utf8) {
+                print("📥 Raw Response: \(rawResponse)")
+            }
+
+            // 🧠 Parse JSON → CommonResponses using ObjectMapper
+            switch response.result {
+            case .success(let json):
+                if let model: CommonResponse = Mapper<CommonResponse>().map(JSONObject: json) {
+                    print("✅ Parsed Response Object: \(model)")
+                    completion(model)
+                } else {
+                    print("❌ Mapping failed — unexpected JSON structure.")
+                    completion(nil)
+                }
+
+            case .failure(let error):
+                print("❌ Error: \(error.localizedDescription)")
+                if let data = response.data,
+                   let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+                completion(nil)
+            }
+        }
+    }
 }
 

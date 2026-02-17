@@ -1,20 +1,21 @@
 //
-//  PreferredStaffPopupViewController.swift
+//  AddonCollectionVC.swift
 //  TheCrazyBeautyPOS
 //
-//  Created by Xceptive iOS on 03/07/25.
+//  Created by mini new on 16/02/26.
 //
-
 
 import UIKit
 
+class AddonCollectionVC: UIViewController {
 
-class PreferredStaffPopupViewController: UIViewController {
-
-    var staffList: [StaffData] = []
-    var selectedStaff: [String] = []
+    
+    
+    var AddonSelected:[String] = []
+    var addonList: [InventoryData] = []
     var onComplete: (([String]) -> Void)?
-
+    
+    
     private let containerView = UIView()
     private let titleLabel = UILabel()
     private let closeButton = UIButton(type: .system)
@@ -41,13 +42,14 @@ class PreferredStaffPopupViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         updatePopupHeight()
     }
     
+
     private func setupViews() {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
 
@@ -110,7 +112,7 @@ class PreferredStaffPopupViewController: UIViewController {
             }
         }
     }
-    
+
     private func applyConstraints() {
         [titleLabel, closeButton, collectionView, continueButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -137,13 +139,14 @@ class PreferredStaffPopupViewController: UIViewController {
             continueButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
         ])
     }
-
+    
+    
     @objc private func closeTapped() {
         dismiss(animated: true)
     }
 
     @objc private func continueTapped() {
-        onComplete?(Array(selectedStaff))
+        onComplete?(Array(AddonSelected))
         dismiss(animated: true)
     }
 
@@ -154,36 +157,34 @@ class PreferredStaffPopupViewController: UIViewController {
         gradient.cornerRadius = 30
         button.layer.insertSublayer(gradient, at: 0)
     }
-
-
     
 }
 
-
-extension PreferredStaffPopupViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension AddonCollectionVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return staffList.count
+        return addonList.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TagCell", for: indexPath) as? TagCell else {
             return UICollectionViewCell()
         }
-        let name = (staffList[indexPath.item].firstName ?? "") + " " + (staffList[indexPath.item].lastName ?? "")
-        cell.configure(with: name, selected: selectedStaff.contains("\(staffList[indexPath.item].id ?? 0)"))
+        let name = (addonList[indexPath.item].addon_name) + String((addonList[indexPath.item].addon_price))
+        cell.configure(with: name, selected: AddonSelected.contains("\(addonList[indexPath.item].id ?? 0)"))
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let staff = staffList[indexPath.item].id ?? 0
-        if selectedStaff.contains("\(staff)") {
-            if let index = selectedStaff.firstIndex(of: "\(staff)") {
-                selectedStaff.remove(at: index)
+        let staff = addonList[indexPath.item].id ?? 0
+        if AddonSelected.contains("\(staff)") {
+            if let index = AddonSelected.firstIndex(of: "\(staff)") {
+                AddonSelected.remove(at: index)
             }
         } else {
-            selectedStaff.append("\(staff)")
+            AddonSelected.append("\(staff)")
         }
         collectionView.reloadItems(at: [indexPath])
     }
     
 }
+

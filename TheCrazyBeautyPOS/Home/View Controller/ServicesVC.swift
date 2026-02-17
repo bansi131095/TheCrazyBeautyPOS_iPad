@@ -23,6 +23,10 @@ class ServicesVC: UIViewController {
     @IBOutlet weak var btn_AddNew: GradientButton!
     @IBOutlet weak var btn_ServiceSequence: GradientButton!
     
+    @IBOutlet weak var btn_Addon: GradientButton!
+    @IBOutlet weak var vw_Addon: UIView!
+    @IBOutlet weak var btn_AddAddon: UIButton!
+    @IBOutlet weak var btn_ViewAddon: UIButton!
     
     var serviceList: [ServiceData] = []
     var searchWorkItem: DispatchWorkItem?
@@ -37,10 +41,6 @@ class ServicesVC: UIViewController {
         super.viewDidLoad()
         self.vw_SubResource.isHidden = true
         contentViewWidthConstraint.constant = 200 // or any dynamic value
-        
-        btnResources.titleLabel?.font = UIFont(name: "Lato-Bold", size: 20.0)!
-        btn_AddNew.setTitle(NSLocalizedString("Add New", comment: ""), for: .normal)
-        btn_ServiceSequence.setTitle(NSLocalizedString("ServiceSequence", comment: ""), for: .normal)
         
         let ServiceSequence = NSAttributedString(
             string: NSLocalizedString("ServiceSequence",comment: ""),
@@ -61,13 +61,22 @@ class ServicesVC: UIViewController {
         btn_AddNew.setAttributedTitle(AddNew, for: .normal)
         
         let Resources = NSAttributedString(
-            string: NSLocalizedString("Resources",comment: ""),
+            string: NSLocalizedString("           Resources",comment: ""),
             attributes: [
                 .font: UIFont(name: "Lato-Bold", size: 20.0)!,
                 .foregroundColor: UIColor.white
             ]
         )
         btnResources.setAttributedTitle(Resources, for: .normal)
+        
+        let Addon = NSAttributedString(
+            string: NSLocalizedString("         Addon",comment: ""),
+            attributes: [
+                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .foregroundColor: UIColor.white
+            ]
+        )
+        btn_Addon.setAttributedTitle(Addon, for: .normal)
         
         self.setTableView()
         self.setCustomFont()
@@ -169,6 +178,7 @@ class ServicesVC: UIViewController {
     }
     
     @IBAction func act_Resources(_ sender: Any) {
+        self.vw_Addon.isHidden = true
         if vw_SubResource.isHidden == false {
             vw_SubResource.isHidden = true
         }else{
@@ -196,6 +206,37 @@ class ServicesVC: UIViewController {
         self.present(popup, animated: true , completion: nil)
         
     }
+    
+    @IBAction func btn_Addon(_ sender: Any) {
+        self.vw_SubResource.isHidden = true
+        if self.vw_Addon.isHidden == false{
+            self.vw_Addon.isHidden = true
+        }else{
+            self.vw_Addon.isHidden = false
+        }
+    }
+    
+    
+    @IBAction func btn_AddAddon(_ sender: Any) {
+        self.vw_Addon.isHidden = true
+        let popup = self.storyboard?.instantiateViewController(withIdentifier: "AddAddon_VC") as! AddAddon_VC
+        popup.addAddon = "AddAddon"
+        popup.modalPresentationStyle = .overCurrentContext
+        popup.modalTransitionStyle = .crossDissolve
+        self.present(popup, animated: true , completion: nil)
+        
+    }
+    
+    
+    @IBAction func btn_ViewAddon(_ sender: Any) {
+        self.vw_Addon.isHidden = true
+        let popup = self.storyboard?.instantiateViewController(withIdentifier: "AddAddon_VC") as! AddAddon_VC
+        popup.addAddon = "AllAddon"
+        popup.modalPresentationStyle = .overCurrentContext
+        popup.modalTransitionStyle = .crossDissolve
+        self.present(popup, animated: true , completion: nil)
+    }
+    
     
     //MARK: Delete API
     func deleteServiceData(serviceId: Int) {
