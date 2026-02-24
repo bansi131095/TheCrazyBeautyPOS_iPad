@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad10_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -385,13 +386,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Fields marked with an asterisk(*) are required" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LuE-Ng-mVB">
-                                <rect key="frame" x="30" y="73" width="1120" height="24"/>
-                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
+                                <rect key="frame" x="30" y="73" width="1120" height="22"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="18"/>
                                 <color key="textColor" name="Red"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HXZ-y7-BjZ" userLabel="EmailAddress">
-                                <rect key="frame" x="10" y="117" width="1155" height="60"/>
+                                <rect key="frame" x="10" y="115" width="1155" height="60"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Email Address *" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VxN-dT-923" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
                                         <rect key="frame" x="15" y="0.0" width="1140" height="60"/>
@@ -439,7 +440,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CQo-VV-CfR" userLabel="Password">
-                                <rect key="frame" x="10" y="197" width="1155" height="60"/>
+                                <rect key="frame" x="10" y="195" width="1155" height="60"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Password *" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V3d-P2-3o5" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
                                         <rect key="frame" x="15" y="0.0" width="1140" height="60"/>
@@ -501,7 +502,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cMI-LY-L8W" customClass="GradientButton" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                <rect key="frame" x="25" y="287" width="1140" height="60"/>
+                                <rect key="frame" x="25" y="285" width="1140" height="60"/>
                                 <color key="backgroundColor" name="AccentColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Z3r-sU-jIe"/>
@@ -1158,13 +1159,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="54n-9H-9r8">
-                                <rect key="frame" x="30" y="73" width="1120" height="22.5"/>
+                                <rect key="frame" x="30" y="73" width="1120" height="21"/>
                                 <attributedString key="attributedText">
                                     <fragment content="All fields marked with an asterisk (*) are required.">
                                         <attributes>
                                             <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="NSColor" red="0.8627451062" green="0.20784313979999999" blue="0.270588249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" size="19" name="PTSans-Regular"/>
+                                            <font key="NSFont" size="18" name="PTSans-Regular"/>
                                             <real key="NSKern" value="0.0"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
                                                 <tabStops/>
@@ -1177,7 +1178,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I0a-0F-Ivx" userLabel="Name">
-                                <rect key="frame" x="10" y="115.5" width="1155" height="60"/>
+                                <rect key="frame" x="10" y="114" width="1155" height="60"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Name *" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oAT-hT-hV9" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
                                         <rect key="frame" x="15" y="0.0" width="1140" height="60"/>
@@ -1223,7 +1224,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AQj-wG-W3B" userLabel="EmailAddress">
-                                <rect key="frame" x="10" y="195.5" width="1155" height="60"/>
+                                <rect key="frame" x="10" y="194" width="1155" height="60"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Email *" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gs6-9l-jNz" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
                                         <rect key="frame" x="15" y="0.0" width="1140" height="60"/>
@@ -1268,7 +1269,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dUk-n9-LLj" userLabel="Password">
-                                <rect key="frame" x="10" y="275.5" width="1155" height="60"/>
+                                <rect key="frame" x="10" y="274" width="1155" height="60"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Password *" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ejk-I4-YcY" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
                                         <rect key="frame" x="15" y="0.0" width="1140" height="60"/>
@@ -1330,7 +1331,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="hZf-Yo-6IT">
-                                <rect key="frame" x="10" y="355.5" width="1155" height="60"/>
+                                <rect key="frame" x="10" y="354" width="1155" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="he6-6y-oo9" customClass="GradientButton" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="570" height="60"/>
@@ -4622,19 +4623,19 @@ To Partner.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="General Information" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8UU-vb-qTb">
-                                <rect key="frame" x="30" y="44" width="1120" height="26.5"/>
-                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="22"/>
+                                <rect key="frame" x="30" y="44" width="1120" height="24"/>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="AppBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All fields marked with an asterisk (*) are required." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQG-cx-xYW">
-                                <rect key="frame" x="30" y="75.5" width="1120" height="24"/>
-                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
+                                <rect key="frame" x="30" y="73" width="1120" height="22"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="18"/>
                                 <color key="textColor" name="Red"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s2e-Jc-qNG">
-                                <rect key="frame" x="0.0" y="109.5" width="1180" height="660.5"/>
+                                <rect key="frame" x="0.0" y="105" width="1180" height="665"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Sh-Lj-7ND">
                                         <rect key="frame" x="0.0" y="0.0" width="1180" height="1542.5"/>
@@ -6227,13 +6228,13 @@ To Partner.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Salon Currency" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E2k-bU-HTL">
-                                <rect key="frame" x="30" y="44" width="1120" height="29"/>
-                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="24"/>
+                                <rect key="frame" x="30" y="44" width="1120" height="24"/>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="AppBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="13w-B7-XHq" userLabel="SalonCurrency">
-                                <rect key="frame" x="30" y="93" width="1120" height="65"/>
+                                <rect key="frame" x="30" y="88" width="1120" height="65"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Salon Currency" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oW9-GP-kua" customClass="TextInputLayout" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.5" width="1120" height="64"/>
@@ -6303,7 +6304,7 @@ To Partner.</string>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GUp-wb-c92" customClass="GradientButton" customModule="TheCrazyBeautyPOS" customModuleProvider="target">
-                                <rect key="frame" x="30" y="183" width="1120" height="64"/>
+                                <rect key="frame" x="30" y="178" width="1120" height="64"/>
                                 <color key="backgroundColor" name="AccentColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="1if-FA-Xzx"/>
@@ -7173,13 +7174,13 @@ To Partner.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All fields marked with an asterisk (*) are required." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fc9-XI-dfk">
-                                <rect key="frame" x="30" y="73" width="1120" height="24"/>
-                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
+                                <rect key="frame" x="30" y="73" width="1120" height="22"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="18"/>
                                 <color key="textColor" name="Red"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="scw-dh-lqB">
-                                <rect key="frame" x="0.0" y="117" width="1180" height="653"/>
+                                <rect key="frame" x="0.0" y="115" width="1180" height="655"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jbr-wt-uD8">
                                         <rect key="frame" x="0.0" y="0.0" width="1180" height="798"/>

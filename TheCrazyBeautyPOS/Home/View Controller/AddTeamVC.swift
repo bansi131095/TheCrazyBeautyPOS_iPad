@@ -163,7 +163,7 @@ class AddTeamVC: UIViewController, UIPopoverPresentationControllerDelegate {
     }
     
     func setCustomFont() {
-        if let customFont = UIFont(name: "Lato-Bold", size: 20.0) {
+        if let customFont = UIFont(name: "Lato-Bold", size: 18.0) {
             btn_editService.titleLabel?.font = customFont
             btn_editSchedule.titleLabel?.font = customFont
             btn_addTimeOff.titleLabel?.font = customFont

@@ -8,7 +8,7 @@
 import UIKit
 import DropDown
 
-class AddServiceVC: UIViewController {
+class AddServiceVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var lbl_title: UILabel!
     @IBOutlet weak var txt_serviceName: TextInputLayout!
@@ -53,6 +53,12 @@ class AddServiceVC: UIViewController {
     
     @IBOutlet weak var lbl_AllField: UILabel!
     
+    
+    @IBOutlet weak var vw_Addon: UIView!
+    @IBOutlet weak var txt_Addone: TextInputLayout!
+    @IBOutlet weak var tagAddone: UIView!
+    
+    
     var dictService: ServiceData?
     var isEdit = false
     var durationList:[DurationItem] = []
@@ -66,10 +72,12 @@ class AddServiceVC: UIViewController {
     let serviceForTableView = UITableView()
     var isServiceForVisible = false
     var selected:[String] = []
+    var selectedAddon:[String] = []
     var selectedDuration = 0
     var parentId = 0
     var resoucreId = 0
-    
+    var AddonId = 0
+
     
     var hasSubService = "0"
     var isSubService = "0"
@@ -123,6 +131,10 @@ class AddServiceVC: UIViewController {
     var resourcList: [InventoryData] = []
     var mainServices: [ServiceDatas] = []
     
+    var addonList: [InventoryData] = []
+    var selectedAddonList: [InventoryData] = []
+    var addonClientList: InventoryData?
+    
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,17 +145,21 @@ class AddServiceVC: UIViewController {
         setRegularFont()
         /*if let customFont = UIFont(name: "Lato-Medium", size: 22.0) {
             lbl_vendorOnly.font = customFont
-            
         }*/
         lbl_vendorOnly.text = NSLocalizedString("Vendor Only", comment: "")
-        lbl_vendorOnly?.font = UIFont(name: "Lato-Bold", size: 24.0)!
+        lbl_vendorOnly?.font = UIFont(name: "Lato-Bold", size: 20.0)!
         self.lbl_AllField.text = NSLocalizedString("All fields marked with an asterisk (*) are required.", comment: "")
         self.loadDuationData()
         self.loadCategoryData()
         self.loadData()
+        self.loadAddonData()
         staffTextField.delegate = self
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openStaffPopup))
         staffTextField.addGestureRecognizer(tapGesture)
+        
+        txt_Addone.delegate = self
+        let AddonGesture = UITapGestureRecognizer(target: self, action: #selector(openAddonPopup))
+        txt_Addone.addGestureRecognizer(AddonGesture)
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if self.isEdit {
                 self.lbl_title.text = NSLocalizedString("Edit Service", comment: "")
@@ -285,6 +301,31 @@ class AddServiceVC: UIViewController {
         self.present(popup, animated: true)
     }
     
+    
+    @IBAction func btn_Addon(_ sender: Any) {
+        if selectedAddonList.isEmpty {
+            selectedAddon.removeAll()
+            } else {
+                // Build fresh selected IDs from selectedStaffList
+                selectedAddon = selectedAddonList.compactMap { "\($0.id)" }
+            }
+        let popup = AddonCollectionVC()
+        popup.addonList = addonList
+        popup.AddonSelected = selectedAddon
+        popup.onComplete = { selected in
+            print("Selected staff: \(selected)")
+            self.selectedAddonList = []
+            self.selectedAddon = selected
+            for staff in self.addonList {
+                if selected.contains("\(staff.id)") {
+                    self.selectedAddonList.append(staff)
+                }
+            }
+            self.openAddonTages()
+        }
+        self.present(popup, animated: true)
+    }
+    
     @IBAction func btn_TypeOfService(_ sender: Any) {
         openTypeofService()
     }
@@ -326,6 +367,7 @@ class AddServiceVC: UIViewController {
             txt_regulatPrice.font = customFont
             txt_salesPrice.font = customFont
             staffTextField.font = customFont
+            txt_Addone.font = customFont
             txt_TypeofService.font = customFont
             txt_SecondaryType.font = customFont
             txt_ParentService.font = customFont
@@ -598,6 +640,30 @@ class AddServiceVC: UIViewController {
         
     }
     
+    @objc func openAddonPopup() {
+        if selectedAddonList.isEmpty {
+            selectedAddon.removeAll()
+            } else {
+                // Build fresh selected IDs from selectedStaffList
+                selectedAddon = selectedAddonList.compactMap { "\($0.id)" }
+            }
+        let popup = AddonCollectionVC()
+        popup.addonList = addonList
+        popup.AddonSelected = selectedAddon
+        popup.onComplete = { selected in
+            print("Selected staff: \(selected)")
+            self.selectedAddonList = []
+            self.selectedAddon = selected
+            for staff in self.addonList {
+                if selected.contains("\(staff.id)") {
+                    self.selectedAddonList.append(staff)
+                }
+            }
+            self.openAddonTages()
+        }
+        self.present(popup, animated: true)
+    }
+    
     @objc func openStaffPopup() {
         if selectedStaffList.isEmpty {
                 selected.removeAll()
@@ -605,12 +671,7 @@ class AddServiceVC: UIViewController {
                 // Build fresh selected IDs from selectedStaffList
                 selected = selectedStaffList.compactMap { "\($0.id ?? 0)" }
             }
-        
-        /*if !self.selectedStaffList.isEmpty {
-            for staff in self.selectedStaffList {
-                selected.append("\(staff.id ?? 0)")
-            }
-        }*/
+
         let popup = PreferredStaffPopupViewController()
         popup.staffList = staffList
         popup.selectedStaff = selected
@@ -660,6 +721,39 @@ class AddServiceVC: UIViewController {
         tagHolderView.heightAnchor.constraint(equalToConstant: totalHeight).isActive = true
     }
     
+    
+    func openAddonTages() {
+        tagAddone.subviews.forEach { $0.removeFromSuperview() }
+        
+        var x: CGFloat = 0
+        var y: CGFloat = 0
+        let padding: CGFloat = 8
+        let maxWidth = tagAddone.frame.width
+        
+        
+        for tag in selectedAddonList {
+            let name = ("\(tag.addon_name)" + " " + "\(LocalData.symbol)" + "\(tag.addon_price)")
+            
+            let tagView = TagView(text: name)
+            tagView.onRemove = {
+                if let index = self.selectedAddonList.firstIndex(where: { $0.id == tag.id }) {
+                    self.selectedAddonList.remove(at: index)
+                }
+                self.openAddonTages()
+            }
+            let size = tagView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+            if x + size.width > maxWidth {
+                x = 0
+                y += size.height + padding
+            }
+            tagView.frame = CGRect(x: x, y: y, width: size.width, height: size.height)
+            tagAddone.addSubview(tagView)
+            x += size.width + padding
+        }
+        
+        let totalHeight = y + 40
+        tagAddone.heightAnchor.constraint(equalToConstant: totalHeight).isActive = true
+    }
     
     //MARK: Load Api
     func loadDuationData() {
@@ -938,7 +1032,8 @@ class AddServiceVC: UIViewController {
         
         
         let staffIds = !self.selected.isEmpty ? self.selected.joined(separator: ",") : ""
-        APIService.shared.addServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: selectedOption, duration: selectedDuration, priceType: selectedPriceType, price: price ?? "0", salePrice: salePrice ?? "0", vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds,has_sub_service: hasSubService,is_sub_service: isSubService,resource_id: "\(resoucreId)") { staffResult in
+        let addon_Id = !self.selectedAddon.isEmpty ? self.selectedAddon.joined(separator: ",") : ""
+        APIService.shared.addServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: selectedOption, duration: selectedDuration, priceType: selectedPriceType, price: price ?? "0", salePrice: salePrice ?? "0", vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds,addon_Id: addon_Id, has_sub_service: hasSubService,is_sub_service: isSubService,resource_id: "\(resoucreId)") { staffResult in
             self.hideLoader()
             guard let model = staffResult else {
                 return
@@ -946,16 +1041,91 @@ class AddServiceVC: UIViewController {
 
             if model.error == "" || model.error == nil {
                 DispatchQueue.main.async {
-                    self.alertWithMessageOnly(NSLocalizedString("Service added successfully",comment: ""))
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.navigationController?.popViewController(animated: true)
+
+                    self.hideLoader()
+
+                    let alert = UIAlertController(title: nil,
+                                                  message: NSLocalizedString("Service updated successfully", comment: ""),
+                                                  preferredStyle: .alert)
+
+                    self.present(alert, animated: true)
+
+                    // Auto dismiss + pop after 1 second
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        alert.dismiss(animated: true) {
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    }
                 }
             } else {
                 self.alertWithMessageOnly(NSLocalizedString("Failed to insert service",comment: ""))
             }
         }
     }
+    
+    /*func loadAddonData(){
+        APIService.shared.AddonDetails(vendorId: LocalData.userId) { AddonDetails in
+            self.hideLoader()
+            guard let model = AddonDetails else {
+                return
+            }
+            let newItems = model.data
+            self.addonList = AddonDetails?.data ?? []
+            if self.isEdit {
+                if let addonIds = self.dictService?.addon_id,
+                   !addonIds.isEmpty {
+                    let list = addonIds.components(separatedBy: ",")
+                    self.selectedAddon = list
+                    if !self.selectedAddon.isEmpty {
+                        for addon in self.addonList {
+                            if self.selected.contains("\(addon.id)"){
+                                self.selectedAddonList.append(addon)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }*/
+    
+    func loadAddonData() {
+        
+        APIService.shared.AddonDetails(vendorId: LocalData.userId) { response in
+            
+            self.hideLoader()
+            guard let model = response else { return }
+            
+            // 1️⃣ All Addons From API
+            self.addonList = model.data
+            
+            // 2️⃣ If Edit Mode → Extract IDs from dictService.addons
+            if self.isEdit {
+                
+                guard let serviceAddons = self.dictService?.addons,
+                      !serviceAddons.isEmpty else { return }
+                
+                // Clear old data
+                self.selectedAddon.removeAll()
+                self.selectedAddonList.removeAll()
+                
+                // 3️⃣ Extract Only IDs
+                for addon in serviceAddons {
+                    self.selectedAddon.append("\(addon.id)")
+                }
+                
+                // 4️⃣ Match with addonList for UI Selection
+                for addon in self.addonList {
+                    if self.selectedAddon.contains("\(addon.id)") {
+                        self.selectedAddonList.append(addon)
+                    }
+                }
+                
+                // 5️⃣ Refresh Tag UI
+                self.openAddonTages()
+            }
+        }
+    }
+    
     
     
     func updateServiceData(serviceId: String) {
@@ -1005,18 +1175,37 @@ class AddServiceVC: UIViewController {
         }
         
         let staffIds = !self.selected.isEmpty ? self.selected.joined(separator: ",") : ""
-        APIService.shared.updateServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: selectedOption, duration: selectedDuration, priceType: selectedPriceType, price: price ?? "0", salePrice: salePrice ?? "0", vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds, serviceId: serviceId,has_sub_service: hasSubService,is_sub_service: isSubService,resource_id: "\(resoucreId)") { staffResult in
+        let addon_id = !self.selectedAddon.isEmpty ? self.selectedAddon.joined(separator: ",") : ""
+        APIService.shared.updateServiceData(serviceName: self.txt_serviceName.text ?? "", parentId: parentId, vendorId: LocalData.userId, description: self.txt_description.text, serviceFor: selectedOption, duration: selectedDuration, priceType: selectedPriceType, price: price ?? "0", salePrice: salePrice ?? "0", vendorOnly: btn_vendorOnly.currentImage == UIImage(named: "rdCheck") ? "1" : "0", contactSalon: btn_needToContact.currentImage == UIImage(named: "rdCheck") ? "1" : "0", testRequired: btn_patchTest.currentImage == UIImage(named: "rdCheck") ? "1" : "0", staffId: staffIds,addon_id: addon_id, serviceId: serviceId,has_sub_service: hasSubService,is_sub_service: isSubService,resource_id: "\(resoucreId)") { staffResult in
             self.hideLoader()
             guard let model = staffResult else {
                 return
             }
 
             if model.error == "" || model.error == nil {
-                DispatchQueue.main.async {
+                /*DispatchQueue.main.async {
                     self.alertWithMessageOnly(NSLocalizedString("Service updated successfully",comment: ""))
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                DispatchQueue.main.async {
                     self.navigationController?.popViewController(animated: true)
+                }*/
+                
+                DispatchQueue.main.async {
+
+                    self.hideLoader()
+
+                    let alert = UIAlertController(title: nil,
+                                                  message: NSLocalizedString("Service updated successfully", comment: ""),
+                                                  preferredStyle: .alert)
+
+                    self.present(alert, animated: true)
+
+                    // Auto dismiss + pop after 1 second
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        alert.dismiss(animated: true) {
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    }
                 }
             } else {
                 self.alertWithMessageOnly(NSLocalizedString("Failed to edit service",comment: ""))
@@ -1026,5 +1215,5 @@ class AddServiceVC: UIViewController {
 }
 
 
-extension AddServiceVC: UITextFieldDelegate {
-}
+
+

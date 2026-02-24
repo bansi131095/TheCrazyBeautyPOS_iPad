@@ -40,7 +40,7 @@ class ClientsVC: UIViewController {
         let attributedTitleSync_1 = NSAttributedString(
             string: NSLocalizedString("Add New",comment: ""),
             attributes: [
-                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .font: UIFont(name: "Lato-Bold", size: 18.0)!,
                 .foregroundColor: UIColor.white
             ]
         )

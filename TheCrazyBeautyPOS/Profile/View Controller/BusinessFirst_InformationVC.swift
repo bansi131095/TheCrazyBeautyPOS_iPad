@@ -54,7 +54,7 @@ class BusinessFirst_InformationVC: UIViewController {
         let attributedTitle = NSAttributedString(
             string: title,
             attributes: [
-                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .font: UIFont(name: "Lato-Bold", size: 18.0)!,
                 .foregroundColor: UIColor.white
             ]
         )
@@ -64,6 +64,12 @@ class BusinessFirst_InformationVC: UIViewController {
         selectedOptions = self.SalonType.first ?? ""
         self.determineMyCurrentLocation()
         apicall()
+        
+        self.txt_BusinessName.showLabel()
+        self.txt_SalonType.showLabel()
+        self.txt_Address.showLabel()
+        
+        
     }
     
     func setCustomFont() {

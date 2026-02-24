@@ -37,7 +37,7 @@ class Custom_HoursVC: UIViewController {
         let attributedTitle = NSAttributedString(
             string: title,
             attributes: [
-                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .font: UIFont(name: "Lato-Bold", size: 18.0)!,
                 .foregroundColor: UIColor.white
             ]
         )
@@ -45,7 +45,7 @@ class Custom_HoursVC: UIViewController {
         let attributedTitleAdd = NSAttributedString(
             string: NSLocalizedString("Add", comment: ""),
             attributes: [
-                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .font: UIFont(name: "Lato-Bold", size: 18.0)!,
                 .foregroundColor: UIColor.white
             ]
         )

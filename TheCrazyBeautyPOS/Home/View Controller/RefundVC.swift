@@ -23,7 +23,7 @@ class RefundVC: UIViewController {
         let Cancel = NSAttributedString(
             string: NSLocalizedString("Cancel",comment: ""),
             attributes: [
-                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .font: UIFont(name: "Lato-Bold", size: 18.0)!,
                 .foregroundColor: UIColor.black
             ]
         )
@@ -32,7 +32,7 @@ class RefundVC: UIViewController {
         let Confirm = NSAttributedString(
             string: NSLocalizedString("Confirm",comment: ""),
             attributes: [
-                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .font: UIFont(name: "Lato-Bold", size: 18.0)!,
                 .foregroundColor: UIColor.white
             ]
         )
@@ -41,7 +41,7 @@ class RefundVC: UIViewController {
         let ComfirmStatus = NSAttributedString(
             string: NSLocalizedString("Confirm Status",comment: ""),
             attributes: [
-                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .font: UIFont(name: "Lato-Bold", size: 18.0)!,
                 .foregroundColor: UIColor.white
             ]
         )

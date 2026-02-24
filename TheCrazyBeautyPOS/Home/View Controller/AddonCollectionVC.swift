@@ -66,7 +66,7 @@ class AddonCollectionVC: UIViewController {
         ])
 
         // Title Label
-        titleLabel.text = "Select Preferred Staff"
+        titleLabel.text = " "
         titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
         titleLabel.textAlignment = .center
         containerView.addSubview(titleLabel)
@@ -169,7 +169,8 @@ extension AddonCollectionVC: UICollectionViewDelegate, UICollectionViewDataSourc
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TagCell", for: indexPath) as? TagCell else {
             return UICollectionViewCell()
         }
-        let name = (addonList[indexPath.item].addon_name) + String((addonList[indexPath.item].addon_price))
+        
+        let name = (addonList[indexPath.item].addon_name) + " " + (LocalData.symbol) + String((addonList[indexPath.item].addon_price))
         cell.configure(with: name, selected: AddonSelected.contains("\(addonList[indexPath.item].id ?? 0)"))
         return cell
     }

@@ -6205,6 +6205,7 @@ class APIService {
             contactSalon: String,
             testRequired: String,
             staffId: String,
+            addon_Id: String,
             has_sub_service: String,
             is_sub_service: String,
             resource_id: String,
@@ -6226,6 +6227,7 @@ class APIService {
                 "contact_salon": contactSalon,
                 "test_required": testRequired,
                 "staff_id": staffId,
+                "addon_Id": addon_Id,
                 "has_sub_service": has_sub_service,
                 "is_sub_service": is_sub_service,
                 "resource_id": resource_id
@@ -6284,6 +6286,7 @@ class APIService {
         contactSalon: String,
         testRequired: String,
         staffId: String,
+        addon_id: String,
         serviceId: String,
         has_sub_service: String,
         is_sub_service: String,
@@ -6306,6 +6309,7 @@ class APIService {
             "contact_salon": contactSalon,
             "test_required": testRequired,
             "staff_id": staffId,
+            "addon_id": addon_id,
             "has_sub_service": has_sub_service,
             "is_sub_service": is_sub_service,
             "resource_id": resource_id

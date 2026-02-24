@@ -30,8 +30,8 @@ class BookingVC: UIViewController {
         
         let selectedLang = UserDefaults.standard.string(forKey: global().kSaveLanguageDefaultKey) ?? "en"
         
-        let pageLink = String(format: link, userId, token, loginTime) + selectedLang
-
+        let pageLink = String(format: link, userId, token, loginTime, selectedLang)
+        print("lang:- \(selectedLang)")
         print("pageLink == \(pageLink)")
 
         setupWebView(with: pageLink)

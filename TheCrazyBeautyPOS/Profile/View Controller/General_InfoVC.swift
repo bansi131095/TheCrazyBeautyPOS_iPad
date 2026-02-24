@@ -113,7 +113,7 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         let attributedTitle = NSAttributedString(
             string: title,
             attributes: [
-                .font: UIFont(name: "Lato-Bold", size: 20.0)!,
+                .font: UIFont(name: "Lato-Bold", size: 18.0)!,
                 .foregroundColor: UIColor.white
             ]
         )
@@ -193,7 +193,7 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                 print("Phone Code: \(phoneCode)")
                 self.selectedCountrycode = phoneCode  // Example: set it to a UILabel
             } else {
-                print("⚠️ code not found in countryDic")
+                print("code not found in countryDic")
             }
             
             // ✅ Get ISO code and set flag image
@@ -208,7 +208,7 @@ class General_InfoVC: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                     self.flag_imgVw.image = flagImage
                 } else {
                     self.flag_imgVw.image = nil
-                    print("⚠️ Could not generate flag image")
+                    print("Could not generate flag image")
                 }
             }
             

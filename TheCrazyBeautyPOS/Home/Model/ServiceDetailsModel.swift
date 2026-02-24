@@ -45,6 +45,7 @@ class ServiceData: Mappable {
     var selectedTeamName: String = ""
     var selectedTeamPhoto: String = ""
     var staff_id: String = ""
+    var addon_id: String = ""
     var isVendorOnly: Int = 0
     var patchTest: Int = 0
     var conatctSalon: Int = 0
@@ -56,6 +57,7 @@ class ServiceData: Mappable {
     var is_sub_service: Int = 0
     var resource_id: String = ""
     var guests: [Guest] = []
+    var addons: [InventoryData] = []
 
     required init?(map: Map) {}
 
@@ -77,6 +79,7 @@ class ServiceData: Mappable {
         selectedTeamName   <- map["selectedTeamName"]
         selectedTeamPhoto  <- map["selectedTeamPhoto"]
         staff_id           <- map["staff_id"]
+        addon_id           <- map["addon_id"]
         isVendorOnly       <- map["is_vendor_only"]
         patchTest          <- map["test_required"]
         conatctSalon       <- map["contact_salon"]
@@ -88,6 +91,7 @@ class ServiceData: Mappable {
         is_sub_service    <- map["is_sub_service"]
         resource_id    <- map["resource_id"]
         guests             <- map["guests"]
+        addons        <- map["addons"]
     }
 }
 
