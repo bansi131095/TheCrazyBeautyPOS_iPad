@@ -23,11 +23,15 @@ class global: NSObject
     // Staging
     static let base_url = "https://staging.thecrazybeauty.com/"
     static let CAL_WEB_URL = "https://tcb-ten.vercel.app/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true&lang=%@&tablet=true"
-     
+    static let salonPage_URl = "https://tcb-ten.vercel.app/salon-detail/"
+    static let all_salonPage_URl = "https://tcb-ten.vercel.app/location/"
     
     // LIVE
 //    static let base_url = "https://api.thecrazybeauty.com/"
 //    static let CAL_WEB_URL = "https://thecrazybeauty.com/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true&lang=%@&tablet=true"
+//    static let salonPage_URl = "https://thecrazybeauty.com/salon-detail/"
+//    static let all_salonPage_URl = "https://thecrazybeauty.com/location/"
+    
     
     static let server_url = global.base_url + "api/"
     

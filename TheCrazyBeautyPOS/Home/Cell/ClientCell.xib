@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad10_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -27,49 +28,49 @@
                         <rect key="frame" x="0.0" y="0.0" width="1520" height="100"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OGm-XW-9zN">
-                                <rect key="frame" x="30" y="38" width="200" height="24"/>
+                                <rect key="frame" x="30" y="38" width="150" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="d3W-1M-YnN"/>
+                                    <constraint firstAttribute="width" constant="150" id="d3W-1M-YnN"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Medium" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="AppBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact Contact Contact Contact Contact " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkg-wL-a01">
-                                <rect key="frame" x="245" y="20" width="523" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact Contact Contact Contact Contact " lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkg-wL-a01">
+                                <rect key="frame" x="195" y="20" width="716" height="24"/>
                                 <fontDescription key="fontDescription" name="Lato-Medium" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="AppBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact Contact Contact Contact Contact Contact Contact " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Is-WU-eNc">
-                                <rect key="frame" x="245" y="49" width="523" height="24"/>
+                                <rect key="frame" x="195" y="49" width="716" height="24"/>
                                 <fontDescription key="fontDescription" name="Lato-Medium" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="txtGray"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Q0-K2-KVE">
-                                <rect key="frame" x="816" y="38" width="150" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Q0-K2-KVE">
+                                <rect key="frame" x="926" y="38" width="120" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="2kZ-gf-AdS"/>
+                                    <constraint firstAttribute="width" constant="120" id="2kZ-gf-AdS"/>
                                 </constraints>
                                 <string key="text">Job Title	</string>
                                 <fontDescription key="fontDescription" name="Lato-Medium" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="AppBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gender" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="et6-Kp-TAP">
-                                <rect key="frame" x="1146" y="38" width="150" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gender" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="et6-Kp-TAP">
+                                <rect key="frame" x="1196" y="38" width="100" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="qby-Y8-Fgb"/>
+                                    <constraint firstAttribute="width" constant="100" id="qby-Y8-Fgb"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Medium" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="AppBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gender" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeB-wd-wDg">
-                                <rect key="frame" x="981" y="38" width="150" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gender" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeB-wd-wDg">
+                                <rect key="frame" x="1061" y="38" width="120" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="Y0E-do-SLp"/>
+                                    <constraint firstAttribute="width" constant="120" id="Y0E-do-SLp"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Medium" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="AppBlack"/>
@@ -199,9 +200,9 @@
                             <constraint firstItem="0Q0-K2-KVE" firstAttribute="centerY" secondItem="vhq-M1-Kpf" secondAttribute="centerY" id="pYS-ZI-d6l"/>
                             <constraint firstItem="qkg-wL-a01" firstAttribute="leading" secondItem="OGm-XW-9zN" secondAttribute="trailing" constant="15" id="piS-Bh-SYK"/>
                             <constraint firstItem="Gux-LR-LBw" firstAttribute="leading" secondItem="5s1-cx-4ot" secondAttribute="trailing" constant="10" id="qg6-ad-eKP"/>
-                            <constraint firstItem="0Q0-K2-KVE" firstAttribute="leading" secondItem="8Is-WU-eNc" secondAttribute="trailing" constant="48" id="sS5-Vb-FSE"/>
+                            <constraint firstItem="0Q0-K2-KVE" firstAttribute="leading" secondItem="8Is-WU-eNc" secondAttribute="trailing" constant="15" id="sS5-Vb-FSE"/>
                             <constraint firstItem="LVY-bB-y00" firstAttribute="centerX" secondItem="5s1-cx-4ot" secondAttribute="centerX" id="tg6-EN-fZC"/>
-                            <constraint firstItem="0Q0-K2-KVE" firstAttribute="leading" secondItem="qkg-wL-a01" secondAttribute="trailing" constant="48" id="uND-OJ-wua"/>
+                            <constraint firstItem="0Q0-K2-KVE" firstAttribute="leading" secondItem="qkg-wL-a01" secondAttribute="trailing" constant="15" id="uND-OJ-wua"/>
                             <constraint firstItem="LVY-bB-y00" firstAttribute="centerY" secondItem="5s1-cx-4ot" secondAttribute="centerY" id="um7-SZ-wqQ"/>
                             <constraint firstItem="Vfe-2y-UQa" firstAttribute="leading" secondItem="2Cs-Bg-G4Q" secondAttribute="leading" id="w2u-bK-C8i"/>
                         </constraints>

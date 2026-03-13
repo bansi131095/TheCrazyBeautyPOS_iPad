@@ -38,7 +38,7 @@ class CouponVC: UIViewController {
         )
         btn_AddNew.setAttributedTitle(attributedTitleSync_1, for: .normal)
         setCustomFont()
-        contentViewWidthConstraint.constant = 250 // or any dynamic value
+        contentViewWidthConstraint.constant = 20 // or any dynamic value
         self.setTableView()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 //        self.loadData(Search: "")

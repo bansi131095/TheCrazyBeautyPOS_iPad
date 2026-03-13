@@ -54,6 +54,7 @@ class HomeVC: UIViewController {
     @IBOutlet weak var btn_Width: NSLayoutConstraint!
     
     
+    @IBOutlet weak var vw_SalonPage: UIView!
     
     var imageArray: [UIImage] = [
         #imageLiteral(resourceName: "Dashboard.png"),
@@ -105,9 +106,11 @@ class HomeVC: UIViewController {
         self.getAllSalonData()
         let salonName = SharedPrefs.getSalonName()
         let userName = SharedPrefs.getUserName()
-        self.txt_salon.text = salonName
-        self.lbl_salonName.text = salonName
-        self.lbl_UserName.text = userName
+        let userEmail = SharedPrefs.getEmail()
+        
+        self.txt_salon.text = salonName.capitalized
+        self.lbl_salonName.text = salonName.capitalized
+        self.lbl_UserName.text = userEmail
         self.lbl_Version.text = "V - \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] ?? "")" +  " (\(Bundle.main.infoDictionary?["CFBundleVersion"] ?? "")) "
         self.get_Image()
         txt_1.tag = 1
@@ -365,6 +368,65 @@ class HomeVC: UIViewController {
         lbl_SelectedLanguage.text = "Vietnamese"
     }
     
+    @IBAction func btn_Qr(_ sender: Any) {
+        let salonName = SharedPrefs.getSalonName()
+        
+        let slug = salonName.lowercased().replacingOccurrences(of: " ", with: "-")
+
+        let urlString = global.salonPage_URl + "\(slug)/\(LocalData.userId)"
+        vwPopup.isHidden = true
+        
+        if let qrImage = generateQRCode(from: urlString) {
+            _ = saveQRCodeToDocuments(image: qrImage, fileName: "QR")
+        }
+        
+        /*if let qrImage = generateQRCode(from: urlString),
+           let data = qrImage.pngData() {
+
+            // Temporary file path
+            let tempURL = FileManager.default.temporaryDirectory
+                .appendingPathComponent("salon_qr_\(LocalData.userId).png")
+
+            do {
+                try data.write(to: tempURL)
+
+                // Open Files app to choose download location
+                let picker = UIDocumentPickerViewController(forExporting: [tempURL])
+                picker.modalPresentationStyle = .formSheet
+                present(picker, animated: true)
+
+            } catch {
+                print("Error saving QR:", error)
+            }
+        }*/
+    }
+    
+    @IBAction func btn_SalonPage(_ sender: Any) {
+        let salonName = SharedPrefs.getSalonName()
+        
+        let slug = salonName.lowercased().replacingOccurrences(of: " ", with: "-")
+
+        let urlString = global.salonPage_URl + "\(slug)/\(LocalData.userId)"
+        vwPopup.isHidden = true
+        print(urlString)
+        if let url = URL(string: urlString) {
+            UIApplication.shared.open(url)
+        }
+    }
+    
+    @IBAction func btn_AllView_SalonPage(_ sender: Any) {
+        let salonName = SharedPrefs.getSalonName()
+        
+        let slug = salonName.lowercased().replacingOccurrences(of: " ", with: "-")
+
+        let urlString = global.all_salonPage_URl + "\(slug)/\(LocalData.salonId)"
+        vwPopup.isHidden = true
+        print(urlString)
+        if let url = URL(string: urlString) {
+            UIApplication.shared.open(url)
+        }
+    }
+    
     
     // MARK: - Language
     /*func setUpLanguage(lanCode: String){
@@ -442,6 +504,38 @@ class HomeVC: UIViewController {
         }
     }
     
+    func generateQRCode(from string: String) -> UIImage? {
+        let data = string.data(using: .ascii)
+
+        guard let filter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
+        filter.setValue(data, forKey: "inputMessage")
+        filter.setValue("Q", forKey: "inputCorrectionLevel")
+
+        guard let ciImage = filter.outputImage else { return nil }
+
+        let transform = CGAffineTransform(scaleX: 10, y: 10)
+        let scaledImage = ciImage.transformed(by: transform)
+
+        return UIImage(ciImage: scaledImage)
+    }
+    
+    func saveQRCodeToDocuments(image: UIImage, fileName: String) -> URL? {
+        guard let data = image.pngData() else { return nil }
+
+        let fileManager = FileManager.default
+        let docs = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let fileURL = docs.appendingPathComponent("\(fileName).png")
+
+        do {
+            try data.write(to: fileURL)
+            self.alertWithMessageOnly(NSLocalizedString("Download Completed, Please Check File Location at /File/The Crazy Beauty POS/", comment: ""))
+            return fileURL
+        } catch {
+            print("Error saving file:", error)
+            return nil
+        }
+    }
+    
     //MARK: Api Data
     func getNotificationData() {
 //        showLoader()
@@ -474,7 +568,7 @@ class HomeVC: UIViewController {
                 let CategoryList = newItems
                 for cate in CategoryList {
                     if cate.salonName != ""{
-                        self.salonList.append(cate.salonName)
+                        self.salonList.append(cate.salonName.capitalized)
                     }else{
                         print("AS")
                     }
@@ -487,11 +581,11 @@ class HomeVC: UIViewController {
                 ) { [weak self] selected in
                     guard let self = self else { return }
                     for cate in CategoryList {
-                        if cate.salonName == selected {
+                        if cate.salonName.capitalized == selected.capitalized {
                             self.selectedSalon = "\(cate.id)"
                         }
                     }
-                    self.txt_salon.text = selected
+                    self.txt_salon.text = selected.capitalized
                     self.updateSalonData()
                 }
             }

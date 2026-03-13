@@ -280,7 +280,11 @@ class Notifications_SettingsVC: UIViewController {
             if let details = details {
 //                self.lbl_Time.text = "\(details.reminder_time ?? 0) Minutes"
                 let reminderMinutes = details.reminder_time ?? 0
-                self.lbl_Time.text = self.formatMinutesToSlot(reminderMinutes)
+                if reminderMinutes == 0{
+                    self.lbl_Time.text = NSLocalizedString("Set Notification Interval", comment: "")
+                }else{
+                    self.lbl_Time.text = self.formatMinutesToSlot(reminderMinutes)
+                }
                 
                 let format = NSLocalizedString("Credit", comment: "")
                 let amount = String(format: format, "\(details.sms_credit ?? 0)")

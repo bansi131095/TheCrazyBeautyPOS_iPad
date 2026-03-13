@@ -32,7 +32,7 @@ class Giftcard_HistoryVC: UIViewController, UIPopoverPresentationControllerDeleg
         super.viewDidLoad()
         let currentYear = Calendar.current.component(.year, from: Date())
         years = Array(1900...currentYear)
-        contentViewWidthConstraint.constant = 100
+        contentViewWidthConstraint.constant = 40
         self.setTableView()
         setDefaultDateRangeAndFetch()
     }

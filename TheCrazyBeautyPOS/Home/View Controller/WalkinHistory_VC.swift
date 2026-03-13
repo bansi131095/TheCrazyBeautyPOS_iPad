@@ -35,7 +35,7 @@ class WalkinHistory_VC: UIViewController, UIPopoverPresentationControllerDelegat
         super.viewDidLoad()
         let currentYear = Calendar.current.component(.year, from: Date())
         years = Array(1900...currentYear)
-        contentViewWidthConstraint.constant = 880
+        contentViewWidthConstraint.constant = 700
         self.setTableView()
         setDefaultDateRangeAndFetch()
     }

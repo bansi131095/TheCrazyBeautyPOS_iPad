@@ -50,7 +50,7 @@ class OfflineGiftCardVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         lbl_TitleOfflineGiftCard.text = NSLocalizedString("Offline Gift Card", comment: "")
-        contentViewWidthConstraint.constant = 200
+        contentViewWidthConstraint.constant = 10
         txt_Filter.text = arr_Filter.first
         setTableView()
         setCustomFont()

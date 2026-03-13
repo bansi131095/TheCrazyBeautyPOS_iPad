@@ -110,7 +110,6 @@ extension BookingHistoryVC: UITableViewDelegate, UITableViewDataSource, UIScroll
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.upcomingList.count
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
