@@ -6193,11 +6193,11 @@ class APIService {
     // MARK: - Add Service
         func addServiceData(
             serviceName: String,
-            parentId: Int,
+            parentId: String,
             vendorId: String,
             description: String,
             serviceFor: String,
-            duration: Int,
+            duration: String,
             priceType: String,
             price: String,
             salePrice: String,
@@ -14481,5 +14481,76 @@ class APIService {
             }
         }
     }
+    
+    
+    // MARK: - Add Service
+        func Dubalication_AddServiceData(
+            vendorId: String,
+            serviceName: String,
+            serviceFor: String,
+            salePrice: String,
+            priceType: String,
+            price: String,
+            parentId: String,
+            is_sub_service: String,
+            has_sub_service: String,
+            duration: String,
+            description: String,
+            completion: @escaping (AddServiceModel?) -> Void
+        ) {
+            let url = global.shared.URL_ADD_SERVICE
+
+            let params: [String: Any] = [
+                "vendor_id": vendorId,
+                "service_name": serviceName,
+                "parent_id": parentId,
+                "description": description,
+                "service_for": serviceFor,
+                "duration": duration,
+                "price_type": priceType,
+                "price": price,
+                "sale_price": salePrice,
+                "has_sub_service": has_sub_service,
+                "is_sub_service": is_sub_service,
+            ]
+
+            AF.request(url,
+                       method: .post,
+                       parameters: params,
+                       encoding: JSONEncoding.default,
+                       headers: HTTPHeaders(headers))
+                .validate()
+                .responseJSON { response in
+                    // 📦 Print request info
+                    print("🌐 URL: \(url)")
+                    print("📤 Parameters: \(params)")
+                    print("📤 Headers: \(self.headers)")
+
+                    // 📩 Print HTTP response status code
+                    if let httpResponse = response.response {
+                        print("✅ Status Code: \(httpResponse.statusCode)")
+                    }
+
+                    // raw response
+                    if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                        print("📦 Raw Response: \(responseStr)")
+                    }
+
+                    switch response.result {
+                    case .success(let json):
+                        if let model: AddServiceModel = self.mapResponseObject(json: json) {
+                            print("✅ Parsed Response Object: \(model)")
+                            completion(model)
+                        } else {
+                            print("❌ Mapping failed — unexpected JSON structure.")
+                            completion(nil)
+                        }
+                    case .failure(let error):
+                        print("❌ Error: \(error.localizedDescription)")
+                        completion(nil)
+                    }
+                }
+        }
+    
 }
 

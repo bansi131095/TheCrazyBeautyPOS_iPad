@@ -45,19 +45,19 @@
                                 <color key="textColor" name="TextBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Main" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fih-vj-J64">
-                                <rect key="frame" x="214" y="15.5" width="70" height="19"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JHb-7S-9Kq">
+                                <rect key="frame" x="214" y="15.5" width="180" height="19.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="70" id="Iee-h5-hLu"/>
+                                    <constraint firstAttribute="width" constant="180" id="UhB-dn-stT"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                 <color key="textColor" name="TextBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JHb-7S-9Kq">
-                                <rect key="frame" x="299" y="15.5" width="180" height="19.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Main" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fih-vj-J64">
+                                <rect key="frame" x="409" y="15.5" width="70" height="19"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="180" id="UhB-dn-stT"/>
+                                    <constraint firstAttribute="width" constant="70" id="Iee-h5-hLu"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                 <color key="textColor" name="TextBlack"/>
@@ -111,18 +111,6 @@
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Mh1-Wu-cN5" secondAttribute="trailing" id="yzx-xI-4Ib"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Heb-bs-X5h">
-                                <rect key="frame" x="999" y="11" width="28" height="28"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="28" id="BFd-0s-B1h"/>
-                                    <constraint firstAttribute="height" constant="28" id="SfS-iR-5u5"/>
-                                </constraints>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="delete"/>
-                                <connections>
-                                    <action selector="act_delete:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="JqA-BH-3y3"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wcy-1C-sIi">
                                 <rect key="frame" x="964" y="12.5" width="25" height="25"/>
                                 <constraints>
@@ -135,6 +123,30 @@
                                     <action selector="act_edit:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="5Ib-QP-7Cx"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Heb-bs-X5h">
+                                <rect key="frame" x="999" y="11" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="28" id="BFd-0s-B1h"/>
+                                    <constraint firstAttribute="height" constant="28" id="SfS-iR-5u5"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="delete"/>
+                                <connections>
+                                    <action selector="act_delete:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="JqA-BH-3y3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tHf-Kj-Nfl">
+                                <rect key="frame" x="1037" y="11" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="28" id="a5M-kH-Rcm"/>
+                                    <constraint firstAttribute="height" constant="28" id="bTg-i4-JRE"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="Duplication"/>
+                                <connections>
+                                    <action selector="act_duplication:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="w3w-go-2eO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -142,20 +154,22 @@
                             <constraint firstItem="bns-ZX-oS2" firstAttribute="centerY" secondItem="bxm-0i-AQc" secondAttribute="centerY" id="3SV-jg-Ib0"/>
                             <constraint firstItem="bns-ZX-oS2" firstAttribute="leading" secondItem="bxm-0i-AQc" secondAttribute="trailing" constant="15" id="4qP-da-hSj"/>
                             <constraint firstItem="bxm-0i-AQc" firstAttribute="centerY" secondItem="D9J-se-1QI" secondAttribute="centerY" id="5bE-rS-eAp"/>
+                            <constraint firstItem="tHf-Kj-Nfl" firstAttribute="centerY" secondItem="Heb-bs-X5h" secondAttribute="centerY" id="7gz-Wm-ebr"/>
                             <constraint firstItem="Z02-Jj-b4R" firstAttribute="top" secondItem="tP1-aH-M7x" secondAttribute="top" constant="13" id="BBT-ub-gWv"/>
                             <constraint firstItem="D9J-se-1QI" firstAttribute="centerY" secondItem="JHb-7S-9Kq" secondAttribute="centerY" id="BKk-v4-gFT"/>
-                            <constraint firstAttribute="trailing" secondItem="Heb-bs-X5h" secondAttribute="trailing" constant="53" id="DFA-gf-gpL"/>
+                            <constraint firstItem="fih-vj-J64" firstAttribute="leading" secondItem="JHb-7S-9Kq" secondAttribute="trailing" constant="15" id="Car-MV-8GH"/>
+                            <constraint firstItem="D9J-se-1QI" firstAttribute="leading" secondItem="fih-vj-J64" secondAttribute="trailing" constant="15" id="Dxm-N9-yXC"/>
                             <constraint firstItem="84R-EK-Fjg" firstAttribute="leading" secondItem="Z02-Jj-b4R" secondAttribute="trailing" constant="15" id="FWs-QM-xv2"/>
+                            <constraint firstAttribute="trailing" secondItem="tHf-Kj-Nfl" secondAttribute="trailing" constant="15" id="FX0-ok-XrS"/>
+                            <constraint firstItem="tHf-Kj-Nfl" firstAttribute="leading" secondItem="Heb-bs-X5h" secondAttribute="trailing" constant="10" id="Gtw-rz-Jbf"/>
                             <constraint firstItem="Heb-bs-X5h" firstAttribute="centerY" secondItem="Wcy-1C-sIi" secondAttribute="centerY" id="NWx-NC-iEz"/>
                             <constraint firstItem="Wcy-1C-sIi" firstAttribute="centerY" secondItem="bns-ZX-oS2" secondAttribute="centerY" id="Udl-eQ-CX5"/>
                             <constraint firstItem="JHb-7S-9Kq" firstAttribute="centerY" secondItem="84R-EK-Fjg" secondAttribute="centerY" id="W8L-ZF-ACY"/>
                             <constraint firstAttribute="bottom" secondItem="Z02-Jj-b4R" secondAttribute="bottom" constant="13" id="ZYq-QK-idK"/>
-                            <constraint firstItem="JHb-7S-9Kq" firstAttribute="leading" secondItem="fih-vj-J64" secondAttribute="trailing" constant="15" id="fVi-Cd-6w2"/>
                             <constraint firstItem="84R-EK-Fjg" firstAttribute="centerY" secondItem="Z02-Jj-b4R" secondAttribute="centerY" id="g0B-xV-bOL"/>
                             <constraint firstItem="fih-vj-J64" firstAttribute="centerY" secondItem="84R-EK-Fjg" secondAttribute="centerY" id="hEO-ET-cAf"/>
                             <constraint firstItem="Z02-Jj-b4R" firstAttribute="leading" secondItem="tP1-aH-M7x" secondAttribute="leading" constant="24" id="kNH-4r-nEx"/>
-                            <constraint firstItem="fih-vj-J64" firstAttribute="leading" secondItem="84R-EK-Fjg" secondAttribute="trailing" constant="15" id="l6g-D5-aE3"/>
-                            <constraint firstItem="D9J-se-1QI" firstAttribute="leading" secondItem="JHb-7S-9Kq" secondAttribute="trailing" constant="15" id="rfT-h1-vOh"/>
+                            <constraint firstItem="JHb-7S-9Kq" firstAttribute="leading" secondItem="84R-EK-Fjg" secondAttribute="trailing" constant="15" id="nR3-FW-qno"/>
                             <constraint firstItem="bxm-0i-AQc" firstAttribute="leading" secondItem="D9J-se-1QI" secondAttribute="trailing" constant="15" id="twT-fw-dUN"/>
                             <constraint firstItem="Heb-bs-X5h" firstAttribute="leading" secondItem="Wcy-1C-sIi" secondAttribute="trailing" constant="10" id="uRu-3w-OOm"/>
                         </constraints>
@@ -170,6 +184,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btn_Duplication" destination="tHf-Kj-Nfl" id="cVm-3G-MP1"/>
                 <outlet property="lbl_SalePrice" destination="98c-zH-woZ" id="IsC-EA-KVA"/>
                 <outlet property="lbl_category" destination="84R-EK-Fjg" id="SKT-eo-7Eq"/>
                 <outlet property="lbl_no" destination="Z02-Jj-b4R" id="36Q-JN-vj5"/>
@@ -183,6 +198,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="Duplication" width="50" height="50"/>
         <image name="Edit" width="60" height="60"/>
         <image name="delete" width="60" height="60"/>
         <namedColor name="TextBlack">

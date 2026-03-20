@@ -18,6 +18,7 @@ class ServiceItemCell: UITableViewCell {
     @IBOutlet weak var lbl_price: UILabel!
     @IBOutlet weak var lbl_SalePrice: UILabel!
     
+    @IBOutlet weak var btn_Duplication: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -39,6 +40,11 @@ class ServiceItemCell: UITableViewCell {
     var Act_Delete:(()->Void)?
     @IBAction func act_delete(_ sender: UIButton) {
         self.Act_Delete?()
+    }
+    
+    var Act_Duplication:(()->Void)?
+    @IBAction func act_duplication(_ sender: UIButton) {
+        self.Act_Duplication?()
     }
     
     func setCustomFont() {

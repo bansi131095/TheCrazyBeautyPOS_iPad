@@ -257,15 +257,61 @@ class ServicesVC: UIViewController {
         }
     }
     
-    /*
-    // MARK: - Navigation
+    
+    // MARK: - AddSerivceData Api call
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    func addServiceData(serviceName:String,
+                        parentId: String,
+                        vendorId:String,
+                        description: String,
+                        serviceFor: String,
+                        duration: String,
+                        priceType: String,
+                        price: String,
+                        salePrice:String,
+                        vendorOnly:String,
+                        contactSalon:String,
+                        testRequired:String,
+                        staffId:String,
+                        addon_Id:String,
+                        hasSubService:String,
+                        isSubService:String,
+                        resoucreId:String) {
+        APIService.shared.addServiceData(serviceName: serviceName,
+                                         parentId: String(parentId),
+                                         vendorId: vendorId,
+                                         description: description,
+                                         serviceFor: serviceFor,
+                                         duration: duration,
+                                         priceType: priceType,
+                                         price: price,
+                                         salePrice: salePrice,
+                                         vendorOnly: vendorOnly,
+                                         contactSalon: contactSalon,
+                                         testRequired: testRequired,
+                                         staffId: staffId,
+                                         addon_Id: addon_Id,
+                                         has_sub_service: hasSubService,
+                                         is_sub_service: isSubService,
+                                         resource_id: resoucreId) { staffResult in
+             self.hideLoader()
+             guard let model = staffResult else {
+                 return
+             }
+
+             if model.error == "" || model.error == nil {
+                DispatchQueue.main.async {
+                    self.hideLoader()
+                        self.alertWithMessageOnly(NSLocalizedString("Service added successfully", comment: ""))
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            self.loadData(Search: "")
+                        }
+                }
+             } else {
+                 self.alertWithMessageOnly(NSLocalizedString("Failed to insert service",comment: ""))
+             }
+         }
+     }
 
 }
 
@@ -301,6 +347,7 @@ extension ServicesVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
         if service.has_sub_service == 1{
             cell.lbl_time.text! = "-"
             cell.lbl_serviceFor.text = "-"
+            cell.btn_Duplication.setImage(UIImage(named: "black-EYE"), for: .normal)
         }else{
             if service.service_for == "Unisex"{
                 cell.lbl_serviceFor.text = NSLocalizedString("Unisex", comment: "")
@@ -311,6 +358,7 @@ extension ServicesVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
             }
 //            cell.lbl_serviceFor.text = service.service_for
             cell.lbl_time.text = "\(service.duration) " + NSLocalizedString("Min", comment: "")
+            cell.btn_Duplication.setImage(UIImage(named: "Duplication"), for: .normal)
         }
         
         if service.is_sub_service == 0{
@@ -391,6 +439,25 @@ extension ServicesVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
             }
             self.present(popup, animated: true, completion: nil)
         }
+        
+        cell.Act_Duplication = {
+            
+            if cell.btn_Duplication.currentImage == UIImage(named: "Duplication"){
+                let popup = ConfirmDeletePopupVC()
+                popup.modalPresentationStyle = .overFullScreen
+                popup.modalTransitionStyle = .crossDissolve
+                popup.titleText = NSLocalizedString("Are you sure you want to copy this service?",comment: "")
+                popup.onConfirm = {
+                    self.addServiceData(serviceName: service.service,parentId: String(service.category_id), vendorId: LocalData.userId, description: service.description, serviceFor: service.service_for, duration: String(service.duration), priceType: service.price_type, price: service.price, salePrice: service.sale_price, vendorOnly: String(service.isVendorOnly), contactSalon: String(service.conatctSalon), testRequired: String(service.patchTest), staffId: service.staff_id, addon_Id: service.addon_id, hasSubService: String(service.has_sub_service), isSubService: String(service.is_sub_service), resoucreId: service.resource_id)
+                }
+                self.present(popup, animated: true, completion: nil)
+            }else {
+                
+            }
+            
+            
+        }
+        
         return cell
     }
     
