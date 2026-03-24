@@ -201,34 +201,49 @@ class LoginScreen: UIViewController {
         self.loader.hidesWhenStopped = false
         self.loader.startAnimating()
         APIService.shared.subvendorLogin(email: email, password: password) { result in
-            self.loader.stopAnimating()
-            self.loader.hidesWhenStopped = true
-            if (result?.error != nil && result?.error != "") {
-                self.alertWithMessageOnly(NSLocalizedString("You are not registered yet",comment: ""))
-                return
-            }
-            if let data = result {
-                self.alertWithMessageOnly(NSLocalizedString("Logged in successfully",comment: ""))
+            DispatchQueue.main.async {
+                self.loader.stopAnimating()
+                self.loader.hidesWhenStopped = true
+                if (result?.error != nil && result?.error != "") {
+                    self.alertWithMessageOnly(NSLocalizedString("You are not registered yet",comment: ""))
+                    return
+                }
+                if let data = result {
+                    self.alertWithMessageOnly(NSLocalizedString("Logged in successfully",comment: ""))
+                    
+                    UserDefaults.standard.set("0", forKey: "Passcode")
+                    UserDefaults.standard.synchronize()
+                    
+                    SharedPrefs.setEmail(result?.vendorData.first?.email ?? "")
+                    SharedPrefs.setUserId(String(result?.vendorData.first?.id ?? 0))
+                    SharedPrefs.setUserName((result?.vendorData.first?.firstName ?? "") + " " + (result?.vendorData.first?.lastName ?? ""))
+                    SharedPrefs.setSalonId(String(result?.vendorData.first?.salonId ?? 0))
+                    SharedPrefs.setSalonName(result?.vendorData.first?.salonName ?? "")
+                    SharedPrefs.setLoginToken(data.token ?? "")
+                    SharedPrefs.setPosId(result?.vendorData.first?.posId ?? "")
+                    SharedPrefs.setSubvendor("Subvendor")
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        /*let sb = UIStoryboard(name: "Home", bundle:nil)
+                        let navDashboard = sb.instantiateViewController(withIdentifier: "NavigateHome") as! UINavigationController
+                        navDashboard.modalPresentationStyle = .fullScreen
+                        self.present(navDashboard, animated: true, completion: nil)*/
+                        
+                        
+                        let sb = UIStoryboard(name: "Home", bundle: nil)
+                        let navDashboard = sb.instantiateViewController(withIdentifier: "NavigateHome")
+
+                        if let window = UIApplication.shared.windows.first {
+                            window.rootViewController = navDashboard
+                            window.makeKeyAndVisible()
+                        }
+                        
+                    }
+                }else{
+                    self.alertWithMessageOnly(NSLocalizedString("You are not registered yet",comment: ""))
+                }
                 
-                UserDefaults.standard.set("0", forKey: "Passcode")
-                UserDefaults.standard.synchronize()
-                
-                SharedPrefs.setEmail(result?.vendorData.first?.email ?? "")
-                SharedPrefs.setUserId(String(result?.vendorData.first?.id ?? 0))
-                SharedPrefs.setUserName((result?.vendorData.first?.firstName ?? "") + " " + (result?.vendorData.first?.lastName ?? ""))
-                SharedPrefs.setSalonId(String(result?.vendorData.first?.salonId ?? 0))
-                SharedPrefs.setSalonName(result?.vendorData.first?.salonName ?? "")
-                SharedPrefs.setLoginToken(data.token ?? "")
-                SharedPrefs.setPosId(result?.vendorData.first?.posId ?? "")
-                SharedPrefs.setSubvendor("Subvendor")
-                let sb = UIStoryboard(name: "Home", bundle:nil)
-                let navDashboard = sb.instantiateViewController(withIdentifier: "NavigateHome") as! UINavigationController
-                 navDashboard.modalPresentationStyle = .fullScreen
-                self.present(navDashboard, animated: true, completion: nil)
-            }else{
-                self.alertWithMessageOnly(NSLocalizedString("You are not registered yet",comment: ""))
             }
-            
         }
     }
     

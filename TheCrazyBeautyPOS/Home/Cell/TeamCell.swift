@@ -53,4 +53,8 @@ class TeamCell: UITableViewCell {
         self.Act_Delete?()
     }
     
+    var Act_Duplication:(()->Void)?
+    @IBAction func act_duplication(_ sender: UIButton) {
+        self.Act_Duplication?()
+    }
 }

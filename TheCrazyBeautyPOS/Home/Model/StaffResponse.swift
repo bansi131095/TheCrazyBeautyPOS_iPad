@@ -46,6 +46,7 @@ class StaffData: Mappable {
     var showInCalendar: Int?
     var averageRating: String?
     var isDeleted: Int?
+    var sequence: Int?
     var createdAt: String?
     var updatedAt: String?
     var status: String?
@@ -64,6 +65,7 @@ class StaffData: Mappable {
         phone           <- map["phone"]
         dob             <- map["dob"]
         photo           <- map["photo"]
+        sequence           <- map["sequence"]
         gender          <- map["gender"]
         jobTitle        <- map["job_title"]
         jobBio          <- map["job_bio"]

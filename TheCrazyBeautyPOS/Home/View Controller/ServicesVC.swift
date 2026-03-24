@@ -259,7 +259,6 @@ class ServicesVC: UIViewController {
     
     
     // MARK: - AddSerivceData Api call
-
     func addServiceData(serviceName:String,
                         parentId: String,
                         vendorId:String,
@@ -452,10 +451,13 @@ extension ServicesVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
                 }
                 self.present(popup, animated: true, completion: nil)
             }else {
-                
+                let addSubService = self.storyboard?.instantiateViewController(withIdentifier: "AddSubService_VC") as! AddSubService_VC
+                addSubService.service_Id = String(service.id)
+                addSubService.service_Name = service.service
+                addSubService.modalPresentationStyle = .overCurrentContext
+                addSubService.modalTransitionStyle = .crossDissolve
+                self.present(addSubService, animated: true)
             }
-            
-            
         }
         
         return cell

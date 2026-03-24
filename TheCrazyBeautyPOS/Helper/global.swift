@@ -27,10 +27,10 @@ class global: NSObject
     static let all_salonPage_URl = "https://tcb-ten.vercel.app/location/"
     
     // LIVE
-//    static let base_url = "https://api.thecrazybeauty.com/"
-//    static let CAL_WEB_URL = "https://thecrazybeauty.com/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true&lang=%@&tablet=true"
-//    static let salonPage_URl = "https://thecrazybeauty.com/salon-detail/"
-//    static let all_salonPage_URl = "https://thecrazybeauty.com/location/"
+    /*static let base_url = "https://api.thecrazybeauty.com/"
+    static let CAL_WEB_URL = "https://thecrazybeauty.com/vendor/booking_touch?id=%@&auth=%@&rand=%lld&ios=true&lang=%@&tablet=true"
+    static let salonPage_URl = "https://thecrazybeauty.com/salon-detail/"
+    static let all_salonPage_URl = "https://thecrazybeauty.com/location/"*/
     
     
     static let server_url = global.base_url + "api/"
@@ -294,6 +294,7 @@ class global: NSObject
     var URL_ADD_ADDON = global.server_url + "add_addon"
     var URL_ADDON_DETAILS = global.server_url + "addon_details"
     var URL_UPDATE_ADDON = global.server_url + "update_addon"
+    var URL_SUBSERVICE_DEATILS = global.server_url + "subservice_details"
     
     var noDataLabel: UILabel?
     var hasUnreadNotification: Bool = false

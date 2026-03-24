@@ -14482,75 +14482,146 @@ class APIService {
         }
     }
     
-    
-    // MARK: - Add Service
-        func Dubalication_AddServiceData(
-            vendorId: String,
-            serviceName: String,
-            serviceFor: String,
-            salePrice: String,
-            priceType: String,
-            price: String,
-            parentId: String,
-            is_sub_service: String,
-            has_sub_service: String,
-            duration: String,
-            description: String,
-            completion: @escaping (AddServiceModel?) -> Void
-        ) {
-            let url = global.shared.URL_ADD_SERVICE
+    // MARK: - addTeamData (multipart)
+    func add_TeamData(
+        firstName: String,
+        lastName: String,
+        vendorId: String,
+        email: String,
+        jobTitle: String,
+        gender: String,
+        dob: String,
+        phone: String,
+        showCustomer: Int,
+        showInCalendar: Int,
+        serviceIds: String,
+        workingHours: String,
+        shiftTimings: String,
+        block_timings: String,
+        photo: String,
+        job_bio: String,
+        holiday_dates: String,
+        average_rating: Double,
+        sequence:Int,
+        is_deleted:Int,
+        status:Int,
+        total_hours:String,
+        completion: @escaping (AddMemberModel?) -> Void
+    ) {
+        let url = global.shared.URL_ADD_TEAM
 
-            let params: [String: Any] = [
-                "vendor_id": vendorId,
-                "service_name": serviceName,
-                "parent_id": parentId,
-                "description": description,
-                "service_for": serviceFor,
-                "duration": duration,
-                "price_type": priceType,
-                "price": price,
-                "sale_price": salePrice,
-                "has_sub_service": has_sub_service,
-                "is_sub_service": is_sub_service,
-            ]
+        let params: [String: Any] = [
+            "first_name": firstName,
+            "last_name": lastName,
+            "vendor_id": vendorId,
+            "email": email,
+            "job_title": jobTitle,
+            "gender": gender,
+            "dob": dob,
+            "phone": phone,
+            "show_customer": showCustomer,
+            "show_in_calandar": showInCalendar,
+            "service_ids": serviceIds,
+            "working_hours": workingHours,
+            "shift_timings": shiftTimings,
+            "block_timings": block_timings,
+            "photo": photo,
+            "job_bio": job_bio,
+            "holiday_dates": holiday_dates,
+            "average_rating": average_rating,
+            "sequence": sequence,
+            "is_deleted": is_deleted,
+            "status": status,
+            "total_hours": total_hours,
+        ]
 
-            AF.request(url,
-                       method: .post,
-                       parameters: params,
-                       encoding: JSONEncoding.default,
-                       headers: HTTPHeaders(headers))
-                .validate()
-                .responseJSON { response in
-                    // 📦 Print request info
-                    print("🌐 URL: \(url)")
-                    print("📤 Parameters: \(params)")
-                    print("📤 Headers: \(self.headers)")
+        AF.request(url,
+                   method: .post,
+                   parameters: params,
+                   encoding: JSONEncoding.default,
+                   headers: HTTPHeaders(headers))
+            .validate()
+            .responseJSON { response in
+                // 📦 Print request info
+                print("🌐 URL: \(url)")
+                print("📤 Parameters: \(params)")
+                print("📤 Headers: \(self.headers)")
 
-                    // 📩 Print HTTP response status code
-                    if let httpResponse = response.response {
-                        print("✅ Status Code: \(httpResponse.statusCode)")
-                    }
+                // 📩 Print HTTP response status code
+                if let httpResponse = response.response {
+                    print("✅ Status Code: \(httpResponse.statusCode)")
+                }
 
-                    // raw response
-                    if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
-                        print("📦 Raw Response: \(responseStr)")
-                    }
+                // raw response
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
 
-                    switch response.result {
-                    case .success(let json):
-                        if let model: AddServiceModel = self.mapResponseObject(json: json) {
-                            print("✅ Parsed Response Object: \(model)")
-                            completion(model)
-                        } else {
-                            print("❌ Mapping failed — unexpected JSON structure.")
-                            completion(nil)
-                        }
-                    case .failure(let error):
-                        print("❌ Error: \(error.localizedDescription)")
+                switch response.result {
+                case .success(let json):
+                    if let model: AddMemberModel = self.mapResponseObject(json: json) {
+                        print("✅ Parsed Response Object: \(model)")
+                        completion(model)
+                    } else {
+                        print("❌ Mapping failed — unexpected JSON structure.")
                         completion(nil)
                     }
+                case .failure(let error):
+                    print("❌ Error: \(error.localizedDescription)")
+                    completion(nil)
                 }
-        }
+            }
+    }
+    
+    
+    func subServiceDetails(service_id: String,completion: @escaping (ServiceDetailsModel?) -> Void) {
+        let url = global.shared.URL_SUBSERVICE_DEATILS
+
+        var params: [String: Any] = [:]
+        params = [
+            "service_id": service_id,
+        ]
+        AF.request(url,
+                   method: .post,
+                   parameters: params,
+                   encoding: JSONEncoding.default,
+                   headers: HTTPHeaders(headers))
+            .validate()
+            .responseJSON { response in
+
+                // 📦 Print request info
+                print("🌐 URL: \(url)")
+                print("📤 Parameters: \(params)")
+                print("📤 Headers: \(self.headers)")
+
+                // 📩 Print HTTP response status code
+                if let httpResponse = response.response {
+                    print("✅ Status Code: \(httpResponse.statusCode)")
+                }
+
+                // 🧾 Print raw response body
+                if let data = response.data,
+                   let raw = String(data: data, encoding: .utf8) {
+                    print("📥 Raw Response: \(raw)")
+                }
+
+                switch response.result {
+                case .success(let json):
+                    if let model: ServiceDetailsModel = self.mapResponseObject(json: json) {
+                        print("✅ Parsed Response Object: \(model)")
+                        completion(model)
+                    } else {
+                        print("❌ Mapping failed — unexpected JSON structure.")
+                        completion(nil)
+                    }
+
+                case .failure(let error):
+                    print("❌ Error: \(error.localizedDescription)")
+                    completion(nil)
+                }
+            }
+    }
+    
+    
     
 }
-

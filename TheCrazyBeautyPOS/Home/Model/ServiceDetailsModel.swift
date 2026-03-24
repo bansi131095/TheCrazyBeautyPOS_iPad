@@ -32,6 +32,8 @@ class ServiceData: Mappable {
     var id: Int = 0
     var duration: Int = 0
     var price: String = ""
+    var price_Price: Int = 0
+    var saleprice_Price: Int = 0
 //    var sale_price: Double?
     var sale_price: String = ""
     var category_id: Int = 0
@@ -67,6 +69,8 @@ class ServiceData: Mappable {
         id                 <- map["id"]
         duration           <- map["duration"]
         price              <- map["price"]
+        price_Price              <- map["price"]
+        saleprice_Price         <- map["sale_price"]
         sale_price         <- map["sale_price"]
         category_id        <- map["category_id"]
         category           <- map["category"]

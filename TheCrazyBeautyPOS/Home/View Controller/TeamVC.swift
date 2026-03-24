@@ -146,6 +146,49 @@ class TeamVC: UIViewController {
         self.navigationController?.pushViewController(teamRoster, animated: true)
     }
     
+    //MARK: Add_TeamMember
+    func addTeamData(firstName: String,
+                     lastName: String,
+                     vendorId: String,
+                     email: String,
+                     jobTitle: String,
+                     gender: String,
+                     dob: String,
+                     phone: String,
+                     showCustomer: Int,
+                     showInCalendar: Int,
+                     serviceIds: String,
+                     workingHours: String,
+                     shiftTimings: String,
+                     block_timings: String,
+                     photo: String,
+                     job_bio: String,
+                     holiday_dates: String,
+                     average_rating:Double,
+                     sequence:Int,
+                     is_deleted:Int,
+                     status:Int,
+                     total_hours:String){
+        APIService.shared.add_TeamData(firstName: firstName, lastName: lastName, vendorId: vendorId, email: email, jobTitle: jobTitle, gender: gender, dob: dob, phone: phone, showCustomer: showCustomer, showInCalendar: showInCalendar, serviceIds: serviceIds, workingHours: workingHours, shiftTimings: shiftTimings, block_timings: block_timings, photo: photo, job_bio: job_bio, holiday_dates: holiday_dates, average_rating: average_rating, sequence: sequence, is_deleted: is_deleted, status: status, total_hours: total_hours) { team_Result in
+            self.hideLoader()
+            
+            guard let model = team_Result else {
+                return
+            }
+                if model.error == "" || model.error == nil {
+                    DispatchQueue.main.async {
+                        self.hideLoader()
+                        self.alertWithMessageOnly(NSLocalizedString("Team member added successfully", comment: ""))
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            self.loadData(Search: "")
+                        }
+                    }
+            } else {
+                self.alertWithMessageOnly(NSLocalizedString("Failed to team member",comment: ""))
+            }
+        }
+    }
+    
     //MARK: Delete API
     func deleteTeamData(teamId: Int) {
         self.showLoader()
@@ -164,17 +207,6 @@ class TeamVC: UIViewController {
             }
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension TeamVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate{
@@ -241,6 +273,16 @@ extension TeamVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelega
                 print("Team confirmed delete")
                 // Call your delete logic here
                 self.deleteTeamData(teamId: staff.id ?? 0)
+            }
+            self.present(popup, animated: true, completion: nil)
+        }
+        cell.Act_Duplication = {
+            let popup = ConfirmDeletePopupVC()
+            popup.modalPresentationStyle = .overFullScreen
+            popup.modalTransitionStyle = .crossDissolve
+            popup.titleText = NSLocalizedString("Are you sure you want to copy this staff?",comment: "")
+            popup.onConfirm = {
+                self.addTeamData(firstName: staff.firstName ?? "", lastName: staff.lastName ?? "", vendorId: LocalData.userId, email: staff.email ?? "", jobTitle: staff.jobTitle ?? "", gender: staff.gender ?? "", dob: staff.dob ?? "", phone: staff.phone ?? "", showCustomer: staff.showCustomer ?? 0, showInCalendar: staff.showInCalendar ?? 0, serviceIds: staff.serviceIds ?? "", workingHours: staff.workingHours ?? "", shiftTimings: staff.shiftTimings ?? "", block_timings: staff.blockTimings ?? "", photo: staff.photo ?? "", job_bio: staff.jobBio ?? "", holiday_dates: staff.holidayDates ?? "", average_rating: Double(staff.averageRating ?? "") ?? 0.0, sequence: staff.sequence ?? 0, is_deleted: staff.isDeleted ?? 0, status: Int(staff.status ?? "") ?? 0, total_hours: staff.totalHours ?? "")
             }
             self.present(popup, animated: true, completion: nil)
         }

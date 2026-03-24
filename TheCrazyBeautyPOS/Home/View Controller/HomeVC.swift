@@ -51,10 +51,22 @@ class HomeVC: UIViewController {
     
     
     @IBOutlet weak var vw_Language: UIView!
-    @IBOutlet weak var btn_Width: NSLayoutConstraint!
-    
     
     @IBOutlet weak var vw_SalonPage: UIView!
+    @IBOutlet weak var img_ArrowDown: UIImageView!
+    @IBOutlet weak var img_Width: NSLayoutConstraint!
+    @IBOutlet weak var img_Trailling: NSLayoutConstraint!
+    
+    @IBOutlet weak var img_Leading: NSLayoutConstraint!
+    
+    @IBOutlet weak var txt_Leading: NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var vwLeadingSalonType: NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var vwTrailing: NSLayoutConstraint!
+    
     
     var imageArray: [UIImage] = [
         #imageLiteral(resourceName: "Dashboard.png"),
@@ -91,7 +103,16 @@ class HomeVC: UIViewController {
             lbl_salonName.isHidden = false
             vw_MyProfile.isHidden = true
             btn_TopClick.isHidden = true
-            btn_Width.constant = 10
+//            btn_Width.constant = 10
+            self.vw_SalonType.isHidden = true
+            self.img_ArrowDown.isHidden = true
+            self.txt_salon.text = ""
+            self.txt_Leading.constant = 0
+            self.img_Leading.constant = 0
+            self.img_Trailling.constant = 0
+            self.img_Width.constant = 0
+            self.vwLeadingSalonType.constant = 0
+            self.vwTrailing.constant = 0
         }else{
             loadEmbeddedViewController(for: 1)
             vw_SalonType.isHidden = false
@@ -99,7 +120,16 @@ class HomeVC: UIViewController {
             lbl_salonName.isHidden = false
             vw_MyProfile.isHidden = false
             btn_TopClick.isHidden = false
-            btn_Width.constant = 228
+//            btn_Width.constant = 228
+            
+            self.img_ArrowDown.isHidden = false
+            self.txt_Leading.constant = 15
+            self.img_Leading.constant = 15
+            self.img_Trailling.constant = 15
+            self.img_Width.constant = 15
+            self.vwLeadingSalonType.constant = 10
+            self.vwTrailing.constant = 10
+            
         }
         self.setUpTableView()
 //        loadEmbeddedViewController(for: 1)
@@ -108,7 +138,12 @@ class HomeVC: UIViewController {
         let userName = SharedPrefs.getUserName()
         let userEmail = SharedPrefs.getEmail()
         
-        self.txt_salon.text = salonName.capitalized
+        if vendor == "Subvendor"{
+            self.txt_salon.text = ""
+        }else{
+            self.txt_salon.text = salonName.capitalized
+        }
+        
         self.lbl_salonName.text = salonName.capitalized
         self.lbl_UserName.text = userEmail
         self.lbl_Version.text = "V - \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] ?? "")" +  " (\(Bundle.main.infoDictionary?["CFBundleVersion"] ?? "")) "
@@ -577,7 +612,7 @@ class HomeVC: UIViewController {
                     for: self.txt_salon,
                     in: self.view,
                     with: self.salonList,
-                    width: 200.0,
+                    width: self.vw_SalonType.frame.size.width,
                 ) { [weak self] selected in
                     guard let self = self else { return }
                     for cate in CategoryList {

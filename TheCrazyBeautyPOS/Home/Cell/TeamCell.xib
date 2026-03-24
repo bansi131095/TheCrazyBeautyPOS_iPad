@@ -65,19 +65,19 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact Contact Contact Contact Contact " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4mG-ra-Dft">
-                                <rect key="frame" x="350" y="8" width="340" height="24"/>
+                                <rect key="frame" x="350" y="8" width="346" height="24"/>
                                 <fontDescription key="fontDescription" name="Lato-Medium" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="AppBlack"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact Contact Contact Contact Contact  " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rvl-mE-zg7">
-                                <rect key="frame" x="350" y="37" width="340" height="24"/>
+                                <rect key="frame" x="350" y="37" width="346" height="24"/>
                                 <fontDescription key="fontDescription" name="Lato-Medium" family="Lato" pointSize="20"/>
                                 <color key="textColor" name="txtGray"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dnS-Ay-oJo">
-                                <rect key="frame" x="700" y="8" width="150" height="54"/>
+                                <rect key="frame" x="706" y="8" width="150" height="54"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="Ptd-eP-Pv4"/>
                                 </constraints>
@@ -87,7 +87,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CAI-df-my8">
-                                <rect key="frame" x="870" y="8" width="100" height="54"/>
+                                <rect key="frame" x="876" y="8" width="100" height="54"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="ebV-vb-A5R"/>
                                 </constraints>
@@ -96,7 +96,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hsC-lr-3dE">
-                                <rect key="frame" x="990" y="21" width="28" height="28"/>
+                                <rect key="frame" x="986" y="21" width="28" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="28" id="KLt-Wh-w2L"/>
                                     <constraint firstAttribute="height" constant="28" id="zEA-AE-4b7"/>
@@ -108,7 +108,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l5J-5H-NEM">
-                                <rect key="frame" x="1028" y="21" width="28" height="28"/>
+                                <rect key="frame" x="1024" y="21" width="28" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="2lN-Fg-9qk"/>
                                     <constraint firstAttribute="width" constant="28" id="ONt-3Y-FTF"/>
@@ -119,13 +119,28 @@
                                     <action selector="act_delete:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="JDl-6R-VQO"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yfS-qi-YaQ">
+                                <rect key="frame" x="1062" y="21" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="OU8-RX-1ou"/>
+                                    <constraint firstAttribute="width" constant="28" id="gXb-Du-TW2"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="Duplication"/>
+                                <connections>
+                                    <action selector="act_duplication:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="21h-8Q-nrS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="yfS-qi-YaQ" secondAttribute="trailing" constant="10" id="0Sv-Rb-mgB"/>
                             <constraint firstItem="fDg-Oj-pRb" firstAttribute="top" secondItem="Nyf-oP-JGZ" secondAttribute="top" constant="10" id="9r9-4Z-ciN"/>
                             <constraint firstItem="l5J-5H-NEM" firstAttribute="centerY" secondItem="fDg-Oj-pRb" secondAttribute="centerY" id="A86-i0-j2v"/>
                             <constraint firstItem="V40-CA-jAZ" firstAttribute="centerY" secondItem="fDg-Oj-pRb" secondAttribute="centerY" id="DPq-Ku-01y"/>
+                            <constraint firstItem="yfS-qi-YaQ" firstAttribute="leading" secondItem="l5J-5H-NEM" secondAttribute="trailing" constant="10" id="E8T-NE-fqg"/>
                             <constraint firstAttribute="bottom" secondItem="fDg-Oj-pRb" secondAttribute="bottom" constant="10" id="FRS-5I-rpL"/>
+                            <constraint firstItem="yfS-qi-YaQ" firstAttribute="centerY" secondItem="l5J-5H-NEM" secondAttribute="centerY" id="Hoa-cY-sBe"/>
                             <constraint firstItem="V40-CA-jAZ" firstAttribute="leading" secondItem="Nyf-oP-JGZ" secondAttribute="leading" constant="20" id="IOZ-th-q5I"/>
                             <constraint firstItem="dnS-Ay-oJo" firstAttribute="top" secondItem="V40-CA-jAZ" secondAttribute="top" id="Ing-IH-Led"/>
                             <constraint firstItem="Rvl-mE-zg7" firstAttribute="leading" secondItem="4mG-ra-Dft" secondAttribute="leading" id="MlJ-Gb-QO4"/>
@@ -137,7 +152,6 @@
                             <constraint firstItem="fVf-WV-h5r" firstAttribute="leading" secondItem="fDg-Oj-pRb" secondAttribute="trailing" constant="10" id="TXl-PR-TTp"/>
                             <constraint firstItem="fDg-Oj-pRb" firstAttribute="centerY" secondItem="Nyf-oP-JGZ" secondAttribute="centerY" id="Uqb-sZ-n6X"/>
                             <constraint firstItem="fVf-WV-h5r" firstAttribute="centerY" secondItem="fDg-Oj-pRb" secondAttribute="centerY" id="c2V-Fi-2Lv"/>
-                            <constraint firstAttribute="trailing" secondItem="l5J-5H-NEM" secondAttribute="trailing" constant="44" id="eIx-px-X2v"/>
                             <constraint firstItem="dnS-Ay-oJo" firstAttribute="leading" secondItem="Rvl-mE-zg7" secondAttribute="trailing" constant="10" id="fEo-wU-Bf9"/>
                             <constraint firstItem="dnS-Ay-oJo" firstAttribute="leading" secondItem="4mG-ra-Dft" secondAttribute="trailing" constant="10" id="jht-9W-5af"/>
                             <constraint firstItem="4mG-ra-Dft" firstAttribute="centerY" secondItem="fDg-Oj-pRb" secondAttribute="centerY" constant="-15" id="mLA-EH-6Ur"/>
@@ -148,7 +162,7 @@
                             <constraint firstItem="hsC-lr-3dE" firstAttribute="centerY" secondItem="fDg-Oj-pRb" secondAttribute="centerY" id="ruC-yl-CC7"/>
                             <constraint firstItem="fDg-Oj-pRb" firstAttribute="leading" secondItem="V40-CA-jAZ" secondAttribute="trailing" constant="20" id="s28-yv-HvH"/>
                             <constraint firstItem="fVf-WV-h5r" firstAttribute="top" secondItem="V40-CA-jAZ" secondAttribute="top" id="syH-7K-izV"/>
-                            <constraint firstItem="hsC-lr-3dE" firstAttribute="leading" secondItem="CAI-df-my8" secondAttribute="trailing" constant="20" id="zoF-pT-BWQ"/>
+                            <constraint firstItem="hsC-lr-3dE" firstAttribute="leading" secondItem="CAI-df-my8" secondAttribute="trailing" constant="10" id="zoF-pT-BWQ"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -175,6 +189,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="Duplication" width="50" height="50"/>
         <image name="Edit" width="60" height="60"/>
         <image name="delete" width="60" height="60"/>
         <image name="user" width="76" height="76"/>

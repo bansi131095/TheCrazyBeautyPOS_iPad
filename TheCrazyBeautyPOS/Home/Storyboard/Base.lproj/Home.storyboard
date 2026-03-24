@@ -905,23 +905,23 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lK9-gc-mbc">
-                                        <rect key="frame" x="804" y="15" width="208" height="40"/>
+                                        <rect key="frame" x="947" y="15" width="65" height="40"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="The Style Factory" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Un-y7-JEy">
-                                                <rect key="frame" x="15" y="10" width="148" height="20"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Un-y7-JEy">
+                                                <rect key="frame" x="15" y="10" width="5" height="20"/>
                                                 <color key="textColor" name="AppBlack"/>
                                                 <fontDescription key="fontDescription" name="Lato-Medium" family="Lato" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="down" translatesAutoresizingMaskIntoConstraints="NO" id="S0W-5I-k2Z">
-                                                <rect key="frame" x="178" y="12.5" width="15" height="15"/>
+                                                <rect key="frame" x="35" y="12.5" width="15" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="15" id="WyM-Jq-sda"/>
                                                     <constraint firstAttribute="width" constant="15" id="jx3-Xa-wlx"/>
                                                 </constraints>
                                             </imageView>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e56-Jd-VI0">
-                                                <rect key="frame" x="0.0" y="0.0" width="208" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="65" height="40"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <connections>
                                                     <action selector="btn_SalonType:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Pqq-ZI-7wp"/>
@@ -965,7 +965,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJ0-kr-U57">
-                                        <rect key="frame" x="671.5" y="15" width="122.5" height="40"/>
+                                        <rect key="frame" x="814.5" y="15" width="122.5" height="40"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_UK" translatesAutoresizingMaskIntoConstraints="NO" id="mF0-CI-xCR">
                                                 <rect key="frame" x="10" y="7.5" width="25" height="25"/>
@@ -1033,7 +1033,6 @@
                                     <constraint firstAttribute="bottom" secondItem="fPV-CF-yd9" secondAttribute="bottom" id="JDu-cT-UG4"/>
                                     <constraint firstAttribute="trailing" secondItem="fDB-RI-XNJ" secondAttribute="trailing" constant="40" id="NTl-2h-Avp"/>
                                     <constraint firstItem="lK9-gc-mbc" firstAttribute="centerY" secondItem="dey-Sm-AZ9" secondAttribute="centerY" id="UJF-ug-h8y"/>
-                                    <constraint firstItem="eiD-Y7-ljE" firstAttribute="leading" secondItem="tJ0-kr-U57" secondAttribute="trailing" constant="228" id="Vzj-5C-WzB"/>
                                     <constraint firstAttribute="height" constant="70" id="bbb-Ui-Anl"/>
                                     <constraint firstItem="fPV-CF-yd9" firstAttribute="leading" secondItem="dey-Sm-AZ9" secondAttribute="leading" id="cao-wS-dBP"/>
                                     <constraint firstItem="mcu-sI-2co" firstAttribute="leading" secondItem="dey-Sm-AZ9" secondAttribute="leading" constant="40" id="g5Y-xd-NqL"/>
@@ -1418,7 +1417,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vCi-gD-Qp9">
-                                        <rect key="frame" x="644" y="0.0" width="150" height="136"/>
+                                        <rect key="frame" x="787" y="0.0" width="150" height="136"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="6K1-lY-UuV">
                                                 <rect key="frame" x="10" y="5" width="130" height="126"/>
@@ -1907,9 +1906,12 @@
                     <navigationItem key="navigationItem" id="1IR-pk-HEL"/>
                     <connections>
                         <outlet property="btn_TopClick" destination="fPV-CF-yd9" id="vJg-9i-cNp"/>
-                        <outlet property="btn_Width" destination="Vzj-5C-WzB" id="XuH-DK-YWg"/>
                         <outlet property="containerView" destination="t5w-wI-f15" id="6Ms-Nc-kNm"/>
+                        <outlet property="img_ArrowDown" destination="S0W-5I-k2Z" id="Dhi-Bm-GYs"/>
+                        <outlet property="img_Leading" destination="yrA-Kz-ZGa" id="Fo0-3W-8m2"/>
                         <outlet property="img_SelectedImage" destination="mF0-CI-xCR" id="8m6-ZH-jJI"/>
+                        <outlet property="img_Trailling" destination="2hC-bf-sy9" id="Fxc-U6-7gj"/>
+                        <outlet property="img_Width" destination="jx3-Xa-wlx" id="5a6-Cn-TM8"/>
                         <outlet property="img_profile" destination="z0v-gu-oxC" id="Pn1-dm-O1a"/>
                         <outlet property="lbl_SelectedLanguage" destination="mGM-Qp-ghL" id="v1n-65-wyH"/>
                         <outlet property="lbl_UserName" destination="Gc4-W5-tyH" id="YcE-r2-Qaz"/>
@@ -1922,10 +1924,13 @@
                         <outlet property="txt_4" destination="cqA-RU-uKN" id="AtA-Es-yiT"/>
                         <outlet property="txt_5" destination="3TP-gI-fDH" id="Z2b-JE-t7G"/>
                         <outlet property="txt_6" destination="ahC-YT-mmA" id="2xf-2N-AfG"/>
+                        <outlet property="txt_Leading" destination="qf2-5w-BjQ" id="Nhz-xV-9yX"/>
                         <outlet property="txt_salon" destination="5Un-y7-JEy" id="jqq-D6-ihJ"/>
+                        <outlet property="vwLeadingSalonType" destination="gRM-Xx-M56" id="77G-yc-5iW"/>
                         <outlet property="vwMainPasscode" destination="V5e-Wi-aHl" id="Szq-UP-aOs"/>
                         <outlet property="vwPasscodePopup" destination="PwT-Wf-Cdw" id="ERI-qf-oO6"/>
                         <outlet property="vwPopup" destination="Rdu-UL-Y1d" id="hvC-dS-Mcy"/>
+                        <outlet property="vwTrailing" destination="x7R-3b-ifi" id="1Y7-yA-hn7"/>
                         <outlet property="vw_Language" destination="ZnP-Pd-efA" id="eoU-xs-uYg"/>
                         <outlet property="vw_MyProfile" destination="7zB-OJ-ebE" id="m1m-XD-ydu"/>
                         <outlet property="vw_SalonPage" destination="dzH-Y5-YBy" id="8yY-nt-gzT"/>
@@ -16934,17 +16939,17 @@ Please Choose Diffrent Date</string>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sue-Aa-xq2">
                                                         <rect key="frame" x="0.0" y="0.0" width="555" height="110"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWP-Dq-ZSS">
+                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xWP-Dq-ZSS">
                                                                 <rect key="frame" x="8" y="5" width="539" height="100"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Bookings" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42N-TN-FAP">
-                                                                        <rect key="frame" x="15" y="10" width="509" height="19.5"/>
+                                                                        <rect key="frame" x="15" y="10" width="105" height="19.5"/>
                                                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Bookings Added" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z8L-1H-9ni">
-                                                                        <rect key="frame" x="15" y="37.5" width="509" height="18"/>
+                                                                        <rect key="frame" x="15" y="37.5" width="143" height="18"/>
                                                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -16992,17 +16997,17 @@ Please Choose Diffrent Date</string>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nfd-NF-SUM">
                                                         <rect key="frame" x="565" y="0.0" width="555" height="110"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="skj-CM-hRn">
+                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="skj-CM-hRn">
                                                                 <rect key="frame" x="5" y="5" width="545" height="100"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed Bookings" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mcm-rB-lTj">
-                                                                        <rect key="frame" x="15" y="10" width="515" height="19.5"/>
+                                                                        <rect key="frame" x="15" y="10" width="148" height="19.5"/>
                                                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Bookings Completed &amp; Amount collected" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qzh-SY-Yqb">
-                                                                        <rect key="frame" x="15" y="37.5" width="515" height="18"/>
+                                                                        <rect key="frame" x="15" y="37.5" width="306.5" height="18"/>
                                                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -17075,17 +17080,17 @@ Please Choose Diffrent Date</string>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RHa-zq-eDm">
                                                         <rect key="frame" x="0.0" y="0.0" width="555" height="110"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fcw-au-5zg">
+                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fcw-au-5zg">
                                                                 <rect key="frame" x="8" y="5" width="539" height="100"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Walkin Bookings" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TGq-gD-5A2">
-                                                                        <rect key="frame" x="15" y="10" width="509" height="19.5"/>
+                                                                        <rect key="frame" x="15" y="10" width="119.5" height="19.5"/>
                                                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Walkin Completed &amp; Amount collected" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdI-Se-xk4">
-                                                                        <rect key="frame" x="15" y="37.5" width="509" height="18"/>
+                                                                        <rect key="frame" x="15" y="37.5" width="291" height="18"/>
                                                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -17144,17 +17149,17 @@ Please Choose Diffrent Date</string>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cDy-Vd-Vt2">
                                                         <rect key="frame" x="565" y="0.0" width="555" height="110"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iuz-fH-yEy">
+                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iuz-fH-yEy">
                                                                 <rect key="frame" x="5" y="5" width="545" height="100"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Card &amp; Cash Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9kw-M0-jn1">
-                                                                        <rect key="frame" x="15" y="10" width="520" height="19.5"/>
+                                                                        <rect key="frame" x="15" y="10" width="149" height="19.5"/>
                                                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Amount collected in Cash &amp; Cash" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PAx-ak-eIJ">
-                                                                        <rect key="frame" x="15" y="37.5" width="520" height="18"/>
+                                                                        <rect key="frame" x="15" y="37.5" width="254" height="18"/>
                                                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -17319,7 +17324,7 @@ Please Choose Diffrent Date</string>
                                                 <rect key="frame" x="5" y="833" width="1130" height="327.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t1t-wy-ucH">
-                                                        <rect key="frame" x="10" y="10" width="545" height="297.5"/>
+                                                        <rect key="frame" x="10" y="10" width="0.0" height="297.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Top Team Member" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EBD-Lo-LRq">
                                                                 <rect key="frame" x="10" y="18" width="148" height="20"/>
@@ -17328,7 +17333,7 @@ Please Choose Diffrent Date</string>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eDa-Hs-Fzc">
-                                                                <rect key="frame" x="495" y="8" width="40" height="40"/>
+                                                                <rect key="frame" x="-50" y="8" width="40" height="40"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bZ7-tt-ffd">
                                                                         <rect key="frame" x="2" y="2" width="36" height="36"/>
@@ -17353,7 +17358,7 @@ Please Choose Diffrent Date</string>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ec9-LB-LKz">
-                                                                <rect key="frame" x="0.0" y="56" width="545" height="0.5"/>
+                                                                <rect key="frame" x="0.0" y="56" width="0.0" height="0.5"/>
                                                                 <color key="backgroundColor" name="Lightgray"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="0.5" id="d13-2m-YMc"/>
@@ -17363,7 +17368,7 @@ Please Choose Diffrent Date</string>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iOw-li-g4x">
-                                                                <rect key="frame" x="0.0" y="56.5" width="545" height="40"/>
+                                                                <rect key="frame" x="0.0" y="56.5" width="0.0" height="40"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lze-Rj-uCu">
                                                                         <rect key="frame" x="10" y="10.5" width="42.5" height="19.5"/>
@@ -17372,7 +17377,7 @@ Please Choose Diffrent Date</string>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Appointments" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0YH-Rz-OtP">
-                                                                        <rect key="frame" x="433.5" y="10.5" width="101.5" height="19.5"/>
+                                                                        <rect key="frame" x="-111.5" y="10.5" width="101.5" height="19.5"/>
                                                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                         <color key="textColor" name="txtGray"/>
                                                                         <nil key="highlightedColor"/>
@@ -17388,7 +17393,7 @@ Please Choose Diffrent Date</string>
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L5e-bU-2bq">
-                                                                <rect key="frame" x="0.0" y="97" width="545" height="0.5"/>
+                                                                <rect key="frame" x="0.0" y="97" width="0.0" height="0.5"/>
                                                                 <color key="backgroundColor" name="Lightgray"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="0.5" id="EF2-Km-Twg"/>
@@ -17398,7 +17403,7 @@ Please Choose Diffrent Date</string>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="TeamMemberCell" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="o68-Fq-arm">
-                                                                <rect key="frame" x="0.0" y="97.5" width="545" height="200"/>
+                                                                <rect key="frame" x="0.0" y="97.5" width="0.0" height="200"/>
                                                                 <color key="backgroundColor" name="AppWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="200" id="HTz-fR-ZRW"/>
@@ -17447,7 +17452,7 @@ Please Choose Diffrent Date</string>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hwd-Z4-b8y">
-                                                        <rect key="frame" x="565" y="10" width="555" height="297.5"/>
+                                                        <rect key="frame" x="20" y="10" width="0.0" height="297.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Top Services" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqr-BR-697">
                                                                 <rect key="frame" x="10" y="18" width="100" height="20"/>
@@ -17456,7 +17461,7 @@ Please Choose Diffrent Date</string>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Zi-UB-Ddj">
-                                                                <rect key="frame" x="505" y="8" width="40" height="40"/>
+                                                                <rect key="frame" x="-50" y="8" width="40" height="40"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySh-cJ-ymA">
                                                                         <rect key="frame" x="2" y="2" width="36" height="36"/>
@@ -17481,7 +17486,7 @@ Please Choose Diffrent Date</string>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mre-IS-ykB">
-                                                                <rect key="frame" x="0.0" y="56" width="555" height="0.5"/>
+                                                                <rect key="frame" x="0.0" y="56" width="0.0" height="0.5"/>
                                                                 <color key="backgroundColor" name="Lightgray"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="0.5" id="ZoW-mf-I6t"/>
@@ -17491,7 +17496,7 @@ Please Choose Diffrent Date</string>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X14-KJ-dPP">
-                                                                <rect key="frame" x="0.0" y="56.5" width="555" height="40"/>
+                                                                <rect key="frame" x="0.0" y="56.5" width="0.0" height="40"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booked" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qX4-ij-3P8">
                                                                         <rect key="frame" x="10" y="10.5" width="100" height="19.5"/>
@@ -17511,7 +17516,7 @@ Please Choose Diffrent Date</string>
                                                                         <color key="textColor" name="txtGray"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Generated" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nk7-JK-XAJ">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Generated" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nk7-JK-XAJ">
                                                                         <rect key="frame" x="469.5" y="10.5" width="75.5" height="19.5"/>
                                                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                         <color key="textColor" name="txtGray"/>
@@ -17531,7 +17536,7 @@ Please Choose Diffrent Date</string>
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j0b-C7-JVQ">
-                                                                <rect key="frame" x="0.0" y="97" width="555" height="0.5"/>
+                                                                <rect key="frame" x="0.0" y="97" width="0.0" height="0.5"/>
                                                                 <color key="backgroundColor" name="Lightgray"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="0.5" id="loB-Db-l4p"/>
@@ -17541,7 +17546,7 @@ Please Choose Diffrent Date</string>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="TopServicesCell" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="cpY-2M-yjF">
-                                                                <rect key="frame" x="0.0" y="97.5" width="555" height="200"/>
+                                                                <rect key="frame" x="0.0" y="97.5" width="0.0" height="200"/>
                                                                 <color key="backgroundColor" name="AppWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="200" id="QDk-dy-Hbp"/>
@@ -19981,6 +19986,93 @@ This action cannot be undone.</string>
             </objects>
             <point key="canvasLocation" x="2789" y="-1371"/>
         </scene>
+        <!--AddSubService_VC-->
+        <scene sceneID="a6h-N8-e95">
+            <objects>
+                <viewController storyboardIdentifier="AddSubService_VC" title="AddSubService_VC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="JhJ-R3-oso" customClass="AddSubService_VC" customModule="TheCrazyBeautyPOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Csz-ex-9xW">
+                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y5g-qw-eeL">
+                                <rect key="frame" x="100" y="57" width="980" height="680"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sub Services Of Test Main" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cgL-0F-BNS">
+                                        <rect key="frame" x="30" y="25" width="253.5" height="26"/>
+                                        <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="22"/>
+                                        <color key="textColor" name="AppBlack"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XZV-Je-d8a">
+                                        <rect key="frame" x="922" y="21.5" width="33" height="33"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="33" id="5Gp-aO-6KC"/>
+                                            <constraint firstAttribute="width" constant="33" id="ZLy-EA-9rj"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="close"/>
+                                        <connections>
+                                            <action selector="btn_Close:" destination="JhJ-R3-oso" eventType="touchUpInside" id="QBm-2r-eBE"/>
+                                        </connections>
+                                    </button>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="AllResourcesCell" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ota-dW-Z2u">
+                                        <rect key="frame" x="10" y="71" width="960" height="609"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="motionIdentifier" value="AllResourcesCell"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="JhJ-R3-oso" id="xfR-wj-tIC"/>
+                                            <outlet property="delegate" destination="JhJ-R3-oso" id="hBP-bS-gtu"/>
+                                        </connections>
+                                    </tableView>
+                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There is no sub service added yet." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SLI-Qw-73q">
+                                        <rect key="frame" x="325.5" y="327" width="329" height="26"/>
+                                        <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="22"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="ota-dW-Z2u" secondAttribute="bottom" id="7Dh-4Q-1d5"/>
+                                    <constraint firstAttribute="trailing" secondItem="XZV-Je-d8a" secondAttribute="trailing" constant="25" id="FkC-qq-hTA"/>
+                                    <constraint firstItem="ota-dW-Z2u" firstAttribute="top" secondItem="cgL-0F-BNS" secondAttribute="bottom" constant="20" id="JPv-tz-3xT"/>
+                                    <constraint firstItem="ota-dW-Z2u" firstAttribute="leading" secondItem="Y5g-qw-eeL" secondAttribute="leading" constant="10" id="PsT-IQ-pLs"/>
+                                    <constraint firstItem="cgL-0F-BNS" firstAttribute="leading" secondItem="Y5g-qw-eeL" secondAttribute="leading" constant="30" id="Wza-dz-vuh"/>
+                                    <constraint firstAttribute="height" constant="680" id="iKn-eU-00q"/>
+                                    <constraint firstItem="cgL-0F-BNS" firstAttribute="top" secondItem="Y5g-qw-eeL" secondAttribute="top" constant="25" id="iSG-7y-nZc"/>
+                                    <constraint firstItem="XZV-Je-d8a" firstAttribute="centerY" secondItem="cgL-0F-BNS" secondAttribute="centerY" id="ivZ-0F-nzj"/>
+                                    <constraint firstItem="SLI-Qw-73q" firstAttribute="centerY" secondItem="Y5g-qw-eeL" secondAttribute="centerY" id="ivZ-k5-pva"/>
+                                    <constraint firstAttribute="trailing" secondItem="ota-dW-Z2u" secondAttribute="trailing" constant="10" id="jHw-Oh-3qn"/>
+                                    <constraint firstItem="SLI-Qw-73q" firstAttribute="centerX" secondItem="Y5g-qw-eeL" secondAttribute="centerX" id="zM7-fX-Z5o"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="pca-Ui-hFM"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Y5g-qw-eeL" firstAttribute="centerX" secondItem="pca-Ui-hFM" secondAttribute="centerX" id="5zx-bW-xUh"/>
+                            <constraint firstItem="Y5g-qw-eeL" firstAttribute="leading" secondItem="pca-Ui-hFM" secondAttribute="leading" constant="100" id="DaF-om-M5Y"/>
+                            <constraint firstItem="pca-Ui-hFM" firstAttribute="trailing" secondItem="Y5g-qw-eeL" secondAttribute="trailing" constant="100" id="gJU-SN-WaM"/>
+                            <constraint firstItem="Y5g-qw-eeL" firstAttribute="centerY" secondItem="pca-Ui-hFM" secondAttribute="centerY" id="zXd-36-Hk9"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="lbl_NoData" destination="SLI-Qw-73q" id="2sF-WX-3sz"/>
+                        <outlet property="lbl_Titla" destination="cgL-0F-BNS" id="6RL-cJ-1tC"/>
+                        <outlet property="tbl_SubService" destination="ota-dW-Z2u" id="6BJ-cx-Q20"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XEh-F5-TvJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2762" y="-2067"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Add" width="30" height="30"/>
@@ -20103,13 +20195,13 @@ This action cannot be undone.</string>
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGrayColor">
-            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
