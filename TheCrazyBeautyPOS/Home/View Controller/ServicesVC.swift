@@ -7,7 +7,8 @@
 
 import UIKit
 
-class ServicesVC: UIViewController {
+class ServicesVC: UIViewController,DismissDelegate {
+    
     
     @IBOutlet weak var lbl_TitleServices: UILabel!
     @IBOutlet weak var scroll_vw: UIScrollView!
@@ -86,6 +87,10 @@ class ServicesVC: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        self.loadData(Search: "")
+    }
+    
+    func didDismissScreen(data: String?) {
         self.loadData(Search: "")
     }
     
@@ -452,8 +457,9 @@ extension ServicesVC: UITableViewDelegate, UITableViewDataSource, UIScrollViewDe
                 self.present(popup, animated: true, completion: nil)
             }else {
                 let addSubService = self.storyboard?.instantiateViewController(withIdentifier: "AddSubService_VC") as! AddSubService_VC
+                addSubService.delegate = self
                 addSubService.service_Id = String(service.id)
-                addSubService.service_Name = service.service
+                addSubService.service_Name = service.service.capitalized
                 addSubService.modalPresentationStyle = .overCurrentContext
                 addSubService.modalTransitionStyle = .crossDissolve
                 self.present(addSubService, animated: true)

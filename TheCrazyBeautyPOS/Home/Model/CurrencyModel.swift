@@ -75,11 +75,13 @@ class BookingFlow : Mappable {
 
 class BookingFlowData : Mappable{
     var booking_flow: Int?
+    var staff_service_view: Int?
     
     required init?(map: Map) {}
     
     func mapping(map: ObjectMapper.Map) {
         booking_flow  <- map["booking_flow"]
+        staff_service_view  <- map["staff_service_view"]
     }
 }
 

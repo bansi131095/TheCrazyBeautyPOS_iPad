@@ -240,12 +240,9 @@ class global: NSObject
     var URL_UPDATE_GIFTCARD = global.server_url + "edit_giftcard/"
     var URL_DELETE_GIFTCARD = global.server_url + "delete_giftcard/"
     
-    
-    
     var URL_Add_INVENTORY = global.server_url + "add_inventory"
     var URL_UPDATE_INVENTORY = global.server_url + "edit_inventory/"
     var URL_DELETE_INVENTORY = global.server_url + "delete_inventory/"
-    
     
     var URL_GET_NoShowLimit = global.server_url + "get_noshowlimit"
     var URL_UPDATE_NoShowLimit = global.server_url + "update_noshowlimit"
@@ -275,8 +272,6 @@ class global: NSObject
     var URL_GET_SALONTIMINGS_V1 = global.server_url + "get_salontimings"
     var URL_UPDATE_SALONTIMINGS_V1 = global.server_url + "update_salon_timingsv1"
     
-    
-    
     var URL_GET_REMINDERMAIL = global.server_url + "get_remindermail/"
     var URL_GET_TIMEGAP = global.server_url + "get_timegap/"
     var URL_DELETE_GUEST = global.server_url + "delete_guest/"
@@ -289,12 +284,11 @@ class global: NSObject
     var URL_GET_POS_Return = global.server_url + "pos_return"
     var URL_POS_REFUND = global.server_url + "pos_refund"
     
-    
-    
     var URL_ADD_ADDON = global.server_url + "add_addon"
     var URL_ADDON_DETAILS = global.server_url + "addon_details"
     var URL_UPDATE_ADDON = global.server_url + "update_addon"
     var URL_SUBSERVICE_DEATILS = global.server_url + "subservice_details"
+    var URL_SEND_RESETLINK = global.server_url + "send_resetlink"
     
     var noDataLabel: UILabel?
     var hasUnreadNotification: Bool = false

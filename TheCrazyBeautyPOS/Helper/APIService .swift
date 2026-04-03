@@ -8224,12 +8224,13 @@ class APIService {
     }
 
     
-    func UpdateBookingFlow(booking_flow: Int, vendorId: String, completion: @escaping (CurrencyResponseA?) -> Void) {
+    func UpdateBookingFlow(booking_flow: Int, vendorId: String,staff_service_view:Int, completion: @escaping (CurrencyResponseA?) -> Void) {
         let url = global.shared.URL_UPDATE_BOOKINGFLOW
         
         let params: [String: Any] = [
             "booking_flow": booking_flow,
-            "vendor_id": vendorId
+            "vendor_id": vendorId,
+            "staff_service_view": staff_service_view
         ]
 
         // 🌐 Log request info
@@ -14622,6 +14623,56 @@ class APIService {
             }
     }
     
-    
+    func SendRestlink(email: String, completion: @escaping (CurrencyResponseA?) -> Void) {
+        let url = global.shared.URL_SEND_RESETLINK
+
+        let params: [String: Any] = [
+            "email": email
+        ]
+
+        print("🌐 URL: \(url)")
+        print("📤 Parameters: \(params)")
+        print("📤 Headers: \(self.headers)")
+
+        AF.request(
+            url,
+            method: .post,
+            parameters: params,
+            encoding: JSONEncoding.default,
+            headers: HTTPHeaders(headers)
+        )
+        .validate()
+        .responseJSON { response in
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            switch response.result {
+            case .success(let json):
+                if let data = response.data,
+                   let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+
+                // 🧩 Parse JSON manually into your model
+                if let dict = json as? [String: Any] {
+                    let model = CurrencyResponseA(JSON: dict)
+                    print("✅ Parsed Response Object: \(String(describing: model))")
+                    completion(model)
+                } else {
+                    print("⚠️ Unexpected JSON format")
+                    completion(nil)
+                }
+
+            case .failure(let error):
+                print("❌ API Error: \(error.localizedDescription)")
+                if let data = response.data,
+                   let raw = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(raw)")
+                }
+                completion(nil)
+            }
+        }
+    }
     
 }

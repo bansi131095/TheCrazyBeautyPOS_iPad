@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol DismissDelegate: AnyObject {
+    func didDismissScreen(data: String?)
+}
+
 class AddSubService_VC: UIViewController {
 
     
@@ -15,6 +19,7 @@ class AddSubService_VC: UIViewController {
     @IBOutlet weak var tbl_SubService: UITableView!
     @IBOutlet weak var lbl_NoData: UILabel!
     
+    weak var delegate: DismissDelegate?
     
     var serviceList: [ServiceData] = []
     var service_Id = String()
@@ -43,6 +48,7 @@ class AddSubService_VC: UIViewController {
     }
     
     @IBAction func btn_Close(_ sender: Any) {
+        delegate?.didDismissScreen(data: "Hello from SecondVC")
         self.dismiss(animated: true)
     }
     
@@ -226,7 +232,6 @@ extension AddSubService_VC: UITableViewDelegate, UITableViewDataSource, UIScroll
             let addNew = self.storyboard?.instantiateViewController(withIdentifier: "AddServiceVC") as! AddServiceVC
             addNew.isEdit = true
             addNew.dictService = service
-            addNew.newAddServiceEdit = "newAddServiceEdit"
             if let nav = self.presentingViewController as? UINavigationController {
                 self.dismiss(animated: true) {
                     nav.pushViewController(addNew, animated: true)

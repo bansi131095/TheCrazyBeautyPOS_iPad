@@ -26,9 +26,14 @@ class Custom_HoursVC: UIViewController {
     var SelectedDate: Date?
     var SalonTiming: [SalonTiming] = []
     var deletedTimingIds: [String] = []
-    
+    var notificationList: [MessageData] = []
     let fromTime = "00:00"
-    let toTime = "23:30"
+    let toTime = "23:45"
+    
+    var totalCount = 0
+    var currentPage = 1
+    var isLoadingMore = false
+    var hasMoreData = true
     
     //MARK: View life cycle
     override func viewDidLoad() {
@@ -63,7 +68,7 @@ class Custom_HoursVC: UIViewController {
     }
     
     func setCollectCategory() {
-        self.cv_Time.register(UINib(nibName: "CustomeTimeCell", bundle: nil), forCellWithReuseIdentifier: "CustomeTimeCell")
+        self.cv_Time.register(UINib(nibName: "Customschedule_Cell", bundle: nil), forCellWithReuseIdentifier: "Customschedule_Cell")
         self.cv_Time.dataSource = self
         self.cv_Time.delegate = self
     }
@@ -254,6 +259,45 @@ class Custom_HoursVC: UIViewController {
     }
     
     //MARK: - Web Api Calling
+    func getNotificationData(isPagination: Bool = false) {
+        if isPagination {
+            self.isLoadingMore = true
+        } else {
+            self.currentPage = 1
+            self.notificationList.removeAll()
+            self.hasMoreData = true
+            showLoader()
+        }
+        
+        APIService.shared.getNotificationList(page: "\(currentPage)", limit: "10") { activityResult in
+            self.hideLoader()
+            guard let model = activityResult else {
+                self.isLoadingMore = false
+                return
+            }
+
+            let newItems = model.data
+            if newItems.isEmpty || self.notificationList.count + newItems.count >= self.totalCount {
+                self.hasMoreData = false
+            }
+
+            self.notificationList += newItems
+            self.currentPage += 1
+            self.isLoadingMore = false
+            self.cv_Time.reloadData()
+            self.cv_Time.backgroundView = self.notificationList.isEmpty ? self.getNoDataLabel() : nil
+        }
+    }
+    
+    func getNoDataLabel() -> UILabel {
+        let noDataLabel = UILabel()
+        noDataLabel.text = NSLocalizedString("No Data Found", comment: "")
+        noDataLabel.textAlignment = .center
+        noDataLabel.textColor = .gray
+        noDataLabel.font = UIFont(name: "Lato-Bold", size: 20.0)
+        return noDataLabel
+    }
+    
     func api_getSalonTimings() {
         showLoader()
         APIService.shared.getSalonTimings { [weak self] result in
@@ -278,12 +322,12 @@ class Custom_HoursVC: UIViewController {
 
 extension Custom_HoursVC: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    /*func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return SalonTiming.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = cv_Time.dequeueReusableCell(withReuseIdentifier: "CustomeTimeCell", for: indexPath) as! CustomeTimeCell
+        let cell = cv_Time.dequeueReusableCell(withReuseIdentifier: "Customschedule_Cell", for: indexPath) as! Customschedule_Cell
         let data = SalonTiming[indexPath.row]
         cell.lbl_Date.text = data.date
         cell.lbl_FromTime.text = data.working_hours?.from
@@ -345,6 +389,76 @@ extension Custom_HoursVC: UICollectionViewDelegate, UICollectionViewDataSource,U
     
     func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: cv_Time.frame.size.width, height: 70)
+    }*/
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return SalonTiming.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = cv_Time.dequeueReusableCell(withReuseIdentifier: "Customschedule_Cell", for: indexPath) as! Customschedule_Cell
+        
+        let data = SalonTiming[indexPath.row]
+//        cell.lbl_Date.text = data.date
+        cell.lbl_FromTime.text = data.working_hours?.from
+        cell.lbl_ToTime.text = data.working_hours?.to
+        cell.reloadTable()
+        cell.Act_From = { [weak self] in
+            guard let self = self else { return }
+            
+            let slots = self.generateTimeSlots(start: self.fromTime, end: self.toTime, interval: 30)
+            let slotDuration = DropDown()
+            
+            slotDuration.anchorView = cell.lbl_FromTime
+            slotDuration.dataSource = slots
+            slotDuration.bottomOffset = CGPoint(x: 0, y:(slotDuration.anchorView?.plainView.bounds.height)!)
+            slotDuration.direction = .bottom
+            slotDuration.cellHeight = 35
+            slotDuration.textFont = UIFont(name: "Lato-Regular", size: 16.0)!
+            slotDuration.backgroundColor = .white
+            slotDuration.show()
+            
+            slotDuration.selectionAction = { (index: Int, item: String) in
+                print("Selected From: \(item)")
+                cell.lbl_FromTime.text = item
+                
+                self.SalonTiming[indexPath.row].working_hours?.from = item
+            }
+        }
+        
+        cell.Act_To = { [weak self] in
+            guard let self = self else { return }
+            
+            let slots = self.generateTimeSlots(start: self.fromTime, end: self.toTime, interval: 30)
+            let slotDuration = DropDown()
+            
+            slotDuration.anchorView = cell.lbl_ToTime
+            slotDuration.dataSource = slots
+            slotDuration.bottomOffset = CGPoint(x: 0, y:(slotDuration.anchorView?.plainView.bounds.height)!)
+            slotDuration.direction = .bottom
+            slotDuration.cellHeight = 35
+            slotDuration.textFont = UIFont(name: "Lato-Regular", size: 16.0)!
+            slotDuration.backgroundColor = .white
+            slotDuration.show()
+            
+            slotDuration.selectionAction = { (index: Int, item: String) in
+                print("Selected To: \(item)")
+                cell.lbl_ToTime.text = item
+                self.SalonTiming[indexPath.row].working_hours?.to = item
+            }
+        }
+
+        cell.Act_Close = { [weak self] in
+            guard let self = self else { return }
+            self.removeTiming(at: indexPath.item)
+        }
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: cv_Time.frame.size.width, height: 300)
     }
     
 }

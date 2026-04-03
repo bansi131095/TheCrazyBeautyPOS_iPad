@@ -157,6 +157,12 @@ class LoginScreen: UIViewController {
         }
     }
     
+    
+    @IBAction func act_ForgotPassword(_ sender: Any) {
+        let addNew = self.storyboard?.instantiateViewController(withIdentifier: "ForgotPassword_VC") as! ForgotPassword_VC
+        self.navigationController?.pushViewController(addNew, animated: true)
+    }
+    
     func performLogin() {
         let email = txt_email.text ?? ""
         let password = txt_password.text ?? ""
