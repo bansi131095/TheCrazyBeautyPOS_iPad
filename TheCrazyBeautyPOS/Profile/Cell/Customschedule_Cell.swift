@@ -9,11 +9,24 @@ import UIKit
 
 class Customschedule_Cell: UICollectionViewCell {
 
+    
+    @IBOutlet weak var vw_Time: UIView!
+    @IBOutlet weak var lbl_Time: UILabel!
+    
+    @IBOutlet weak var vw_FromToTime: UIView!
     @IBOutlet weak var lbl_FromTime: UILabel!
     @IBOutlet weak var lbl_ToTime: UILabel!
+    
+    
+    @IBOutlet weak var vw_Date: UIView!
+    @IBOutlet weak var txt_FromDate: TextInputLayout!
+    @IBOutlet weak var txt_ToDate: TextInputLayout!
+    
+    
+    @IBOutlet weak var vw_UpdateCancel: UIStackView!
     @IBOutlet weak var tbl_Dates: UITableView!
     @IBOutlet weak var tbl_DateHeight: NSLayoutConstraint!
-    @IBOutlet weak var txt_OpeningDate: TextInputLayout!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,16 +39,17 @@ class Customschedule_Cell: UICollectionViewCell {
         tbl_Dates.dataSource = self
         tbl_Dates.rowHeight = UITableView.automaticDimension
         tbl_Dates.estimatedRowHeight = 50
-        tbl_Dates.backgroundColor = .red
         tbl_Dates.isScrollEnabled = false
     }
     
+    var onHeightUpdate: (() -> Void)?
     
     func reloadTable() {
         DispatchQueue.main.async {
             self.tbl_Dates.reloadData()
             self.tbl_Dates.layoutIfNeeded()
             self.tbl_DateHeight.constant = self.tbl_Dates.contentSize.height
+            self.onHeightUpdate?()
         }
     }
     
@@ -66,7 +80,7 @@ class Customschedule_Cell: UICollectionViewCell {
 extension Customschedule_Cell: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 5
     }
     
     

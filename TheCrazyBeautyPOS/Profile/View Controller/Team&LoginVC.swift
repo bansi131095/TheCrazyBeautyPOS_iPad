@@ -103,8 +103,15 @@ class Team_LoginVC: UIViewController {
         showLoader()
         APIService.shared.fetchSubvendor { result in
             self.hideLoader()
-            self.TeamLogin = result!.data
-            if result?.data != nil {
+            
+            
+            guard let data = result?.data, !data.isEmpty else {
+                        self.alertWithMessageOnly(NSLocalizedString("No team data found", comment: ""))
+                        return
+                    }
+            
+            self.TeamLogin = data
+            if data != nil {
                 self.txt_Name.text = self.TeamLogin.first?.name
                 self.txt_Email.text = self.TeamLogin.first?.email
                 self.txt_Name.showLabel()

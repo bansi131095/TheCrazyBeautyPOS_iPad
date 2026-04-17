@@ -236,7 +236,8 @@ class ProfileVC: UIViewController,SettingCellDelegate {
             case 1:
                 vc = storyboard.instantiateViewController(withIdentifier: "Business_HoursVC")
             case 2:
-                vc = storyboard.instantiateViewController(withIdentifier: "Custom_HoursVC")
+//                vc = storyboard.instantiateViewController(withIdentifier: "Custom_HoursVC")
+                vc = storyboard.instantiateViewController(withIdentifier: "Custom_ScheduleVC")
             case 3:
                 vc = storyboard.instantiateViewController(withIdentifier: "SalonOff_DaysVC")
             case 4:

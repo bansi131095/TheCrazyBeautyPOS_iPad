@@ -1386,6 +1386,30 @@ fileprivate var ActivityIndicatorViewAssociativeKey = "ActivityIndicatorViewAsso
 extension UIView
 {
     
+    
+    func addDottedBorder(color: UIColor = .lightGray,
+                             lineWidth: CGFloat = 1,
+                             dashPattern: [NSNumber] = [4, 4],
+                             cornerRadius: CGFloat = 8) {
+            
+            // Remove old border if exists
+            self.layer.sublayers?.removeAll(where: { $0.name == "DottedBorderLayer" })
+            
+            let shapeLayer = CAShapeLayer()
+            shapeLayer.name = "DottedBorderLayer"
+            shapeLayer.strokeColor = color.cgColor
+            shapeLayer.fillColor = UIColor.clear.cgColor
+            shapeLayer.lineWidth = lineWidth
+            shapeLayer.lineDashPattern = dashPattern
+            
+            // Rounded path
+            let path = UIBezierPath(roundedRect: self.bounds, cornerRadius: cornerRadius)
+            shapeLayer.path = path.cgPath
+            
+            shapeLayer.frame = self.bounds
+            self.layer.addSublayer(shapeLayer)
+        }
+    
     //    func showProgressBarr()
     //    {
     //        let hud = MBProgressHUD.showAdded(to: self, animated: true)

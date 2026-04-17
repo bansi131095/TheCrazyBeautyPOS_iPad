@@ -98,3 +98,16 @@ class Service_ModelData: Mappable {
         total_price <- map["total_price"]
     }
 }
+
+
+class StaffHoliday: Mappable {
+    var data: [String]?
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data  <- map["data"]
+        error <- map["error"]
+    }
+}

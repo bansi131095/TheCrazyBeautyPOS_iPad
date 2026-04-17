@@ -72,7 +72,18 @@ class KioskUsersVC: UIViewController {
         self.showLoader()
         APIService.shared.fetchKioskUser { result in
             self.hideLoader()
-            self.TeamLogin = result!.data
+            guard let data = result?.data else {
+                self.alertWithMessageOnly("Failed to get team details")
+                return
+            }
+            
+            if data.isEmpty {
+                print("TeamDetails array is empty")
+                // handle empty UI if needed
+                return
+            }
+            
+            self.TeamLogin = data
             if result?.data != nil {
                 self.txt_Email.text = self.TeamLogin.first?.email
                 self.txt_Email.showLabel()

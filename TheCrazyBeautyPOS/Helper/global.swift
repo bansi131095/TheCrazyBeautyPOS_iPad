@@ -269,7 +269,7 @@ class global: NSObject
     var URL_CLIENT_BOOKINGS_DATA = global.server_url + "client_bookings_data"
     var URL_BLOCK_NUMBER = global.server_url + "block_number"
     var URL_GET_SHIFTS_V1 = global.server_url + "get_shifts_v1"
-    var URL_GET_SALONTIMINGS_V1 = global.server_url + "get_salontimings"
+    var URL_GET_SALONTIMINGS = global.server_url + "get_salontimings"
     var URL_UPDATE_SALONTIMINGS_V1 = global.server_url + "update_salon_timingsv1"
     
     var URL_GET_REMINDERMAIL = global.server_url + "get_remindermail/"
@@ -289,6 +289,12 @@ class global: NSObject
     var URL_UPDATE_ADDON = global.server_url + "update_addon"
     var URL_SUBSERVICE_DEATILS = global.server_url + "subservice_details"
     var URL_SEND_RESETLINK = global.server_url + "send_resetlink"
+    
+    
+    var URL_GET_SALONTIMINGS_V1 = global.server_url + "get_salontimings_v1"
+    var URL_GET_STAFF_SALON_HOLIDAYS = global.server_url + "staff_salon_holidays"
+    
+    var URL_UPDATE_SALON_TIMINGSV2 = global.server_url + "update_salon_timingsv2"
     
     var noDataLabel: UILabel?
     var hasUnreadNotification: Bool = false

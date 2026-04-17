@@ -1204,3 +1204,74 @@ class cashbackData : Mappable{
         card_charge  <- map["card_charge"]
     }
 }
+
+class customScheduleTimeSlot: Mappable {
+    
+    var data: [customScheduleFromTo] = []
+    var error: String?
+
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        data         <- map["data"]
+        error        <- map["error"]
+    }
+}
+
+class customScheduleFromTo: Mappable {
+    
+    var from_time: String?
+    var to_time: String?
+    var dates: [SalonDate] = []
+    
+//    var selected
+    
+    var isEditing: Bool = false
+    
+    required init?(map: Map) {}
+
+    func mapping(map: Map) {
+        from_time                  <- map["from_time"]
+        to_time                  <- map["to_time"]
+        dates                  <- map["dates"]
+    }
+}
+
+
+
+class SalonDate : Mappable{
+    var id: Int?
+    var day: String?
+    var date: String?
+    
+    required init?(map: Map) {}
+    
+    func mapping(map: ObjectMapper.Map) {
+        id  <- map["id"]
+        day  <- map["day"]
+        date  <- map["date"]
+    }
+}
+
+struct DateRange {
+    var from: String
+    var to: String
+    var indices: [Int]
+}
+
+
+struct temp_customScheduleFromTo {
+    var from_Time: String
+    var to_Time: String
+    
+    var from_Date: String
+    var to_Date: String
+    
+    var dateslist: [temp_DateRange] = []
+}
+
+struct temp_DateRange {
+    var from: String
+    var to: String
+    var dates: [SalonDate] = []
+}

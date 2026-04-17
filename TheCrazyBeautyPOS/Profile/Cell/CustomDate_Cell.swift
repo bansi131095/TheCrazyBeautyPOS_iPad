@@ -10,7 +10,9 @@ import UIKit
 class CustomDate_Cell: UITableViewCell {
 
     
+    @IBOutlet weak var vw_Date: UIView!
     @IBOutlet weak var lbl_Date: UILabel!
+    @IBOutlet weak var vw_Height: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,4 +25,13 @@ class CustomDate_Cell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    var Act_Edit:(()->Void)?
+    @IBAction func act_Edit(_ sender: UIButton) {
+        self.Act_Edit?()
+    }
+    
+    var Act_Remove:(()->Void)?
+    @IBAction func act_Remove(_ sender: UIButton) {
+        self.Act_Remove?()
+    }
 }

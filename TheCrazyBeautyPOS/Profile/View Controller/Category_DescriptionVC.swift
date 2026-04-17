@@ -85,8 +85,19 @@ class Category_DescriptionVC: UIViewController {
     
     func get_CategoryDescription(){
         APIService.shared.fetchCategory  { result in
-            self.CategoryDetails = result!.data
-            self.get_CategoryDescriptionNew()
+            
+            guard let data = result?.data else {
+                        print("No data found")
+                        return
+                    }
+            self.CategoryDetails = data
+//            self.CategoryDetails = result!.data
+            
+            if self.CategoryDetails.isEmpty {
+                    print("CategoryDetails array is empty")
+            }else{
+                self.get_CategoryDescriptionNew()
+            }
         }
     }
     

@@ -13727,7 +13727,7 @@ class APIService {
     }
     
     func getSalonTimings(completion: @escaping (SalonTimingResponse?) -> Void) {
-        let url = global.shared.URL_GET_SALONTIMINGS_V1 + "/\(LocalData.userId)"
+        let url = global.shared.URL_GET_SALONTIMINGS + "/\(LocalData.userId)"
 
         // 🌐 Send GET Request
         AF.request(url, method: .get, headers: HTTPHeaders(headers))
@@ -13753,6 +13753,52 @@ class APIService {
                 case .success(let json):
                     // ✅ Map JSON using ObjectMapper
                     if let model = Mapper<SalonTimingResponse>().map(JSONObject: json) {
+                        print("✅ Parsed Response Object: \(model)")
+                        completion(model)
+                    } else {
+                        print("❌ Mapping Failed: Could not map JSON to ShowLimitModel")
+                        completion(nil)
+                    }
+
+                case .failure(let error):
+                    print("❌ API Call Failed: \(error.localizedDescription)")
+                    if let data = response.data,
+                       let responseStr = String(data: data, encoding: .utf8) {
+                        print("📦 Raw Response: \(responseStr)")
+                    }
+                    completion(nil)
+                }
+            }
+    }
+    
+    
+    func getSalonTimingsV1(completion: @escaping (customScheduleTimeSlot?) -> Void) {
+        let url = global.shared.URL_GET_SALONTIMINGS_V1 + "/\(LocalData.userId)"
+
+        // 🌐 Send GET Request
+        AF.request(url, method: .get, headers: HTTPHeaders(headers))
+            .validate()
+            .responseJSON { response in
+
+                // 🧾 Log Request Info
+                print("🌐 URL: \(url)")
+                print("📤 Headers: \(self.headers)")
+
+                // ✅ Log HTTP Status
+                if let httpResponse = response.response {
+                    print("✅ Status Code: \(httpResponse.statusCode)")
+                }
+
+                // 📥 Log Raw Response
+                if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+
+                // 🎯 Handle Result
+                switch response.result {
+                case .success(let json):
+                    // ✅ Map JSON using ObjectMapper
+                    if let model = Mapper<customScheduleTimeSlot>().map(JSONObject: json) {
                         print("✅ Parsed Response Object: \(model)")
                         completion(model)
                     } else {
@@ -14675,4 +14721,113 @@ class APIService {
         }
     }
     
+    
+    func getStaffSalonHolidays(vendor_id: String, completion: @escaping (StaffHoliday?) -> Void) {
+        let url = global.shared.URL_GET_STAFF_SALON_HOLIDAYS
+
+        let params: [String: Any] = [
+            "vendor_id": vendor_id
+        ]
+
+        print("🌐 URL: \(url)")
+        print("📤 Parameters: \(params)")
+        print("📤 Headers: \(self.headers)")
+
+        AF.request(
+            url,
+            method: .post,
+            parameters: params,
+            encoding: JSONEncoding.default,
+            headers: HTTPHeaders(headers)
+        )
+        .validate()
+        .responseJSON { response in
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            switch response.result {
+            case .success(let json):
+                if let data = response.data,
+                   let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+
+                // 🧩 Parse JSON manually into your model
+                if let dict = json as? [String: Any] {
+                    let model = StaffHoliday(JSON: dict)
+                    print("✅ Parsed Response Object: \(String(describing: model))")
+                    completion(model)
+                } else {
+                    print("⚠️ Unexpected JSON format")
+                    completion(nil)
+                }
+
+            case .failure(let error):
+                print("❌ API Error: \(error.localizedDescription)")
+                if let data = response.data,
+                   let raw = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(raw)")
+                }
+                completion(nil)
+            }
+        }
+    }
+    
+    
+    func update_CustomSchedule(salonTimingArray: String,delete_timing:String,completion: @escaping (CommonResponse?) -> Void) {
+        let url = global.shared.URL_UPDATE_SALON_TIMINGSV2 + "/\(LocalData.userId)"
+        
+        
+        let jsonData = try? JSONSerialization.jsonObject(with: salonTimingArray.data(using: .utf8)!, options: [])
+        
+        let params: [String: Any] = [
+            "salon_timing": jsonData ?? [],
+            "delete_timing": delete_timing,
+        ]
+
+        print("🌐 URL: \(url)")
+        print("📤 Parameters: \(params)")
+        print("📤 Headers: \(self.headers)")
+
+        AF.request(
+            url,
+            method: .post,
+            parameters: params,
+            encoding: JSONEncoding.default,
+            headers: HTTPHeaders(headers)
+        )
+        .validate()
+        .responseJSON { response in
+            if let httpResponse = response.response {
+                print("✅ Status Code: \(httpResponse.statusCode)")
+            }
+
+            switch response.result {
+            case .success(let json):
+                if let data = response.data,
+                   let responseStr = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(responseStr)")
+                }
+
+                // 🧩 Parse JSON manually into your model
+                if let dict = json as? [String: Any] {
+                    let model = CommonResponse(JSON: dict)
+                    print("✅ Parsed Response Object: \(String(describing: model))")
+                    completion(model)
+                } else {
+                    print("⚠️ Unexpected JSON format")
+                    completion(nil)
+                }
+
+            case .failure(let error):
+                print("❌ API Error: \(error.localizedDescription)")
+                if let data = response.data,
+                   let raw = String(data: data, encoding: .utf8) {
+                    print("📦 Raw Response: \(raw)")
+                }
+                completion(nil)
+            }
+        }
+    }
 }

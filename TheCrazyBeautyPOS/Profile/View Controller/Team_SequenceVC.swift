@@ -90,7 +90,19 @@ class Team_SequenceVC: UIViewController {
         showLoader()
         APIService.shared.fetchTeamDetails(vendorId: LocalData.userId) { result in
             self.hideLoader()
-            self.TeamDetails = result!.data
+            
+            guard let data = result?.data else {
+                print("Failed to get team details")
+                return
+            }
+                    
+            if data.isEmpty {
+                print("TeamDetails array is empty")
+                // handle empty UI if needed
+                return
+            }
+            
+            self.TeamDetails = data
             self.get_staffSequence()
         }
     }
