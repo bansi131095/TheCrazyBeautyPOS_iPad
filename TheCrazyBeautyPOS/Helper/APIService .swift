@@ -14722,11 +14722,12 @@ class APIService {
     }
     
     
-    func getStaffSalonHolidays(vendor_id: String, completion: @escaping (StaffHoliday?) -> Void) {
+    func getStaffSalonHolidays(vendor_id: String,staff_id:String = "", completion: @escaping (StaffHoliday?) -> Void) {
         let url = global.shared.URL_GET_STAFF_SALON_HOLIDAYS
 
         let params: [String: Any] = [
-            "vendor_id": vendor_id
+            "vendor_id": vendor_id,
+            "staff_id": staff_id
         ]
 
         print("🌐 URL: \(url)")

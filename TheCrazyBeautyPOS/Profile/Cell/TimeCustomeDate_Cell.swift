@@ -155,7 +155,11 @@ extension TimeCustomeDate_Cell: UITableViewDelegate, UITableViewDataSource, UISc
             return UITableViewCell()
         }
         let data = visibleRanges()[indexPath.row]
-        cell.lbl_Date.text = "\(data.from) To \(data.to)"
+        if data.from == data.to {
+            cell.lbl_Date.text = "\(data.from)"
+        }else{
+            cell.lbl_Date.text = "\(data.from) To \(data.to)"
+        }
         
         /*if (onEditIndex == indexPath.row) {
             cell.vw_Date.isHidden = true

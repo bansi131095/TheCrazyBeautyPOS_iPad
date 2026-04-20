@@ -9,7 +9,7 @@ import UIKit
 import DropDown
 import FSCalendar
 
-class Custom_ScheduleVC: UIViewController, FSCalendarDataSource, FSCalendarDelegate {
+class Custom_ScheduleVC: UIViewController, FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance {
 
     
     //MARK: - Outlet
@@ -22,7 +22,8 @@ class Custom_ScheduleVC: UIViewController, FSCalendarDataSource, FSCalendarDeleg
     var mainIndex = 2
     
     var arr_selectIndex: [Int] = []
-    
+    var disabledWeekdays: [Int] = []
+
     let fromTime = "00:00"
     let toTime = "23:45"
     
@@ -192,6 +193,14 @@ class Custom_ScheduleVC: UIViewController, FSCalendarDataSource, FSCalendarDeleg
         if isSelectingFromDate {
             tempFromDate = formattedDate
             cell.txt_FromDate.text = formattedDate
+            // If the new From date is after the existing To date, clear To so the
+            // To picker minimum doesn't try to scroll to a date before its minimum (crash).
+            if let existingTo = tempToDate,
+               let existingToDate = formatter.date(from: existingTo),
+               date > existingToDate {
+                tempToDate = nil
+                cell.txt_ToDate.text = ""
+            }
         } else {
             tempToDate = formattedDate
             cell.txt_ToDate.text = formattedDate
@@ -295,6 +304,7 @@ class Custom_ScheduleVC: UIViewController, FSCalendarDataSource, FSCalendarDeleg
             popover.permittedArrowDirections = .up
         }
         self.present(calendarVC!, animated: true) { [weak self] in
+            
             if let date = preselectedDate ?? self?.calendarPreselectedDate {
                 self?.fsCalendar?.setCurrentPage(date, animated: false)
                 self?.fsCalendar?.select(date, scrollToDate: false)
@@ -378,54 +388,6 @@ class Custom_ScheduleVC: UIViewController, FSCalendarDataSource, FSCalendarDeleg
 
 }
 
-// MARK: - FSCalendar holiday appearance & selection blocking
-extension Custom_ScheduleVC {
-    
-    private var calendarDateFormatter: DateFormatter {
-        let f = DateFormatter()
-        f.dateFormat = "dd-MM-yyyy"
-        f.locale = Locale(identifier: "en_US_POSIX")
-        return f
-    }
-    
-    func calendar(_ calendar: FSCalendar, shouldSelect date: Date,
-                  at monthPosition: FSCalendarMonthPosition) -> Bool {
-        let str = calendarDateFormatter.string(from: date)
-        // Block holidays
-        if holidayDates.contains(str) { return false }
-        // Block past dates (before today, calendar-day precision)
-        let today = Calendar.current.startOfDay(for: Date())
-        if Calendar.current.startOfDay(for: date) < today { return false }
-        // When picking To-date, block anything before the selected From-date
-        if !isSelectingFromDate,
-           let fromStr = tempFromDate,
-           let fromDate = calendarDateFormatter.date(from: fromStr) {
-            if Calendar.current.startOfDay(for: date) < Calendar.current.startOfDay(for: fromDate) {
-                return false
-            }
-        }
-        return true
-    }
-    
-    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance,
-                  fillDefaultColorFor date: Date) -> UIColor? {
-        let str = calendarDateFormatter.string(from: date)
-        let today = Calendar.current.startOfDay(for: Date())
-        let isPast = Calendar.current.startOfDay(for: date) < today
-        let isHoliday = holidayDates.contains(str)
-        return (isPast || isHoliday) ? UIColor.lightGray.withAlphaComponent(0.25) : nil
-    }
-    
-    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance,
-                  titleDefaultColorFor date: Date) -> UIColor? {
-        let str = calendarDateFormatter.string(from: date)
-        let today = Calendar.current.startOfDay(for: Date())
-        let isPast = Calendar.current.startOfDay(for: date) < today
-        let isHoliday = holidayDates.contains(str)
-        return (isPast || isHoliday) ? UIColor.lightGray.withAlphaComponent(0.4) : nil
-    }
-}
-
 extension Custom_ScheduleVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return customScheduleFromTo.count
@@ -470,7 +432,7 @@ extension Custom_ScheduleVC: UITableViewDelegate, UITableViewDataSource {
         
         // Button title: "Update" when editing existing range, "Add Dates" for new
         let isEditingExistingRange = isThisRowEditing && (editingInnerRangeIndex != nil)
-        cell.btn_Update.setTitle(isEditingExistingRange ? "Update" : "Add Dates", for: .normal)
+        cell.btn_Update.setTitle(isEditingExistingRange ? (NSLocalizedString("Update",comment: "")) : (NSLocalizedString("Add Dates",comment: "")), for: .normal)
         
         // Disable update button until both from and to dates are chosen
         let hasFrom = isThisRowEditing && !(tempFromDate ?? "").isEmpty
@@ -618,6 +580,18 @@ extension Custom_ScheduleVC: UITableViewDelegate, UITableViewDataSource {
                 cur = Calendar.current.date(byAdding: .day, value: 1, to: cur)!
             }
             let newDateSet = Set(newDateStrings)
+            
+            // Check against ALL dates across every slot.
+            // When editing an existing range, the stash pattern already removed that
+            // range's dates from the live array, so they are naturally excluded here —
+            // no extra filtering needed. Any overlap with anything else is a duplicate.
+            let existingOccupiedDates = Set(
+                self.customScheduleFromTo.flatMap { $0.dates }.compactMap { $0.date }
+            )
+            if !existingOccupiedDates.intersection(newDateSet).isEmpty {
+                self.alertWithMessageOnly(NSLocalizedString("Custom Schedule for these dates already exists", comment: ""))
+                return
+            }
             
             let dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
             
@@ -773,5 +747,66 @@ extension Custom_ScheduleVC: UITableViewDelegate, UITableViewDataSource {
 extension Custom_ScheduleVC {
     func minimumDate(for calendar: FSCalendar) -> Date {
         return calendarMinimumDate
+    }
+}
+
+// MARK: - FSCalendar holiday/past-date appearance & selection blocking
+extension Custom_ScheduleVC {
+    
+    private var calendarDateFormatter: DateFormatter {
+        let f = DateFormatter()
+        f.dateFormat = "dd-MM-yyyy"
+        f.locale = Locale(identifier: "en_US_POSIX")
+        return f
+    }
+    
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date,
+                  at monthPosition: FSCalendarMonthPosition) -> Bool {
+        let str = calendarDateFormatter.string(from: date)
+        // Block holidays
+        if holidayDates.contains(str) { return false }
+        // Block past dates
+        let today = Calendar.current.startOfDay(for: Date())
+        if Calendar.current.startOfDay(for: date) < today { return false }
+        // When picking To-date, block anything before the selected From-date
+        if !isSelectingFromDate,
+           let fromStr = tempFromDate,
+           let fromDate = calendarDateFormatter.date(from: fromStr) {
+            if Calendar.current.startOfDay(for: date) < Calendar.current.startOfDay(for: fromDate) {
+                return false
+            }
+        }
+        return true
+    }
+    
+    // Fill background: light grey for past AND holiday dates
+    /*func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance,
+                  fillDefaultColorFor date: Date) -> UIColor? {
+        let str = calendarDateFormatter.string(from: date)
+        let today = Calendar.current.startOfDay(for: Date())
+        let isPast    = Calendar.current.startOfDay(for: date) < today
+        let isHoliday = holidayDates.contains(str)
+//        return (isPast || isHoliday) ? UIColor.lightGray.withAlphaComponent(0.25) : nil
+    }*/
+    
+    // Title colour: dimmed for past AND holiday dates
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance,
+                  titleDefaultColorFor date: Date) -> UIColor? {
+        let str = calendarDateFormatter.string(from: date)
+        let today = Calendar.current.startOfDay(for: Date())
+        let isPast    = Calendar.current.startOfDay(for: date) < today
+        let isHoliday = holidayDates.contains(str)
+        
+        if isPast {
+            return .lightGray
+        }
+        
+        if isHoliday {
+            return .lightGray
+        }
+        
+        return .black
+        
+//        return (isPast || isHoliday) ? UIColor.lightGray.withAlphaComponent(0.4) : nil
     }
 }

@@ -78,12 +78,15 @@ class EditScheduleVC: UIViewController {
     
     var selectedCopyStaffId : Int = 0
     
+    var holidayDates: Set<String> = []
+    
     //MARK: View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setTableView()
         self.scheduleList = self.parseScheduleData()
         self.updateSchedule()
+        StaffSalonHolidays()
         self.api_getHolidays()
         if !self.TeamId.isEmpty {
             self.api_getstaffShifts(StaffID: TeamId)
@@ -288,6 +291,13 @@ class EditScheduleVC: UIViewController {
     }
     
     //MARK: Setup Table view
+    func stringFromDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yyyy"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter.string(from: date)
+    }
+    
     func getSalonTimings() {
         showLoader()
         APIService.shared.getSalonTimings { [weak self] result in
@@ -313,6 +323,35 @@ class EditScheduleVC: UIViewController {
         tbl_vw.rowHeight = UITableView.automaticDimension
         tbl_vw.estimatedRowHeight = 60
         tbl_vw.reloadData()
+    }
+    
+    func StaffSalonHolidays() {
+        showLoader()
+        APIService.shared.getStaffSalonHolidays(vendor_id: LocalData.userId,staff_id: TeamId) { [weak self] result in
+            self?.hideLoader()
+            guard let self = self else { return }
+            if let dates = result?.data {
+                // Normalise to dd-MM-yyyy regardless of what format the API returns
+                // Supports yyyy-MM-dd and dd-MM-yyyy input formats
+                let inputFormatters: [DateFormatter] = [
+                    { let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd"; f.locale = Locale(identifier: "en_US_POSIX"); return f }(),
+                    { let f = DateFormatter(); f.dateFormat = "dd-MM-yyyy"; f.locale = Locale(identifier: "en_US_POSIX"); return f }()
+                ]
+                let outputFormatter: DateFormatter = {
+                    let f = DateFormatter()
+                    f.dateFormat = "dd-MM-yyyy"
+                    f.locale = Locale(identifier: "en_US_POSIX")
+                    return f
+                }()
+                self.holidayDates = Set(dates.compactMap { raw -> String? in
+                    for fmt in inputFormatters {
+                        if let d = fmt.date(from: raw) { return outputFormatter.string(from: d) }
+                    }
+                    return raw   // keep as-is if neither parser matched
+                })
+                print("🗓️ Holiday dates (normalised): \(self.holidayDates)")
+            }
+        }
     }
     
 
@@ -1607,9 +1646,16 @@ extension EditScheduleVC: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDe
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         let calendar = Calendar.current
         let weekday = calendar.component(.weekday, from: date)
+        
+        let dateString = stringFromDate(date)
+        
 // || disabledDates.contains(where: { calendar.isDate($0, inSameDayAs: date) })
         
         if disabledWeekdays.contains(weekday)  {
+            return .lightGray
+        }
+
+        if holidayDates.contains(dateString) {
             return .lightGray
         }
 
@@ -1620,10 +1666,17 @@ extension EditScheduleVC: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDe
         let calendar = Calendar.current
         let weekday = calendar.component(.weekday, from: date)
 
+        let dateString = stringFromDate(date)
+        
         // Disable if in disabled weekdays
         if disabledWeekdays.contains(weekday) {
             return false
         }
+        
+        // Disable holiday dates
+           if holidayDates.contains(dateString) {
+               return false
+           }
 
 //        // Disable if in disabled dates
 //        if disabledDates.contains(where: { calendar.isDate($0, inSameDayAs: date) }) {
