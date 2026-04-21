@@ -41,7 +41,7 @@ class ServicesVC: UIViewController,DismissDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.vw_SubResource.isHidden = true
-        contentViewWidthConstraint.constant = 30 // or any dynamic value
+        contentViewWidthConstraint.constant = 10 // or any dynamic value
         
         let ServiceSequence = NSAttributedString(
             string: NSLocalizedString("ServiceSequence",comment: ""),

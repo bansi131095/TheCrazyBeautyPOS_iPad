@@ -31,7 +31,7 @@ class TeamVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentViewWidthConstraint.constant = 20 // or any dynamic value
+        contentViewWidthConstraint.constant = 10 // or any dynamic value
         self.setTableView()
         setCustomFont()
         self.txt_search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)

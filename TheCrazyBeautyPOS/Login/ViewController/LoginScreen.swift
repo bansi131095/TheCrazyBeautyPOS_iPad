@@ -26,6 +26,7 @@ class LoginScreen: UIViewController {
     @IBOutlet weak var lbl_Or_Login: UILabel!
     @IBOutlet weak var btn_Google: UIButton!
     
+    @IBOutlet weak var btn_ForgotPassword: UIButton!
     
     
     var vendorData: VendorDataItem?
@@ -48,6 +49,7 @@ class LoginScreen: UIViewController {
         self.btn_LoginasStaff.isHidden = true
         self.lbl_Or_Login.isHidden = true
         self.btn_Google.isHidden = true
+        self.btn_ForgotPassword.isHidden = true
         checkVendor()
         
         self.lbl_Login.text = NSLocalizedString("Log in to manage your business.",comment: "")
@@ -264,12 +266,14 @@ class LoginScreen: UIViewController {
                 self.btn_LoginasStaff.isHidden = true
                 self.lbl_Or_Login.isHidden = true
                 self.btn_Google.isHidden = true
+                self.btn_ForgotPassword.isHidden = true
 //                self.Constraint_Bottom.constant = 35
             }else{
                 self.btn_Login.isHidden = false
                 self.btn_LoginasStaff.isHidden = false
                 self.lbl_Or_Login.isHidden = false
                 self.btn_Google.isHidden = false
+                self.btn_ForgotPassword.isHidden = false
 //                self.Constraint_Bottom.constant = 246.5
             }
             

@@ -229,11 +229,22 @@ class AddClientVC: UIViewController {
     }
     
     @IBAction func act_addEditClient(_ sender: GradientButton) {
+        let mobile = self.mobileTextField.text ?? ""
+        
         if self.firstNameTextField.text!.isEmpty {
             self.alertWithMessageOnly(NSLocalizedString("First Name is required.",comment: ""))
-        } else if self.mobileTextField.text!.isEmpty {
+        } else if mobile.isEmpty {
             self.alertWithMessageOnly(NSLocalizedString("Mobile Number is required.",comment: ""))
-        } else {
+        } else if mobile.hasPrefix("0") {
+            self.alertWithMessageOnly(NSLocalizedString("Do not include a leading zero (0) when entering your mobile number", comment: ""))
+        } else if selectedCountrycode == "+44" && !mobile.hasPrefix("7") {
+            self.alertWithMessageOnly(NSLocalizedString("UK mobile numbers must start with 7", comment: ""))
+        } else if selectedCountrycode == "+353" && !mobile.hasPrefix("8") {
+            self.alertWithMessageOnly(NSLocalizedString("Irish mobile numbers must start with 8", comment: ""))
+        } else if mobile.count < 9 || mobile.count > 10 {
+            self.alertWithMessageOnly(NSLocalizedString("Mobile number must be between 9 and 10 digits",comment: ""))
+            return
+        }else {
             self.view.endEditing(true)
             if isEdit {
                 if isGuest == "true"{

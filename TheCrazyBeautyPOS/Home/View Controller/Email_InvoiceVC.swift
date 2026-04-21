@@ -17,6 +17,7 @@ class Email_InvoiceVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        txt_Email.font = UIFont(name: "Lato-Medium", size: 16.0)
     }
     
 
@@ -47,7 +48,7 @@ class Email_InvoiceVC: UIViewController {
             if model.error == "" || model.error == nil {
                 self.alertWithMessageOnly(NSLocalizedString("Email sent successfully",comment: ""))
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self.dismiss(animated: true)
+                    self.presentingViewController?.dismiss(animated: true)
                 }
             } else {
                 self.alertWithMessageOnly(NSLocalizedString("Failed to get booking data",comment: ""))

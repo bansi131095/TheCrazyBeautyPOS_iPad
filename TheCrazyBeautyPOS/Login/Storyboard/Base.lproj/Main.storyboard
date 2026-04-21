@@ -634,7 +634,7 @@
                                                         </constraints>
                                                         <color key="color" name="AccentColor"/>
                                                     </activityIndicatorView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YlX-fZ-19m">
+                                                    <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YlX-fZ-19m">
                                                         <rect key="frame" x="35" y="417.5" width="380" height="30"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
@@ -733,6 +733,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="ZYC-pI-sqq"/>
                     <connections>
+                        <outlet property="btn_ForgotPassword" destination="YlX-fZ-19m" id="xUi-aD-R7x"/>
                         <outlet property="btn_Google" destination="JvL-Vr-cQU" id="MyF-8l-Sgz"/>
                         <outlet property="btn_Login" destination="lUe-hK-7Aa" id="8Xj-bq-fNF"/>
                         <outlet property="btn_LoginasStaff" destination="2YK-o0-gvL" id="nhh-6q-nC2"/>
@@ -809,7 +810,7 @@ Cg
                                                                 <attributes>
                                                                     <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <color key="NSColor" red="0.094117648900000003" green="0.094117648900000003" blue="0.094117648900000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <font key="NSFont" metaFont="system" size="12"/>
+                                                                    <font key="NSFont" metaFont="cellTitle"/>
                                                                     <real key="NSKern" value="0.0"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
                                                                         <tabStops/>

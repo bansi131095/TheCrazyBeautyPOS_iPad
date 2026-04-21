@@ -226,13 +226,22 @@ class Custom_ScheduleVC: UIViewController, FSCalendarDataSource, FSCalendarDeleg
     
     func groupConsecutiveDates(_ dates: [SalonDate]) -> [DateRange] {
         
-        if dates.isEmpty { return [] }
-        
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+
+        let sortedDates = dates.sorted { a, b in
+            guard let d1 = formatter.date(from: a.date ?? ""),
+                  let d2 = formatter.date(from: b.date ?? "") else {
+                return false
+            }
+            return d1 < d2   // ✅ ascending
+        }
+        
+        if sortedDates.isEmpty { return [] }
         
         // Step 1: Parse + sort
-        let parsed = dates.enumerated().compactMap { (index, d) -> (index: Int, date: Date, original: SalonDate)? in
+        let parsed = sortedDates.enumerated().compactMap { (index, d) -> (index: Int, date: Date, original: SalonDate)? in
             if let dateObj = formatter.date(from: d.date ?? "") {
                 return (index, dateObj, d)
             }
@@ -347,6 +356,8 @@ class Custom_ScheduleVC: UIViewController, FSCalendarDataSource, FSCalendarDeleg
                 if let day  = salonDate.day  { dateDict["day"]  = day }
                 if let date = salonDate.date { dateDict["date"] = date }
                 dateArray.append(dateDict)
+
+                
             }
             let entry: [String: Any] = [
                 "time": [
@@ -356,6 +367,7 @@ class Custom_ScheduleVC: UIViewController, FSCalendarDataSource, FSCalendarDeleg
                 "date": dateArray
             ]
             salonTimingArray.append(entry)
+            
         }
         
         // Build delete_timing: original IDs no longer present in any slot
@@ -363,15 +375,10 @@ class Custom_ScheduleVC: UIViewController, FSCalendarDataSource, FSCalendarDeleg
         let deletedIds = originalDateIds.subtracting(currentIds)
         let deleteTimingString = deletedIds.sorted().map { String($0) }.joined(separator: ",")
         
-        let payload: [String: Any] = [
-            "salon_timing":   salonTimingArray,
-            "delete_timing":  deleteTimingString
-        ]
-        
         APIService.shared.update_CustomSchedule(salonTimingArray: salonTimingArray.convertToJSONString(),
                             delete_timing: deleteTimingString) { result in
             
-            if let success = result?.data {
+            if (result?.data) != nil {
                 self.alertWithMessageOnly(NSLocalizedString("Salon timings updated successfully",comment: ""))
             } else {
                 self.alertWithMessageOnly(NSLocalizedString("Failed to add salon timing",comment: ""))
@@ -595,45 +602,29 @@ extension Custom_ScheduleVC: UITableViewDelegate, UITableViewDataSource {
             
             let dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
             
-            if let rangeIndex = self.editingInnerRangeIndex, rangeIndex < ranges.count {
-                let oldRange = ranges[rangeIndex]
-                let oldIndices = Set(oldRange.indices)
-                
-                // Build lookup: dateString -> existing SalonDate (preserves server ID)
-                var existingByDate: [String: SalonDate] = [:]
-                for (offset, salonDate) in self.customScheduleFromTo[indexPath.row].dates.enumerated() {
-                    if oldIndices.contains(offset), let ds = salonDate.date {
+            // Build date→SalonDate lookup from the stash (mirrors React's pendingEditIds).
+            // The stash always holds the original objects with server IDs regardless of
+            // whether ranges.count is 0 after the stash removed them from the live array.
+            // New groups have no stash, so existingByDate is empty → all dates created fresh.
+            var existingByDate: [String: SalonDate] = [:]
+            if let stashedDates = self.pendingEditDates[indexPath.row] {
+                for salonDate in stashedDates {
+                    if let ds = salonDate.date {
                         existingByDate[ds] = salonDate
                     }
                 }
-                
-                // Strip all old-range dates from the array
-                self.customScheduleFromTo[indexPath.row].dates = self.customScheduleFromTo[indexPath.row].dates
-                    .enumerated()
-                    .filter { !oldIndices.contains($0.offset) }
-                    .map { $0.element }
-                
-                // Re-add: keep existing entry (with ID) if still in range, or create new entry
-                for dateStr in newDateStrings {
-                    if let existing = existingByDate[dateStr] {
-                        self.customScheduleFromTo[indexPath.row].dates.append(existing)
-                    } else if let dateObj = formatter.date(from: dateStr) {
-                        let weekdayIndex = Calendar.current.component(.weekday, from: dateObj)
-                        let dayName = dayNames[weekdayIndex - 1]
-                        if let newDate = SalonDate(JSON: ["date": dateStr, "day": dayName]) {
-                            self.customScheduleFromTo[indexPath.row].dates.append(newDate)
-                        }
-                    }
-                }
-            } else {
-                // No existing range — adding fresh dates for a new slot
-                for dateStr in newDateStrings {
-                    if let dateObj = formatter.date(from: dateStr) {
-                        let weekdayIndex = Calendar.current.component(.weekday, from: dateObj)
-                        let dayName = dayNames[weekdayIndex - 1]
-                        if let newDate = SalonDate(JSON: ["date": dateStr, "day": dayName]) {
-                            self.customScheduleFromTo[indexPath.row].dates.append(newDate)
-                        }
+            }
+            
+            // Append new dates: reuse existing entry (preserving server ID) when the date
+            // was in the stash, otherwise create a brand-new SalonDate.
+            for dateStr in newDateStrings {
+                if let existing = existingByDate[dateStr] {
+                    self.customScheduleFromTo[indexPath.row].dates.append(existing)
+                } else if let dateObj = formatter.date(from: dateStr) {
+                    let weekdayIndex = Calendar.current.component(.weekday, from: dateObj)
+                    let dayName = dayNames[weekdayIndex - 1]
+                    if let newDate = SalonDate(JSON: ["date": dateStr, "day": dayName]) {
+                        self.customScheduleFromTo[indexPath.row].dates.append(newDate)
                     }
                 }
             }
