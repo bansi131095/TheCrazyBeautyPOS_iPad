@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad10_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -74,10 +75,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GA8-tu-9Ua">
-                                <rect key="frame" x="725" y="11" width="28" height="28"/>
+                                <rect key="frame" x="725" y="14" width="22" height="22"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="28" id="2Kj-SZ-50a"/>
-                                    <constraint firstAttribute="width" constant="28" id="ycB-2Q-9AC"/>
+                                    <constraint firstAttribute="height" constant="22" id="2Kj-SZ-50a"/>
+                                    <constraint firstAttribute="width" constant="22" id="ycB-2Q-9AC"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="Edit"/>
@@ -86,10 +87,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pzB-L4-Gj8">
-                                <rect key="frame" x="763" y="11" width="28" height="28"/>
+                                <rect key="frame" x="757" y="14" width="22" height="22"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="28" id="TjS-by-CA3"/>
-                                    <constraint firstAttribute="width" constant="28" id="UqL-5w-ZpB"/>
+                                    <constraint firstAttribute="height" constant="22" id="TjS-by-CA3"/>
+                                    <constraint firstAttribute="width" constant="22" id="UqL-5w-ZpB"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="delete"/>
@@ -113,8 +114,8 @@
                             <constraint firstItem="dLY-Ck-t4n" firstAttribute="top" secondItem="bLj-NL-00j" secondAttribute="top" id="ba6-NO-vug"/>
                             <constraint firstItem="GA8-tu-9Ua" firstAttribute="centerY" secondItem="FZF-3O-4yO" secondAttribute="centerY" id="kAE-p6-aqh"/>
                             <constraint firstItem="pzB-L4-Gj8" firstAttribute="leading" secondItem="GA8-tu-9Ua" secondAttribute="trailing" constant="10" id="ke3-q9-0vH"/>
-                            <constraint firstAttribute="trailing" secondItem="pzB-L4-Gj8" secondAttribute="trailing" constant="9" id="pVs-o6-usY"/>
                             <constraint firstItem="dLY-Ck-t4n" firstAttribute="leading" secondItem="gaf-VW-86G" secondAttribute="trailing" constant="15" id="qYx-Nd-OGf"/>
+                            <constraint firstAttribute="trailing" secondItem="pzB-L4-Gj8" secondAttribute="trailing" constant="21" id="skr-51-rdq"/>
                             <constraint firstItem="m6k-dv-6p7" firstAttribute="leading" secondItem="bLj-NL-00j" secondAttribute="trailing" constant="10" id="vAT-uy-rHj"/>
                             <constraint firstItem="gaf-VW-86G" firstAttribute="leading" secondItem="FZF-3O-4yO" secondAttribute="trailing" constant="15" id="vUO-jS-9dS"/>
                         </constraints>

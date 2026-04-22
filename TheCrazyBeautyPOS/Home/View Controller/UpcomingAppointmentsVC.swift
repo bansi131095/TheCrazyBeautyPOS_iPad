@@ -368,6 +368,7 @@ class UpcomingAppointmentsVC: UIViewController {
     
     func updateTopTeamHeight() {
         DispatchQueue.main.async {
+            self.tbl_vw.reloadData()
             self.tbl_TopTeam.layoutIfNeeded()
             self.tbl_TeamHeight.constant = self.tbl_TopTeam.contentSize.height
             self.view.layoutIfNeeded()

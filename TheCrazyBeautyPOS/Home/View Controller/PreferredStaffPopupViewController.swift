@@ -154,9 +154,6 @@ class PreferredStaffPopupViewController: UIViewController {
         gradient.cornerRadius = 30
         button.layer.insertSublayer(gradient, at: 0)
     }
-
-
-    
 }
 
 

@@ -169,6 +169,9 @@ class AddAddon_VC: UIViewController {
                     self.txt_Name.text = ""
                     self.txt_Des.text = ""
                     self.txt_Duration.text = ""
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        self.presentingViewController?.dismiss(animated: true)
+                    }
                 }
             }else{
                 if result?.error == "This name is already in use"{
@@ -193,6 +196,10 @@ class AddAddon_VC: UIViewController {
                 self.txt_Name.text = ""
                 self.txt_Des.text = ""
                 self.txt_Duration.text = ""
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.presentingViewController?.dismiss(animated: true)
+                }
             }else{
                 self.alertWithMessageOnly(NSLocalizedString("Failed to update addon",comment: ""))
             }

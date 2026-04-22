@@ -5,16 +5,13 @@
 //  Created by mini new on 16/02/26.
 //
 
-import UIKit
+/*import UIKit
 
 class AddonCollectionVC: UIViewController {
 
-    
-    
     var AddonSelected:[String] = []
     var addonList: [InventoryData] = []
     var onComplete: (([String]) -> Void)?
-    
     
     private let containerView = UIView()
     private let titleLabel = UILabel()
@@ -49,7 +46,6 @@ class AddonCollectionVC: UIViewController {
         updatePopupHeight()
     }
     
-
     private func setupViews() {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
 
@@ -66,7 +62,7 @@ class AddonCollectionVC: UIViewController {
         ])
 
         // Title Label
-        titleLabel.text = " "
+        titleLabel.text = ""
         titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
         titleLabel.textAlignment = .center
         containerView.addSubview(titleLabel)
@@ -157,7 +153,6 @@ class AddonCollectionVC: UIViewController {
         gradient.cornerRadius = 30
         button.layer.insertSublayer(gradient, at: 0)
     }
-    
 }
 
 extension AddonCollectionVC: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -171,12 +166,12 @@ extension AddonCollectionVC: UICollectionViewDelegate, UICollectionViewDataSourc
         }
         
         let name = (addonList[indexPath.item].addon_name) + " " + (LocalData.symbol) + String((addonList[indexPath.item].addon_price))
-        cell.configure(with: name, selected: AddonSelected.contains("\(addonList[indexPath.item].id ?? 0)"))
+        cell.configure(with: name, selected: AddonSelected.contains("\(addonList[indexPath.item].id)"))
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let staff = addonList[indexPath.item].id ?? 0
+        let staff = addonList[indexPath.item].id
         if AddonSelected.contains("\(staff)") {
             if let index = AddonSelected.firstIndex(of: "\(staff)") {
                 AddonSelected.remove(at: index)
@@ -188,4 +183,198 @@ extension AddonCollectionVC: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
 }
+*/
 
+import UIKit
+
+class AddonCollectionVC: UIViewController {
+
+    var AddonSelected:[String] = []
+    var addonList: [InventoryData] = []
+    var onComplete: (([String]) -> Void)?
+    
+    private let containerView = UIView()
+    private let titleLabel = UILabel()
+    private let closeButton = UIButton(type: .system)
+    private let collectionView: UICollectionView
+    private let continueButton = UIButton(type: .system)
+
+    private var collectionHeightConstraint: NSLayoutConstraint!
+
+    // MARK: - Layout
+    private let layout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 8
+        layout.minimumInteritemSpacing = 8
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        layout.scrollDirection = .vertical
+        return layout
+    }()
+
+    init() {
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        super.init(nibName: nil, bundle: nil)
+        modalPresentationStyle = .overCurrentContext
+        modalTransitionStyle = .crossDissolve
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupViews()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        collectionView.layoutIfNeeded()
+
+        let contentHeight = collectionView.contentSize.height
+        let maxHeight: CGFloat = 300
+
+        collectionHeightConstraint.constant = min(contentHeight, maxHeight)
+        collectionView.isScrollEnabled = contentHeight > maxHeight
+    }
+
+    // MARK: - Setup UI
+    private func setupViews() {
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+
+        // Container
+        containerView.backgroundColor = .white
+        containerView.layer.cornerRadius = 24
+        view.addSubview(containerView)
+
+        // Title
+        titleLabel.text = "Select Addon"
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        titleLabel.textAlignment = .center
+        containerView.addSubview(titleLabel)
+
+        // Close Button
+        closeButton.setTitle("✕", for: .normal)
+        closeButton.titleLabel?.font = UIFont.systemFont(ofSize: 22)
+        closeButton.tintColor = .black
+        closeButton.addTarget(self, action: #selector(closeTapped), for: .touchUpInside)
+        containerView.addSubview(closeButton)
+
+        // CollectionView
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.backgroundColor = .clear
+        collectionView.register(TagCell.self, forCellWithReuseIdentifier: "TagCell")
+        containerView.addSubview(collectionView)
+
+        // Continue Button
+        continueButton.setTitle("Continue", for: .normal)
+        continueButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        continueButton.setTitleColor(.white, for: .normal)
+        continueButton.layer.cornerRadius = 25
+        continueButton.clipsToBounds = true
+        continueButton.addTarget(self, action: #selector(continueTapped), for: .touchUpInside)
+        containerView.addSubview(continueButton)
+
+        applyGradient(to: continueButton)
+
+        applyConstraints()
+    }
+
+    // MARK: - Constraints
+    private func applyConstraints() {
+
+        [containerView, titleLabel, closeButton, collectionView, continueButton].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+
+        NSLayoutConstraint.activate([
+
+            // Container
+            containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            containerView.widthAnchor.constraint(equalToConstant: 400),
+
+            // Title
+            titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
+            titleLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+
+            // Close
+            closeButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
+            closeButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+
+            // Collection
+            collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            collectionView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            collectionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+
+            // Dynamic height
+            {
+                collectionHeightConstraint = collectionView.heightAnchor.constraint(equalToConstant: 0)
+                return collectionHeightConstraint!
+            }(),
+
+            // Button
+            continueButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 16),
+            continueButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            continueButton.widthAnchor.constraint(equalToConstant: 250),
+            continueButton.heightAnchor.constraint(equalToConstant: 50),
+            continueButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20)
+        ])
+    }
+
+    // MARK: - Actions
+    @objc private func closeTapped() {
+        dismiss(animated: true)
+    }
+
+    @objc private func continueTapped() {
+        onComplete?(AddonSelected)
+        dismiss(animated: true)
+    }
+
+    // MARK: - Gradient
+    private func applyGradient(to button: UIButton) {
+        let gradient = CAGradientLayer()
+        gradient.colors = [#colorLiteral(red: 0.8039215686, green: 0.1882352941, blue: 1, alpha: 1).cgColor, #colorLiteral(red: 0.4784313725, green: 0.2235294118, blue: 0.9725490196, alpha: 1).cgColor]
+        gradient.frame = CGRect(x: 0, y: 0, width: 300, height: 60)
+        gradient.cornerRadius = 30
+        button.layer.insertSublayer(gradient, at: 0)
+    }
+}
+
+// MARK: - CollectionView
+extension AddonCollectionVC: UICollectionViewDelegate, UICollectionViewDataSource {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return addonList.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TagCell", for: indexPath) as? TagCell else {
+            return UICollectionViewCell()
+        }
+
+        let item = addonList[indexPath.item]
+        let name = "\(item.addon_name) \(LocalData.symbol)\(item.addon_price)"
+
+        cell.configure(with: name, selected: AddonSelected.contains("\(item.id)"))
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        let id = "\(addonList[indexPath.item].id)"
+
+        if let index = AddonSelected.firstIndex(of: id) {
+            AddonSelected.remove(at: index)
+        } else {
+            AddonSelected.append(id)
+        }
+
+        collectionView.reloadItems(at: [indexPath])
+    }
+}
