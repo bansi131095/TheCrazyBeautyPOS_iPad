@@ -59,6 +59,10 @@ class AddServiceVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var tagAddone: UIView!
     
     
+    @IBOutlet weak var tagHolderHeight: NSLayoutConstraint!
+    @IBOutlet weak var tagAddonHeight: NSLayoutConstraint!
+    
+    
     var dictService: ServiceData?
     var isEdit = false
     var durationList:[DurationItem] = []
@@ -689,7 +693,7 @@ class AddServiceVC: UIViewController, UITextFieldDelegate {
         self.present(popup, animated: true)
     }
 
-    func refreshTags() {
+    /*func refreshTags() {
         tagHolderView.subviews.forEach { $0.removeFromSuperview() }
         
         var x: CGFloat = 0
@@ -719,10 +723,89 @@ class AddServiceVC: UIViewController, UITextFieldDelegate {
         // Adjust container height if needed
         let totalHeight = y + 40
         tagHolderView.heightAnchor.constraint(equalToConstant: totalHeight).isActive = true
+    }*/
+    
+    func refreshTags() {
+        tagHolderView.subviews.forEach { $0.removeFromSuperview() }
+
+        guard !selectedStaffList.isEmpty else {
+            tagHolderHeight.constant = 0
+            return
+        }
+
+        var x: CGFloat = 0
+        var y: CGFloat = 0
+        let padding: CGFloat = 8
+        let maxWidth = tagHolderView.frame.width
+
+        for tag in selectedStaffList {
+            let name = (tag.firstName ?? "") + " " + (tag.lastName ?? "")
+            let tagView = TagView(text: name)
+
+            tagView.onRemove = {
+                if let index = self.selectedStaffList.firstIndex(where: { $0.id == tag.id }) {
+                    self.selectedStaffList.remove(at: index)
+                }
+                self.refreshTags()
+            }
+
+            let size = tagView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+
+            if x + size.width > maxWidth {
+                x = 0
+                y += size.height + padding
+            }
+
+            tagView.frame = CGRect(x: x, y: y, width: size.width, height: size.height)
+            tagHolderView.addSubview(tagView)
+
+            x += size.width + padding
+        }
+
+        tagHolderHeight.constant = y + 40
     }
     
-    
     func openAddonTages() {
+        tagAddone.subviews.forEach { $0.removeFromSuperview() }
+
+        guard !selectedAddonList.isEmpty else {
+            tagAddonHeight.constant = 0
+            return
+        }
+
+        var x: CGFloat = 0
+        var y: CGFloat = 0
+        let padding: CGFloat = 8
+        let maxWidth = tagAddone.frame.width
+
+        for tag in selectedAddonList {
+            let name = "\(tag.addon_name) \(LocalData.symbol)\(tag.addon_price)"
+            let tagView = TagView(text: name)
+
+            tagView.onRemove = {
+                if let index = self.selectedAddonList.firstIndex(where: { $0.id == tag.id }) {
+                    self.selectedAddonList.remove(at: index)
+                }
+                self.openAddonTages()
+            }
+
+            let size = tagView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+
+            if x + size.width > maxWidth {
+                x = 0
+                y += size.height + padding
+            }
+
+            tagView.frame = CGRect(x: x, y: y, width: size.width, height: size.height)
+            tagAddone.addSubview(tagView)
+
+            x += size.width + padding
+        }
+
+        tagAddonHeight.constant = y + 40
+    }
+    
+    /*func openAddonTages() {
         tagAddone.subviews.forEach { $0.removeFromSuperview() }
         
         var x: CGFloat = 0
@@ -753,7 +836,7 @@ class AddServiceVC: UIViewController, UITextFieldDelegate {
         
         let totalHeight = y + 40
         tagAddone.heightAnchor.constraint(equalToConstant: totalHeight).isActive = true
-    }
+    }*/
     
     //MARK: Load Api
     func loadDuationData() {

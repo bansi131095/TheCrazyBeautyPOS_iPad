@@ -9936,16 +9936,16 @@
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="atO-em-ISB">
-                                                                        <rect key="frame" x="165" y="10" width="154.5" height="35"/>
+                                                                        <rect key="frame" x="165" y="10" width="155" height="35"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Walkin" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWe-5a-SUr">
-                                                                                <rect key="frame" x="40" y="3" width="74.5" height="29"/>
+                                                                                <rect key="frame" x="40" y="3" width="75" height="29"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="24"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plT-Nt-5fM">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="154.5" height="35"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="155" height="35"/>
                                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                 <connections>
                                                                                     <action selector="btn_Walkin:" destination="llV-lq-vxG" eventType="touchUpInside" id="egl-59-d8W"/>
@@ -9969,16 +9969,16 @@
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pcs-Td-ZHo">
-                                                                        <rect key="frame" x="339.5" y="10" width="154.5" height="35"/>
+                                                                        <rect key="frame" x="340" y="10" width="154" height="35"/>
                                                                         <subviews>
                                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gift Card" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vNV-mN-CTZ">
-                                                                                <rect key="frame" x="28.5" y="3" width="97.5" height="29"/>
+                                                                                <rect key="frame" x="28.5" y="3" width="97" height="29"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="24"/>
                                                                                 <color key="textColor" name="AppBlack"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cYX-Ot-Enj">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="154.5" height="35"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="154" height="35"/>
                                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                 <connections>
                                                                                     <action selector="btn_GiftCard:" destination="llV-lq-vxG" eventType="touchUpInside" id="b15-hD-0O6"/>
@@ -15418,9 +15418,12 @@ Please Choose Diffrent Date</string>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nhr-XY-oT4">
                                                                         <rect key="frame" x="10" y="42" width="820" height="0.0"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" id="7zZ-qx-Afg"/>
+                                                                        </constraints>
                                                                     </view>
-                                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyE-tQ-eeb">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="910" height="62"/>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyE-tQ-eeb">
+                                                                        <rect key="frame" x="830" y="0.0" width="80" height="62"/>
                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                         <connections>
                                                                             <action selector="btn_StaffSelection:" destination="LnQ-Hh-Lsm" eventType="touchUpInside" id="EC8-cx-X2T"/>
@@ -15438,8 +15441,8 @@ Please Choose Diffrent Date</string>
                                                                     <constraint firstAttribute="bottom" secondItem="jyE-tQ-eeb" secondAttribute="bottom" id="IKL-jx-bSA"/>
                                                                     <constraint firstAttribute="trailing" secondItem="5ec-MZ-jVD" secondAttribute="trailing" id="KA1-Oy-dLz"/>
                                                                     <constraint firstItem="jyE-tQ-eeb" firstAttribute="top" secondItem="qhl-Px-wDq" secondAttribute="top" id="PdC-yl-sgv"/>
-                                                                    <constraint firstItem="jyE-tQ-eeb" firstAttribute="leading" secondItem="qhl-Px-wDq" secondAttribute="leading" id="QX2-9u-kOZ"/>
                                                                     <constraint firstItem="iYY-3q-MjY" firstAttribute="leading" secondItem="Nhr-XY-oT4" secondAttribute="trailing" constant="20" id="QzR-tK-1CY"/>
+                                                                    <constraint firstItem="jyE-tQ-eeb" firstAttribute="leading" secondItem="Nhr-XY-oT4" secondAttribute="trailing" id="fNh-NY-FUz"/>
                                                                     <constraint firstAttribute="bottom" secondItem="Nhr-XY-oT4" secondAttribute="bottom" constant="20" id="msF-2x-lE5"/>
                                                                     <constraint firstItem="5ec-MZ-jVD" firstAttribute="top" secondItem="qhl-Px-wDq" secondAttribute="top" id="yxG-iq-iY1"/>
                                                                 </constraints>
@@ -15489,9 +15492,12 @@ Please Choose Diffrent Date</string>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="piX-ty-j4G">
                                                                         <rect key="frame" x="10" y="42" width="820" height="0.0"/>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" id="uEa-sh-abt"/>
+                                                                        </constraints>
                                                                     </view>
-                                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixE-G0-epi">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="910" height="62"/>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixE-G0-epi">
+                                                                        <rect key="frame" x="830" y="0.0" width="80" height="62"/>
                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                         <connections>
                                                                             <action selector="btn_Addon:" destination="LnQ-Hh-Lsm" eventType="touchUpInside" id="pcE-PM-rBn"/>
@@ -15502,11 +15508,11 @@ Please Choose Diffrent Date</string>
                                                                 <constraints>
                                                                     <constraint firstAttribute="bottom" secondItem="piX-ty-j4G" secondAttribute="bottom" constant="20" id="4cA-MS-VAv"/>
                                                                     <constraint firstAttribute="trailing" secondItem="ixE-G0-epi" secondAttribute="trailing" id="Cix-tv-zrp"/>
+                                                                    <constraint firstItem="ixE-G0-epi" firstAttribute="leading" secondItem="piX-ty-j4G" secondAttribute="trailing" id="EMe-Td-8px"/>
                                                                     <constraint firstItem="pyG-Kh-lCj" firstAttribute="leading" secondItem="piX-ty-j4G" secondAttribute="trailing" constant="20" id="FMT-LP-Imz"/>
                                                                     <constraint firstItem="pyG-Kh-lCj" firstAttribute="trailing" secondItem="0eb-Mw-poi" secondAttribute="trailing" constant="-30" id="IqK-Ve-3oK"/>
                                                                     <constraint firstAttribute="bottom" secondItem="ixE-G0-epi" secondAttribute="bottom" id="JYS-9s-sQf"/>
                                                                     <constraint firstItem="0eb-Mw-poi" firstAttribute="leading" secondItem="Hgz-dZ-5ZM" secondAttribute="leading" id="PLJ-8G-S4S"/>
-                                                                    <constraint firstItem="ixE-G0-epi" firstAttribute="leading" secondItem="Hgz-dZ-5ZM" secondAttribute="leading" id="SQz-vc-GAk"/>
                                                                     <constraint firstItem="piX-ty-j4G" firstAttribute="top" secondItem="0eb-Mw-poi" secondAttribute="bottom" constant="20" id="gCw-b1-TCW"/>
                                                                     <constraint firstItem="piX-ty-j4G" firstAttribute="leading" secondItem="Hgz-dZ-5ZM" secondAttribute="leading" constant="10" id="kc7-Zt-xgh"/>
                                                                     <constraint firstItem="0eb-Mw-poi" firstAttribute="top" secondItem="Hgz-dZ-5ZM" secondAttribute="top" id="oD6-vv-v8R"/>
@@ -16019,7 +16025,9 @@ Please Choose Diffrent Date</string>
                         <outlet property="lbl_title" destination="Ryc-WR-2bk" id="Coo-CB-fNw"/>
                         <outlet property="lbl_vendorOnly" destination="kMT-6d-THj" id="Sqb-JX-XN4"/>
                         <outlet property="staffTextField" destination="5ec-MZ-jVD" id="mPx-9o-1eR"/>
+                        <outlet property="tagAddonHeight" destination="uEa-sh-abt" id="GSo-Wj-teA"/>
                         <outlet property="tagAddone" destination="piX-ty-j4G" id="j75-he-aoD"/>
+                        <outlet property="tagHolderHeight" destination="7zZ-qx-Afg" id="JwC-8K-dOe"/>
                         <outlet property="tagHolderView" destination="Nhr-XY-oT4" id="GKr-mX-PXF"/>
                         <outlet property="txt_Addone" destination="0eb-Mw-poi" id="zBI-59-nio"/>
                         <outlet property="txt_ParentService" destination="ObB-Df-nj8" id="ifg-ob-ZO3"/>
@@ -17142,17 +17150,17 @@ Please Choose Diffrent Date</string>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cDy-Vd-Vt2">
                                                         <rect key="frame" x="565" y="0.0" width="555" height="110"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iuz-fH-yEy">
+                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iuz-fH-yEy">
                                                                 <rect key="frame" x="5" y="5" width="545" height="100"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Card &amp; Cash Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9kw-M0-jn1">
-                                                                        <rect key="frame" x="15" y="10" width="520" height="19.5"/>
+                                                                        <rect key="frame" x="15" y="10" width="149" height="19.5"/>
                                                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Amount collected in Cash &amp; Cash" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PAx-ak-eIJ">
-                                                                        <rect key="frame" x="15" y="37.5" width="520" height="18"/>
+                                                                        <rect key="frame" x="15" y="37.5" width="254" height="18"/>
                                                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -17509,7 +17517,7 @@ Please Choose Diffrent Date</string>
                                                                         <color key="textColor" name="txtGray"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Generated" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nk7-JK-XAJ">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Generated" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nk7-JK-XAJ">
                                                                         <rect key="frame" x="469.5" y="10.5" width="75.5" height="19.5"/>
                                                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                         <color key="textColor" name="txtGray"/>
@@ -20077,8 +20085,8 @@ This action cannot be undone.</string>
         <image name="Search" width="24" height="24"/>
         <image name="arrow.down" catalog="system" width="118" height="128"/>
         <image name="back" width="78" height="79"/>
-        <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="calendar" width="72" height="72"/>
+        <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="cat_back" width="602" height="602"/>
         <image name="chevron.backward" catalog="system" width="97" height="128"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>

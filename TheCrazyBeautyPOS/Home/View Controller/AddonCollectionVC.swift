@@ -226,6 +226,9 @@ class AddonCollectionVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        DispatchQueue.main.async {
+            self.updateCollectionHeight()
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -250,7 +253,7 @@ class AddonCollectionVC: UIViewController {
         view.addSubview(containerView)
 
         // Title
-        titleLabel.text = "Select Addon"
+        titleLabel.text = (NSLocalizedString("Select Addon",comment: ""))
         titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
         titleLabel.textAlignment = .center
         containerView.addSubview(titleLabel)
@@ -324,6 +327,20 @@ class AddonCollectionVC: UIViewController {
             continueButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20)
         ])
     }
+    
+    private func updateCollectionHeight() {
+        collectionView.layoutIfNeeded()
+        
+        let contentHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
+        let maxHeight: CGFloat = 300
+        
+        collectionHeightConstraint.constant = min(contentHeight, maxHeight)
+        collectionView.isScrollEnabled = contentHeight > maxHeight
+        
+    UIView.animate(withDuration: 0.25) {
+            self.view.layoutIfNeeded()
+        }
+    }
 
     // MARK: - Actions
     @objc private func closeTapped() {
@@ -376,5 +393,8 @@ extension AddonCollectionVC: UICollectionViewDelegate, UICollectionViewDataSourc
         }
 
         collectionView.reloadItems(at: [indexPath])
+        DispatchQueue.main.async {
+                self.updateCollectionHeight()
+        }
     }
 }
